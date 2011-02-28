@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load django_static %}
+
+{% block metadescription %}{{ tea.name }} - {{ tea.description }}{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript" src="{% staticfile '/js/prototype.js' %}"></script>
+<script type="text/javascript" src="/js/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{% staticfile '/js/lightbox.js' %}"></script>
+{% endblock %}
+
+{% block extracss %}
+
+<link rel="stylesheet" href="{% slimfile '/css/lightbox.css' %}" type="text/css" media="screen" />
+
+<style type="text/css">
+div.more-info {
+  padding-left: 0px;
+  margin-bottom: 15px;
+  padding-top: 15px;	
+  border-top: 1px solid #e1e1e1;
+  margin-top: 15px;
+}
+
+
+h3.more-info {
+    font-size: 1.3em;
+    margin-bottom:10px;
+    margin-top: -3px;
+    padding-bottom: 0;
+}
+
+div.right-links h3.more-info {
+  margin-bottom: 15px;	
+  float: left;
+  width: 220px;
+}
+
+
+div.other-teas {
+    float: left;
+    margin: 0 0 10px 10px;
+    width: 500px;
+}
+
+div.other-tea {
+    border-bottom: 1px solid white;
+    color: #666666;
+    float: left;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    width: 460px;
+}
+
+div.other-tea.last {
+  border-bottom: none;	
+}
+
+div.other-tea div.image {
+  float: left;
+  margin-right: 15px;
+}
+
+div.other-tea div.text {
+  margin-top: 2px;	
+}
+
+div.other-teas h3 {
+  font-size: 1.5em;
+  text-shadow: 1px 1px #fff;
+  margin-bottom: 20px;
+}
+
+div#bottom-box {
+  float: left;
+  width: 490px;
+  background-image: url('{% staticfile '/images/gray-stripe.png' %}');	
+  -moz-border-radius: 10px;
+  padding: 20px;
+  -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.2);
+}
+
+div.product-photos-small {
+    float: left;
+    margin: 0 0 20px 0;
+    padding-bottom: 15px;
+    width: 100%;
+    text-align: right;
+}
+
+div.product-photos-small img {
+  float: left;
+  margin: 20px 20px 0 0;
+
+}
+
+div.product-photos-small p {
+    float: left;
+    font-size: 13px;
+    line-height: 1.3em;
+    margin-top: 20px;
+    text-align: right;
+    width: 100px;
+}
+
+div.right-links {
+  border-top: 1px solid #e1e1e1;
+  margin-top: 10px;
+  padding-top: 20px;	
+  float: left;
+}
+
+div.right-links ul {
+  padding-left: 25px;
+  margin-top: 0;	
+}
+
+div.right-links ul li {
+  color: #19761C;
+  list-style-type: square;
+  margin-bottom: 5px;
+  padding-left: 5px;
+}
+
+a.weights {
+  font-size: 0.7em;
+  float: right;
+  margin-right: 15px;
+  margin-top: 4px;	
+}
+
+div.info {
+    border-bottom: 1px dotted #E1E1E1;
+    float: left;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    width: 230px;
+}
+
+div.info.last {
+  border-bottom: none;	
+}
+
+div#right p.mail {
+  font-size: 12px;	
+}
+
+img.mail-icon {
+  margin-right: 10px;
+  float: left;	
+  position: relative;
+  top: -2px;
+  margin-left: 5px;
+}
+</style>
+{% endblock %}
+
+
+{% block pagetitle %}minrivertea.com: {{ tea.name }} tea{% endblock %}
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<p class="logo-assist">{{ tea.name }}</p>
+	    	<p class="normal">{{ tea.description }}</p>
+			</div>
+{% endblock %}
+
+{% block content %}
+
+<div id="featured-small"></div>
+
+<div id="main-text-wide">
+	
+
+	<div id="right">
+			
+			{% if message %}
+	  		<div class="message">
+			<p>{{ message }}</p>
+			</div>
+	  		{% endif %}
+
+			{% for price in prices %}
+			<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
+			<div class="price{% if forloop.first %} first{% endif %}">  
+				<div class="price-text">
+				{{ price.price_unit }}{{ price.price|floatformat }} 
+				<span class="grey"> / {{ price.weight|floatformat }}{{ price.weight_unit }}</span>
+            	</div>
+            </div>
+            </a>
+           	{% endfor %}
+           	
+           	<a class="weights" href="/weights-and-sizes/">* A simple guide to weights and sizes</a>
+           	<br clear="all"/>
+           	
+           	<div class="more-info">
+           		<h3>{{ tea.super_short_description }}</h3>
+           		{{ tea.body_text|safe }}
+			</div>
+			
+           	
+           	
+           	<div class="right-links">
+			<h3 class="more-info">Our other teas</h3>
+				{% for other in others %}
+			 	<div class="info{% if forloop.last %} last{% endif %}">
+			 		<p class="mail">
+			 			<a href="{% url tea_view other.slug %}"><img class="mail-icon" src="{% thumbnail other.image 60x60 %}" /></a>
+			 			<a href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
+			 			<br/>{{ tea.super_short_description }}
+			 		</p>
+				</div>
+			 	{% endfor %}
+			</div>
+
+           	
+           	<div class="right-links">
+           	<h3 class="more-info">Find out more</h3>
+           	<div class="info">
+           		<p class="mail"><img class="mail-icon" src="{% staticfile '/images/mail.png' %}">Our teas are sent from the UK <br/><a href="/postage-and-packaging/">Postage and packaging info &raquo;</a></p>
+           	</div>
+           	<div class="info">
+           		<p class="mail"><img class="mail-icon" src="{% staticfile '/images/info.png' %}">Find out more about teas <br/><a href="/brew/">A simple guide to brewing &raquo;</a></p>
+           	</div>
+           	<div class="info last">
+           		<p class="mail"><img class="mail-icon" src="{% staticfile '/images/talk.png' %}">Do you like our teas? <br/><a href="{% url tell_a_friend %}">Tell your friends &raquo;</a></p>
+           	</div>
+           	
+           	</div>
+           	
+           	
+
+			 <br clear="all"/>
+
+			 
+			 
+
+
+	
+	
+	
+	
+	</div>
+
+
+
+	<div class="left">
+
+<img class="product-photo-main" alt="a picture of {{ tea.name }}" title="{{ tea.description }}" src="{% thumbnail tea.image 530x530 %}"/>
+
+		<div class="product-photos-small">
+			
+			<p><em>click on any thumbnail to enlarge</em> &raquo;</p>
+			{% if tea.image_2 %}
+				<a href="{% thumbnail tea.image_2 550x550 %}" rel="lightbox[tea]" title="{{ tea.image_2_caption }}">
+				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_2_caption }}" src="{% thumbnail tea.image_2 80x80 %}"/>
+				</a>
+			{% endif %}
+			{% if tea.image_3 %}
+				<a href="{% thumbnail tea.image_3 550x550 %}" rel="lightbox[tea]" title="{{ tea.image_3_caption }}">
+				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_3_caption }}" src="{% thumbnail tea.image_3 80x80 %}"/>
+				</a>
+			{% endif %}
+			{% if tea.image_4 %}
+				<a href="{% thumbnail tea.image_4 550x550 %}" rel="lightbox[tea]" title="{{ tea.image_4_caption }}">
+				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_4_caption }}" src="{% thumbnail tea.image_4 80x80 %}"/>
+				</a>
+			{% endif %}
+			{% if tea.image_5 %}
+				<a href="{% thumbnail tea.image_5 550x550 %}" rel="lightbox[tea]" title="{{ tea.image_5_caption }}">
+				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_5_caption }}" src="{% thumbnail tea.image_5 80x80 %}"/>
+				</a>
+			{% endif %}
+			
+			
+			
+			
+		</div>
+	
+	{{ tea.long_description|safe }}
+	
+	</div>
+	
+
+	
+	
+			
+						 
+
+
+</div>
+{% endblock %}

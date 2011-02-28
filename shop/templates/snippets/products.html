@@ -1,0 +1,24 @@
+{% load thumbnail %}
+
+{% for product, prices in products_and_prices %}
+
+      <div class="{% cycle 'tea-promo first' 'tea-promo' 'tea-promo last' %}">	
+		<h4 class="">
+			<a title="{{ product.name }} tea - find out more or order some now!" href="{% url tea_view product.slug %}">{{ product.name }}</a>
+		</h4> 
+		
+		{% for price in prices %}  	
+        	{% if forloop.first %}
+        		<div class="price">
+        			{{ price.price_unit }}{{ price.price|floatformat }} <span class="small grey">{{ price.weight }}{{ price.weight_unit }}</span>
+        	    </div>
+	        {% else %}
+    	    {% endif %}
+        {% endfor %}
+		
+      	<p>{{ product.description }}</p> 
+			<a href="{% url tea_view product.slug %}">
+			<img alt="a picture of {{ product.name }}" title="Click to find out more about {{ product.name }}" class="tea-promo" src="{% thumbnail product.image 210x153 crop %}"/>
+			</a>
+	  </div>      
+{% endfor %}

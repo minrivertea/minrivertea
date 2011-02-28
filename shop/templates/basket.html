@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load django_static %}
+
+{% block metadescription %}Your basket - shop on www.minrivertea.com and get the best prices and great tasting authentic Chinese teas delivered direct to your door.{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+
+div.row-label h3 {
+    font-size: 1.2em;
+}
+
+div.row-box p.intro {
+    margin: -10px 0 5px;
+}
+
+div#basket-full {
+  width: 800px;	
+  font-size: 0.9em;
+}
+
+div.basket-row {
+    border-bottom: 1px solid #E1E1E1;
+    float: left;
+    height: 70px;
+    margin-bottom: 20px;
+    padding: 0 0 0 10px;
+}
+
+div.basket-row.postage {
+    height: 40px;
+}
+
+div.basket-head-row {
+  height: 15px;
+  float: left;
+  margin: 20px 0 10px 0;
+  padding: 0px 0px 5px 13px;
+  font-size: 0.9em;
+  color: #BE373A;
+}
+
+div.tea-name {
+  float: left;
+  width: 100px;	
+}
+
+div.tea-weight {
+  float: left;
+  width: 180px;	
+}
+
+div.tea-price {
+  float: left;
+  width: 10px;	
+}
+
+div.tea-quantity {
+  float: left;
+  width: 70px;	
+  text-align: center;
+}
+
+div.tea-total {
+  float: left;
+  width: 110px;	
+  text-align: center;
+}
+
+div.tea-remove {
+    float: left;
+    padding-top: 18px;
+    text-align: left;
+    width: 30px;
+}
+
+div.tea-remove a {
+  background: url({% staticfile '/images/delete.png' %}) no-repeat top left;
+  height: 11px;
+  display: block;
+  width: 13px;	
+  margin-top: 4px;
+}
+
+div.tea-remove a:hover {
+  background: url({% staticfile '/images/delete.png' %}) no-repeat bottom left;
+}
+
+div#totals {
+    float: left;
+    font-weight: bold;
+    margin-left: 290px;
+    width: 200px;
+}
+
+div.label {
+  float: left;
+  width: 100px;
+  margin-top: 10px;	
+}
+
+div.total {
+  float: left;
+  margin-top: 10px;
+  margin-left: 30px;	
+  text-align: center;
+}
+
+img.paypal {
+  position: relative;
+  left: -18px;	
+}
+
+</style>
+{% endblock %}
+
+{% block pagetitle %}Your basket ({{ basket_quantity }}){% endblock %}
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<p class="logo-assist">Your basket</p>
+	    	<p class="normal">{% if not basket_items %}Your basket is empty!{% else %}You currently have {{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %} in your basket.{% endif %}</p>
+	    	
+	    	
+			</div>
+{% endblock %}
+
+{% block content %}
+
+<div id="featured-small"></div>
+
+<div id="main-text-wide">
+
+
+{% if basket_items %}
+
+<div id="checkout-button">
+
+
+<a href="{% url order_check_details %}"></a>
+<p><img src="{% staticfile '/images/paypal-horz.gif' %}" class="paypal"></p>
+<p class="checkout"><strong>Next step - your details.</strong>  <br/><em>You don't need to login or register to purchase - no passwords to remember, no slow registration process, no hassle.</em></p>
+
+
+</div>
+
+
+	<div id="basket-full">
+	
+	  <div class="basket-head-row">
+	    <div class="tea-remove">&nbsp;</div>
+		<div class="tea-name">&nbsp;</div>
+		<div class="tea-weight">ITEM</div>
+		<div class="tea-price">&nbsp;</div>
+		<div class="tea-quantity">AMOUNT</div>
+		<div class="tea-total">TOTAL</div>
+		
+      </div>
+      
+	{% for thing in basket_items %}
+	  <div class="basket-row">
+	    <div class="tea-remove"><a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"></a></div>
+		<div class="tea-name">
+			<img src="{% thumbnail thing.item.parent_product.image 80x80 %}"/><br/>
+		</div>
+		<div class="tea-weight">
+			<a title="{{ thing.item.parent_product.description }}" href="{% url tea_view thing.item.parent_product.slug %}">{{ thing.item.parent_product.name }}</a>
+			{% if not thing.item.weight %}{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
+			{{ thing.item.price_unit }}{{ thing.item.price }}
+		</div>
+		<div class="tea-price">&nbsp;</div>
+		<div class="tea-quantity">{{ thing.quantity }} <a href="{% url increase_quantity thing.item.id %}">+</a>{% ifequal thing.quantity 1 %}{% else %} <a href="{% url reduce_quantity thing.item.id %}">-</a>{% endifequal %} </div>
+		<div class="tea-total">{{ thing.item.price_unit}}{{ thing.get_price }}</div>
+		
+	  </div>
+	{% endfor %}
+	  <div class="basket-row postage">
+	  	<div class="tea-remove">&nbsp;</div>
+		<div class="tea-name"><em>Postage <span class="small">(Standard)</span></em></div>
+		<div class="tea-weight">&nbsp;</div>
+		<div class="tea-price">&nbsp;</div>
+		<div class="tea-quantity">&nbsp;</div>
+		<div class="tea-total">£3.00</div>
+	  </div>
+	</div>
+	<div id="totals">
+		<div class="label">TOTAL:</div><div class="total">£{{ total_price }}</div>
+	</div>
+	<br clear="all"/>
+	
+ 
+
+{% else %}
+	<p>There's nothing in your basket - add something, quick! <br/><a href="{% url teas %}">&raquo; Browse our selection of teas here.</a></p>
+{% endif %}
+
+
+<br clear="all"/>
+<div class="row wide">
+	<div class="row-label">
+		<h3>Payment methods</h3>
+	</div>
+	<div class="row-box">
+		<p class="intro">You can pay online safely and securely using Paypal. We do not currently accept other forms of payment.</p>
+	</div>
+	
+	<div class="row-label">
+		<h3>Postage and packaging</h3>
+	</div>
+	<div class="row-box">
+		<p class="intro">We charge a standard fee of £3 per order shipped (eg. if you order 5 teas, it is still only £3). Items are shipped from within the UK using standard class Royal Mail delivery. Normal delivery time is 2-3 days, although it can take longer on occasion. If you experience delays longer than this, please let us know. Our tea is freeze-dried and packaged in resealable foil bags for freshness and your convenience. </p>
+	</div>
+</div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load django_static %}
+
+{% block pagetitle %}minrivertea.com: authentic Chinese teas delivered to your door{% endblock %}
+{% block metadescription %}Great quality, authentic oolong green tea, jasmine tea and da hong pao tea sourced from farms in China and delivered direct to your door in the UK. {% endblock %}
+{% block header %}home{% endblock %}
+{% block logo %}home{% endblock %}
+
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<p class="logo-assist">Great Chinese teas.</p>
+	    	<p class="normal">We sell simple, authentic and great tasting Chinese teas.</p>
+
+			</div>
+{% endblock %}
+
+{% block content %}
+
+
+
+
+    <div id="featured-small"></div>
+
+
+	<div id="box">
+        <div class="home-products">
+    
+
+{% include "snippets/products.html" %}
+      
+	</div>
+	
+
+
+	<div id="home-extra">
+	<div class="featured-top"></div>
+	
+
+	<div id="user-photos">
+		<a class="see-more" title="See our photo wall of happy tea drinkers!" href="{% url photos %}">See more beautiful tea drinkers <span class="large">&raquo;</span></a>
+		<h2>These beautiful people also love Chinese tea!</h2>
+			{% for p in photos %}
+				<div class="a-user-photo">
+					<div class="photo">
+						<img src="{% thumbnail p.photo 200x200 %}">
+					</div>
+					<div class="info">
+						<p class="quote"><span class="quotes">"</span>{{ p.description }}<span class="quotes">"</span></p>
+					</div>
+				</div>
+			{% endfor %}
+	</div>
+	
+	
+	</div>
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+{% endblock %}

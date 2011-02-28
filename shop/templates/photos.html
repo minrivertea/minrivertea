@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load django_static %}
+
+{% block metadescription %}Add your photo to our gallery of Chinese tea lovers, and we'll donate £1 to Mind UK for every photo we receive.{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+div#submit_1 {
+    background-image: url("{% staticfile '/images/gray-stripe.png' %}");
+    margin: 10px 0 20px;
+    padding: 20px 20px 20px 30px;
+    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    height: {% if shopper %}300px{% else %}530px{% endif %};
+}
+
+div#submit_1 h3 {
+  font-size: 2em;
+  text-shadow: 1px 1px #fff;
+  font-weight: bold;
+	
+}
+
+div#submit_1 input {
+    -moz-border-radius: 7px 7px 7px 7px;
+    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    color: #666666;
+    float: left;
+    font: 95% arial,helvetica,clean,sans-serif;
+    height: 20px;
+    margin: 0 0 20px 0px;
+    padding: 10px 15px;
+    width: 430px;	
+}
+
+div#submit_1 textarea {
+    -moz-border-radius: 7px 7px 7px 7px;
+    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    color: #666666;
+    float: left;
+    font: 95% arial,helvetica,clean,sans-serif;
+    margin: 0 0 20px 0px;
+    padding: 10px 15px;
+    width: 430px;
+}
+
+div#submit_1 p {
+    margin: 0;
+    float: left;
+}
+
+div#submit_1 p.intro {
+    color: #333333;
+    margin: 5px 0 15px;
+    width: 800px;
+}
+
+div#submit_1 label {
+    float: left;
+    font-family: Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0px 0 0px 0px;
+    text-align: left;
+    width: 410px;
+    display:;
+}
+
+div#submit_1 input.submit {
+  float: right;
+  background: url("{% staticfile '/images/upload-button.png' %}") top left no-repeat;	
+  border: none;
+  height: 55px;
+  width: 227px;
+  margin-top: 15px;
+}
+
+div#submit_1 input.submit:hover {
+  background: url("{% staticfile '/images/upload-button.png' %}") bottom left no-repeat;	
+  cursor: pointer;
+}
+
+span.red {
+  color: red;	
+}
+
+p.help-text {
+    font-size: 0.7em;
+    padding-left: 5px;
+    position: relative;
+    top: -12px;
+    width: 300px;
+}
+
+p.help-text img {
+  position: relative;
+  top: 3px;	
+}
+
+
+</style>
+
+{% endblock %}
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<p class="logo-assist">Tea drinkers!</p>
+	    	<p class="normal">Are you a secret tea drinker? Add your photo to the wall!</p>
+			</div>
+{% endblock %}
+
+{% block pagetitle %}Show us a picture of yourself!{% endblock %}
+
+{% block content %}
+<div id="featured-small"></div>
+
+<div id="main-text-wide">
+	<div id="photo">
+
+
+		{% if message %}
+		<div class="message">
+		<p>{{ message }}</p>
+		</div>
+		{% else %}
+		<div id="add-a-photo">
+			<a href="#" onclick="toggle_visibility(1);"></a>
+		</div>
+		
+		<p class="introduction">Because we love happy tea drinkers, send us a photo of yourself drinking tea and we'll donate £1 to <a href="http://www.mind.org.uk">Mind UK</a> for each picture.</p>
+		
+{% endif %}
+
+		<div style="display: none;" id="submit_1">
+		<h3 class="user-add-photo">Upload your own photo</h3>
+		
+		<form method="post" action="." enctype="multipart/form-data" >
+		
+
+
+							
+		    	{{ form.photo.errors }}
+				<div class="checkout-button">
+				<p>Submit your photo and we'll donate £1 for every photo we receive to <a href="http://www.mind.org.uk">Mind UK</a>.</p>
+				<input type="submit" value="" next="" class="submit" />
+				</div>
+				{% if shopper %}
+				<input style="display: none" id="id_first_name" type="text" name="first_name" maxlength="200" value="{{ shopper.first_name }}" /></p>
+				<input style="display: none" id="id_last_name" type="text" name="last_name" maxlength="200" value="{{ shopper.last_name }}" /></p>
+				<input style="display: none" id="id_email" type="text" name="email" maxlength="200" value="{{ shopper.email }}" /></p>
+				{% else %}
+				<p><label>First name</label><br/><input id="id_first_name" type="text" name="first_name" maxlength="200" value="" /></p>
+				<p><label>Last name</label><br/><input id="id_last_name" type="text" name="last_name" maxlength="200" value="" /></p>
+				<p><label>Your email</label><br/><input id="id_email" type="text" name="email" maxlength="200" value="" /></p>
+				<p class="help-text"><img src="{% staticfile '/images/lock.gif' %}"> We will never share your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy-policy/">Privacy Policy</a>)</p>
+				{% endif %}
+				<p><label>Write us a little message about how much you love tea!</label><br/><textarea id="id_description" rows="4" cols="40" name="description"></textarea></p>
+				<p><label>Select an image file from your computer <span class="red">(* required)</span></label><br/><input type="file" name="photo" id="id_photo" /></p>
+				
+							
+			</form>
+		</div>
+
+		<div id="user-photos">
+			{% for p in photos %}
+				<div class="a-user-photo">
+					<div class="photo">
+						<img src="{% thumbnail p.photo 200x200 %}">
+					</div>
+					<div class="info">
+						<p class="quote"><span class="quotes">"</span>{{ p.description }}<span class="quotes">"</span></p>
+						<p class="recommend">{{ p.shopper.first_name }} likes to drink <a href="{{ p.related_product.get_absolute_url }}">{{ p.related_product.name }}</a> Chinese tea</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		
+	</div>
+</div>
+{% endblock %}
+

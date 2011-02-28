@@ -1,0 +1,77 @@
+{% load django_static %}
+{% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+{% endblock %}
+
+<head>
+    <link rel="stylesheet" href="{% staticfile '/css/styles.css' %}" />
+    <title>Page Not Found (404) - The Min River Tea Farm</title>
+    	
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+    
+</head>
+
+<body>
+
+    
+    <div id="container">  
+    
+    
+	    <div id="header">
+
+	    	<div id="logo">
+	    		<a title="The Min River Team Farm - Authentic Chinese Teas" alt="the Min River Tea Farm logo" href="/">
+	    			<h1 class=""><span>The Min River Tea Farm</span></h1>
+	    		</a>
+	    	</div>
+
+			
+
+	    	<div id="nav">
+	    	    <ul>
+	    	    	<li><a href="{% url home %}" title="Home">home</a> /</li>
+	    	        <li><a href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">our teas</a>  /</li>
+	    	        <li><a href="/about/" title="About the Min River Tea Farm" alt="">about us</a>  /</li>
+	    	        <li><a href="{% url basket %}" title="View your basket" alt="">your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</a>  </li>
+	  			</ul>
+			</div>
+			
+			<div id="home-banner">
+	    	<p class="logo-assist">Page not found!</p>
+	    	<p class="normal">Looks like there was a problem - we can't find the page you requested.</p>
+			</div>
+	    
+
+			    
+
+	    	
+
+ 
+
+
+
+
+
+       </div>
+
+	<div id="featured-small"></div>
+
+    	<div id="main-text-wide">
+			<p class="introduction">We can't find the page you're looking for! Perhaps it was mistyped, has moved, or doesn't exist anymore.</p>
+
+		</div>
+		<br clear="all"/>
+	
+	{% include "snippets/footer.html" %}
+    
+    
+    </div>
+
+</body>
+
+</html>

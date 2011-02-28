@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% load django_static %}
+
+{% block pagetitle %}Order (Step 2 of 3) - Confirm Order{% endblock %}
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<p class="logo-assist">Confirm and pay</p>
+	    	<div id="steps">
+	    		<div class="step first finished">1. Your details</div>
+	    		<div class="step selected">2. Confirm</div>
+	    		<div class="step last">3. Pay with PayPal</div>
+	    	</div>
+			</div>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+
+div.row {
+  background-image: none;	
+  -moz-box-shadow: none;
+}
+
+div#steps {
+    float: right;
+    width: auto;
+}
+
+div#steps div.step {
+    background-color: #F1F1F1;
+    border: 1px solid #FFFFFF;
+    color: #D1D1D1;
+    float: left;
+    font-size: 14px;
+    padding: 7px 20px;
+    text-align: center;
+    width: auto;
+}
+
+div#steps div.step.first {
+  -moz-border-radius: 10px 0px 0px 10px;	
+}
+
+div#steps div.step.finished {
+  background-color: #e1e1e1;
+  color: #19761C;	
+}
+
+div#steps div.step.selected {
+    background-color: #E1E1E1;
+    color: #19761C;
+}
+
+div#steps div.step.last {
+  -moz-border-radius: 0px 10px 10px 0px;	
+}
+
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="featured-small"></div>
+
+<div id="main-text-wide">
+
+
+    <form method="post" action="{{ paypal_submit_url }}">
+	
+
+
+
+
+		<input type="hidden" name="cmd" value="_cart"> 
+		<input type="hidden" name="upload" value="1"> 
+		<input type="hidden" name="business" value="{{ paypal_receiver_email }}">
+		<input type="hidden" name="currency_code" value="GBP">
+		<input type="hidden" name="address_override" value="1">
+		
+		<input type="hidden" name="address1" value="{{ order.address.house_name_number }}, {{ order.address.address_line_1 }}">		
+		<input type="hidden" name="address2" value="{{ order.address.address_line_2 }}">
+		<input type="hidden" name="city" value="{{ order.address.town_city }}">
+		<input type="hidden" name="country" value="GB">
+		<input type="hidden" name="zip" value="{{ order.address.postcode }}">
+		<input TYPE="hidden" NAME="return" value="{{ paypal_return_url }}">
+		<input TYPE="hidden" NAME="cancel" value="{{ paypal_notify_url }}">
+		<input TYPE="hidden" NAME="notify_url" value="{{ paypal_notify_url }}">
+		<input type="hidden" id="id_no_shipping" value="1" name="no_shipping">
+		<input type="hidden" id="id_charset" value="utf-8" name="charset">
+
+		
+		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
+
+
+
+		<input type="hidden" name="item_name_1" value="Postage Standard Rate"> 
+		<input type="hidden" name="quantity_1" value="1">
+		<input type="hidden" name="amount_1" value="3.00">
+		 
+		 
+		 {% for thing in basket_items %}
+		<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
+		<input type="hidden" name="quantity_{{ forloop.counter|add:"1" }}" value="{{ thing.quantity }}">
+		<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.item.price }}"> 
+		 {% endfor %}
+
+
+		<div class="checkout-button">
+		<input type="submit" value="" next="" class="checkout-button"/>
+		<p class="checkout"><strong>Next step:</strong> pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</p>
+		<img src="{% staticfile '/images/paypal-horz.gif' %}" class="paypal">
+
+		</div>
+		
+
+<div class="row">
+	<div class="row-label">
+		<h3>You have ordered:</h3>
+	</div>
+	
+	<div class="row-box">
+		<table>
+
+		{% for thing in basket_items %}
+		  <tr>
+			
+	    	<td width="200px">
+	    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
+	    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
+	    	</td>
+	    	<td width="150px">
+
+	    	</td>
+	    	<td>£{{ thing.get_price }}</td>
+	    				
+		  </tr>
+		  {% endfor %}
+		 
+		  <tr>
+		  	<td>Postage</td>
+		  	<td>&nbsp;</td>
+		  	<td>£3.00</td>		  
+		  </tr>
+		  <tr>
+		  	<td><strong>TOTAL</strong></td>
+		  	<td>&nbsp;</td>
+		  	<td><strong>£{{ total_price }}</strong></td>		  
+		  </tr>
+		</table>
+		</div>
+	</div>
+
+
+
+<div class="row">
+	<div class="row-label">
+		<h3>We'll send your order to:</h3>
+	</div>
+	
+	<div class="row-box">
+	    {{ shopper.first_name }} {{ shopper.last_name }}<br/>
+		{{ order.address.house_name_number }}<br/>
+		{{ order.address.address_line_1 }}<br/>
+		{{ order.address.address_line_2 }}<br/>
+		{{ order.address.town_city }}<br/>
+		{{ order.address.postcode }}<br/>
+		UNITED KINGDOM<br/>
+		<br/>
+		<p class="intro">* If this is not a valid UK address, we won't be able to post your tea</p>
+	</div>
+</div>
+		<br clear="all"/>
+
+	
+	</form> 
+
+</div>
+
+</div>
+{% endblock %}

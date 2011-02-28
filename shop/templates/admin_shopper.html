@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block extracss %}
+  <style type="text/css">
+      table {font-size: 14px;}
+      td { padding:5px 10px 5px 5px;}
+      td ul {padding:0; margin:0;}
+      td ul li {list-style-type:none;}
+      thead {font-weight: bold;}
+      h3 {margin: 30px 0 20px 0;}
+  </style>
+{% endblock %}
+
+{% block pagetitle %}Admin Stuff{% endblock %}
+
+{% block content %}
+
+<div id="featured-small"></div>
+
+<div id="main-text-wide">
+<a href="{% url admin_stuff %}">&laquo; back to admin stuff</a>
+<h2>{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }})</h2>
+
+<h3>Orders</h3>
+<ul>
+{% for order in shopper.get_orders %}
+<li>{{ order }}<//li>
+{% endfor %}
+</ul>
+
+<h3>Linked addresses</h3>
+<ul>
+{% for address in shopper.get_addresses %}
+	<li>
+	{{ address.house_name_number }}, {{ address.address_line_1 }}, {{ address.address_line_2 }}, {{ address.town_city }}, {{ address.postcode }}, 
+	</li>
+{% endfor %}
+</ul>
+
+<h3>Value</h3>
+<p>This person has spent £{{ shopper.get_value }} in total.</p>
+
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}{{ flatpage.title }}{% endblock %}
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<p class="logo-assist">{{ flatpage.title }}</p>
+			</div>
+{% endblock %}
+
+{% block content %}
+
+<div id="featured-small"></div>
+
+<div id="main-text-wide">
+
+<div class="flatpage">
+{{ flatpage.content }}
+
+</div>
+
+
+
+
+
+
+</div>
+{% endblock %}

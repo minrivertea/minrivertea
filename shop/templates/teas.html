@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block metadescription %}Our three Chinese loose-leaf teas are specially selected for their unique taste and characteristics. Each one is fresh, guaranteed quality and delivered direct to your door.{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+p.introduction {
+  padding-bottom: 15px;
+  margin-bottom: 30px;	
+}
+</style>
+{% endblock %}
+
+{% block pagetitle %}Choose your tea{% endblock %}
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<p class="logo-assist">Choose your tea</p>
+	    	<p class="normal">We offer a simple selection of three great tasting, authentic Chinese teas.</p>
+			</div>
+{% endblock %}
+
+{% block content %}
+
+<div id="featured-small"></div>
+
+<div id="main-text-wide">
+
+<p class="introduction">Buying great tea is easy - we've got red, green and scented teas to suit your taste, so sit back and imagine that beautiful aroma tickling your senses! </p>
+
+
+
+{% include "snippets/products.html" %}
+
+
+
+
+
+
+</div>
+{% endblock %}
