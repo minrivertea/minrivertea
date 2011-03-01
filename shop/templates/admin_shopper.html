@@ -9,6 +9,7 @@
       td ul li {list-style-type:none;}
       thead {font-weight: bold;}
       h3 {margin: 30px 0 20px 0;}
+      h2 {margin-top: 10px;}
   </style>
 {% endblock %}
 
@@ -20,12 +21,14 @@
 
 <div id="main-text-wide">
 <a href="{% url admin_stuff %}">&laquo; back to admin stuff</a>
+
 <h2>{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }})</h2>
+<p>This person has spent £{{ shopper.get_value }} in total. {% ifequal shopper.is_subscribed True %}They ARE subscribed to emails{% else %}They are NOT subscribed to emails.{% endifequal %}</p>
 
 <h3>Orders</h3>
 <ul>
 {% for order in shopper.get_orders %}
-<li>{{ order }}<//li>
+<li>{{ order }} - {{ order.status }}<//li>
 {% endfor %}
 </ul>
 
@@ -37,9 +40,6 @@
 	</li>
 {% endfor %}
 </ul>
-
-<h3>Value</h3>
-<p>This person has spent £{{ shopper.get_value }} in total.</p>
 
 </div>
 {% endblock %}

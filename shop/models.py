@@ -84,7 +84,7 @@ class Shopper(models.Model):
         return addresses 
     
     def get_orders(self):
-        orders = Order.objects.filter(owner=self).order_by('-date_confirmed')
+        orders = Order.objects.filter(owner=self).order_by('-date_paid')
         return orders
     
     def get_value(self):
