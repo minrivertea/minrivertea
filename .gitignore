@@ -1,0 +1,8 @@
+*.pyc
+paypal-details
+static/images/user-submitted/
+local_settings.py
+paypal/
+
+
+
