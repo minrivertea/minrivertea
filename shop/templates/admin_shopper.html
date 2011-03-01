@@ -23,7 +23,7 @@
 <a href="{% url admin_stuff %}">&laquo; back to admin stuff</a>
 
 <h2>{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }})</h2>
-<p>This person has spent £{{ shopper.get_value }} in total. {% ifequal shopper.is_subscribed True %}They ARE subscribed to emails{% else %}They are NOT subscribed to emails.{% endifequal %}</p>
+<p>{{ shopper.first_name }} has spent £{{ shopper.get_value }} in total. {% ifequal shopper.is_subscribed True %}They ARE subscribed to emails{% else %}They are NOT subscribed to emails.{% endifequal %}. They have referred {% ifequal shopper.number_referred None %}0{% else %}{{ shopper.number_referred }}{% endifequal %} people.</p>
 
 <h3>Orders</h3>
 <ul>

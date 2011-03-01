@@ -575,7 +575,10 @@ def admin_stuff(request):
         return HttpResponseRedirect("/")
     
     products = Product.objects.all()
-    orders = Order.objects.all().order_by('-date_confirmed') 
+    orders = Order.objects.all().order_by('-date_confirmed')
+    total_sales = 0
+    for order in orders:
+        total_sales += order.get_amount() 
     paid_orders = []    
     order_problems = []
     for order in orders:

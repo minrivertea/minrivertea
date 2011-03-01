@@ -9,6 +9,8 @@
       td ul li {list-style-type:none;}
       thead {font-weight: bold;}
       h3 {margin: 30px 0 20px 0;}
+      div.small-box {background-color: #F1F1F1; float: left; margin: 20px 10px 0 0; padding: 15px 20px; width: 200px; -moz-border-radius: 10px;}
+      div.small-box h3 {margin-top: 0px;}
   </style>
 {% endblock %}
 
@@ -89,10 +91,17 @@
 	{% endfor %}
 	</table>
 
+<div class="small-box">
 <h3>Stocks</h3>
 {% for product in products %}
 	{{ product }}<br/>
 {% endfor %}
+</div>
+
+<div class="small-box">
+<h3>Total sales</h3>
+{{ total_sales }} ({{ orders.count }} orders)
+</div>
 
 </div>
 {% endblock %}

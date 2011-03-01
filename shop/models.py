@@ -175,10 +175,9 @@ class Order(models.Model):
         return self.invoice_id
     
     def get_amount(self):
-        amount = 0
+        amount = 3
         for item in self.items.all():
             amount += item.get_price()
-        
         return amount
     
     
