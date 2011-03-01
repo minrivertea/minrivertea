@@ -575,6 +575,8 @@ def admin_stuff(request):
         return HttpResponseRedirect("/")
     
     products = Product.objects.all()
+    published_photos = Photo.objects.filter(published=True)
+    unpublished_photos = Photo.objects.filter(published=False)
     orders = Order.objects.all().order_by('-date_confirmed')
     total_sales = 0
     for order in orders:
