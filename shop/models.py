@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 import logging
 from datetime import datetime
 
-from minriver.slugify import smart_slugify
+from slugify import smart_slugify
 from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
