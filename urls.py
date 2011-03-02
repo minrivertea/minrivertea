@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
+from django.views.generic.simple import direct_to_template
 from shop.models import Product
 
 # admin urls
@@ -24,7 +25,8 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
-    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
 )
 
 
