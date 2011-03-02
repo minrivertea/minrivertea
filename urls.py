@@ -1,18 +1,34 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 import django.views.static
+from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
+from shop.models import Product
 
-# Uncomment the next two lines to enable the admin:
+# admin urls
 from django.contrib import admin
 admin.autodiscover()
 
+# for the sitemaps
+info_dict = {
+    'queryset': Product.objects.filter(is_active=True),
+}
+
+sitemaps = {
+    'flatpages': FlatPageSitemap,
+    'products': GenericSitemap(info_dict, priority=0.6),
+}
+
+# main URL patterns
 urlpatterns = patterns('',
     (r'^', include('minriver.shop.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 )
 
+
+# for the development server static files
 urlpatterns += patterns('',
 
     # CSS, Javascript and IMages

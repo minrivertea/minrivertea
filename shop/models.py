@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.sitemaps import ping_google
 from django.shortcuts import get_object_or_404
 import logging
 from datetime import datetime
@@ -9,6 +10,8 @@ from paypal.standard.ipn.signals import payment_was_successful, payment_was_flag
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from minriver import settings
+
+
 
 
 # these are the categories of products on the site.
@@ -52,7 +55,16 @@ class Product(models.Model):
         return self.name
       
     def get_absolute_url(self):
-        return "/teas/%s/" % self.slug   
+        return "/teas/%s/" % self.slug  
+    
+    def save(self, force_insert=False, force_update=False):
+         super(Product, self).save(force_insert, force_update)
+         try:
+             ping_google()
+         except Exception:
+             # Bare 'except' because we could get a variety
+             # of HTTP-related exceptions.
+             pass 
  
 class UniqueProduct(models.Model):
     weight = models.IntegerField(null=True, blank=True)
