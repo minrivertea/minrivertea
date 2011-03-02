@@ -11,9 +11,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
-
 )
-
 
 urlpatterns += patterns('',
 

@@ -41,7 +41,7 @@
 		{% endif %}
 	{% for order, items in paid_orders %}
 		<tr>
-			<td>{{ order }}</td>
+			<td><a href="{% url admin_order order.id %}">{{ order }}</a></td>
 			<td>
 				<ul>
 				{% for item in items %}

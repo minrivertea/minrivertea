@@ -600,6 +600,9 @@ def admin_shopper(request, id):
     
     return render(request, 'admin_shopper.html', locals())
 
+def admin_order(request, id):
+    order = get_object_or_404(Order, pk=id)
+    return render(request, 'admin_order.html', locals())
 
 
 def ship_it(request, id):
