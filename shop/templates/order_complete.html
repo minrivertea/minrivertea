@@ -26,6 +26,12 @@ div.row-box input.twitter-submit:hover {background: url('/images/twitter-submit.
 
 <div id="main-text-wide">
 
+{% if equal order None %}
+
+<p class="introduction">You've come through to the 'Completed Order' page, but we don't think you've made an order yet. Try returning to the homepage, and if you think there's been a problem, just get in touch - <a href="mailto:mail@minrivertea.com">mail@minrivertea.com</a>
+
+{% else %}
+
 	{% ifequal shopper.twitter_username None %}
 		<form method="post" action="">
 		<div class="row">
@@ -51,7 +57,7 @@ div.row-box input.twitter-submit:hover {background: url('/images/twitter-submit.
 <p>Your order ID is: <strong>{{ order }}</strong></p>
 <p><span class="small">* Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience.</span></p>
 
-
+{% endifequal %}
 
 
 

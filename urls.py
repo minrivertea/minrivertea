@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    (r'^nosoupforyou/$', direct_to_template, {'template': '500_fake.html'}),
 )
 
 

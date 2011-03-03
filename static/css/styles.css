@@ -22,7 +22,7 @@ h3 {
 
 div.left h3 {
   margin: 20px 0 0px 10px;
-  font-weight: normal;	
+  font-weight: bold;	
 }
 
 h4 {
@@ -190,7 +190,7 @@ p.intro {
 }
 
 div.left p {
-  margin: 5px 0 0 10px;
+  margin: 5px 0 20px 10px;
   font-size: 15px;
   line-height: 1.8em;
   padding-right: 10px;
@@ -999,4 +999,14 @@ p.social-footer {
   font-size: 0.7em;
   float: left;
   margin: 5px 0 0 10px;	
+}
+
+img.map {
+  margin-left: 10px;
+  margin-bottom: 5px;	
+}
+
+div.left p.caption {
+  font-size: 0.8em;
+  padding-left: 10px;
 }

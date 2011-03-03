@@ -202,10 +202,40 @@ class Photo(models.Model):
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     published_homepage = models.BooleanField(default=False)
+    email_sent = models.BooleanField(default=False)
     related_product = models.ForeignKey(Product, blank=True, null=True)
     
     def __unicode__(self):
         return self.shopper.email
+    
+    def get_absolute_url(self):
+        return "http://www.minrivertea.com/tea-lover/%s/" % self.shopper.slug
+    
+    def save(self, *args, **kwargs):
+        super(Photo, self).save(*args, **kwargs)
+        try:
+            if self.published == True and self.email_sent == False:
+                body = render_to_string('emails/new_photo_published.txt', {
+                    'first_name': self.shopper.first_name,
+                    'url': self.get_absolute_url(),	}    
+                )
+                
+                subject_line = "Photo published - Min River Tea Farm" 
+                email_sender = settings.SITE_EMAIL
+                recipient = self.shopper.email
+                send_mail(
+                      subject_line, 
+                      body, 
+                      email_sender,
+                      [recipient], 
+                      fail_silently=False
+                )
+                
+                self.email_sent = True
+            else:
+                pass
+        except:
+            return
 
 
 class Referee(models.Model):

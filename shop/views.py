@@ -420,7 +420,6 @@ def order_confirm(request):
     
     
 def order_complete(request):
-    
     # the user should be logged in here, so we'll find their Shopper object
     # or redirect them to home if they're not logged in
     try:
@@ -428,10 +427,10 @@ def order_complete(request):
     except:
         shopper = None
     
-    if request.session['ORDER_ID']:
+    try:
         order = get_object_or_404(Order, invoice_id=request.session['ORDER_ID'])
-    else:
-        order = "TEA123"
+    except:
+        order = None
         
     # these two lines should reset the basket. basically, if 
     # the user ends up here, they need to have a new basket
@@ -535,10 +534,32 @@ def photos(request):
                     photo=photo_filename,
                     description=description,            
                     )
-            
             new_photo.save()
+            
+            # create and send an email to the user to say thanks.
+            body = render_to_string('emails/new_photo_thanks.txt', {
+                'first_name': new_photo.shopper.first_name, 
+                }
+            )
+                 
+            subject_line = "Thanks for submitting a photo to www.minrivertea.com" 
+            email_sender = settings.SITE_EMAIL
+            recipient = new_photo.shopper.email
+      
+            send_mail(
+                 subject_line, 
+                 body, 
+                 email_sender,
+                 [recipient], 
+                 fail_silently=False
+            )   
+            
+            # load the content for the return page
             photos = Photo.objects.filter(published=True)[:10]
             message = "Thanks for submitting your photo! We have to check and approve it first, and then it will appear here. Happy tea-drinking!"
+            
+            
+            
             return render(request, 'photos.html', locals())
             
         else:
