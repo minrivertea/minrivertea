@@ -14,6 +14,7 @@ from cStringIO import StringIO
 import os, md5
 import datetime
 import uuid
+import twitter
 
 from minriver.shop.models import *
 from minriver.shop.forms import *
@@ -35,6 +36,25 @@ def render(request, template, context_dict=None, **kwargs):
                               **kwargs
     )
 
+def twitter_post(tweet):   
+    if not twitter or not hasattr(settings, 'TWITTER_USER') or \
+        not hasattr(settings, 'TWITTER_PASS'):
+        return
+
+    try:
+        api = twitter.Api(
+                consumer_key=settings.CONSUMER_KEY,
+                consumer_secret=settings.CONSUMER_SECRET, 
+                access_token_key=settings.ACCESS_TOKEN, 
+                access_token_secret=settings.ACCESS_SECRET,
+                )
+         
+        update = api.PostUpdate(tweet)
+        
+    except Exception, e:
+        if settings.DEBUG:
+            raise(e)
+            
 
 # the homepage view
 def index(request):
@@ -319,9 +339,7 @@ def order_check_details(request):
             order.invoice_id = "TEA-00%s" % (order.id)
             order.save()
 
-            request.session['ORDER_ID'] = order.invoice_id
-            shoppee = shopper
-            request.session['SHOPPER_ID'] = shoppee.id   
+            request.session['ORDER_ID'] = order.invoice_id  
             
             # finally, we'll log the user in secretly (they don't even know it!)
             from django.contrib.auth import load_backend, login
@@ -374,7 +392,7 @@ def not_you(request):
     
 # the view for the order step 2 - confirming your order
 def order_confirm(request):
-    shopper = get_object_or_404(Shopper, id=request.session['SHOPPER_ID'])
+    shopper = get_object_or_404(Shopper, user=request.user)
     basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
     order = Order.objects.get(invoice_id=request.session['ORDER_ID'])
     order_items = BasketItem.objects.filter(basket=basket)
@@ -389,7 +407,6 @@ def order_confirm(request):
         basket.delete()
         new_basket = Basket.objects.create(owner=shopper, date_modified=datetime.now())
         request.session['BASKET_ID'] = new_basket.id
-        request.session['ORDER_ID'] = None
         
         return False
         
@@ -401,14 +418,49 @@ def order_confirm(request):
    
     
     
-# the view for the 'order complete' page    
-def order_complete(request):
-        
-    shopper = get_object_or_404(Shopper, id=request.session['SHOPPER_ID'])
     
-    # these two lines should reset the basket. Basically, if the user ends up here, they need to have a new basket
+def order_complete(request):
+    
+    # the user should be logged in here, so we'll find their Shopper object
+    # or redirect them to home if they're not logged in
+    try:
+        shopper = get_object_or_404(Shopper, user=request.user)
+    except:
+        shopper = None
+    
+    if request.session['ORDER_ID']:
+        order = get_object_or_404(Order, invoice_id=request.session['ORDER_ID'])
+    else:
+        order = "TEA123"
+        
+    # these two lines should reset the basket. basically, if 
+    # the user ends up here, they need to have a new basket
     basket = Basket.objects.create(owner=shopper, date_modified=datetime.now())
     request.session['BASKET_ID'] = basket.id
+    
+    if request.method == 'POST':
+        form = SubmitTwitterForm(request.POST)
+        
+        if form.is_valid():
+            twitter_username = form.cleaned_data['twitter_username']
+
+            # save the shopper's twitter_username to their profile
+            shopper.twitter_username = twitter_username
+            shopper.save()
+            
+            if shopper.get_orders() is not None:
+                # create a tweet
+                tweet =  render_to_string('emails/tweet.txt', {'twitter_username': twitter_username})
+            
+                # tweet a message to them to say thanks for ordering!
+                twitter_post(tweet)
+                return render(request, 'order_complete.html', locals())
+            
+            else:
+                pass       
+    
+    else: 
+        form = SubmitTwitterForm()
 
     return render(request, "order_complete.html", locals())
 
@@ -575,6 +627,9 @@ def admin_stuff(request):
         return HttpResponseRedirect("/")
     
     products = Product.objects.all()
+    total_baskets = Basket.objects.all()
+    total_orders = Order.objects.all()
+    total_shoppers = Shopper.objects.all()
     published_photos = Photo.objects.filter(published=True)
     unpublished_photos = Photo.objects.filter(published=False)
     orders = Order.objects.all().order_by('-date_confirmed')

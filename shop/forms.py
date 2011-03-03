@@ -72,4 +72,7 @@ class TellAFriendForm(forms.Form):
     recipient = forms.EmailField(required=True, error_messages={'required': '* You must give an email address for your friend'})
     sender = forms.EmailField(required=True, error_messages={'required': '* You must give your own email address'})
     message = forms.CharField(required=False, widget=forms.Textarea)
+
+class SubmitTwitterForm(forms.Form):
+    twitter_username = forms.CharField()
     

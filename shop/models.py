@@ -87,6 +87,7 @@ class Shopper(models.Model):
     number_referred = models.IntegerField(null=True, blank=True)
     subscribed = models.BooleanField(default=True)
     slug = models.SlugField(max_length=200)
+    twitter_username = models.CharField(max_length=200, blank=True, null=True)
 
     def __unicode__(self):
         return self.email

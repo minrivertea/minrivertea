@@ -5,8 +5,19 @@
 {% block banner %}
 	    	<div id="home-banner">
 	    	<p class="logo-assist">Order complete</p>
+	    	<p class="normal">Congratulations! Your order has been received and we've sent you an email confirming the details.</p>
 			
 			</div>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+div.row { width: 500px; margin-right: 30px;}
+div.row-box input {width: 300px; float: left;}
+div.row-box p.intro {margin: -10px 0 10px;}
+div.row-box input.twitter-submit {float: left;border: none;width:124px; height:41px;margin: 0px 0px 20px 10px;background:url('/images/twitter-submit.png') no-repeat top left}
+div.row-box input.twitter-submit:hover {background: url('/images/twitter-submit.png') no-repeat bottom left; cursor: pointer;}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -15,10 +26,30 @@
 
 <div id="main-text-wide">
 
+	{% ifequal shopper.twitter_username None %}
+		<form method="post" action="">
+		<div class="row">
+			<div class="row-label">
+				<h3>Want updates on your order via twitter?</h3>
+			</div>
+				
+    		<div class="row-box">
+		    	<p class="intro">Enter your twitter username below, and we'll tweet you when your order is confirmed and shipped.</p>
+				<input type="text" id="id_twitter_username" name="twitter_username">
+				<input type="submit" value="" next="" class="twitter-submit"/>
+			</div>		
+		</div>
+	{% else %}
+	<div class="row">
+			<div class="row-label">
+			</div>
+	</div>
+	
+	
+	{% endifequal %}
 
-<p class="introduction">Congratulations! Your order has been received and we've sent you an email confirming the details.</p>
-
-<p>Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience.</p>
+<p>Your order ID is: <strong>{{ order }}</strong></p>
+<p><span class="small">* Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience.</span></p>
 
 
 
