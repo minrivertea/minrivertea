@@ -210,7 +210,7 @@ img.mail-icon {
 			 		<p class="mail">
 			 			<a href="{% url tea_view other.slug %}"><img class="mail-icon" src="{% thumbnail other.image 60x60 %}" /></a>
 			 			<a href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
-			 			<br/>{{ tea.super_short_description }}
+			 			<br/>{{ other.super_short_description }}
 			 		</p>
 				</div>
 			 	{% endfor %}
