@@ -12,11 +12,14 @@
 
 {% block extracss %}
 <style type="text/css">
+p {margin-top: 0; margin-bottom: 5px;}
 div.row { width: 500px; margin-right: 30px;}
 div.row-box input {width: 300px; float: left;}
-div.row-box p.intro {margin: -10px 0 10px;}
+div.row-box p.intro {margin: -10px 0 20px;}
 div.row-box input.twitter-submit {float: left;border: none;width:124px; height:41px;margin: 0px 0px 20px 10px;background:url('/images/twitter-submit.png') no-repeat top left}
 div.row-box input.twitter-submit:hover {background: url('/images/twitter-submit.png') no-repeat bottom left; cursor: pointer;}
+div.row-box img {float: left; margin-right: 10px; margin-top: -10px;}
+
 </style>
 {% endblock %}
 
@@ -26,7 +29,7 @@ div.row-box input.twitter-submit:hover {background: url('/images/twitter-submit.
 
 <div id="main-text-wide">
 
-{% if equal order None %}
+{% ifequal order None %}
 
 <p class="introduction">You've come through to the 'Completed Order' page, but we don't think you've made an order yet. Try returning to the homepage, and if you think there's been a problem, just get in touch - <a href="mailto:mail@minrivertea.com">mail@minrivertea.com</a>
 
@@ -48,6 +51,12 @@ div.row-box input.twitter-submit:hover {background: url('/images/twitter-submit.
 	{% else %}
 	<div class="row">
 			<div class="row-label">
+			<h3>Twitter updates</h3>
+			</div>
+			<div class="row-box">
+			<img src="/images/twitter-small.png"/>
+			<p class="intro">We've stored your twitter name as <a href="">@{{ shopper.twitter_username }}</a></p>
+			<p class="intro">If you don't want to receive twitter updates when your order is shipped, <a href="{% url turn_off_twitter shopper.id %}">click here to turn off twitter updates.</a></p>
 			</div>
 	</div>
 	

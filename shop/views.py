@@ -430,7 +430,7 @@ def order_complete(request):
     try:
         order = get_object_or_404(Order, invoice_id=request.session['ORDER_ID'])
     except:
-        order = None
+        pass
         
     # these two lines should reset the basket. basically, if 
     # the user ends up here, they need to have a new basket
@@ -452,16 +452,28 @@ def order_complete(request):
                 tweet =  render_to_string('emails/tweet.txt', {'twitter_username': twitter_username})
             
                 # tweet a message to them to say thanks for ordering!
-                twitter_post(tweet)
-                return render(request, 'order_complete.html', locals())
-            
+                twitter_post(tweet)            
             else:
-                pass       
+                pass      
     
+            return render(request, 'order_complete.html', locals())
+            
+     
     else: 
         form = SubmitTwitterForm()
 
     return render(request, "order_complete.html", locals())
+
+
+def turn_off_twitter(request, id):
+    try:
+        shopper = get_object_or_404(Shopper, pk=id)
+    except:
+        pass
+    
+    shopper.twitter_username = None
+    shopper.save()
+    return HttpResponseRedirect('/order/complete/')
 
 
 # view for the photo wall
