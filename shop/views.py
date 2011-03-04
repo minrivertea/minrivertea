@@ -326,7 +326,7 @@ def order_check_details(request):
                 date_confirmed = datetime.now(),
                 address = address,
                 owner = shopper,
-                status = "1",
+                status = Order.STATUS_CREATED_NOT_PAID,
                 invoice_id = "TEMP"
             )
             
