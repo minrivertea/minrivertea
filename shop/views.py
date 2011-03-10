@@ -277,7 +277,7 @@ def order_check_details(request):
         
             # get or create a user object
             try:
-                this_user = get_object_or_404(User, email=form.cleaned_data['email'])
+                this_user = request.user
             except:
                 username = form.cleaned_data['email']
                 random_password = uuid.uuid1().hex
@@ -295,10 +295,9 @@ def order_check_details(request):
                         
             # create a 'shopper' object
             try:
-                shopper = get_object_or_404(Shopper, email=form.cleaned_data['email'])
+                shopper = get_object_or_404(Shopper, user=this_user.id)
             except:
                 full_name = "%s %s" % (form.cleaned_data['first_name'], form.cleaned_data['last_name'])
-                print full_name
                 slugger = smart_slugify(full_name, lower_case=True)
                 shopper = Shopper.objects.create(
                     user = this_user,

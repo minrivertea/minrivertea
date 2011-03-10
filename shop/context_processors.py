@@ -25,26 +25,25 @@ def get_basket_quantity(request):
     return {'basket_quantity': basket_quantity}
     
 def get_shopper(request):
+
     # find out if the user is logged in
     if request.user.is_authenticated():
-    
-        # check if there is a shopper for them
+
+        # check if there is a corresponding shopper
         try:
             shopper = get_object_or_404(Shopper, user=request.user)
             
         # if not, log them out because something's clearly wrong
         except:
-            if request.user.is_superuser == True:
-                shopper = None
-                pass
-            else:
-                shopper = None
-                from django.contrib.auth import load_backend, logout
-                for backend in settings.AUTHENTICATION_BACKENDS:
-                    if this_user == load_backend(backend).get_user(this_user.pk):
-                        this_user.backend = backend
-                if hasattr(this_user, 'backend'):
-                    logout(request)
+            user = request.user
+            from django.contrib.auth import load_backend, logout
+            for backend in settings.AUTHENTICATION_BACKENDS:
+                if user == load_backend(backend).get_user(user.pk):
+                    user.backend = backend
+            if hasattr(user, 'backend'):
+                logout(request)
+            
+            shopper = None
     else:
         shopper = None
     

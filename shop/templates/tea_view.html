@@ -154,6 +154,14 @@ img.mail-icon {
   top: -2px;
   margin-left: 5px;
 }
+
+div.message {
+  margin-bottom: 20px;	
+}
+
+div.message a {
+  color: #EE6464;	
+}
 </style>
 {% endblock %}
 
@@ -179,6 +187,7 @@ img.mail-icon {
 			{% if message %}
 	  		<div class="message">
 			<p>{{ message }}</p>
+			<p><a href="{% url basket %}">Checkout now &raquo;</a></p>
 			</div>
 	  		{% endif %}
 
@@ -197,10 +206,30 @@ img.mail-icon {
            	<br clear="all"/>
            	
            	<div class="more-info">
-           		<h3>{{ tea.super_short_description }}</h3>
            		{{ tea.body_text|safe }}
 			</div>
 			
+			
+			<div class="right-links">
+           	<h3 class="more-info">Find out more</h3>
+           	<div class="info">
+           		<p class="mail">
+           			<img class="mail-icon" src="{% staticfile '/images/mail.png' %}">Our teas are sent from the UK <br/>
+           			<a href="/postage-and-packaging/">Postage and packaging info &raquo;</a>
+           		</p>
+           	</div>
+           	<div class="info">
+           		<p class="mail">
+           			<img class="mail-icon" src="{% staticfile '/images/info.png' %}">Find out more about teas <br/>
+           			<a href="/brew/">A simple guide to brewing &raquo;</a>
+           		</p>
+           	</div>
+           	<div class="info last">
+           		<p class="mail">
+           			<img class="mail-icon" src="{% staticfile '/images/talk.png' %}">Do you like our teas? <br/>
+           			<a href="{% url tell_a_friend %}">Tell your friends &raquo;</a>
+           		</p>
+           	</div>
            	
            	
            	<div class="right-links">
@@ -217,17 +246,7 @@ img.mail-icon {
 			</div>
 
            	
-           	<div class="right-links">
-           	<h3 class="more-info">Find out more</h3>
-           	<div class="info">
-           		<p class="mail"><img class="mail-icon" src="{% staticfile '/images/mail.png' %}">Our teas are sent from the UK <br/><a href="/postage-and-packaging/">Postage and packaging info &raquo;</a></p>
-           	</div>
-           	<div class="info">
-           		<p class="mail"><img class="mail-icon" src="{% staticfile '/images/info.png' %}">Find out more about teas <br/><a href="/brew/">A simple guide to brewing &raquo;</a></p>
-           	</div>
-           	<div class="info last">
-           		<p class="mail"><img class="mail-icon" src="{% staticfile '/images/talk.png' %}">Do you like our teas? <br/><a href="{% url tell_a_friend %}">Tell your friends &raquo;</a></p>
-           	</div>
+           	
            	
            	</div>
            	
@@ -279,7 +298,7 @@ img.mail-icon {
 			
 			
 		</div>
-	
+	<h3>{{ tea.super_short_description }}</h3>
 	{{ tea.long_description|safe }}
 	
 	</div>
