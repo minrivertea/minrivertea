@@ -276,9 +276,9 @@ def order_check_details(request):
         if form.is_valid(): 
         
             # get or create a user object
-            try:
+            if request.user.is_authenticated():
                 this_user = request.user
-            except:
+            else:
                 username = form.cleaned_data['email']
                 random_password = uuid.uuid1().hex
                 creation_args = {
