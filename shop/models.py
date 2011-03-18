@@ -160,6 +160,7 @@ class Order(models.Model):
     owner = models.ForeignKey(Shopper)
     discount = models.ForeignKey(Discount, null=True, blank=True)
     invoice_id = models.CharField(max_length=20)
+    notes = models.TextField(null=True, blank=True)
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
     STATUS_PAID = 'paid'
