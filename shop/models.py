@@ -154,10 +154,12 @@ class Order(models.Model):
     is_confirmed_by_user = models.BooleanField(default=False)
     date_confirmed = models.DateTimeField()
     is_paid = models.BooleanField(default=False)
+    is_giveaway = models.BooleanField(default=False)
     date_paid = models.DateTimeField(null=True)
     address = models.ForeignKey(Address, null=True)
     owner = models.ForeignKey(Shopper)
     discount = models.ForeignKey(Discount, null=True, blank=True)
+    invoice_id = models.CharField(max_length=20)
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
     STATUS_PAID = 'paid'
@@ -174,7 +176,7 @@ class Order(models.Model):
     )
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
-    invoice_id = models.CharField(max_length=20)
+    
     
     def get_discount(self):
         total_price = 0
