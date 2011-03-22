@@ -11,9 +11,75 @@
 {% block banner %}
 	    	<div id="home-banner">
 	    	<p class="logo-assist">Great Chinese teas.</p>
-	    	<p class="normal">We sell simple, authentic and great tasting Chinese teas.</p>
+	    	<p class="normal">We sell simple, authentic and great tasting Chinese teas - <a href="{% url teas %}">choose your tea &raquo;</a></p>
 
 			</div>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+
+div#welikes {
+    border-left: 1px solid #E1E1E1;
+    float: right;
+    margin: 10px 0 0 30px;
+    padding-left: 30px;
+    width: 350px;
+}
+
+div#welikes h3 {
+  margin-bottom: 0px;
+  padding-bottom: 10px;	
+  font-size: 1.2em;
+  font-weight: ;
+}
+
+div.like {
+    float: left;
+    height: 80px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    width: 340px;
+}
+
+div.like div.image {
+  float: left;
+  width: 80px;
+  margin-right: 10px;	
+}
+
+div.like div.text {
+  float: left;
+  width: 240px;	
+}
+
+div.like h4 {
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  letter-spacing: -0.5px;
+  margin: 0;
+  padding: 0;
+  border-bottom: none;
+}
+
+div.like p {
+  margin: 0;
+  font-size: 13px;	
+}
+
+img.leaf {
+    float: left;
+    margin: -2px 5px 0 -8px;
+}	
+
+p.name {
+  padding-left: 10px;
+  color: #BE373A;
+  font-size: 14px;	
+}
+
+</style>
 {% endblock %}
 
 {% block content %}
@@ -35,22 +101,40 @@
 
 
 	<div id="home-extra">
-	<div class="featured-top"></div>
-	
 
 	<div id="user-photos">
-		<a class="see-more" title="See our photo wall of happy tea drinkers!" href="{% url photos %}">See more beautiful tea drinkers <span class="large">&raquo;</span></a>
-		<h2>These beautiful people also love Chinese tea!</h2>
+	<img src="{% staticfile '/images/leaves.png' %}" class="leaf"/>
+		<a class="see-more" title="See our photo wall of happy tea drinkers!" href="{% url photos %}">Checkout what other people are drinking <span class="large">&raquo;</span></a>
+		<h2>These beautiful people love Chinese tea!</h2>
 			{% for p in photos %}
 				<div class="a-user-photo">
 					<div class="photo">
-						<img src="{% thumbnail p.photo 200x200 %}">
+						<img src="{% thumbnail p.photo 200x130 crop %}">
 					</div>
 					<div class="info">
 						<p class="quote"><span class="quotes">"</span>{{ p.description }}<span class="quotes">"</span></p>
+						<p class="name">{{ p.shopper.first_name }} {{ p.shopper.last_name }}</p>
 					</div>
 				</div>
 			{% endfor %}
+	
+	</div>
+	
+	<div id="welikes">
+	
+		<h3>We also like...</h3>
+		{% for l in welike %}
+		<div class="like">
+			<div class="image">
+				<img src="{% thumbnail l.image 80x80 crop %}"/>
+			</div>
+			<div class="text">
+				<h4><a href="{{ l.url }}" target="_blank">{{ l.title }} &raquo;</a></h4>
+				<p>{{ l.description }}</p>
+			</div>
+		</div>
+		{% endfor %}
+	
 	</div>
 	
 	

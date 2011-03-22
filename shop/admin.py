@@ -1,4 +1,4 @@
-from minriver.shop.models import Product, Address, UniqueProduct, Shopper, Basket, Order, Discount, Photo, Referee
+from minriver.shop.models import *
 from django.contrib import admin
 
 class ProductAdmin(admin.ModelAdmin):
@@ -13,6 +13,7 @@ admin.site.register(Order)
 admin.site.register(Discount)
 admin.site.register(Photo)
 admin.site.register(Referee)
+admin.site.register(WeLike)
 
 
 

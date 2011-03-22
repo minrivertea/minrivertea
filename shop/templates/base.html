@@ -36,7 +36,7 @@
 	{% block extracss %}{% endblock %}
 	{% block extrajs %}{% endblock %}
 	
-    
+    {% block ga %}
     {% if ga_is_on %}
     <script type="text/javascript">
 
@@ -52,6 +52,7 @@
 
 </script>
     {% endif %}
+    {% endblock %}
 </head>
 
 

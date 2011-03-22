@@ -196,7 +196,20 @@ class Order(models.Model):
             amount += item.get_price()
         return amount
     
+class WeLike(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    url = models.URLField()
+    image = models.ImageField(upload_to='images/likes')
+    date_added = models.DateTimeField(default=datetime.now)
     
+    def __unicode__(self):
+        return self.title
+    
+    # still need to do this properly
+    def get_short_url(self):
+        return url
+          
      
 
 class Photo(models.Model):

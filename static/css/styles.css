@@ -272,7 +272,7 @@ div#home-banner {
     letter-spacing: 0;
     margin: -10px 0 0 10px;
     text-shadow: 1px 1px #F1F1F1;
-    width: 480px;
+    width: 520px;
 }
 
 
@@ -334,7 +334,8 @@ div.featured-top {
 div#home-extra div.featured-top {
   margin-left: 0;
   height: 5px;	
-  background: url("/images/stripe.png") repeat-x scroll 0 0 transparent
+  background: url("/images/stripe.png") repeat-x scroll 0 0 transparent;
+  margin-top: 10px;
 }
 
 div#featured-small {
@@ -389,19 +390,24 @@ div#home-extra {
 }
 
 div#home-extra div#user-photos img {
-  border: 8px solid white;	
-  -moz-border-radius: 10px;
+
 }
 
 div#home-extra div#user-photos {
-  margin-top: 10px;	
-  margin-bottom: 20px;
-  border-bottom: 1px solid #E1E1E1;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -moz-box-shadow: 0 1px 8px #C1C1C1;
+    background: url("/images/gray-stripe.png") repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #E1E1E1;
+    margin-bottom: 20px;
+    margin-left: 0;
+    margin-top: 10px;
+    padding: 20px 30px 30px;
+    width: 740px;
 }
 
 div#home-extra div#user-photos div.a-user-photo {
     border-bottom: medium none;
-    margin: 0 0 0px -10px;
+    margin: 0 0 0px 12px;
     padding-bottom: 0;
 }
 
@@ -410,7 +416,7 @@ div#home-extra div#user-photos div.a-user-photo div.info {
 }
 
 div#home-extra div#user-photos div.a-user-photo div.photo {
-  margin-right: 30px;	
+  margin-right: 10px;
 }
 
 
@@ -418,6 +424,13 @@ div#home-extra a.see-more {
     float: right;
     font-size: 0.9em;
     margin-right: 0;
+    position: relative;
+    top: -2px;
+}
+
+div#home-extra h2 {
+  text-shadow: 1px 1px white;
+  font-size: 20px;	
 }
 
 
@@ -840,7 +853,7 @@ div#user-photos div.a-user-photo {
 div#user-photos div.a-user-photo div.photo {
   float: left;
   width: 200px;
-  margin-right: 40px;	
+  margin-right: 20px;	
 }
 
 div#user-photos div.a-user-photo div.info {
@@ -854,7 +867,7 @@ div#user-photos div.a-user-photo div.info p {
 }
 
 div#user-photos div.a-user-photo div.info p.quote {
-  font-size: 1.4em;	
+  font-size: 17px;	
   color: #666;
   padding-left: 10px;
   margin-bottom: 10px;

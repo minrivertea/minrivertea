@@ -67,6 +67,7 @@ def index(request):
         
     featured = Product.objects.filter(is_active=True).exclude(category="POS") 
     prices = UniqueProduct.objects.all()
+    welike = WeLike.objects.all()[:2]
    
     products_and_prices = []
     for product in featured:
@@ -658,16 +659,21 @@ def admin_stuff(request):
     if not request.user.is_superuser:
         return HttpResponseRedirect("/")
     
+    # get the stats
     products = Product.objects.all()
     total_baskets = Basket.objects.all()
     total_orders = Order.objects.all()
     total_shoppers = Shopper.objects.all()
     published_photos = Photo.objects.filter(published=True)
     unpublished_photos = Photo.objects.filter(published=False)
-    orders = Order.objects.all().order_by('-date_confirmed')
+    orders = Order.objects.all().filter(is_giveaway=True).order_by('-date_confirmed')
+    
+    # work out how many sales we've made
     total_sales = 0
     for order in orders:
         total_sales += order.get_amount() 
+    
+    # make the nice lists for paid/unpaid orders
     paid_orders = []    
     order_problems = []
     for order in orders:
