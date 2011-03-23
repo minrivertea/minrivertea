@@ -79,6 +79,27 @@ p.name {
   font-size: 14px;	
 }
 
+div#learn {
+  float: left;
+  width: 330px;	
+  margin: 10px 0 0 30px;
+}
+
+div#learn h3 {
+  margin-bottom: 10px;	
+}
+
+div#learn img {
+  margin-right: 20px;
+  float: left;	
+}
+
+div#learn p {
+  font-size: 14px;	
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+
 </style>
 {% endblock %}
 
@@ -120,8 +141,14 @@ p.name {
 	
 	</div>
 	
-	<div id="welikes">
+	<div id="learn">
+	<h3>Learn about Chinese tea</h3>
+	<img src="{% staticfile '/images/booklet.png' %}"/>
+	<p>Make yourself a cup of Chinese tea this morning! It's not hard to make, and it's a great change from coffee.</p>
+	<p><a href="/brew/">Read about how to brew Chinese tea &raquo;</a></p>
+	</div>
 	
+	<div id="welikes">
 		<h3>We also like...</h3>
 		{% for l in welike %}
 		<div class="like">
