@@ -101,9 +101,10 @@ def tea_view(request, slug):
         added = request.session['ADDED']
     except:
         added = None
+        
     if added:
-        product = get_object_or_404(BasketItem, id=request.session['ADDED'])
-        message = "1 x %s%s added to your basket!" % (product.item.weight, product.item.weight_unit)
+        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
+        message = "1 x %s%s added to your basket!" % (thing.item.weight, thing.item.weight_unit)
         request.session['ADDED'] = None
         
     tea = get_object_or_404(Product, slug=slug)
@@ -280,18 +281,21 @@ def order_check_details(request):
             if request.user.is_authenticated():
                 this_user = request.user
             else:
-                username = form.cleaned_data['email']
-                random_password = uuid.uuid1().hex
-                creation_args = {
-                    'username': form.cleaned_data['email'],
-                    'email': form.cleaned_data['email'],
-                    'password': random_password,
-                }
-                    
-                this_user = User.objects.create(**creation_args)
-                this_user.first_name = form.cleaned_data['first_name']
-                this_user.last_name = form.cleaned_data['last_name']
-                this_user.save()
+                try:
+                    this_user = get_object_or_404(User, email=form.cleaned_data['email'])
+                except:
+                    username = form.cleaned_data['email']
+                    random_password = uuid.uuid1().hex
+                    creation_args = {
+                        'username': form.cleaned_data['email'],
+                        'email': form.cleaned_data['email'],
+                        'password': random_password,
+                    }
+                     
+                    this_user = User.objects.create(**creation_args)
+                    this_user.first_name = form.cleaned_data['first_name']
+                    this_user.last_name = form.cleaned_data['last_name']
+                    this_user.save()
                 
                         
             # create a 'shopper' object
@@ -666,7 +670,7 @@ def admin_stuff(request):
     total_shoppers = Shopper.objects.all()
     published_photos = Photo.objects.filter(published=True)
     unpublished_photos = Photo.objects.filter(published=False)
-    orders = Order.objects.all().filter(is_giveaway=True).order_by('-date_confirmed')
+    orders = Order.objects.all().filter(is_giveaway=False).order_by('-date_confirmed')
     
     # work out how many sales we've made
     total_sales = 0

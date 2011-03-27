@@ -59,13 +59,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'minriver.shop.context_processors.get_basket',
     'minriver.shop.context_processors.get_basket_quantity',
-    'minriver.shop.context_processors.paypal_business',
-    'minriver.shop.context_processors.paypal_notify',
-    'minriver.shop.context_processors.paypal_return',
-    'minriver.shop.context_processors.paypal_submit_url',
-    'minriver.shop.context_processors.ga_is_on',
     'minriver.shop.context_processors.get_shopper',
-    'minriver.shop.context_processors.paypal_receiver_email',
+    'minriver.shop.context_processors.common',
 )
 
 
