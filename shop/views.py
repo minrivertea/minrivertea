@@ -671,6 +671,7 @@ def admin_stuff(request):
     published_photos = Photo.objects.filter(published=True)
     unpublished_photos = Photo.objects.filter(published=False)
     orders = Order.objects.all().filter(is_giveaway=False).order_by('-date_confirmed')
+    giveaways = Order.objects.all().filter(is_giveaway=True).order_by('-date_confirmed')
     
     # work out how many sales we've made
     total_sales = 0
@@ -680,6 +681,7 @@ def admin_stuff(request):
     # make the nice lists for paid/unpaid orders
     paid_orders = []    
     order_problems = []
+    free_orders = []
     for order in orders:
         if order.status == Order.STATUS_CREATED_NOT_PAID or order.status == Order.STATUS_SHIPPED:
             pass
@@ -687,7 +689,11 @@ def admin_stuff(request):
             if order.status == Order.STATUS_PAYMENT_FLAGGED or order.status == Order.STATUS_ADDRESS_PROBLEM:
                 order_problems.append((order, order.items.all()))
             else:
-                paid_orders.append((order, order.items.all()))  
+                paid_orders.append((order, order.items.all())) 
+                
+    for order in giveaways:
+        free_orders.append((order, order.items.all()))
+         
     
     return render(request, "admin_base.html", locals())
 

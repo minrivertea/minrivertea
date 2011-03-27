@@ -15,7 +15,10 @@
 <link rel="stylesheet" href="{% slimfile '/css/lightbox.css' %}" type="text/css" media="screen" />
 
 <style type="text/css">
-
+  img.leaves {
+    float: left;
+    margin-right: 30px;	
+  }
 </style>
 {% endblock %}
 
@@ -35,8 +38,8 @@
 
 <div id="main-text-wide">
 	
-
-	<h2>Tea Lover certificate</h2>
+	<img class="leaves" src="{% staticfile '/images/leaves-large.png' %}">
+	<h2>Genuine Chinese Tea Lover</h2>
 	<p>This certifies that {{ tea_lover.first_name }} {{ tea_lover.last_name }} is a bona fide tea lover.</p>
 			
 						 
