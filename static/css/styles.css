@@ -179,7 +179,7 @@ div#user-photos h2 {
 
 
 p {
-  font-size: 17px;	
+  font-size: 15px;	
   line-height: 1.5em;
   color: #666;
 }
@@ -988,11 +988,20 @@ div.flatpage div#right p {
   font-size: 0.9em;
   color: #333;
   width: 100%;	
+  margin-bottom: 10px;
 }
 
 div#right div.about-box h3 {
     font-weight: bold;
     text-align: left;
+}
+
+div.flatpage div#right h4 {
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  color: black;
+  font-weight: bold;
+  font-size: 15px;	
+  margin-bottom: 0;
 }
 
 
