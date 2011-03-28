@@ -59,11 +59,11 @@ def twitter_post(tweet):
 # the homepage view
 def index(request):
     photos = Photo.objects.filter(published_homepage=True).order_by('?')[:1]
+    
     try:
         basket =  get_object_or_404(Basket, id=request.session['BASKET_ID'])
     except:
-        basket = Basket.objects.create(date_modified=datetime.now())
-        request.session['BASKET_ID'] = basket.id
+        basket = None
         
     featured = Product.objects.filter(is_active=True).exclude(category="POS") 
     prices = UniqueProduct.objects.all()
@@ -77,16 +77,12 @@ def index(request):
     
 # the product listing page
 def teas(request):
-    if request.user.is_anonymous():
-        try:
-            b = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-        except:
-            b = Basket.objects.create(date_modified=datetime.now())
-            b.save()
-            request.session['BASKET_ID'] = b.id
+
+    try:
+        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
+    except:
+        basket = None
             
-    
-    basket_items = BasketItem.objects.filter(basket=request.session['BASKET_ID'])
     products = Product.objects.filter(category="TEA", is_active=True)
     prices = UniqueProduct.objects.all()
     products_and_prices = []
@@ -97,6 +93,7 @@ def teas(request):
 
 # view for a single product
 def tea_view(request, slug):
+    
     try:
         added = request.session['ADDED']
     except:
@@ -208,14 +205,12 @@ def increase_quantity(request, productID):
 # the view for your basket
 def basket(request):
     try:
-        b = get_object_or_404(Basket, id=request.session['BASKET_ID'])
+        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
     except:
-        b = Basket.objects.create(date_modified=datetime.now())
-        b.save()
-        request.session['BASKET_ID'] = b.id        
+        basket = None        
             
     
-    basket_items = BasketItem.objects.filter(basket=b)
+    basket_items = BasketItem.objects.filter(basket=basket)
     total_price = 3
     for item in basket_items:
         price = item.quantity * item.item.price
@@ -248,9 +243,6 @@ def order_check_details(request):
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
         problem = "You don't have any items in your basket, so you can't process an order!"
-        basket = Basket.objects.create(date_modified=datetime.now())
-        request.session['BASKET_ID'] = basket.id
-            
         return render(request, 'order-problem.html', locals())   
 
     try:
@@ -436,10 +428,9 @@ def order_complete(request):
     except:
         pass
         
-    # these two lines should reset the basket. basically, if 
+    # this line should reset the basket cookie. basically, if 
     # the user ends up here, they need to have a new basket
-    basket = Basket.objects.create(owner=shopper, date_modified=datetime.now())
-    request.session['BASKET_ID'] = basket.id
+    request.session['BASKET_ID'] = None
     
     if request.method == 'POST':
         form = SubmitTwitterForm(request.POST)
@@ -469,6 +460,7 @@ def order_complete(request):
     return render(request, "order_complete.html", locals())
 
 
+# the user can choose to not have their stuff tweeted
 def turn_off_twitter(request, id):
     try:
         shopper = get_object_or_404(Shopper, pk=id)
