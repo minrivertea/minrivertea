@@ -284,7 +284,8 @@ div#home-banner {
   line-height: 1em;
   font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
   font-weight: bold;
-  margin: 0;	
+  margin: 0;
+  margin-bottom: 25px;	
 }
 
 #nav {
