@@ -3,6 +3,7 @@
 {% load django_static %}
 
 {% block metadescription %}{{ tea.name }} - {{ tea.description }}{% endblock %}
+{% block pagetitle %}{{ tea.meta_title }}{% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript" src="{% staticfile '/js/prototype.js' %}"></script>
@@ -165,7 +166,7 @@ div.message a {
 {% endblock %}
 
 
-{% block pagetitle %}{{ tea.name }} Chinese tea{% endblock %}
+
 
 {% block banner %}
 	    	<div id="home-banner">
