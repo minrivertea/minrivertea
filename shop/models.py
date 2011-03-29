@@ -33,7 +33,8 @@ ORDER_STATUS = (
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=80)		
+    slug = models.SlugField(max_length=80)
+    meta_title = models.CharField(max_length=200, blank=True, null=True)		
     description = models.TextField()
     super_short_description = models.CharField(max_length=200)
     body_text = models.TextField()
