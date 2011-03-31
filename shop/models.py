@@ -173,8 +173,7 @@ class Order(models.Model):
             (STATUS_PAID, u"Paid"),
             (STATUS_SHIPPED, u"Shipped"),
             (STATUS_ADDRESS_PROBLEM, u"Address problem"),
-            (STATUS_PAYMENT_FLAGGED, u"Payment flagged"),
-            
+            (STATUS_PAYMENT_FLAGGED, u"Payment flagged"),     
     )
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
@@ -249,6 +248,7 @@ class Photo(models.Model):
                 )
                 
                 self.email_sent = True
+                self.save()
             else:
                 pass
         except:

@@ -29,7 +29,6 @@
 <p></p>
 <h3>Orders ({{ orders.count }})</h3>
 	<table id="orders-table">
-		{% if paid_orders %}
 		<thead>
 			<tr>
 			<td>Order ID</td>
@@ -38,10 +37,10 @@
 			<td>Status</td>
 			<td>Date paid</td>
 			<td>&nbsp;</td>
+			<td>&nbsp;</td>
 			</tr>
 		</thead>
-		{% endif %}
-	{% for order, items in paid_orders %}
+	{% for order, items in all_orders %}
 		<tr>
 			<td><a href="{% url admin_order order.id %}">{{ order }}</a></td>
 			<td>
@@ -54,77 +53,25 @@
 			<td><a href="{% url admin_shopper order.owner.id %}">{{ order.owner }}</a></td>
 			<td>{{ order.status }}</td>
 			<td>{{ order.date_paid }}</td>
-			<td><a href="{% url ship_it order.id %}">Ship it</a></td>
+			<td>
+				{% if order.status == 'shipped' %}
+				 already shipped
+				{% else %}
+				<a href="{% url ship_it order.id %}">Ship it</a>
+				{% endif %}
+			</td>
+			<td>
+				{% if order.is_giveaway %}
+				Giveaway
+				{% else %}
+				  {{ order.get_amount }}
+				{% endif %}
+			</td>
 		</tr>
 	{% empty %}
 		<p>No current paid orders</p>
 	{% endfor %}
 	</table>
-
-<h3>Orders with problems</h3>
-	<table id="orders-table">
-	{% if order_problems %}
-		<thead>
-			<tr>
-			<td>Order ID</td>
-			<td>Items</td>
-			<td>Owner</td>
-			<td>Status</td>
-			<td>Date confirmed</td>
-			</tr>
-		</thead>
-	{% else %}{% endif %}
-	{% for order, items in order_problems %}
-		<tr>
-			<td>{{ order }}</td>
-			<td>
-				<ul>
-				{% for item in items %}
-					<li>{{ item }}</li>
-				{% endfor %}
-				</ul>
-			</td>
-			<td>{{ order.owner }}</td>
-			<td>{{ order.status }}</td>
-			<td>{{ order.date_confirmed }}</td>
-		</tr>
-	{% empty %}
-		<p>No current unpaid orders</p>
-	{% endfor %}
-	</table>
-	
-<h3>Giveaways</h3>
-	<table id="orders-table">
-	{% if giveaways %}
-		<thead>
-			<tr>
-			<td>Order ID</td>
-			<td>Items</td>
-			<td>Owner</td>
-			<td>Status</td>
-			<td>Date confirmed</td>
-			</tr>
-		</thead>
-	{% else %}{% endif %}
-	{% for order, items in free_orders %}
-		<tr>
-			<td>{{ order }}</td>
-			<td>
-				<ul>
-				{% for item in items %}
-					<li>{{ item }}</li>
-				{% endfor %}
-				</ul>
-			</td>
-			<td>{{ order.owner }}</td>
-			<td>{{ order.status }}</td>
-			<td>{{ order.date_confirmed }}</td>
-		</tr>
-	{% empty %}
-		<p>No giveaways</p>
-	{% endfor %}
-	</table>
-	
 
 <div class="small-box">
 <h3>Stocks</h3>
