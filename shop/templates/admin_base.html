@@ -76,8 +76,7 @@
 			<td>Order ID</td>
 			<td>Items</td>
 			<td>Notes</td>
-			<td>Date paid</td>
-			<td>&nbsp;</td>
+			<td>Date given</td>
 			<td>Value</td>
 			</tr>
 		</thead>
@@ -93,13 +92,7 @@
 			</td>
 			<td>{{ order.notes }}</td>
 			<td>{{ order.date_paid }}</td>
-			<td>
-				{% if order.status == 'shipped' %}
-				 already shipped
-				{% else %}
-				<a href="{% url ship_it order.id %}">Ship it</a>
-				{% endif %}
-			</td>
+
 			<td>
 				{{ order.get_amount }}
 			</td>
