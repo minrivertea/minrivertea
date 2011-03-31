@@ -75,8 +75,7 @@
 			<tr>
 			<td>Order ID</td>
 			<td>Items</td>
-			<td>Owner</td>
-			<td>Status</td>
+			<td>Notes</td>
 			<td>Date paid</td>
 			<td>&nbsp;</td>
 			<td>Value</td>
@@ -92,8 +91,7 @@
 				{% endfor %}
 				</ul>
 			</td>
-			<td><a href="{% url admin_shopper order.owner.id %}">{{ order.owner }}</a></td>
-			<td>{{ order.status }}</td>
+			<td>{{ order.notes }}</td>
 			<td>{{ order.date_paid }}</td>
 			<td>
 				{% if order.status == 'shipped' %}
