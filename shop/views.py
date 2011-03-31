@@ -662,7 +662,8 @@ def admin_stuff(request):
     total_shoppers = Shopper.objects.all()
     published_photos = Photo.objects.filter(published=True)
     unpublished_photos = Photo.objects.filter(published=False)
-    orders = Order.objects.all().order_by('-date_confirmed')
+    orders = Order.objects.all().filter(is_giveaway=False).order_by('-date_confirmed')
+    giveaways = Order.objects.all().filter(is_giveaway=True).order_by('-date_confirmed')
     
     # work out how many sales we've made
     total_sales = 0
@@ -676,6 +677,10 @@ def admin_stuff(request):
             pass
         else:
             all_orders.append((order, order.items.all())) 
+    
+    all_giveaways = []
+    for order in giveaways:
+        all_giveaways.append((order, order.items.all()))
 
     return render(request, "admin_base.html", locals())
 
