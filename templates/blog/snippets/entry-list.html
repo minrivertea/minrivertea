@@ -12,7 +12,7 @@
   		<a alt="{{ thing.title }}" title="{{ thing.title }}" href="{% url blog_entry thing.slug %}">{{ thing.title }}</a>
   		</h3>
   		<p>{{ thing.summary|urlize }}</p>
-  		<span class="entry-meta">{{ thing.date_added|date:"d M Y" }} | <span class="read-more"><a alt="read more link" title="Read more about {{ thing.title }}" href="{% url blog_entry thing.slug %}">READ FULL POST</span></a></span>
+  		<span class="entry-meta">{{ thing.date_added|date:"d M Y" }} | <span class="read-more"><a alt="read more link" title="Read more about {{ thing.title }}" href="{% url blog_entry thing.slug %}">READ FULL POST &raquo;</span></a></span>
   		</p>
 	</div> 
   </div>
