@@ -1,0 +1,102 @@
+{% load django_static %}
+
+{% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+{% endblock %}
+
+<head>
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta content="en-gb" http-equiv="Content-Language" />
+	<meta content="{% block metadescription %}{% endblock %}" name="description" />
+	<meta content="" name="keywords"/>
+	
+	<meta name="google-site-verification" content="obu9NY_4FNbUQMNlrvWOk59ABZ9gROs37zTql__Lglo" />
+	
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="generator" content="Django - http://www.djangoproject.com" />
+	<meta name="DC.format" content="text/html" />
+	<meta name="DC.type" content="Django Site" />
+	<meta name="robots" content="ALL" />
+	<title>minrivertea.com - {% block pagetitle %}{% endblock %}</title>
+	<link rel="shortcut icon" href="{% staticfile '/images/favicon.ico' %}" type="image/x-icon">
+	
+	{% block extra-head %}{% endblock %}
+
+	    <link rel="stylesheet" href="{% staticfile '/css/styles.css' %}" />
+	    <script type="text/javascript" src="{% staticfile '/js/searchbar.js' %}"></script>
+	    <!--[if lte IE 6]>
+		<link rel="stylesheet" media="screen" type="text/css" href="{% staticfile '/css/ie6.css' %}" />
+		<![endif]-->
+
+
+	{% block extracss %}{% endblock %}
+	{% block extrajs %}{% endblock %}
+	
+    {% block ga %}
+    {% if ga_is_on %}
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9041614-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+    {% endif %}
+    {% endblock %}
+</head>
+
+
+
+<body>
+
+    
+    <div id="container">
+		{% if user.is_superuser %}
+	    <div id="header-messages">    
+		   	<div class="hm"><a href="{% url admin_stuff %}">Admin stuff</a></div>
+		</div>    
+		{% endif %}
+    
+	    <div id="header{% block header %}{% endblock %}">
+	    	<div id="logo">
+	    		<a title="The Min River Team Farm - Authentic Chinese Teas" alt="the Min River Tea Farm logo" href="/">
+	    			<h1 class="{% block logo %}{% endblock %}"><span>The Min River Tea Farm - Great Chinese Teas</span></h1>
+	    		</a>
+	    	</div>
+
+	    	<div id="nav">
+	    	    <ul>
+	    	    	<li class="first"><a href="{% url home %}" title="Home">home</a> /</li>
+	    	        <li><a href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">choose your tea</a>  /</li>
+	    	        <li><a href="/about/" title="About the Min River Tea Farm" alt="">about us</a>  /</li>
+	    	        <li><a href="{% url blog_home %}" title="Read our tea blog" alt="">blog</a>  /</li>
+	    	        <li class="last"><a href="{% url basket %}" title="View your basket" alt="">your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</a>  </li>
+	  			</ul>
+			</div>
+			
+			{% block banner %}{% endblock %}
+
+       </div>
+
+
+		{% block content %}{% endblock %}
+	
+		<br clear="all"/>
+	
+		{% include "shop/snippets/footer.html" %} 
+    
+    </div>
+
+</body>
+
+</html>

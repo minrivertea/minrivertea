@@ -1,0 +1,60 @@
+{% load i18n %}
+{% get_available_languages as LANGUAGES %}
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="{% block meta-description %}{% endblock %}" />
+    <meta name="copyright" content="Chris West" />
+    <meta name="creator" content="Chris West" />
+    <meta name="generator" content="Django - http://www.djangoproject.com" />
+    <meta name="google-site-verification" content="Rt7aZU30wexEzi6zMnH-4Bpis48i7qidp-FAsNOVT6I" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta content="en-gb" http-equiv="Content-Language" />
+	<meta name="DC.format" content="text/html" />
+	<meta name="DC.type" content="Django Site" />
+	<meta name="robots" content="ALL" />
+	<title>westiseast.co.uk - {% block title %}{% endblock %}</title>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="/static/css/styles.css" />
+	<!--[if lte IE 6]>
+	<link rel="stylesheet" media="screen" type="text/css" href="/media/css/ie6.css" />
+	<![endif]-->
+
+
+
+    {% block extracss %}{% endblock %}
+    {% block extrajs %}{% endblock %}
+    {% block extrahead %}{% endblock %}
+                                
+</head>
+
+<body>
+
+<div id="container">
+
+
+	{% include "snippets/header.html" %}
+
+
+
+	<div id="main">
+	{% block content %} {% endblock %}
+	</div>
+
+	{% block footer %}{% endblock %}
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-9041614-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>

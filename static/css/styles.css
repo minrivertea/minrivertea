@@ -203,7 +203,6 @@ div#header {
   width: 800px;
   margin: 0 auto;
   height: 180px;
-  padding-bottom: 25px;
 }
 
 div#headerhome {
@@ -276,7 +275,7 @@ div#home-banner {
 }
 
 
-#home-banner p.logo-assist {
+#home-banner h2.logo-assist {
   font-size: 4em;
   letter-spacing: -3px;
   text-shadow: 1px 1px #e1e1e1;
@@ -454,8 +453,8 @@ div#main-text-wide div.left {
 }
 
 div#main-text-wide div#right {
-  float: right;
-  width: 240px;	
+    float: right;
+    width: 240px;
 }
 
 p.introduction {
@@ -972,12 +971,12 @@ div.flatpage ul li {
 }
 
 div.about-box {
-    -moz-border-radius: 10px 10px 10px 10px;
     background-color: #FFEBEB;
-    float: right;
-    margin: 0 0 20px 40px;
-    padding: 15px 15px 15px 15px;
-    width: 230px;
+    border-radius: 10px 10px 10px 10px;
+    float: left;
+    margin: 0 0 20px 0;
+    padding: 15px;
+    width: 210px;
 }
 
 div.flatpage p.about-promo {
@@ -1043,4 +1042,54 @@ img.map {
 div.left p.caption {
   font-size: 0.8em;
   padding-left: 10px;
+}
+
+
+/* blog styles */
+
+div#blog-left {
+  float: left;	
+  width: 520px;
+}
+
+div#blog-right {
+    float: right;
+    width: 240px;
+    border-left: 1px solid #e1e1e1;
+}
+
+div#blog-right div.box {
+    -moz-border-radius: 10px 10px 10px 10px;
+    background-color: #FFEBEB;
+    margin: 0 0 20px 20px;
+    padding: 15px 15px 15px 15px;
+    width: 220px;
+    float: left;
+}
+
+div#blog-right div.box.clear {
+  background-color: #fff;
+  padding: 0;
+  -moz-border-radius: 0px;	
+}
+
+div#blog-right div.box.clear h4 {
+  margin: 0;
+  font-size: 17px;
+  color: #BE373A;	
+  font-weight: bold;
+  border-bottom: 0;
+  padding-bottom: 0;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+}
+
+div#blog-right div.box.clear p {
+  margin-top: 0;
+  font-size: 13px;
+  color: #000;	
+}
+
+div#blog-right div.box.clear p.link {
+  margin-top: -10px;
+  margin-left: 5px;
 }

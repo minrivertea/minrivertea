@@ -1,8 +1,7 @@
 # Django settings for minriver project.
 
 import os
-PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
-
+PROJECT_PATH = os.path.normpath(os.path.dirname(__file__))
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -92,6 +91,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.sitemaps',
     'shop',
+    'blog',
     'sorl.thumbnail',
     'paypal.standard.ipn',
     'django_static',

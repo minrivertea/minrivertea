@@ -4,25 +4,32 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product
+from blog.models import BlogEntry
 
 # admin urls
 from django.contrib import admin
 admin.autodiscover()
 
 # for the sitemaps
-info_dict = {
+products = {
     'queryset': Product.objects.filter(is_active=True),
+}
+
+blogs = {
+    'queryset': BlogEntry.objects.filter(is_draft=False),	
 }
 
 sitemaps = {
     'flatpages': FlatPageSitemap,
-    'products': GenericSitemap(info_dict, priority=0.6),
+    'products': GenericSitemap(products, priority=0.6),
+    'blogs': GenericSitemap(blogs, priority=0.6),
 }
 
 # main URL patterns
 urlpatterns = patterns('',
     (r'^', include('minriver.shop.urls')),
     (r'^admin/', include(admin.site.urls)),
+    (r'^blog/', include('minriver.blog.urls')),
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),

@@ -72,7 +72,7 @@ def index(request):
     products_and_prices = []
     for product in featured:
         products_and_prices.append((product, prices.filter(parent_product=product)))
-    return render(request, "home.html", locals())
+    return render(request, "shop/home.html", locals())
     
     
 # the product listing page
@@ -89,7 +89,7 @@ def teas(request):
     for product in products:
         products_and_prices.append((product, prices.filter(parent_product=product)))
 
-    return render(request, "teas.html", locals())
+    return render(request, "shop/teas.html", locals())
 
 # view for a single product
 def tea_view(request, slug):
@@ -108,7 +108,7 @@ def tea_view(request, slug):
     prices = UniqueProduct.objects.filter(parent_product=tea)
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
         
-    return render(request, "tea_view.html", locals())
+    return render(request, "shop/tea_view.html", locals())
     
     
    
@@ -215,7 +215,7 @@ def basket(request):
     for item in basket_items:
         price = item.quantity * item.item.price
         total_price += price
-    return render(request, "basket.html", locals())
+    return render(request, "shop/basket.html", locals())
 
 # NOT USED - a discount function
 def update_discount(request):
@@ -234,7 +234,7 @@ def update_discount(request):
         confirm_form = OrderConfirmForm() 
         discount_form = UpdateDiscountForm()
 
-    return render_to_response('forms/order_check_details.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('shop/forms/order_check_details.html', locals(), context_instance=RequestContext(request))
 
 
 # the view for order process step 1 - adding your details
@@ -243,7 +243,7 @@ def order_check_details(request):
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
         problem = "You don't have any items in your basket, so you can't process an order!"
-        return render(request, 'order-problem.html', locals())   
+        return render(request, 'shop/order-problem.html', locals())   
 
     try:
         order = get_object_or_404(Order, invoice_id=request.session['ORDER_ID'])
@@ -361,7 +361,7 @@ def order_check_details(request):
 
     confirm_form = OrderCheckDetailsForm() 
 
-    return render(request, 'forms/order_check_details.html', locals())
+    return render(request, 'shop/forms/order_check_details.html', locals())
  
  
 # the view for 'logging out' if you're logged in with the wrong account   
@@ -410,7 +410,7 @@ def order_confirm(request):
     else:
         form = PayPalPaymentsForm()
 
-    return render(request, 'forms/order_confirm.html', locals())
+    return render(request, 'shop/forms/order_confirm.html', locals())
    
     
     
@@ -451,13 +451,13 @@ def order_complete(request):
             else:
                 pass      
     
-            return render(request, 'order_complete.html', locals())
+            return render(request, 'shop/order_complete.html', locals())
             
      
     else: 
         form = SubmitTwitterForm()
 
-    return render(request, "order_complete.html", locals())
+    return render(request, "shop/order_complete.html", locals())
 
 
 # the user can choose to not have their stuff tweeted
@@ -545,7 +545,7 @@ def photos(request):
             new_photo.save()
             
             # create and send an email to the user to say thanks.
-            body = render_to_string('emails/new_photo_thanks.txt', {
+            body = render_to_string('shop/emails/new_photo_thanks.txt', {
                 'first_name': new_photo.shopper.first_name, 
                 }
             )
@@ -568,7 +568,7 @@ def photos(request):
             
             
             
-            return render(request, 'photos.html', locals())
+            return render(request, 'shop/photos.html', locals())
             
         else:
             if form.non_field_errors():
@@ -580,14 +580,14 @@ def photos(request):
         form = PhotoUploadForm()
         photos = Photo.objects.filter(published=True).order_by('-id')[:10]
     
-    return render(request, 'photos.html', locals())
+    return render(request, 'shop/photos.html', locals())
 
 
 # view for a user's "I'm a tea lover" page
 def tea_lover(request, slug):
     tea_lover = get_object_or_404(Shopper, slug=slug)
     
-    return render(request, 'tea_lover.html', locals())
+    return render(request, 'shop/tea_lover.html', locals())
  
  
  
@@ -605,9 +605,9 @@ def tell_a_friend(request):
             
             # create email
             if message:
-                body = render_to_string('emails/custom_tell_friend.txt', {'message': message})
+                body = render_to_string('shop/emails/custom_tell_friend.txt', {'message': message})
             else:
-                body = render_to_string('emails/tell_friend.txt', {'sender': sender})
+                body = render_to_string('shop/emails/tell_friend.txt', {'sender': sender})
             
             subject_line = "%s wants you to know about minrivertea.com" % sender
                 
@@ -638,7 +638,7 @@ def tell_a_friend(request):
             
             message = "We've sent an email to %s letting them know about minrivertea.com - thanks for your help!" % referee.email
             # then send them back to the tell a friend page
-            return render(request, "forms/tell_a_friend.html", locals())
+            return render(request, "shop/forms/tell_a_friend.html", locals())
 
         else:
             if form.non_field_errors():
@@ -648,7 +648,7 @@ def tell_a_friend(request):
              
     else:
         form = TellAFriendForm()
-    return render(request, 'forms/tell_a_friend.html', locals())
+    return render(request, 'shop/forms/tell_a_friend.html', locals())
 
 # view for my private admin pages
 def admin_stuff(request):
@@ -682,17 +682,17 @@ def admin_stuff(request):
     for order in giveaways:
         all_giveaways.append((order, order.items.all()))
 
-    return render(request, "admin_base.html", locals())
+    return render(request, "shop/admin_base.html", locals())
 
 #specific shopper view in admin-stuff
 def admin_shopper(request, id):
     shopper = get_object_or_404(Shopper, pk=id)
-    return render(request, 'admin_shopper.html', locals())
+    return render(request, 'shop/admin_shopper.html', locals())
 
 # specific order view in admin-stuff
 def admin_order(request, id):
     order = get_object_or_404(Order, pk=id)
-    return render(request, 'admin_order.html', locals())
+    return render(request, 'shop/admin_order.html', locals())
 
 # function for changing order status from admin-stuff
 def ship_it(request, id):

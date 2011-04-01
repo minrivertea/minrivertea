@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block meta-description %}{{ entry.summary }}{% endblock %}
+{% block pagetitle %}{{ entry.title }}{% endblock %}
+
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<h2 class="logo-assist">The Min River blog</h2>
+	    	<p class="normal">All the news about Chinese tea and what's up at the Min River Tea Farm</p>
+
+			</div>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+
+div#entry-content h3 {
+  font-size: 2em;	
+}
+
+div#entry-content p.date {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  padding-left: 5px;	
+}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div id="featured-small"></div>
+
+  <div id="main-text-wide">
+
+	<div id="blog-right">
+		{% include "blog/snippets/blog-right.html" %}
+	</div>
+
+	<div id="blog-left">
+
+		<div id="entry-content">
+			<h3>{{ entry.title }}</h3>
+			<p class="date"><em>{{ entry.date_added|date:"D d M Y" }}</em></p>
+			<p>{{ entry.content|safe }}</p>
+
+				{% if entry.get_next_by_date_added %}
+				<p>Next entry: <a href="{% url blog_entry entry.get_next_by_date_added %}">{{ entry.get_next_by_date_added.title }} &raquo;</a>
+				<br />
+				{% endif %}
+				{% if entry.get_previous_by_date_added %}
+				Previous entry: <a href="{% url blog_entry entry.get_previous_by_date_added %}">{{ entry.get_previous_by_date_added.title }} &raquo;</a></p>
+				{% endif %}
+		</div>
+	</div>
+
+  </div>
+
+{% endblock %}
+
+
