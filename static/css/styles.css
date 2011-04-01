@@ -266,10 +266,10 @@ div#home-banner {
 
 #home-banner p.normal {
     float: right;
-    font-size: 13px;
+    font-size: 15px;
     letter-spacing: 0;
     margin: -10px 0 10px 10px;
-    width: 430px;
+    width: 500px;
 }
 
 
@@ -1041,8 +1041,9 @@ div.left p.caption {
 /* blog styles */
 
 div#blog-left {
-  float: left;	
-  width: 540px;
+    float: left;
+    margin-left: 20px;
+    width: 520px;
 }
 
 div#blog-right {
