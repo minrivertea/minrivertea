@@ -1049,12 +1049,12 @@ div.left p.caption {
 
 div#blog-left {
   float: left;	
-  width: 520px;
+  width: 540px;
 }
 
 div#blog-right {
     float: right;
-    width: 240px;
+    width: 220px;
     border-left: 1px solid #e1e1e1;
 }
 
@@ -1063,7 +1063,7 @@ div#blog-right div.box {
     background-color: #FFEBEB;
     margin: 0 0 20px 20px;
     padding: 15px 15px 15px 15px;
-    width: 220px;
+    width: 200px;
     float: left;
 }
 
