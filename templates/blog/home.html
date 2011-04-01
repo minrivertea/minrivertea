@@ -52,6 +52,12 @@ a.see-more {
   float: right;
   font-size: 13px;	
 }
+
+h3.title {
+  margin-left: 20px;
+  font-size: 2em;
+  margin-bottom: 20px;	
+}
 </style>
 {% endblock %}
 
@@ -77,6 +83,7 @@ a.see-more {
 	</div>
 
 	<div id="blog-left">
+	<h3 class="title">Latest posts...</h3>
  		<div class="entry-list">
 			{% include "blog/snippets/entry-list.html" %}
 		</div>
