@@ -459,10 +459,13 @@ div#main-text-wide div#right {
 p.introduction {
   font-size: 1.2em;	
   font-weight: 300;
-  width: 800px;
+  width: 760px;
   margin-top: 0;
+  padding-bottom: 0px;
+  color: #30A5C7;
+  margin-left: 30px;
   border-bottom: 1px solid #e1e1e1;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 
 }
 
