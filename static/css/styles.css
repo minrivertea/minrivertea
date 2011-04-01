@@ -234,17 +234,17 @@ div#header-messages div.hm {
 div#logo {	 
  width: 210px;
  float: left;
- margin: 0px 0 0 0px;
+ margin: 0px 0 0 20px;
 }
 
 div#logo h1.home {
-  background: url('/images/logo2.png') no-repeat scroll 0 0 transparent;
+  background: url('/images/logo3.png') no-repeat scroll 0 0 transparent;
   height: 210px;	
   margin: 0px 0 0 0px;
 }
 
 div#logo h1 {
-    background: url("/images/logo2.png") no-repeat scroll 0 0 transparent;
+    background: url("/images/logo3.png") no-repeat scroll 0 0 transparent;
     height: 210px;
     margin: 0px 0 0 0px;
 }
@@ -260,9 +260,9 @@ div#logo:hover {
 div#home-banner {
     float: right;
     height: 160px;
-    margin: 25px 10px 0 0;
+    margin: 30px 10px 0 0;
     text-align: right;
-    width: 570px;
+    width: 560px;
 }
 
 #home-banner p.normal {
@@ -276,9 +276,8 @@ div#home-banner {
 
 
 #home-banner h2.logo-assist {
-  font-size: 4em;
+  font-size: 3.8em;
   letter-spacing: -3px;
-  text-shadow: 1px 1px #e1e1e1;
   color: #19761c;
   line-height: 1em;
   font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
