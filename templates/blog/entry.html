@@ -27,6 +27,11 @@ div#entry-content p.date {
   padding-left: 5px;	
 }
 
+div#entry-content img {
+  float: right;
+  margin: 20px 0 30px 30px;	
+}
+
 </style>
 {% endblock %}
 
@@ -45,7 +50,9 @@ div#entry-content p.date {
 
 		<div id="entry-content">
 			<h3>{{ entry.title }}</h3>
+			
 			<p class="date"><em>{{ entry.date_added|date:"D d M Y" }}</em></p>
+			<img src="{% thumbnail entry.promo_image 250x250 %}">
 			<p>{{ entry.content|safe }}</p>
 
 				{% if entry.get_next_by_date_added %}
