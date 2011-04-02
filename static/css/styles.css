@@ -284,32 +284,32 @@ div#home-banner {
   margin-bottom: 10px;	
 }
 
-#nav {
+#navigation {
   float: right;
   margin: 0px 0px 0;	
 }
 
-#nav ul {
+ul#nav {
 float: right;
 font-size:15px;
 margin: 0;
 color: #ee6464;
 }
 
-#nav ul li {
+#navigation ul li {
   display: inline;
   padding-left: 0px;
 }
 
 
-#nav a:link, #nav a:visited {
+#navigation a:link, #nav a:visited {
   color: #1A6D18;
   text-decoration: none;
   font-weight: normal;
 
 }
 
-#nav a:hover, #nav a:active {
+#navigation a:hover, #nav a:active {
 
   color: #ee6464;
   cursor: pointer;

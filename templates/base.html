@@ -63,7 +63,7 @@
     <div id="container">
 		{% if user.is_superuser %}
 	    <div id="header-messages">    
-		   	<div class="hm"><a href="{% url admin_stuff %}">Admin stuff</a></div>
+		   	<div class="hm"><a href="{% url admin_stuff %}">Admin stuff</a> | <a href="/admin/logout/">Logout</a></div>
 		</div>    
 		{% endif %}
     
@@ -74,8 +74,8 @@
 	    		</a>
 	    	</div>
 
-	    	<div id="nav">
-	    	    <ul>
+	    	<div id="navigation">
+	    	    <ul id="nav">
 	    	    	<li class="first"><a href="{% url home %}" title="Home">home</a> /</li>
 	    	        <li><a href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">choose your tea</a>  /</li>
 	    	        <li><a href="/about/" title="About the Min River Tea Farm" alt="">about us</a>  /</li>
