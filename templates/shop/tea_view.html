@@ -26,7 +26,7 @@ div.more-info {
 
 #home-banner p.normal {
     font-size: 15px;
-    width: 400px;
+    width: 500px;
 }
 
 h3.more-info {
@@ -232,7 +232,7 @@ table.details td.left {
 {% block banner %}
 	    	<div id="home-banner">
 	    	<h2 class="logo-assist">{{ tea.name }}</h2>
-	    		<p class="normal">Can't tell your oolongs from your armpits? <br/><a href="/varieties-of-tea/">Learn about tea varieties &raquo;</a></p>
+	    		<p class="normal">{{ tea.super_short_description }}</p>
 			</div>
 {% endblock %}
 
@@ -363,7 +363,7 @@ table.details td.left {
 
 
 	<div class="left">
-	<h3>{{ tea.super_short_description }}</h3>
+	<h3>More about this tea</h3>
 	{{ tea.long_description|safe }}
 		
 	</div>
