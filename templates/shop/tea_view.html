@@ -109,8 +109,8 @@ div.product-photos-small p {
 }
 
 div.right-links {
-  margin-top: 10px;
-  padding-top: 20px;	
+  margin-top: 20px;
+  padding-top: 0px;	
   float: left;
 }
 
@@ -124,13 +124,6 @@ div.right-links ul li {
   list-style-type: square;
   margin-bottom: 5px;
   padding-left: 5px;
-}
-
-a.weights {
-  font-size: 0.7em;
-  float: right;
-  margin-right: 15px;
-  margin-top: 4px;	
 }
 
 div.info {
@@ -175,7 +168,7 @@ div.tea-top div.main-image {
 
 div.tea-top div.prices {
   float: left;
-  width: 200px;	
+  width: 230px;	
 }
 
 div.tea-top div.tea-description {
@@ -203,6 +196,32 @@ div.message a {
 div.message p {
   font-size: 13px;
   margin: 0; 	
+}
+
+table.details {
+    color: #333;
+    font-size: 13px;
+    margin-top: 10px;
+    width: 490px;
+}
+
+table.details tr {
+  padding-bottom: 10px;	
+}
+
+table.details td {
+  padding: 15px;	
+  background-color: #f1f1f1;
+}
+
+table.details td a {
+  font-size: 12px;	
+}
+
+table.details td.left {
+  padding-right: 10px;
+  font-family:"helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;	
+  background-color: #e1e1e1;
 }
 </style>
 {% endblock %}
@@ -259,7 +278,8 @@ div.message p {
 			{% endif %}
 			
 		</div>
-				<div class="prices">
+		
+		<div class="prices">
 			{% for price in prices %}
 				<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
 				<div class="price{% if forloop.first %} first{% endif %}">  
@@ -270,7 +290,8 @@ div.message p {
             	</div>
             	</a>
            	{% endfor %}
-           				{% if message %}
+           	
+           	{% if message %}
 	  			<div class="message">
 					<p>{{ message }}</p>
 					<p><a href="{% url basket %}">Checkout now &raquo;</a></p>
@@ -283,9 +304,10 @@ div.message p {
 	<div class="image-top"></div>
 <br clear="all"/>
 	<div id="right">
+		
 			
 			<div class="right-links">
-           	<h3 class="more-info">Find out more</h3>
+           	<h3 class="more-info">Learn more about tea</h3>
            	<div class="info">
            		<p class="mail">
            			<img class="mail-icon" src="{% staticfile '/images/mail.png' %}">Our teas are sent from the UK <br/>
@@ -343,7 +365,7 @@ div.message p {
 	<div class="left">
 	<h3>{{ tea.super_short_description }}</h3>
 	{{ tea.long_description|safe }}
-	
+		
 	</div>
 	
 

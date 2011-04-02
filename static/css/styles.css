@@ -445,12 +445,13 @@ div#main-text-wide {
 div#main-text-wide div.left {
     float: left;
     margin: 0 10px 20px 0px;
-    width: 520px;
+    width: 500px;
 }
 
 div#main-text-wide div#right {
     float: right;
     width: 240px;
+    margin-right: 30px;
 }
 
 p.introduction {
@@ -534,17 +535,17 @@ div#right p {
 
 
 div.tea-top div.price {
-    background: url("/images/price-back.png") no-repeat scroll left top transparent;
+    background: url("/images/price-back.png") no-repeat scroll right top transparent;
     float: left;
     height: 14px;
-    margin: 0 0 10px;
-    padding: 12px 0 15px 5px;
-    width: 223px;
+    margin: 0 0 0;
+    padding: 12px 0 15px 3px;
+    width: 230px;
 }
 
 div.tea-top div.price:hover {
   cursor: pointer;
-  background: url('/images/price-back.png') no-repeat bottom left;
+  background: url('/images/price-back.png') no-repeat bottom right;
 }
 
 div#right div.price.first:hover {
