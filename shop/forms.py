@@ -55,6 +55,10 @@ class UpdateDiscountForm(forms.Form):
         
         return discount
 
+class ContactForm(forms.Form):
+    your_name = forms.CharField(required=True)
+    your_email = forms.EmailField(required=True, error_messages={'required': 'Please enter a valid email address'})
+    your_message = forms.CharField(widget=forms.Textarea, required=False)
 
 class UpdateProfileForm(forms.Form):
     first_name = forms.CharField(required=False)

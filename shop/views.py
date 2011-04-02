@@ -110,7 +110,50 @@ def tea_view(request, slug):
         
     return render(request, "shop/tea_view.html", locals())
     
+def contact_us(request):
+    try:
+        if request.session['MESSAGE'] == "1":
+            message = True
+            request.session['MESSAGE'] = ""
+    except:
+        pass 
+        
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            
+            # get cleaned data from form submission
+            message = form.cleaned_data['your_message']
+            your_name = form.cleaned_data['your_name']
+            your_email = form.cleaned_data['your_email']
+            
+            # create email
+            body = render_to_string('shop/emails/contact_template.txt', {
+            	 'message': message,
+            	 'your_email': your_email,
+            	 'your_name': your_name,
+            })
+
+            recipient = settings.SITE_EMAIL
+            sender = settings.SITE_EMAIL
+            subject_line = "MINRIVERTEA.COM - WEBSITE CONTACT SUBMISSION"
+                
+            send_mail(
+                          subject_line, 
+                          body, 
+                          sender,
+                          [recipient], 
+                          fail_silently=False
+            )
+            
+            
+            url = request.META.get('HTTP_REFERER','/')
+            request.session['MESSAGE'] = "1"
+            return HttpResponseRedirect(url) 
+    else:
+        form = ContactForm() 
     
+    return render(request, "shop/forms/contact_form.html", locals())        
    
 # function for adding stuff to your basket
 def add_to_basket(request, productID):
