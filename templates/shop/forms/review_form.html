@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load django_static %}
+{% load thumbnail %}
+
+{% block extrajs %}
+<link rel="javascript" type="text/js" href="{% staticfile '/static/js/searchbar.js' %}" />
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+
+
+
+div.products h3 {
+  font-size: 1.4em;
+  text-shadow: 1px 1px #FFFFFF;	
+}
+
+div.right-box p {
+  font-size: 12px;
+  width: 200px;	
+}
+
+div.right-box input {
+    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
+    border-radius: 7px 7px 7px 7px;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    color: #666666;
+    float: left;
+    font: 95% arial,helvetica,clean,sans-serif;
+    height: 20px;
+    margin: 0 0 20px 0px;
+    padding: 10px 15px;
+    width: 400px;
+}
+
+div.right-box textarea {
+    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
+    border-radius: 7px 7px 7px 7px;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    color: #666666;
+    float: left;
+    font: 95% arial,helvetica,clean,sans-serif;
+    margin: 0 0 20px 0px;
+    padding: 10px 15px;
+    width: 440px;
+}
+
+div.right-box textarea:focus {
+  font-size: 18px;
+  border: 1px solid #30A5C7;	
+}
+
+div.right-box label {
+  margin-bottom: 5px;	
+}
+
+div.right-box input.submit-button {
+    background: url("/images/submit.png") no-repeat scroll left top transparent;
+    border: medium none;
+    float: right;
+    height: 55px;
+    margin: 0 0 0 0;
+    padding: 0;
+    width: 236px;
+}
+
+div.right-box input.submit-button:hover {
+    background: url("/images/submit.png") no-repeat scroll left bottom transparent;
+}
+
+div.right-box p.help-text {
+    float: right;
+    font-size: 0.7em;
+    padding-right: 10px;
+    position: relative;
+    top: -15px;
+}
+
+div.right-box {
+  border-radius: 10px;
+  background: url('/images/gray-stripe.png');
+  padding: 20px 30px;
+  float: left;
+  width: 475px;
+  -moz-box-shadow: 0 1px 8px #d1d1d1;	
+}
+
+div.products {
+    float: left;
+    margin-right: 20px;
+    width: 230px;
+}
+
+div.products img {
+  margin-top: 10px;
+  margin-bottom: 10px;	
+}
+
+div.products p {
+  width: 200px;
+  font-size: 13px;	
+}
+
+div.other-reviews {
+  margin-top: 40px;
+  float: left;	
+}
+
+div.review {
+
+}
+
+div.review p {
+  font-size: 14px;	
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 15px;
+  margin-right: 20px;
+  width: 600px;
+}
+
+div.review p:hover {
+  color: #000;	
+} 
+
+div.review p span {
+  color: #BE373A;	
+}
+
+</style>
+{% endblock %}
+
+{% block metadescription %}Contact the Min River Tea Farm - how you can get in touch with us.{% endblock %}
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<h2 class="logo-assist">Review your tea</h2>
+	    	<p class="normal">You can use the form below to add your review of our tea.</p>
+			</div>
+{% endblock %}
+
+{% block pagetitle%}Give a review{% endblock %}
+
+
+
+{% block content %}
+    
+<div id="featured-small"></div>
+
+	<div id="main-text-wide">
+
+		<p class="introduction">Hi {{ shopper.first_name }}! Thanks for taking the time to write a review of our tea. Quality is extremely important to us, and so is honesty, so feel free to write down any thoughts, positive and negative, that you had about our tea.</p>
+	
+		<form action="." method="post">
+		 	<div class="products">
+				<h3>You're reviewing our {{ tea }} tea</h3> 
+				<img src="{% thumbnail tea.image 200x200 %}">
+				<p><strong>Our description: </strong><em>{{ tea.description }}</em></p>
+			</div>
+			<div class="right-box">
+				<textarea id="id_text" rows="10" cols="40" name="text" onclick="clearInput(this)">Add your review here</textarea>
+				<input class="submit-button" value="" type="submit">
+				<p>* <em>we may publish this review on our website - by submitting your review, you give us permission to do so.</em></p>
+			</div>
+		</form>
+		
+		{% if other_reviews %}
+		<div class="other-reviews">
+			<h3>What have other people said about our  {{ tea }}?</h3>
+			{% for review in other_reviews %}
+				<div class="review">
+					<p><em>"{{ review.text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></p>
+				</div>				
+			{% endfor %}
+		</div>
+		{% endif %}
+
+	</div>
+</div>
+		
+		<br clear="all"/>
+
+
+		
+
+    {% endblock %}

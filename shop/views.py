@@ -254,10 +254,16 @@ def basket(request):
             
     
     basket_items = BasketItem.objects.filter(basket=basket)
-    total_price = 3
+    total_price = 0
     for item in basket_items:
         price = item.quantity * item.item.price
         total_price += price
+    
+    if total_price > 50:
+        postage_discount = True
+    else:
+        total_price += 3
+        
     return render(request, "shop/basket.html", locals())
 
 # NOT USED - a discount function
@@ -435,10 +441,15 @@ def order_confirm(request):
     basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
     order = Order.objects.get(invoice_id=request.session['ORDER_ID'])
     order_items = BasketItem.objects.filter(basket=basket)
-    total_price = 3
+    total_price = 0
     for item in order_items:
         price = item.quantity * item.item.price
         total_price += price
+    
+    if total_price > 50:
+        postage_discount = True
+    else: 
+        total_price += 3
         
     if request.method == 'POST': 
         form = OrderCheckDetailsForm(request.POST)
@@ -514,6 +525,26 @@ def turn_off_twitter(request, id):
     shopper.save()
     return HttpResponseRedirect('/order/complete/')
 
+# handles the review/testimonial view
+def review(request, slug, number):
+    tea = get_object_or_404(Product, slug=slug)
+    shopper = get_object_or_404(Shopper, user__pk=number)
+    other_reviews = Review.objects.filter(product=tea)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            words = form.cleaned_data['text']   
+            review = Review.objects.create(
+                text=words,
+                product=tea,
+                owner=shopper,
+            )
+            
+            return render(request, "shop/forms/review_thanks.html", locals())
+        
+    else:
+        form = ReviewForm()
+    return render(request, "shop/forms/review_form.html", locals())
 
 # view for the photo wall
 def photos(request):

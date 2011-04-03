@@ -32,6 +32,10 @@ div.basket-row.postage {
     height: 40px;
 }
 
+.strikethrough {
+  text-decoration: line-through;	
+}
+
 div.basket-head-row {
   height: 15px;
   float: left;
@@ -175,6 +179,16 @@ img.paypal {
 		
 	  </div>
 	{% endfor %}
+	{% if postage_discount %}
+	  <div class="basket-row postage">
+	  	<div class="tea-remove">&nbsp;</div>
+		<div class="tea-name strikethrough"><em>Postage <span class="small">(Standard)</span></em></div>
+		<div class="tea-weight"><span class="small"><em>* Your order is over £50, so there's no postage charge!</em></span></div>
+		<div class="tea-price">&nbsp;</div>
+		<div class="tea-quantity">&nbsp;</div>
+		<div class="tea-total strikethrough">£3.00</div>
+	  </div>
+	{% else %}
 	  <div class="basket-row postage">
 	  	<div class="tea-remove">&nbsp;</div>
 		<div class="tea-name"><em>Postage <span class="small">(Standard)</span></em></div>
@@ -183,6 +197,7 @@ img.paypal {
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total">£3.00</div>
 	  </div>
+	{% endif %}
 	</div>
 	<div id="totals">
 		<div class="label">TOTAL:</div><div class="total">£{{ total_price }}</div>

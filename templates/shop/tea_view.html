@@ -305,7 +305,9 @@ table.details td.left {
 <br clear="all"/>
 	<div id="right">
 		
-			
+			{% if request.user.is_authenticated %}
+			<a href="{% url review tea.slug request.user.id %}">Review this tea</a>
+			{% endif %}
 			<div class="right-links">
            	<h3 class="more-info">Learn more about tea</h3>
            	<div class="info">

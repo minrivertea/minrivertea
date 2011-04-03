@@ -95,18 +95,26 @@ div#steps div.step.last {
 		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
 
 
-
+		{% if postage_discount %}
+		{% else %}
 		<input type="hidden" name="item_name_1" value="Postage Standard Rate"> 
 		<input type="hidden" name="quantity_1" value="1">
 		<input type="hidden" name="amount_1" value="3.00">
+		{% endif %}
 		 
-		 
-		 {% for thing in basket_items %}
-		<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
-		<input type="hidden" name="quantity_{{ forloop.counter|add:"1" }}" value="{{ thing.quantity }}">
-		<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.item.price }}"> 
-		 {% endfor %}
-
+		 {% if postage_discount %}
+	 		 {% for thing in basket_items %}
+				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
+				<input type="hidden" name="quantity_{{ forloop.counter }}" value="{{ thing.quantity }}">
+				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.item.price }}"> 
+			 {% endfor %}
+		{% else %}
+			 {% for thing in basket_items %}
+				<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
+				<input type="hidden" name="quantity_{{ forloop.counter|add:"1" }}" value="{{ thing.quantity }}">
+				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.item.price }}"> 
+			 {% endfor %}
+		{% endif %}
 
 		<div class="checkout-button">
 		<input type="submit" value="" next="" class="checkout-button"/>
@@ -138,12 +146,17 @@ div#steps div.step.last {
 	    				
 		  </tr>
 		  {% endfor %}
-		 
+		  {% if postage_discount %}
+		  <tr>
+		    <td><span class="small"><em>There is no postage charge, because your order is over £50</em></span></td>
+		  </tr>
+		  {% else %}
 		  <tr>
 		  	<td>Postage</td>
 		  	<td>&nbsp;</td>
 		  	<td>£3.00</td>		  
 		  </tr>
+		  {% endif %}
 		  <tr>
 		  	<td><strong>TOTAL</strong></td>
 		  	<td>&nbsp;</td>

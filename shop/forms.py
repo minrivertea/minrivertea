@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
-from minriver.shop.models import Address, Order, Discount, Shopper
+from minriver.shop.models import Address, Order, Discount, Shopper, Product
  
  
  
@@ -11,8 +11,9 @@ class AddressAddForm(ModelForm):
     class Meta:
         model = Address
         exclude = ('owner', 'is_preferred',)
+        
             
-    
+# handles the submission of their personal details during the order process
 class OrderCheckDetailsForm(forms.Form):
     email = forms.EmailField(error_messages={'required': '* Please give an email address', 'invalid': '* Please enter a valid e-mail address.'})
     first_name = forms.CharField(max_length=200, required=True, error_messages={'required': '* Please give your first name'})
@@ -39,22 +40,8 @@ class OrderCheckDetailsForm(forms.Form):
         
         
         return cleaned_data
-    
 
-class UpdateDiscountForm(forms.Form):
-    discount = forms.CharField(required=False, error_messages={'required': 'Please choose a star rating'})
-    
-    def clean_discount(self):
-        discount = self.cleaned_data['discount']
-        if discount:
-            d = Discount.objects.filter(discount_code=self.cleaned_data['discount'])
-            if not d:
-                raise forms.ValidationError("That's not a valid discount code")
-        else: 
-            pass
-        
-        return discount
-
+# handles the contact us form
 class ContactForm(forms.Form):
     your_name = forms.CharField(required=True)
     your_email = forms.EmailField(required=True, error_messages={'required': 'Please enter a valid email address'})
@@ -64,7 +51,8 @@ class UpdateProfileForm(forms.Form):
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
     email = forms.EmailField(required=False, error_messages={'required': 'Please enter a valid email address'})
-    
+  
+# handles the tea lover photo upload  
 class PhotoUploadForm(forms.Form):
     photo = forms.ImageField()
     email = forms.EmailField()
@@ -72,11 +60,16 @@ class PhotoUploadForm(forms.Form):
     last_name = forms.CharField(max_length=200, error_messages={'required': 'You must give your last name'})
     description = forms.CharField(widget=forms.Textarea, required=False)
 
+# the form for submitting a tell-a-friend email address
 class TellAFriendForm(forms.Form):
     recipient = forms.EmailField(required=True, error_messages={'required': '* You must give an email address for your friend'})
     sender = forms.EmailField(required=True, error_messages={'required': '* You must give your own email address'})
     message = forms.CharField(required=False, widget=forms.Textarea)
 
+# after the user has finished ordering, handles submission of their twitter username
 class SubmitTwitterForm(forms.Form):
     twitter_username = forms.CharField()
     
+# handles the testimonials or reviews of a particular tea (views.review)
+class ReviewForm(forms.Form):
+    text = forms.CharField(required=True, widget=forms.Textarea)

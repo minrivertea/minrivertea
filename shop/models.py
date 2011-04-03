@@ -109,7 +109,14 @@ class Shopper(models.Model):
         
         return value
             
-        
+class Review(models.Model):
+    product = models.ForeignKey(Product)
+    owner = models.ForeignKey(Shopper)
+    text = models.TextField()
+    is_published = models.BooleanField(default=False)
+    
+    def __unicode__(self):
+        return self.owner.email       
             
 class Address(models.Model):
     owner = models.ForeignKey(Shopper)
