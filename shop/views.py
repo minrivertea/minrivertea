@@ -58,7 +58,7 @@ def twitter_post(tweet):
 
 # the homepage view
 def index(request):
-    photos = Photo.objects.filter(published_homepage=True).order_by('?')[:1]
+    photos = Photo.objects.filter(published_homepage=True).order_by('?')[:6]
     
     try:
         basket =  get_object_or_404(Basket, id=request.session['BASKET_ID'])
