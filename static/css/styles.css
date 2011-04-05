@@ -453,6 +453,7 @@ div#main-text-wide div#right {
     float: right;
     padding-left: 30px;
     width: 240px;
+    margin-top: 30px;
 }
 
 p.introduction {
@@ -829,31 +830,29 @@ ul.errorlist {
 
 
 div#user-photos {
+    border-top: 1px solid #E1E1E1;
     float: left;
-    margin: 20px 0 0 30px;
+    margin: 0 0 0;
     padding-bottom: 20px;
     padding-right: 20px;
-    padding-top: 0;
-    width: 710px;
+    padding-top: 30px;
+    width: 780px;
 }
 
 div#user-photos div.a-user-photo {
-    border-bottom: 1px solid #E1E1E1;
     float: left;
-    margin-bottom: 40px;
+    margin: 0 20px 40px 0;
     padding-bottom: 40px;
-    width: 730px;
+    width: 120px;
 }
 
 div#user-photos div.a-user-photo div.photo {
   float: left;
-  width: 200px;
-  margin-right: 20px;	
+  margin-bottom: 5px;	
 }
 
 div#user-photos div.a-user-photo div.info {
     float: left;
-    width: 490px;
 }
 
 div#user-photos div.a-user-photo div.info p {
@@ -861,19 +860,11 @@ div#user-photos div.a-user-photo div.info p {
   float: left;	
 }
 
-div#user-photos div.a-user-photo div.info p.quote {
-  font-size: 17px;	
-  color: #666;
-  padding-left: 10px;
-  margin-bottom: 10px;
-}
-
 div#user-photos div.a-user-photo div.info p.recommend {
     color: black;
     float: left;
-    font-size: 14px;
+    font-size: 12px;
     font-style: italic;
-    margin: -4px 10px 0;
 }
 
 div#photo input#id_photo {

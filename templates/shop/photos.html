@@ -11,7 +11,7 @@ div#submit_1 {
     margin: 10px 0 20px;
     padding: 20px 20px 20px 30px;
     -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
-    height: {% if shopper %}300px{% else %}530px{% endif %};
+    height: {% if shopper %}300px{% else %}380px{% endif %};
 }
 
 div#submit_1 h3 {
@@ -121,59 +121,20 @@ p.help-text img {
 <div id="main-text-wide">
 	<div id="photo">
 
-
-		{% if message %}
-		<div class="message">
-		<p>{{ message }}</p>
-		</div>
-		{% else %}
-		<div id="add-a-photo">
-			<a href="#" onclick="toggle_visibility(1);"></a>
-		</div>
 		
-		<p class="introduction">Because we love happy tea drinkers, send us a photo of yourself drinking tea and we'll donate £1 to <a href="http://www.mind.org.uk">Mind UK</a> for each picture.</p>
-		
-{% endif %}
-
-		<div style="display: none;" id="submit_1">
-		<h3 class="user-add-photo">Upload your own photo</h3>
-		
-		<form method="post" action="." enctype="multipart/form-data" >
-		
+		<p class="introduction">Because we love happy tea drinkers, send a photo of yourself drinking tea to <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> and we'll donate £1 to <a href="http://www.mind.org.uk">Mind UK</a> for each picture we receive.</p>
 
 
-							
-		    	{{ form.photo.errors }}
-				<div class="checkout-button">
-				<p>Submit your photo and we'll donate £1 for every photo we receive to <a href="http://www.mind.org.uk">Mind UK</a>.</p>
-				<input type="submit" value="" next="" class="submit" />
-				</div>
-				{% if shopper %}
-				<input style="display: none" id="id_first_name" type="text" name="first_name" maxlength="200" value="{{ shopper.first_name }}" /></p>
-				<input style="display: none" id="id_last_name" type="text" name="last_name" maxlength="200" value="{{ shopper.last_name }}" /></p>
-				<input style="display: none" id="id_email" type="text" name="email" maxlength="200" value="{{ shopper.email }}" /></p>
-				{% else %}
-				<p><label>First name</label><br/><input id="id_first_name" type="text" name="first_name" maxlength="200" value="" /></p>
-				<p><label>Last name</label><br/><input id="id_last_name" type="text" name="last_name" maxlength="200" value="" /></p>
-				<p><label>Your email</label><br/><input id="id_email" type="text" name="email" maxlength="200" value="" /></p>
-				<p class="help-text"><img src="{% staticfile '/images/lock.gif' %}"> We will never share your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)</p>
-				{% endif %}
-				<p><label>Write us a little message about how much you love tea!</label><br/><textarea id="id_description" rows="4" cols="40" name="description"></textarea></p>
-				<p><label>Select an image file from your computer <span class="red">(* required)</span></label><br/><input type="file" name="photo" id="id_photo" /></p>
-				
-							
-			</form>
-		</div>
+		
 
 		<div id="user-photos">
 			{% for p in photos %}
 				<div class="a-user-photo">
 					<div class="photo">
-						<img src="{% thumbnail p.photo 200x200 %}">
+						<img src="{% thumbnail p.photo 120x120 crop %}">
 					</div>
 					<div class="info">
-						<p class="quote"><span class="quotes">"</span>{{ p.description }}<span class="quotes">"</span></p>
-						<p class="recommend">{{ p.shopper.first_name }} likes to drink <a href="{{ p.related_product.get_absolute_url }}">{{ p.related_product.name }}</a> Chinese tea</p>
+						<p class="recommend">{{ p.shopper.first_name }}<br/><a href="{{ p.related_product.get_absolute_url }}">{{ p.related_product.name }}</a> tea</p>
 					</div>
 				</div>
 			{% endfor %}

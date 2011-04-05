@@ -118,23 +118,20 @@ div#learn p {
 {% include "shop/snippets/products.html" %}
       
 	</div>
-	
 
 
 	<div id="home-extra">
 
 	<div id="user-photos">
-	<img src="{% staticfile '/images/leaves.png' %}" class="leaf"/>
-		<a class="see-more" title="See our photo wall of happy tea drinkers!" href="{% url photos %}">Checkout what other people are drinking <span class="large">&raquo;</span></a>
+		<img src="{% staticfile '/images/leaves.png' %}" class="leaf"/>
+		<a class="see-more" title="See our photo wall of happy tea drinkers!" href="{% url photos %}">
+			Checkout what other people are drinking <span class="large">&raquo;</span>
+		</a>
 		<h2>These beautiful people love Chinese tea!</h2>
 			{% for p in photos %}
 				<div class="a-user-photo">
 					<div class="photo">
-						<img src="{% thumbnail p.photo 200x130 crop %}">
-					</div>
-					<div class="info">
-						<p class="quote"><span class="quotes">"</span>{{ p.description }}<span class="quotes">"</span></p>
-						<p class="name">{{ p.shopper.first_name }} {{ p.shopper.last_name }}</p>
+						<img src="{% thumbnail p.photo 110x100 crop %}">
 					</div>
 				</div>
 			{% endfor %}

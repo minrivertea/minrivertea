@@ -107,7 +107,8 @@ def tea_view(request, slug):
     tea = get_object_or_404(Product, slug=slug)
     prices = UniqueProduct.objects.filter(parent_product=tea)
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
-        
+    reviews = Review.objects.filter(product=tea.id)
+
     return render(request, "shop/tea_view.html", locals())
     
 def contact_us(request):
@@ -556,7 +557,6 @@ def photos(request):
 
             # name and description are easy...
             email = form.cleaned_data['email']
-            description = form.cleaned_data['description']
             
             # get or create a user object
             try:
@@ -613,8 +613,7 @@ def photos(request):
             
             new_photo = Photo.objects.create(
                     shopper=the_shopper,
-                    photo=photo_filename,
-                    description=description,            
+                    photo=photo_filename,           
                     )
             new_photo.save()
             

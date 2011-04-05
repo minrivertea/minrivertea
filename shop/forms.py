@@ -58,7 +58,6 @@ class PhotoUploadForm(forms.Form):
     email = forms.EmailField()
     first_name = forms.CharField(max_length=200, error_messages={'required': 'You must give your first name'})
     last_name = forms.CharField(max_length=200, error_messages={'required': 'You must give your last name'})
-    description = forms.CharField(widget=forms.Textarea, required=False)
 
 # the form for submitting a tell-a-friend email address
 class TellAFriendForm(forms.Form):

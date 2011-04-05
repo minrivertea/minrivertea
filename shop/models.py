@@ -225,7 +225,6 @@ class WeLike(models.Model):
 class Photo(models.Model):
     shopper = models.ForeignKey(Shopper)
     photo = models.ImageField(upload_to='images/user-submitted')
-    description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     published_homepage = models.BooleanField(default=False)
     email_sent = models.BooleanField(default=False)
