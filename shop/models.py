@@ -184,6 +184,7 @@ class Order(models.Model):
     )
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
+    review_email_sent = models.BooleanField(default=False)
     
     
     def get_discount(self):

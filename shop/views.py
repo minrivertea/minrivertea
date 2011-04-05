@@ -529,7 +529,7 @@ def turn_off_twitter(request, id):
 # handles the review/testimonial view
 def review(request, slug, number):
     tea = get_object_or_404(Product, slug=slug)
-    shopper = get_object_or_404(Shopper, user__pk=number)
+    shopper = get_object_or_404(Shopper, id=number)
     other_reviews = Review.objects.filter(product=tea)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -541,11 +541,39 @@ def review(request, slug, number):
                 owner=shopper,
             )
             
-            return render(request, "shop/forms/review_thanks.html", locals())
+            return HttpResponseRedirect('/review/thanks')
         
     else:
         form = ReviewForm()
     return render(request, "shop/forms/review_form.html", locals())
+
+def send_review_email(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    
+    # create and send an email to the user to say thanks.
+    body = render_to_string('shop/emails/review_email.txt', {
+        'shopper': order.owner, 
+        'items': order.items.all(),
+        }
+    )
+                 
+    subject_line = "minrivertea.com - if you liked your tea, please give a review!" 
+    email_sender = settings.SITE_EMAIL
+    recipient = order.owner.email
+      
+    send_mail(
+        subject_line, 
+        body, 
+        email_sender,
+        [recipient], 
+        fail_silently=False
+    )
+    
+    order.review_email_sent = True
+    order.save()
+    
+    return HttpResponseRedirect('/admin-stuff')   
+        
 
 # view for the photo wall
 def photos(request):

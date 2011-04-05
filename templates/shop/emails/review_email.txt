@@ -1,0 +1,16 @@
+Hi {{ shopper.first_name }},
+
+I hope you've had a chance to try your tea, and that you like it!
+
+It's really important to us that you enjoyed your tea, and that your views are heard. If there's anything that you'd like to let us know, whether positive or negative, about the tea you bought, you can quickly let us know using this form:
+
+{% for item in items %}
+  {{ item.item.parent_product.name }} : http://www.minrivertea.com/review/{{ item.item.parent_product.slug }}/{{ shopper.id }}/
+{% endfor %}
+
+It will only take a minute to write down your thoughts, and it helps us improve our product and service, and helps others choose the right tea for them.
+
+All the best
+
+Chris West 
+(Founder, the Min River Tea Farm)

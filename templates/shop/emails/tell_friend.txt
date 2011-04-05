@@ -1,4 +1,4 @@
-Hi there,
+Hi {{ shopper.first_name }},
 
 {{ sender }} has recommended that you check out this tea from the Min River Tea Farm:
 
