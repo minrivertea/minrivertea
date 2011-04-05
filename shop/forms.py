@@ -5,8 +5,6 @@ from django.contrib.auth.models import User
 from minriver.shop.models import Address, Order, Discount, Shopper, Product
  
  
- 
- 
 class AddressAddForm(ModelForm): 
     class Meta:
         model = Address
@@ -52,13 +50,6 @@ class UpdateProfileForm(forms.Form):
     last_name = forms.CharField(required=False)
     email = forms.EmailField(required=False, error_messages={'required': 'Please enter a valid email address'})
   
-# handles the tea lover photo upload  
-class PhotoUploadForm(forms.Form):
-    photo = forms.ImageField()
-    email = forms.EmailField()
-    first_name = forms.CharField(max_length=200, error_messages={'required': 'You must give your first name'})
-    last_name = forms.CharField(max_length=200, error_messages={'required': 'You must give your last name'})
-
 # the form for submitting a tell-a-friend email address
 class TellAFriendForm(forms.Form):
     recipient = forms.EmailField(required=True, error_messages={'required': '* You must give an email address for your friend'})

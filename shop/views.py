@@ -503,7 +503,7 @@ def turn_off_twitter(request, id):
 def review(request, slug, number):
     tea = get_object_or_404(Product, slug=slug)
     shopper = get_object_or_404(Shopper, id=number)
-    other_reviews = Review.objects.filter(product=tea)
+    other_reviews = Review.objects.filter(product=tea, is_published=True)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -550,109 +550,8 @@ def send_review_email(request, order_id):
 
 # view for the photo wall
 def photos(request):
-    if request.method == 'POST':
-        form = PhotoUploadForm(request.POST, request.FILES)
-                
-        # if the form has no errors...
-        if form.is_valid(): 
 
-            # name and description are easy...
-            email = form.cleaned_data['email']
-            
-            # get or create a user object
-            try:
-                this_user = get_object_or_404(User, email=form.cleaned_data['email'])
-            except:
-                username = form.cleaned_data['email']
-                random_password = uuid.uuid1().hex
-                creation_args = {
-                    'username': form.cleaned_data['email'],
-                    'email': form.cleaned_data['email'],
-                    'password': random_password,
-                }
-                    
-                this_user = User.objects.create(**creation_args)
-                this_user.first_name = form.cleaned_data['first_name']
-                this_user.last_name = form.cleaned_data['last_name']
-                this_user.save()          
-            
-            # find or create a shopper object, based on their email
-            try:
-                the_shopper = get_object_or_404(Shopper, email=form.cleaned_data['email'])
-            except:
-                full_name = "%s %s" % (form.cleaned_data['first_name'], form.cleaned_data['last_name'])
-                print full_name
-                slugger = smart_slugify(full_name, lower_case=True)
-                the_shopper = Shopper.objects.create(
-                    user = this_user,
-                    email = form.cleaned_data['email'],
-                    first_name = form.cleaned_data['first_name'],
-                    last_name = form.cleaned_data['last_name'],
-                    subscribed = False,
-                    slug = slugger,     
-                )
-            
-            # the photo is more difficult
-            photo = request.FILES['photo']
-            image_content = photo.read()
-            image = Image.open(StringIO(image_content))
-            format = image.format
-            format = format.lower().replace('jpeg', 'jpg')
-            filename = md5.new(image_content).hexdigest() + '.' + format
-            # Save the image
-            path = os.path.join(settings.MEDIA_ROOT, 'images/user-submitted', filename)
-            # check that the dir of the path exists
-            dirname = os.path.dirname(path)
-            if not os.path.isdir(dirname):
-                try:
-                    os.mkdir(dirname)
-                except IOError:
-                    raise IOError, "Unable to create the directory %s" % dirname
-            open(path, 'w').write(image_content)
-            photo_filename = 'images/user-submitted/%s' % filename            
-            
-            
-            new_photo = Photo.objects.create(
-                    shopper=the_shopper,
-                    photo=photo_filename,           
-                    )
-            new_photo.save()
-            
-            # create and send an email to the user to say thanks.
-            body = render_to_string('shop/emails/new_photo_thanks.txt', {
-                'first_name': new_photo.shopper.first_name, 
-                }
-            )
-                 
-            subject_line = "Thanks for submitting a photo to www.minrivertea.com" 
-            email_sender = settings.SITE_EMAIL
-            recipient = new_photo.shopper.email
-      
-            send_mail(
-                 subject_line, 
-                 body, 
-                 email_sender,
-                 [recipient], 
-                 fail_silently=False
-            )   
-            
-            # load the content for the return page
-            photos = Photo.objects.filter(published=True)[:10]
-            message = "Thanks for submitting your photo! We have to check and approve it first, and then it will appear here. Happy tea-drinking!"
-            
-            
-            
-            return render(request, 'shop/photos.html', locals())
-            
-        else:
-            if form.non_field_errors():
-                non_field_errors = form.non_field_errors()
-            else:
-                errors = form.errors
-    
-    else:
-        form = PhotoUploadForm()
-        photos = Photo.objects.filter(published=True).order_by('-id')[:10]
+    photos = Photo.objects.filter(published=True).order_by('-id')[:10]
     
     return render(request, 'shop/photos.html', locals())
 
