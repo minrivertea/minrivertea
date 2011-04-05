@@ -58,30 +58,23 @@ def twitter_post(tweet):
 
 # the homepage view
 def index(request):
-    photos = Photo.objects.filter(published_homepage=True).order_by('?')[:6]
     
-    try:
-        basket =  get_object_or_404(Basket, id=request.session['BASKET_ID'])
-    except:
-        basket = None
-        
+    # load variables
+    photos = Photo.objects.filter(published_homepage=True).order_by('?')[:6]        
     featured = Product.objects.filter(is_active=True).exclude(category="POS") 
     prices = UniqueProduct.objects.all()
     welike = WeLike.objects.all()[:2]
-   
+    
+    # load the products and prices combinations
     products_and_prices = []
     for product in featured:
         products_and_prices.append((product, prices.filter(parent_product=product)))
+    
     return render(request, "shop/home.html", locals())
     
     
 # the product listing page
 def teas(request):
-
-    try:
-        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-    except:
-        basket = None
             
     products = Product.objects.filter(category="TEA", is_active=True)
     prices = UniqueProduct.objects.all()
@@ -93,7 +86,6 @@ def teas(request):
 
 # view for a single product
 def tea_view(request, slug):
-    
     try:
         added = request.session['ADDED']
     except:
@@ -107,7 +99,7 @@ def tea_view(request, slug):
     tea = get_object_or_404(Product, slug=slug)
     prices = UniqueProduct.objects.filter(parent_product=tea)
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
-    reviews = Review.objects.filter(product=tea.id)
+    reviews = Review.objects.filter(product=tea.id, is_published=True)
 
     return render(request, "shop/tea_view.html", locals())
     
@@ -248,12 +240,12 @@ def increase_quantity(request, productID):
 
 # the view for your basket
 def basket(request):
+
     try:
         basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
     except:
         basket = None        
-            
-    
+                
     basket_items = BasketItem.objects.filter(basket=basket)
     total_price = 0
     for item in basket_items:
@@ -266,25 +258,6 @@ def basket(request):
         total_price += 3
         
     return render(request, "shop/basket.html", locals())
-
-# NOT USED - a discount function
-def update_discount(request):
-    if request.method == 'POST':
-        form = UpdateDiscountForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            
-            if data['discount']:
-                d = Discount.objects.get(discount_code=data['discount'])
-                request.session['DISCOUNT_ID'] = d.id
-                
-            return HttpResponseRedirect('/order/check-details') 
-    
-    else:
-        confirm_form = OrderConfirmForm() 
-        discount_form = UpdateDiscountForm()
-
-    return render_to_response('shop/forms/order_check_details.html', locals(), context_instance=RequestContext(request))
 
 
 # the view for order process step 1 - adding your details
