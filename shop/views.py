@@ -472,7 +472,7 @@ def order_complete(request):
             
             if shopper.get_orders() is not None:
                 # create a tweet
-                tweet =  render_to_string('emails/tweet.txt', {'twitter_username': twitter_username})
+                tweet =  render_to_string('shop/emails/tweet.txt', {'twitter_username': twitter_username})
             
                 # tweet a message to them to say thanks for ordering!
                 twitter_post(tweet)            

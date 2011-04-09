@@ -293,7 +293,7 @@ def show_me_the_money(sender, **kwargs):
     invoice_id = order.invoice_id
     first_name = order.owner.first_name
     recipient = order.owner.email
-    body = render_to_string('emails/order_confirm_customer.txt', {
+    body = render_to_string('shop/emails/order_confirm_customer.txt', {
     	        'first_name': first_name, 
     	        'invoice_id': invoice_id, 
     	        'order_items': order.items.all(), 
@@ -313,7 +313,7 @@ def show_me_the_money(sender, **kwargs):
     invoice_id = order.invoice_id
     email = order.owner.email
     recipient = 'mail@minrivertea.com'
-    body = render_to_string('emails/order_confirm_admin.txt', {
+    body = render_to_string('shop/emails/order_confirm_admin.txt', {
     	        'email': email, 
     	        'invoice_id': invoice_id, 
     	        'order_items': order.items.all(), 
@@ -341,7 +341,7 @@ def payment_flagged(sender, **kwargs):
     invoice_id = order.invoice_id
     email = order.owner.email
     recipient = 'mail@minrivertea.com'
-    body = render_to_string('emails/order_confirm_admin.txt', {'email': email, 'invoice_id': invoice_id, 'order_items': order.items.all()})
+    body = render_to_string('shop/emails/order_confirm_admin.txt', {'email': email, 'invoice_id': invoice_id, 'order_items': order.items.all()})
     subject_line = "FLAGGED ORDER - %s" % invoice_id 
     email_sender = 'mail@minrivertea.com'
       
