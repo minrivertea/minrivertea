@@ -199,12 +199,13 @@ class Order(models.Model):
         return self.invoice_id
     
     def get_amount(self):
-        if self.is_giveaway == True:
-            amount = 0
-        else:
-            amount = 3
+        amount = 0
         for item in self.items.all():
             amount += item.get_price()
+        if amount > 50:
+            pass
+        else:
+            amount += 3
         return amount
     
 class WeLike(models.Model):

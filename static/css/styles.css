@@ -374,7 +374,7 @@ div#box {
 
 div.home-products {
     float: left;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     margin-top: 30px;
 }
 
@@ -391,15 +391,12 @@ div#home-extra div#user-photos img {
 }
 
 div#home-extra div#user-photos {
-    -moz-border-radius: 10px 10px 10px 10px;
-    -moz-box-shadow: 0 1px 8px #C1C1C1;
-    background: url("/images/gray-stripe.png") repeat scroll 0 0 transparent;
-    border-bottom: 1px solid #E1E1E1;
     margin-bottom: 20px;
     margin-left: 0;
-    margin-top: 10px;
+    margin-top: 0px;
     padding: 20px 30px 30px;
     width: 740px;
+    border-top: none;
 }
 
 div#home-extra div#user-photos div.a-user-photo {
@@ -489,7 +486,7 @@ div.tea-promo.last {
 
 
 div.image-top {
-  height: 10px;
+  height: 5px;
   background: url('/images/stripe.png') repeat-x;
   width: 100%;	
   float: left;

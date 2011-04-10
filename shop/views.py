@@ -63,7 +63,7 @@ def index(request):
     photos = Photo.objects.filter(published_homepage=True).order_by('?')[:6]        
     featured = Product.objects.filter(is_active=True).exclude(category="POS") 
     prices = UniqueProduct.objects.all()
-    welike = WeLike.objects.all()[:2]
+    welike = WeLike.objects.all().order_by('-date_added')[:2]
     
     # load the products and prices combinations
     products_and_prices = []
