@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load django_static %}
 
 {% block pagetitle %}our tea blog{% endblock %}
 
@@ -81,6 +82,22 @@ div.like div.text {
   float: left;
   width: 140px;
 }
+
+div.rss {
+  position: relative;
+  float: right;
+  top: -45px;
+  height: 0;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+div.rss img {
+  position: relative;
+  top: 4px;	
+}
 </style>
 {% endblock %}
 
@@ -91,7 +108,7 @@ div.like div.text {
 	    	<div id="home-banner">
 	    	<h2 class="logo-assist">The Min River blog</h2>
 	    	<p class="normal">All the news about Chinese tea and what's up at the Min River Tea Farm</p>
-
+				
 			</div>
 {% endblock %}
 
@@ -102,11 +119,15 @@ div.like div.text {
 <div id="main-text-wide">
 
 	<div id="blog-right">
+		
 		{% include "blog/snippets/blog-right.html" %}
 	</div>
 
 	<div id="blog-left">
 	<h3 class="title">Latest posts...</h3>
+<div class="rss">
+				<a href="/feeds/latest/">Get the RSS feed <img class="rss" src="{% staticfile '/images/rss.png' %}"></a>
+				</div>
  		<div class="entry-list">
 			{% include "blog/snippets/entry-list.html" %}
 		</div>

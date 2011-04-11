@@ -5,6 +5,7 @@ from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product
 from blog.models import BlogEntry
+from minriver.blog.feeds import LatestEntries
 
 # admin urls
 from django.contrib import admin
@@ -25,6 +26,11 @@ sitemaps = {
     'blogs': GenericSitemap(blogs, priority=0.6),
 }
 
+# for the feeds
+feeds = {
+    'latest': LatestEntries,
+}
+
 # main URL patterns
 urlpatterns = patterns('',
     (r'^', include('minriver.shop.urls')),
@@ -33,8 +39,10 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
     (r'^nosoupforyou/$', direct_to_template, {'template': '500_fake.html'}),
+    (r'^400/$', direct_to_template, {'template': '404.html'}),
 )
 
 
