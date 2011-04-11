@@ -8,11 +8,37 @@
 			</div>
 {% endblock %}
 
+{% block extracss %}
+<style type="text/css">
+div#left-nav {
+	width: 180px;
+	background-color: #fff;
+	min-height: 200px;
+	float: left;
+	margin-right: 30px;
+}
+
+</style>
+{% endblock %}
+
 {% block content %}
 
 <div id="featured-small"></div>
 
 <div id="main-text-wide">
+
+<div id="left-nav">
+  <ul>
+    <li>About Us
+      <ul>
+        <li>Our story</li>
+        <li>About the founder</li>
+        <li>Where we're based</li>
+      </ul>    
+    </li>
+    <li>Learn</li>
+  </ul>
+</div>
 
 <div class="flatpage">
 {{ flatpage.content }}

@@ -232,6 +232,10 @@ ul.reviews li span {
   color: #BE373A;	
 }
 
+h3.small {
+  font-size: 15px;	
+}
+
 </style>
 {% endblock %}
 
@@ -313,7 +317,13 @@ ul.reviews li span {
 	<div class="image-top"></div>
 <br clear="all"/>
 	<div id="right">
-		
+		    <div class="right-links">
+           	  <div class="info">
+           		<h3 class="small">* Free delivery on orders over £50</h3>
+           		<p>If you order over £50, there's no postage charge for your tea.</p>
+           	  </div>
+           	</div>
+           	
 			<div class="right-links">
            	<h3 class="more-info">Learn more about tea</h3>
            	<div class="info">
@@ -334,7 +344,9 @@ ul.reviews li span {
            			<a href="{% url tell_a_friend %}">Tell your friends &raquo;</a>
            		</p>
            	</div>
+           	</div>
            	
+
            	
            	<div class="right-links">
 			<h3 class="more-info">Our other teas</h3>
@@ -348,25 +360,10 @@ ul.reviews li span {
 				</div>
 			 	{% endfor %}
 			</div>
-
            	
+      	</div>
            	
-           	
-           	</div>
-           	
-           	
-
-			 <br clear="all"/>
-
-			 
-			 
-
-
-	
-	
-	
-	
-	</div>
+  
 
 
 

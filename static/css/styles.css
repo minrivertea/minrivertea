@@ -892,8 +892,8 @@ div#right div.message p {
 /* About styles */
 
 div.flatpage div#left {
-  width: 500px;
-  float: left;	
+    float: left;
+    width: 500px;
 }
 
 div.flatpage p {
