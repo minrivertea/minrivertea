@@ -100,6 +100,17 @@ div#learn p {
   margin-top: 0px;
 }
 
+p.testimonial {
+  float: left;
+  margin-left: 20px;
+  font-size: 14px;
+  margin-bottom: 0;	
+}
+
+p.testimonial span.red {
+  color:#BE373A;	
+}
+
 </style>
 {% endblock %}
 
@@ -131,11 +142,13 @@ div#learn p {
 			{% for p in photos %}
 				<div class="a-user-photo">
 					<div class="photo">
-						<img src="{% thumbnail p.photo 110x100 crop %}">
+						<img title="{{ p.shopper.first_name }} likes to drink {{ p.related_product }}" alt="" src="{% thumbnail p.photo 110x100 crop %}">
 					</div>
 				</div>
 			{% endfor %}
-	
+			{% for r in review %}
+			<p class="testimonial"><em>&ldquo;{{ r.text }}&rdquo;</em> <span class="red">{{ r.owner.first_name }} {{ r.owner.last_name }}</span></p>
+			{% endfor %}
 	</div>
 	
 	<div class="image-top"></div>
