@@ -274,14 +274,13 @@ div#home-banner {
 
 
 #home-banner h2.logo-assist {
-  font-size: 3.8em;
-  letter-spacing: -3px;
-  color: #19761c;
-  line-height: 1em;
-  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: 10px;	
+    color: #19761C;
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+    font-size: 3.8em;
+    font-weight: bold;
+    letter-spacing: -3px;
+    line-height: 1em;
+    margin: 20px 0 10px;
 }
 
 #navigation {
