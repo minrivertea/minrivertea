@@ -447,8 +447,8 @@ div#main-text-wide div#right {
     border-left: 1px solid #E1E1E1;
     float: right;
     padding-left: 30px;
+    padding-top: 10px;
     width: 240px;
-    margin-top: 30px;
 }
 
 p.introduction {
@@ -964,7 +964,7 @@ div.flatpage p.about-promo {
 }
 
 div.flatpage div#right p {
-  font-size: 0.9em;
+  font-size: 0.8em;
   color: #333;
   width: 100%;	
   margin-bottom: 10px;
