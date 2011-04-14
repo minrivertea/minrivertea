@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load django_static %}
 
 {% block pagetitle %}{{ flatpage.title }}{% endblock %}
 
@@ -26,7 +27,7 @@
 
 	<div id="right">	
 		<div class="about-box">
-			<img src="/static/images/chris-about.jpg">
+			<img src="{% staticfile '/images/chris-about.jpg' %}">
 			<p class="quote"><em>&ldquo;Hi, I'm Chris the founder of the Min River Tea Farm. I've made it my mission to supply great quality Chinese teas to the UK. Consider me your man in China!&rdquo;</em></p>
 		</div>
 		<div class="about-box">
