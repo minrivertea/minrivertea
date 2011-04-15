@@ -62,7 +62,7 @@ def index(request):
     # load variables
     photos = Photo.objects.filter(published_homepage=True).order_by('?')[:6]        
     featured = Product.objects.filter(is_active=True).exclude(category="POS") 
-    prices = UniqueProduct.objects.all()
+    prices = UniqueProduct.objects.filter(is_active=True)
     welike = WeLike.objects.all().order_by('-date_added')[:2]
     review = Review.objects.all()[:1]
     
@@ -78,7 +78,7 @@ def index(request):
 def teas(request):
             
     products = Product.objects.filter(category="TEA", is_active=True)
-    prices = UniqueProduct.objects.all()
+    prices = UniqueProduct.objects.filter(is_active=True)
     products_and_prices = []
     for product in products:
         products_and_prices.append((product, prices.filter(parent_product=product)))
@@ -98,7 +98,7 @@ def tea_view(request, slug):
         request.session['ADDED'] = None
         
     tea = get_object_or_404(Product, slug=slug)
-    prices = UniqueProduct.objects.filter(parent_product=tea)
+    prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True)
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
     reviews = Review.objects.filter(product=tea.id, is_published=True)
 
