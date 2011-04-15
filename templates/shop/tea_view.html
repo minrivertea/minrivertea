@@ -141,9 +141,9 @@ img.mail-icon {
 }
 
 div.tea-top {
-  float: left;
-  margin-bottom: 0px;
-  padding-bottom: 20px;	
+    float: left;
+    margin-top: 10px;
+    padding-bottom: 20px;
 }
 
 div.image-top {
@@ -159,12 +159,15 @@ div.tea-top div.main-image {
 
 div.tea-top div.prices {
   float: left;
-  width: 230px;	
+  width: 230px;
+  margin-bottom: 10px;	
 }
 
 div.tea-top div.tea-description {
   float: left;
-  width: 240px;
+  width: 270px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 div.tea-top div.tea-description p {
@@ -175,9 +178,9 @@ div.tea-top div.tea-description p {
 div.message {
     float: left;
     margin-bottom: 0;
-    margin-top: 5px;
+    margin-top: 10px;
     padding: 5px 15px;
-    width: 200px;
+    width: 235px;
 }
 
 div.message a {
@@ -245,7 +248,7 @@ h3.small {
 
 {% block banner %}
 	    	<div id="home-banner">
-	    	<h2 class="logo-assist">{{ tea.name }}</h2>
+	    	<h2 class="logo-assist">{{ tea.name }} tea</h2>
 	    		<p class="normal">{{ tea.super_short_description }}</p>
 			</div>
 {% endblock %}
@@ -264,6 +267,26 @@ h3.small {
 				alt="a picture of {{ tea.name }}" 
 				title="{{ tea.description }}" 
 				src="{% thumbnail tea.image 500x500 %}"/>
+		</div>
+		
+				<div class="prices">
+			{% for price in prices %}
+				<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
+				<div class="price{% if forloop.first %} first{% endif %}">  
+					<div class="price-text">
+					{{ price.price_unit }}{{ price.price|floatformat }} 
+					<span class="grey"> / {{ price.weight|floatformat }}{{ price.weight_unit }}</span>
+            		</div>
+            	</div>
+            	</a>
+           	{% endfor %}
+           	
+           	{% if message %}
+	  			<div class="message">
+					<p>{{ message }}</p>
+					<p><a href="{% url basket %}">Checkout now &raquo;</a></p>
+				</div>
+	  		{% endif %}
 		</div>
 		
 		<div class="tea-description">
@@ -293,25 +316,7 @@ h3.small {
 			
 		</div>
 		
-		<div class="prices">
-			{% for price in prices %}
-				<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
-				<div class="price{% if forloop.first %} first{% endif %}">  
-					<div class="price-text">
-					{{ price.price_unit }}{{ price.price|floatformat }} 
-					<span class="grey"> / {{ price.weight|floatformat }}{{ price.weight_unit }}</span>
-            		</div>
-            	</div>
-            	</a>
-           	{% endfor %}
-           	
-           	{% if message %}
-	  			<div class="message">
-					<p>{{ message }}</p>
-					<p><a href="{% url basket %}">Checkout now &raquo;</a></p>
-				</div>
-	  		{% endif %}
-		</div>
+
 
 	</div>
 	
@@ -369,8 +374,7 @@ h3.small {
 
 
 	<div class="left">
-	<h3>More about this tea</h3>
-	{{ tea.long_description|safe }}
+
 	{% if reviews %}
 	<h3>Customer reviews</h3>
 		<ul class="reviews">
@@ -379,6 +383,9 @@ h3.small {
 		{% endfor %}
 		</ul>
 	{% endif %}
+	
+		<h3>More about this tea</h3>
+	{{ tea.long_description|safe }}
 	</div>
 	
 

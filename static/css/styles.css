@@ -231,20 +231,20 @@ div#header-messages div.hm {
 }
 
 div#logo {	 
- width: 210px;
+ width: 230px;
  float: left;
- margin: 0px 0 0 20px;
+ margin: 0px 0 0 10px;
 }
 
 div#logo h1.home {
-  background: url('/images/logo3.png') no-repeat scroll 0 0 transparent;
-  height: 210px;	
+  background: url('/images/logo4.png') no-repeat scroll 0 0 transparent;
+  height: 230px;	
   margin: 0px 0 0 0px;
 }
 
 div#logo h1 {
-    background: url("/images/logo3.png") no-repeat scroll 0 0 transparent;
-    height: 210px;
+    background: url("/images/logo4.png") no-repeat scroll 0 0 transparent;
+    height: 230px;
     margin: 0px 0 0 0px;
 }
 
@@ -258,8 +258,7 @@ div#logo:hover {
 
 div#home-banner {
     float: right;
-    height: 160px;
-    margin: 30px 10px 0 0;
+    margin: 20px 0px 0 0;
     text-align: right;
     width: 560px;
 }
@@ -285,7 +284,7 @@ div#home-banner {
 
 #navigation {
   float: right;
-  margin: 0px 0px 0;	
+  margin: 20px 0px 0;	
 }
 
 ul#nav {
@@ -374,7 +373,7 @@ div#box {
 div.home-products {
     float: left;
     margin-bottom: 10px;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 div#home-extra {
@@ -452,15 +451,13 @@ div#main-text-wide div#right {
 }
 
 p.introduction {
-  font-size: 1.2em;	
-  font-weight: 300;
-  width: 800px;
-  margin-top: 0;
-  padding-bottom: 0px;
-  color: #30A5C7;
-
-  padding-bottom: 10px;
-
+    color: #30A5C7;
+    font-size: 1.2em;
+    font-weight: 300;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    width: 700px;
 }
 
 
@@ -534,10 +531,10 @@ div#right p {
 div.tea-top div.price {
     background: url("/images/price-back.png") no-repeat scroll right top transparent;
     float: left;
-    height: 14px;
-    margin: 0 0 0;
+    height: 21px;
+    margin: 0;
     padding: 12px 0 15px 3px;
-    width: 230px;
+    width: 265px;
 }
 
 div.tea-top div.price:hover {
@@ -549,7 +546,6 @@ div#right div.price.first:hover {
 
 }
 
-
 div.price-text {
     color: #EE6464;
     float: left;
@@ -560,7 +556,7 @@ div.price-text {
     letter-spacing: -1px;
     margin: 0;
     position: relative;
-    top: -8px;
+    top: -4px;
     width: 200px;
 }
 
