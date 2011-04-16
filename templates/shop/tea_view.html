@@ -105,22 +105,24 @@ div.right-links {
 }
 
 div.right-links ul {
-  padding-left: 25px;
-  margin-top: 0;	
+    margin: 0 0 0 0;
+    padding-left: 15px;
 }
 
 div.right-links ul li {
-  color: #19761C;
-  list-style-type: square;
-  margin-bottom: 5px;
-  padding-left: 5px;
+    color: #666666;
+    font-size: 13px;
+    list-style-type: square;
+    margin-bottom: 10px;
+    padding-left: 0;
 }
 
+
 div.info {
-    border-bottom: 1px dotted #E1E1E1;
+    border-bottom: 3px dotted #F7D2D2;
     float: left;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
     width: 230px;
 }
 
@@ -129,7 +131,8 @@ div.info.last {
 }
 
 div#right p.mail {
-  font-size: 12px;	
+    font-size: 13px;
+    margin-top: 15px;
 }
 
 img.mail-icon {
@@ -143,12 +146,12 @@ img.mail-icon {
 div.tea-top {
     float: left;
     margin-top: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
 }
 
 div.image-top {
   height: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 div.tea-top div.main-image {
@@ -222,6 +225,7 @@ ul.reviews {
   list-style-type: square;
   padding-left: 20px;
   color: #666;
+  margin-bottom: 30px;
 }
 
 ul.reviews li {
@@ -230,6 +234,7 @@ ul.reviews li {
   padding-bottom: 15px;
   margin-bottom: 20px;
   margin-right: 20px;
+  line-height: 1.6em;
 } 
 
 ul.reviews li span {
@@ -322,48 +327,40 @@ h3.small {
 	
 	<div class="image-top"></div>
 <br clear="all"/>
-	<div id="right">
-		    <div class="right-links">
+	<div id="right">           	
+           	<div class="info">
+           	<img src="{% staticfile '/images/free-delivery.png' %}">
+           	</div>
+           	
+           			    <div class="right-links">
            	  <div class="info">
-           		<h3 class="small">* Free delivery on orders over £50</h3>
-           		<p>If you order over £50, there's no postage charge for your tea.</p>
+           	  <h3 class="small">Delivered to your door by Amazon</h3>
+           		<img src="{% staticfile '/images/amazon.png' %}" style="margin: 5px 0;">
+           		<p>We offer fast and reliable delivery through Amazon - <a href="/postage-and-packaging/">find out more &raquo;</a></p> 
+           		<p style="margin-bottom:0px;"><strong>* 1-2 days delivery in the UK</strong></p>          		
            	  </div>
            	</div>
            	
-			<div class="right-links">
-           	<h3 class="more-info">Learn more about tea</h3>
            	<div class="info">
-           		<p class="mail">
-           			<img class="mail-icon" src="{% staticfile '/images/mail.png' %}">Our teas are sent from the UK <br/>
-           			<a href="/postage-and-packaging/">Postage and packaging info &raquo;</a>
-           		</p>
-           	</div>
-           	<div class="info">
-           		<p class="mail">
-           			<img class="mail-icon" src="{% staticfile '/images/info.png' %}">Find out more about teas <br/>
-           			<a href="/learn/how-to-brew-chinese-tea/">A simple guide to brewing &raquo;</a>
-           		</p>
-           	</div>
-           	<div class="info last">
-           		<p class="mail">
-           			<img class="mail-icon" src="{% staticfile '/images/talk.png' %}">Do you like our teas? <br/>
-           			<a href="{% url tell_a_friend %}">Tell your friends &raquo;</a>
-           		</p>
-           	</div>
+           	
+           	<h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
+           	<p>We accept all major credit and debit cards through Paypal</p>
+           	<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
+           	
            	</div>
            	
 
            	
-           	<div class="right-links">
-			<h3 class="more-info">Our other teas</h3>
+
+           	
+           	<div class="info">
+			<h3 class="small">Take a look at our other teas</h3>
 				{% for other in others %}
-			 	<div class="info{% if forloop.last %} last{% endif %}">
 			 		<p class="mail">
 			 			<a href="{% url tea_view other.slug %}"><img class="mail-icon" src="{% thumbnail other.image 60x60 %}" /></a>
 			 			<a href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
 			 			<br/>{{ other.super_short_description }}
 			 		</p>
-				</div>
 			 	{% endfor %}
 			</div>
            	

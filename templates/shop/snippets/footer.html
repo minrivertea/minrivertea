@@ -4,6 +4,7 @@
 <div id="footer">
 	<div class="image-top"></div>
 		<ul class="footer-links">
+		      <li>&copy; Min River Tea Farm 2011 &raquo; </li>
 	          <li><a title="Terms and Conditions" href="/terms-and-conditions/"><span class="fontface">Terms and Conditions</span></a>  /</li>
 	          <li><a title="Read about the Min River Tea Farm" href="/about/"><span class="fontface">About Us</span></a>  /</li>
 	          <li><a title="Read our Privacy Policy" href="/privacy/"><span class="fontface">Privacy</span></a>  /</li>
@@ -14,26 +15,29 @@
 		
 		<div class="payments">	
 		<img title="We accept payment via Paypal, meaning you can pay with all major credit or debit cards, or using your Paypal account" alt="paypal payment methods logo" src="{% staticfile '/images/paypal-horz.gif' %}"/>
-			<p>We accept payment via Paypal, meaning you can pay with all major credit or debit cards or using your Paypal account.</p>
+		
+		<img src="{% staticfile '/images/amazon.png' %}" style="margin-top: 20px;">
+		<p>Safe and secure payments.<br/> Quick and reliable delivery</p>
 		</div>
 		
 		<div class="footer-box">
-		    <h4>Our teas</h4>
+		    <h4><a href="{% url blog_home %}">Read our tea blog &raquo;</a></h4>
 		    <ul>
+		    {% for blog in latestblogs %}
 		      <li>
-		      	<a href="/teas/iron-buddha/">Iron Buddha</a><br/>
-		      		<em><span class="grey">Simple, clean and green</span></em>
+		      	<a href="{% url blog_entry blog.slug %}">{{ blog.title }}</a><br/>
+		      	{% if forloop.first %}
+		      	<span class="grey"><em>{{ blog.summary }}</em></span>
+		      	{% endif %}
 		      </li>
-			  <li><a href="/teas/the-big-red/">The Big Red</a><br/><em><span class="grey">Rusty and earthy red tea</span></em></li>
-			  <li><a href="/teas/jasmine-pearls/">Jasmine Pearls</a><br/><em><span class="grey">Fragrant and fresh scented tea</span></em></li>
+			{% endfor %}
 			</ul>
 		</div>
 		
 		 <div class="footer-box">
-		    <h4>Learn more about Chinese tea</h4>
+		    <h4><a href="/learn/">Learn more about tea &raquo;</a></h4>
 			<ul>
-				<li><a title="Read a short introduction to where our teas come from in China" href="/learn/where-is-our-tea-from/">Where do our teas come from?</a></li>
-				<li><a title="Loose-leaf tea isn't confusing - read our simple guide to tea weights and sizes" href="/learn/weights-and-sizes/">Weights and sizes - a simple guide</a></li>
+			  {% include 'shop/snippets/learn_pages_list.html' %}
 			</ul>
 		</div>
 

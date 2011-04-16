@@ -21,7 +21,7 @@ h3 {
 
 
 div.left h3 {
-  margin: 20px 0 0px 0px;
+  margin: 0px 0 0px 0px;
   font-weight: bold;
   font-size: 1.3em;	
 }
@@ -119,11 +119,6 @@ div.payments {
   width: 250px;
 }
 
-div.payments img {
-  margin-left: -15px;	
-  margin-top: -10px;
-}
-
 div.payments p {
   font-size: 0.8em;	
   width: 250px;
@@ -135,6 +130,13 @@ div.footer-box {
   margin-top: 0px;
   float: left;
   width: 250px;
+}
+
+div.footer-box h4 {
+  font-family:	"helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  letter-spacing: -1px;
+  font-weight: bold;
+  color: #666;
 }
 
 div.footer-box p {
@@ -149,7 +151,7 @@ div.footer-box ul {
 }
 
 div.footer-box ul li {
-  font-size: 0.8em;
+  font-size: 13px;
     color: #EE6464;
     margin-bottom: 5px;
     list-style-type: square;
@@ -275,7 +277,7 @@ div#home-banner {
 #home-banner h2.logo-assist {
     color: #19761C;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 3.8em;
+    font-size: 3.1em;
     font-weight: bold;
     letter-spacing: -3px;
     line-height: 1em;
@@ -521,9 +523,9 @@ div.tea-promo div.price {
 }
 
 div#right p {
-  margin: 0;
+  margin: 0 0 10px 0;
   padding: 0;
-  font-size: 14px;	
+  font-size: 13px;	
 }
 
 

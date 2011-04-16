@@ -1,5 +1,6 @@
 from django.conf import settings
 from minriver.shop.models import *
+from minriver.blog.models import BlogEntry
 
 
 def common(request):
@@ -13,7 +14,9 @@ def common(request):
     context['ga_is_on'] = settings.GA_IS_ON
     return context
     
-
+def get_latest_blogs(request):
+    blogs = BlogEntry.objects.filter(is_draft=False)[:3]
+    return {'latestblogs': blogs}
 
 def get_basket(request):
     try:

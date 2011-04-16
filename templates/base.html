@@ -77,10 +77,10 @@
 	    	    <ul id="nav">
 	    	    	<li class="first"><a href="{% url home %}" title="Home">home</a> /</li>
 	    	        <li><a href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">our teas</a>  /</li>
-	    	        <li><a href="/learn/" title="Learn more about Chinese teas" alt="">learn</a>  /</li>
 	    	        <li><a href="/about/" title="About the Min River Tea Farm" alt="">about us</a>  /</li>
-	    	        <li><a href="{% url blog_home %}" title="Read our tea blog" alt="">blog</a>  /</li>
-	    	        <li class="last"><a href="{% url basket %}" title="View your basket" alt="">your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</a>  </li>
+	    	        <li class="last"><a href="{% url basket %}" title="View your basket" alt="">your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</a>
+	    	       
+	    	        </li>
 	  			</ul>
 			</div>
 			

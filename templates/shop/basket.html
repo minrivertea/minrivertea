@@ -111,11 +111,6 @@ div.total {
   text-align: center;
 }
 
-img.paypal {
-  position: relative;
-  left: -18px;	
-}
-
 </style>
 {% endblock %}
 
@@ -143,7 +138,7 @@ img.paypal {
 
 
 <a href="{% url order_check_details %}"></a>
-<p><img src="{% staticfile '/images/paypal-horz.gif' %}" class="paypal"></p>
+
 <p class="checkout"><strong>Next step - your details.</strong>  <br/><em>You don't need to login or register to purchase - no passwords to remember, no slow registration process, no hassle.</em></p>
 
 
@@ -192,7 +187,7 @@ img.paypal {
 	  <div class="basket-row postage">
 	  	<div class="tea-remove">&nbsp;</div>
 		<div class="tea-name"><em>Postage <span class="small">(Standard)</span></em></div>
-		<div class="tea-weight"><span class="small"><em>* if you order over £50, delivery is free!</em></span></div>
+		<div class="tea-weight"><span class="small"><em><strong>Delivered in 1-2 days</strong><br/>* if you order over £50, delivery is free!</em></span></div>
 		<div class="tea-price">&nbsp;</div>
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total">£3.00</div>
