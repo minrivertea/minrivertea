@@ -15,7 +15,7 @@ def common(request):
     return context
     
 def get_latest_blogs(request):
-    blogs = BlogEntry.objects.filter(is_draft=False)[:3]
+    blogs = BlogEntry.objects.filter(is_draft=False).order_by('-date_added')[:3]
     return {'latestblogs': blogs}
 
 def get_basket(request):
