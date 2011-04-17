@@ -12,7 +12,9 @@
 			{% for like in welikes %}
 			  <div class="like">
 			  	<div class="image">
-			  		<img src="{% thumbnail like.image 50x50 crop %}">
+			  		{% thumbnail like.image "50x50" crop="center" as im %}
+			  		<img src="{{ im.url }}">
+			  		{% endthumbnail %}
 			  	</div>
 				<div class="text">
 				  <a href="{{ like.url }}">{{ like.title }}</a>

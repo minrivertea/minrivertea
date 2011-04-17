@@ -161,7 +161,10 @@ div.total {
 	  <div class="basket-row">
 	    <div class="tea-remove"><a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"></a></div>
 		<div class="tea-name">
-			<img src="{% thumbnail thing.item.parent_product.image 80x80 %}"/><br/>
+			{% thumbnail thing.item.parent_product.image "80x53" crop="center" as im %}
+			<img src="{{ im.url }}"/>
+			{% endthumbnail %}
+			<br/>
 		</div>
 		<div class="tea-weight">
 			<a title="{{ thing.item.parent_product.description }}" href="{% url tea_view thing.item.parent_product.slug %}">{{ thing.item.parent_product.name }}</a>

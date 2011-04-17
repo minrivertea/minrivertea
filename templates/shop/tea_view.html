@@ -281,10 +281,12 @@ div.product-photos-small p.helper {
 	
 	<div class="tea-top">
 		<div class="main-image">	 
+			{% thumbnail tea.image "500x331" crop="center" as im %}
 			<img class="product-photo-main" 
 				alt="a picture of {{ tea.name }}" 
 				title="{{ tea.description }}" 
-				src="{% thumbnail tea.image 500x500 %}"/>
+				src="{{ im.url }}"/>
+			{% endthumbnail %}
 		</div>
 		
 				<div class="prices">
@@ -312,23 +314,40 @@ div.product-photos-small p.helper {
 		</div>
 		<div class="product-photos-small">
 			{% if tea.image_2 %}
-				<a href="{% thumbnail tea.image_2 550x550 %}" rel="lightbox[tea]" title="{{ tea.image_2_caption }}">
-				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_2_caption }}" src="{% thumbnail tea.image_2 50x50 crop %}"/>
+				{% thumbnail tea.image_2 "550x550" as im %}
+				<a href="{{ im.url }}" rel="lightbox[tea]" title="{{ tea.image_2_caption }}">
+				{% endthumbnail %}
+				{% thumbnail tea.image_2 "50x50" crop="center" as im %}
+				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_2_caption }}" src="{{ im.url }}"/>
+				{% endthumbnail %}
 				</a>
 			{% endif %}
+			
 			{% if tea.image_3 %}
-				<a href="{% thumbnail tea.image_3 550x550 %}" rel="lightbox[tea]" title="{{ tea.image_3_caption }}">
-				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_3_caption }}" src="{% thumbnail tea.image_3 50x50 crop %}"/>
+				{% thumbnail tea.image_3 "550x550" as im %}
+				<a href="{{ im.url }}" rel="lightbox[tea]" title="{{ tea.image_3_caption }}">
+				{% endthumbnail %}
+				{% thumbnail tea.image_3 "50x50" crop="center" as im %}
+				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_3_caption }}" src="{{ im.url }}"/>
+				{% endthumbnail %}
 				</a>
 			{% endif %}
 			{% if tea.image_4 %}
-				<a href="{% thumbnail tea.image_4 550x550 %}" rel="lightbox[tea]" title="{{ tea.image_4_caption }}">
-				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_4_caption }}" src="{% thumbnail tea.image_4 50x50 crop %}"/>
+				{% thumbnail tea.image_4 "550x550" as im %}
+				<a href="{{ im.url }}" rel="lightbox[tea]" title="{{ tea.image_3_caption }}">
+				{% endthumbnail %}
+				{% thumbnail tea.image_4 "50x50" crop="center" as im %}
+				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_4_caption }}" src="{{ im.url }}"/>
+				{% endthumbnail %}
 				</a>
 			{% endif %}
 			{% if tea.image_5 %}
-				<a href="{% thumbnail tea.image_5 550x550 %}" rel="lightbox[tea]" title="{{ tea.image_5_caption }}">
-				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_5_caption }}" src="{% thumbnail tea.image_5 50x50 crop %}"/>
+				{% thumbnail tea.image_5 "550x550" as im %}
+				<a href="{{ im.url }}" rel="lightbox[tea]" title="{{ tea.image_5_caption }}">
+				{% endthumbnail %}
+				{% thumbnail tea.image_5 "50x50" crop="center" as im %}
+				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_5_caption }}" src="{{ im.url }}"/>
+				{% endthumbnail %}
 				</a>
 			{% endif %}
 
@@ -370,7 +389,11 @@ div.product-photos-small p.helper {
 			<h3 class="small">Take a look at our other teas</h3>
 				{% for other in others %}
 			 		<p class="mail">
-			 			<a href="{% url tea_view other.slug %}"><img class="mail-icon" src="{% thumbnail other.image 60x60 %}" /></a>
+			 			<a href="{% url tea_view other.slug %}">
+			 				{% thumbnail other.image "60x45" crop="center" as im%}
+			 				<img class="mail-icon" src="{{ im.url }}" />
+			 				{% endthumbnail %}
+			 			</a>
 			 			<a href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
 			 			<br/>{{ other.super_short_description }}
 			 		</p>

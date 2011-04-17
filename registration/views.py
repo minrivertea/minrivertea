@@ -191,16 +191,11 @@ def register(request, backend, success_url=None, form_class=RegistrationFormNoUs
         form = form_class(data=request.POST, files=request.FILES)
         if form.is_valid():
             new_user = backend.register(request, **form.cleaned_data)
+            
+            # create a new shopper object for this person.
+            # we don't need to check if there already is a shopper, because we already checked in the view
             new_shopper = Shopper.objects.create(user=new_user)
-            try:
-                basket = Basket.objects.get(id=request.session['BASKET_ID'])
-                basket.owner = new_shopper
-                basket.save()
-                print "REGISTRATION - THEY ALREADY HAD A COOKIE, WE JUST ASSIGNED A NEW OWNER TO IT"
-            except:
-                basket = Basket.objects.create(date_modified=datetime.datetime.now(), owner=new_shopper)
-                request.session['BASKET_ID'] = basket.id
-                print "REGISTRATION - WE CREATED A NEW COOKIE"
+            
             if success_url is None:
                 to, args, kwargs = backend.post_registration_redirect(request, new_user)
                 return redirect(to, *args, **kwargs)

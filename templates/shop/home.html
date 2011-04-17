@@ -160,10 +160,12 @@ p.testimonial span.red {
 				{% for p in photos %}
 					<div class="a-user-photo">
 						<div class="photo">
+							{% thumbnail p.photo "90x80" crop="center" as im %}
 							<img 
 								title="{{ p.shopper.first_name }} likes to drink {{ p.related_product }}" 
 								alt="" 
-								src="{% thumbnail p.photo 90x80 crop %}">
+								src="{{ im.url }}">
+							{% endthumbnail %}
 						</div>
 					</div>
 				{% endfor %}
@@ -190,7 +192,9 @@ p.testimonial span.red {
 			{% for l in welike %}
 				<div class="like">
 					<div class="image">
-						<img src="{% thumbnail l.image 80x80 crop %}"/>
+						{% thumbnail l.image "80x80" crop="center" as im %}
+						<img src="{{ im.url }}"/>
+						{% endthumbnail %}
 					</div>
 					<div class="text">
 						<h4><a href="{{ l.url }}" target="_blank">{{ l.title }} &raquo;</a></h4>

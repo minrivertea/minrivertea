@@ -1,6 +1,5 @@
 from django.db import models
 from minriver.slugify import smart_slugify
-from sorl.thumbnail.fields import ImageWithThumbnailsField
 
 
 class BlogEntry(models.Model):

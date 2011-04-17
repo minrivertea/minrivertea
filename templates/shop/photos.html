@@ -131,7 +131,9 @@ p.help-text img {
 			{% for p in photos %}
 				<div class="a-user-photo">
 					<div class="photo">
-						<img src="{% thumbnail p.photo 120x120 crop %}">
+						{% thumbnail p.photo "120x120" crop="center" as im %}
+						<img src="{{ im.url }}">
+						{% endthumbnail %}
 					</div>
 					<div class="info">
 						<p class="recommend">{{ p.shopper.first_name }}<br/><a href="{{ p.related_product.get_absolute_url }}">{{ p.related_product.name }}</a> tea</p>

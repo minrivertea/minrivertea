@@ -18,7 +18,9 @@
 		
       	<p>{{ product.description }}</p> 
 			<a href="{% url tea_view product.slug %}">
-			<img alt="a picture of {{ product.name }}" title="Click to find out more about {{ product.name }}" class="tea-promo" src="{% thumbnail product.image 210x153 crop %}"/>
+			{% thumbnail product.image "210x153" crop="center" as im %}
+			<img alt="a picture of {{ product.name }}" title="Click to find out more about {{ product.name }}" class="tea-promo" src="{{ im.url }}"/>
+			{% endthumbnail %}
 			</a>
 	  </div>      
 {% endfor %}
