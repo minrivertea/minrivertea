@@ -11,8 +11,6 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from minriver import settings
 
-from sorl.thumbnail import ImageField
-
 
 
 
