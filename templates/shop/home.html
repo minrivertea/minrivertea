@@ -21,6 +21,7 @@
 
 #home-banner h2.logo-assist {
   font-size: 3.8em;	
+  text-shadow: 0 3px 3px #D1D1D1;
 }
 
 div#welikes {
@@ -29,6 +30,17 @@ div#welikes {
     margin: 20px 0 0 30px;
     padding-left: 30px;
     width: 350px;
+}
+
+div#user-photos div.left {
+  float: left;
+  width: 270px;
+  margin-right: 20px;	
+}
+
+div#user-photos div.right {
+  float: left;
+  width: 440px;
 }
 
 div#welikes h3 {
@@ -106,7 +118,7 @@ div#learn p {
 
 p.testimonial {
   float: left;
-  margin-left: 20px;
+  margin-left: 0px;
   font-size: 14px;
   margin-bottom: 0;	
 }
@@ -128,70 +140,67 @@ p.testimonial span.red {
 
 	<div id="box">
         <div class="home-products">
-    
+			{% include "shop/snippets/products.html" %}
+		</div>
 
-{% include "shop/snippets/products.html" %}
-      
-	</div>
+		<div class="image-top"></div>
+	
+		<div id="home-extra">
+			<div id="user-photos">
+				<div class="left">
+					<h2>These beautiful people love our Chinese tea!</h2>
+					<a class="see-more" title="See our photo wall of happy tea drinkers!" href="{% url photos %}">
+					See more tea lovers &raquo;
+					</a>
+				</div>
+				<div class="right">
+				
 
-	<div class="image-top"></div>
-	<div id="home-extra">
-
-	<div id="user-photos">
-		<img src="{% staticfile '/images/leaves.png' %}" class="leaf"/>
-		<a class="see-more" title="See our photo wall of happy tea drinkers!" href="{% url photos %}">
-			Checkout what other people are drinking <span class="large">&raquo;</span>
-		</a>
-		<h2>These beautiful people love Chinese tea!</h2>
-			{% for p in photos %}
-				<div class="a-user-photo">
-					<div class="photo">
-						<img title="{{ p.shopper.first_name }} likes to drink {{ p.related_product }}" alt="" src="{% thumbnail p.photo 110x100 crop %}">
+				
+				{% for p in photos %}
+					<div class="a-user-photo">
+						<div class="photo">
+							<img 
+								title="{{ p.shopper.first_name }} likes to drink {{ p.related_product }}" 
+								alt="" 
+								src="{% thumbnail p.photo 90x80 crop %}">
+						</div>
+					</div>
+				{% endfor %}
+				{% for r in review %}
+					<p class="testimonial">
+						<em>&ldquo;{{ r.text }}&rdquo;</em> 
+						<span class="red">{{ r.owner.first_name }} {{ r.owner.last_name }}</span>
+					</p>
+				{% endfor %}
+				</div>
+		</div>
+		
+		<div class="image-top"></div>
+	
+		<div id="learn">
+			<h3>Learn about Chinese tea</h3>
+			<img src="{% staticfile '/images/booklet.png' %}"/>
+			<p>Make yourself a cup of Chinese tea this morning! It's not hard to make, and it's a great change from coffee.</p>
+			<p><a href="/learn/how-to-brew-chinese-tea/">Read about how to brew Chinese tea &raquo;</a></p>
+		</div>
+	
+		<div id="welikes">
+			<h3>We also like...</h3>
+			{% for l in welike %}
+				<div class="like">
+					<div class="image">
+						<img src="{% thumbnail l.image 80x80 crop %}"/>
+					</div>
+					<div class="text">
+						<h4><a href="{{ l.url }}" target="_blank">{{ l.title }} &raquo;</a></h4>
+						<p>{{ l.description }}</p>
 					</div>
 				</div>
 			{% endfor %}
-			{% for r in review %}
-			<p class="testimonial"><em>&ldquo;{{ r.text }}&rdquo;</em> <span class="red">{{ r.owner.first_name }} {{ r.owner.last_name }}</span></p>
-			{% endfor %}
-	</div>
-	
-	<div class="image-top"></div>
-	
-	<div id="learn">
-	<h3>Learn about Chinese tea</h3>
-	<img src="{% staticfile '/images/booklet.png' %}"/>
-	<p>Make yourself a cup of Chinese tea this morning! It's not hard to make, and it's a great change from coffee.</p>
-	<p><a href="/learn/how-to-brew-chinese-tea/">Read about how to brew Chinese tea &raquo;</a></p>
-	</div>
-	
-	<div id="welikes">
-		<h3>We also like...</h3>
-		{% for l in welike %}
-		<div class="like">
-			<div class="image">
-				<img src="{% thumbnail l.image 80x80 crop %}"/>
-			</div>
-			<div class="text">
-				<h4><a href="{{ l.url }}" target="_blank">{{ l.title }} &raquo;</a></h4>
-				<p>{{ l.description }}</p>
-			</div>
 		</div>
-		{% endfor %}
 	
 	</div>
-	
-	
-	
-	
-	
-	</div>
-
-
-
-
-
-
-
 
 </div>
 </div>

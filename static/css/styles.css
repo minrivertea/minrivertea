@@ -400,8 +400,9 @@ div#home-extra div#user-photos {
 
 div#home-extra div#user-photos div.a-user-photo {
     border-bottom: medium none;
-    margin: 0 0 0px 12px;
+    margin: 0 10px 0px 0px;
     padding-bottom: 0;
+    width: 90px;
 }
 
 div#home-extra div#user-photos div.a-user-photo div.info {
@@ -414,7 +415,7 @@ div#home-extra div#user-photos div.a-user-photo div.photo {
 
 
 div#home-extra a.see-more {
-    float: right;
+    float: left;
     font-size: 0.9em;
     margin-right: 0;
     position: relative;
@@ -422,8 +423,9 @@ div#home-extra a.see-more {
 }
 
 div#home-extra h2 {
-  text-shadow: 1px 1px white;
-  font-size: 20px;	
+    font-size: 32px;
+    text-shadow: 0 2px 3px #e1e1e1;
+    margin-bottom: 10px;
 }
 
 
@@ -542,10 +544,6 @@ div.tea-top div.price {
 div.tea-top div.price:hover {
   cursor: pointer;
   background: url('/images/price-back.png') no-repeat bottom right;
-}
-
-div#right div.price.first:hover {
-
 }
 
 div.price-text {
@@ -931,12 +929,6 @@ div.flatpage div#right p.social-footer {
   font-size: 0.7em;
   float: left;
   margin: 5px 0 0 10px;	
-}
-
-span.large {
-  font-size: 1.7em;	
-  position: relative;
-  top: 2px;
 }
 
 div.flatpage ul {
