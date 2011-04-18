@@ -114,7 +114,7 @@ class Review(models.Model):
     product = models.ForeignKey(Product)
     owner = models.ForeignKey(Shopper)
     text = models.TextField()
-    short_text = models.TextField()
+    short_text = models.TextField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
     
     def __unicode__(self):
