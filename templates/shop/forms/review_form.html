@@ -156,7 +156,9 @@ div.review p span {
 		<form action="." method="post">
 		 	<div class="products">
 				<h3>You're reviewing our {{ tea }} tea</h3> 
-				<img src="{% thumbnail tea.image 200x200 %}">
+				{% thumbnail tea.image "200x200" crop=center as im %}
+				<img src="{{ im.url }}">
+				{% endthumbnail %}
 				<p><strong>Our description: </strong><em>{{ tea.description }}</em></p>
 			</div>
 			<div class="right-box">
