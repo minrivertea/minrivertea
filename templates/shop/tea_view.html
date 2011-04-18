@@ -412,7 +412,7 @@ div.product-photos-small p.helper {
 	<h3>Customer reviews</h3>
 		<ul class="reviews">
 		{% for review in reviews %}
-			<li><em>"{{ review.text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></li>
+			<li><em>"{{ review.short_text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></li>
 		{% endfor %}
 		</ul>
 	{% endif %}

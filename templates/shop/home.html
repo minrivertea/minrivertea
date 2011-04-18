@@ -171,7 +171,7 @@ p.testimonial span.red {
 				{% endfor %}
 				{% for r in review %}
 					<p class="testimonial">
-						<em>&ldquo;{{ r.text }}&rdquo;</em> 
+						<em>&ldquo;{{ r.short_text }}&rdquo;</em> 
 						<span class="red">{{ r.owner.first_name }} {{ r.owner.last_name }}</span>
 					</p>
 				{% endfor %}
