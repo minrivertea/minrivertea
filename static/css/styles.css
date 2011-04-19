@@ -643,11 +643,6 @@ div.checkout-button {
     width: 220px;
 }
 
-div.checkout-button img.paypal {
-  position:relative;
-  left: -20px;	
-}
-
 input.checkout-button {
   background: url('/images/button-confirm-and-pay.png') no-repeat top left;
   width: 227px;
