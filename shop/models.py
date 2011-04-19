@@ -22,14 +22,108 @@ PRODUCT_CATEGORY = (
     (u'POS', u'Postage'),
 )
 
-# these are the statuses of an order
-ORDER_STATUS = (
-    (u'1', u'Created not paid'),
-    (u'2', u'Paid'),
-    (u'3', u'Shipped'),
-    (u'4', u'Address Problem'),
-    (u'5', u'Payment flagged'),
+# these are the country choices for an address
+UNITED_KINGDOM = 'united kingdom'
+INVALID = 'invalid'
+ALBANIA = 'albania'
+ANDORRA = 'andorra'
+ARMENIA = 'armenia'
+AUSTRIA = 'austria'
+BELARUS = 'be'
+BELGIUM = 'belgium'
+BOSNIA_HERZEGOVINA = 'bosnia and herzegovina'
+BULGARIA = 'bulgaria'
+CAPE_VERDE = 'cape verde'
+CROATIA = 'croatia'
+CYPRUS = 'cyprus'
+CZECH_REPUBLIC = 'czech republic'
+DENMARK = 'denmark'
+ESTONIA = 'estonia'
+FAROE_ISLANDS = 'faroe islands'
+FINLAND = 'finland'
+FRANCE = 'france'  
+GEORGIA = 'georgia'
+GERMANY = 'georgia' 
+GIBRALTAR = 'gibraltar'
+GREECE = 'greece' 
+GREENLAND = 'greenland'
+HUNGARY = 'hungary'
+ICELAND = 'iceland'
+IRELAND = 'ireland'  
+ITALY = 'italy' 
+LATVIA = 'latvia'
+LIECHENSTEIN = 'liechenstein'
+LITHUANIA = 'lithuania'
+LUXEMBOURG = 'luxembourg'  
+MACEDONIA = 'macedonia'
+MALTA = 'malta'
+MOLDOVA = 'moldova'
+MONACO = 'monaco' 
+NETHERLANDS = 'netherlands'
+NORWAY = 'norway'
+POLAND = 'poland'
+PORTUGAL = 'portugal' 
+ROMANIA = 'romania'
+SAN_MARINO = 'san marino'
+SLOVAK_REPUBLIC = 'slovak republic'
+SLOVENIA = 'slovenia'
+SPAIN = 'spain'
+SWEDEN = 'sweden'
+SWITZERLAND = 'switzerland'
+TURKEY = 'turkey'
+UKRAINE = 'ukraine'
+COUNTRY_CHOICES = (
+    (UNITED_KINGDOM, u"United Kingdom"),
+    (INVALID, u"-----"),
+    (ALBANIA, u"Albania"),
+    (ANDORRA, u"Andorra"),
+    (ARMENIA, u"Armenia"),
+    (AUSTRIA, u"Austria"),
+    (BELARUS, u"Belarus"),
+    (BELGIUM, u"Belgium"),
+    (BOSNIA_HERZEGOVINA, u"Bosnia and Herzegovina"),
+    (BULGARIA, u"Bulgaria"),
+    (CAPE_VERDE, u"Cape Verde"),
+    (CROATIA, u"Croatia"),
+    (CYPRUS, u"Cyprus"),
+    (CZECH_REPUBLIC, u"Czech Republic"),
+    (DENMARK, u"Denmark"),
+    (ESTONIA, u"Estonia"),
+    (FAROE_ISLANDS, u"Faroe Islands"),
+    (FINLAND, u"Finland"),
+    (FRANCE, u"France"),
+    (GEORGIA, u"Georgia"),
+    (GERMANY, u"Germany"), 
+    (GIBRALTAR, u"Gibraltar"),
+    (GREECE, u"Greece"), 
+    (GREENLAND, u"Hreenland"),
+    (HUNGARY, u"Hungary"),
+    (ICELAND, u"Iceland"),
+    (IRELAND, u"Ireland"),  
+    (ITALY, u"Italy"), 
+    (LATVIA, u"Latvia"),
+    (LIECHENSTEIN, u"Liechenstein"),
+    (LITHUANIA, u"Lithuania"),
+    (LUXEMBOURG, u"Luxembourg"),  
+    (MACEDONIA, u"Macedonia"),
+    (MALTA, u"Malta"),
+    (MOLDOVA, u"Moldova"),
+    (MONACO, u"Monaco"), 
+    (NETHERLANDS, u"Netherlands"),
+    (NORWAY, u"Norway"),
+    (POLAND, u"Poland"),
+    (PORTUGAL, u"Portugal"),
+    (ROMANIA, u"Romania"),
+    (SAN_MARINO, u"San Marino"),
+    (SLOVAK_REPUBLIC, u"Slovak Republic"),
+    (SLOVENIA, u"Slovenia"),
+    (SPAIN, u"Spain"),
+    (SWEDEN, u"Sweden"),
+    (SWITZERLAND, u"Switzerland"),
+    (TURKEY, u"Turkey"),
+    (UKRAINE, u"Ukraine"),     
 )
+
 
 
 class Product(models.Model):
@@ -127,9 +221,10 @@ class Address(models.Model):
     address_line_2 = models.CharField(max_length=200, blank=True, null=True)
     town_city = models.CharField(max_length=200)
     postcode = models.CharField(max_length=200)
+    country = models.CharField(max_length=200, choices=COUNTRY_CHOICES, db_index=True)
     
     def __unicode__(self):
-        return "%s, %s" % (self.house_name_number, self.postcode)
+        return "%s, %s, %s" % (self.house_name_number, self.postcode, self.country)
     
        
         
@@ -158,6 +253,7 @@ class Discount(models.Model):
     discount_code = models.CharField(max_length=40)
     name = models.CharField(max_length=200)
     discount_value = models.DecimalField(max_digits=3, decimal_places=2)
+    
     
 class Order(models.Model):
     items = models.ManyToManyField(BasketItem)

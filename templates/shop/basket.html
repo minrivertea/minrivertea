@@ -93,9 +93,14 @@ div.tea-remove a:hover {
 
 div#totals {
     float: left;
+    font-size: 28px;
     font-weight: bold;
-    margin-left: 290px;
-    width: 200px;
+    margin-left: 240px;
+    text-align: right;
+    width: 250px;
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+    letter-spacing: -1px;
+    color: #666;
 }
 
 div.label {
@@ -105,10 +110,30 @@ div.label {
 }
 
 div.total {
-  float: left;
+  color: #1A6D18;
+  text-align: right;
   margin-top: 10px;
-  margin-left: 30px;	
-  text-align: center;
+  float: right;
+
+}
+
+div#extra-info {
+  width: 500px;
+  margin-top: 60px;	
+}
+
+div#extra-info div.box {
+  border-bottom: 1px solid #e1e1e1;	
+  margin-bottom: 20px;
+}
+
+div#extra-info p {
+  margin-top: 0;
+  font-size: 13px;	
+}
+
+div#extra-info h3 {
+  margin-bottom: 0px;
 }
 
 </style>
@@ -137,7 +162,7 @@ div.total {
 <div id="checkout-button">
 
 
-<a href="{% url order_check_details %}"></a>
+<a href="{% url order_step_one %}"></a>
 
 <p class="checkout"><strong>Next step - your details.</strong>  <br/><em>You don't need to login or register to purchase - no passwords to remember, no slow registration process, no hassle.</em></p>
 
@@ -198,10 +223,10 @@ div.total {
 	{% endif %}
 	</div>
 	<div id="totals">
-		<div class="label">TOTAL:</div><div class="total">£{{ total_price }}</div>
+		<div class="label">Total:</div><div class="total">£{{ total_price }}</div>
 	</div>
 	<br clear="all"/>
-	
+
  
 
 {% else %}
@@ -209,20 +234,27 @@ div.total {
 {% endif %}
 
 
-<br clear="all"/>
-<div class="row wide">
-	<div class="row-label">
+<div id="extra-info">
+
+	<div class="box">
 		<h3>Payment methods</h3>
-	</div>
-	<div class="row-box">
-		<p class="intro">You can pay online safely and securely using Paypal. We do not currently accept other forms of payment.</p>
+		<p>You can pay online safely and securely using Paypal. You can use your paypal linked account, or any major credit and debit cards.</p>
 	</div>
 	
-	<div class="row-label">
-		<h3>Postage and packaging</h3>
+	<div class="box">
+		<h3>Where do we deliver?</h3>
+		<p>We currently deliver to the United Kingdom and Europe. Sorry, no US orders at the moment!<br/></p>
 	</div>
-	<div class="row-box">
-		<p class="intro">We charge a standard fee of £3 per order shipped (eg. if you order 5 teas, it is still only £3). Items are shipped from within the UK using standard class Royal Mail delivery. Normal delivery time is 2-3 days, although it can take longer on occasion. If you experience delays longer than this, please let us know. Our tea is freeze-dried and packaged in resealable foil bags for freshness and your convenience. </p>
+	
+	<div class="box">
+		<h3>Returns</h3>
+		<p>We operate a 'no questions asked' returns policy. If you're not happy with the tea you receive, please get in touch.</p>
+	</div>
+
+	<div class="box last">
+		<h3>Postage and packaging</h3>
+		<p>We charge a flat fee of £3 per order. If you order over £50, postage is free. Orders are fulfilled by Amazon UK and normally arrive within 1-2 days.</p>
+		<p> * <em>orders outside the UK may take slightly longer. Thanks for your patience!</em></p>
 	</div>
 </div>
 

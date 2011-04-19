@@ -163,7 +163,8 @@ div.address label {
 					{{ address.address_line_1 }}<br/>
 					{{ address.address_line_2 }}<br/>
 					{{ address.town_city }}<br/>
-		 			{{ address.postcode }} - <a href="{% url not_you %}">Want to use a different address?</a>
+		 			{{ address.postcode }}<br/>
+		 			{{ address.country }} - <a href="{% url not_you %}">Want to use a different address?</a>
 		 			</div>
 		 		{% else %}
 		 			<div class="address other">
@@ -181,11 +182,6 @@ div.address label {
 		<input type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/>
     	<input type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
     	<input type="text" name="email" id="id_email" value="{{ email }}"/>
-      	<input id="id_house_name_number" type="text" name="house_name_number" maxlength="200" value="{{ house_name_number }}"/>
-	  	<input id="id_address_line_1" type="text" name="address_line_1" maxlength="200" value="{{ address_line_1 }}"/> 
-      	<input id="id_address_line_2" type="text" name="address_line_2" maxlength="200"  value="{{ address_line_2 }}"/>
-      	<input id="id_town_city" type="text" name="town_city" maxlength="200" value="{{ town_city }}"/>
-      	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" />
  		</div>
 	{% else %}
 
@@ -208,7 +204,7 @@ div.address label {
 			<h3>Your address</h3>
 		</div>
     	<div class="row-box">
-    		<p class="intro">Please confirm which address we should send your tea to - make sure it's a valid UK address or we won't be able to post your tea!</p>
+    		<p class="intro">Please confirm which address we should send your tea to. We only ship to the UK and Europe, so please make sure this is a valid UK/EU address.</p>
 
       <p>
       	<label for="id_house_name_number">House name number:</label>
@@ -233,11 +229,18 @@ div.address label {
       <p>
       	<label for="id_postcode">Postcode:</label>
       	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" /> </p>
- 	
+      	
+	  <p>
+	    <label for="id_country">Country:</label>
+	    {{ confirm_form.country }}
+	  </p>
+ 	  <br clear="all">
+ 	  
  	</div> 
 	</div>
 
 	{% endif %}
+
 	
 	
 </form>

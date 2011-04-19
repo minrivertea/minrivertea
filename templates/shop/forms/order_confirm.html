@@ -183,9 +183,10 @@ div#steps div.step.last {
 		{{ order.address.address_line_2 }}<br/>
 		{{ order.address.town_city }}<br/>
 		{{ order.address.postcode }}<br/>
-		UNITED KINGDOM<br/>
+		{{ order.address.country|upper }}
 		<br/>
-		<p class="intro">* If this is not a valid UK address, we won't be able to post your tea</p>
+		<br/>
+		<p class="intro">* If this is not a valid UK/EU address, we won't be able to post your tea</p>
 	</div>
 </div>
 		<br clear="all"/>

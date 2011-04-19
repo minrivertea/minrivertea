@@ -3,7 +3,107 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User
 
 from minriver.shop.models import Address, Order, Discount, Shopper, Product
- 
+
+UNITED_KINGDOM = 'united kingdom'
+INVALID = 'invalid'
+ALBANIA = 'albania'
+ANDORRA = 'andorra'
+ARMENIA = 'armenia'
+AUSTRIA = 'austria'
+BELARUS = 'be'
+BELGIUM = 'belgium'
+BOSNIA_HERZEGOVINA = 'bosnia and herzegovina'
+BULGARIA = 'bulgaria'
+CAPE_VERDE = 'cape verde'
+CROATIA = 'croatia'
+CYPRUS = 'cyprus'
+CZECH_REPUBLIC = 'czech republic'
+DENMARK = 'denmark'
+ESTONIA = 'estonia'
+FAROE_ISLANDS = 'faroe islands'
+FINLAND = 'finland'
+FRANCE = 'france'  
+GEORGIA = 'georgia'
+GERMANY = 'georgia' 
+GIBRALTAR = 'gibraltar'
+GREECE = 'greece' 
+GREENLAND = 'greenland'
+HUNGARY = 'hungary'
+ICELAND = 'iceland'
+IRELAND = 'ireland'  
+ITALY = 'italy' 
+LATVIA = 'latvia'
+LIECHENSTEIN = 'liechenstein'
+LITHUANIA = 'lithuania'
+LUXEMBOURG = 'luxembourg'  
+MACEDONIA = 'macedonia'
+MALTA = 'malta'
+MOLDOVA = 'moldova'
+MONACO = 'monaco' 
+NETHERLANDS = 'netherlands'
+NORWAY = 'norway'
+POLAND = 'poland'
+PORTUGAL = 'portugal' 
+ROMANIA = 'romania'
+SAN_MARINO = 'san marino'
+SLOVAK_REPUBLIC = 'slovak republic'
+SLOVENIA = 'slovenia'
+SPAIN = 'spain'
+SWEDEN = 'sweden'
+SWITZERLAND = 'switzerland'
+TURKEY = 'turkey'
+UKRAINE = 'ukraine'
+COUNTRY_CHOICES = (
+    (UNITED_KINGDOM, u"United Kingdom"),
+    (INVALID, u"-----"),
+    (ALBANIA, u"Albania"),
+    (ANDORRA, u"Andorra"),
+    (ARMENIA, u"Armenia"),
+    (AUSTRIA, u"Austria"),
+    (BELARUS, u"Belarus"),
+    (BELGIUM, u"Belgium"),
+    (BOSNIA_HERZEGOVINA, u"Bosnia and Herzegovina"),
+    (BULGARIA, u"Bulgaria"),
+    (CAPE_VERDE, u"Cape Verde"),
+    (CROATIA, u"Croatia"),
+    (CYPRUS, u"Cyprus"),
+    (CZECH_REPUBLIC, u"Czech Republic"),
+    (DENMARK, u"Denmark"),
+    (ESTONIA, u"Estonia"),
+    (FAROE_ISLANDS, u"Faroe Islands"),
+    (FINLAND, u"Finland"),
+    (FRANCE, u"France"),
+    (GEORGIA, u"Georgia"),
+    (GERMANY, u"Germany"), 
+    (GIBRALTAR, u"Gibraltar"),
+    (GREECE, u"Greece"), 
+    (GREENLAND, u"Hreenland"),
+    (HUNGARY, u"Hungary"),
+    (ICELAND, u"Iceland"),
+    (IRELAND, u"Ireland"),  
+    (ITALY, u"Italy"), 
+    (LATVIA, u"Latvia"),
+    (LIECHENSTEIN, u"Liechenstein"),
+    (LITHUANIA, u"Lithuania"),
+    (LUXEMBOURG, u"Luxembourg"),  
+    (MACEDONIA, u"Macedonia"),
+    (MALTA, u"Malta"),
+    (MOLDOVA, u"Moldova"),
+    (MONACO, u"Monaco"), 
+    (NETHERLANDS, u"Netherlands"),
+    (NORWAY, u"Norway"),
+    (POLAND, u"Poland"),
+    (PORTUGAL, u"Portugal"),
+    (ROMANIA, u"Romania"),
+    (SAN_MARINO, u"San Marino"),
+    (SLOVAK_REPUBLIC, u"Slovak Republic"),
+    (SLOVENIA, u"Slovenia"),
+    (SPAIN, u"Spain"),
+    (SWEDEN, u"Sweden"),
+    (SWITZERLAND, u"Switzerland"),
+    (TURKEY, u"Turkey"),
+    (UKRAINE, u"Ukraine"),     
+)
  
 class AddressAddForm(ModelForm): 
     class Meta:
@@ -12,7 +112,7 @@ class AddressAddForm(ModelForm):
         
             
 # handles the submission of their personal details during the order process
-class OrderCheckDetailsForm(forms.Form):
+class OrderStepOneForm(forms.Form):
     email = forms.EmailField(error_messages={'required': '* Please give an email address', 'invalid': '* Please enter a valid e-mail address.'})
     first_name = forms.CharField(max_length=200, required=True, error_messages={'required': '* Please give your first name'})
     last_name = forms.CharField(max_length=200, required=True, error_messages={'required': '* Please give your surname'})
@@ -21,12 +121,14 @@ class OrderCheckDetailsForm(forms.Form):
     address_line_2 = forms.CharField(max_length=200, required=False)
     town_city = forms.CharField(max_length=200, required=False)
     postcode = forms.CharField(max_length=200, required=False)
+    country = forms.ChoiceField(required=False, choices=COUNTRY_CHOICES)
     subscribed = forms.BooleanField(required=False)
     
     def clean(self):
         cleaned_data = self.cleaned_data
         postcode = cleaned_data.get("postcode")
         house_name_number = cleaned_data.get("house_name_number")
+        country = cleaned_data.get("country")
         if not postcode:
              if not house_name_number:
                  raise forms.ValidationError("* You must provide a postcode and house name or number")
@@ -36,8 +138,14 @@ class OrderCheckDetailsForm(forms.Form):
         if not house_name_number:
                 raise forms.ValidationError("* You must provide a house name or number")
         
+        if country == "invalid":
+            raise forms.ValidationError("* Please specify which country you'd like the tea sent to")
+        
         
         return cleaned_data
+
+class UpdateDiscountForm(forms.Form):
+    discount_code = forms.CharField(required=True)
 
 # handles the contact us form
 class ContactForm(forms.Form):

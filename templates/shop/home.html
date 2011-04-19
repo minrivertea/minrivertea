@@ -10,8 +10,13 @@
 
 {% block banner %}
 	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Great Chinese teas.</h2>
+	    		<p class="countries">We ship to the UK and Europe 
+	    		<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}"> 
+	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}">
+	    		</p>
+	    	<h2 class="logo-assist">authentic Chinese teas.</h2>
 	    	<p class="normal">We sell simple, authentic and great tasting Chinese teas - <a href="{% url teas %}">choose your tea &raquo;</a></p>
+
 
 			</div>
 {% endblock %}
@@ -20,8 +25,8 @@
 <style type="text/css">
 
 #home-banner h2.logo-assist {
-  font-size: 3.8em;	
-  text-shadow: 0 3px 3px #D1D1D1;
+  font-size: 3.2em;
+  font-weight: bold;	
 }
 
 div#welikes {

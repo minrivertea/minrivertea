@@ -258,11 +258,14 @@ def basket(request):
     else:
         total_price += 3
         
+    discount_form = UpdateDiscountForm()
+        
     return render(request, "shop/basket.html", locals())
 
 
+
 # the view for order process step 1 - adding your details
-def order_check_details(request):
+def order_step_one(request):
     try:
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
@@ -279,6 +282,7 @@ def order_check_details(request):
             address_line_2 = order.address.address_line_2
             town_city = order.address.town_city
             postcode = order.address.postcode
+            country = order.address.country
             first_name = order.owner.first_name
             last_name = order.owner.last_name
     except:
@@ -288,7 +292,7 @@ def order_check_details(request):
         shopper = get_object_or_404(Shopper, user=request.user.id)
 
     if request.method == 'POST': 
-        form = OrderCheckDetailsForm(request.POST)
+        form = OrderStepOneForm(request.POST)
         
         # if the form has no errors...
         if form.is_valid(): 
@@ -337,6 +341,7 @@ def order_check_details(request):
                 address_line_2 = form.cleaned_data['address_line_2'],
                 town_city = form.cleaned_data['town_city'],
                 postcode = form.cleaned_data['postcode'],
+                country = form.cleaned_data['country'],
             )
             
             # create an order object
@@ -380,12 +385,13 @@ def order_check_details(request):
              address_line_2 = request.POST['address_line_2']
              town_city = request.POST['town_city']
              postcode = request.POST['postcode']
+             country = request.POST['country']
              first_name = request.POST['first_name']
              last_name = request.POST['last_name']
 
-    confirm_form = OrderCheckDetailsForm() 
+    confirm_form = OrderStepOneForm() 
 
-    return render(request, 'shop/forms/order_check_details.html', locals())
+    return render(request, 'shop/forms/order_step_one.html', locals())
  
  
 # the view for 'logging out' if you're logged in with the wrong account   
@@ -406,7 +412,7 @@ def not_you(request):
         request.session['BASKET_ID'] = basket.id
     
     # now they can return to the usual Step 1 of the form    
-    return HttpResponseRedirect('/order/check-details/')    
+    return HttpResponseRedirect('/order/step-one/')    
     
     
     

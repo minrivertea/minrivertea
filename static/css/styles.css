@@ -279,10 +279,25 @@ div#home-banner {
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 3.1em;
     font-weight: bold;
-    letter-spacing: -3px;
+    letter-spacing: -2px;
     line-height: 1em;
     margin: 20px 0 10px;
 }
+
+Keaan
+Peter
+Chris
+Artur
+Darryl
+Jan
+Tim
+
+
+Elaine
+Radim
+Lukas
+Matous
+
 
 #navigation {
   float: right;
@@ -392,7 +407,7 @@ div#home-extra div#user-photos img {
 
 div#home-extra div#user-photos {
     margin-left: 0;
-    margin-top: 0px;
+    margin-top: 10px;
     padding: 20px 30px 30px;
     width: 740px;
     border-top: none;
@@ -460,8 +475,6 @@ p.introduction {
     font-weight: 300;
     margin-top: 10px;
     padding-bottom: 10px;
-    padding-left: 30px;
-    width: 700px;
 }
 
 
@@ -1062,4 +1075,22 @@ div#blog-right div.box.clear p {
 div#blog-right div.box.clear p.link {
   margin-top: -10px;
   margin-left: 5px;
+}
+
+p.countries {
+  text-align: right;
+  font-size: 11px;
+  width: 500px;
+  float: right;	
+  margin-bottom: 0;
+  padding-right: 20px;
+}
+
+img.flag {
+  position: relative;
+  top: 4px;	
+  margin-right: 3px;
+}
+div.about-box img.flag {
+  top: 1px;	
 }
