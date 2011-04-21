@@ -1,14 +1,16 @@
 Hi {{ shopper.first_name }},
 
-I hope you've had a chance to try your tea, and that you like it!
+You should have received your tea now from the Min River Tea Farm.
 
-It's really important to me that you enjoyed your tea, and that everything went as you'd expect. If there's anything that you'd like to let us know, whether positive or negative, about the tea you bought, the order process or our website, please let us know:
+If you're not sure how to brew Chinese loose-leaf tea, it's actually really easy. There's no complicated ceremony or equipment you need. Just your tea, boiling water and a mug or teapot. 
+
+Take a big pinch or two of the tea (depending on how strong you like it) and throw it into your mug or teapot. Add the hot water and allow it to sit and brew for about 1-2 minutes. If you're just using a mug, don't worry - as the tea leaves soak, they'll sink to the bottom of the cup and you won't get tea leaves in your teeth! 
+
+That's it! Remember, you can normally re-brew Chinese tea 2-3 times using the same leaves, so don't throw them away each time. I really hope you enjoy it, and if you feel like adding a review to let other people know your thoughts, please use this URL:
 
 {% for item in items %}
-  {{ item.item.parent_product.name }} : http://www.minrivertea.com/review/{{ item.item.parent_product.slug }}/{{ shopper.id }}/
+   * {{ item.item.parent_product.name }} : http://www.minrivertea.com/review/{{ item.item.parent_product.slug }}/{{ shopper.id }}/
 {% endfor %}
-
-The link above will take you to a simple page on the Min River site where it will only take a minute to write down your thoughts. It will really help me improve the service, and helps others choose the right tea for them.
 
 All the best
 
