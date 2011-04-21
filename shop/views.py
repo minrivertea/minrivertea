@@ -537,7 +537,7 @@ def send_review_email(request, order_id):
         }
     )
                  
-    subject_line = "minrivertea.com - if you liked your tea, please give a review!" 
+    subject_line = "minrivertea.com - how to brew your tea" 
     email_sender = settings.SITE_EMAIL
     recipient = order.owner.email
       
