@@ -1,6 +1,6 @@
 This is a simple custom Django ecommerce store currently in production at www.minrivertea.com
 
-HELP ME IMPROVE THIS PROJECT AND I'LL SEND YOU FREE CHINESE TEA. SERIOUSLY :)
+HELP ME IMPROVE MY TEA STORE AND I'LL SEND YOU FREE CHINESE TEA. SERIOUSLY :)
 
 BACKGROUND:
 I own an online Chinese tea shop, recently launched and built myself with my very junior Django/Python dev skills. There's lots I'd like to do, but I don't have the skillz to do it. If you're a Python/Django developer and can contribute to making improvements to my online shop code, I'll thank you with some free great tasting Chinese green tea.
@@ -20,6 +20,7 @@ You can contribute 1 line of code, 10 lines or 100 lines - it's up to your gener
  6. Send me your postal address via git messaging and whether you prefer green or red tea, and I'll send you the tea. 
  
  * (ps. no spam - I won't store your address or send anything other than your free tea.)
+ * (pps. this isn't a generic open source shop project - it's my tea website! If you want to use this as a base for your shop or turn it into a more generic Django shop project, feel free to fork it, but don't send me updates that aren't relevant to my wishlist or my shop. Thanks!)
  
  
 REQUIREMENTS:
