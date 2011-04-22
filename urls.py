@@ -43,6 +43,9 @@ urlpatterns = patterns('',
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
     (r'^nosoupforyou/$', direct_to_template, {'template': '500_fake.html'}),
     (r'^400/$', direct_to_template, {'template': '404.html'}),
+    (r'^thefind_88d0cb04f83f6f91acbcb196804b7904\.html$', direct_to_template, 
+        {'template': 'thefind_88d0cb04f83f6f91acbcb196804b7904.html'}),
+    
 )
 
 
