@@ -559,6 +559,10 @@ div.tea-top div.price:hover {
   background: url('/images/price-back.png') no-repeat bottom right;
 }
 
+div.tea-top div.main-image img {
+  border-radius: 10px;	
+}
+
 div.price-text {
     color: #EE6464;
     float: left;
@@ -580,9 +584,9 @@ div.price-text span {
 
 
 img.tea-promo {
-  margin-right: 0px;	
-  margin-bottom: 10px;
-  -moz-border-radius-topleft: 20px;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 10px;
+    margin-right: 0;
 }
 
 
