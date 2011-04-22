@@ -8,7 +8,7 @@ TEMPLATE_DEBUG = DEBUG
 
 
 ADMINS = (
-    ('Chris West', 'chris@fry-it.com'),
+#    ('Chris West', 'chris@minrivertea.com'),
 )
 
 MANAGERS = ADMINS
@@ -42,7 +42,7 @@ MEDIA_URL = '//static.minrivertea.com/'
 ADMIN_MEDIA_PREFIX = '/admin/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '6j%)dr#w2$17tiflykc2rnd(ja2*3uyn2_&j5cq$yocyf%y61o'
+SECRET_KEY = ''
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -113,22 +113,22 @@ DJANGO_STATIC_NAME_PREFIX = '/cache-forever'
 DJANGO_STATIC_MEDIA_URL = 'http://static.minrivertea.com'
 
 # mail settings
-EMAIL_HOST = 'mail.fry-it.com'
+EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_PORT = '25'
-SITE_EMAIL = 'mail@minrivertea.com'
+SITE_EMAIL = ''
 
 # paypal info
-PAYPAL_IDENTITY_TOKEN = "xxx"
-PAYPAL_RECEIVER_EMAIL = 'chris@minrivertea.com'
-PAYPAL_RETURN_URL = 'http://www.minrivertea.com/order/complete/'
-PAYPAL_NOTIFY_URL = 'http://www.minrivertea.com/paypal/ipn/'
-PAYPAL_BUSINESS_NAME = 'The Min River Tea Farm'
+PAYPAL_IDENTITY_TOKEN = ""
+PAYPAL_RECEIVER_EMAIL = ''
+PAYPAL_RETURN_URL = ''
+PAYPAL_NOTIFY_URL = ''
+PAYPAL_BUSINESS_NAME = ''
 PAYPAL_SUBMIT_URL = 'https://www.paypal.com/cgi-bin/webscr'
 
 
 
-LOG_FILENAME = "/var/log/django/minriver.log"
+LOG_FILENAME = ""
 
 try:
     from local_settings import *
