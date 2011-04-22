@@ -8,7 +8,7 @@ TEMPLATE_DEBUG = DEBUG
 
 
 ADMINS = (
-#    ('Chris West', 'chris@minrivertea.com'),
+    ('Chris West', 'chris@minrivertea.com'),
 )
 
 MANAGERS = ADMINS
@@ -37,7 +37,7 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'static')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '//static.minrivertea.com/'
+MEDIA_URL = ''
 
 ADMIN_MEDIA_PREFIX = '/admin/media/'
 
@@ -115,7 +115,7 @@ DJANGO_STATIC_MEDIA_URL = 'http://static.minrivertea.com'
 # mail settings
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
-EMAIL_PORT = '25'
+EMAIL_PORT = ''
 SITE_EMAIL = ''
 
 # paypal info
