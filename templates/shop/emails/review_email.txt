@@ -1,6 +1,6 @@
 Hi {{ shopper.first_name }},
 
-You should have received your tea now from the Min River Tea Farm.
+Hopefully you've received your tea now from the Min River Tea Farm.
 
 If you're not sure how to brew Chinese loose-leaf tea, it's actually really easy. There's no complicated ceremony or equipment you need. Just your tea, boiling water and a mug or teapot. 
 
