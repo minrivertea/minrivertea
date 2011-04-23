@@ -942,7 +942,7 @@ div.about-box {
     border-radius: 10px 10px 10px 10px;
     float: left;
     margin: 0 0 20px;
-    width: 210px;
+    width: 220px;
 }
 
 div.flatpage p.about-promo {
@@ -1077,4 +1077,9 @@ img.flag {
 }
 div.about-box img.flag {
   top: 1px;	
+}
+
+div#right p.mail {
+    font-size: 13px;
+    margin-top: 15px;
 }

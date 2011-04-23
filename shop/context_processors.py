@@ -13,7 +13,11 @@ def common(request):
     context['paypal_submit_url'] = settings.PAYPAL_SUBMIT_URL
     context['ga_is_on'] = settings.GA_IS_ON
     return context
-    
+
+def get_teas(request):
+    teas = Product.objects.filter(is_active=True, category="TEA")
+    return {'teas': teas}
+
 def get_latest_blogs(request):
     blogs = BlogEntry.objects.filter(is_draft=False).order_by('-date_added')[:3]
     return {'latestblogs': blogs}

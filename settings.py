@@ -61,6 +61,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'minriver.shop.context_processors.get_shopper',
     'minriver.shop.context_processors.common',
     'minriver.shop.context_processors.get_latest_blogs',
+    'minriver.shop.context_processors.get_teas',
 )
 
 

@@ -1,4 +1,4 @@
-
+{% load thumbnail %}
 {% load django_static %}
 
 	{% include 'flatpages/about_navigation.html' %}
@@ -12,6 +12,25 @@
 	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> 
 	    		We ship to UK and Europe! 
 	    	</p>
+		</div>
+		
+		<div class="about-box">
+		<h3>Browse our teas</h3>
+		{% for tea in teas %}
+			<div class="tea">
+			<div class="tea-image">
+			<a href="{% url tea_view tea.slug %}">
+			 	{% thumbnail tea.image "80x55" crop="center" as im%}
+			 	<img class="mail-icon" src="{{ im.url }}" />
+			 	{% endthumbnail %}
+			</a>
+			</div>
+			<div class="tea-text">
+			<a href="{% url tea_view tea.slug %}" title="{{ tea.name }} - another one of our great Chinese teas">{{ tea.name }}</a>
+			<br/>{{ tea.super_short_description }}
+			</div>
+			</div>
+		{% endfor %}
 		</div>
 		
 	
