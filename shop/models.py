@@ -96,7 +96,7 @@ COUNTRY_CHOICES = (
     (GERMANY, u"Germany"), 
     (GIBRALTAR, u"Gibraltar"),
     (GREECE, u"Greece"), 
-    (GREENLAND, u"Hreenland"),
+    (GREENLAND, u"Greenland"),
     (HUNGARY, u"Hungary"),
     (ICELAND, u"Iceland"),
     (IRELAND, u"Ireland"),  

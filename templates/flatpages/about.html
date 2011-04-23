@@ -16,6 +16,20 @@
     margin: 40px 0 10px;
 }
 
+div.more-box {
+  background-color: #f1f1f1;
+  padding: 20px;	
+  float: left;
+  width: 450px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px #999;
+}
+
+div.more-box div.image {
+  float: left;
+  margin-right: 20px;	
+}
+
 
 </style>
 {% endblock %}
@@ -25,17 +39,12 @@
 <div id="featured-small"></div>
 
 <div id="main-text-wide">
-
+<img src="/images/about-wide.jpg" style="margin-bottom: 30px; border-radius: 20px;">
 
 <div class="flatpage">
 
 	<div id="right">	
-		<div class="about-box">
-			<img src="{% staticfile '/images/chris-about.jpg' %}">
-			<p class="quote"><em>&ldquo;Hi, I'm Chris the founder of the Min River Tea Farm. I've made it my mission to supply great quality Chinese teas to the UK. Consider me your man in China!&rdquo;</em></p>
-						<p><img class="flag" src="{% staticfile '/images/uk-flag.gif' %}">  
-	    	<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> We ship to UK and Europe! </p>
-		</div>
+
 	
 	    
 		<div class="about-box">
@@ -48,11 +57,19 @@
 			  <li><a href="/contact-us/">Contact us</a></li>
 			</ul>
 		</div>
+				<div class="about-box">
+		
+			<p class="quote"><em>&ldquo;Hi, I'm Chris the founder of the Min River Tea Farm. I've made it my mission to supply great quality Chinese teas to the UK. Consider me your man in China!&rdquo;</em></p>
+						<p><img class="flag" src="{% staticfile '/images/uk-flag.gif' %}">  
+	    	<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> We ship to UK and Europe! </p>
+		</div>
   
 	</div>
 	
 	<div id="left">
+	
 	{{ flatpage.content }}
+		
 	</div>
 	
 </div>
