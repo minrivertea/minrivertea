@@ -260,7 +260,7 @@ div#logo:hover {
 
 div#home-banner {
     float: right;
-    margin: 20px 0px 0 0;
+    margin: 50px 0px 0 0;
     text-align: right;
     width: 560px;
 }
@@ -281,23 +281,8 @@ div#home-banner {
     font-weight: bold;
     letter-spacing: -2px;
     line-height: 1em;
-    margin: 20px 0 10px;
+    margin: 0px 0 10px;
 }
-
-Keaan
-Peter
-Chris
-Artur
-Darryl
-Jan
-Tim
-
-
-Elaine
-Radim
-Lukas
-Matous
-
 
 #navigation {
   float: right;
@@ -307,7 +292,7 @@ Matous
 ul#nav {
 float: right;
 font-size:15px;
-margin: 0;
+margin: 0px 0 0 0;
 color: #ee6464;
 }
 
