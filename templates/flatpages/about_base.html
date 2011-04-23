@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load django_static %}
+
+{% block pagetitle %}{{ flatpage.title }}{% endblock %}
+
+{% block banner %}
+	    	<div id="home-banner">
+	    	<h2 class="logo-assist">{{ flatpage.title }}</h2>
+	    	<p class="normal">{% block subtitle %}{% endblock %}</p>
+			</div>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+ #home-banner h2.logo-assist {
+    font-size: 3.1em;
+    margin: 40px 0 10px;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div id="featured-small"></div>
+
+<div id="main-text-wide">
+
+	{% block bannerimage %}{% endblock %}
+
+	<div class="flatpage">
+
+	<div id="right">
+		
+  		{% block right %}
+  			{% include 'flatpages/about_right.html' %}
+  		{% endblock %}
+  		
+	</div>
+
+	<div id="left">
+		{{ flatpage.content }}		
+	</div>
+	
+</div>
+
+
+
+
+
+
+</div>
+{% endblock %}

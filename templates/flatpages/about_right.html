@@ -1,0 +1,17 @@
+
+{% load django_static %}
+
+	{% include 'flatpages/about_navigation.html' %}
+		
+		<div class="about-box">
+		 <h3>What our customers say</h3>		
+			<p class="quote"><em>&ldquo;My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.&rdquo;</em><br/><strong>Brad Robinson, UK</strong></p>
+			<p class="quote"><em>&ldquo;Ordering was quick and easy, and I got the tea delivered within a few days.&rdquo;</em><br/><strong>Agnes Vinkler, UK</strong></p>
+			<p>
+				<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}">  
+	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> 
+	    		We ship to UK and Europe! 
+	    	</p>
+		</div>
+		
+	
