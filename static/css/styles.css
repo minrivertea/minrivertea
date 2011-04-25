@@ -1005,9 +1005,11 @@ img.map {
   margin-bottom: 5px;	
 }
 
-div.left p.caption {
+div.left p.caption, div.flatpage p.caption {
   font-size: 0.8em;
   padding-left: 10px;
+  color: #000;
+  
 }
 
 
