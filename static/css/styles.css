@@ -233,20 +233,20 @@ div#header-messages div.hm {
 }
 
 div#logo {	 
- width: 230px;
+ width: 140px;
  float: left;
- margin: 0px 0 0 10px;
+ margin: 15px 0 0 50px;
 }
 
 div#logo h1.home {
-  background: url('/images/logo4.png') no-repeat scroll 0 0 transparent;
-  height: 230px;	
+  background: url('/images/logo5.png') no-repeat scroll 0 0 transparent;
+  height: 150px;	
   margin: 0px 0 0 0px;
 }
 
 div#logo h1 {
-    background: url("/images/logo4.png") no-repeat scroll 0 0 transparent;
-    height: 230px;
+    background: url("/images/logo5.png") no-repeat scroll 0 0 transparent;
+    height: 150px;
     margin: 0px 0 0 0px;
 }
 
@@ -256,6 +256,7 @@ div#logo h1 span {
 
 div#logo:hover {
   opacity: 0.8;	
+  
 }
 
 div#home-banner {
@@ -375,7 +376,7 @@ div#box {
 div.home-products {
     float: left;
     margin-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 40px;
 }
 
 div#home-extra {
