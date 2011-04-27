@@ -10,12 +10,8 @@
 
 {% block banner %}
 	    	<div id="home-banner">
-	    		<p class="countries">We ship to the UK and Europe 
-	    		<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}"> 
-	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}">
-	    		</p>
 	    	<h2 class="logo-assist">Chinese tea made simple.</h2>
-	    	<p class="normal">We sell authentic and great tasting Chinese teas - <a href="{% url teas %}">choose your tea &raquo;</a></p>
+	    	<p class="normal">We sell healthy, organic and great tasting Chinese teas - <a href="{% url teas %}">choose your tea &raquo;</a></p>
 
 
 			</div>
@@ -24,13 +20,10 @@
 {% block extracss %}
 <style type="text/css">
 
-div#home-banner {
-  margin-top: 25px;	
-}
-
-#home-banner h2.logo-assist {
-  font-size: 2.8em;
-  font-weight: bold;	
+div#feature {
+    height: 400px;
+    margin: 0 auto;
+    width: 800px;
 }
 
 div#customers {
@@ -119,6 +112,9 @@ div#customers div.photo {
 
     <div id="featured-small"></div>
 
+	<div id="feature">
+		<img src="{% staticfile '/images/feature.jpg' %}">
+	</div>
 
 	<div id="box">
         <div class="home-products">

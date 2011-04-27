@@ -170,7 +170,7 @@ div.tea-top div.prices {
 div.tea-top div.tea-description {
   float: left;
   width: 270px;
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 10px;
 }
 
@@ -276,7 +276,10 @@ div.product-photos-small p.helper {
 
 <div id="featured-small"></div>
 
+
+
 <div id="main-text-wide">
+
 	
 
 	
@@ -288,26 +291,6 @@ div.product-photos-small p.helper {
 				title="{{ tea.description }}" 
 				src="{{ im.url }}"/>
 			{% endthumbnail %}
-		</div>
-		
-				<div class="prices">
-			{% for price in prices %}
-				<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
-				<div class="price{% if forloop.first %} first{% endif %}">  
-					<div class="price-text">
-					{{ price.price_unit }}{{ price.price|floatformat }} 
-					<span class="grey"> / {{ price.weight|floatformat }}{{ price.weight_unit }}</span>
-            		</div>
-            	</div>
-            	</a>
-           	{% endfor %}
-           	
-           	{% if message %}
-	  			<div class="message">
-					<p>{{ message }}</p>
-					<p><a href="{% url basket %}">Checkout now &raquo;</a></p>
-				</div>
-	  		{% endif %}
 		</div>
 		
 		<div class="tea-description">
@@ -352,6 +335,26 @@ div.product-photos-small p.helper {
 				</a>
 			{% endif %}
 
+		</div>
+		
+		<div class="prices">
+			{% for price in prices %}
+				<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
+				<div class="price{% if forloop.first %} first{% endif %}">  
+					<div class="price-text">
+					{{ price.price_unit }}{{ price.price|floatformat }} 
+					<span class="grey"> / {{ price.weight|floatformat }}{{ price.weight_unit }}</span>
+            		</div>
+            	</div>
+            	</a>
+           	{% endfor %}
+           	
+           	{% if message %}
+	  			<div class="message">
+					<p>{{ message }}</p>
+					<p><a href="{% url basket %}">Checkout now &raquo;</a></p>
+				</div>
+	  		{% endif %}
 		</div>
 		
 
