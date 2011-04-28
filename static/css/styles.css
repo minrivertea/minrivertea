@@ -425,9 +425,11 @@ div#home-extra a.see-more {
 }
 
 div#home-extra h2 {
+    font-family: Georgia, serif;
     font-size: 24px;
-    text-shadow: 0 2px 3px #e1e1e1;
+    font-weight: normal;
     margin-bottom: 10px;
+    color: #30A5C7;
 }
 
 
