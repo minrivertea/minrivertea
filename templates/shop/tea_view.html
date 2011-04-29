@@ -162,9 +162,11 @@ div.tea-top div.main-image {
 }
 
 div.tea-top div.prices {
-  float: left;
-  width: 230px;
-  margin-bottom: 10px;	
+    border-top: 2px dotted #E1E1E1;
+    float: left;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    width: 270px;
 }
 
 div.tea-top div.tea-description {
@@ -182,18 +184,29 @@ div.tea-top div.tea-description p {
 div.message {
     float: left;
     margin-bottom: 0;
+    margin-left: 10px;
     margin-top: 10px;
-    padding: 5px 15px;
-    width: 235px;
+    width: 70px;
+    padding: 3px 0 0 0;
+    background-color: #fff;
+    border: none;
 }
 
 div.message a {
   color: #EE6464;	
 }
 
+div.message img {
+    float: left;
+    margin-right: 3px;
+    position: relative;
+    top: 2px;
+}
+
 div.message p {
   font-size: 13px;
-  margin: 0; 	
+  margin: 0; 
+  color: #19761C;	
 }
 
 table.details {
@@ -259,6 +272,59 @@ div.product-photos-small p.helper {
     width: 130px;
 }
 
+p.price {
+  font-size: 32px;
+  color: #19761C;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;
+  letter-spacing: -1px;	
+  float: left;
+  width: 70px;
+  margin: 0 10px 0 0;
+}
+
+p.price span.grey {
+  color: #999;
+  font-weight: 100;	
+}
+
+p.price-description {
+  font-size: 10px;
+  color: #666;
+  float: left;
+  width: 190px;	
+  margin: 9px 0 10px 0;
+}
+
+div.facts {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #F6F6F6;
+    border-color: #F1F1F1 #E1E1E1 #E1E1E1 #F1F1F1;
+    border-radius: 10px 10px 10px 10px;
+    border-right: 1px solid #E1E1E1;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 20px;
+    padding: 15px 15px 15px 30px;
+}
+
+div.facts ul {
+  list-style-type: square;
+  font-size: 13px;
+  margin-bottom: 5px;
+  margin-top: 5px;	
+  padding-left: 15px;
+}
+
+div.facts h3 {
+  color: #19761C;
+  font-size: 18px;	
+} 
+
 </style>
 {% endblock %}
 
@@ -318,7 +384,7 @@ div.product-photos-small p.helper {
 			{% endif %}
 			{% if tea.image_4 %}
 				{% thumbnail tea.image_4 "550x550" as im %}
-				<a href="{{ im.url }}" rel="lightbox[tea]" title="{{ tea.image_3_caption }}">
+				<a href="{{ im.url }}" rel="lightbox[tea]" title="{{ tea.image_4_caption }}">
 				{% endthumbnail %}
 				{% thumbnail tea.image_4 "50x50" crop="center" as im %}
 				<img class="product-small" alt="a picture of {{ tea.name }}" title="{{ tea.image_4_caption }}" src="{{ im.url }}"/>
@@ -338,21 +404,23 @@ div.product-photos-small p.helper {
 		</div>
 		
 		<div class="prices">
+		    {% for price in prices %}
+		    	<p class="price">{{ price.price_unit }}{{ price.price|floatformat }} <span class="grey">/</span></p> 
+		    	<p class="price-description">{{ price.weight|floatformat }}{{ price.weight_unit }} resealable foil bag of premium loose-leaf Chinese  tea. 1-2 days delivery.</p>
+		    {% endfor %}
+		
 			{% for price in prices %}
 				<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
 				<div class="price{% if forloop.first %} first{% endif %}">  
-					<div class="price-text">
-					{{ price.price_unit }}{{ price.price|floatformat }} 
-					<span class="grey"> / {{ price.weight|floatformat }}{{ price.weight_unit }}</span>
-            		</div>
             	</div>
             	</a>
            	{% endfor %}
            	
            	{% if message %}
 	  			<div class="message">
-					<p>{{ message }}</p>
-					<p><a href="{% url basket %}">Checkout now &raquo;</a></p>
+	  				<img src="{% staticfile '/images/tick.png' %}">
+					<p>Added!</p>
+					<p><a href="{% url basket %}">Checkout &raquo;</a></p>
 				</div>
 	  		{% endif %}
 		</div>
@@ -424,7 +492,7 @@ div.product-photos-small p.helper {
 		</ul>
 	{% endif %}
 	
-		<h3>More about this tea</h3>
+		
 	{{ tea.long_description|safe }}
 	</div>
 	

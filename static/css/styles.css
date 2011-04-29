@@ -19,7 +19,6 @@ h3 {
     margin: 0 0 5px;
 }
 
-
 div.left h3 {
   margin: 0px 0 0px 0px;
   font-weight: bold;
@@ -73,6 +72,16 @@ a:link, a:visited {
 
 a:hover, a:active {
   color: #ffaeae;
+}
+
+ul, ol {
+  color: #666;
+  line-height: 1.6em;	
+}
+
+ol {
+  font-weight: italic;	
+  font-size: 12px;
 }
 
 div#container {
@@ -532,8 +541,25 @@ div#right p {
   font-size: 13px;	
 }
 
+div.tea-top div.price {
+    background: url("/images/price-back-two.png") no-repeat scroll right top transparent;
+    float: left;
+    height: 43px;
+    margin: 10px 0 0 0;
+    width: 186px;
+}
 
+div.tea-top div.price:hover {
+  cursor: pointer;
+  background: url('/images/price-back-two.png') no-repeat center right;
+}
 
+div.tea-top div.price:active {
+  cursor: pointer;
+  background: url('/images/price-back-two.png') no-repeat bottom right;
+}
+
+/* the old one...
 div.tea-top div.price {
     background: url("/images/price-back.png") no-repeat scroll right top transparent;
     float: left;
@@ -543,10 +569,12 @@ div.tea-top div.price {
     width: 265px;
 }
 
+
 div.tea-top div.price:hover {
   cursor: pointer;
   background: url('/images/price-back.png') no-repeat bottom right;
 }
+*/
 
 div.tea-top div.main-image img {
   border-radius: 10px;	
@@ -750,6 +778,12 @@ div.row-box input {
     margin: 0 0 20px 0px;
     padding: 10px 15px;
     width: 280px;
+}
+
+div.row-box input:focus {
+  border-color: #6acc75;
+  border-width: 1px;
+  margin-bottom: 19px;
 }
 
 div.row-box label {
