@@ -181,7 +181,7 @@ class Shopper(models.Model):
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
     number_referred = models.IntegerField(null=True, blank=True)
-    subscribed = models.BooleanField(default=True)
+    subscribed = models.BooleanField(default=False)
     slug = models.SlugField(max_length=200)
     twitter_username = models.CharField(max_length=200, blank=True, null=True)
 

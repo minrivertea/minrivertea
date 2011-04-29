@@ -6,6 +6,9 @@
 
 {% block extracss %}
 <style type="text/css">
+div#home-banner {
+  margin-top:25px;	
+}
 
 div.row-label h3 {
     font-size: 1.2em;
@@ -84,11 +87,11 @@ div.tea-remove {
 }
 
 div.tea-remove a {
-  background: url({% staticfile '/images/delete.png' %}) no-repeat top left;
-  height: 11px;
-  display: block;
-  width: 13px;	
-  margin-top: 4px;
+    background: url("/images/delete.png") no-repeat scroll left top transparent;
+    display: block;
+    height: 14px;
+    margin-top: 4px;
+    width: 11px;
 }
 
 div.tea-remove a:hover {
@@ -140,6 +143,41 @@ div#extra-info h3 {
   margin-bottom: 0px;
 }
 
+div#steps {
+    float: right;
+    width: auto;
+}
+
+div#steps div.step {
+    background-color: #F1F1F1;
+    border: 1px solid #FFFFFF;
+    color: #D1D1D1;
+    float: left;
+    font-size: 14px;
+    padding: 7px 20px;
+    text-align: center;
+    width: auto;
+}
+
+div#steps div.step.first {
+  -moz-border-radius: 10px 0px 0px 10px;	
+}
+
+div#steps div.step.selected {
+    background-color: #ddeedf;
+    color: #333;
+}
+
+div#steps div.step.last {
+  -moz-border-radius: 0px 10px 10px 0px;	
+}
+
+div#steps div.step.finished {
+  background-color: #e1e1e1;
+  color: #19761C;	
+}
+
+
 </style>
 {% endblock %}
 
@@ -148,7 +186,11 @@ div#extra-info h3 {
 {% block banner %}
 	    	<div id="home-banner">
 	    	<h2 class="logo-assist">Your basket</h2>
-	    	<p class="normal">{% if not basket_items %}Your basket is empty!{% else %}You currently have {{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %} in your basket.{% endif %}</p>
+	    	<div id="steps">
+	    		<div class="step first selected">1. Your basket</div>
+	    		<div class="step">2. Your details</div>
+	    		<div class="step last">3. Confirm and pay</div>
+	    	</div>
 	    	
 	    	
 			</div>
@@ -165,10 +207,9 @@ div#extra-info h3 {
 
 <div id="checkout-button">
 
-
 <a href="{% url order_step_one %}"></a>
 
-<p class="checkout"><strong>Next step - your details.</strong>  <br/><em>You don't need to login or register to purchase - no passwords to remember, no slow registration process, no hassle.</em></p>
+<p class="checkout"><strong>Next step</strong>: your details.  <br/><em>You don't need to login or register to purchase - no passwords to remember, no slow registration process, no hassle.</em></p>
 
 
 </div>

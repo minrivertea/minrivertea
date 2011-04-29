@@ -244,7 +244,7 @@ div#header-messages div.hm {
 div#logo {	 
  width: 140px;
  float: left;
- margin: 18px 0 0 50px;
+ margin: 25px 0 0 50px;
 }
 
 div#logo h1.home {
@@ -628,11 +628,12 @@ span.grey {
 p.checkout {
     float: left;
     font-size: 14px;
+    margin-top: 0;
+    padding-left: 8px;
     width: 220px;
 }
 
 div#checkout-button {
-    -moz-border-radius: 10px 10px 10px 10px;
     float: right;
     margin: 15px 0px 0 0;
     border-left: 1px solid #e1e1e1;
@@ -647,11 +648,17 @@ div#checkout-button p {
 
 div#checkout-button a:link, div#checkout-button a:visited {
 	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll left top transparent;
-	width: 227px;
-	height: 55px;
+	width: 220px;
+	height: 51px;
+	margin-bottom: 10px;
 }
 
 div#checkout-button a:hover {
+	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll center left transparent;
+	cursor: pointer;
+}
+
+div#checkout-button a:focus {
 	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll bottom left transparent;
 	cursor: pointer;
 }
@@ -660,41 +667,40 @@ div.checkout-button {
     border-left: 1px solid #E1E1E1;
     float: right;
     margin-top: 15px;
-    padding-left: 36px;
+    padding-left: 20px;
     width: 220px;
 }
 
 input.checkout-button {
-  background: url('/images/button-confirm-and-pay.png') no-repeat top left;
-  width: 227px;
-  height: 53px;
-  float: right;	
-  border: none;
-  margin-top:-10px;
-    -moz-border-radius-topleft:10px;
-  -moz-border-radius-topright:10px;
-  -moz-border-radius-bottomleft:10px;
-  -moz-border-radius-bottomright:10px;
+    background: url("/images/button-confirm-and-pay.png") no-repeat scroll left top transparent;
+    border: medium none;
+    height: 51px;
+    width: 220px;
 }
 
 input.checkout-button:hover {
+  background: url('/images/button-confirm-and-pay.png') no-repeat center left;
+  cursor: pointer;
+}
+
+input.checkout-button:active {
   background: url('/images/button-confirm-and-pay.png') no-repeat bottom left;
   cursor: pointer;
 }
 
 input.button-confirm-address {
-  background: url('/images/button-confirm-address.png') no-repeat top left;
-  width: 227px;
-  height: 53px;
-  float: right;
-  border: none;
-    -moz-border-radius-topleft:10px;
-  -moz-border-radius-topright:10px;
-  -moz-border-radius-bottomleft:10px;
-  -moz-border-radius-bottomright:10px;
+    background: url("/images/button-confirm-address.png") no-repeat scroll left top transparent;
+    border: medium none;
+    height: 51px;
+    width: 220px;
 }
 
 input.button-confirm-address:hover {
+  background: url('/images/button-confirm-address.png') no-repeat center left;
+  cursor: pointer;
+}
+
+input.button-confirm-address:active {
   background: url('/images/button-confirm-address.png') no-repeat bottom left;
   cursor: pointer;
 }
@@ -751,8 +757,9 @@ div.row-label {
 }
 
 div.row-label h3 {
-    font-size: 1.5em;
-    font-weight: bold;
+    color: #19761C;
+    font-size: 1.3em;
+    font-weight: normal;
     margin: 0;
 }
 
@@ -792,6 +799,7 @@ div.row-box label {
     margin-left: 0;
     margin-right: 20px;
     position: relative;
+    text-align: right;
     top: 10px;
     width: 100px;
 }

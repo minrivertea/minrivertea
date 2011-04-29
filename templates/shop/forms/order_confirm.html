@@ -7,17 +7,18 @@
 	    	<div id="home-banner">
 	    	<h2 class="logo-assist">Confirm and pay</h2>
 	    	<div id="steps">
-	    		<div class="step first finished">1. Your details</div>
-	    		<div class="step selected">2. Confirm</div>
-	    		<div class="step last">3. Pay with PayPal</div>
+	    		<div class="step first finished">1. Your basket</div>
+	    		<div class="step finished">2. Your details</div>
+	    		<div class="step last selected">3. Confirm and pay</div>
 	    	</div>
 			</div>
 {% endblock %}
 
 {% block extracss %}
 <style type="text/css">
-div#header {
-  height: 200px;	
+
+div#home-banner {
+  margin-top:25px;	
 }
 
 div.row {
@@ -51,8 +52,8 @@ div#steps div.step.finished {
 }
 
 div#steps div.step.selected {
-    background-color: #E1E1E1;
-    color: #19761C;
+    background-color: #ddeedf;
+    color: #333;
 }
 
 div#steps div.step.last {

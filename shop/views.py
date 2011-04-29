@@ -333,7 +333,7 @@ def order_step_one(request):
                     slug = slugger,     
                 )
             
-            # create an address based on the info they provided           
+            # create an address based on the info they provided         
             address = Address.objects.create(
                 owner = shopper,
                 house_name_number = form.cleaned_data['house_name_number'],
