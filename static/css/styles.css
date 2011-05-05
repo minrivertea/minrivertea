@@ -10,19 +10,39 @@ body {
   background: url('/images/background.png') no-repeat scroll 50% 0 #fff;
   margin: 10px 0 0;
   padding: 0;
+  color: #666;
 }
 
 h3 {
     color: #BE373A;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    letter-spacing: -1px;
     margin: 0 0 5px;
 }
 
-div.left h3 {
-  margin: 0px 0 0px 0px;
-  font-weight: bold;
-  font-size: 1.3em;	
+div#main-text-wide div#left h3 {
+    color: #444444;
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    margin: 0 0 5px;
+}
+
+@font-face {
+    font-family: 'WCROUGHTRADBtaRegular';
+    src: url('/fonts/WC_RoughTrad-webfont.eot');
+    src: url('/fonts/WC_RoughTrad-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/WC_RoughTrad-webfont.woff') format('woff'),
+         url('/fonts/WC_RoughTrad-webfont.ttf') format('truetype'),
+         url('/fonts/WC_RoughTrad-webfont.svg#WCROUGHTRADBtaRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+div#main-text-wide div#left p {
+  margin-top: 0;
+  margin-bottom: 20px;	
 }
 
 h4 {
@@ -38,7 +58,6 @@ div.left h4 {
     font-size: 15px;
     margin-bottom: 0;
     padding-bottom: 0;
-    text-transform: uppercase;
 }
 
 div#right h3 {
@@ -173,12 +192,12 @@ h1 {
 }
 
 h2 {
-    color: #BE373A;
+    color: #ed7b7b;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 2em;
+    font-size: 2.2em;
     font-weight: bold;
     letter-spacing: -1px;
-    margin: 0 0 10px;
+    margin: 0 0 5px;
     padding-bottom: 0;
 }
 
@@ -189,9 +208,9 @@ div#user-photos h2 {
 
 
 p {
-  font-size: 15px;	
-  line-height: 1.5em;
-  color: #666;
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.8em;
 }
 
 p.intro {
@@ -212,13 +231,7 @@ div.left p {
 div#header {
   width: 800px;
   margin: 0 auto;
-  height: 180px;
-}
-
-div#headerhome {
-    height: 180px;
-    margin: 0 auto;
-    width: 800px;
+  height: 100px;
 }
 
 div#header-messages {
@@ -242,20 +255,14 @@ div#header-messages div.hm {
 }
 
 div#logo {	 
- width: 140px;
+ width: 320px;
  float: left;
- margin: 25px 0 0 50px;
-}
-
-div#logo h1.home {
-  background: url('/images/logo5.png') no-repeat scroll 0 0 transparent;
-  height: 150px;	
-  margin: 0px 0 0 0px;
+ margin: 10px 0 0 30px;
 }
 
 div#logo h1 {
-    background: url("/images/logo5.png") no-repeat scroll 0 0 transparent;
-    height: 150px;
+    background: url("/images/logo7.jpg") no-repeat scroll 0 0 transparent;
+    height: 88px;
     margin: 0px 0 0 0px;
 }
 
@@ -275,24 +282,14 @@ div#home-banner {
     width: 560px;
 }
 
-#home-banner p.normal {
-    float: right;
-    font-size: 15px;
-    letter-spacing: 0;
-    margin: -10px 0 10px 10px;
-    width: 500px;
+p.subtitle {
+    font-size: 18px;
+    letter-spacing: 0px;
+    padding-bottom: 10px;
+    margin: 0px 0 10px 0px;
+    border-bottom: 1px solid #fbe3e3;;
 }
 
-
-#home-banner h2.logo-assist {
-    color: #19761C;
-    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 2.4em;
-    font-weight: bold;
-    letter-spacing: -1px;
-    line-height: 1em;
-    margin: 0px 0 10px;
-}
 
 #navigation {
   float: right;
@@ -301,19 +298,48 @@ div#home-banner {
 
 ul#nav {
 float: right;
-font-size:15px;
-margin: 20px 0 0 0;
+font-size:13px;
+margin: 25px 0 0 0;
 color: #ee6464;
 }
 
-#navigation ul li {
+ul#nav li {
   display: inline;
-  padding-left: 0px;
+  margin-right: 5px;
+}
+
+ul#nav li a {
+  display: block;
+  background-color: #e0f1e4;
+  padding: 5px 12px;
+  float: left;
+  margin-right: 8px;	
+}
+
+ul#nav li a:hover {
+  background-color: #b6dec1 ;
+  margin-top:-1px;
+  padding-top: 6px;
+  padding-bottom: 6px;	
+}
+
+ul#nav li a.selected:hover {
+  background-color: #409747 ;	
+
+}
+
+ul#nav li a.selected {
+  background-color: #197621;
+
+  color: #fff;
+  margin-top:-3px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 
 #navigation a:link, #nav a:visited {
-  color: #1A6D18;
+  color: #0b5a12;
   text-decoration: none;
   font-weight: normal;
 
@@ -321,7 +347,6 @@ color: #ee6464;
 
 #navigation a:hover, #nav a:active {
 
-  color: #ee6464;
   cursor: pointer;
 }
 
@@ -387,13 +412,14 @@ div.home-products {
     float: left;
     margin-bottom: 10px;
     margin-top: 0px;
+    display: none;
 }
 
 div#home-extra {
   float:left;
   margin-left:0px;
   width:780px;
-  padding: 0px 20px 10px 0px;
+  padding: 10px 20px 10px 0px;
   margin-top: 0px;
 }
 
@@ -402,11 +428,10 @@ div#home-extra div#user-photos img {
 }
 
 div#home-extra div#user-photos {
+    border-top: medium none;
     margin-left: 0;
-    margin-top: 10px;
-    padding: 20px 30px 30px;
+    padding: 20px 30px 20px;
     width: 740px;
-    border-top: none;
 }
 
 div#home-extra div#user-photos div.a-user-photo {
@@ -433,38 +458,69 @@ div#home-extra a.see-more {
     top: -2px;
 }
 
-div#home-extra h2 {
-    font-family: Georgia, serif;
+div#home-extra h4 {
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 24px;
-    font-weight: normal;
-    margin-bottom: 10px;
-    color: #30A5C7;
+    font-weight: bold;
+    letter-spacing: -1px;
+    margin: 0;
+    color: #1A6D18;
 }
 
 
+div#home-extra div.left p {
+  margin-bottom: -5px;	
+}
+
+
+/* right navigation styles */
+ul#right-nav {
+  list-style-type: none;
+  padding: 0;	
+}
+
+ul#right-nav li {
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-size: 12px;	
+  font-weight: bold;
+}
+
+ul#right-nav li a {
+  background-color: #f6f6f6;
+  padding: 5px 5px 5px 20px;
+  display: block;
+  margin-bottom: 2px;
+  color: #666;  	
+}
+
+ul#right-nav li a:hover {
+  color: #197621;  	
+  background-color: #E0F1E4;
+}
+
+
+/* end rightnav styles */
 
 
 /* content page styles */
 
 div#main-text-wide {
   margin:0 auto;
-  padding-top:30px;
+  padding-top:40px;
   width:800px;
   margin-bottom: 80px;
 }
 
-div#main-text-wide div.left {
+div#main-text-wide div#left {
     float: left;
     margin: 0 10px 20px 0px;
-    width: 500px;
+    width: 530px;
 }
 
 div#main-text-wide div#right {
-    border-left: 1px solid #E1E1E1;
     float: right;
-    padding-left: 30px;
-    padding-top: 10px;
-    width: 240px;
+    padding-left: 20px;
+    width: 220px;
 }
 
 p.introduction {
@@ -478,21 +534,52 @@ p.introduction {
 
 /* tea listing styles */
 
+div.teas {
+  margin-top: 0px;
+  float: left;
+  margin-bottom: 30px;	
+}
+
 div.tea-promo {
-  border-right:1px solid #E1E1E1;
-  float:left;
-  margin-bottom:20px;
-  margin-top:0;
-  padding: 0 25px 20px 25px;
-  width:215px;
-  height: 270px;
+    border-bottom: 3px dotted #E1E1E1;
+    float: left;
+    margin: 0 0 0px;
+    padding: 30px 0 15px 30px;
+    width: 770px;
 }
 
-div.tea-promo.last {
-  margin-right:0;
-  border-right: none;
+div.tea-promo:hover {
+  background-color: #eff9f2;	
+  cursor: pointer;
 }
 
+div.tea-promo div.image {
+  width: 210px;
+  float: left;
+  margin-right: 20px;	
+}
+
+div.tea-promo div.text {
+  width: 350px;
+  float: left;
+  margin-right: 0px;	
+}
+
+div.tea-promo div.text p {
+  margin-bottom: 0;	
+}
+
+div.tea-promo div.text div.add-to-basket a {
+  background: url('/images/price-back-small.png') no-repeat top;
+  width: 108px;
+  height: 25px;
+  display:block;
+  float:left;	
+}
+
+div.tea-promo div.text div.add-to-basket a:hover {
+  background: url('/images/price-back-small.png') no-repeat center;
+}
 
 
 div.image-top {
@@ -505,13 +592,14 @@ div.image-top {
 
 div.tea-promo h4 {
   margin-left: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 0px;
   margin-top: 0;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 1.3em;
     font-weight: bold;
     letter-spacing: -1px;
-  color: #1a6d18;	
+  color: #1a6d18;
+  border-bottom: none;	
 }
 
 
@@ -525,15 +613,16 @@ div.tea-promo p {
 }
 
 div.tea-promo div.price {
-    color: #EE6464;
-    float: right;
+    color: #197621;
+    float: left;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 20px;
     font-weight: bold;
-    height: 18px;
     letter-spacing: -2px;
-    margin: -35px 0 5px 5px;
+    margin: 0 20px 5px 10px;
 }
+
+
 
 div#right p {
   margin: 0 0 10px 0;
@@ -545,7 +634,7 @@ div.tea-top div.price {
     background: url("/images/price-back-two.png") no-repeat scroll right top transparent;
     float: left;
     height: 43px;
-    margin: 10px 0 0 0;
+    margin: 0px 0 0 0;
     width: 186px;
 }
 
@@ -558,23 +647,6 @@ div.tea-top div.price:active {
   cursor: pointer;
   background: url('/images/price-back-two.png') no-repeat bottom right;
 }
-
-/* the old one...
-div.tea-top div.price {
-    background: url("/images/price-back.png") no-repeat scroll right top transparent;
-    float: left;
-    height: 21px;
-    margin: 0;
-    padding: 12px 0 15px 3px;
-    width: 265px;
-}
-
-
-div.tea-top div.price:hover {
-  cursor: pointer;
-  background: url('/images/price-back.png') no-repeat bottom right;
-}
-*/
 
 div.tea-top div.main-image img {
   border-radius: 10px;	
@@ -613,6 +685,10 @@ img.tea-promo {
 span.grey {
   color: #666;	
   font-weight: normal;
+}
+
+span.lightgrey {
+  color:#e1e1e1;	
 }
 
 .small {

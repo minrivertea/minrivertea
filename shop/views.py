@@ -64,7 +64,7 @@ def index(request):
     featured = Product.objects.filter(is_active=True).exclude(category="POS") 
     prices = UniqueProduct.objects.filter(is_active=True)
     welike = WeLike.objects.all().order_by('-date_added')[:2]
-    review = Review.objects.all()[:1]
+    review = Review.objects.all()[:2]
     
     # load the products and prices combinations
     products_and_prices = []

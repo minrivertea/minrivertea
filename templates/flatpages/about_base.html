@@ -1,14 +1,9 @@
 {% extends "base.html" %}
 {% load django_static %}
 
-{% block pagetitle %}{{ flatpage.title }}{% endblock %}
+{% block aboutselected %}selected{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">{{ flatpage.title }}</h2>
-	    	<p class="normal">{% block subtitle %}{% endblock %}</p>
-			</div>
-{% endblock %}
+{% block pagetitle %}{{ flatpage.title }}{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
@@ -58,22 +53,21 @@ div.flatpage div#right div.social p {
 
 <div id="main-text-wide">
 
-	{% block bannerimage %}{% endblock %}
-
-	<div class="flatpage">
-
-	<div id="right">
-		
+	<div id="right">	
   		{% block right %}
-  			{% block rightimage %}{% endblock %}
+  			
   			{% include 'flatpages/about_right.html' %}
+  			{% block rightimage %}{% endblock %}
   		{% endblock %}
-  		
 	</div>
 
 	<div id="left">
-		{{ flatpage.content }}		
+		<h2 class="fontface">{{ flatpage.title }}</h2>
+		<p class="subtitle">{% block subtitle %}{% endblock %}</p>
+		{{ flatpage.content }}
 	</div>
+
+		
 	
 </div>
 

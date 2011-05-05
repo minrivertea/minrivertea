@@ -3,19 +3,10 @@
 {% load django_static %}
 
 {% block pagetitle %}authentic Chinese teas delivered to your door from the Min River Tea Farm{% endblock %}
+
 {% block metadescription %}The Min River Tea Farm is a UK-based tea merchant. We sell great quality, authentic oolong green tea, jasmine tea and da hong pao tea sourced from farms in China and delivered direct to your door. {% endblock %}
-{% block header %}home{% endblock %}
-{% block logo %}home{% endblock %}
 
-
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Chinese tea made simple.</h2>
-	    	<p class="normal">We sell fresh, organic and great tasting Chinese teas - <a href="{% url teas %}">choose your tea &raquo;</a></p>
-
-
-			</div>
-{% endblock %}
+{% block homeselected %}selected{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
@@ -24,6 +15,19 @@ div#feature {
     height: 400px;
     margin: 0 auto;
     width: 800px;
+}
+
+div#feature p {
+  text-align:right;
+  padding-right: 60px;	
+  position: relative;
+  top: -30px;
+  font-size: 13px;
+}
+
+div#feature p a {
+  font-weight: 15px;
+  font-size: 13px;	
 }
 
 div#customers {
@@ -36,13 +40,12 @@ div#customers {
 
 div#user-photos div.left {
   float: left;
-  width: 270px;
+  width: 370px;
   margin-right: 20px;	
 }
 
 div#user-photos div.right {
-  float: left;
-  width: 440px;
+  float: right;
 }
 
 div#customers h3 {
@@ -92,7 +95,7 @@ p.testimonial {
   font-size: 14px;
 }
 
-p.testimonial span.red {
+span.red {
   color:#BE373A;	
 }
 
@@ -100,6 +103,30 @@ div#customers div.photo {
   float: left; 
   margin-right: 10px;	
   margin-bottom: 10px;
+}
+
+div#user-photos p span.small {
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+}
+
+
+div#home-bottom {
+  padding: 20px 0 0 30px;
+  float: left;	
+}
+
+div#home-bottom div.box {
+    float: left;
+    height: 160px;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 360px;
+}
+
+
+div#home-bottom div.box p {
+  margin: 0;	
 }
 
 </style>
@@ -113,66 +140,62 @@ div#customers div.photo {
     <div id="featured-small"></div>
 
 	<div id="feature">
-		<img src="{% staticfile '/images/feature.jpg' %}" title="Making fresh, loose-leaf Chinese tea is not hard. Just get a cup of boiling water, add some tea leaves, and then wait for 2-3 minutes. Simple!" alt="three cups, with water, brewing tea leaves, and brewed jasmine tea">
+		<a href="/learn/brew/"><img src="{% staticfile '/images/feature.jpg' %}" title="Making fresh, loose-leaf Chinese tea is not hard. Just get a cup of boiling water, add some tea leaves, and then wait for 2-3 minutes. Simple!" alt="three cups, with water, brewing tea leaves, and brewed jasmine tea"></a>
+		<p><em>A little hot water and fresh Jasmine tea leaves from Fujian, brewed for just over a minute. Simple.</em><br/>
+		<a href="/learn/brew/">Learn how to brew the perfect cup yourself &raquo;</a></p>
 	</div>
 
 	<div id="box">
-        <div class="home-products">
-			{% include "shop/snippets/products.html" %}
-		</div>
 
 		<div class="image-top"></div>
 	
 		<div id="home-extra">
 			<div id="user-photos">
 				<div class="left">
-					<h2>Enjoy fresh, loose-leaf tea every morning, direct from farms in China.</h2>
-					<p>Your tea is sourced directly from farms and growers in Fujian Province, China, and delivered fresh to your door in 1-2 days.</p>
-					<a class="see-more" title="Find out more about our teas" href="/about/our-teas/">
-					Find out more about our teas &raquo;
-					</a>
+					<h4><a href="{% url teas %}">Browse our Chinese teas &raquo;</a> </h4>
+					<p>Find your perfect loose-leaf tea from our small range of hand-selected, traditionally crafted Chinese teas.</p>
+					<p><span class="small">&raquo; <a href="/about/our-teas/">About our teas</a> | <a href="/photos/">Delivery and shipping</a> </span></p>
 				</div>
 				<div class="right">
-				<img src="{% staticfile '/images/tea-field-one.jpg' %}" style="border-radius: 10px;">
+					<a href="{% url teas %}"><img src="{% staticfile '/images/tea-field-one.jpg' %}" style="border-radius: 10px;"></a>
+				</div>			
+			</div>
+			
+			<div id="user-photos">	
+				<div class="left">	
+					<h4><a href="/learn/">Learn about Chinese tea &raquo;</a></h4>
+					<p>Find out more about Chinese tea, culture, history, and how to brew the perfect cup of Chinese loose-leaf tea!</p>
+					<p><span class="small">&raquo; <a href="/learn/brew/">How to brew tea</a> | <a href="/learn/how-chinese-tea-is-made/">How tea is made</a> | <a href="/learn/tea-faqs/">Tea FAQs</a></span></p>
 				</div>
+				<div class="right">
+					<a href="/learn/"><img src="{% staticfile '/images/tea-field-two.jpg' %}" style="border-radius: 10px;"></a>
+				</div>	
+			</div>
+			
+			<div id="user-photos">	
+				<div class="left">	
+					<h4><a href="/about/">Who are we? &raquo;</a></h4>
+					<p>Tea fanatics on a mission - to bring you simple, authentic and traditionally made Chinese teas. </p>
+					<p><span class="small">&raquo; <a href="/about/">Contact us</a> | <a href="/learn/how-chinese-tea-is-made/">Our story</a> </span></p>
+				</div>
+				<div class="right">
+					<a href="/about/"><img src="{% staticfile '/images/tea-field-three.jpg' %}" style="border-radius: 10px;"></a>
+				</div>	
+			</div>
+			
 		</div>
-		
-		<div class="image-top"></div>
-	
-		<div id="learn">
-			<h3>Learn about Chinese tea</h3>
-			<img src="{% staticfile '/images/booklet.png' %}"/>
-			<p>Make yourself a cup of Chinese tea this morning! It's not hard to make, and it's a great change from coffee.</p>
-			<p><a href="/learn/how-to-brew-chinese-tea/">Read about how to brew Chinese tea &raquo;</a></p>
+<div class="image-top"></div>
+	<div id="home-bottom">
+		<h3>What our customers say...</h3>
+		{% for r in review %}
+		<div class="box clear">
+			<p><em>&ldquo;{{ r.short_text }}&rdquo;</em></p>
+			<p><span class="red">{{ r.owner.first_name }} {{ r.owner.last_name }}</span></p>
 		</div>
-	
-		<div id="customers">
-			<h3>What our customers are saying...</h3>
-							{% for r in review %}
-					<p class="testimonial">
-						<em>&ldquo;{{ r.short_text }}&rdquo;</em> 
-						<span class="red">{{ r.owner.first_name }} {{ r.owner.last_name }}</span>
-					</p>
-				{% endfor %}
-			{% for p in photos %}
-					<div class="a-user-photo">
-						<div class="photo">
-							{% thumbnail p.photo "70x70" crop="center" as im %}
-							<img 
-								title="{{ p.shopper.first_name }} likes to drink {{ p.related_product }}" 
-								alt="" 
-								src="{{ im.url }}">
-							{% endthumbnail %}
-						</div>
-					</div>
-				{% endfor %}
-				<a class="see-more" title="See our photo wall of happy tea drinkers!" href="{% url photos %}">
-					See more tea lovers &raquo;
-					</a>
-				
-		</div>
-	
+		{% endfor %}
+
 	</div>
+
 
 </div>
 </div>

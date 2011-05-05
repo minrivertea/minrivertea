@@ -1,15 +1,70 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load django_static %}
 
 {% block metadescription %}We sell three types of Chinese tea - Iron Buddha (green, oolong), The Big Red (red, oolong) and Jasmine Pearls (green, scented). Each has been specially selected for its unique taste and quality. Each can be delivered to your door in just a few days.{% endblock %}
 
+{% block teaselected %}selected{% endblock %}
 
 {% block pagetitle %}choose your Chinese tea{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Choose your tea</h2>
-			</div>
+{% block extracss %}
+<style type="text/css">
+div#bottom {
+    border-top: 3px dotted #E1E1E1;
+    float: left;
+    margin-top: 20px;
+    padding: 30px 0 30px 20px;
+    width: 760px;
+}
+
+div.extra {
+  margin: 10px 0 0 0px;
+  float: left;
+  width: 470px;	
+}
+
+div.extra h3 {
+  margin-bottom: 0;	
+  font-size: 16px;
+}
+
+div.extra ul {
+  list-style-type: square;
+  padding-left: 30px;
+  padding-right: 30px;	
+}
+
+div.extra p {
+  margin-top: 0;	
+}
+
+div#bottom div.right {
+    border-left: 1px solid #E1E1E1;
+    float: left;
+    margin-left: 20px;
+    padding: 30px 0 0 30px;
+    width: 230px;
+}
+
+div#bottom div.right h3 {
+  font-size: 15px;	
+}
+
+div#bottom div.right p {
+  font-size: 13px;	
+}
+
+div#bottom div.right img.delivery {
+  margin-bottom: 20px;	
+}
+
+p.subtitle {
+  margin-bottom: 0px;	
+}
+
+
+</style>
 {% endblock %}
 
 {% block content %}
@@ -18,17 +73,52 @@
 
 <div id="main-text-wide">
 
-<p class="introduction">Buying Chinese tea is easy - we've got red, green and scented teas to suit your taste, so sit back and imagine that beautiful aroma tickling your senses! </p>
+		<h2 class="fontface">Our teas</h2>
+		<p class="subtitle">Our teas are all hand-selected and traditionally made teas from the Fujian province, China.</p>
+		<div class="teas">
+		{% include "shop/snippets/products.html" %}
+		</div>
+		
+		
+	<div id="left">
+		<p>Still have questions? We also offer:</p>
+		<ul>
+			<li>
+				<h3><a href="{% url contact_us %}">Personal tea shopping &raquo;</a></h3>
+				<p>Looking for something special? We're based in China, so we can find almost any Chinese tea for you.</p>
+			</li>
+			<li>
+				<h3><a href="/learn/">A simple introduction to Chinese tea &raquo;</a></h3>
+				<p>If you're new to Chinese tea, we've produced a simple guide to Chinese tea just for you.</p>
+			</li>
+			<li>
+				<h3><a href="">Traditional, handmade, authentic teas &raquo;</a></h3>
+				<p>All of our teas are premium quality, traditionally made Chinese teas. Find out what makes the difference between our teas and your average supermarket teabag. </p>
+			</li>
+		</ul>
+	</div>
+	
+	<div id="right">
 
+		<img class="delivery" src="{% staticfile '/images/free-delivery.png' %}">
+		<div class="info">
+           	  <h3 class="">Delivered to your door by Amazon</h3>
+           		<img src="{% staticfile '/images/amazon.png' %}" style="margin: 5px 0;">
+           		<p>We offer fast and reliable delivery through Amazon - <a href="/postage-and-packaging/">find out more &raquo;</a></p> 
+           		<p><img class="flag" src="{% staticfile '/images/uk-flag.gif' %}"> 
+	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> We ship to UK and Europe </p>     		
+           	  </div>
 
-
-{% include "shop/snippets/products.html" %}
-
-
-
-
-
-
+           	
+           	<div class="info">
+           	
+           	<h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
+           	<p>We accept all major credit and debit cards through Paypal</p>
+           	<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
+           	
+           	</div>
+	</div>
+</div>
 
 
 
