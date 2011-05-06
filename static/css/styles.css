@@ -61,7 +61,9 @@ div.left h4 {
 }
 
 div#right h3 {
-  text-align: left;	
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 0;
 }
 
 div#right h4 {
@@ -93,9 +95,14 @@ a:hover, a:active {
   color: #ffaeae;
 }
 
+ul {
+  list-style-type: square;	
+}
+
 ul, ol {
-  color: #666;
-  line-height: 1.6em;	
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.8em;	
 }
 
 ol {
@@ -254,10 +261,17 @@ div#header-messages div.hm {
     margin-right: 10px;
 }
 
+p.shipping {
+  float: right;
+  margin: 0;
+  font-size: 11px;
+  padding-right: 30px;	
+}
+
 div#logo {	 
  width: 320px;
  float: left;
- margin: 10px 0 0 30px;
+ margin: 10px 0 0 0px;
 }
 
 div#logo h1 {
@@ -293,19 +307,24 @@ p.subtitle {
 
 #navigation {
   float: right;
-  margin: 20px 0px 0;	
+  margin: 0px 0px 0;	
 }
 
 ul#nav {
-float: right;
-font-size:13px;
-margin: 25px 0 0 0;
-color: #ee6464;
+    color: #EE6464;
+    float: left;
+    font-size: 13px;
+    margin: 15px 0 0;
+    padding-left: 0;
 }
 
 ul#nav li {
   display: inline;
-  margin-right: 5px;
+  margin-right: 0px;
+}
+
+ul#nav li:not(:first-child) a {
+    border-left: 2px solid white;
 }
 
 ul#nav li a {
@@ -313,7 +332,7 @@ ul#nav li a {
   background-color: #e0f1e4;
   padding: 5px 12px;
   float: left;
-  margin-right: 8px;	
+  margin-right: 0px;
 }
 
 ul#nav li a:hover {
@@ -329,12 +348,12 @@ ul#nav li a.selected:hover {
 }
 
 ul#nav li a.selected {
-  background-color: #197621;
-
-  color: #fff;
-  margin-top:-3px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+    background-color: #197621;
+    color: #FFFFFF;
+    margin-top: 0;
+    padding-bottom: 8px;
+    padding-top: 5px;
+      background-image: none;
 }
 
 
@@ -493,9 +512,35 @@ ul#right-nav li a {
   color: #666;  	
 }
 
+ul#right-nav li a.selected {
+  color: #197621;  	
+  background-color: #e9e9e9;
+}
+
 ul#right-nav li a:hover {
   color: #197621;  	
   background-color: #E0F1E4;
+}
+
+ul#right-nav ul.subnav {
+  list-style-type: square;
+  padding-left: 10px;
+  margin-left: 20px;	
+}
+
+ul#right-nav ul.subnav li a {
+  background-color: #fff;
+	
+  font-size: 11px;
+  padding: 3px;
+    padding-left: 10px;
+  margin: 0;
+  border-bottom: 2px dotted #e1e1e1;
+}
+
+ul#right-nav ul.subnav li a.last {
+  border-bottom: none;	
+  margin-bottom: 2px;
 }
 
 
@@ -534,52 +579,92 @@ p.introduction {
 
 /* tea listing styles */
 
-div.teas {
-  margin-top: 0px;
+div#teas {
+  padding-left: 0px;
+  margin-top: 30px;	
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 3px dotted #e1e1e1;
   float: left;
-  margin-bottom: 30px;	
 }
 
 div.tea-promo {
-    border-bottom: 3px dotted #E1E1E1;
     float: left;
-    margin: 0 0 0px;
-    padding: 30px 0 15px 30px;
-    width: 770px;
+    margin: 0 0 30px 0px;
+    padding: 0px 20px 20px 0px;
+    width: 530px;
+    position: relative;
+    border-bottom: 3px dotted #e1e1e1;
 }
 
-div.tea-promo:hover {
-  background-color: #eff9f2;	
+
+div.tea-promo:hover {	
   cursor: pointer;
 }
 
 div.tea-promo div.image {
-  width: 210px;
-  float: left;
-  margin-right: 20px;	
+    float: left;
+    margin-left: -6px;
+    margin-right: 20px;
+    width: 210px;
 }
 
 div.tea-promo div.text {
-  width: 350px;
+  width: 300px;
   float: left;
-  margin-right: 0px;	
+  margin-right: 0px;
+  padding-top: 0px;	
 }
 
-div.tea-promo div.text p {
-  margin-bottom: 0;	
+div#main-text-wide div#left div.tea-promo div.text p {
+  margin: 0 0 0 0;	
 }
 
-div.tea-promo div.text div.add-to-basket a {
+div.tea-promo span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+div.tea-promo a.add-to-basket {
   background: url('/images/price-back-small.png') no-repeat top;
   width: 108px;
   height: 25px;
-  display:block;
+  position: relative;
   float:left;	
+  margin-right: 10px;
+  z-index: 2;
 }
 
-div.tea-promo div.text div.add-to-basket a:hover {
-  background: url('/images/price-back-small.png') no-repeat center;
+div.tea-promo a.more-details {
+  background: url('/images/more-details.png') no-repeat top;
+  width: 108px;
+  height: 25px;
+  position: relative;
+  float:left;
+    z-index: 2;	
 }
+
+div.tea-promo:hover a.more-details {
+  background: url('/images/more-details.png') no-repeat center;
+}
+
+div.tea-promo:hover a.add-to-basket {
+  background: url('/images/price-back-small.png') no-repeat center;	
+}
+
+div.tea-promo a.add-to-basket:hover {
+  background: url('/images/price-back-small.png') no-repeat bottom;
+}
+
+div.tea-promo a.more-details:hover {
+  background: url('/images/more-details.png') no-repeat bottom;
+}
+
+
 
 
 div.image-top {
@@ -591,15 +676,21 @@ div.image-top {
 }
 
 div.tea-promo h4 {
-  margin-left: 5px;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
   margin-top: 0;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 1.3em;
     font-weight: bold;
     letter-spacing: -1px;
-  color: #1a6d18;
-  border-bottom: none;	
+    border-bottom: none;	
+}
+
+div.tea-promo h4 a {
+  color: #777;
+}
+
+div.tea-promo:hover h4 a {
+  color: #1a6d18;	
 }
 
 
@@ -614,7 +705,7 @@ div.tea-promo p {
 
 div.tea-promo div.price {
     color: #197621;
-    float: left;
+    float: right;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 20px;
     font-weight: bold;
@@ -673,8 +764,8 @@ div.price-text span {
 
 
 img.tea-promo {
-    border-radius: 10px 10px 10px 10px;
-    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-bottom: 0px;
     margin-right: 0;
 }
 
@@ -701,25 +792,22 @@ span.lightgrey {
 
 /* SHOPPING BASKET PAGE STYLES */
 
-p.checkout {
-    float: left;
-    font-size: 14px;
-    margin-top: 0;
-    padding-left: 8px;
+div#main-text-wide div#left p.checkout {
+    float: right;
+    font-size: 12px;
+    margin-top: 0px;
     width: 220px;
+    text-align: right;
 }
 
 div#checkout-button {
     float: right;
-    margin: 15px 0px 0 0;
-    border-left: 1px solid #e1e1e1;
-    padding-left: 20px;
+    margin: 20px 30px 0 0;
 }
 
 div#checkout-button p {
-  width: 200px;
-  padding-left: 5px;
-  	
+    font-size: 12px;
+    padding-left: 5px;
 }
 
 div#checkout-button a:link, div#checkout-button a:visited {
@@ -740,10 +828,9 @@ div#checkout-button a:focus {
 }
 
 div.checkout-button {
-    border-left: 1px solid #E1E1E1;
     float: right;
     margin-top: 15px;
-    padding-left: 20px;
+    padding-right: 0px;
     width: 220px;
 }
 
@@ -803,13 +890,10 @@ div#checkout-button a {
 
 
 div.row {
-    -moz-border-radius: 10px 10px 10px 10px;
-    background-image: url("/images/gray-stripe.png");
-    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
     float: left;
     margin-bottom: 20px;
-    padding: 10px 20px 0px 20px;
-    width: 470px;
+    padding: 0px 0px 0px 0px;
+    border-bottom: 3px dotted #e1e1e1;
 }
 
 div.row.wide {
@@ -849,21 +933,26 @@ div.row-box table {
   font-size: 14px;	
 }
 
+div.row-box table td {
+  padding-bottom: 10px;	
+}
+
 div.row-box input {
-    -moz-border-radius: 7px 7px 7px 7px;
-    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
+    border-color: #D1D1D1;
+    border-radius: 7px 7px 7px 7px;
     border-style: solid;
-    border-width: 1px 0 0 1px;
+    border-width: 1px;
     color: #666666;
     float: left;
-    font: 95% arial,helvetica,clean,sans-serif;
+    font: 14px arial,helvetica,clean,sans-serif;
     height: 20px;
-    margin: 0 0 20px 0px;
+    margin: 0 0 20px 0;
     padding: 10px 15px;
     width: 280px;
 }
 
 div.row-box input:focus {
+  background-color: #f9f9f9;
   border-color: #6acc75;
   border-width: 1px;
   margin-bottom: 19px;
@@ -872,12 +961,13 @@ div.row-box input:focus {
 div.row-box label {
     float: left;
     line-height: 1.2em;
-    margin-left: 0;
-    margin-right: 20px;
+    margin-left: 20px;
     position: relative;
-    text-align: right;
+    text-align: left;
     top: 10px;
-    width: 100px;
+    width: 120px;
+    font-size: 14px;
+    color: #555;
 }
 
 div.row-box p {
@@ -1207,3 +1297,64 @@ div#right p.mail {
     font-size: 13px;
     margin-top: 15px;
 }
+
+div.right-image {
+  float: left;
+  margin-bottom: 10px;	
+}
+
+div.like {
+  float: left;	
+  margin-top: 10px;
+  border-bottom: 3px dotted #e1e1e1;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+div.like.last {
+  border-bottom: none;	
+}
+
+div.like div.image {
+  float: left;
+  margin-right: 10px;	
+}
+
+div#blog-right div.box.clear div.like p.description {
+  color: #666;	
+  line-height: 14px;
+  font-size: 12px;
+}
+
+div.like a {
+  font-size: 13px;	
+}
+
+div.like div.text {
+  float: left;
+  width: 150px;
+}
+
+div#right div.like div.text p {
+  line-height: 1.2em;
+  font-size: 12px;
+}
+
+
+div.rss {
+  position: relative;
+  top: 20px;
+  right:20px;
+  float: right;
+  height: 0;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+div.rss img {
+  position: relative;
+  top: 4px;	
+}
+

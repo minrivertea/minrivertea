@@ -3,22 +3,22 @@
 
 {% block pagetitle %}Order (Step 1 of 3) - Your details{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">{% if shopper %}Check{% else %}Provide{% endif %} your details</h2>
-	    	<div id="steps">
-	    		<div class="step first finished">1. Your basket</div>
-	    		<div class="step selected">2. Your details</div>
-	    		<div class="step last">3. Confirm and pay</div>
-	    	</div>
-			</div>
-{% endblock %}
-
 {% block extracss %}
 <style type="text/css">
-div#home-banner {
-  margin-top:25px;	
+div#main-text-wide div#left {
+  margin-top: 20px;	
 }
+
+div#main-text-wide div#right {
+  margin-top: 30px;	
+}
+
+div#main-text-wide div#left h3 {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 0 -10px;
+}
+
 
 div#steps {
     float: right;
@@ -158,6 +158,12 @@ span.red {
   color: #d11010;	
 }
 
+span.country {
+  float: left;
+  width: 280px;
+  padding: 10px 15px;	
+}
+
 </style>
 
 {% endblock %}
@@ -168,28 +174,31 @@ span.red {
 
 <div id="main-text-wide">
 
+	<h2 class="fontface">Please {% if shopper %}check{% else %}provide{% endif %} your details</h2>
+	{% if shopper %}
+		<p class="subtitle">We've saved your details - please check all of your details are still all correct</p>
+	{% else %}
+		<p class="subtitle">We need to know where to send your tea!</p>
+	{% endif %}
+	
+	<div id="right">
 
     <form method="post" action="">
-		<div class="checkout-button">
 		 {% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
 		 <p class="red">&laquo; there were some errors - please check and provide all required information.</p>
 		 {% endif %}
 		
-		{% if shopper %}
-		{% else %}
+
 <img src="{% staticfile '/images/lock-large.png' %}" style="float:left; margin-right: 10px; margin-bottom: 20px;">
 <p class="privacy">We will never share your details, nor will we send you email spam. <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a></p>
-		{% endif %}
-		
-		<input type="submit" value="" next="" class="button-confirm-address"/>
-		<p class="checkout"><strong>Next step:</strong> Confirm your order</p>
 
 	</div>
 	
+	<div id="left">
 	{% if shopper %}
+	  <div class="row">
 		<div class="address-container">
 		<div class="address first">
-			<p><em>We've saved your details that you entered before - please check your name, email and delivery address are still all correct:</em></p>
 			<div class="address first">{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
 				
 		{% for address in shopper.get_addresses %}
@@ -200,7 +209,7 @@ span.red {
 					{{ address.address_line_2 }}<br/>
 					{{ address.town_city }}<br/>
 		 			{{ address.postcode }}<br/>
-		 			{{ address.country }} - <a href="{% url not_you %}">Want to use a different address?</a>
+		 			{{ address.country|upper }} - <a href="{% url not_you %}">Want to use a different address?</a>
 		 			</div>
 		 		{% else %}
 		 			<div class="address other">
@@ -225,11 +234,13 @@ span.red {
     	<input type="text" name="postcode" id="id_postcode" value="{{ postcode }}"/>
     	<input type="text" name="country" id="id_country" value="{{ country }}"/>
  		</div>
+ 		</div>
+ 		</div>
 	{% else %}
 
 	<div class="row">
-		<div class="row-label">
-			<h3>Your details</h3>
+			<div class="row-label">
+			<h3>Your name and email</h3>
 		</div>
     	<div class="row-box">
     		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
@@ -237,9 +248,9 @@ span.red {
     		{% endif %}
     		<p class="intro">Please provide your name and your email address (so we can update you on the order process if there's a problem). </p>
 
-    		<p><label for="id_first_name"><span class="red">*</span> First name</label><input  class="{% if form.first_name.errors %}red{% endif %}" type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/></p>
-    		<p><label for="id_last_name"><span class="red">*</span> Surname</label><input class="{% if form.last_name.errors %}red{% endif %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/></p>
-    		<p><label for="id_email"><span class="red">*</span> Email address</label><input class="{% if form.email.errors %}red{% endif %}" type="text" name="email" id="id_email" value="{{ email }}"/></p>	
+    		<p><input  class="{% if form.first_name.errors %}red{% endif %}" type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/><label for="id_first_name"><span class="red">*</span> First name</label></p>
+    		<p><input class="{% if form.last_name.errors %}red{% endif %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/><label for="id_last_name"><span class="red">*</span> Surname</label></p>
+    		<p><input class="{% if form.email.errors %}red{% endif %}" type="text" name="email" id="id_email" value="{{ email }}"/><label for="id_email"><span class="red">*</span> Email address</label></p>	
     	</div>
     </div>
     
@@ -254,32 +265,42 @@ span.red {
     		
 
       <p>
+      	<input id="id_house_name_number" type="text" name="house_name_number" maxlength="200" value="{{ house_name_number }}"/>
       	<label for="id_house_name_number"><span class="red">*</span> House name number:</label>
-      	<input id="id_house_name_number" type="text" name="house_name_number" maxlength="200" value="{{ house_name_number }}"/></p>
+      	</p>
 	  	{{ form.address_line_1.error }}
 	  
 	  <p>
-	    <label for="id_address_line_1">Address line 1:</label>
-	  	<input id="id_address_line_1" type="text" name="address_line_1" maxlength="200" value="{{ address_line_1 }}"/> </p>
+	  	<input id="id_address_line_1" type="text" name="address_line_1" maxlength="200" value="{{ address_line_1 }}"/> 
+	 	    <label for="id_address_line_1">Address line 1:</label>
+	  </p>
       	{{ form.address_line_2.errors }}
       	
       <p>
+      	
+      	<input id="id_address_line_2" type="text" name="address_line_2" maxlength="200"  value="{{ address_line_2 }}"/>
       	<label for="id_address_line_2">Address line 2:</label>
-      	<input id="id_address_line_2" type="text" name="address_line_2" maxlength="200"  value="{{ address_line_2 }}"/></p>
+      	</p>
       	{{ form.town_city.errors }}
       
       <p>
+      	
+      	<input id="id_town_city" type="text" name="town_city" maxlength="200" value="{{ town_city }}"/> 
       	<label for="id_town_city">Town / City:</label>
-      	<input id="id_town_city" type="text" name="town_city" maxlength="200" value="{{ town_city }}"/> </p>
+      	</p>
       	{{ form.postcode.errors }}
       	
       <p>
+      	
+      	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" /> 
       	<label for="id_postcode"><span class="red">*</span> Postcode:</label>
-      	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" /> </p>
+      	</p>
       	
 	  <p>
-	    <label for="id_country"><span class="red">*</span> Country:</label>
+	    <span class="country">
 	    {{ confirm_form.country }}
+	    </span>
+	    <label for="id_country"><span class="red">*</span> Country:</label>
 	  </p>
  	  <br clear="all">
  	  
@@ -287,6 +308,12 @@ span.red {
 	</div>
 
 	{% endif %}
+	
+			<div class="checkout-button">
+		
+		<input type="submit" value="" next="" class="button-confirm-address"/>
+		<p class="checkout"><strong>Next step:</strong> Confirm your order. We'll let you confirm your order, and then you can pay using Paypal.</p>
+		</div>
 
 	
 	

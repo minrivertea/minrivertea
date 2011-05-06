@@ -3,22 +3,14 @@
 
 {% block pagetitle %}Order (Step 2 of 3) - Confirm Order{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Confirm and pay</h2>
-	    	<div id="steps">
-	    		<div class="step first finished">1. Your basket</div>
-	    		<div class="step finished">2. Your details</div>
-	    		<div class="step last selected">3. Confirm and pay</div>
-	    	</div>
-			</div>
-{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
 
-div#home-banner {
-  margin-top:25px;	
+div#main-text-wide div#left h3 {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 0 -10px;
 }
 
 div.row {
@@ -71,6 +63,8 @@ div#steps div.step.last {
 
 <div id="main-text-wide">
 
+	<h2 class="fontface">Confirm and pay</h2>
+	<p class="subtitle">Please check that the information below is correct before you pay.</p>
 
     <form method="post" action="{{ paypal_submit_url }}">
 	
@@ -120,35 +114,31 @@ div#steps div.step.last {
 			 {% endfor %}
 		{% endif %}
 
+	<div id="right">
 		<div class="checkout-button">
-		<input type="submit" value="" next="" class="checkout-button"/>
-		<p class="checkout"><strong>Next step:</strong> pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</p>
-		<img src="{% staticfile '/images/paypal-horz.gif' %}" class="paypal">
-
+			<input type="submit" value="" next="" class="checkout-button"/>
+			<p class="checkout"><strong>Next step:</strong> pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</p>
+			<img src="{% staticfile '/images/paypal-horz.gif' %}" class="paypal">
 		</div>
-		
-
-<div class="row">
-	<div class="row-label">
-		<h3>You have ordered:</h3>
 	</div>
 	
-	<div class="row-box">
-		<table>
-
-		{% for thing in basket_items %}
-		  <tr>
-			
-	    	<td width="200px">
-	    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
-	    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
-	    	</td>
-	    	<td width="150px">
-
-	    	</td>
-	    	<td>£{{ thing.get_price }}</td>
-	    				
-		  </tr>
+	<div id="left">	
+		<div class="row">
+			<div class="row-label">
+				<h3>You have ordered:</h3>
+			</div>
+		<div class="row-box">
+			<table>
+			{% for thing in basket_items %}
+			  <tr>				
+		    	<td width="200px">
+		    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
+		    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
+		    	</td>
+		    	<td width="150px">
+		    	</td>
+		    	<td>£{{ thing.get_price }}</td>		    				
+			  </tr>
 		  {% endfor %}
 		  {% if postage_discount %}
 		  <tr>

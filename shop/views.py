@@ -76,7 +76,16 @@ def index(request):
     
 # the product listing page
 def teas(request):
-            
+    try:
+        added = request.session['ADDED']
+    except:
+        added = None
+        
+    if added:
+        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
+        message = "1 x %s%s added to your basket!" % (thing.item.weight, thing.item.weight_unit)
+        request.session['ADDED'] = None
+        
     products = Product.objects.filter(category="TEA", is_active=True)
     prices = UniqueProduct.objects.filter(is_active=True)
     products_and_prices = []

@@ -4,12 +4,12 @@
 
 {% block metadescription %}We sell three types of Chinese tea - Iron Buddha (green, oolong), The Big Red (red, oolong) and Jasmine Pearls (green, scented). Each has been specially selected for its unique taste and quality. Each can be delivered to your door in just a few days.{% endblock %}
 
-{% block teaselected %}selected{% endblock %}
-
 {% block pagetitle %}choose your Chinese tea{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
+
+
 div#bottom {
     border-top: 3px dotted #E1E1E1;
     float: left;
@@ -63,6 +63,38 @@ p.subtitle {
   margin-bottom: 0px;	
 }
 
+div.more-info {
+  float: left;
+  width: 100px;	
+}
+
+span.more-info {
+  color: #fff;
+  font-size: 120px;
+  font-weight: 600;
+  letter-spacing: 0px;
+  position: relative;
+  top: 0px;
+  left: 60px;	
+}
+
+div.tea-promo:hover span.more-info {
+  color: #666;	
+}
+
+span.message {
+  color: #333;
+  font-size: 12px;
+  letter-spacing: 0px;
+  position: relative;
+  left: 0px;
+  float:right;
+}
+
+span.message img {
+  position: relative;
+  top: 2px;	
+}
 
 </style>
 {% endblock %}
@@ -73,32 +105,12 @@ p.subtitle {
 
 <div id="main-text-wide">
 
-		<h2 class="fontface">Our teas</h2>
-		<p class="subtitle">Our teas are all hand-selected and traditionally made teas from the Fujian province, China.</p>
-		<div class="teas">
-		{% include "shop/snippets/products.html" %}
-		</div>
-		
-		
-	<div id="left">
-		<p>Still have questions? We also offer:</p>
-		<ul>
-			<li>
-				<h3><a href="{% url contact_us %}">Personal tea shopping &raquo;</a></h3>
-				<p>Looking for something special? We're based in China, so we can find almost any Chinese tea for you.</p>
-			</li>
-			<li>
-				<h3><a href="/learn/">A simple introduction to Chinese tea &raquo;</a></h3>
-				<p>If you're new to Chinese tea, we've produced a simple guide to Chinese tea just for you.</p>
-			</li>
-			<li>
-				<h3><a href="">Traditional, handmade, authentic teas &raquo;</a></h3>
-				<p>All of our teas are premium quality, traditionally made Chinese teas. Find out what makes the difference between our teas and your average supermarket teabag. </p>
-			</li>
-		</ul>
-	</div>
-	
-	<div id="right">
+
+
+
+
+<div id="right">
+	<div class="right-image"><img src="{% staticfile '/images/right-one.jpg' %}"></div>
 
 		<img class="delivery" src="{% staticfile '/images/free-delivery.png' %}">
 		<div class="info">
@@ -118,6 +130,30 @@ p.subtitle {
            	
            	</div>
 	</div>
+		
+	<div id="left">
+			<h2 class="fontface">Our teas</h2>
+		<p class="subtitle">Fresh, authentic and traditionally made Chinese teas.</p>
+		
+{% include "shop/snippets/products.html" %}
+		<ul>
+			<li>
+				<h3><a href="{% url contact_us %}">Personal tea shopping &raquo;</a></h3>
+				<p>Looking for something special? We're based in China, so we can find almost any Chinese tea for you.</p>
+			</li>
+			<li>
+				<h3><a href="/learn/">A simple introduction to Chinese tea &raquo;</a></h3>
+				<p>If you're new to Chinese tea, we've produced a simple guide to Chinese tea just for you.</p>
+			</li>
+			<li>
+				<h3><a href="">Traditional, handmade, authentic teas &raquo;</a></h3>
+				<p>All of our teas are premium quality, traditionally made Chinese teas. Find out what makes the difference between our teas and your average supermarket teabag. </p>
+			</li>
+		</ul>
+	</div>
+		
+	
+
 </div>
 
 

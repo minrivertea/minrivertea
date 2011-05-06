@@ -2,8 +2,6 @@
 {% load thumbnail %}
 {% load django_static %}
 
-{% block teaselected %}selected{% endblock %}
-
 {% block metadescription %}{{ tea.name }} - {{ tea.description }}{% endblock %}
 {% block pagetitle %}{{ tea.meta_title }}{% endblock %}
 
@@ -81,7 +79,7 @@ div.other-teas h3 {
 
 div.product-photos-small {
     float: left;
-    margin: 0 0 10px 0;
+    margin: 0 0 15px 0;
     width: 240px;
     text-align: right;
 }
@@ -243,18 +241,18 @@ table.details td.left {
 }
 
 ul.reviews {
-  list-style-type: square;
-  padding-left: 20px;
-  color: #666;
-  margin-bottom: 30px;
+    color: #666666;
+    font-size: 12px;
+    list-style-type: none;
+    margin-bottom: 30px;
+    padding-left: 0;
 }
 
 ul.reviews li {
-  font-size: 15px;	
+  font-size: 14px;	
   border-bottom: 1px solid #e1e1e1;
   padding-bottom: 15px;
   margin-bottom: 20px;
-  margin-right: 20px;
   line-height: 1.6em;
 } 
 
@@ -346,7 +344,7 @@ div.facts h3 {
 
 <div id="main-text-wide">
 
-	<h2 class="fontface"><span class="lightgrey">Our teas - </span>{{ tea.name }} tea</h2>
+	<h2 class="fontface">{{ tea.name }} tea</h2>
 	    		<p class="subtitle">{{ tea.super_short_description }}</p>
 
 	
@@ -432,7 +430,15 @@ div.facts h3 {
 	
 	<div class="image-top"></div>
 <br clear="all"/>
-	<div id="right">           	
+	<div id="right"> 
+		{% if reviews %}
+	<h3>Customer reviews for this tea</h3>
+		<ul class="reviews">
+		{% for review in reviews %}
+			<li><em>"{{ review.short_text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></li>
+		{% endfor %}
+		</ul>
+	{% endif %}          	
            	<div class="info">
            	<img src="{% staticfile '/images/free-delivery.png' %}">
            	</div>
@@ -440,12 +446,10 @@ div.facts h3 {
            			    <div class="right-links">
            	  <div class="info">
            	  <h3 class="small">Delivered to your door by Amazon</h3>
-           		<img src="{% staticfile '/images/amazon.png' %}" style="margin: 5px 0;">
-           		<p>We offer fast and reliable delivery through Amazon - <a href="/postage-and-packaging/">find out more &raquo;</a></p> 
-           		<p style="margin-bottom:0px;"><strong>* 1-2 days delivery</strong></p>    
-           		<p style="margin-bottom:0px;">
-           		<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}"> 
-	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> We ship to UK and Europe </p>     		
+           		
+           		<p>We offer fast and reliable delivery in 1-2 days through Amazon - <a href="/postage-and-packaging/">find out more &raquo;</a></p> 
+           		<img src="{% staticfile '/images/amazon.png' %}" style="margin: 5px 0;"> 
+   		
            	  </div>
            	</div>
            	
@@ -484,14 +488,7 @@ div.facts h3 {
 
 	<div id="left">
 
-	{% if reviews %}
-	<h3>Customer reviews</h3>
-		<ul class="reviews">
-		{% for review in reviews %}
-			<li><em>"{{ review.short_text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></li>
-		{% endfor %}
-		</ul>
-	{% endif %}
+
 	
 		
 	{{ tea.long_description|safe }}

@@ -31,8 +31,14 @@ div.tea div.tea-text {
   color:#666;
 }
 
-div.social {
+div#main-text-wide div#right div.social {
   float: left;
+  margin-left: 0px;
+
+}
+
+div#main-text-wide div#right div.social p {
+	  font-size: 11px;
 }
 
 div.social img {
@@ -43,6 +49,12 @@ div.flatpage div#right div.social p {
   font-size: 11px;	
   line-height: 14px;
 }
+
+span.review {
+  color: #333;	
+}
+
+
 
 </style>
 {% endblock %}
@@ -56,8 +68,10 @@ div.flatpage div#right div.social p {
 	<div id="right">	
   		{% block right %}
   			
+  			{% include 'flatpages/about_navigation.html' %}
+  			<div class="right-image">{% block rightimage %}{% endblock %}</div>
   			{% include 'flatpages/about_right.html' %}
-  			{% block rightimage %}{% endblock %}
+
   		{% endblock %}
 	</div>
 

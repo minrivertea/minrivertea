@@ -1,4 +1,5 @@
 {% load django_static %}
+{% load nav_selected %}
 
 {% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
@@ -75,20 +76,29 @@
 	    			<h1><span>The Min River Tea Farm - Great Chinese Teas</span></h1>
 	    		</a>
 	    	</div>
+	    	
+	    	<p class="shipping">
+				<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}">  
+	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> 
+	    		We ship to UK and Europe! 
+	    	</p>
 
 	    	<div id="navigation">
 	    	    <ul id="nav">
 	    	    	<li>
-	    	    		<a class="{% block homeselected %}{% endblock %}" href="{% url home %}" title="Home">home</a>
+	    	    		<a class="{% nav_selected request '^/$' %}" href="{% url home %}" title="Home">home</a>
 	    	    	</li>
 	    	        <li>
-	    	        	<a class="{% block teaselected %}{% endblock %}" href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">our teas</a>
+	    	        	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">our teas</a>
 	    	        </li>
 	    	        <li>
-	    	        	<a class="{% block aboutselected %}{% endblock %}" href="/about/" title="About the Min River Tea Farm" alt="">about us</a>
+	    	        	<a class="{% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">learn</a>
 	    	        </li>
 	    	        <li>
-	    	        	<a class="{% block basketselected %}{% endblock %}" href="{% url basket %}" title="View your basket" alt="">
+	    	        	<a class="{% nav_selected request '^/about/' %}" href="/about/" title="About the Min River Tea Farm" alt="">about us</a>
+	    	        </li>
+	    	        <li>
+	    	        	<a class="{% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
 	    	        	your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}
 	    	        	</a>
 	    	        </li>
