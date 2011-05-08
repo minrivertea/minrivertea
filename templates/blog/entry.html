@@ -42,7 +42,8 @@ div#entry-content p.date {
 
 div#entry-content img {
   float: right;
-  margin: 20px 0 30px 30px;	
+  margin: 10px 0 30px 30px;	
+  border-radius: 10px;
 }
 
 
@@ -57,8 +58,8 @@ div#entry-content img {
   <div id="main-text-wide">
 <div class="rss">
 <a href="/feeds/latest/">Get the RSS feed <img class="rss" src="{% staticfile '/images/rss-small.png' %}"></a>
-<a href=""><img src="{% staticfile '/images/flickr.png' %}"></a>
-<a href=""><img src="{% staticfile '/images/twitter-small.png' %}"></a>
+<a title="Checkout photos of our tea and more on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
+<a title="Tweet this blog entry to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F{{ entry.slug }}"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
 </div>
 		
 			<h2 class="fontface">{{ entry.title }}</h2>

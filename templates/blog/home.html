@@ -77,6 +77,10 @@ div.entry div.image {
   margin-right: 20px;	
 }
 
+div.entry div.image img {
+  border-radius: 5px;	
+}
+
 div.entry div.text {
   float: left;
   width: 380px;	
@@ -146,9 +150,10 @@ div.like div.text {
 
 <div class="rss">
 <a href="/feeds/latest/">Get the RSS feed <img class="rss" src="{% staticfile '/images/rss-small.png' %}"></a>
-<a href=""><img src="{% staticfile '/images/flickr.png' %}"></a>
-<a href=""><img src="{% staticfile '/images/twitter-small.png' %}"></a>
+<a title="Checkout our tea photos on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
+<a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
 </div>
+
 	<h2 class="fontface">The Min River blog</h2>
 	<p class="subtitle">News, photos and info about Chinese tea.</p>
 	
