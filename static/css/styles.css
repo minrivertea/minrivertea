@@ -271,7 +271,7 @@ p.shipping {
 div#logo {	 
  width: 320px;
  float: left;
- margin: 10px 0 0 0px;
+ margin: 20px 0 0 0px;
 }
 
 div#logo h1 {
@@ -313,62 +313,40 @@ p.subtitle {
 ul#nav {
     color: #EE6464;
     float: left;
-    font-size: 13px;
-    margin: 15px 0 0;
+    margin: 35px 0 0;
     padding-left: 0;
 }
 
 ul#nav li {
   display: inline;
-  margin-right: 0px;
 }
 
-ul#nav li:not(:first-child) a {
-    border-left: 2px solid white;
+ul#nav li:not(:last-child) a {
+  border-right: 2px dotted #F1F1F1;
 }
 
 ul#nav li a {
-  display: block;
-  background-color: #e0f1e4;
-  padding: 5px 12px;
-  float: left;
-  margin-right: 0px;
+    display: block;
+    float: left;
+    font-family: 'Helvetica Neue';
+    padding: 0px 13px;
+    color: #999;
+    font-weight: bold;
+    font-size: 13px;
 }
 
 ul#nav li a:hover {
-  background-color: #b6dec1 ;
-  margin-top:-1px;
-  padding-top: 6px;
-  padding-bottom: 6px;	
+  text-decoration: underline;
+  color: #439249;
 }
 
 ul#nav li a.selected:hover {
-  background-color: #409747 ;	
-
+    color: #439249;	
 }
 
 ul#nav li a.selected {
-    background-color: #197621;
-    color: #FFFFFF;
-    margin-top: 0;
-    padding-bottom: 8px;
-    padding-top: 5px;
-      background-image: none;
+    color: #439249;
 }
-
-
-#navigation a:link, #nav a:visited {
-  color: #0b5a12;
-  text-decoration: none;
-  font-weight: normal;
-
-}
-
-#navigation a:hover, #nav a:active {
-
-  cursor: pointer;
-}
-
 
 /* homepage styles */
 
@@ -390,11 +368,12 @@ div#home-extra div.featured-top {
 }
 
 div#featured-small {
-  background: url('/images/stripe.png') bottom;
+  background: url('/images/sripe.png') bottom;
   height: 10px;	
   width: 800px;
   margin: 0 auto;
   margin-top: 10px;
+  border-bottom: 3px dotted #e1e1e1;
 }
 
 
@@ -442,29 +421,57 @@ div#home-extra {
   margin-top: 0px;
 }
 
-div#home-extra div#user-photos img {
+div#home-extra div.user-photos img {
 
 }
 
-div#home-extra div#user-photos {
+div#home-extra div.user-photos {
     border-top: medium none;
     margin-left: 0;
     padding: 20px 30px 20px;
     width: 740px;
+    border-bottom: 1px solid #e1e1e1;
+    position: relative;
 }
 
-div#home-extra div#user-photos div.a-user-photo {
+div#home-extra div.user-photos.last {
+    border-bottom: none;
+}
+
+div#home-extra div.user-photos span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+div#home-extra div.user-photos:hover h4 {
+  color: #439249;	
+}
+
+div#home-extra div.user-photos:hover div.right img {
+  opacity: 0.7;
+}
+
+div#home-extra div.user-photos div.left p a {
+  z-index: 2;	
+  position: relative;
+}
+
+div#home-extra div.user-photos div.a-user-photo {
     border-bottom: medium none;
     margin: 0 10px 0px 0px;
     padding-bottom: 0;
     width: 90px;
 }
 
-div#home-extra div#user-photos div.a-user-photo div.info {
+div#home-extra div.user-photos div.a-user-photo div.info {
     width: 490px;
 }
 
-div#home-extra div#user-photos div.a-user-photo div.photo {
+div#home-extra div.user-photos div.a-user-photo div.photo {
   margin-right: 10px;
 }
 
@@ -483,7 +490,7 @@ div#home-extra h4 {
     font-weight: bold;
     letter-spacing: -1px;
     margin: 0;
-    color: #1A6D18;
+    color: #666;
 }
 
 
@@ -690,7 +697,7 @@ div.tea-promo h4 a {
 }
 
 div.tea-promo:hover h4 a {
-  color: #1a6d18;	
+  color: #439249;	
 }
 
 
@@ -704,7 +711,7 @@ div.tea-promo p {
 }
 
 div.tea-promo div.price {
-    color: #197621;
+    color: #439249;
     float: right;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 20px;
@@ -1029,7 +1036,7 @@ ul.errorlist {
 
 
 
-div#user-photos {
+div.user-photos {
     border-top: 1px solid #E1E1E1;
     float: left;
     margin: 0 0 0;
@@ -1039,28 +1046,28 @@ div#user-photos {
     width: 780px;
 }
 
-div#user-photos div.a-user-photo {
+div.user-photos div.a-user-photo {
     float: left;
     margin: 0 20px 40px 0;
     padding-bottom: 40px;
     width: 120px;
 }
 
-div#user-photos div.a-user-photo div.photo {
+div.user-photos div.a-user-photo div.photo {
   float: left;
   margin-bottom: 5px;	
 }
 
-div#user-photos div.a-user-photo div.info {
+div.user-photos div.a-user-photo div.info {
     float: left;
 }
 
-div#user-photos div.a-user-photo div.info p {
+div.user-photos div.a-user-photo div.info p {
   margin: 0;
   float: left;	
 }
 
-div#user-photos div.a-user-photo div.info p.recommend {
+div.user-photos div.a-user-photo div.info p.recommend {
     color: black;
     float: left;
     font-size: 12px;
@@ -1300,7 +1307,7 @@ div#right p.mail {
 
 div.right-image {
   float: left;
-  margin-bottom: 10px;	
+  margin-bottom: 20px;	
 }
 
 div.like {
@@ -1343,7 +1350,7 @@ div#right div.like div.text p {
 
 div.rss {
   position: relative;
-  top: 20px;
+  top: 50px;
   right:20px;
   float: right;
   height: 0;
@@ -1356,5 +1363,17 @@ div.rss {
 div.rss img {
   position: relative;
   top: 4px;	
+}
+
+div.info {
+    border-bottom: 3px dotted #F7D2D2;
+    float: left;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    width: 230px;
+}
+
+div.info.last {
+  border-bottom: none;	
 }
 

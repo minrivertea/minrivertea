@@ -118,17 +118,7 @@ div.right-links ul li {
 }
 
 
-div.info {
-    border-bottom: 3px dotted #F7D2D2;
-    float: left;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    width: 230px;
-}
 
-div.info.last {
-  border-bottom: none;	
-}
 
 div#right p.mail {
     font-size: 13px;
@@ -331,6 +321,7 @@ div.facts h3 {
   font-size: 18px;	
 } 
 
+
 </style>
 {% endblock %}
 
@@ -343,7 +334,12 @@ div.facts h3 {
 
 
 <div id="main-text-wide">
-
+<div class="rss">
+Share this page with friends
+<a title="Share this tea on facebook" target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com%2Fteas%2F{{ tea.slug }}"><img src="{% staticfile '/images/facebook.png' %}"></a>
+<a title="Tweet this tea to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fteas%2F{{ tea.slug }}"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
+<a title="Checkout photos of this tea and more on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
+</div>
 	<h2 class="fontface">{{ tea.name }} tea</h2>
 	    		<p class="subtitle">{{ tea.super_short_description }}</p>
 
@@ -443,7 +439,7 @@ div.facts h3 {
            	<img src="{% staticfile '/images/free-delivery.png' %}">
            	</div>
            	
-           			    <div class="right-links">
+
            	  <div class="info">
            	  <h3 class="small">Delivered to your door by Amazon</h3>
            		
@@ -451,7 +447,7 @@ div.facts h3 {
            		<img src="{% staticfile '/images/amazon.png' %}" style="margin: 5px 0;"> 
    		
            	  </div>
-           	</div>
+
            	
            	<div class="info">
            	
@@ -460,8 +456,6 @@ div.facts h3 {
            	<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
            	
            	</div>
-           	
-
            	
 
            	

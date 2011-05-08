@@ -9,6 +9,9 @@
 {% block extracss %}
 <style type="text/css">
 
+div#main-text-wide div#left, div#main-text-wide div#right {
+  margin-top: 20px;	
+}
 
 div#bottom {
     border-top: 3px dotted #E1E1E1;
@@ -107,33 +110,33 @@ span.message img {
 
 
 
-
+			<h2 class="fontface">Our teas</h2>
+		<p class="subtitle">Fresh, authentic and traditionally made Chinese teas.</p>
 
 <div id="right">
-	<div class="right-image"><img src="{% staticfile '/images/right-one.jpg' %}"></div>
 
-		<img class="delivery" src="{% staticfile '/images/free-delivery.png' %}">
+		
 		<div class="info">
-           	  <h3 class="">Delivered to your door by Amazon</h3>
-           		<img src="{% staticfile '/images/amazon.png' %}" style="margin: 5px 0;">
-           		<p>We offer fast and reliable delivery through Amazon - <a href="/postage-and-packaging/">find out more &raquo;</a></p> 
-           		<p><img class="flag" src="{% staticfile '/images/uk-flag.gif' %}"> 
-	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> We ship to UK and Europe </p>     		
-           	  </div>
-
+           	<h3 class="">Delivered fast to your door</h3>
+           	<p>We offer fast and reliable delivery through Amazon - 
+           	<a href="/postage-and-packaging/">find out more &raquo;</a>
+           	</p> 
+           	<img src="{% staticfile '/images/amazon.png' %}" style="margin: 5px 0;">
+        </div>
            	
-           	<div class="info">
-           	
+        <div class="info">   	
            	<h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
            	<p>We accept all major credit and debit cards through Paypal</p>
            	<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
-           	
-           	</div>
+      	</div>
+      	
+      	<div class="info">
+			<img class="delivery" src="{% staticfile '/images/free-delivery.png' %}">
+		</div>
 	</div>
 		
 	<div id="left">
-			<h2 class="fontface">Our teas</h2>
-		<p class="subtitle">Fresh, authentic and traditionally made Chinese teas.</p>
+
 		
 {% include "shop/snippets/products.html" %}
 		<ul>

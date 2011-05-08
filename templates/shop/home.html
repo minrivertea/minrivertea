@@ -37,13 +37,13 @@ div#customers {
     width: 350px;
 }
 
-div#user-photos div.left {
+div.user-photos div.left {
   float: left;
   width: 370px;
   margin-right: 20px;	
 }
 
-div#user-photos div.right {
+div.user-photos div.right {
   float: right;
 }
 
@@ -104,7 +104,7 @@ div#customers div.photo {
   margin-bottom: 10px;
 }
 
-div#user-photos p span.small {
+div.user-photos p span.small {
     font-family: Helvetica,Arial,sans-serif;
     font-size: 0.8em;
 }
@@ -149,36 +149,39 @@ div#home-bottom div.box p {
 		<div class="image-top"></div>
 	
 		<div id="home-extra">
-			<div id="user-photos">
+			<div class="user-photos">
+				<a href="{% url teas %}"><span class="link"></span></a>
 				<div class="left">
-					<h4><a href="{% url teas %}">Browse our Chinese teas &raquo;</a> </h4>
+					<h4>Browse our Chinese teas &raquo;</h4>
 					<p>Find your perfect loose-leaf tea from our small range of hand-selected, traditionally crafted Chinese teas.</p>
 					<p><span class="small">&raquo; <a href="/about/our-teas/">About our teas</a> | <a href="/photos/">Delivery and shipping</a> </span></p>
 				</div>
 				<div class="right">
-					<a href="{% url teas %}"><img src="{% staticfile '/images/tea-field-one.jpg' %}" style="border-radius: 10px;"></a>
+					<img src="{% staticfile '/images/tea-field-one.jpg' %}" style="border-radius: 10px;">
 				</div>			
 			</div>
 			
-			<div id="user-photos">	
+			<div class="user-photos">	
+			<a href="/learn/"><span class="link"></span></a>
 				<div class="left">	
-					<h4><a href="/learn/">Learn about Chinese tea &raquo;</a></h4>
+					<h4>Learn about Chinese tea &raquo;</h4>
 					<p>Find out more about Chinese tea, culture, history, and how to brew the perfect cup of Chinese loose-leaf tea!</p>
 					<p><span class="small">&raquo; <a href="/learn/brew/">How to brew tea</a> | <a href="/learn/how-chinese-tea-is-made/">How tea is made</a> | <a href="/learn/tea-faqs/">Tea FAQs</a></span></p>
 				</div>
 				<div class="right">
-					<a href="/learn/"><img src="{% staticfile '/images/tea-field-two.jpg' %}" style="border-radius: 10px;"></a>
+					<img src="{% staticfile '/images/tea-field-two.jpg' %}" style="border-radius: 10px;">
 				</div>	
 			</div>
 			
-			<div id="user-photos">	
+			<div class="user-photos last">
+			<a href="/about/"><span class="link"></span></a>	
 				<div class="left">	
-					<h4><a href="/about/">Who are we? &raquo;</a></h4>
+					<h4>Who are we? &raquo;</h4>
 					<p>Tea fanatics on a mission - to bring you simple, authentic and traditionally made Chinese teas. </p>
 					<p><span class="small">&raquo; <a href="/about/">Contact us</a> | <a href="/learn/how-chinese-tea-is-made/">Our story</a> </span></p>
 				</div>
 				<div class="right">
-					<a href="/about/"><img src="{% staticfile '/images/tea-field-three.jpg' %}" style="border-radius: 10px;"></a>
+					<img src="{% staticfile '/images/tea-field-three.jpg' %}" style="border-radius: 10px;">
 				</div>	
 			</div>
 			
