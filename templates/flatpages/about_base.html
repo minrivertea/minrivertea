@@ -3,6 +3,8 @@
 
 {% block aboutselected %}selected{% endblock %}
 
+{% block metadescription %}{% include 'flatpages/about/metadata.html' %}{% endblock %}
+
 {% block pagetitle %}{{ flatpage.title }}{% endblock %}
 
 {% block extracss %}
@@ -77,7 +79,6 @@ span.review {
 
 	<div id="left">
 		<h2 class="fontface">{{ flatpage.title }}</h2>
-		<p class="subtitle">{% block subtitle %}{% endblock %}</p>
 		{{ flatpage.content }}
 	</div>
 

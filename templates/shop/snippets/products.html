@@ -27,10 +27,7 @@
         	{% endfor %}
 			
 			</h4> 
-			<p>{{ product.description }}</p>
-			{% for price in prices %}
-				<div class="add-to-basket"><a class="add-to-basket" title="Add 1 {{ product.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}"></a></div>
-			{% endfor %}		
+			<p>{{ product.description }}</p>	
 				<div class="more-details"><a class="more-details" title="See more information about {{ product.name }} tea" href="{% url tea_view product.slug %}"></a></div>	
 
 		</div>     	

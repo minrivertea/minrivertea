@@ -4,6 +4,8 @@
 
 {% block aboutselected %}selected{% endblock %}
 
+{% block metadescription %}{% include 'flatpages/learn/metadata.html' %}{% endblock %}
+
 {% block pagetitle %}{{ flatpage.title }}{% endblock %}
 
 {% block extracss %}
@@ -70,15 +72,14 @@ span.review {
   		{% block right %}
   			
   			{% include 'flatpages/learn_navigation.html' %}
-  			<div class="right-image">{% block rightimage %}{% endblock %}</div>
-  			{% include 'flatpages/learn_right.html' %}
+  		
+			<div class="right-image"><img src="{% staticfile '/images/right-two.jpg' %}"></div>
 
   		{% endblock %}
 	</div>
 
 	<div id="left">
 		<h2 class="fontface">{{ flatpage.title }}</h2>
-		<p class="subtitle">{% block subtitle %}{% endblock %}</p>
 		{{ flatpage.content }}
 	</div>
 

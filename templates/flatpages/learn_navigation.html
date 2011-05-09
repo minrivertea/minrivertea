@@ -29,7 +29,23 @@
   	  </ul>
     {% endif %}
   </li>
-  <li><a class="{% nav_selected request '/learn/where-our-tea-comes-from/' %}" href="/learn/where-our-tea-comes-from/">Where our tea comes from</a></li>
+  <li><a class="{% nav_selected request '/learn/where-our-tea-comes-from/' %}" href="/learn/where-our-tea-comes-from/">Where our tea comes from</a>
+    {% if "where-our-tea-comes-from" in request.path %}
+      <ul class="subnav">
+   	    <li><a class="{% nav_selected request '/learn/where-our-tea-comes-from/iron-buddha/' %}" href="/learn/where-our-tea-comes-from/iron-buddha/">
+  		  Iron Buddha</a>
+  	    </li>
+  	    <li><a class="{% nav_selected request '/learn/where-our-tea-comes-from/the-big-red/' %} last" href="/learn/where-our-tea-comes-from/the-big-red/">
+  		  The Big Red</a>
+  	    </li>
+  	    <li><a class="{% nav_selected request '/learn/where-our-tea-comes-from/jasmine-pearls/' %} last" href="/learn/where-our-tea-comes-from/jamsine-pearls/">
+  		  Jasmine Pearls</a>
+  	    </li>
+  	  </ul>
+    {% endif %}
+  
+  
+  </li>
   <li><a class="{% nav_selected request '/learn/weights-and-sizes/' %}" href="/learn/weights-and-sizes/">Weights and sizes</a></li>
   <li><a class="{% nav_selected request '/learn/varieties-of-tea/' %}" href="/learn/varieties-of-tea/">Varieties of tea</a></li>
 </ul>

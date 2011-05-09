@@ -88,7 +88,7 @@ a {
 }
 
 a:link, a:visited {
-  color: #1a6d18;
+  color: #439249;
 }
 
 a:hover, a:active {
@@ -430,7 +430,7 @@ div#home-extra div.user-photos {
     margin-left: 0;
     padding: 20px 30px 20px;
     width: 740px;
-    border-bottom: 1px solid #e1e1e1;
+    border-bottom: 3px dotted #E1E1E1;
     position: relative;
 }
 
@@ -448,7 +448,7 @@ div#home-extra div.user-photos span.link {
 }
 
 div#home-extra div.user-photos:hover h4 {
-  color: #439249;	
+  text-decoration: underline;	
 }
 
 div#home-extra div.user-photos:hover div.right img {
@@ -490,7 +490,7 @@ div#home-extra h4 {
     font-weight: bold;
     letter-spacing: -1px;
     margin: 0;
-    color: #666;
+    color: #439249;
 }
 
 
@@ -616,6 +616,10 @@ div.tea-promo div.image {
     width: 210px;
 }
 
+div.tea-promo:hover div.image img {
+  opacity: 0.8;	
+}
+
 div.tea-promo div.text {
   width: 300px;
   float: left;
@@ -693,11 +697,11 @@ div.tea-promo h4 {
 }
 
 div.tea-promo h4 a {
-  color: #777;
+  color: #439249;
 }
 
 div.tea-promo:hover h4 a {
-  color: #439249;	
+  text-decoration: underline;	
 }
 
 
@@ -1300,11 +1304,6 @@ div.about-box img.flag {
   top: 1px;	
 }
 
-div#right p.mail {
-    font-size: 13px;
-    margin-top: 15px;
-}
-
 div.right-image {
   float: left;
   margin-bottom: 20px;	
@@ -1375,5 +1374,44 @@ div.info {
 
 div.info.last {
   border-bottom: none;	
+}
+
+div#right p.mail {
+    float: left;
+    font-size: 12px;
+    height: 30px;
+    line-height: 1.2em;
+    margin-top: 15px;
+    width: 200px;
+    position: relative;
+}
+
+div#right p.mail a.title {
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: 900;	
+}
+
+div#right p.mail:hover img.mail-icon {
+  opacity: 0.8;	
+}
+
+div#right p.mail:hover a.title {
+  text-decoration: underline;	
+}
+
+div#right p.mail span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+img.mail-icon {
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    margin-right: 10px;
+    position: relative;
 }
 
