@@ -1,4 +1,5 @@
 {% load django_static %}
+{% load nav_selected %}
 
 {% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
@@ -22,6 +23,9 @@
 	<meta name="robots" content="ALL" />
 	<title>minrivertea.com - {% block pagetitle %}{% endblock %}</title>
 	<link rel="shortcut icon" href="{% staticfile '/images/favicon.ico' %}" type="image/x-icon">
+	<style type="text/css" media="screen">
+		h2.fontface {font: 40px/50px 'WCROUGHTRADBtaRegular', Arial, sans-serif;letter-spacing: -1px;}
+	</style>
 	
 	{% block extra-head %}{% endblock %}
 
@@ -66,20 +70,41 @@
 		</div>    
 		{% endif %}
     	
-	    <div id="header{% block header %}{% endblock %}">
+	    <div id="header">
 	    	<div id="logo">
 	    		<a title="The Min River Team Farm - Authentic Chinese Teas" alt="the Min River Tea Farm logo" href="/">
-	    			<h1 class="{% block logo %}{% endblock %}"><span>The Min River Tea Farm - Great Chinese Teas</span></h1>
+	    			<h1><span>The Min River Tea Farm - Great Chinese Teas</span></h1>
 	    		</a>
 	    	</div>
+	    	
+	    	<p class="shipping">
+				<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}">  
+	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> 
+	    		We ship to UK and Europe! 
+	    	</p>
 
 	    	<div id="navigation">
 	    	    <ul id="nav">
-	    	    	<li class="first"><a href="{% url home %}" title="Home">home</a> /</li>
-	    	        <li><a href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">our teas</a>  /</li>
-	    	        <li><a href="/about/" title="About the Min River Tea Farm" alt="">about us</a>  /</li>
-	    	        <li class="last"><a href="{% url basket %}" title="View your basket" alt="">your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</a>
-	    	       
+	    	    	<li>
+	    	    		<a class="{% nav_selected request '^/$' %}" href="{% url home %}" title="Home">Home</a>
+	    	    	</li>
+	    	        <li>
+	    	        	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">Our teas</a>
+	    	        </li>
+	    	        <li>
+	    	        	<a class="{% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn</a>
+	    	        </li>
+	    	        <li>
+	    	        	<a class="{% nav_selected request '^/about/' %}" href="/about/" title="About the Min River Tea Farm" alt="">About us</a>
+	    	        </li>
+	    	        <li>
+	    	        	
+	    	        	<a class="{% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
+	    	        	
+	    	        	Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}
+	    	        	
+	    	        	</a>
+	    	        	
 	    	        </li>
 	  			</ul>
 			</div>

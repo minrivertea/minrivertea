@@ -1,45 +1,34 @@
 {% load thumbnail %}
 {% load django_static %}
-	
-	{% include 'flatpages/about_navigation.html' %}
+
 		
-		<div class="about-box">
+		<div class="info">	
+			<p class="quote"><em>&ldquo;My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.&rdquo;</em><br/><span class="review">Brad Robinson, UK</span></p>
+
+		</div>
+		
+		<div class="info">
 		  <div class="social">
+		  	<h3>Keep in touch</h3>
+		    <p>Check out our tea photos on Flickr, or keep in touch on Twitter:</p>
 			<a href="http://www.flickr.com/photos/62180582@N04/" title="See lots of our beautiful tea related photos on Flickr.com"><img src="{% staticfile '/images/flickr.png' %}"></a>
-		  </div>
-		  <div class="social">
 			<a href="http://twitter.com/minrivertea" title="Chat with us about tea on Twitter"><img src="{% staticfile '/images/twitter.png' %}"></a>
 	      </div>
 		</div>
 		
-		<div class="about-box">
-		 <h3>What our customers say</h3>		
-			<p class="quote"><em>&ldquo;My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.&rdquo;</em><br/><strong>Brad Robinson, UK</strong></p>
-			<p class="quote"><em>&ldquo;Ordering was quick and easy, and I got the tea delivered within a few days.&rdquo;</em><br/><strong>Agnes Vinkler, UK</strong></p>
-			<p>
-				<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}">  
-	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> 
-	    		We ship to UK and Europe! 
-	    	</p>
-		</div>
-		
-		<div class="about-box">
-		<h3>Browse our teas</h3>
-		{% for tea in teas %}
-			<div class="tea">
-			<div class="tea-image">
-			<a href="{% url tea_view tea.slug %}">
-			 	{% thumbnail tea.image "80x55" crop="center" as im%}
-			 	<img class="mail-icon" src="{{ im.url }}" />
-			 	{% endthumbnail %}
-			</a>
+		<div class="info">
+			<h3 class="small">Take a look at our teas</h3>
+				{% for other in teas %}
+			 		<p class="mail">
+			 			<a href="{% url tea_view other.slug %}"><span class="link"></span></a>
+			 				{% thumbnail other.image "60x45" crop="center" as im%}
+			 				<img class="mail-icon" src="{{ im.url }}" />
+			 				{% endthumbnail %}
+			 			<a class="title" href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
+			 			<br/>{{ other.super_short_description }}
+			 		</p>
+			 	{% endfor %}
 			</div>
-			<div class="tea-text">
-			<a href="{% url tea_view tea.slug %}" title="{{ tea.name }} - another one of our great Chinese teas">{{ tea.name }}</a>
-			<br/>{{ tea.super_short_description }}
-			</div>
-			</div>
-		{% endfor %}
-		</div>
+
 		
 	

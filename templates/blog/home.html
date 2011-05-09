@@ -7,6 +7,13 @@
 {% block extracss %}
 <style type="text/css">
 
+div#main-text-wide div#left {
+  margin-top: 10px;	
+}
+
+div#main-text-wide div#right {
+  margin-top: 20px;	
+}
 
 div.entry-list {
     float: left;
@@ -18,7 +25,48 @@ div.entry {
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid #e1e1e1;	
+  position: relative;
 }
+
+div.entry span.read-more a {
+  color: #fff;	
+}
+
+div.entry:hover span.read-more a {
+  color: #1a6d18;
+}
+
+div.entry:hover div.image img {
+  opacity: 0.7;
+}
+
+div#main-text-wide div#left div.entry:hover h3 a {
+  color: #1a6d18;
+}
+
+div.entry h3 a {
+  color: #777;
+}
+
+div.entry:hover h4 a {
+  color: #1a6d18;	
+}
+
+div#main-text-wide div#left div.entry h3 {
+  font-weight: 900;
+}
+
+
+
+div.entry span.entry {
+    position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
 
 div.entry.last {
   border-bottom: none;	
@@ -27,6 +75,10 @@ div.entry.last {
 div.entry div.image {
   float: left;
   margin-right: 20px;	
+}
+
+div.entry div.image img {
+  border-radius: 5px;	
 }
 
 div.entry div.text {
@@ -38,7 +90,7 @@ div.entry div.text h3 {
   margin-bottom: 5px;	
 }
 
-div.entry div.text p {
+div#main-text-wide div#left div.entry div.text p {
   margin: 5px 0px;	
 }
 
@@ -83,34 +135,12 @@ div.like div.text {
   width: 140px;
 }
 
-div.rss {
-  position: relative;
-  float: right;
-  top: -45px;
-  height: 0;
-  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-  font-weight: bold;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-
-div.rss img {
-  position: relative;
-  top: 4px;	
-}
 </style>
 {% endblock %}
 
 {% block meta-description %}Chris West's blog about photography, the web and Fuzhou, China - my home{% endblock %}
 {% block title %}photography, the web and life in China{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">The Min River blog</h2>
-	    	<p class="normal">All the news about Chinese tea and what's up at the Min River Tea Farm</p>
-				
-			</div>
-{% endblock %}
 
 {% block content %}
 
@@ -118,16 +148,22 @@ div.rss img {
 
 <div id="main-text-wide">
 
-	<div id="blog-right">
+<div class="rss">
+<a href="/feeds/latest/">Get the RSS feed <img class="rss" src="{% staticfile '/images/rss-small.png' %}"></a>
+<a title="Checkout our tea photos on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
+<a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
+</div>
+
+	<h2 class="fontface">The Min River blog</h2>
+	<p class="subtitle">News, photos and info about Chinese tea.</p>
+	
+
+	<div id="right">
 		
 		{% include "blog/snippets/blog-right.html" %}
 	</div>
 
-	<div id="blog-left">
-	<h3 class="title">Latest posts...</h3>
-<div class="rss">
-				<a href="/feeds/latest/">Get the RSS feed <img class="rss" src="{% staticfile '/images/rss.png' %}"></a>
-				</div>
+	<div id="left">
  		<div class="entry-list">
 			{% include "blog/snippets/entry-list.html" %}
 		</div>

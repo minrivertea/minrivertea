@@ -10,19 +10,39 @@ body {
   background: url('/images/background.png') no-repeat scroll 50% 0 #fff;
   margin: 10px 0 0;
   padding: 0;
+  color: #666;
 }
 
 h3 {
     color: #BE373A;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    letter-spacing: -1px;
     margin: 0 0 5px;
 }
 
-div.left h3 {
-  margin: 0px 0 0px 0px;
-  font-weight: bold;
-  font-size: 1.3em;	
+div#main-text-wide div#left h3 {
+    color: #444444;
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    margin: 0 0 5px;
+}
+
+@font-face {
+    font-family: 'WCROUGHTRADBtaRegular';
+    src: url('/fonts/WC_RoughTrad-webfont.eot');
+    src: url('/fonts/WC_RoughTrad-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/WC_RoughTrad-webfont.woff') format('woff'),
+         url('/fonts/WC_RoughTrad-webfont.ttf') format('truetype'),
+         url('/fonts/WC_RoughTrad-webfont.svg#WCROUGHTRADBtaRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+div#main-text-wide div#left p {
+  margin-top: 0;
+  margin-bottom: 20px;	
 }
 
 h4 {
@@ -38,11 +58,12 @@ div.left h4 {
     font-size: 15px;
     margin-bottom: 0;
     padding-bottom: 0;
-    text-transform: uppercase;
 }
 
 div#right h3 {
-  text-align: left;	
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 0;
 }
 
 div#right h4 {
@@ -67,16 +88,21 @@ a {
 }
 
 a:link, a:visited {
-  color: #1a6d18;
+  color: #439249;
 }
 
 a:hover, a:active {
   color: #ffaeae;
 }
 
+ul {
+  list-style-type: square;	
+}
+
 ul, ol {
-  color: #666;
-  line-height: 1.6em;	
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.8em;	
 }
 
 ol {
@@ -173,12 +199,12 @@ h1 {
 }
 
 h2 {
-    color: #BE373A;
+    color: #ed7b7b;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 2em;
+    font-size: 2.2em;
     font-weight: bold;
     letter-spacing: -1px;
-    margin: 0 0 10px;
+    margin: 0 0 5px;
     padding-bottom: 0;
 }
 
@@ -189,9 +215,9 @@ div#user-photos h2 {
 
 
 p {
-  font-size: 15px;	
-  line-height: 1.5em;
-  color: #666;
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.8em;
 }
 
 p.intro {
@@ -212,13 +238,7 @@ div.left p {
 div#header {
   width: 800px;
   margin: 0 auto;
-  height: 180px;
-}
-
-div#headerhome {
-    height: 180px;
-    margin: 0 auto;
-    width: 800px;
+  height: 100px;
 }
 
 div#header-messages {
@@ -241,21 +261,22 @@ div#header-messages div.hm {
     margin-right: 10px;
 }
 
-div#logo {	 
- width: 140px;
- float: left;
- margin: 25px 0 0 50px;
+p.shipping {
+  float: right;
+  margin: 0;
+  font-size: 11px;
+  padding-right: 30px;	
 }
 
-div#logo h1.home {
-  background: url('/images/logo5.png') no-repeat scroll 0 0 transparent;
-  height: 150px;	
-  margin: 0px 0 0 0px;
+div#logo {	 
+ width: 320px;
+ float: left;
+ margin: 20px 0 0 0px;
 }
 
 div#logo h1 {
-    background: url("/images/logo5.png") no-repeat scroll 0 0 transparent;
-    height: 150px;
+    background: url("/images/logo7.jpg") no-repeat scroll 0 0 transparent;
+    height: 88px;
     margin: 0px 0 0 0px;
 }
 
@@ -275,56 +296,57 @@ div#home-banner {
     width: 560px;
 }
 
-#home-banner p.normal {
-    float: right;
-    font-size: 15px;
-    letter-spacing: 0;
-    margin: -10px 0 10px 10px;
-    width: 500px;
+p.subtitle {
+    font-size: 18px;
+    letter-spacing: 0px;
+    padding-bottom: 10px;
+    margin: 0px 0 10px 0px;
+    border-bottom: 1px solid #fbe3e3;;
 }
 
-
-#home-banner h2.logo-assist {
-    color: #19761C;
-    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 2.4em;
-    font-weight: bold;
-    letter-spacing: -1px;
-    line-height: 1em;
-    margin: 0px 0 10px;
-}
 
 #navigation {
   float: right;
-  margin: 20px 0px 0;	
+  margin: 0px 0px 0;	
 }
 
 ul#nav {
-float: right;
-font-size:15px;
-margin: 20px 0 0 0;
-color: #ee6464;
+    color: #EE6464;
+    float: left;
+    margin: 35px 0 0;
+    padding-left: 0;
 }
 
-#navigation ul li {
+ul#nav li {
   display: inline;
-  padding-left: 0px;
 }
 
-
-#navigation a:link, #nav a:visited {
-  color: #1A6D18;
-  text-decoration: none;
-  font-weight: normal;
-
+ul#nav li:not(:last-child) a {
+  border-right: 2px dotted #F1F1F1;
 }
 
-#navigation a:hover, #nav a:active {
-
-  color: #ee6464;
-  cursor: pointer;
+ul#nav li a {
+    display: block;
+    float: left;
+    font-family: 'Helvetica Neue';
+    padding: 0px 13px;
+    color: #999;
+    font-weight: bold;
+    font-size: 13px;
 }
 
+ul#nav li a:hover {
+  text-decoration: underline;
+  color: #439249;
+}
+
+ul#nav li a.selected:hover {
+    color: #439249;	
+}
+
+ul#nav li a.selected {
+    color: #439249;
+}
 
 /* homepage styles */
 
@@ -346,11 +368,12 @@ div#home-extra div.featured-top {
 }
 
 div#featured-small {
-  background: url('/images/stripe.png') bottom;
+  background: url('/images/sripe.png') bottom;
   height: 10px;	
   width: 800px;
   margin: 0 auto;
   margin-top: 10px;
+  border-bottom: 3px dotted #e1e1e1;
 }
 
 
@@ -387,40 +410,68 @@ div.home-products {
     float: left;
     margin-bottom: 10px;
     margin-top: 0px;
+    display: none;
 }
 
 div#home-extra {
   float:left;
   margin-left:0px;
   width:780px;
-  padding: 0px 20px 10px 0px;
+  padding: 10px 20px 10px 0px;
   margin-top: 0px;
 }
 
-div#home-extra div#user-photos img {
+div#home-extra div.user-photos img {
 
 }
 
-div#home-extra div#user-photos {
+div#home-extra div.user-photos {
+    border-top: medium none;
     margin-left: 0;
-    margin-top: 10px;
-    padding: 20px 30px 30px;
+    padding: 20px 30px 20px;
     width: 740px;
-    border-top: none;
+    border-bottom: 3px dotted #E1E1E1;
+    position: relative;
 }
 
-div#home-extra div#user-photos div.a-user-photo {
+div#home-extra div.user-photos.last {
+    border-bottom: none;
+}
+
+div#home-extra div.user-photos span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+div#home-extra div.user-photos:hover h4 {
+  text-decoration: underline;	
+}
+
+div#home-extra div.user-photos:hover div.right img {
+  opacity: 0.7;
+}
+
+div#home-extra div.user-photos div.left p a {
+  z-index: 2;	
+  position: relative;
+}
+
+div#home-extra div.user-photos div.a-user-photo {
     border-bottom: medium none;
     margin: 0 10px 0px 0px;
     padding-bottom: 0;
     width: 90px;
 }
 
-div#home-extra div#user-photos div.a-user-photo div.info {
+div#home-extra div.user-photos div.a-user-photo div.info {
     width: 490px;
 }
 
-div#home-extra div#user-photos div.a-user-photo div.photo {
+div#home-extra div.user-photos div.a-user-photo div.photo {
   margin-right: 10px;
 }
 
@@ -433,38 +484,95 @@ div#home-extra a.see-more {
     top: -2px;
 }
 
-div#home-extra h2 {
-    font-family: Georgia, serif;
+div#home-extra h4 {
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 24px;
-    font-weight: normal;
-    margin-bottom: 10px;
-    color: #30A5C7;
+    font-weight: bold;
+    letter-spacing: -1px;
+    margin: 0;
+    color: #439249;
 }
 
 
+div#home-extra div.left p {
+  margin-bottom: -5px;	
+}
+
+
+/* right navigation styles */
+ul#right-nav {
+  list-style-type: none;
+  padding: 0;	
+}
+
+ul#right-nav li {
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-size: 12px;	
+  font-weight: bold;
+}
+
+ul#right-nav li a {
+  background-color: #f6f6f6;
+  padding: 5px 5px 5px 20px;
+  display: block;
+  margin-bottom: 2px;
+  color: #666;  	
+}
+
+ul#right-nav li a.selected {
+  color: #197621;  	
+  background-color: #e9e9e9;
+}
+
+ul#right-nav li a:hover {
+  color: #197621;  	
+  background-color: #E0F1E4;
+}
+
+ul#right-nav ul.subnav {
+  list-style-type: square;
+  padding-left: 10px;
+  margin-left: 20px;	
+}
+
+ul#right-nav ul.subnav li a {
+  background-color: #fff;
+	
+  font-size: 11px;
+  padding: 3px;
+    padding-left: 10px;
+  margin: 0;
+  border-bottom: 2px dotted #e1e1e1;
+}
+
+ul#right-nav ul.subnav li a.last {
+  border-bottom: none;	
+  margin-bottom: 2px;
+}
+
+
+/* end rightnav styles */
 
 
 /* content page styles */
 
 div#main-text-wide {
   margin:0 auto;
-  padding-top:30px;
+  padding-top:40px;
   width:800px;
   margin-bottom: 80px;
 }
 
-div#main-text-wide div.left {
+div#main-text-wide div#left {
     float: left;
     margin: 0 10px 20px 0px;
-    width: 500px;
+    width: 530px;
 }
 
 div#main-text-wide div#right {
-    border-left: 1px solid #E1E1E1;
     float: right;
-    padding-left: 30px;
-    padding-top: 10px;
-    width: 240px;
+    padding-left: 20px;
+    width: 220px;
 }
 
 p.introduction {
@@ -478,20 +586,95 @@ p.introduction {
 
 /* tea listing styles */
 
-div.tea-promo {
-  border-right:1px solid #E1E1E1;
-  float:left;
-  margin-bottom:20px;
-  margin-top:0;
-  padding: 0 25px 20px 25px;
-  width:215px;
-  height: 270px;
+div#teas {
+  padding-left: 0px;
+  margin-top: 30px;	
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 3px dotted #e1e1e1;
+  float: left;
 }
 
-div.tea-promo.last {
-  margin-right:0;
-  border-right: none;
+div.tea-promo {
+    float: left;
+    margin: 0 0 30px 0px;
+    padding: 0px 20px 20px 0px;
+    width: 530px;
+    position: relative;
+    border-bottom: 3px dotted #e1e1e1;
 }
+
+
+div.tea-promo:hover {	
+  cursor: pointer;
+}
+
+div.tea-promo div.image {
+    float: left;
+    margin-left: -6px;
+    margin-right: 20px;
+    width: 210px;
+}
+
+div.tea-promo:hover div.image img {
+  opacity: 0.8;	
+}
+
+div.tea-promo div.text {
+  width: 300px;
+  float: left;
+  margin-right: 0px;
+  padding-top: 0px;	
+}
+
+div#main-text-wide div#left div.tea-promo div.text p {
+  margin: 0 0 0 0;	
+}
+
+div.tea-promo span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+div.tea-promo a.add-to-basket {
+  background: url('/images/price-back-small.png') no-repeat top;
+  width: 108px;
+  height: 25px;
+  position: relative;
+  float:left;	
+  margin-right: 10px;
+  z-index: 2;
+}
+
+div.tea-promo a.more-details {
+  background: url('/images/more-details.png') no-repeat top;
+  width: 108px;
+  height: 25px;
+  position: relative;
+  float:left;
+    z-index: 2;	
+}
+
+div.tea-promo:hover a.more-details {
+  background: url('/images/more-details.png') no-repeat center;
+}
+
+div.tea-promo:hover a.add-to-basket {
+  background: url('/images/price-back-small.png') no-repeat center;	
+}
+
+div.tea-promo a.add-to-basket:hover {
+  background: url('/images/price-back-small.png') no-repeat bottom;
+}
+
+div.tea-promo a.more-details:hover {
+  background: url('/images/more-details.png') no-repeat bottom;
+}
+
 
 
 
@@ -504,14 +687,21 @@ div.image-top {
 }
 
 div.tea-promo h4 {
-  margin-left: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
   margin-top: 0;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 1.3em;
     font-weight: bold;
     letter-spacing: -1px;
-  color: #1a6d18;	
+    border-bottom: none;	
+}
+
+div.tea-promo h4 a {
+  color: #439249;
+}
+
+div.tea-promo:hover h4 a {
+  text-decoration: underline;	
 }
 
 
@@ -525,15 +715,16 @@ div.tea-promo p {
 }
 
 div.tea-promo div.price {
-    color: #EE6464;
+    color: #439249;
     float: right;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 20px;
     font-weight: bold;
-    height: 18px;
     letter-spacing: -2px;
-    margin: -35px 0 5px 5px;
+    margin: 0 20px 5px 10px;
 }
+
+
 
 div#right p {
   margin: 0 0 10px 0;
@@ -545,7 +736,7 @@ div.tea-top div.price {
     background: url("/images/price-back-two.png") no-repeat scroll right top transparent;
     float: left;
     height: 43px;
-    margin: 10px 0 0 0;
+    margin: 0px 0 0 0;
     width: 186px;
 }
 
@@ -558,23 +749,6 @@ div.tea-top div.price:active {
   cursor: pointer;
   background: url('/images/price-back-two.png') no-repeat bottom right;
 }
-
-/* the old one...
-div.tea-top div.price {
-    background: url("/images/price-back.png") no-repeat scroll right top transparent;
-    float: left;
-    height: 21px;
-    margin: 0;
-    padding: 12px 0 15px 3px;
-    width: 265px;
-}
-
-
-div.tea-top div.price:hover {
-  cursor: pointer;
-  background: url('/images/price-back.png') no-repeat bottom right;
-}
-*/
 
 div.tea-top div.main-image img {
   border-radius: 10px;	
@@ -601,8 +775,8 @@ div.price-text span {
 
 
 img.tea-promo {
-    border-radius: 10px 10px 10px 10px;
-    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-bottom: 0px;
     margin-right: 0;
 }
 
@@ -615,6 +789,10 @@ span.grey {
   font-weight: normal;
 }
 
+span.lightgrey {
+  color:#e1e1e1;	
+}
+
 .small {
   font-size: 0.7em;	
 }
@@ -625,25 +803,22 @@ span.grey {
 
 /* SHOPPING BASKET PAGE STYLES */
 
-p.checkout {
-    float: left;
-    font-size: 14px;
-    margin-top: 0;
-    padding-left: 8px;
+div#main-text-wide div#left p.checkout {
+    float: right;
+    font-size: 12px;
+    margin-top: 0px;
     width: 220px;
+    text-align: right;
 }
 
 div#checkout-button {
     float: right;
-    margin: 15px 0px 0 0;
-    border-left: 1px solid #e1e1e1;
-    padding-left: 20px;
+    margin: 20px 30px 0 0;
 }
 
 div#checkout-button p {
-  width: 200px;
-  padding-left: 5px;
-  	
+    font-size: 12px;
+    padding-left: 5px;
 }
 
 div#checkout-button a:link, div#checkout-button a:visited {
@@ -664,10 +839,9 @@ div#checkout-button a:focus {
 }
 
 div.checkout-button {
-    border-left: 1px solid #E1E1E1;
     float: right;
     margin-top: 15px;
-    padding-left: 20px;
+    padding-right: 0px;
     width: 220px;
 }
 
@@ -727,13 +901,10 @@ div#checkout-button a {
 
 
 div.row {
-    -moz-border-radius: 10px 10px 10px 10px;
-    background-image: url("/images/gray-stripe.png");
-    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
     float: left;
     margin-bottom: 20px;
-    padding: 10px 20px 0px 20px;
-    width: 470px;
+    padding: 0px 0px 0px 0px;
+    border-bottom: 3px dotted #e1e1e1;
 }
 
 div.row.wide {
@@ -773,21 +944,26 @@ div.row-box table {
   font-size: 14px;	
 }
 
+div.row-box table td {
+  padding-bottom: 10px;	
+}
+
 div.row-box input {
-    -moz-border-radius: 7px 7px 7px 7px;
-    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
+    border-color: #D1D1D1;
+    border-radius: 7px 7px 7px 7px;
     border-style: solid;
-    border-width: 1px 0 0 1px;
+    border-width: 1px;
     color: #666666;
     float: left;
-    font: 95% arial,helvetica,clean,sans-serif;
+    font: 14px arial,helvetica,clean,sans-serif;
     height: 20px;
-    margin: 0 0 20px 0px;
+    margin: 0 0 20px 0;
     padding: 10px 15px;
     width: 280px;
 }
 
 div.row-box input:focus {
+  background-color: #f9f9f9;
   border-color: #6acc75;
   border-width: 1px;
   margin-bottom: 19px;
@@ -796,12 +972,13 @@ div.row-box input:focus {
 div.row-box label {
     float: left;
     line-height: 1.2em;
-    margin-left: 0;
-    margin-right: 20px;
+    margin-left: 20px;
     position: relative;
-    text-align: right;
+    text-align: left;
     top: 10px;
-    width: 100px;
+    width: 120px;
+    font-size: 14px;
+    color: #555;
 }
 
 div.row-box p {
@@ -863,7 +1040,7 @@ ul.errorlist {
 
 
 
-div#user-photos {
+div.user-photos {
     border-top: 1px solid #E1E1E1;
     float: left;
     margin: 0 0 0;
@@ -873,28 +1050,28 @@ div#user-photos {
     width: 780px;
 }
 
-div#user-photos div.a-user-photo {
+div.user-photos div.a-user-photo {
     float: left;
     margin: 0 20px 40px 0;
     padding-bottom: 40px;
     width: 120px;
 }
 
-div#user-photos div.a-user-photo div.photo {
+div.user-photos div.a-user-photo div.photo {
   float: left;
   margin-bottom: 5px;	
 }
 
-div#user-photos div.a-user-photo div.info {
+div.user-photos div.a-user-photo div.info {
     float: left;
 }
 
-div#user-photos div.a-user-photo div.info p {
+div.user-photos div.a-user-photo div.info p {
   margin: 0;
   float: left;	
 }
 
-div#user-photos div.a-user-photo div.info p.recommend {
+div.user-photos div.a-user-photo div.info p.recommend {
     color: black;
     float: left;
     font-size: 12px;
@@ -1127,7 +1304,114 @@ div.about-box img.flag {
   top: 1px;	
 }
 
-div#right p.mail {
-    font-size: 13px;
-    margin-top: 15px;
+div.right-image {
+  float: left;
+  margin-bottom: 20px;	
 }
+
+div.like {
+  float: left;	
+  margin-top: 10px;
+  border-bottom: 3px dotted #e1e1e1;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+div.like.last {
+  border-bottom: none;	
+}
+
+div.like div.image {
+  float: left;
+  margin-right: 10px;	
+}
+
+div#blog-right div.box.clear div.like p.description {
+  color: #666;	
+  line-height: 14px;
+  font-size: 12px;
+}
+
+div.like a {
+  font-size: 13px;	
+}
+
+div.like div.text {
+  float: left;
+  width: 150px;
+}
+
+div#right div.like div.text p {
+  line-height: 1.2em;
+  font-size: 12px;
+}
+
+
+div.rss {
+  position: relative;
+  top: 50px;
+  right:20px;
+  float: right;
+  height: 0;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+div.rss img {
+  position: relative;
+  top: 4px;	
+}
+
+div.info {
+    border-bottom: 3px dotted #F7D2D2;
+    float: left;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    width: 230px;
+}
+
+div.info.last {
+  border-bottom: none;	
+}
+
+div#right p.mail {
+    float: left;
+    font-size: 12px;
+    height: 30px;
+    line-height: 1.2em;
+    margin-top: 15px;
+    width: 200px;
+    position: relative;
+}
+
+div#right p.mail a.title {
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: 900;	
+}
+
+div#right p.mail:hover img.mail-icon {
+  opacity: 0.8;	
+}
+
+div#right p.mail:hover a.title {
+  text-decoration: underline;	
+}
+
+div#right p.mail span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+img.mail-icon {
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    margin-right: 10px;
+    position: relative;
+}
+

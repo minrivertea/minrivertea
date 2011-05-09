@@ -1,16 +1,14 @@
 {% load thumbnail %}
+{% load django_static %}
 
-		<div class="box clear">
-			<h4>Who are we?</h4>
+
+			<h3>Who are we?</h3>
 			<p>The Min River Tea Farm sells high quality Chinese teas, delivered direct to your door. This is our company blog, for updates about our products and the tea world in general.</p>
-			<p class="link"><a href="{% url teas %}">&raquo; Browse our teas </a></p>
-			<p class="link"><a href="/about/">&raquo; Read more about us</a></p>
-		</div>
-		
-		<div class="box clear">
-			<h4>We also like...</h4>
+
+
+			<h3>We also like...</h3>
 			{% for like in welikes %}
-			  <div class="like">
+			  <div class="like{% if forloop.last %} last{% endif %}">
 			  	<div class="image">
 			  		{% thumbnail like.image "50x50" crop="center" as im %}
 			  		<img src="{{ im.url }}">
@@ -22,4 +20,3 @@
 			  	</div>
 			  </div>
 			{% endfor %}
-		</div>

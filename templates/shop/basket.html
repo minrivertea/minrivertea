@@ -6,12 +6,12 @@
 
 {% block extracss %}
 <style type="text/css">
-div#home-banner {
-  margin-top:25px;	
+div#main-text-wide div#left {
+  margin-top: 20px;	
 }
 
-div.row-label h3 {
-    font-size: 1.2em;
+div#main-text-wide div#right {
+  margin-top: 20px;	
 }
 
 div.row-box p.intro {
@@ -100,7 +100,7 @@ div.tea-remove a:hover {
 
 div#totals {
     float: left;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: bold;
     margin-left: 240px;
     text-align: right;
@@ -185,49 +185,40 @@ div#steps div.step.finished {
 
 {% block pagetitle %}your basket ({{ basket_quantity }}){% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Your basket</h2>
-	    	<div id="steps">
-	    		<div class="step first selected">1. Your basket</div>
-	    		<div class="step">2. Your details</div>
-	    		<div class="step last">3. Confirm and pay</div>
-	    	</div>
-	    	
-	    	
-			</div>
-{% endblock %}
-
 {% block content %}
 
 <div id="featured-small"></div>
 
 <div id="main-text-wide">
 
+<h2 class="fontface">Your basket</h2>
+		<p class="subtitle">You currently have {{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %} in your basket</p>
 
 {% if basket_items %}
+	<div id="right">
+		<h3>Payment methods</h3>
+		<p>You can pay online safely and securely using Paypal. You can use your paypal linked account, or any major credit and debit cards.</p>
 
-<div id="checkout-button">
+		<h3>Where do we deliver?</h3>
+		<p>We currently deliver to the United Kingdom and Europe. Sorry, no US orders at the moment!<br/></p>
+	
+		<h3>Returns</h3>
+		<p>We operate a 'no questions asked' returns policy. If you're not happy with the tea you receive, please get in touch.</p>
+	
+		<h3>Postage and packaging</h3>
+		<p>We charge a flat fee of £3 per order. If you order over £50, postage is free. Orders are fulfilled by Amazon UK and normally arrive within 1-2 days.</p>
+		<p> * <em>orders outside the UK may take slightly longer. Thanks for your patience!</em></p>
 
-<a href="{% url order_step_one %}"></a>
+	</div>
 
-<p class="checkout"><strong>Next step</strong>: your details.  <br/><em>You don't need to login or register to purchase - no passwords to remember, no slow registration process, no hassle.</em></p>
+	<div id="left">
 
 
-</div>
-
+		
 
 	<div id="basket-full">
 	
-	  <div class="basket-head-row">
-	    <div class="tea-remove">&nbsp;</div>
-		<div class="tea-name">&nbsp;</div>
-		<div class="tea-weight">ITEM</div>
-		<div class="tea-price">&nbsp;</div>
-		<div class="tea-quantity">AMOUNT</div>
-		<div class="tea-total">TOTAL</div>
-		
-      </div>
+
       
 	{% for thing in basket_items %}
 	  <div class="basket-row">
@@ -273,6 +264,17 @@ div#steps div.step.finished {
 		<div class="label">Total:</div><div class="total">£{{ total_price }}</div>
 	</div>
 	<br clear="all"/>
+	
+	
+	
+			<div id="checkout-button">
+			
+			<a href="{% url order_step_one %}"></a>
+			<p class="checkout">
+				<strong>Next step</strong>: your details. 
+				<em>You don't need to login or register to purchase - no passwords to remember, no slow registration process, no hassle.</em>
+			</p>
+		</div>
 
  
 
@@ -280,30 +282,6 @@ div#steps div.step.finished {
 	<p>There's nothing in your basket - add something, quick! <br/><a href="{% url teas %}">&raquo; Browse our selection of Chinese teas here.</a></p>
 {% endif %}
 
-
-<div id="extra-info">
-
-	<div class="box">
-		<h3>Payment methods</h3>
-		<p>You can pay online safely and securely using Paypal. You can use your paypal linked account, or any major credit and debit cards.</p>
-	</div>
-	
-	<div class="box">
-		<h3>Where do we deliver?</h3>
-		<p>We currently deliver to the United Kingdom and Europe. Sorry, no US orders at the moment!<br/></p>
-	</div>
-	
-	<div class="box">
-		<h3>Returns</h3>
-		<p>We operate a 'no questions asked' returns policy. If you're not happy with the tea you receive, please get in touch.</p>
-	</div>
-
-	<div class="box last">
-		<h3>Postage and packaging</h3>
-		<p>We charge a flat fee of £3 per order. If you order over £50, postage is free. Orders are fulfilled by Amazon UK and normally arrive within 1-2 days.</p>
-		<p> * <em>orders outside the UK may take slightly longer. Thanks for your patience!</em></p>
-	</div>
-</div>
 
 </div>
 {% endblock %}
