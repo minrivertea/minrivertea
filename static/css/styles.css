@@ -221,9 +221,9 @@ p {
 }
 
 p.intro {
-  margin: -10px 0 25px 0;	
-  color: #333;
-  font-size: 14px;  
+    color: #666666;
+    font-size: 15px;
+    margin: -10px 0 25px;
 }
 
 div.left p {
@@ -730,6 +730,10 @@ div#right p {
   margin: 0 0 10px 0;
   padding: 0;
   font-size: 13px;	
+}
+
+div#right p.small {
+  font-size: 11px;
 }
 
 div.tea-top div.price {

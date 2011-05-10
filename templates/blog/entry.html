@@ -78,9 +78,7 @@ div#right p.mail.last {
 	<div id="left">
 
 		<div id="entry-content">
-				{% thumbnail entry.promo_image "250x250" crop="center" as im %}	
-				<img src="{{ im.url }}">
-				{% endthumbnail %}
+
 			
 			<p>{{ entry.content|safe }}</p>
 
