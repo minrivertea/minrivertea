@@ -1045,7 +1045,6 @@ ul.errorlist {
 
 
 div.user-photos {
-    border-top: 1px solid #E1E1E1;
     float: left;
     margin: 0 0 0;
     padding-bottom: 20px;
@@ -1056,8 +1055,8 @@ div.user-photos {
 
 div.user-photos div.a-user-photo {
     float: left;
-    margin: 0 20px 40px 0;
-    padding-bottom: 40px;
+    margin: 0 20px 0px 0;
+    padding-bottom: 0px;
     width: 120px;
 }
 
@@ -1068,6 +1067,10 @@ div.user-photos div.a-user-photo div.photo {
 
 div.user-photos div.a-user-photo div.info {
     float: left;
+    width: 120px;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 div.user-photos div.a-user-photo div.info p {
@@ -1417,5 +1420,9 @@ img.mail-icon {
     float: left;
     margin-right: 10px;
     position: relative;
+}
+
+span.red {
+  color: #BE373A;	
 }
 

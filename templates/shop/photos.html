@@ -84,10 +84,6 @@ div#submit_1 input.submit:hover {
   cursor: pointer;
 }
 
-span.red {
-  color: red;	
-}
-
 p.help-text {
     font-size: 0.7em;
     padding-left: 5px;
@@ -106,12 +102,6 @@ p.help-text img {
 
 {% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Chinese tea lovers!</h2>
-	    	<p class="normal">Are you a secret Chinese tea drinker? Add your photo to the wall!</p>
-			</div>
-{% endblock %}
 
 {% block pagetitle %}Chinese tea lovers unite!{% endblock %}
 
@@ -119,15 +109,11 @@ p.help-text img {
 <div id="featured-small"></div>
 
 <div id="main-text-wide">
-	<div id="photo">
 
-		
-		<p class="introduction">Because we love happy tea drinkers, send a photo of yourself drinking tea to <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> and we'll donate £1 to <a href="http://www.mind.org.uk">Mind UK</a> for each picture we receive.</p>
+	<h2 class="fontface">Chinese tea lovers!</h2>
+	<p class="subtitle">Are you a secret Chinese tea drinker? Email us at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> and we'll donate £1 to <a href="http://www.mind.org.uk">Mind UK</a> for every photo submitted</p>
 
-
-		
-
-		<div id="user-photos">
+		<div class="user-photos">
 			{% for p in photos %}
 				<div class="a-user-photo">
 					<div class="photo">
@@ -141,8 +127,13 @@ p.help-text img {
 				</div>
 			{% endfor %}
 		</div>
-		
-	</div>
+		<div id="left">
+		<h3>Customer testimonials</h3>
+		<ul>
+			<li>My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past. A whole lot more fragrant and full of flavour. Min River Tea Farm, I salute you.<br/><span class="red">Brad Robinson, London</span></li>
+			<li>Ordering was quick and easy, and I got the tea delivered within a few days. I really enjoy the tea, I add a tiny bit of sugar in it, and that makes it perfect for me. It's delicious hot and cold as well and has a lovely flavour, with a hint of jasmine, which definitely distinguishes it from usual green teas!<br/><span class="red">Agnes Vinkler, Brighton</span></li>	
+		</ul>
+		</div>
 </div>
 {% endblock %}
 
