@@ -1338,7 +1338,7 @@ div.like a {
 
 div.like div.text {
   float: left;
-  width: 150px;
+  width: 160px;
 }
 
 div#right div.like div.text p {
@@ -1369,7 +1369,7 @@ div.info {
     float: left;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    width: 230px;
+    width: 220px;
 }
 
 div.info.last {
@@ -1386,7 +1386,7 @@ div#right p.mail {
     position: relative;
 }
 
-div#right p.mail a.title {
+div#right a.title {
   font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
   font-weight: 900;	
 }
