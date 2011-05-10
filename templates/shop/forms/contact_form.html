@@ -34,7 +34,7 @@ div.row-box textarea {
 }
 
 div#left input.submit-button {
-    background: url("/images/submit.png") no-repeat scroll left top transparent;
+    background: url("{% staticfile '/images/submit.png' %}") no-repeat scroll left top transparent;
     border: medium none;
     height: 51px;
     margin-top: 0px;
@@ -42,11 +42,11 @@ div#left input.submit-button {
 }
 
 div#left input.submit-button:hover {
-    background: url("/images/submit.png") no-repeat scroll left center transparent;
+    background: url("{% staticfile '/images/submit.png' %}") no-repeat scroll left center transparent;
 }
 
 div#left input.submit-button:active {
-    background: url("/images/submit.png") no-repeat scroll left bottom transparent;
+    background: url("{% staticfile '/images/submit.png' %}") no-repeat scroll left bottom transparent;
 }
 
 div#left p.help-text {
