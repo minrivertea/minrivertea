@@ -1426,3 +1426,15 @@ span.red {
   color: #BE373A;	
 }
 
+div#main-text-wide div#left div.box {
+  width: 230px;
+  float: left;
+  margin-right: 20px;	
+}
+
+div#main-text-wide div#left div.box p {
+  padding: 10px;
+  background-color: #e1e1e1;
+  margin: 0;
+}
+
