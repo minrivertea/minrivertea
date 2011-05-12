@@ -1438,12 +1438,14 @@ div#main-text-wide div#left div.box p {
   margin: 0;
 }
 
-div#main-text-wide div#left div.caption-wide {
+div#main-text-wide div#left div.caption {
     background-color: #F1F1F1;
     float: left;
     font-size: 11px;
     margin-bottom: 20px;
-    padding: 10px;
-    width: 510px;	
+    padding: 10px;	
 }
 
+div#main-text-wide div#left div.caption.wide {
+    width: 510px;
+}
