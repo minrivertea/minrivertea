@@ -1486,7 +1486,7 @@ div#main-text-wide div#left img.about {
 	
 	.pics p {
 	  position: absolute;
-	  top: 320px;
+	  top: 321px;
 	  float: none;
 	  background-color: #fff;
 	  padding: 5px 10px;
@@ -1497,8 +1497,7 @@ div#main-text-wide div#left img.about {
 	}
 
 	.pics span.click {
-	  color: #439249;
-	  font-weight: bold;	
+	  color: #439249;	
 	}
 	
 	/* possible settings for the active scroll */
