@@ -6,6 +6,18 @@
 {% block pagetitle %}{{ entry.title }}{% endblock %}
 
 
+{% block extrajs %}
+<script>
+$(function() {
+
+// enable circular scrollables with a click handler
+$(".scroll").scrollable({ circular: true }).click(function() {
+	$(this).data("scrollable").next();		
+});
+});
+</script>
+{% endblock %}
+
 {% block extracss %}
 <style type="text/css">
 div#main-text-wide div#right {
