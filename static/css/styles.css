@@ -1449,3 +1449,55 @@ div#main-text-wide div#left div.caption {
 div#main-text-wide div#left div.caption.wide {
     width: 510px;
 }
+
+div#main-text-wide div#left img.about {
+    float: right;
+    margin-left: 20px;
+}
+
+
+
+/* root element for single scroll */
+	.scroll {
+		position:relative;
+		overflow:hidden;
+		width: 530px;
+		height: 352px;
+		float:left;
+		margin-bottom: 30px;
+	}
+	
+	/* root element for the scroll pics */
+	.scroll .pics {
+		width:20000em;
+		position:absolute;
+		clear:both;
+	}
+	
+	/* single scroll item */
+	.pics div {
+		float:left;
+		cursor:pointer;
+		width:530px !important;
+		height:352px;
+		margin:0px;
+		border-radius: 10px;
+	}
+	
+	.pics p {
+	  position: absolute;
+	  top: 320px;
+	  float: none;
+	  background-color: #fff;
+	  padding: 5px 10px;
+	  font-size: 12px;
+	  opacity: 0.9;
+	  width: 510px;
+	}
+	
+	/* possible settings for the active scroll */
+	.scroll.active {
+	
+	}
+
+

@@ -30,14 +30,14 @@
 	{% block extra-head %}{% endblock %}
 
 	    <link rel="stylesheet" href="{% staticfile '/css/styles.css' %}" />
-	    <script type="text/javascript" src="{% staticfile '/js/searchbar.js' %}"></script>
+	    <script type="text/javascript" src="{% staticfile '/js/jquery-1.6.min.js' %}"></script>
+	    <script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
 	    <!--[if lte IE 6]>
 		<link rel="stylesheet" media="screen" type="text/css" href="{% staticfile '/css/ie6.css' %}" />
 		<![endif]-->
 
 
 	{% block extracss %}{% endblock %}
-	{% block extrajs %}{% endblock %}
 	
     {% block ga %}
     {% if ga_is_on %}
@@ -121,6 +121,8 @@
 		{% include "shop/snippets/footer.html" %} 
     
     </div>
+
+	{% block extrajs %}{% endblock %}
 
 </body>
 
