@@ -1495,6 +1495,11 @@ div#main-text-wide div#left img.about {
 	  width: 510px;
 	  color:#333;
 	}
+
+	.pics span.click {
+	  color: #439249;
+	  font-weight: bold;	
+	}
 	
 	/* possible settings for the active scroll */
 	.scroll.active {
