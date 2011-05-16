@@ -2,7 +2,7 @@
 {% load thumbnail %}
 {% load django_static %}
 
-{% block metadescription %}We sell three types of Chinese tea - Iron Buddha (green, oolong), The Big Red (red, oolong) and Jasmine Pearls (green, scented). Each has been specially selected for its unique taste and quality. Each can be delivered to your door in just a few days.{% endblock %}
+{% block metadescription %}Buy authentic Chinese tea - choose from green and red oolong or Jasmine scented green tea. Each has been specially selected for its unique taste and quality and can be delivered to your door in 1-2 days.{% endblock %}
 
 {% block pagetitle %}choose your Chinese tea{% endblock %}
 
@@ -10,7 +10,14 @@
 <style type="text/css">
 
 div#main-text-wide div#left, div#main-text-wide div#right {
-  margin-top: 20px;	
+  margin-top: 0px;	
+}
+
+div.teas {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  float: left;	
 }
 
 div#bottom {
@@ -110,12 +117,13 @@ span.message img {
 
 
 
-			<h2 class="fontface">Our teas</h2>
-		<p class="subtitle">Fresh, authentic and traditionally made Chinese teas.</p>
+			<h2 class="fontface">Choose your Chinese tea</h2>
+		<p class="subtitle">We offer a small, hand-selected range of fresh, authentic and traditionally made Chinese teas.</p>
+		<div class="teas">
+			{% include "shop/snippets/products.html" %}
+		</div>
 
-<div id="right">
-
-		
+	<div id="right">	
 		<div class="info">
            	<h3 class="">Delivered fast to your door</h3>
            	<p>We offer fast and reliable delivery through Amazon - 
@@ -137,7 +145,7 @@ span.message img {
 		
 	<div id="left">
 
-	{% include "shop/snippets/products.html" %}
+
 	
 		<ul>
 			<li>

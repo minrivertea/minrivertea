@@ -202,7 +202,7 @@ h2 {
     color: #ed7b7b;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 2.2em;
-    font-weight: bold;
+    font-weight: normal;
     letter-spacing: -1px;
     margin: 0 0 5px;
     padding-bottom: 0;
@@ -238,7 +238,8 @@ div.left p {
 div#header {
   width: 800px;
   margin: 0 auto;
-  height: 100px;
+  height: 120px;
+  border-bottom: 5px dotted #e1e1e1
 }
 
 div#header-messages {
@@ -367,15 +368,6 @@ div#home-extra div.featured-top {
   margin-top: 10px;
 }
 
-div#featured-small {
-  background: url('/images/sripe.png') bottom;
-  height: 10px;	
-  width: 800px;
-  margin: 0 auto;
-  margin-top: 10px;
-  border-bottom: 3px dotted #e1e1e1;
-}
-
 
 
 strong {
@@ -430,8 +422,10 @@ div#home-extra div.user-photos {
     margin-left: 0;
     padding: 20px 30px 20px;
     width: 740px;
-    border-bottom: 3px dotted #E1E1E1;
     position: relative;
+    -moz-transition-duration: 300ms;
+    -moz-transition-property: background;
+    border-radius: 10px;
 }
 
 div#home-extra div.user-photos.last {
@@ -447,13 +441,15 @@ div#home-extra div.user-photos span.link {
   z-index: 1;	
 }
 
+div#home-extra div.user-photos:hover {
+  background-color: #f1f1f1;	
+}
+
+
 div#home-extra div.user-photos:hover h4 {
   text-decoration: underline;	
 }
 
-div#home-extra div.user-photos:hover div.right img {
-  opacity: 0.7;
-}
 
 div#home-extra div.user-photos div.left p a {
   z-index: 2;	
@@ -512,6 +508,8 @@ ul#right-nav li {
 }
 
 ul#right-nav li a {
+  -moz-transition-duration: 300ms;
+  -moz-transition-property: background;
   background-color: #f6f6f6;
   padding: 5px 5px 5px 20px;
   display: block;
@@ -599,7 +597,7 @@ div.tea-promo {
     float: left;
     margin: 0 0 30px 0px;
     padding: 0px 20px 20px 0px;
-    width: 530px;
+    width: 760px;
     position: relative;
     border-bottom: 3px dotted #e1e1e1;
 }
@@ -687,7 +685,7 @@ div.image-top {
 }
 
 div.tea-promo h4 {
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   margin-top: 0;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 1.3em;
@@ -706,9 +704,9 @@ div.tea-promo:hover h4 a {
 
 
 div.tea-promo p {
-  margin-top: 5px;
+  margin-top: 0px;
   font-size: 13px;	
-  margin-left: 5px;
+  margin-left: 0px;
   margin-bottom: 10px;
   float: left;
   height: 80px;
