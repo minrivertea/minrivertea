@@ -6,95 +6,12 @@
 
 {% block extracss %}
 <style type="text/css">
-div#submit_1 {
-    background-image: url("{% staticfile '/images/gray-stripe.png' %}");
-    margin: 10px 0 20px;
-    padding: 20px 20px 20px 30px;
-    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
-    height: {% if shopper %}300px{% else %}380px{% endif %};
+div#main-text-wide div#left {
+  margin-top: 20px;	
 }
 
-div#submit_1 h3 {
-  font-size: 2em;
-  text-shadow: 1px 1px #fff;
-  font-weight: bold;
-	
-}
-
-div#submit_1 input {
-    -moz-border-radius: 7px 7px 7px 7px;
-    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
-    border-style: solid;
-    border-width: 1px 0 0 1px;
-    color: #666666;
-    float: left;
-    font: 95% arial,helvetica,clean,sans-serif;
-    height: 20px;
-    margin: 0 0 20px 0px;
-    padding: 10px 15px;
-    width: 430px;	
-}
-
-div#submit_1 textarea {
-    -moz-border-radius: 7px 7px 7px 7px;
-    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
-    border-style: solid;
-    border-width: 1px 0 0 1px;
-    color: #666666;
-    float: left;
-    font: 95% arial,helvetica,clean,sans-serif;
-    margin: 0 0 20px 0px;
-    padding: 10px 15px;
-    width: 430px;
-}
-
-div#submit_1 p {
-    margin: 0;
-    float: left;
-}
-
-div#submit_1 p.intro {
-    color: #333333;
-    margin: 5px 0 15px;
-    width: 800px;
-}
-
-div#submit_1 label {
-    float: left;
-    font-family: Helvetica,sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    margin: 0px 0 0px 0px;
-    text-align: left;
-    width: 410px;
-    display:;
-}
-
-div#submit_1 input.submit {
-  float: right;
-  background: url("{% staticfile '/images/upload-button.png' %}") top left no-repeat;	
-  border: none;
-  height: 55px;
-  width: 227px;
-  margin-top: 15px;
-}
-
-div#submit_1 input.submit:hover {
-  background: url("{% staticfile '/images/upload-button.png' %}") bottom left no-repeat;	
-  cursor: pointer;
-}
-
-p.help-text {
-    font-size: 0.7em;
-    padding-left: 5px;
-    position: relative;
-    top: -12px;
-    width: 300px;
-}
-
-p.help-text img {
-  position: relative;
-  top: 3px;	
+div#main-text-wide div#right {
+  margin-top: 20px;	
 }
 
 
@@ -103,37 +20,37 @@ p.help-text img {
 {% endblock %}
 
 
-{% block pagetitle %}Chinese tea lovers unite!{% endblock %}
+{% block pagetitle %}What our customers say about the Min River Tea Farm{% endblock %}
 
 {% block content %}
 <div id="featured-small"></div>
 
 <div id="main-text-wide">
 
-	<h2 class="fontface">Chinese tea lovers!</h2>
-	<p class="subtitle">Are you a secret Chinese tea drinker? Email us at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> and we'll donate £1 to <a href="http://www.mind.org.uk">Mind UK</a> for every photo submitted</p>
+	<h2 class="fontface">What our customers are saying</h2>
+	<p class="subtitle">Testimonials and reviews from happy customers who've bought our tea recently.</p>
 
+	<div id="left">
+		<p>My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past. A whole lot more fragrant and full of flavour. Min River Tea Farm, I salute you.<br/><span class="red">Brad Robinson, London</span></p>
+			<p>Ordering was quick and easy, and I got the tea delivered within a few days. I really enjoy the tea, I add a tiny bit of sugar in it, and that makes it perfect for me. It's delicious hot and cold as well and has a lovely flavour, with a hint of jasmine, which definitely distinguishes it from usual green teas!<br/><span class="red">Agnes Vinkler, Brighton</span></p>
+	
+	</div>
+	
+	<div id="right">
 		<div class="user-photos">
 			{% for p in photos %}
 				<div class="a-user-photo">
 					<div class="photo">
-						{% thumbnail p.photo "120x120" crop="center" as im %}
-						<img src="{{ im.url }}">
+						{% thumbnail p.photo "90x90" crop="center" as im %}
+						<img title="{{ p.shopper.first_name }} drinks {{ p.related_product.name }} tea" src="{{ im.url }}">
 						{% endthumbnail %}
-					</div>
-					<div class="info">
-						<p class="recommend">{{ p.shopper.first_name }}<br/><a href="{{ p.related_product.get_absolute_url }}">{{ p.related_product.name }}</a> tea</p>
 					</div>
 				</div>
 			{% endfor %}
+			<p>* <em>Want to see your photo here? <a href="mailto:chris@minrivertea.com">Send us a picture</a> of you drinking tea, and we'll donate £1 to <a href="http://www.mind.org.uk">Mind UK</a> for every photo we receive.</em></p>
 		</div>
-		<div id="left">
-		<h3>Customer testimonials</h3>
-		<ul>
-			<li>My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past. A whole lot more fragrant and full of flavour. Min River Tea Farm, I salute you.<br/><span class="red">Brad Robinson, London</span></li>
-			<li>Ordering was quick and easy, and I got the tea delivered within a few days. I really enjoy the tea, I add a tiny bit of sugar in it, and that makes it perfect for me. It's delicious hot and cold as well and has a lovely flavour, with a hint of jasmine, which definitely distinguishes it from usual green teas!<br/><span class="red">Agnes Vinkler, Brighton</span></li>	
-		</ul>
-		</div>
+	</div>
+
 </div>
 {% endblock %}
 

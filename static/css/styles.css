@@ -1047,20 +1047,19 @@ div.user-photos {
     margin: 0 0 0;
     padding-bottom: 20px;
     padding-right: 20px;
-    padding-top: 30px;
-    width: 780px;
+    padding-top: 10px;
 }
 
 div.user-photos div.a-user-photo {
     float: left;
-    margin: 0 20px 0px 0;
+    margin: 0 10px 0px 0;
     padding-bottom: 0px;
-    width: 120px;
+    width: 90px;
 }
 
 div.user-photos div.a-user-photo div.photo {
   float: left;
-  margin-bottom: 5px;	
+  margin-bottom: 10px;	
 }
 
 div.user-photos div.a-user-photo div.info {
@@ -1076,10 +1075,10 @@ div.user-photos div.a-user-photo div.info p {
   float: left;	
 }
 
-div.user-photos div.a-user-photo div.info p.recommend {
+div#right div.user-photos div.a-user-photo p.recommend {
     color: black;
     float: left;
-    font-size: 12px;
+    font-size: 11px;
     font-style: italic;
 }
 
