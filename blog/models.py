@@ -16,7 +16,7 @@ class BlogEntry(models.Model):
         return self.slug
         
     def get_absolute_url(self):
-        return "/blog/%s/" % self.slug
+        return "http://www.minrivertea.com/blog/%s/" % self.slug
      
     def get_content(self):
         return self.summary

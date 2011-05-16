@@ -69,6 +69,11 @@ div#right p.mail.last {
   border-bottom: none;	
 }
 
+div.next-previous {
+  border-top: 3px dotted #e1e1e1;
+  padding-top: 20px;	
+}
+
 </style>
 {% endblock %}
 
@@ -98,13 +103,16 @@ div#right p.mail.last {
 			
 			<p>{{ entry.content|safe }}</p>
 
+			<div class="next-previous">
+			<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=102598969829350&amp;xfbml=1"></script><fb:like href="{{ entry.get_absolute_url }}" send="false" layout="box_count" width="450" show_faces="false" font=""></fb:like>
 				{% if entry.get_next_by_date_added %}
 				<p>Next entry: <a href="{% url blog_entry entry.get_next_by_date_added %}">{{ entry.get_next_by_date_added.title }} &raquo;</a>
 				<br />
 				{% endif %}
 				{% if entry.get_previous_by_date_added %}
-				Previous entry: <a href="{% url blog_entry entry.get_previous_by_date_added %}">{{ entry.get_previous_by_date_added.title }} &raquo;</a></p>
+				<p>Previous entry: <a href="{% url blog_entry entry.get_previous_by_date_added %}">{{ entry.get_previous_by_date_added.title }} &raquo;</a></p>
 				{% endif %}
+			</div>
 		</div>
 	</div>
 

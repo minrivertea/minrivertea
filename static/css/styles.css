@@ -1354,10 +1354,9 @@ div#right div.like div.text p {
 
 div.rss {
   position: relative;
-  top: 50px;
+  top: 45px;
   right:20px;
   float: right;
-  height: 0;
   font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
   font-weight: bold;
   font-size: 12px;
