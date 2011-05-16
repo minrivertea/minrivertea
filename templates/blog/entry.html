@@ -71,7 +71,62 @@ div#right p.mail.last {
 
 div.next-previous {
   border-top: 3px dotted #e1e1e1;
-  padding-top: 20px;	
+  padding-top: 20px;
+  margin-bottom: 20px;	
+  width: 530px;
+  float: left;
+  border-bottom: 3px dotted #e1e1e1;
+}
+
+div.other-entry {
+  width: 500px;
+  float: left;
+  margin-bottom: 10px;
+  font-size: 14px;
+  padding: 10px 15px;
+  position: relative;
+  border-radius: 5px;
+  left: -15px;
+  -moz-transition-property: background;
+  -moz-transition-duration: 300ms;
+}
+
+div.other-entry a {
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;	
+}
+
+div#main-text-wide div#left div.other-entry p {
+  margin-bottom: 0;	
+}
+
+div.other-entry span.link {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+
+
+div.other-entry:hover {
+  background-color: #f1f1f1;	
+}
+
+div.other-entry:hover a {
+  text-decoration: underline;
+}
+
+div.other-entry:hover p {
+  color: #333;	
+}
+
+div#entry-content img.tweet {
+  float: left;
+  margin-left: 10px;	
+  border-radius: 0;
 }
 
 </style>
@@ -104,15 +159,20 @@ div.next-previous {
 			<p>{{ entry.content|safe }}</p>
 
 			<div class="next-previous">
-			<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=102598969829350&amp;xfbml=1"></script><fb:like href="{{ entry.get_absolute_url }}" send="false" layout="box_count" width="450" show_faces="false" font=""></fb:like>
-				{% if entry.get_next_by_date_added %}
-				<p>Next entry: <a href="{% url blog_entry entry.get_next_by_date_added %}">{{ entry.get_next_by_date_added.title }} &raquo;</a>
-				<br />
-				{% endif %}
-				{% if entry.get_previous_by_date_added %}
-				<p>Previous entry: <a href="{% url blog_entry entry.get_previous_by_date_added %}">{{ entry.get_previous_by_date_added.title }} &raquo;</a></p>
-				{% endif %}
+			<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=198543263524427&amp;xfbml=1"></script><fb:like href="{{ entry.get_absolute_url }}" style="float:left;" send="false" layout="box_count" width="50" show_faces="true" font=""></fb:like>
+			<a title="Tweet this blog entry to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F{{ entry.slug }}"><img class="tweet" src="{% staticfile '/images/tweet-this.png' %}"></a>
 			</div>
+			{% if other_entries %}
+				<h3>Other recent posts you might like</h3>		
+				{% for other in other_entries %}
+					<div class="other-entry">
+		 			<a href="{% url blog_entry other.slug %}"><span class="link"></span></a>
+			 		<a class="title" href="{% url blog_entry other.slug %}" title="{{ other.title }} - a blog entry">{{ other.title }}</a>
+	 				<p>{{ other.summary }}</p>
+	 				</div>
+				{% endfor %}
+			{% endif %}	
+			
 		</div>
 	</div>
 

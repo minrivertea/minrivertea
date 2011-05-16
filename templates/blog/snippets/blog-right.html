@@ -7,26 +7,6 @@
 			<h3>The author</h3>
 			<p class="small">I'm Chris, and this is our blog about Chinese tea. Find out more about <a href="/about/">the Min River Tea Farm here</a>. </p>
 	</div>
-	
-	{% if other_entries %}
-	<div class="info">	
-		<h3>Other entries</h3>		
-		{% for other in other_entries %}
-			<div class="like{% if forloop.last %} last{% endif %}">
-		 	<a href="{% url blog_entry other.slug %}"><span class="link"></span></a>
-		 		<div class="image">
-	 			{% thumbnail other.promo_image "50x50" crop="center" as im %}
-	 				<img class="" src="{{ im.url }}" />
-	 			{% endthumbnail %}
-	 			</div>
-	 			<div class="text">
-	 			<a class="title" href="{% url blog_entry other.slug %}" title="{{ other.title }} - a blog entry">{{ other.title }}</a>
-	 			<p class="description">{{ other.summary|truncatewords:15 }}</p>
-	 			</div>
-	 		</div>
-		{% endfor %}
-	</div>
-	{% endif %}
 
 	<div class="info last">
 		<h3>We also like...</h3>
