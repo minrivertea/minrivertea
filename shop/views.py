@@ -566,7 +566,7 @@ def send_review_email(request, order_id):
 
 # view for the photo wall
 def photos(request):
-
+    reviews = Review.objects.filter(is_published=True)[:6]
     photos = Photo.objects.filter(published=True).order_by('-id')[:10]
     
     return render(request, 'shop/photos.html', locals())

@@ -31,9 +31,9 @@ div#main-text-wide div#right {
 	<p class="subtitle">Testimonials and reviews from happy customers who've bought our tea recently.</p>
 
 	<div id="left">
-		<p>My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past. A whole lot more fragrant and full of flavour. Min River Tea Farm, I salute you.<br/><span class="red">Brad Robinson, London</span></p>
-			<p>Ordering was quick and easy, and I got the tea delivered within a few days. I really enjoy the tea, I add a tiny bit of sugar in it, and that makes it perfect for me. It's delicious hot and cold as well and has a lovely flavour, with a hint of jasmine, which definitely distinguishes it from usual green teas!<br/><span class="red">Agnes Vinkler, Brighton</span></p>
-	
+		{% for review in reviews %}
+		<p>{{ review.short_text }}<br/><span class="red">{{ review.owner.first_name }} {{ review.owner.last_name }}</span></p>
+		{% endfor %}
 	<div class="did-you-know">
 	<a href="/teas/jasmine-pearls/"><span class="link"></span></a>
 	<h3>Looking for a birthday gift?</h3>
