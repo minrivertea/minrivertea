@@ -37,7 +37,7 @@ def even_more(request):
     
 def blog_entry(request, slug):
     entry = get_object_or_404(BlogEntry, slug=slug)
-    other_entries = BlogEntry.objects.exclude(id=entry.id).order_by('?')[:3]
+    other_entries = BlogEntry.objects.exclude(id=entry.id).order_by('?')[:2]
     welikes = WeLike.objects.all().order_by('-date_added') 
     return render(request, "blog/entry.html", locals())
   
