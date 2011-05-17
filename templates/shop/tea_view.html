@@ -460,10 +460,10 @@ Share this page with friends
 
 	<div id="left">
 {% if reviews %}
-			<h3>Customer reviews for this tea <span class="small grey"><a href="">- want to add your own review?</a></span></h3>
+			<h3>Customer reviews for this tea</h3>
 			<ul class="reviews">
 			{% for review in reviews %}
-				<li><em>"{{ review.short_text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></li>
+				<li><em>"{{ review.short_text }}"</em> <br/><span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></li>
 			{% endfor %}
 			</ul>
 		{% endif %}  
