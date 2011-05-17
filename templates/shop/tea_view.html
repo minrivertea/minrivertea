@@ -216,16 +216,16 @@ table.details td.left {
 ul.reviews {
     color: #666666;
     font-size: 12px;
-    list-style-type: none;
-    margin-bottom: 30px;
-    padding-left: 0;
+    list-style-type: square;
+    padding-left: 20px;
+    margin-bottom: 0;
+    border-bottom: 3px dotted #e1e1e1;
+    margin-bottom: 20px;
 }
 
 ul.reviews li {
   font-size: 14px;	
-  border-bottom: 1px solid #e1e1e1;
   padding-bottom: 15px;
-  margin-bottom: 20px;
   line-height: 1.6em;
 } 
 
@@ -413,18 +413,10 @@ Share this page with friends
 	
 	<div class="image-top"></div>
 <br clear="all"/>
-	<div id="right"> 
-		{% if reviews %}
-	<h3>Customer reviews for this tea</h3>
-		<ul class="reviews">
-		{% for review in reviews %}
-			<li><em>"{{ review.short_text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></li>
-		{% endfor %}
-		</ul>
-	{% endif %}          	
-           	<div class="info">
+	<div id="right">       	
+        <div class="info">
            	<img src="{% staticfile '/images/free-delivery.png' %}">
-           	</div>
+        </div>
            	
 
            	  <div class="info">
@@ -467,16 +459,23 @@ Share this page with friends
 
 
 	<div id="left">
-
+{% if reviews %}
+			<h3>Customer reviews for this tea <span class="small grey"><a href="">- want to add your own review?</a></span></h3>
+			<ul class="reviews">
+			{% for review in reviews %}
+				<li><em>"{{ review.short_text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></li>
+			{% endfor %}
+			</ul>
+		{% endif %}  
 
 	
 		
 	{{ tea.long_description|safe }}
-	
 	<div class="fb-recommend">
 	<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=102598969829350&amp;xfbml=1"></script><fb:like href="{{ tea.get_absolute_url }}" send="false" width="450" show_faces="false" action="recommend" font=""></fb:like>
 	</div>
 	</div>
+	
 	
 
 	

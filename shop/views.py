@@ -109,7 +109,7 @@ def tea_view(request, slug):
     tea = get_object_or_404(Product, slug=slug)
     prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True)
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
-    reviews = Review.objects.filter(product=tea.id, is_published=True)
+    reviews = Review.objects.filter(product=tea.id, is_published=True)[:2]
 
     return render(request, "shop/tea_view.html", locals())
     

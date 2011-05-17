@@ -1518,6 +1518,17 @@ div#main-text-wide div#left img.about {
    background-image: -o-linear-gradient(#f3f3f3, #f9f9f9);
 }
 
+div#right .did-you-know {
+  width: 190px;
+  margin-top: 0px;
+  padding: 10px;  	
+}
+
+div#right .did-you-know p {
+  font-size: 11px;
+  margin: 0;	
+}
+
 .did-you-know span.link {
   position:absolute;
   width:100%; 
