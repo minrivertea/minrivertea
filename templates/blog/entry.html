@@ -161,7 +161,7 @@ div#entry-content img.tweet {
 			<p>{{ entry.content|safe }}</p>
 
 			<div class="next-previous">
-			<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=198543263524427&amp;xfbml=1"></script><fb:like href="{{ entry.get_absolute_url }}" style="float:left;" send="false" layout="box_count" width="50" show_faces="true" font=""></fb:like>
+			<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=198543263524427&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ entry.get_absolute_url }}" style="float:left;" send="false" layout="box_count" width="50" show_faces="true" font=""></fb:like>
 			<a title="Tweet this blog entry to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F{{ entry.slug }}"><img class="tweet" src="{% staticfile '/images/tweet-this.png' %}"></a>
 			</div>
 			{% if other_entries %}

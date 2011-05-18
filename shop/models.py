@@ -151,7 +151,7 @@ class Product(models.Model):
         return self.name
       
     def get_absolute_url(self):
-        return "http://www.minrivertea.com/teas/%s/" % self.slug  
+        return "/teas/%s/" % self.slug  
     
     def save(self, force_insert=False, force_update=False):
          super(Product, self).save(force_insert, force_update)
@@ -334,7 +334,7 @@ class Photo(models.Model):
         return self.shopper.email
     
     def get_absolute_url(self):
-        return "http://www.minrivertea.com/tea-lover/%s/" % self.shopper.slug
+        return "/tea-lover/%s/" % self.shopper.slug
 
 
 class Referee(models.Model):
