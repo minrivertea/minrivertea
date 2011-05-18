@@ -106,6 +106,98 @@ span.message img {
   top: 2px;	
 }
 
+.tag {
+	margin:0;
+	padding:0;
+	position:absolute;
+	right:24px;
+	bottom:-12px;
+	list-style:none;
+	}
+
+.tag {
+	margin-left:20px;
+	padding:0 10px 0 12px;
+	background:#0089e0;
+	color:#fff;
+	text-decoration:none;
+	-moz-border-radius-bottomright:4px;
+	-webkit-border-bottom-right-radius:4px;	
+	border-bottom-right-radius:4px;
+	-moz-border-radius-topright:4px;
+	-webkit-border-top-right-radius:4px;	
+	border-top-right-radius:4px;	
+	} 
+	
+.tag:before{
+	content:"";
+	float:left;
+	position:absolute;
+	top:0;
+	left:-12px;
+	width:0;
+	height:0;
+	border-color:transparent #0089e0 transparent transparent;
+	border-style:solid;
+	border-width:12px 12px 12px 0;		
+	}
+
+
+.tag:after{
+	content:"";
+	position:absolute;
+	top:10px;
+	left:0;
+	float:left;
+	width:4px;
+	height:4px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	background:#fff;
+	-moz-box-shadow:-1px -1px 2px #004977;
+	-webkit-box-shadow:-1px -1px 2px #004977;
+	box-shadow:-1px -1px 2px #004977;
+	}
+	
+div.tea-promo .did-you-know {
+  margin-top: -5px;
+  width: auto;
+  padding: 4px 8px;
+  margin-right: 5px;
+}
+
+div.tea-promo .did-you-know h3 {
+  font-size: 11px;
+  margin: 0;
+  color:#555;
+  text-shadow: 0 1px 0px #fff;
+}
+
+div.tea-promo .did-you-know:hover:after {
+  border-bottom-color: #84c37d;	
+}
+
+/* this is the background of the arrow */
+div.tea-promo .did-you-know:after {
+        border-bottom: 7px solid #e1e1e1;         
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        position: absolute;
+        top: -7px;
+        left: 14px;
+}
+
+/* this is the foreground of the arrow */
+div.tea-promo .did-you-know:before {
+        border-bottom: 7px solid hsla(0,0%,95%,1);     
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        position: absolute;
+        top: -6px;
+        left: 15px;
+}
+
 </style>
 {% endblock %}
 
@@ -146,13 +238,6 @@ span.message img {
 	</div>
 		
 	<div id="left">
-
-	<div class="did-you-know">
-	<a href=""><span class="link"></span></a>
-	<h3>Looking for a health alternative to coffee?</h3>
-	<p>We recommend the Big Red, as it has a slightly stronger taste, and a bit of a kick for anyone used to strong coffee in the morning.</p>
-	</div>
-
 				<h3><a href="/about/personal-tea-shopping/">Personal tea shopping &raquo;</a></h3>
 				<p>Looking for something special? We're based in China, so we can find almost any Chinese tea for you.</p>
 
