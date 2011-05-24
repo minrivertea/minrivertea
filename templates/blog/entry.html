@@ -169,7 +169,8 @@ div#entry-content img.tweet {
 			<div id="comments">
 			{% get_comment_list for entry as comment_list %}
 				{% if comment_list %}
-				<h3>Comments on this post</h3>
+				{% get_comment_count for entry as comment_count %}
+				<h3>Comments on this post ({{ comment_count }})</h3>
 				<br clear="all"/>
 				<div id="comments-list">
 					{% for comment in comment_list %}
