@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% load django_static %}
+{% load comments %}
 
 {% block meta-description %}{{ entry.summary }}{% endblock %}
 {% block pagetitle %}{{ entry.title }}{% endblock %}
@@ -161,9 +162,39 @@ div#entry-content img.tweet {
 			<p>{{ entry.content|safe }}</p>
 
 			<div class="next-previous">
-			<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=198543263524427&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ entry.get_absolute_url }}" style="float:left;" send="false" layout="box_count" width="50" show_faces="true" font=""></fb:like>
+			{% if ga_is_on %}<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=198543263524427&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ entry.get_absolute_url }}" style="float:left;" send="false" layout="box_count" width="50" show_faces="true" font=""></fb:like>{% endif %}
 			<a title="Tweet this blog entry to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F{{ entry.slug }}"><img class="tweet" src="{% staticfile '/images/tweet-this.png' %}"></a>
 			</div>
+			
+			<div id="comments">
+			{% get_comment_list for entry as comment_list %}
+				{% if comment_list %}
+				<h3>Comments on this post</h3>
+				<br clear="all"/>
+				<div id="comments-list">
+					{% for comment in comment_list %}
+						<div class="comment">
+							<p>
+								<strong>
+									{% if comment.user_url %}<a href="{{ comment.user_url }}">{{ comment.user_name }}</a>
+									{% else %}{{ comment.user_name }}{% endif %}
+									 said...
+								</strong> 
+								<span class="small">({{ comment.submit_date|date:"D d M Y" }})</span></p>
+							<p>{{ comment.comment }}</p>
+						</div>
+					{% endfor %}
+				</div>
+				{% endif %}
+				<div id="comment-form">
+				<h3>Add your comment</h3>
+				<br clear="all"/>
+					<div id="form">
+					{% render_comment_form for entry %}
+					</div>
+				</div>
+			</div>
+			
 			{% if other_entries %}
 				<h3>Other recent posts you might like</h3>		
 				{% for other in other_entries %}

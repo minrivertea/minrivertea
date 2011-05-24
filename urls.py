@@ -44,7 +44,8 @@ urlpatterns = patterns('',
     (r'^humans\.txt$', direct_to_template, {'template': 'humans.txt', 'mimetype': 'text/plain'}),
     (r'^products\.xml$', direct_to_template, {'template': 'products.xml', 'mimetype': 'text/xml'}),
     (r'^noteaforyou/$', direct_to_template, {'template': '500_fake.html'}),
-    (r'^400/$', direct_to_template, {'template': '404.html'}),    
+    (r'^400/$', direct_to_template, {'template': '404.html'}),  
+    (r'^comments/', include('django.contrib.comments.urls')),  
 )
 
 

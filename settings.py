@@ -92,12 +92,14 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.flatpages',
     'django.contrib.sitemaps',
+    'django.contrib.comments',
     'shop',
     'blog',
     'sorl.thumbnail',
     'paypal.standard.ipn',
     'django_static',
     'registration',
+    
 )
 
 # Random app information for different things

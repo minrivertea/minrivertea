@@ -1609,3 +1609,99 @@ div#main-text-wide div#left div.did-you-know img {
   position: relative;
   top: 8px;	
 }
+
+div#comments {
+  border-bottom: 5px dotted #e1e1e1;
+  margin-bottom: 20px;
+  float: left;	
+}
+
+div#main-text-wide div#left div#comments h3 {
+    background-color: #F1F1F1;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 1px 1px #C1C1C1;
+    float: left;
+    font-size: 24px;
+    margin: 10px 0 0 -20px;
+    padding: 15px 45px 15px 30px;
+    position: relative;
+}
+
+div#comments h3:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 30px solid hsla(0,0%,95%,1);     
+        border-top: 0;
+        border-left: 0px solid transparent;
+        border-right: 50px solid transparent;
+        position: absolute;
+        top: -15px;
+        left: 1px;
+        z-index: 2;
+        margin-left: -1px; 
+}
+
+div#comments div#comments-list {
+  float: left;
+  margin-top: 20px;	
+}
+
+div#comments div#comments-list div.comment {
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  float: left;	
+  width: 100%;
+}
+
+div#comments div#comments-list div.comment p {
+  	margin: 0;
+  	padding: 0;
+}
+
+div#comments div#comment-form #form {
+  	float: left;
+  	margin-top: 30px;
+}
+
+div#comments div#comment-form label {
+  width: 100px;	
+}
+
+div#comments div#comment-form input, div#comments div#comment-form textarea {
+  width: 400px;	
+}
+
+div#comments div#comment-form input.submit-preview {
+  display: none;	
+}
+
+div#comments div#comment-form input.submit-post {
+  float: right;
+  width: 200px;
+  padding: 10px 15px;
+  height: 40px;
+  border-radius: 7px;
+  margin-top: 10px;
+   background-image: -moz-linear-gradient(#f3f3f3, #f9f9f9);
+   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#f9f9f9));
+   background-image: -webkit-linear-gradient(#f3f3f3, #f9f9f9); 
+   background-image: -o-linear-gradient(#f3f3f3, #f9f9f9);
+ font-weight: bold;
+ font-family: Helvetica, sans-serif;
+ font-size: 15px;
+ text-shadow: 0 1px 1px #fff;	
+ position: relative;
+}
+
+div#comments div#comment-form input.submit-post:hover {
+  border-color: #439249;
+  cursor: pointer;
+  color: #439249;
+}
+
+div#main-text-wide div#left div#comments div#comment-form p {
+  margin: 0;	
+}
