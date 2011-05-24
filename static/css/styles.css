@@ -1644,8 +1644,9 @@ div#comments h3:before {
 }
 
 div#comments div#comments-list {
-  float: left;
-  margin-top: 20px;	
+    float: left;
+    margin-top: 20px;
+    width: 100%;
 }
 
 div#comments div#comments-list div.comment {
