@@ -1582,7 +1582,7 @@ div#right .did-you-know p {
         margin-left: -1px;
 }
 
-div#main-text-wide div#left div.did-you-know h3 {
+div#main-text-wide div#left div.did-you-know h3, div.did-you-know h3 {
     color: #439249;
     font-family: Helvetica,sans-serif;
     font-size: 18px;
@@ -1591,7 +1591,7 @@ div#main-text-wide div#left div.did-you-know h3 {
     text-shadow: 0 2px 0 #FFFFFF;
 }
 
-div#main-text-wide div#left div.did-you-know h3 span.grey {
+div#main-text-wide div#left div.did-you-know h3 span.grey, div.did-you-know h3 span.grey {
   text-align: right;
   font-size: 14px;
   padding-left: 10px;	
