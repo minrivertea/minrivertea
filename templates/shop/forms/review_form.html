@@ -95,7 +95,7 @@ textarea {
 			<h3>What have other people said about our  {{ tea }}?</h3>
 			{% for review in other_reviews %}
 				<div class="review">
-					<p><em>"{{ review.text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></p>
+					<p><em>"{{ review.short_text }}"</em> <span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></p>
 				</div>				
 			{% endfor %}
 		</div>
