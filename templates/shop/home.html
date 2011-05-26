@@ -10,24 +10,105 @@
 {% block extracss %}
 <style type="text/css">
 
+div#top {
+  height: 180px;
+  padding: 10px 0 0px;
+  margin: 0px 0 20px;
+  float: left;
+  border-bottom: 5px dotted #e1e1e1;
+}
+
+div#top h3 {
+	margin-bottom: 0;	
+}
+
+div#top h3 a {
+	font-weight: bold;
+	font-size: 67px;
+	color: #ff8585;
+}
+
+div#top p {
+  margin: 0;
+  font-size: 12px;
+  width: 250px;	
+}
+
+div#top div.left {
+  width: 410px;
+  float: left;
+  text-align: right;
+  margin-right: 30px;
+  padding-right: 20px;
+  border-right: 1px solid #53a172;	
+}
+
+div#top div.left p {
+  float: right;	
+}
+
+div#top div.right {
+  width: 380px;
+  float: left;
+  text-align: left;	
+}
+
 div#feature {
-    height: 400px;
-    margin: 0 auto;
-    width: 800px;
+    height: 360px;
+    float: left;
+    width: 860px;
+    background: url("{% staticfile '/images/home-feature.jpg' %}") no-repeat;
+    border-radius: 10px;
+    margin: 20px 0;
 }
 
-div#feature p {
-  text-align:right;
-  padding-right: 60px;	
+div#feature img {
+  border-radius: 10px;
+  width: 880px; 	
+}
+
+div#feature div.top {
+  width: ;
+  background-color: #fff;
+  opacity: 0.8;	
+  float: left;
+  padding-bottom: 10px;
+  padding-right: 30px;
   position: relative;
-  top: -30px;
-  font-size: 13px;
+  top: 260px;
 }
 
-div#feature p a {
-  font-weight: 15px;
-  font-size: 13px;	
+div#feature div.top h3 {
+  margin: 10px 0 0 15px;	
+  color: #333;
 }
+
+div#feature div.top p {
+  text-align: left;
+  margin: 0;	
+  float: left;
+  padding: 0 0 0 15px;
+  color: #333;
+}
+
+
+div#home-extra div.box {
+  width: 180px;
+  height: 160px;
+  float: left;
+  background-color: #f1f1f1;	
+  padding: 10px;
+  border-radius: 10px;
+  margin-right: 10px;
+  box-shadow: 0 1px 2px #c1c1c1;
+}
+
+div#home-extra div.box h4 {
+  font-size: 14px;	
+  border-bottom: none;
+}
+
+
 
 div#customers {
     border-left: 1px solid #E1E1E1;
@@ -111,7 +192,7 @@ div.user-photos p span.small {
 
 
 div#home-bottom {
-  padding: 20px 0 0 30px;
+  padding: 20px 0 0 0px;
   float: left;	
 }
 
@@ -145,60 +226,50 @@ div#home-bottom h3 {
 
 {% block content %}
 
-
-
-
-    <div id="featured-small"></div>
-
 	<div id="feature">
-		<a href="/learn/how-to-brew-chinese-tea/"><img src="{% staticfile '/images/feature.jpg' %}" title="Making fresh, loose-leaf Chinese tea is not hard. Just get a cup of boiling water, add some tea leaves, and then wait for 2-3 minutes. Simple!" alt="three cups, with water, brewing tea leaves, and brewed jasmine tea"></a>
-		<p><em>A little hot water and fresh Jasmine tea leaves from Fujian, brewed for just over a minute. Simple.</em><br/>
-		<a href="/learn/how-to-brew-chinese-tea/">Learn how to brew the perfect cup yourself &raquo;</a></p>
+		<div class="top">
+			<h3>Take a look at our latest photos from Wuyi Mountain</h3>
+			<p>Wuyi Mountain is the home of our tea The Big Red (da hong pao)</p>
+		</div>
+		
 	</div>
 
-	<div id="box">
-
-		<div class="image-top"></div>
-	
-		<div id="home-extra">
-			<div class="user-photos">
-				<a href="{% url teas %}"><span class="link"></span></a>
-				<div class="left">
-					<h4><a href="{% url teas %}">Browse our Chinese teas &raquo;</a></h4>
-					<p>Find your perfect loose-leaf tea from our small range of hand-selected, traditionally crafted Chinese teas.</p>
-					<p><span class="small">&raquo; <a href="/about/our-teas/">About our teas</a> | <a href="/postage-and-packaging/">Delivery and shipping</a> </span></p>
-				</div>
-				<div class="right">
-					<img src="{% staticfile '/images/tea-field-one.jpg' %}" style="border-radius: 10px;">
-				</div>			
-			</div>
-			
-			<div class="user-photos">	
-			<a href="/learn/"><span class="link"></span></a>
-				<div class="left">	
-					<h4><a href="/learn/">Learn about Chinese tea &raquo;</a></h4>
-					<p>Find out more about Chinese tea, culture, history, and how to brew the perfect cup of Chinese loose-leaf tea!</p>
-					<p><span class="small">&raquo; <a href="/learn/how-to-brew-chinese-tea/">How to brew tea</a> | <a href="/learn/tea-basics/how-is-chinese-tea-made/">How tea is made</a> | <a href="/learn/tea-basics/faqs/">Tea FAQs</a></span></p>
-				</div>
-				<div class="right">
-					<img src="{% staticfile '/images/tea-field-two.jpg' %}" style="border-radius: 10px;">
-				</div>	
-			</div>
-			
-			<div class="user-photos last">
-			<a href="/about/"><span class="link"></span></a>	
-				<div class="left">	
-					<h4><a href="/about/">Who are we? &raquo;</a></h4>
-					<p>Tea fanatics on a mission - to bring you simple, authentic and traditionally made Chinese teas. </p>
-					<p><span class="small">&raquo; <a href="/contact-us/">Contact us</a> | <a href="/about/our-story/">Our story</a> </span></p>
-				</div>
-				<div class="right">
-					<img src="{% staticfile '/images/tea-field-three.jpg' %}" style="border-radius: 10px;">
-				</div>	
-			</div>
-			
+	<div id="top">
+		<div class="left">
+			<a href="{% url teas %}"><span class="link"></span></a>
+			<h3><a href="{% url teas %}">Buy tea</a></h3>
+			<p>We sell a small, hand-selected range  of fresh Chinese teas from the Fujian Province</p>
+			<p><a href="{% url teas %}">Browse our teas</a></p>
 		</div>
-<div class="image-top"></div>
+		
+		<div class="right">
+			<h3><a href="/learn/">Learn</a></h3>
+			<p>We don’t just sell tea - we help you learn how to make it, and tea history and culture too!</p>
+			<p><a href="/learn/">Learn more about tea</a></p>
+		</div>
+	
+	</div>
+
+
+
+	
+	<div id="home-extra">
+			<div class="box">
+			<h4>Want to know how to brew the perfect cup?</h4>
+			</div>
+			<div class="box">
+			<h4>Want to know how to brew the perfect cup?</h4>
+			</div>
+			<div class="box">
+			<h4>Want to know how to brew the perfect cup?</h4>
+			</div>
+			<div class="box">
+			<h4>Want to know how to brew the perfect cup?</h4>
+			</div>
+			
+						
+		</div>
+		
 	<div id="home-bottom">
 		<a href="{% url photos %}" title="See more customer reviews" class="reviews">See more customer reviews &raquo;</a>
 		<h3>What our customers say...</h3>

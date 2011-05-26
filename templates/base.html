@@ -65,7 +65,7 @@
 
 <body>
 
-    
+<div id="super">
     <div id="container">
 		{% if user.is_superuser %}
 	    <div id="header-messages">    
@@ -124,7 +124,7 @@
 		{% include "shop/snippets/footer.html" %} 
     
     </div>
-
+</div>
 	{% block extrajs %}{% endblock %}
 
 </body>
