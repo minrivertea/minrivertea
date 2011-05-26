@@ -32,7 +32,7 @@ div#main-text-wide div#right {
 
 	<div id="left">
 		{% for review in reviews %}
-		<p>{{ review.short_text }}<br/><span class="red">{{ review.owner.first_name }} {{ review.owner.last_name }}</span></p>
+		<p>{{ review.short_text }}<br/><span class="red">{{ review.first_name }} {{ review.last_name }}</span></p>
 		{% endfor %}
 	<div class="did-you-know">
 	<a href="/teas/jasmine-pearls/"><span class="link"></span></a>

@@ -882,14 +882,19 @@ input.button-confirm-address:active {
 }
 
 input.submit-button {
-  background: url('/images/submit.png') no-repeat top left;
-  width: 227px;
-  height: 55px;
-  float: right;
-  border: none;
+    background: url("/images/submit.png") no-repeat scroll left top transparent;
+    border: medium none;
+    float: right;
+    height: 51px;
+    width: 227px;
 }
 
 input.submit-button:hover {
+  cursor: pointer;
+  background: url('/images/submit.png') no-repeat center left;	
+}
+
+input.submit-button:active {
   cursor: pointer;
   background: url('/images/submit.png') no-repeat bottom left;	
 }

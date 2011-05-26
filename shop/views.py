@@ -516,18 +516,22 @@ def turn_off_twitter(request, id):
     return HttpResponseRedirect('/order/complete/')
 
 # handles the review/testimonial view
-def review(request, slug, number):
+def review(request, slug):
     tea = get_object_or_404(Product, slug=slug)
-    shopper = get_object_or_404(Shopper, id=number)
     other_reviews = Review.objects.filter(product=tea, is_published=True)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
-            words = form.cleaned_data['text']   
+            words = form.cleaned_data['text'] 
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
             review = Review.objects.create(
                 text=words,
                 product=tea,
-                owner=shopper,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
             )
             
             return HttpResponseRedirect('/review/thanks')

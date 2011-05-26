@@ -459,22 +459,25 @@ Share this page with friends
 
 
 	<div id="left">
-{% if reviews %}
-			<h3>Customer reviews for this tea</h3>
+		{% if reviews %}
+			<h3>Customer reviews for this tea <span class="">- <a href="{% url review tea.slug %}">Add your own review &raquo;</a></span></h3>
 			<ul class="reviews">
 			{% for review in reviews %}
-				<li><em>"{{ review.short_text }}"</em> <br/><span>{{ review.owner.first_name }} {{ review.owner.last_name }}</span></li>
+				<li><em>"{{ review.short_text }}"</em> <br/><span>{{ review.first_name }} {{ review.last_name }}</span></li>
 			{% endfor %}
 			</ul>
+			<p></p>
 		{% endif %}  
 
 	
 		
 	{{ tea.long_description|safe }}
+	{% if ga_is_on %}
 	<div class="fb-recommend">
 	<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=102598969829350&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ tea.get_absolute_url }}" send="false" width="450" show_faces="false" action="recommend" font=""></fb:like>
 	</div>
 	</div>
+	{% endif %}
 	
 	
 
