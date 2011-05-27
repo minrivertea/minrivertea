@@ -13,13 +13,6 @@ div#main-text-wide div#left, div#main-text-wide div#right {
   margin-top: 0px;	
 }
 
-div.teas {
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  float: left;	
-}
-
 div#bottom {
     border-top: 3px dotted #E1E1E1;
     float: left;
@@ -198,20 +191,23 @@ div.tea-promo .did-you-know:before {
         left: 15px;
 }
 
+div.did-you-know {
+  width: 500px;	
+}
+
 </style>
 {% endblock %}
 
 {% block content %}
 
-<div id="featured-small"></div>
 
 <div id="main-text-wide">
 
 
 
 			<h2 class="fontface">Choose your Chinese tea</h2>
-		<p class="subtitle">We offer a small, hand-selected range of fresh, authentic and traditionally made Chinese teas.</p>
-		<div class="teas">
+		<p class="subtitle">Choose from a small, hand-selected range of fresh, authentic and traditionally made Chinese teas.</p>
+		<div id="teas">
 			{% include "shop/snippets/products.html" %}
 		</div>
 		
@@ -238,14 +234,13 @@ div.tea-promo .did-you-know:before {
 	</div>
 		
 	<div id="left">
-				<h3><a href="/about/personal-tea-shopping/">Personal tea shopping &raquo;</a></h3>
-				<p>Looking for something special? We're based in China, so we can find almost any Chinese tea for you.</p>
+		<div class="did-you-know">
+			<a href="/about/personal-tea-shopping/"><span class="link"></span></a>
+			<h3>Don't see what you were looking for?</h3>
+			<p>We offer a personal tea shopping service from our base in China, so we can get just about anything you need - get in touch with us now!</p>
+		</div>
+		<br clear="all"/>
 
-				<h3><a href="/learn/tea-basics/">A simple introduction to Chinese tea &raquo;</a></h3>
-				<p>If you're new to Chinese tea, we've produced a simple guide to Chinese tea just for you.</p>
-
-				<h3><a href="/about/our-teas/">Traditional, handmade, authentic teas &raquo;</a></h3>
-				<p>All of our teas are premium quality, traditionally made Chinese teas. Find out what makes the difference between our teas and your average supermarket teabag. </p>
 
 	</div>
 		
@@ -254,6 +249,4 @@ div.tea-promo .did-you-know:before {
 </div>
 
 
-
-</div>
 {% endblock %}

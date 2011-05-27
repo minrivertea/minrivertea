@@ -7,7 +7,8 @@ html {
 body {
   font-weight: 0.9em;
   font-family: Georgia, serif;	
-  background: url('/images/back.jpg') scroll 50% 0 #fff;
+  background: url('/images/back.jpg') repeat scroll 50% 0 #fff;
+  
   margin: 10px 0 0;
   padding: 0;
   color: #666;
@@ -110,8 +111,8 @@ div#container {
   padding: 20px 60px 50px;
   float: left;
   margin-top: 20px;
-  box-shadow: 0 10px 26px #333;
-  margin-bottom: 50px;
+  box-shadow: 0 10px 26px #222;
+  margin-bottom: 30px;
   background: white;
   border: 3px solid #61916f;
   border-radius: 10px;
@@ -120,33 +121,32 @@ div#container {
 
 
 div#footer {
-  width: 850px;	
+  width: 100%;	
   height: 300px;
-  margin: 0 auto;
-  margin-top: 80px;
-  margin-bottom: 100px;
+  margin-top: 30px;
+  float: left;
 }
 
-div#footer div.image-top {
-  height: 5px;	
-  margin-bottom: 20px;
-}
-
-div#footer ul.footer-links {
+ul.footer-links {
   width: 850px;
   float: left;
-  margin-left: 30px;
-  padding-left: 0;	
+  margin-left: 50px;
+  padding-left: 0;
+  margin-bottom: 80px;	
 }
 
 ul.footer-links li {
   display: inline;
-  color: #EE6464;
+  color: #FFDE00;
   font-size: 0.9em;
 }
 
+ul.footer-links li a {
+  color: #fff;	
+}
+
 div.payments {
-  margin-left: 30px;
+  margin-left: 0px;
   margin-top: 20px;
   float: left;
   width: 250px;
@@ -159,10 +159,10 @@ div.payments p {
 }
 
 div.footer-box {
-  margin-left: 30px;
+  margin-left: 40px;
   margin-top: 0px;
   float: left;
-  width: 250px;
+  width: 260px;
 }
 
 div.footer-box h4 {
@@ -197,9 +197,9 @@ h1 {
 }
 
 h2 {
-    color: #ed7b7b;
+    color: #FF8585;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 2.2em;
+    font-size: 2em;
     font-weight: normal;
     letter-spacing: -1px;
     margin: 0 0 5px;
@@ -268,14 +268,14 @@ p.shipping {
 }
 
 div#logo {	 
- width: 320px;
+ width: 400px;
  float: left;
  margin: 20px 0 0 0px;
 }
 
 div#logo h1 {
-    background: url("/images/logo7.jpg") no-repeat scroll 0 0 transparent;
-    height: 88px;
+    background: url("/images/logo8.jpg") no-repeat scroll 0 0 transparent;
+    height: 100px;
     margin: 0px 0 0 0px;
 }
 
@@ -306,7 +306,7 @@ p.subtitle {
 
 #navigation {
   float: right;
-  margin: 30px 0px 0;	
+  margin: 40px 0px 0;	
 }
 
 ul#nav {
@@ -547,7 +547,7 @@ div#main-text-wide {
 div#main-text-wide div#left {
     float: left;
     margin: 0 10px 20px 0px;
-    width: 530px;
+    width: 560px;
 }
 
 div#main-text-wide div#right {
@@ -578,11 +578,14 @@ div#teas {
 
 div.tea-promo {
     float: left;
-    margin: 0 0 30px 0px;
-    padding: 0px 20px 20px 0px;
-    width: 530px;
+    margin: 0 30px 20px 0px;
+    padding: 0px 0px 20px 0px;
     position: relative;
-    border-bottom: 3px dotted #e1e1e1;
+    width: 260px;
+}
+
+div.tea-promo.last {
+  margin-right: 0;	
 }
 
 
@@ -593,7 +596,7 @@ div.tea-promo:hover {
 div.tea-promo div.image {
     float: left;
     margin-right: 20px;
-    width: 210px;
+    width: 300px;
 }
 
 div.tea-promo:hover div.image img {
@@ -601,10 +604,10 @@ div.tea-promo:hover div.image img {
 }
 
 div.tea-promo div.text {
-  width: 300px;
+
   float: left;
-  margin-right: 0px;
-  padding-top: 0px;	
+  padding-left: 5px;
+  padding-top: 15px;	
 }
 
 div#main-text-wide div#left div.tea-promo div.text p {
@@ -670,7 +673,7 @@ div.tea-promo h4 {
   margin-bottom: 0px;
   margin-top: 0;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 1.3em;
+    font-size: 20px;
     font-weight: bold;
     letter-spacing: -1px;
     border-bottom: none;	
@@ -702,6 +705,7 @@ div.tea-promo div.price {
     font-weight: bold;
     letter-spacing: -2px;
     margin: 0 20px 5px 10px;
+    position: relative;
 }
 
 
@@ -1511,7 +1515,7 @@ div#right .did-you-know {
   padding: 10px;  	
 }
 
-div#right .did-you-know p {
+div#right .did-you-know p, .did-you-know-p {
   font-size: 11px;
   margin: 0;	
 }

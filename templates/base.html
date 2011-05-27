@@ -114,16 +114,24 @@
 			
 			{% block banner %}{% endblock %}
 
-       </div>
 
+	</div>
 
 		{% block content %}{% endblock %}
 	
-		<br clear="all"/>
 	
 		{% include "shop/snippets/footer.html" %} 
-    
+
     </div>
+
+		<ul class="footer-links">
+		      <li>&copy; Min River Tea Farm 2011 &raquo; </li>
+	          <li><a title="Terms and Conditions" href="/terms-and-conditions/"><span class="fontface">Terms and Conditions</span></a>  /</li>
+	          <li><a title="Read about the Min River Tea Farm" href="/about/"><span class="fontface">About Us</span></a>  /</li>
+	          <li><a title="Read our Privacy Policy" href="/privacy/"><span class="fontface">Privacy</span></a>  /</li>
+	          <li><a href="{% url contact_us %}">Contact Us</a></li>
+	          
+	   </ul>
 </div>
 	{% block extrajs %}{% endblock %}
 

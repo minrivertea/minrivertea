@@ -13,9 +13,9 @@
 div#top {
   height: 180px;
   padding: 10px 0 0px;
-  margin: 0px 0 20px;
+  margin: 30px 0 10px;
   float: left;
-  border-bottom: 5px dotted #e1e1e1;
+  width: 860px;
 }
 
 div#top h3 {
@@ -29,9 +29,9 @@ div#top h3 a {
 }
 
 div#top p {
-  margin: 0;
-  font-size: 12px;
-  width: 250px;	
+    font-size: 13px;
+    margin: 0;
+    width: 300px;
 }
 
 div#top div.left {
@@ -75,7 +75,7 @@ div#feature div.top {
   padding-bottom: 10px;
   padding-right: 30px;
   position: relative;
-  top: 260px;
+  top: 30px;
 }
 
 div#feature div.top h3 {
@@ -93,7 +93,7 @@ div#feature div.top p {
 
 
 div#home-extra div.box {
-  width: 180px;
+  width: 185px;
   height: 160px;
   float: left;
   background-color: #f1f1f1;	
@@ -101,6 +101,10 @@ div#home-extra div.box {
   border-radius: 10px;
   margin-right: 10px;
   box-shadow: 0 1px 2px #c1c1c1;
+}
+
+div#home-extra div.box.last {
+  margin-right: 0;	
 }
 
 div#home-extra div.box h4 {
@@ -192,22 +196,67 @@ div.user-photos p span.small {
 
 
 div#home-bottom {
-  padding: 20px 0 0 0px;
+  padding: 20px 0 20px 0px;
   float: left;	
+  border-bottom: 5px dotted #e1e1e1;
 }
 
-div#home-bottom div.box {
+div#home-bottom div.did-you-know {
+  width: 400px;	
+  margin-top: 0px;
+}
+
+div#home-bottom div.did-you-know h3 {
+  width: 260px;
+  float: left;
+  padding-top: 10px;	
+}
+
+div#home-bottom div.did-you-know h3 span {
+  padding-left: 0;	
+  font-size: 13px;
+}
+
+div#home-bottom div.right {
+  width: 380px;
+  float: right;	
+}
+
+div#home-bottom div.left {
+  width: 450px;
+  float: left;	
+  margin-right: 20px;
+}
+
+div#home-bottom div.left div.box img {
+  float: left;
+  width: 280px;	
+}
+
+div#home-bottom div.left div.box h4 {
+  color: #555;
+  margin: 0;
+  font-size: 14px;
+  float: left;
+  margin-top: 10px;
+  width: 150px;
+  font-weight: bold;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;	
+}
+
+div#home-bottom div.left div.box h4 span.small {
+ font-weight: normal;
+ font-size: 12px;
+ position: relative;
+ top: 3px;	
+}
+
+div#home-bottom div.left div.box {
     float: left;
-    height: 160px;
-    margin-right: 20px;
-    margin-top: 10px;
-    width: 360px;
+    margin-right: 0px;
+    margin-top: 20px;
 }
 
-
-div#home-bottom div.box p {
-  margin: 0;	
-}
 
 div#home-bottom a.reviews {
   float: right;
@@ -218,7 +267,7 @@ div#home-bottom a.reviews {
 }
 
 div#home-bottom h3 {
-
+  color: #333;
 }
 
 </style>
@@ -226,13 +275,7 @@ div#home-bottom h3 {
 
 {% block content %}
 
-	<div id="feature">
-		<div class="top">
-			<h3>Take a look at our latest photos from Wuyi Mountain</h3>
-			<p>Wuyi Mountain is the home of our tea The Big Red (da hong pao)</p>
-		</div>
-		
-	</div>
+
 
 	<div id="top">
 		<div class="left">
@@ -249,43 +292,45 @@ div#home-bottom h3 {
 		</div>
 	
 	</div>
+	
+		<div id="feature">
+		<div class="top">
+			<h3>Take a look at our latest photos from Wuyi Mountain</h3>
+			<p>Wuyi Mountain is the home of our tea The Big Red (da hong pao)</p>
+		</div>
+		
+	</div>
 
 
 
 	
-	<div id="home-extra">
-			<div class="box">
-			<h4>Want to know how to brew the perfect cup?</h4>
-			</div>
-			<div class="box">
-			<h4>Want to know how to brew the perfect cup?</h4>
-			</div>
-			<div class="box">
-			<h4>Want to know how to brew the perfect cup?</h4>
-			</div>
-			<div class="box">
-			<h4>Want to know how to brew the perfect cup?</h4>
-			</div>
-			
-						
-		</div>
+
 		
 	<div id="home-bottom">
-		<a href="{% url photos %}" title="See more customer reviews" class="reviews">See more customer reviews &raquo;</a>
-		<h3>What our customers say...</h3>
+		<div class="right">
+		<h3>What our customers say... <span class="small"><a href="{% url photos %}">(see more)</a></span></h3>
 
 		{% for r in review %}
-		<div class="box clear">
-			<p><em>&ldquo;{{ r.short_text }}&rdquo;</em></p>
-			<p><span class="red">{{ r.owner.first_name }} {{ r.owner.last_name }}</span></p>
+		<div class="box">
+			<p><em>&ldquo;{{ r.short_text }}&rdquo;</em><br/><span class="red">{{ r.first_name }} {{ r.last_name }}</span></p>
 		</div>
 		{% endfor %}
-
+		</div>
+		<div class="left">
+			<div class="did-you-know">
+				<a href=""><span class="link"></span></a>
+				<h3><a href="">First time trying Chinese tea? <span class="grey">Get a taster pack and try out all three of our delicious teas for just £6 &raquo;</span></a></h3>
+				<img style="float:right; margin-top: 0px;" src="{% staticfile '/images/taster-promo.png' %}">
+			</div>
+			<div class="box">
+			<img src="{% staticfile '/images/brew-promo.png' %}">
+			<h4><a href="">Learn how to brew the perfect cup</a><br/><span class="small">A simple guide &raquo;</span></h4>
+			</div>
+		</div>
 	</div>
 
 
-</div>
-</div>
+
 
 
 
