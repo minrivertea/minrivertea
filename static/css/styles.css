@@ -108,7 +108,7 @@ ol {
 
 div#container {
   width: 854px;
-  padding: 20px 60px 50px;
+  padding: 20px 60px 0px;
   float: left;
   margin-top: 20px;
   box-shadow: 0 10px 26px #222;
@@ -125,6 +125,8 @@ div#footer {
   height: 300px;
   margin-top: 30px;
   float: left;
+  border-top: 5px dotted #e1e1e1;
+  padding-top: 20px;
 }
 
 ul.footer-links {
@@ -236,7 +238,7 @@ div.left p {
 div#header {
   float: left;
   margin: 0 auto;
-  height: 120px;
+  height: 130px;
   border-bottom: 5px dotted #e1e1e1
 }
 
@@ -296,7 +298,7 @@ div#home-banner {
 }
 
 p.subtitle {
-    font-size: 18px;
+    font-size: 16px;
     letter-spacing: 0px;
     padding-bottom: 10px;
     margin: 0px 0 10px 0px;
@@ -791,80 +793,101 @@ span.lightgrey {
 
 /* SHOPPING BASKET PAGE STYLES */
 
-div#main-text-wide div#left p.checkout {
+
+ /* these are the styles for the 'start checkout' button */
+div#start-checkout-button {
     float: right;
-    font-size: 12px;
-    margin-top: 0px;
+    margin: -120px 10px 0 0;
     width: 220px;
-    text-align: right;
 }
 
-div#checkout-button {
-    float: right;
-    margin: 20px 30px 0 0;
-}
-
-div#checkout-button p {
+div#start-checkout-button p, div#confirm-details-button p, div#confirm-and-pay-button p {
     font-size: 12px;
     padding-left: 5px;
 }
 
-div#checkout-button a:link, div#checkout-button a:visited {
+div#start-checkout-button a:link, div#start-checkout-button a:visited {
 	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll left top transparent;
 	width: 220px;
 	height: 51px;
 	margin-bottom: 10px;
 }
 
-div#checkout-button a:hover {
+div#start-checkout-button a {
+  height: 55px;
+  width: 227px;	
+  display: block;
+}
+
+div#start-checkout-button a:hover {
 	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll center left transparent;
 	cursor: pointer;
 }
 
-div#checkout-button a:focus {
+div#start-checkout-button a:focus {
 	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll bottom left transparent;
 	cursor: pointer;
 }
 
-div.checkout-button {
+/* these are the styles for the 'confirm address' button */
+
+div#confirm-details-button {
     float: right;
     margin-top: 15px;
     padding-right: 0px;
     width: 220px;
 }
 
-input.checkout-button {
-    background: url("/images/button-confirm-and-pay.png") no-repeat scroll left top transparent;
-    border: medium none;
-    height: 51px;
-    width: 220px;
-}
-
-input.checkout-button:hover {
-  background: url('/images/button-confirm-and-pay.png') no-repeat center left;
-  cursor: pointer;
-}
-
-input.checkout-button:active {
-  background: url('/images/button-confirm-and-pay.png') no-repeat bottom left;
-  cursor: pointer;
-}
-
-input.button-confirm-address {
+input.confirm-details-button {
     background: url("/images/button-confirm-address.png") no-repeat scroll left top transparent;
     border: medium none;
     height: 51px;
     width: 220px;
 }
 
-input.button-confirm-address:hover {
+input.confirm-details-button:hover {
   background: url('/images/button-confirm-address.png') no-repeat center left;
   cursor: pointer;
 }
 
-input.button-confirm-address:active {
+input.confirm-details-button:active {
   background: url('/images/button-confirm-address.png') no-repeat bottom left;
   cursor: pointer;
+}
+
+/* these are the styles for the 'confirm and pay' button */
+
+div#confirm-and-pay-button {
+    float: right;
+    margin-top: 15px;
+    padding-right: 0px;
+    width: 220px;
+}
+
+input.confirm-and-pay-button {
+    background: url("/images/button-confirm-and-pay.png") no-repeat scroll left top transparent;
+    border: medium none;
+    height: 51px;
+    width: 220px;
+}
+
+input.confirm-and-pay-button:hover {
+  background: url('/images/button-confirm-and-pay.png') no-repeat center left;
+  cursor: pointer;
+}
+
+input.confirm-and-pay-button:active {
+  background: url('/images/button-confirm-and-pay.png') no-repeat bottom left;
+  cursor: pointer;
+}
+
+/* these are styles for the 'submit button' like on the review form  */
+
+div#submit-button {
+    float: right;
+    margin-top: 15px;
+    padding-right: 0px;
+    width: 220px;	
 }
 
 input.submit-button {
@@ -885,19 +908,15 @@ input.submit-button:active {
   background: url('/images/submit.png') no-repeat bottom left;	
 }
 
-div#checkout-button a {
-  height: 55px;
-  width: 227px;	
-  display: block;
-}
+
 
 
 
 div.row {
     float: left;
     margin-bottom: 20px;
-    padding: 0px 0px 0px 0px;
-    border-bottom: 3px dotted #e1e1e1;
+    padding: 0px;
+    width: 500px;
 }
 
 div.row.wide {
@@ -916,7 +935,6 @@ div.row-label {
   width: 100%;
   color: #d95b5e;
   font-size: 1.1em;
-  padding: 10px;
   margin-bottom: 0px;
 }
 
@@ -929,7 +947,7 @@ div.row-label h3 {
 
 div.row-box {
   float: left;
-  margin: 0px 0 10px 10px;	
+  margin: 0px 0 10px 0px;	
   padding-top: 5px;
 }
 
@@ -956,7 +974,6 @@ div.row-box input {
 }
 
 div.row-box input:focus {
-  background-color: #f9f9f9;
   border-color: #6acc75;
   border-width: 1px;
   margin-bottom: 19px;
@@ -979,9 +996,10 @@ div.row-box p {
 }
 
 div.row-box p.intro {
-  margin: -10px 0 25px 0;	
+  margin: 0px 0 25px 0;	
   color: #333;
   font-size: 14px;  
+  line-height: 1.4em;
 }
 
 
@@ -1344,7 +1362,7 @@ div#right div.like div.text p {
 
 div.rss {
   position: relative;
-  top: 45px;
+  top: 35px;
   right:20px;
   float: right;
   font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
@@ -1602,9 +1620,11 @@ div#main-text-wide div#left div.did-you-know img {
 }
 
 div#comments {
-  border-bottom: 5px dotted #e1e1e1;
+  border-bottom: 3px dotted #e1e1e1;
   margin-bottom: 20px;
   float: left;	
+  width: 560px;
+  padding-bottom: 20px;
 }
 
 div#main-text-wide div#left div#comments h3 {
@@ -1697,3 +1717,48 @@ div#comments div#comment-form input.submit-post:hover {
 div#main-text-wide div#left div#comments div#comment-form p {
   margin: 0;	
 }
+
+button.prev {
+    background: url("/images/prev-arrow.png") no-repeat scroll center top transparent;
+    border: medium none;
+    cursor: pointer;
+    float: left;
+    height: 45px;
+    left: 10px;
+    position: relative;
+    top: -240px;
+    width: 46px;
+    z-index: 4;
+}
+
+button.prev:hover {	
+  background: url('/images/prev-arrow.png') no-repeat scroll bottom transparent;
+}
+
+button.next {
+    background: url("/images/next-arrow.png") no-repeat scroll center top transparent;
+    border: medium none;
+    cursor: pointer;
+    float: right;
+    height: 45px;
+    left: -40px;
+    position: relative;
+    top: -240px;
+    width: 46px;
+    z-index: 4;
+}
+
+button.next:hover {
+  	background: url("/images/next-arrow.png") no-repeat scroll bottom transparent;
+}
+
+div#basket {
+    background-color: #f3fff6;
+    border-radius: 10px 10px 10px 10px;
+    float: left;
+    font-size: 0.9em;
+    padding: 30px;
+    width: 795px;
+    margin-top: 20px;
+    border: 1px solid #d9ebde;
+}	

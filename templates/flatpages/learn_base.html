@@ -11,7 +11,6 @@
 {% block extrajs %}
 <script>
 $(function() {
-
 // enable circular scrollables with a click handler
 $(".scroll").scrollable({ circular: true }).click(function() {
 	$(this).data("scrollable").next();		
@@ -70,6 +69,37 @@ span.review {
   color: #333;	
 }
 
+/* position and dimensions of the navigator */
+.navi {
+	margin-left:328px;
+	width:200px;
+	height:20px;
+}
+
+
+/* items inside navigator */
+.navi a {
+	width:8px;
+	height:8px;
+	float:left;
+	margin:3px;
+	background:url(../img/scrollable/arrow/navigator.png) 0 0 no-repeat;
+	display:block;
+	font-size:1px;
+}
+
+/* mouseover state */
+.navi a:hover {
+	background-position:0 -8px;      
+}
+
+/* active state (current page state) */
+.navi a.active {
+	background-position:0 -16px;     
+}
+
+
+
 
 
 </style>
@@ -77,7 +107,6 @@ span.review {
 
 {% block content %}
 
-<div id="featured-small"></div>
 
 <div id="main-text-wide">
 
@@ -102,7 +131,4 @@ span.review {
 
 
 
-
-
-</div>
 {% endblock %}

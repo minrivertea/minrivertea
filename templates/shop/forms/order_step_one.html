@@ -19,39 +19,14 @@ div#main-text-wide div#left h3 {
     margin: 0 0 -10px;
 }
 
-
-div#steps {
-    float: right;
-    width: auto;
+div#basket div.security {
+  float: right;
+  width: 220px;	
 }
 
-div#steps div.step {
-    background-color: #F1F1F1;
-    border: 1px solid #FFFFFF;
-    color: #D1D1D1;
-    float: left;
-    font-size: 14px;
-    padding: 7px 20px;
-    text-align: center;
-    width: auto;
-}
-
-div#steps div.step.first {
-  -moz-border-radius: 10px 0px 0px 10px;	
-}
-
-div#steps div.step.selected {
-    background-color: #ddeedf;
-    color: #333;
-}
-
-div#steps div.step.last {
-  -moz-border-radius: 0px 10px 10px 0px;	
-}
-
-div#steps div.step.finished {
-  background-color: #e1e1e1;
-  color: #19761C;	
+div#basket div.security img {
+  position: relative;
+  top: 13px;	
 }
 
 input.checkbox {
@@ -82,7 +57,8 @@ p.help-text img {
 
 div.address-container {
     float: left;
-    width: 530px;
+    margin-left: 20px;
+    width: 500px;
 }
 
 div.address-container p {
@@ -93,7 +69,7 @@ div.address-container p {
 div.address {
     float: left;
     margin: 0 10px 10px 0;
-    padding: 0px 20px;
+    padding: 0px 0px;
     width: 215px;
     -moz-border-radius: 10px;
     font-size: 12px;
@@ -136,12 +112,11 @@ p.hint {
     margin: 0;
 }	
 
-div.checkout-button p.privacy {
-  margin-top: 0;
+div#confirm-details-button {
   {% if shopper %}
-    margin-bottom: 20px;
+    margin-top: 50px;
   {% else %}
-    margin-bottom: 500px;
+    margin-top: 315px;
   {% endif %}	
 }
 
@@ -170,33 +145,27 @@ span.country {
 
 {% block content %}
 
-<div id="featured-small"></div>
-
 <div id="main-text-wide">
 
 	<h2 class="fontface">Please {% if shopper %}check{% else %}provide{% endif %} your details</h2>
-	{% if shopper %}
-		<p class="subtitle">We've saved your details - please check all of your details are still all correct</p>
-	{% else %}
-		<p class="subtitle"><strong>Step 1/3:</strong> Let us know who you are, and where to send your tea!</p>
-	{% endif %}
 	
-	<div id="right">
-
+	<div id="basket">
+	
+	
     <form method="post" action="">
-		 {% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
+		 
+		 
+		<div class="security">
+		{% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
 		 <p class="red">&laquo; there were some errors - please check and provide all required information.</p>
 		 {% endif %}
+			<img src="{% staticfile '/images/lock-large.png' %}" style="float:left; margin-right: 10px; margin-bottom: 20px;">
+			<p>We will never share your details, nor will we send you email spam. <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a></p>
+		</div>
 		
-
-<img src="{% staticfile '/images/lock-large.png' %}" style="float:left; margin-right: 10px; margin-bottom: 20px;">
-<p class="privacy">We will never share your details, nor will we send you email spam. <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a></p>
-
-	</div>
-	
-	<div id="left">
 	{% if shopper %}
 	  <div class="row">
+	  	<p class="intro">We've saved your information from last time - please check that everything is still correct:</p>
 		<div class="address-container">
 		<div class="address first">
 			<div class="address first">{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
@@ -308,17 +277,26 @@ span.country {
 	</div>
 
 	{% endif %}
-	
-			<div class="checkout-button">
+
+	<div id="confirm-details-button">
+		<p class="checkout"><strong>Next step:</strong> 
+		<em>Confirm your order. We'll let you check your order, and then you can pay using Paypal.</em>
+		</p>
+		<input type="submit" value="" next="" class="confirm-details-button"/>
+	</div>
 		
-		<input type="submit" value="" next="" class="button-confirm-address"/>
-		<p class="checkout"><strong>Next step:</strong> Confirm your order. We'll let you confirm your order, and then you can pay using Paypal.</p>
-		</div>
+	</form>
 
-	
-	
-</form>
 
 </div>
+
+	<div id="right">
+
+	</div>
+	
+	<div id="left">
+	
+	</div>
 </div>
+
 {% endblock %}

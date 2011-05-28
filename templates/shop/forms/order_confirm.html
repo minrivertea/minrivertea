@@ -64,13 +64,17 @@ div#steps div.step.last {
 <div id="main-text-wide">
 
 	<h2 class="fontface">Confirm and pay</h2>
-	<p class="subtitle"><strong>Step 2/3:</strong> Confirm your order and details are correct.</p>
-
-    <form method="post" action="{{ paypal_submit_url }}">
 	
-
-
-
+	<div id="basket">
+		
+    <form method="post" action="{{ paypal_submit_url }}">
+    
+    	<div id="confirm-and-pay-button">
+			<input type="submit" value="" next="" class="confirm-and-pay-button"/>
+			<p class="checkout"><strong>Next step:</strong> <em>pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</em></p>
+			<img src="{% staticfile '/images/paypal-horz.gif' %}" class="paypal">
+		</div>	
+    
 
 		<input type="hidden" name="cmd" value="_cart"> 
 		<input type="hidden" name="upload" value="1"> 
@@ -89,9 +93,7 @@ div#steps div.step.last {
 		<input type="hidden" id="id_no_shipping" value="1" name="no_shipping">
 		<input type="hidden" id="id_charset" value="utf-8" name="charset">
 
-		
 		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
-
 
 		{% if postage_discount %}
 		{% else %}
@@ -113,17 +115,8 @@ div#steps div.step.last {
 				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.item.price }}"> 
 			 {% endfor %}
 		{% endif %}
-
-	<div id="right">
-		<div class="checkout-button">
-			<input type="submit" value="" next="" class="checkout-button"/>
-			<p class="checkout"><strong>Next step:</strong> pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</p>
-			<img src="{% staticfile '/images/paypal-horz.gif' %}" class="paypal">
-		</div>
-	</div>
-	
-	<div id="left">	
-		<div class="row">
+		
+				<div class="row">
 			<div class="row-label">
 				<h3>You have ordered:</h3>
 			</div>
@@ -182,7 +175,8 @@ div#steps div.step.last {
 </div>
 		<br clear="all"/>
 
-	
+		
+
 	</form> 
 
 </div>

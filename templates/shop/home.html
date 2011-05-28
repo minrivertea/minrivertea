@@ -23,15 +23,25 @@ div#top h3 {
 }
 
 div#top h3 a {
-	font-weight: bold;
-	font-size: 67px;
-	color: #ff8585;
+  font-weight: bold;
+  font-size: 67px;
+  color: #439249;
+
 }
 
 div#top p {
     font-size: 13px;
     margin: 0;
     width: 300px;
+}
+
+div#top div.left span.link, div#top div.right span.link {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 
 div#top div.left {
@@ -41,6 +51,16 @@ div#top div.left {
   margin-right: 30px;
   padding-right: 20px;
   border-right: 1px solid #53a172;	
+  position: relative;
+}
+
+div#top div.left:hover h3 a, div#top div.right:hover h3 a {
+  color: #ff8585;	
+  cursor: pointer;
+}
+
+div#top div.left p a, div#top div.right p a {
+  z-index: 4;	
 }
 
 div#top div.left p {
@@ -51,6 +71,7 @@ div#top div.right {
   width: 380px;
   float: left;
   text-align: left;	
+  position: relative;
 }
 
 div#feature {
@@ -198,7 +219,6 @@ div.user-photos p span.small {
 div#home-bottom {
   padding: 20px 0 20px 0px;
   float: left;	
-  border-bottom: 5px dotted #e1e1e1;
 }
 
 div#home-bottom div.did-you-know {
@@ -286,8 +306,9 @@ div#home-bottom h3 {
 		</div>
 		
 		<div class="right">
+		    <a href="/learn/"><span class="link"></span></a>
 			<h3><a href="/learn/">Learn</a></h3>
-			<p>We don’t just sell tea - we help you learn how to make it, and tea history and culture too!</p>
+			<p>We don’t just sell tea - we help you learn about Chinese tea history, culture and how to make it too!</p>
 			<p><a href="/learn/">Learn more about tea</a></p>
 		</div>
 	
@@ -295,7 +316,7 @@ div#home-bottom h3 {
 	
 		<div id="feature">
 		<div class="top">
-			<h3>Take a look at our latest photos from Wuyi Mountain</h3>
+			<h3>Spring tea harvest - our photos from Wuyi Mountain</h3>
 			<p>Wuyi Mountain is the home of our tea The Big Red (da hong pao)</p>
 		</div>
 		
@@ -308,7 +329,7 @@ div#home-bottom h3 {
 		
 	<div id="home-bottom">
 		<div class="right">
-		<h3>What our customers say... <span class="small"><a href="{% url photos %}">(see more)</a></span></h3>
+		<h3>What our customers say... <span class="small"><a href="{% url reviews %}">(see more)</a></span></h3>
 
 		{% for r in review %}
 		<div class="box">

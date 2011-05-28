@@ -516,7 +516,7 @@ def turn_off_twitter(request, id):
     return HttpResponseRedirect('/order/complete/')
 
 # handles the review/testimonial view
-def review(request, slug):
+def review_tea(request, slug):
     tea = get_object_or_404(Product, slug=slug)
     other_reviews = Review.objects.filter(product=tea, is_published=True)
     if request.method == 'POST':
@@ -569,11 +569,11 @@ def send_review_email(request, order_id):
         
 
 # view for the photo wall
-def photos(request):
+def reviews(request):
     reviews = Review.objects.filter(is_published=True)[:6]
     photos = Photo.objects.filter(published=True).order_by('-id')[:10]
     
-    return render(request, 'shop/photos.html', locals())
+    return render(request, 'shop/reviews.html', locals())
 
 
 # view for a user's "I'm a tea lover" page

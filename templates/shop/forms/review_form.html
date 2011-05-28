@@ -9,27 +9,6 @@ div#main-text-wide div#left, div#main-text-wide div#right {
   margin-top: 20px;	
 }
 
-div.products h3 {
-  font-size: 1.4em;
-  text-shadow: 1px 1px #FFFFFF;	
-}
-
-div.products {
-    float: left;
-    margin-right: 20px;
-    width: 230px;
-}
-
-div.products img {
-  margin-top: 10px;
-  margin-bottom: 10px;	
-}
-
-div.products p {
-  width: 200px;
-  font-size: 13px;	
-}
-
 div.other-reviews {
   margin-top: 0px;
   float: left;	
@@ -39,6 +18,11 @@ textarea {
     border-radius: 10px 10px 10px 10px;
     padding: 15px;
     width: 500px;
+}
+
+div#submit-button {
+position: relative;
+top: 240px;	
 }
 
 </style>
@@ -51,42 +35,41 @@ textarea {
 
 
 {% block content %}
-    
-<div id="featured-small"></div>
 
 	<div id="main-text-wide">
 		<h2>Write a review for {{ tea }} tea</h2>
 		<p class="subtitle">Thanks for taking the time to write a review. Quality is extremely important to us, so feel free to write down any thoughts, positive or negative, about your tea.</p>
-	
-		<div id="left">
 
+	  <div id="basket">
+	  	<form action="." method="post">
+	  		<div id="submit-button">
+			<p>* <em>we may publish this review on our website - by submitting your review, you give us permission to do so.</em></p>
+			<input class="submit-button" value="" type="submit">
+			</div>
 		<div class="row">
-		<form action="." method="post">
-
+		
 			<div class="row-box">
 			<textarea id="id_text" rows="10" cols="40" name="text" onclick="clearInput(this)">Add your review here</textarea>
 			</div>
 			
 			<div class="row-box">
-			<label for="id_first_name">First name</label>
 			<input type="text" name="first_name" id="id_first_name" />
+			<label for="id_first_name">First name</label>
 			
-			<label for="id_last_name">Last name:</label>
 			<input type="text" name="last_name" id="id_last_name" />
+			<label for="id_last_name">Last name</label>
 			 
-			<label for="id_email">Email:</label>
 			<input type="text" name="email" id="id_email" />
+			<label for="id_email">Email address</label>
 			</div>
 			
-			<br clear="all"/>
-			<input class="submit-button" value="" type="submit">
-			<p>* <em>we may publish this review on our website - by submitting your review, you give us permission to do so.</em></p>
 
+			
 		</form>		
 		</div>
 		</div>
 		
-		<div id="right">
+		<div id="left">
 		
 
 		

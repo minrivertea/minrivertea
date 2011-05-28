@@ -460,7 +460,7 @@ Share this page with friends
 
 	<div id="left">
 		{% if reviews %}
-			<h3>Customer reviews for this tea <span class="">- <a href="{% url review tea.slug %}">Add your own review &raquo;</a></span></h3>
+			<h3>Customer reviews for this tea <span class="">- <a href="{% url review_tea tea.slug %}">Add your own review &raquo;</a></span></h3>
 			<ul class="reviews">
 			{% for review in reviews %}
 				<li><em>"{{ review.short_text }}"</em> <br/><span>{{ review.first_name }} {{ review.last_name }}</span></li>
@@ -487,5 +487,6 @@ Share this page with friends
 						 
 
 
+</div>
 </div>
 {% endblock %}
