@@ -168,6 +168,7 @@ class UniqueProduct(models.Model):
     price = models.DecimalField(help_text="Price", max_digits=8, decimal_places=2, null=True, blank=True)
     price_unit = models.CharField(help_text="Currency", max_length=3, null=True, blank=True)
     parent_product = models.ForeignKey(Product)
+    description = models.TextField()
     available_stock = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     

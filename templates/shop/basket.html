@@ -33,8 +33,8 @@ div.basket-row {
     border-bottom: 2px dotted #d9ebde;
     float: left;
     height: 70px;
-    margin-bottom: 20px;
-    padding: 0 0 0 10px;
+    margin-bottom: 0px;
+    padding: 10px 0 0 10px;
 }
 
 div.basket-row.postage {
@@ -79,8 +79,12 @@ div.tea-quantity {
   width: 70px;	
   text-align: center;
   padding-top: 8px;
-  font-size: 1.2em;
+  font-size: 1.3em;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;  
 }
+
+
 
 div.tea-total {
   float: left;
@@ -158,6 +162,55 @@ div#extra-info h3 {
   margin-bottom: 0px;
 }
 
+div.plus-minus {
+  float: right;
+  width: 35px;
+  display: block;
+  height: 15px;
+}
+
+div.plus-minus a {
+ display: none	
+}
+
+div.basket-row:hover {
+  background-color: #e6f8eb;
+  cursor: pointer;	
+}
+
+div.basket-row:hover div.plus-minus a {
+  display: block;	
+}
+
+
+a.plus {
+  display: block;
+  background: url('/images/plus.png') no-repeat top left;
+  height: 14px;
+  width: 15px;
+  float: right;
+  position: relative;
+  top: 4px;	
+}
+
+a.plus:hover {
+  background: url('/images/plus.png') no-repeat bottom left;
+}
+
+a.minus {
+  display: block;
+  background: url('/images/minus.png') no-repeat top left;
+  height: 14px;
+  width: 15px;
+  float: left;	
+  position: relative;
+  top: 4px;	
+}
+
+a.minus:hover {
+  background: url('/images/minus.png') no-repeat bottom left;
+}
+
 </style>
 {% endblock %}
 
@@ -191,7 +244,8 @@ div#extra-info h3 {
 			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">Remove from basket</span></a>
 		</div>
 		<div class="tea-price">&nbsp;</div>
-		<div class="tea-quantity">{{ thing.quantity }} <a href="{% url increase_quantity thing.item.id %}">+</a>{% ifequal thing.quantity 1 %}{% else %} <a href="{% url reduce_quantity thing.item.id %}">-</a>{% endifequal %} </div>
+		<div class="tea-quantity">x {{ thing.quantity }} 
+			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}"></a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}"></a>{% endifequal %}</div> </div>
 		<div class="tea-total">{{ thing.item.price_unit}}{{ thing.get_price }}</div>
 		
 	  </div>

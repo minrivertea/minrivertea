@@ -107,7 +107,7 @@ def tea_view(request, slug):
         request.session['ADDED'] = None
         
     tea = get_object_or_404(Product, slug=slug)
-    prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True)
+    prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True).order_by('price')
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
     reviews = Review.objects.filter(product=tea.id, is_published=True)[:2]
 
