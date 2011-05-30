@@ -555,7 +555,7 @@ div#main-text-wide div#left {
 div#main-text-wide div#right {
     float: right;
     padding-left: 20px;
-    width: 220px;
+    width: 240px;
 }
 
 p.introduction {
@@ -1348,7 +1348,7 @@ div.info {
     float: left;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    width: 220px;
+    width: 240px;
 }
 
 div.info.last {

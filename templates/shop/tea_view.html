@@ -18,14 +18,13 @@ $(".items img").hover(function() {
 
 	// calclulate large image's URL based on the thumbnail URL (flickr specific)
 	var url = $(this).attr("alt");
-
+	
 	// get handle to element that wraps the image and make it semi-transparent
 	var wrap = $("#image_wrap").fadeTo("medium", 0.5);
 
 	// the large image from www.flickr.com
 	var img = new Image();
-
-
+    
 	// call this function after it's loaded
 	img.onload = function() {
 
@@ -33,7 +32,7 @@ $(".items img").hover(function() {
 		wrap.fadeTo("fast", 1);
 
 		// change the image
-		wrap.find("img").attr("src", url);
+		wrap.find("img").attr("src", url);	
 
 	};
 
@@ -182,6 +181,19 @@ div.tea-top div.main-image {
   width: 500px;
   float: left;
   margin-right: 20px;	
+}
+
+div.tea-top div.main-image div.caption {
+  position: relative;
+  top: -30px;
+  background-color: #fff;
+  opacity: 0.8;	
+  padding: 5px 10px;
+}
+
+div.tea-top div.main-image div.caption p {
+  margin: 0;
+  font-size: 12px;	
 }
 
 div.tea-top div#prices {
