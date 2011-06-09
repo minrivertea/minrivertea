@@ -5,6 +5,7 @@ PROJECT_PATH = os.path.normpath(os.path.dirname(__file__))
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+THUMBNAIL_DEBUG = False
 
 
 ADMINS = (
