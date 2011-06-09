@@ -96,7 +96,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'shop',
     'blog',
-#    'sorl.thumbnail',
+    'sorl.thumbnail',
     'paypal.standard.ipn',
     'django_static',
     'registration',
