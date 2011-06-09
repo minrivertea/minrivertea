@@ -2,34 +2,151 @@
 {% load thumbnail %}
 {% load django_static %}
 
-{% block pagetitle %}authentic Chinese teas delivered to your door from the Min River Tea Farm{% endblock %}
-{% block metadescription %}The Min River Tea Farm is a UK-based tea merchant. We sell great quality, authentic oolong green tea, jasmine tea and da hong pao tea sourced from farms in China and delivered direct to your door. {% endblock %}
-{% block header %}home{% endblock %}
-{% block logo %}home{% endblock %}
+{% block pagetitle %}Chinese tea delivered to your door in the UK and Europe{% endblock %}
 
+{% block metadescription %}We sell great quality Chinese tea and deliver it to your home in the UK or Europe. Our oolong and green teas are organic, sourced directly from farms in China, and hand-picked. {% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    		<p class="countries">We ship to the UK and Europe 
-	    		<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}"> 
-	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}">
-	    		</p>
-	    	<h2 class="logo-assist">authentic Chinese teas.</h2>
-	    	<p class="normal">We sell simple, authentic and great tasting Chinese teas - <a href="{% url teas %}">choose your tea &raquo;</a></p>
-
-
-			</div>
-{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
 
-#home-banner h2.logo-assist {
-  font-size: 3.2em;
-  font-weight: bold;	
+div#top {
+  height: 180px;
+  padding: 10px 0 0px;
+  margin: 30px 0 10px;
+  float: left;
+  width: 860px;
 }
 
-div#welikes {
+div#top h3 {
+	margin-bottom: 0;	
+}
+
+div#top h3 a {
+  font-weight: bold;
+  font-size: 67px;
+  color: #439249;
+
+}
+
+div#top p {
+    font-size: 13px;
+    margin: 0;
+    width: 300px;
+}
+
+div#top div.left span.link, div#top div.right span.link {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+div#top div.left {
+  width: 410px;
+  float: left;
+  text-align: right;
+  margin-right: 30px;
+  padding-right: 20px;
+  border-right: 1px solid #53a172;	
+  position: relative;
+}
+
+div#top div.left:hover h3 a, div#top div.right:hover h3 a {
+  color: #ff8585;	
+  cursor: pointer;
+}
+
+div#top div.left p a, div#top div.right p a {
+  z-index: 4;
+  position: relative;	
+}
+
+div#top div.left p {
+  float: right;	
+}
+
+div#top div.right {
+  width: 380px;
+  float: left;
+  text-align: left;	
+  position: relative;
+}
+
+div#feature {
+    height: 360px;
+    float: left;
+    width: 860px;
+    background: url("{% staticfile '/images/home-feature.jpg' %}") no-repeat;
+    border-radius: 10px;
+    margin: 20px 0;
+    position: relative;
+}
+
+div#feature img {
+  border-radius: 10px;
+  width: 880px; 	
+}
+
+div#feature div.top {
+  width: ;
+  background-color: #fff;
+  opacity: 0.8;	
+  float: left;
+  padding-bottom: 10px;
+  padding-right: 30px;
+  position: relative;
+  top: 30px;
+}
+
+div#feature div.top h3 {
+  margin: 10px 0 0 15px;	
+  color: #333;
+}
+
+div#feature div.top p {
+  text-align: left;
+  margin: 0;	
+  float: left;
+  padding: 0 0 0 15px;
+  color: #333;
+}
+
+div#feature span.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index:2;	
+}
+
+
+div#home-extra div.box {
+  width: 185px;
+  height: 160px;
+  float: left;
+  background-color: #f1f1f1;	
+  padding: 10px;
+  border-radius: 10px;
+  margin-right: 10px;
+  box-shadow: 0 1px 2px #c1c1c1;
+}
+
+div#home-extra div.box.last {
+  margin-right: 0;	
+}
+
+div#home-extra div.box h4 {
+  font-size: 14px;	
+  border-bottom: none;
+}
+
+
+
+div#customers {
     border-left: 1px solid #E1E1E1;
     float: right;
     margin: 20px 0 0 30px;
@@ -37,57 +154,24 @@ div#welikes {
     width: 350px;
 }
 
-div#user-photos div.left {
+div.user-photos div.left {
   float: left;
-  width: 270px;
+  width: 370px;
   margin-right: 20px;	
 }
 
-div#user-photos div.right {
-  float: left;
-  width: 440px;
+div.user-photos div.right {
+  float: right;
 }
 
-div#welikes h3 {
+div#customers h3 {
   margin-bottom: 0px;
-  padding-bottom: 10px;	
+  padding-bottom: 0px;	
   font-size: 1.2em;
   font-weight: ;
 }
 
-div.like {
-    float: left;
-    height: 80px;
-    margin-bottom: 30px;
-    margin-right: 20px;
-    width: 340px;
-}
 
-div.like div.image {
-  float: left;
-  width: 80px;
-  margin-right: 10px;	
-}
-
-div.like div.text {
-  float: left;
-  width: 240px;	
-}
-
-div.like h4 {
-  font-size: 14px;
-  font-weight: bold;
-  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-  letter-spacing: -0.5px;
-  margin: 0;
-  padding: 0;
-  border-bottom: none;
-}
-
-div.like p {
-  margin: 0;
-  font-size: 13px;	
-}
 
 img.leaf {
     float: left;
@@ -123,13 +207,98 @@ div#learn p {
 
 p.testimonial {
   float: left;
-  margin-left: 0px;
+  margin: 0px 0 10px 0;
   font-size: 14px;
-  margin-bottom: 0;	
 }
 
-p.testimonial span.red {
+span.red {
   color:#BE373A;	
+}
+
+div#customers div.photo {
+  float: left; 
+  margin-right: 10px;	
+  margin-bottom: 10px;
+}
+
+div.user-photos p span.small {
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+}
+
+
+div#home-bottom {
+  padding: 20px 0 20px 0px;
+  float: left;	
+}
+
+div#home-bottom div.did-you-know {
+  width: 400px;	
+  margin-top: 0px;
+}
+
+div#home-bottom div.did-you-know h3 {
+  width: 260px;
+  float: left;
+  padding-top: 10px;	
+}
+
+div#home-bottom div.did-you-know h3 span {
+  padding-left: 0;	
+  font-size: 13px;
+}
+
+div#home-bottom div.right {
+  width: 380px;
+  float: right;	
+}
+
+div#home-bottom div.left {
+  width: 450px;
+  float: left;	
+  margin-right: 20px;
+}
+
+div#home-bottom div.left div.box img {
+  float: left;
+  width: 280px;	
+}
+
+div#home-bottom div.left div.box h4 {
+  color: #555;
+  margin: 0;
+  font-size: 14px;
+  float: left;
+  margin-top: 10px;
+  width: 150px;
+  font-weight: bold;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;	
+}
+
+div#home-bottom div.left div.box h4 span.small {
+ font-weight: normal;
+ font-size: 12px;
+ position: relative;
+ top: 3px;	
+}
+
+div#home-bottom div.left div.box {
+    float: left;
+    margin-right: 0px;
+    margin-top: 20px;
+}
+
+
+div#home-bottom a.reviews {
+  float: right;
+  width: 300px;	
+  position: relative;
+  top: 5px;
+  text-align: right;
+}
+
+div#home-bottom h3 {
+  color: #333;
 }
 
 </style>
@@ -139,80 +308,62 @@ p.testimonial span.red {
 
 
 
-
-    <div id="featured-small"></div>
-
-
-	<div id="box">
-        <div class="home-products">
-			{% include "shop/snippets/products.html" %}
-		</div>
-
-		<div class="image-top"></div>
-	
-		<div id="home-extra">
-			<div id="user-photos">
-				<div class="left">
-					<h2>These beautiful people love our Chinese tea!</h2>
-					<a class="see-more" title="See our photo wall of happy tea drinkers!" href="{% url photos %}">
-					See more tea lovers &raquo;
-					</a>
-				</div>
-				<div class="right">
-				
-
-				
-				{% for p in photos %}
-					<div class="a-user-photo">
-						<div class="photo">
-							{% thumbnail p.photo "90x80" crop="center" as im %}
-							<img 
-								title="{{ p.shopper.first_name }} likes to drink {{ p.related_product }}" 
-								alt="" 
-								src="{{ im.url }}">
-							{% endthumbnail %}
-						</div>
-					</div>
-				{% endfor %}
-				{% for r in review %}
-					<p class="testimonial">
-						<em>&ldquo;{{ r.short_text }}&rdquo;</em> 
-						<span class="red">{{ r.owner.first_name }} {{ r.owner.last_name }}</span>
-					</p>
-				{% endfor %}
-				</div>
+	<div id="top">
+		<div class="left">
+			<a href="{% url teas %}"><span class="link"></span></a>
+			<h3><a href="{% url teas %}">Buy tea</a></h3>
+			<p>We sell a small, hand-selected range  of fresh Chinese teas from the Fujian Province</p>
+			<p><a href="{% url teas %}">Browse our teas</a></p>
 		</div>
 		
-		<div class="image-top"></div>
-	
-		<div id="learn">
-			<h3>Learn about Chinese tea</h3>
-			<img src="{% staticfile '/images/booklet.png' %}"/>
-			<p>Make yourself a cup of Chinese tea this morning! It's not hard to make, and it's a great change from coffee.</p>
-			<p><a href="/learn/how-to-brew-chinese-tea/">Read about how to brew Chinese tea &raquo;</a></p>
-		</div>
-	
-		<div id="welikes">
-			<h3>We also like...</h3>
-			{% for l in welike %}
-				<div class="like">
-					<div class="image">
-						{% thumbnail l.image "80x80" crop="center" as im %}
-						<img src="{{ im.url }}"/>
-						{% endthumbnail %}
-					</div>
-					<div class="text">
-						<h4><a href="{{ l.url }}" target="_blank">{{ l.title }} &raquo;</a></h4>
-						<p>{{ l.description }}</p>
-					</div>
-				</div>
-			{% endfor %}
+		<div class="right">
+		    <a href="/learn/"><span class="link"></span></a>
+			<h3><a href="/learn/">Learn</a></h3>
+			<p>We don’t just sell tea - we help you learn about Chinese tea history, culture and how to make it too!</p>
+			<p><a href="/learn/">Learn more about tea</a> | <a href="/about/">About us</a></p>
 		</div>
 	
 	</div>
+	
+		<div id="feature">
+		<a title="Click to view photos of the 2011 tea harvest from Wuyi Shan, China" alt="View photos of the 2011 tea harvest from Wuyi Shan, China" href="/blog/wu-yi-shan-da-hong-pao-harvest-photos/"><span class="link"></span></a>
+		<div class="top">
+			<h3><a href="/blog/wu-yi-shan-da-hong-pao-harvest-photos/">Spring tea harvest - our photos from Wuyi Mountain</a></h3>
+			<p>Wuyi Mountain is the home of our tea The Big Red (da hong pao)</p>
+		</div>
+		
+	</div>
 
-</div>
-</div>
+
+
+	
+
+		
+	<div id="home-bottom">
+		<div class="right">
+		<h3>What our customers say... <span class="small"><a title="Click to see customer testimonials of our Chinese tea" href="{% url reviews %}">(see more)</a></span></h3>
+
+		{% for r in review %}
+		<div class="box">
+			<p><em>&ldquo;{{ r.short_text }}&rdquo;</em><br/><span class="red">{{ r.first_name }} {{ r.last_name }}</span></p>
+		</div>
+		{% endfor %}
+		</div>
+		<div class="left">
+			<div class="did-you-know">
+				<a title="Try samples of our three main teas in a simple taster pack" href="/teas/chinese-tea-sampler-pack/"><span class="link"></span></a>
+				<h3><a href="/teas/chinese-tea-sampler-pack/">First time trying Chinese tea? <span class="grey">Get a taster pack and try out all three of our delicious teas for just £6 &raquo;</span></a></h3>
+				<img style="float:right; margin-top: 0px;" src="{% staticfile '/images/taster-promo.png' %}">
+			</div>
+			<div class="box">
+			<img src="{% staticfile '/images/brew-promo.png' %}">
+			<h4><a title="Short and simple guides to brewing Chinese tea" href="/learn/how-to-brew-chinese-tea/">Learn how to brew the perfect cup</a><br/><span class="small">A simple guide &raquo;</span></h4>
+			</div>
+		</div>
+	</div>
+
+
+
 
 
 

@@ -1,19 +1,34 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load django_static %}
+{% load comments %}
 
-{% block meta-description %}{{ entry.summary }}{% endblock %}
+{% block metadescription %}{{ entry.summary|safe }}{% endblock %}
 {% block pagetitle %}{{ entry.title }}{% endblock %}
 
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">The Min River blog</h2>
-	    	<p class="normal">All the news about Chinese tea and what's up at the Min River Tea Farm</p>
-			</div>
+{% block extrajs %}
+<script>
+$(function() {
+
+// enable circular scrollables with a click handler
+$(".scroll").scrollable({ circular: true }).click(function() {
+	$(this).data("scrollable").next();		
+});
+});
+</script>
 {% endblock %}
 
 {% block extracss %}
 <style type="text/css">
+
+h2.fontface {
+  font-size: 34px/40px;	
+}
+
+div#main-text-wide div#right {
+  margin-top: 30px;	
+}
 
 div#entry-content h3 {
   font-size: 2em;	
@@ -30,12 +45,6 @@ div#entry-content p {
   margin-top: 0px;	
 }
 
-div#entry-content ul {
-    color: #666666;
-    font-size: 15px;
-    line-height: 1.5em;	
-}
-
 div#entry-content p.date {
   font-size: 14px;
   color: #666;
@@ -45,32 +54,83 @@ div#entry-content p.date {
 
 div#entry-content img {
   float: right;
-  margin: 20px 0 30px 30px;	
+  margin: 10px 0 30px 30px;	
+  border-radius: 10px;
 }
 
-div.like {
-  float: left;	
-  margin-top: 10px;
+div#right p.mail {
+	float: left;
+	height: auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px dotted #e1e1e1;
+    padding-bottom: 10px;
 }
 
-div.like div.image {
+div#right p.mail.last {
+  border-bottom: none;	
+}
+
+div.next-previous {
+  border-top: 3px dotted #e1e1e1;
+  padding-top: 20px;
+  margin-bottom: 20px;	
+  width: 560px;
   float: left;
-  margin-right: 10px;	
+  border-bottom: 3px dotted #e1e1e1;
 }
 
-div#blog-right div.box.clear div.like p.description {
-  color: #666;	
-  line-height: 14px;
-  font-size: 12px;
-}
-
-div.like a {
-  font-size: 13px;	
-}
-
-div.like div.text {
+div.other-entry {
+  width: 210px;
   float: left;
-  width: 140px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  padding: 10px 15px;
+  position: relative;
+  border-radius: 5px;
+  left: -15px;
+  -moz-transition-property: background;
+  -moz-transition-duration: 300ms;
+}
+
+div.other-entry a {
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;	
+}
+
+div#main-text-wide div#left div.other-entry p {
+  margin-bottom: 0;	
+}
+
+div.other-entry span.link {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+
+
+div.other-entry:hover {
+  background-color: #f1f1f1;	
+}
+
+div.other-entry:hover a {
+  text-decoration: underline;
+}
+
+div.other-entry:hover p {
+  color: #333;	
+}
+
+div#entry-content img.tweet {
+    border-radius: 0 0 0 0;
+    float: left;
+    margin-left: 10px;
+    position: relative;
+    top: 8px;
 }
 
 </style>
@@ -82,31 +142,72 @@ div.like div.text {
 <div id="featured-small"></div>
 
   <div id="main-text-wide">
+<div class="rss">
+<a href="/feeds/latest/">Get the RSS feed <img class="rss" src="{% staticfile '/images/rss-small.png' %}"></a>
+<a title="Checkout photos of our tea and more on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
+<a title="Tweet this blog entry to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F{{ entry.slug }}"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
+</div>
+		
+			<h1>{{ entry.title }}</h1>
+			<p class="subtitle"><em>{{ entry.date_added|date:"D d M Y" }}</em> <span class="small"><a href="{% url blog_home %}">&laquo; back to blog home</a></span></p>
 
-	<div id="blog-right">
+	<div id="right">
 		{% include "blog/snippets/blog-right.html" %}
 	</div>
 
-	<div id="blog-left">
+	<div id="left">
 
 		<div id="entry-content">
-		<p class="normal"><a href="{% url blog_home %}">&laquo; blog home</a></p>
-			<h3>{{ entry.title }}</h3>
-			
-			<p class="date"><em>{{ entry.date_added|date:"D d M Y" }}</em></p>
-				{% thumbnail entry.promo_image "250x250" crop="center" as im %}	
-				<img src="{{ im.url }}">
-				{% endthumbnail %}
+
 			
 			<p>{{ entry.content|safe }}</p>
 
-				{% if entry.get_next_by_date_added %}
-				<p>Next entry: <a href="{% url blog_entry entry.get_next_by_date_added %}">{{ entry.get_next_by_date_added.title }} &raquo;</a>
-				<br />
+			<div class="next-previous">
+			{% if ga_is_on %}<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=198543263524427&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ entry.get_absolute_url }}" style="float:left;" send="false" layout="box_count" width="50" show_faces="true" font=""></fb:like>{% endif %}
+			<a title="Tweet this blog entry to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F{{ entry.slug }}"><img class="tweet" src="{% staticfile '/images/tweet-this.png' %}"></a>
+			</div>
+			
+			<div id="comments">
+			{% get_comment_list for entry as comment_list %}
+				{% if comment_list %}
+				{% get_comment_count for entry as comment_count %}
+				<h3>Comments on this post ({{ comment_count }})</h3>
+				<br clear="all"/>
+				<div id="comments-list">
+					{% for comment in comment_list %}
+						<div class="comment">
+							<p>
+								<strong>
+									{% if comment.user_url %}<a href="{{ comment.user_url }}">{{ comment.user_name }}</a>
+									{% else %}{{ comment.user_name }}{% endif %}
+									 said...
+								</strong> 
+								<span class="small">({{ comment.submit_date|date:"D d M Y" }})</span></p>
+							<p>{{ comment.comment }}</p>
+						</div>
+					{% endfor %}
+				</div>
 				{% endif %}
-				{% if entry.get_previous_by_date_added %}
-				Previous entry: <a href="{% url blog_entry entry.get_previous_by_date_added %}">{{ entry.get_previous_by_date_added.title }} &raquo;</a></p>
-				{% endif %}
+				<div id="comment-form">
+				<h3>Add your comment</h3>
+				<br clear="all"/>
+					<div id="form">
+					{% render_comment_form for entry %}
+					</div>
+				</div>
+			</div>
+			
+			{% if other_entries %}
+				<h3>Other recent posts you might like</h3>		
+				{% for other in other_entries %}
+					<div class="other-entry">
+		 			<a href="{% url blog_entry other.slug %}"><span class="link"></span></a>
+			 		<a class="title" href="{% url blog_entry other.slug %}" title="{{ other.title }} - a blog entry">{{ other.title }}</a>
+	 				<p>{{ other.summary }}</p>
+	 				</div>
+				{% endfor %}
+			{% endif %}	
+			
 		</div>
 	</div>
 

@@ -3,50 +3,30 @@
 
 {% block pagetitle %}Order (Step 1 of 3) - Your details{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">{% if shopper %}Check{% else %}Provide{% endif %} your details</h2>
-	    	<div id="steps">
-	    		<div class="step first selected">1. Your details</div>
-	    		<div class="step">2. Confirm</div>
-	    		<div class="step last">3. Pay with PayPal</div>
-	    	</div>
-			</div>
-{% endblock %}
-
 {% block extracss %}
 <style type="text/css">
-div#header {
-  height: 200px;	
+div#main-text-wide div#left {
+  margin-top: 20px;	
 }
 
-div#steps {
-    float: right;
-    width: auto;
+div#main-text-wide div#right {
+  margin-top: 30px;	
 }
 
-div#steps div.step {
-    background-color: #F1F1F1;
-    border: 1px solid #FFFFFF;
-    color: #D1D1D1;
-    float: left;
-    font-size: 14px;
-    padding: 7px 20px;
-    text-align: center;
-    width: auto;
+div#main-text-wide div#left h3 {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 0 -10px;
 }
 
-div#steps div.step.first {
-  -moz-border-radius: 10px 0px 0px 10px;	
+div#basket div.security {
+  float: right;
+  width: 220px;	
 }
 
-div#steps div.step.selected {
-    background-color: #E1E1E1;
-    color: #19761C;
-}
-
-div#steps div.step.last {
-  -moz-border-radius: 0px 10px 10px 0px;	
+div#basket div.security img {
+  position: relative;
+  top: 13px;	
 }
 
 input.checkbox {
@@ -57,7 +37,8 @@ input.checkbox {
 }
 
 p.checkbox {
-  font-size: 12px;	
+  font-size: 12px;
+  margin-bottom: 500px;	
 }
 
 p.help-text {
@@ -76,7 +57,8 @@ p.help-text img {
 
 div.address-container {
     float: left;
-    width: 530px;
+    margin-left: 20px;
+    width: 500px;
 }
 
 div.address-container p {
@@ -87,7 +69,7 @@ div.address-container p {
 div.address {
     float: left;
     margin: 0 10px 10px 0;
-    padding: 0px 20px;
+    padding: 0px 0px;
     width: 215px;
     -moz-border-radius: 10px;
     font-size: 12px;
@@ -120,40 +102,72 @@ div.address label {
   font-size: 14px;	
 }
 
+p.hint {
+    color: #999;
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 1em;
+    margin: 0;
+}	
+
+div#confirm-details-button {
+  {% if shopper %}
+    margin-top: 50px;
+  {% else %}
+    margin-top: 315px;
+  {% endif %}	
+}
+
+label.red {
+  color: red;	
+}
+
+p.red {
+  color: red;
+  margin-top: 0;	
+}
+
+span.red {
+  color: #d11010;	
+}
+
+span.country {
+  float: left;
+  width: 280px;
+  padding: 10px 15px;	
+}
+
 </style>
 
 {% endblock %}
 
 {% block content %}
 
-<div id="featured-small"></div>
-
 <div id="main-text-wide">
 
-
-    <form method="post" action="">
-
-
-	<div class="checkout-button">
-		<input type="submit" value="" next="" class="button-confirm-address"/>
-				{{ form.first_name.errors }}
-		{{ form.last_name.errors }}
-		{{ form.email.errors }}
-		{{ form.non_field_errors }} 
-		      {% for error in form.errors %} 	 
-      			{{ error.error }}
-		      {% endfor %}
-		<p class="checkout"><strong>Next step:</strong> Confirm your order</p>
-
-		<p class="checkbox"><input class="checkbox" checked type="checkbox" id="id_subscribed" name="subscribed"> We would like to keep you up to date occasionally about new teas, tea equipment or special offers - if you <strong>don't</strong> want to receive emails, uncheck this box.</p>
-
-
-	</div>
+	<h1>Please {% if shopper %}check{% else %}provide{% endif %} your details</h1>
 	
+	<div id="basket">
+	
+	
+    <form method="post" action="">
+		 
+		 
+		<div class="security">
+		{% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
+		 <p class="red">&laquo; there were some errors - please check and provide all required information.</p>
+		 {% endif %}
+			<img src="{% staticfile '/images/lock-large.png' %}" style="float:left; margin-right: 10px; margin-bottom: 20px;">
+			<p>We will never share your details, nor will we send you email spam. <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a></p>
+		</div>
+		
 	{% if shopper %}
+	  <div class="row">
+	  	<p class="intro">We've saved your information from last time - please check that everything is still correct:</p>
 		<div class="address-container">
 		<div class="address first">
-			<p><em>We've saved your details that you entered before - please check your name, email and delivery address are still all correct:</em></p>
 			<div class="address first">{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
 				
 		{% for address in shopper.get_addresses %}
@@ -164,7 +178,7 @@ div.address label {
 					{{ address.address_line_2 }}<br/>
 					{{ address.town_city }}<br/>
 		 			{{ address.postcode }}<br/>
-		 			{{ address.country }} - <a href="{% url not_you %}">Want to use a different address?</a>
+		 			{{ address.country|upper }} - <a href="{% url not_you %}">Want to use a different address?</a>
 		 			</div>
 		 		{% else %}
 		 			<div class="address other">
@@ -182,19 +196,30 @@ div.address label {
 		<input type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/>
     	<input type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
     	<input type="text" name="email" id="id_email" value="{{ email }}"/>
+    	<input type="text" name="house_name_number" id="id_house_name_number" value="{{ house_name_number }}"/>
+    	<input type="text" name="address_line_1" id="id_address_line_1" value="{{ address_line_1 }}"/>
+    	<input type="text" name="address_line_2" id="id_address_line_2" value="{{ address_line_2 }}"/>
+    	<input type="text" name="town_city" id="id_town_city" value="{{ town_city }}"/>
+    	<input type="text" name="postcode" id="id_postcode" value="{{ postcode }}"/>
+    	<input type="text" name="country" id="id_country" value="{{ country }}"/>
+ 		</div>
+ 		</div>
  		</div>
 	{% else %}
 
 	<div class="row">
-		<div class="row-label">
-			<h3>Your details</h3>
+			<div class="row-label">
+			<h3>Your name and email</h3>
 		</div>
     	<div class="row-box">
-    	<p class="intro">Please give your name and email address - just in case we need to contact you about your order.</p>
-    		<p><label for="id_first_name">First name</label><input type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/></p>
-    		<p><label for="id_last_name">Surname</label><input type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/></p>
-    		<p><label for="id_email">Email address</label><input type="text" name="email" id="id_email" value="{{ email }}"/></p>
-    		<p class="help-text"><img src="{% staticfile '/images/lock.gif' %}"> We will never share your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)</p>	
+    		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
+    		<ul class="errorlist"><li>* you must provide all your details - thanks!</li></ul>
+    		{% endif %}
+    		<p class="intro">Please provide your name and your email address (so we can update you on the order process if there's a problem). </p>
+
+    		<p><input  class="{% if form.first_name.errors %}red{% endif %}" type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/><label for="id_first_name"><span class="red">*</span> First name</label></p>
+    		<p><input class="{% if form.last_name.errors %}red{% endif %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/><label for="id_last_name"><span class="red">*</span> Surname</label></p>
+    		<p><input class="{% if form.email.errors %}red{% endif %}" type="text" name="email" id="id_email" value="{{ email }}"/><label for="id_email"><span class="red">*</span> Email address</label></p>	
     	</div>
     </div>
     
@@ -204,35 +229,47 @@ div.address label {
 			<h3>Your address</h3>
 		</div>
     	<div class="row-box">
+    	{{ form.non_field_errors }}
     		<p class="intro">Please confirm which address we should send your tea to. We only ship to the UK and Europe, so please make sure this is a valid UK/EU address.</p>
+    		
 
       <p>
-      	<label for="id_house_name_number">House name number:</label>
-      	<input id="id_house_name_number" type="text" name="house_name_number" maxlength="200" value="{{ house_name_number }}"/></p>
+      	<input id="id_house_name_number" type="text" name="house_name_number" maxlength="200" value="{{ house_name_number }}"/>
+      	<label for="id_house_name_number"><span class="red">*</span> House name number:</label>
+      	</p>
 	  	{{ form.address_line_1.error }}
 	  
 	  <p>
-	    <label for="id_address_line_1">Address line 1:</label>
-	  	<input id="id_address_line_1" type="text" name="address_line_1" maxlength="200" value="{{ address_line_1 }}"/> </p>
+	  	<input id="id_address_line_1" type="text" name="address_line_1" maxlength="200" value="{{ address_line_1 }}"/> 
+	 	    <label for="id_address_line_1">Address line 1:</label>
+	  </p>
       	{{ form.address_line_2.errors }}
       	
       <p>
+      	
+      	<input id="id_address_line_2" type="text" name="address_line_2" maxlength="200"  value="{{ address_line_2 }}"/>
       	<label for="id_address_line_2">Address line 2:</label>
-      	<input id="id_address_line_2" type="text" name="address_line_2" maxlength="200"  value="{{ address_line_2 }}"/></p>
+      	</p>
       	{{ form.town_city.errors }}
       
       <p>
-      	<label for="id_town_city">Town city:</label>
-      	<input id="id_town_city" type="text" name="town_city" maxlength="200" value="{{ town_city }}"/> </p>
+      	
+      	<input id="id_town_city" type="text" name="town_city" maxlength="200" value="{{ town_city }}"/> 
+      	<label for="id_town_city">Town / City:</label>
+      	</p>
       	{{ form.postcode.errors }}
       	
       <p>
-      	<label for="id_postcode">Postcode:</label>
-      	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" /> </p>
+      	
+      	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" /> 
+      	<label for="id_postcode"><span class="red">*</span> Postcode:</label>
+      	</p>
       	
 	  <p>
-	    <label for="id_country">Country:</label>
+	    <span class="country">
 	    {{ confirm_form.country }}
+	    </span>
+	    <label for="id_country"><span class="red">*</span> Country:</label>
 	  </p>
  	  <br clear="all">
  	  
@@ -241,9 +278,25 @@ div.address label {
 
 	{% endif %}
 
-	
-	
-</form>
+	<div id="confirm-details-button">
+		<p class="checkout"><strong>Next step:</strong> 
+		<em>Confirm your order. We'll let you check your order, and then you can pay using Paypal.</em>
+		</p>
+		<input type="submit" value="" next="" class="confirm-details-button"/>
+	</div>
+		
+	</form>
+
 
 </div>
+
+	<div id="right">
+
+	</div>
+	
+	<div id="left">
+	
+	</div>
+</div>
+
 {% endblock %}

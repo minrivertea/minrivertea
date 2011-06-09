@@ -10,8 +10,5 @@ static/images/likes/
 static/cache/
 TODOLIST
 sorl/
-
-
-
-
+*.DS_Store
 

@@ -2,6 +2,7 @@ from minriver.blog.models import BlogEntry
 from minriver.shop.models import WeLike
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_protect
 
 #render shortcut
 def render(request, template, context_dict=None, **kwargs):
@@ -34,10 +35,10 @@ def even_more(request):
     latest_things = sorted(latest, reverse=True, key=lambda k: k['date']) 
     return render(request, "blog/even_more.html", locals())
     
-    
+@csrf_protect   
 def blog_entry(request, slug):
     entry = get_object_or_404(BlogEntry, slug=slug)
-    others = BlogEntry.objects.all().order_by('?')[:2]
+    other_entries = BlogEntry.objects.exclude(id=entry.id).order_by('?')[:2]
     welikes = WeLike.objects.all().order_by('-date_added') 
     return render(request, "blog/entry.html", locals())
   

@@ -61,6 +61,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'minriver.shop.context_processors.get_shopper',
     'minriver.shop.context_processors.common',
     'minriver.shop.context_processors.get_latest_blogs',
+    'minriver.shop.context_processors.get_teas',
 )
 
 
@@ -91,12 +92,14 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.flatpages',
     'django.contrib.sitemaps',
+    'django.contrib.comments',
     'shop',
     'blog',
     'sorl.thumbnail',
     'paypal.standard.ipn',
     'django_static',
     'registration',
+    
 )
 
 # Random app information for different things

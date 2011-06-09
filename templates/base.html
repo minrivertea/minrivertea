@@ -1,4 +1,5 @@
 {% load django_static %}
+{% load nav_selected %}
 
 {% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
@@ -20,20 +21,26 @@
 	<meta name="DC.format" content="text/html" />
 	<meta name="DC.type" content="Django Site" />
 	<meta name="robots" content="ALL" />
-	<title>minrivertea.com - {% block pagetitle %}{% endblock %}</title>
+	<title>{% block pagetitle %}{% endblock %} | The Min River Tea Farm</title>
 	<link rel="shortcut icon" href="{% staticfile '/images/favicon.ico' %}" type="image/x-icon">
+
 	
 	{% block extra-head %}{% endblock %}
 
 	    <link rel="stylesheet" href="{% staticfile '/css/styles.css' %}" />
-	    <script type="text/javascript" src="{% staticfile '/js/searchbar.js' %}"></script>
+	    <script type="text/javascript" src="{% staticfile '/js/jquery-1.6.min.js' %}"></script>
+	    {% if ga_is_on %}
+	    <script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
+	    {% else %}
+	    <script src="/js/jquery.tools.min.js"></script>
+	    {% endif %}
+	    <script src="{% staticfile '/js/searchbar.js' %}"></script>
 	    <!--[if lte IE 6]>
 		<link rel="stylesheet" media="screen" type="text/css" href="{% staticfile '/css/ie6.css' %}" />
 		<![endif]-->
 
 
 	{% block extracss %}{% endblock %}
-	{% block extrajs %}{% endblock %}
 	
     {% block ga %}
     {% if ga_is_on %}
@@ -58,7 +65,7 @@
 
 <body>
 
-    
+<div id="super">
     <div id="container">
 		{% if user.is_superuser %}
 	    <div id="header-messages">    
@@ -66,36 +73,66 @@
 		</div>    
 		{% endif %}
     	
-	    <div id="header{% block header %}{% endblock %}">
+	    <div id="header">
 	    	<div id="logo">
-	    		<a title="The Min River Team Farm - Authentic Chinese Teas" alt="the Min River Tea Farm logo" href="/">
-	    			<h1 class="{% block logo %}{% endblock %}"><span>The Min River Tea Farm - Great Chinese Teas</span></h1>
-	    		</a>
+	    		<a title="The Min River Team Farm - Chinese tea delivered to your door" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"><span>Chinese tea delivered to your door - the Min River Tea Farm</span></a>
 	    	</div>
+	    	
+	    	<p class="shipping">
+				<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}">  
+	    		<img class="flag" src="{% staticfile '/images/eu-flag.gif' %}"> 
+	    		<a title="click for more info about delivery and packaging of your tea" href="/where-do-we-deliver/">We ship to UK and Europe!</a>
+	    	</p>
 
 	    	<div id="navigation">
 	    	    <ul id="nav">
-	    	    	<li class="first"><a href="{% url home %}" title="Home">home</a> /</li>
-	    	        <li><a href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">our teas</a>  /</li>
-	    	        <li><a href="/about/" title="About the Min River Tea Farm" alt="">about us</a>  /</li>
-	    	        <li class="last"><a href="{% url basket %}" title="View your basket" alt="">your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</a>
-	    	       
+	    	    	<li>
+	    	    		<a class="{% nav_selected request '^/$' %}" href="{% url home %}" title="Home">Home</a>
+	    	    	</li>
+	    	        <li>
+	    	        	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">Our teas</a>
+	    	        </li>
+	    	        <li>
+	    	        	<a class="{% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn</a>
+	    	        </li>
+	    	        <li>
+	    	        	<a class="{% nav_selected request '^/about/' %}" href="/about/" title="About the Min River Tea Farm" alt="">About us</a>
+	    	        </li>
+	    	        <li>
+	    	        	
+	    	        	<a class="{% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
+	    	        	
+	    	        	Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}
+	    	        	
+	    	        	</a>
+	    	        	
 	    	        </li>
 	  			</ul>
 			</div>
 			
 			{% block banner %}{% endblock %}
 
-       </div>
 
+	</div>
 
 		{% block content %}{% endblock %}
 	
-		<br clear="all"/>
 	
 		{% include "shop/snippets/footer.html" %} 
-    
+
     </div>
+
+		<ul class="footer-links">
+		      <li>&copy; Min River Tea Farm 2011 145 - 157 St John St, London, EC1V 4PW, UK &raquo;</li>
+	          <li><a title="Terms and Conditions" href="/terms-and-conditions/"><span class="fontface">Terms and Conditions</span></a>  /</li>
+	          <li><a title="Read about the Min River Tea Farm" href="/about/"><span class="fontface">About Us</span></a>  /</li>
+	          <li><a title="Read our Privacy Policy" href="/privacy/"><span class="fontface">Privacy</span></a>  /</li>
+	          <li><a href="{% url contact_us %}">Contact Us</a></li>
+	          <li><br/></li>
+	   </ul>
+	   <p></p>
+</div>
+	{% block extrajs %}{% endblock %}
 
 </body>
 

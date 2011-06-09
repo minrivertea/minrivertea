@@ -64,7 +64,7 @@ def index(request):
     featured = Product.objects.filter(is_active=True).exclude(category="POS") 
     prices = UniqueProduct.objects.filter(is_active=True)
     welike = WeLike.objects.all().order_by('-date_added')[:2]
-    review = Review.objects.all()[:1]
+    review = Review.objects.all()[:2]
     
     # load the products and prices combinations
     products_and_prices = []
@@ -76,7 +76,16 @@ def index(request):
     
 # the product listing page
 def teas(request):
-            
+    try:
+        added = request.session['ADDED']
+    except:
+        added = None
+        
+    if added:
+        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
+        message = "1 x %s%s added to your basket!" % (thing.item.weight, thing.item.weight_unit)
+        request.session['ADDED'] = None
+        
     products = Product.objects.filter(category="TEA", is_active=True)
     prices = UniqueProduct.objects.filter(is_active=True)
     products_and_prices = []
@@ -98,9 +107,9 @@ def tea_view(request, slug):
         request.session['ADDED'] = None
         
     tea = get_object_or_404(Product, slug=slug)
-    prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True)
+    prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True).order_by('price')
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
-    reviews = Review.objects.filter(product=tea.id, is_published=True)
+    reviews = Review.objects.filter(product=tea.id, is_published=True)[:2]
 
     return render(request, "shop/tea_view.html", locals())
     
@@ -333,7 +342,7 @@ def order_step_one(request):
                     slug = slugger,     
                 )
             
-            # create an address based on the info they provided           
+            # create an address based on the info they provided         
             address = Address.objects.create(
                 owner = shopper,
                 house_name_number = form.cleaned_data['house_name_number'],
@@ -507,18 +516,22 @@ def turn_off_twitter(request, id):
     return HttpResponseRedirect('/order/complete/')
 
 # handles the review/testimonial view
-def review(request, slug, number):
+def review_tea(request, slug):
     tea = get_object_or_404(Product, slug=slug)
-    shopper = get_object_or_404(Shopper, id=number)
     other_reviews = Review.objects.filter(product=tea, is_published=True)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
-            words = form.cleaned_data['text']   
+            words = form.cleaned_data['text'] 
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
             review = Review.objects.create(
                 text=words,
                 product=tea,
-                owner=shopper,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
             )
             
             return HttpResponseRedirect('/review/thanks')
@@ -556,11 +569,11 @@ def send_review_email(request, order_id):
         
 
 # view for the photo wall
-def photos(request):
-
+def reviews(request):
+    reviews = Review.objects.filter(is_published=True)[:6]
     photos = Photo.objects.filter(published=True).order_by('-id')[:10]
     
-    return render(request, 'shop/photos.html', locals())
+    return render(request, 'shop/reviews.html', locals())
 
 
 # view for a user's "I'm a tea lover" page

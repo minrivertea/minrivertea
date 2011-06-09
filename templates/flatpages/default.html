@@ -2,19 +2,6 @@
 
 {% block pagetitle %}{{ flatpage.title }}{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">{{ flatpage.title }}</h2>
-			</div>
-{% endblock %}
-
-{% block extracss %}
-<style type="text/css">
-
-
-</style>
-{% endblock %}
-
 {% block content %}
 
 <div id="featured-small"></div>
@@ -22,9 +9,11 @@
 <div id="main-text-wide">
 
 
-<div class="flatpage">
-{{ flatpage.content }}
-
+	<div id="left">
+		<h1>{{ flatpage.title }}</h1>
+		{{ flatpage.content }}
+	</div>
+	
 </div>
 
 

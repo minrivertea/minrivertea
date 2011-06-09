@@ -3,118 +3,10 @@
 
 {% block extracss %}
 <style type="text/css">
-
-
-div.right-box {
-    background-image: url("/images/gray-stripe.png");
-    border-radius: 20px 20px 20px 20px;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 0px;
-    padding: 20px 30px;
-    width: 720px;
-    float: left;
-}
-
-div.right-box h3 {
-  font-size: 2em;
-  text-shadow: 1px 1px #FFFFFF;	
-}
-
-div.right-box input {
-    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
-    border-radius: 7px 7px 7px 7px;
-    border-style: solid;
-    border-width: 1px 0 0 1px;
-    color: #666666;
-    float: left;
-    font: 95% arial,helvetica,clean,sans-serif;
-    height: 20px;
-    margin: 0 0 20px 0px;
-    padding: 10px 15px;
-    width: 400px;
-}
-
-div.right-box textarea {
-    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
-    border-radius: 7px 7px 7px 7px;
-    border-style: solid;
-    border-width: 1px 0 0 1px;
-    color: #666666;
-    float: left;
-    font: 95% arial,helvetica,clean,sans-serif;
-    margin: 0 0 20px 0px;
-    padding: 10px 15px;
-    width: 400px;
-}
-
-div.right-box label {
-  margin-bottom: 5px;	
-}
-
-div.right-box input.submit-button {
-    background: url("/images/submit.png") no-repeat scroll left top transparent;
-    border: medium none;
-    float: right;
-    height: 55px;
-    margin: 0 0 0 0;
-    padding: 0;
-    width: 236px;
-}
-
-div.right-box input.submit-button:hover {
-    background: url("/images/submit.png") no-repeat scroll left bottom transparent;
-}
-
-div.right-box p.help-text {
-    float: right;
-    font-size: 0.7em;
-    padding-right: 10px;
-    position: relative;
-    top: -15px;
-}
-
-div.other-fields {
-  float: left;
-  width: 450px;	
-}
-
-div.products {
-  float: left;
-  width: 250px;	
-  margin-right: 20px;
-}
-
-div.products input {
-  position: absolute;
-  left: -9999px;	
-}
-
-div.products label {
-  background-color: white;
-  padding: 20px;
-  margin-bottom: 10px;	
-}
-
-div.products label:hover {
-  cursor: pointer;
-  background-color: #e1e1e1;	
-}
-
-div.products label.selected {
-  background-color: olive;	
-}
-
 </style>
 {% endblock %}
 
 {% block metadescription %}Contact the Min River Tea Farm - how you can get in touch with us.{% endblock %}
-
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Thanks!</h2>
-	    	<p class="normal">Your review was submitted successfully.</p>
-			</div>
-{% endblock %}
 
 {% block pagetitle%}Give a review{% endblock %}
 
@@ -122,15 +14,18 @@ div.products label.selected {
 
 {% block content %}
     
-<div id="featured-small"></div>
 
 	<div id="main-text-wide">
-
-		<p class="introduction">Thanks for reviewing our tea! We really appreciate you taking the time to give your thoughts and we read every review.</p>
-		
+	
+	<div id="left">
+		<h1>Thanks for submitting a review!</h1>
+		<p class="subtitle">It means a lot to us, and we read every single one.</p>
 		<p>We may decide to publish your review on our website, to help others choose their tea with confidence.</p>
-		
-			</div>
+	</div>
+	
+	<div id="right">
+
+</div>
 </div>
 		
 		<br clear="all"/>

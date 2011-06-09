@@ -3,21 +3,14 @@
 
 {% block pagetitle %}Order (Step 2 of 3) - Confirm Order{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Confirm and pay</h2>
-	    	<div id="steps">
-	    		<div class="step first finished">1. Your details</div>
-	    		<div class="step selected">2. Confirm</div>
-	    		<div class="step last">3. Pay with PayPal</div>
-	    	</div>
-			</div>
-{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
-div#header {
-  height: 200px;	
+
+div#main-text-wide div#left h3 {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 0 -10px;
 }
 
 div.row {
@@ -51,8 +44,8 @@ div#steps div.step.finished {
 }
 
 div#steps div.step.selected {
-    background-color: #E1E1E1;
-    color: #19761C;
+    background-color: #ddeedf;
+    color: #333;
 }
 
 div#steps div.step.last {
@@ -70,12 +63,18 @@ div#steps div.step.last {
 
 <div id="main-text-wide">
 
-
-    <form method="post" action="{{ paypal_submit_url }}">
+	<h1>Confirm and pay</h1>
 	
-
-
-
+	<div id="basket">
+		
+    <form method="post" action="{{ paypal_submit_url }}">
+    
+    	<div id="confirm-and-pay-button">
+			<input type="submit" value="" next="" class="confirm-and-pay-button"/>
+			<p class="checkout"><strong>Next step:</strong> <em>pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</em></p>
+			<img src="{% staticfile '/images/paypal-horz.gif' %}" class="paypal">
+		</div>	
+    
 
 		<input type="hidden" name="cmd" value="_cart"> 
 		<input type="hidden" name="upload" value="1"> 
@@ -94,9 +93,7 @@ div#steps div.step.last {
 		<input type="hidden" id="id_no_shipping" value="1" name="no_shipping">
 		<input type="hidden" id="id_charset" value="utf-8" name="charset">
 
-		
 		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
-
 
 		{% if postage_discount %}
 		{% else %}
@@ -118,36 +115,23 @@ div#steps div.step.last {
 				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.item.price }}"> 
 			 {% endfor %}
 		{% endif %}
-
-		<div class="checkout-button">
-		<input type="submit" value="" next="" class="checkout-button"/>
-		<p class="checkout"><strong>Next step:</strong> pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</p>
-		<img src="{% staticfile '/images/paypal-horz.gif' %}" class="paypal">
-
-		</div>
 		
-
-<div class="row">
-	<div class="row-label">
-		<h3>You have ordered:</h3>
-	</div>
-	
-	<div class="row-box">
-		<table>
-
-		{% for thing in basket_items %}
-		  <tr>
-			
-	    	<td width="200px">
-	    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
-	    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
-	    	</td>
-	    	<td width="150px">
-
-	    	</td>
-	    	<td>£{{ thing.get_price }}</td>
-	    				
-		  </tr>
+				<div class="row">
+			<div class="row-label">
+				<h3>You have ordered:</h3>
+			</div>
+		<div class="row-box">
+			<table>
+			{% for thing in basket_items %}
+			  <tr>				
+		    	<td width="200px">
+		    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
+		    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
+		    	</td>
+		    	<td width="150px">
+		    	</td>
+		    	<td>£{{ thing.get_price }}</td>		    				
+			  </tr>
 		  {% endfor %}
 		  {% if postage_discount %}
 		  <tr>
@@ -191,7 +175,8 @@ div#steps div.step.last {
 </div>
 		<br clear="all"/>
 
-	
+		
+
 	</form> 
 
 </div>

@@ -96,7 +96,7 @@ COUNTRY_CHOICES = (
     (GERMANY, u"Germany"), 
     (GIBRALTAR, u"Gibraltar"),
     (GREECE, u"Greece"), 
-    (GREENLAND, u"Hreenland"),
+    (GREENLAND, u"Greenland"),
     (HUNGARY, u"Hungary"),
     (ICELAND, u"Iceland"),
     (IRELAND, u"Ireland"),  
@@ -131,6 +131,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=80)
     meta_title = models.CharField(max_length=200, blank=True, null=True)		
     description = models.TextField()
+    meta_description = models.TextField(blank=True, null=True)
     super_short_description = models.CharField(max_length=200)
     body_text = models.TextField()
     long_description = models.TextField(blank=True, null=True)
@@ -151,7 +152,7 @@ class Product(models.Model):
         return self.name
       
     def get_absolute_url(self):
-        return "/teas/%s/" % self.slug  
+        return "/teas/%s/" % self.slug  #important, do not change
     
     def save(self, force_insert=False, force_update=False):
          super(Product, self).save(force_insert, force_update)
@@ -168,6 +169,7 @@ class UniqueProduct(models.Model):
     price = models.DecimalField(help_text="Price", max_digits=8, decimal_places=2, null=True, blank=True)
     price_unit = models.CharField(help_text="Currency", max_length=3, null=True, blank=True)
     parent_product = models.ForeignKey(Product)
+    description = models.TextField()
     available_stock = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     
@@ -181,7 +183,7 @@ class Shopper(models.Model):
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
     number_referred = models.IntegerField(null=True, blank=True)
-    subscribed = models.BooleanField(default=True)
+    subscribed = models.BooleanField(default=False)
     slug = models.SlugField(max_length=200)
     twitter_username = models.CharField(max_length=200, blank=True, null=True)
 
@@ -206,13 +208,15 @@ class Shopper(models.Model):
             
 class Review(models.Model):
     product = models.ForeignKey(Product)
-    owner = models.ForeignKey(Shopper)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    email = models.EmailField()
     text = models.TextField()
     short_text = models.TextField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
     
     def __unicode__(self):
-        return self.owner.email       
+        return self.product.name       
             
 class Address(models.Model):
     owner = models.ForeignKey(Shopper)
@@ -334,7 +338,7 @@ class Photo(models.Model):
         return self.shopper.email
     
     def get_absolute_url(self):
-        return "http://www.minrivertea.com/tea-lover/%s/" % self.shopper.slug
+        return "/tea-lover/%s/" % self.shopper.slug
 
 
 class Referee(models.Model):

@@ -2,13 +2,17 @@
 {% load thumbnail %}
 {% load django_static %}
 
+{% block pagetitle %}Your basket ({{ basket_quantity }}){% endblock %}
 {% block metadescription %}Your basket - shop on www.minrivertea.com and get the best prices and great tasting authentic Chinese teas delivered direct to your door.{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
+div#main-text-wide div#left {
+  margin-top: 20px;	
+}
 
-div.row-label h3 {
-    font-size: 1.2em;
+div#main-text-wide div#right {
+  margin-top: 30px;	
 }
 
 div.row-box p.intro {
@@ -16,20 +20,30 @@ div.row-box p.intro {
 }
 
 div#basket-full {
-  width: 800px;	
+  width: 520px;
+  float: left;	
   font-size: 0.9em;
 }
 
+div#basket-full img {
+  border-radius:5px;
+  border: 3px solid #fff;	
+}
+
 div.basket-row {
-    border-bottom: 1px solid #E1E1E1;
+    border-bottom: 2px dotted #d9ebde;
     float: left;
     height: 70px;
-    margin-bottom: 20px;
-    padding: 0 0 0 10px;
+    margin-bottom: 0px;
+    padding: 10px 0 0 10px;
 }
 
 div.basket-row.postage {
     height: 40px;
+}
+
+div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
+  padding-top: 0;	
 }
 
 .strikethrough {
@@ -53,23 +67,34 @@ div.tea-name {
 div.tea-weight {
   float: left;
   width: 180px;	
+  padding-top: 6px;
 }
 
 div.tea-price {
   float: left;
-  width: 10px;	
+  width: 10px;
 }
 
 div.tea-quantity {
   float: left;
   width: 70px;	
   text-align: center;
+  padding-top: 8px;
+  font-size: 1.3em;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;  
 }
+
+
 
 div.tea-total {
   float: left;
   width: 110px;	
   text-align: center;
+  font-size: 1.2em;
+  padding-top: 8px;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;
 }
 
 div.tea-remove {
@@ -80,11 +105,11 @@ div.tea-remove {
 }
 
 div.tea-remove a {
-  background: url({% staticfile '/images/delete.png' %}) no-repeat top left;
-  height: 11px;
-  display: block;
-  width: 13px;	
-  margin-top: 4px;
+    background: url("/images/delete.png") no-repeat scroll left top transparent;
+    display: block;
+    height: 14px;
+    margin-top: 4px;
+    width: 11px;
 }
 
 div.tea-remove a:hover {
@@ -93,9 +118,9 @@ div.tea-remove a:hover {
 
 div#totals {
     float: left;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: bold;
-    margin-left: 240px;
+    margin-left: 205px;
     text-align: right;
     width: 250px;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
@@ -123,8 +148,10 @@ div#extra-info {
 }
 
 div#extra-info div.box {
-  border-bottom: 1px solid #e1e1e1;	
-  margin-bottom: 20px;
+    border-bottom: 1px solid #E1E1E1;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding-left: 20px;
 }
 
 div#extra-info p {
@@ -136,55 +163,75 @@ div#extra-info h3 {
   margin-bottom: 0px;
 }
 
+div.plus-minus {
+  float: right;
+  width: 35px;
+  display: block;
+  height: 15px;
+}
+
+div.plus-minus a {
+ display: none	
+}
+
+div.basket-row:hover {
+  background-color: #e6f8eb;
+  cursor: pointer;	
+}
+
+div.basket-row:hover div.plus-minus a {
+  display: block;	
+}
+
+
+a.plus {
+  display: block;
+  background: url('/images/plus.png') no-repeat top left;
+  height: 14px;
+  width: 15px;
+  float: right;
+  position: relative;
+  top: 4px;	
+}
+
+a.plus:hover {
+  background: url('/images/plus.png') no-repeat bottom left;
+}
+
+a.minus {
+  display: block;
+  background: url('/images/minus.png') no-repeat top left;
+  height: 14px;
+  width: 15px;
+  float: left;	
+  position: relative;
+  top: 4px;	
+}
+
+a.minus:hover {
+  background: url('/images/minus.png') no-repeat bottom left;
+}
+
 </style>
 {% endblock %}
 
-{% block pagetitle %}your basket ({{ basket_quantity }}){% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Your basket</h2>
-	    	<p class="normal">{% if not basket_items %}Your basket is empty!{% else %}You currently have {{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %} in your basket.{% endif %}</p>
-	    	
-	    	
-			</div>
-{% endblock %}
 
 {% block content %}
 
-<div id="featured-small"></div>
 
 <div id="main-text-wide">
 
+<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
 
 {% if basket_items %}
 
-<div id="checkout-button">
-
-
-<a href="{% url order_step_one %}"></a>
-
-<p class="checkout"><strong>Next step - your details.</strong>  <br/><em>You don't need to login or register to purchase - no passwords to remember, no slow registration process, no hassle.</em></p>
-
-
-</div>
-
-
+  <div id="basket">
+ 
 	<div id="basket-full">
-	
-	  <div class="basket-head-row">
-	    <div class="tea-remove">&nbsp;</div>
-		<div class="tea-name">&nbsp;</div>
-		<div class="tea-weight">ITEM</div>
-		<div class="tea-price">&nbsp;</div>
-		<div class="tea-quantity">AMOUNT</div>
-		<div class="tea-total">TOTAL</div>
-		
-      </div>
-      
+	 
 	{% for thing in basket_items %}
 	  <div class="basket-row">
-	    <div class="tea-remove"><a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"></a></div>
 		<div class="tea-name">
 			{% thumbnail thing.item.parent_product.image "80x53" crop="center" as im %}
 			<img src="{{ im.url }}"/>
@@ -194,17 +241,18 @@ div#extra-info h3 {
 		<div class="tea-weight">
 			<a title="{{ thing.item.parent_product.description }}" href="{% url tea_view thing.item.parent_product.slug %}">{{ thing.item.parent_product.name }}</a>
 			{% if not thing.item.weight %}{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
-			{{ thing.item.price_unit }}{{ thing.item.price }}
+			{{ thing.item.price_unit }}{{ thing.item.price }}<br/>
+			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">Remove from basket</span></a>
 		</div>
 		<div class="tea-price">&nbsp;</div>
-		<div class="tea-quantity">{{ thing.quantity }} <a href="{% url increase_quantity thing.item.id %}">+</a>{% ifequal thing.quantity 1 %}{% else %} <a href="{% url reduce_quantity thing.item.id %}">-</a>{% endifequal %} </div>
+		<div class="tea-quantity">x {{ thing.quantity }} 
+			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}"></a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}"></a>{% endifequal %}</div> </div>
 		<div class="tea-total">{{ thing.item.price_unit}}{{ thing.get_price }}</div>
 		
 	  </div>
 	{% endfor %}
 	{% if postage_discount %}
 	  <div class="basket-row postage">
-	  	<div class="tea-remove">&nbsp;</div>
 		<div class="tea-name strikethrough"><em>Postage <span class="small">(Standard)</span></em></div>
 		<div class="tea-weight"><span class="small"><em>* Your order is over £50, so there's no postage charge!</em></span></div>
 		<div class="tea-price">&nbsp;</div>
@@ -213,9 +261,8 @@ div#extra-info h3 {
 	  </div>
 	{% else %}
 	  <div class="basket-row postage">
-	  	<div class="tea-remove">&nbsp;</div>
-		<div class="tea-name"><em>Postage <span class="small">(Standard)</span></em></div>
-		<div class="tea-weight"><span class="small"><em><strong>Delivered in 1-2 days</strong><br/>* if you order over £50, delivery is free!</em></span></div>
+		<div class="tea-name"><em>Postage <span class="small"><br/>(First Class)</span></em></div>
+		<div class="tea-weight"><em>Delivered in 1-2 days<br/><span class="small">Shipped from the UK</span></em></div>
 		<div class="tea-price">&nbsp;</div>
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total">£3.00</div>
@@ -226,37 +273,53 @@ div#extra-info h3 {
 		<div class="label">Total:</div><div class="total">£{{ total_price }}</div>
 	</div>
 	<br clear="all"/>
+	  	<div id="start-checkout-button">		
+		
+		<p class="checkout">
+			<strong>Next step</strong>: your details. 
+			<em>No login or registration required to purchase.</em>
+		</p>
+		<a href="{% url order_step_one %}"></a>
+	</div>
+
+			
+  </div>
+  
+  	<div id="right">
+           	<div class="info">
+           	
+           	<h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
+           	<p>We accept all major credit and debit cards through Paypal</p>
+           	<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
+           	
+           	</div>  	
+  	</div>
+
+	<div id="left">
+
+		<h2>Buyer protection</h2>
+		<p>Your online safety is extremely important to us too. Your purchase has these guarantees:</p>
+		<ul>
+		  <li><strong>Returns policy:</strong> we operate a 'no questions asked' returns policy. If you're not happy with your order, just get in touch.</li>
+		  <li><strong>Safe payments:</strong> payments are taken via Paypal. We never see your credit card details, and your online payment is secured by the highest standard industry technology.</li>
+		  <li><strong>Fast delivery:</strong> we deliver via Amazon UK. This means your order is trackable, and normally delivered within 1-2 days.</li>
+		</ul>
+
+	</div>
 
  
 
 {% else %}
+  <div id="basket">
 	<p>There's nothing in your basket - add something, quick! <br/><a href="{% url teas %}">&raquo; Browse our selection of Chinese teas here.</a></p>
+  </div>
+	<div class="did-you-know">
+	<a href="/learn/varieties-of-tea/suggestions/"><span class="link"></span></a>
+	<h3>Need some help choosing a tea? <span class="grey">Let us help you &raquo;</span></h3>
+	</div>
+
 {% endif %}
 
-
-<div id="extra-info">
-
-	<div class="box">
-		<h3>Payment methods</h3>
-		<p>You can pay online safely and securely using Paypal. You can use your paypal linked account, or any major credit and debit cards.</p>
-	</div>
-	
-	<div class="box">
-		<h3>Where do we deliver?</h3>
-		<p>We currently deliver to the United Kingdom and Europe. Sorry, no US orders at the moment!<br/></p>
-	</div>
-	
-	<div class="box">
-		<h3>Returns</h3>
-		<p>We operate a 'no questions asked' returns policy. If you're not happy with the tea you receive, please get in touch.</p>
-	</div>
-
-	<div class="box last">
-		<h3>Postage and packaging</h3>
-		<p>We charge a flat fee of £3 per order. If you order over £50, postage is free. Orders are fulfilled by Amazon UK and normally arrive within 1-2 days.</p>
-		<p> * <em>orders outside the UK may take slightly longer. Thanks for your patience!</em></p>
-	</div>
-</div>
 
 </div>
 {% endblock %}

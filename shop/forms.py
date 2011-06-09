@@ -77,7 +77,7 @@ COUNTRY_CHOICES = (
     (GERMANY, u"Germany"), 
     (GIBRALTAR, u"Gibraltar"),
     (GREECE, u"Greece"), 
-    (GREENLAND, u"Hreenland"),
+    (GREENLAND, u"Greenland"),
     (HUNGARY, u"Hungary"),
     (ICELAND, u"Iceland"),
     (IRELAND, u"Ireland"),  
@@ -171,3 +171,6 @@ class SubmitTwitterForm(forms.Form):
 # handles the testimonials or reviews of a particular tea (views.review)
 class ReviewForm(forms.Form):
     text = forms.CharField(required=True, widget=forms.Textarea)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True, error_messages={'required': '* You must give a valid email address'})

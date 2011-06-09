@@ -7,23 +7,38 @@ html {
 body {
   font-weight: 0.9em;
   font-family: Georgia, serif;	
-  background: url('/images/background.png') no-repeat scroll 50% 0 #fff;
+  background: url('/images/back.jpg') repeat scroll 50% 0 #fff;
+  
   margin: 10px 0 0;
   padding: 0;
+  color: #666;
+}
+
+div#super {
+  width: 960px;
+  margin: 0 auto;	
 }
 
 h3 {
     color: #BE373A;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    letter-spacing: -1px;
+    margin: 0 0 5px;
+}
+
+div#main-text-wide div#left h3 {
+    color: #444444;
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
     margin: 0 0 5px;
 }
 
 
-div.left h3 {
-  margin: 0px 0 0px 0px;
-  font-weight: bold;
-  font-size: 1.3em;	
+
+div#main-text-wide div#left p {
+  margin-top: 0;
+  margin-bottom: 20px;	
 }
 
 h4 {
@@ -39,11 +54,12 @@ div.left h4 {
     font-size: 15px;
     margin-bottom: 0;
     padding-bottom: 0;
-    text-transform: uppercase;
 }
 
 div#right h3 {
-  text-align: left;	
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 0;
 }
 
 div#right h4 {
@@ -68,52 +84,71 @@ a {
 }
 
 a:link, a:visited {
-  color: #1a6d18;
+  color: #439249;
 }
 
 a:hover, a:active {
   color: #ffaeae;
 }
 
+ul {
+  list-style-type: square;	
+}
+
+ul, ol {
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.8em;	
+}
+
+ol {
+  font-weight: italic;	
+  font-size: 12px;
+}
+
 div#container {
-  margin: 0 auto;
-  width: 890px;
-  padding-bottom: 50px;
-  margin-bottom: 50px;
+  width: 854px;
+  padding: 20px 60px 0px;
+  float: left;
+  margin-top: 20px;
+  box-shadow: 0 10px 26px #222;
+  margin-bottom: 30px;
   background: white;
-  border: 20px solid white;
+  border: 3px solid #61916f;
+  border-radius: 10px;
 }
 
 
 
 div#footer {
-  width: 850px;	
+  width: 100%;	
   height: 300px;
-  margin: 0 auto;
-  margin-top: 80px;
-  margin-bottom: 100px;
+  margin-top: 30px;
+  float: left;
+  border-top: 5px dotted #e1e1e1;
+  padding-top: 20px;
 }
 
-div#footer div.image-top {
-  height: 5px;	
-  margin-bottom: 20px;
-}
-
-div#footer ul.footer-links {
+ul.footer-links {
   width: 850px;
   float: left;
-  margin-left: 30px;
-  padding-left: 0;	
+  margin-left: 50px;
+  padding-left: 0;
+  margin-bottom: 80px;	
 }
 
 ul.footer-links li {
   display: inline;
-  color: #EE6464;
+  color: #FFDE00;
   font-size: 0.9em;
 }
 
+ul.footer-links li a {
+  color: #fff;	
+}
+
 div.payments {
-  margin-left: 30px;
+  margin-left: 0px;
   margin-top: 20px;
   float: left;
   width: 250px;
@@ -126,10 +161,10 @@ div.payments p {
 }
 
 div.footer-box {
-  margin-left: 30px;
+  margin-left: 40px;
   margin-top: 0px;
   float: left;
-  width: 250px;
+  width: 260px;
 }
 
 div.footer-box h4 {
@@ -160,16 +195,22 @@ div.footer-box ul li {
 /* typography */
 
 h1 {
-	
+    color: #FF8585;
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+    font-size: 2em;
+    font-weight: normal;
+    letter-spacing: -1px;
+    margin: 0 0 5px;
+    padding-bottom: 0;
 }
 
 h2 {
-    color: #BE373A;
+    color: #FF8585;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 2em;
-    font-weight: bold;
+    font-weight: normal;
     letter-spacing: -1px;
-    margin: 0 0 10px;
+    margin: 0 0 5px;
     padding-bottom: 0;
 }
 
@@ -180,15 +221,15 @@ div#user-photos h2 {
 
 
 p {
-  font-size: 15px;	
-  line-height: 1.5em;
-  color: #666;
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.8em;
 }
 
 p.intro {
-  margin: -10px 0 25px 0;	
-  color: #333;
-  font-size: 14px;  
+    color: #666666;
+    font-size: 15px;
+    margin: -10px 0 25px;
 }
 
 div.left p {
@@ -201,15 +242,10 @@ div.left p {
 /* header styles */
 
 div#header {
-  width: 800px;
+  float: left;
   margin: 0 auto;
-  height: 180px;
-}
-
-div#headerhome {
-    height: 180px;
-    margin: 0 auto;
-    width: 800px;
+  height: 130px;
+  border-bottom: 5px dotted #e1e1e1
 }
 
 div#header-messages {
@@ -232,130 +268,99 @@ div#header-messages div.hm {
     margin-right: 10px;
 }
 
+p.shipping {
+  float: right;
+  margin: 20px 0 0 0;
+  font-size: 11px;
+  padding-right: 30px;	
+}
+
 div#logo {	 
- width: 230px;
+ width: 400px;
+ height: 100px;
+ background: url("/images/logo8.jpg") no-repeat scroll 0 0 transparent;
  float: left;
- margin: 0px 0 0 10px;
+ margin: 20px 0 0 0px;
+ position: relative;
 }
 
-div#logo h1.home {
-  background: url('/images/logo4.png') no-repeat scroll 0 0 transparent;
-  height: 230px;	
-  margin: 0px 0 0 0px;
+div#logo a {
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;	
 }
 
-div#logo h1 {
-    background: url("/images/logo4.png") no-repeat scroll 0 0 transparent;
-    height: 230px;
-    margin: 0px 0 0 0px;
-}
-
-div#logo h1 span {
+div#logo a span {
   display: none;	
 }
 
 div#logo:hover {
   opacity: 0.8;	
+  
 }
 
 div#home-banner {
     float: right;
-    margin: 20px 0px 0 0;
+    margin: 45px 0px 0 0;
     text-align: right;
     width: 560px;
 }
 
-#home-banner p.normal {
-    float: right;
-    font-size: 15px;
-    letter-spacing: 0;
-    margin: -10px 0 10px 10px;
-    width: 500px;
+p.subtitle {
+    font-size: 16px;
+    letter-spacing: 0px;
+    padding-bottom: 10px;
+    margin: 0px 0 10px 0px;
+    border-bottom: 1px solid #fbe3e3;;
 }
-
-
-#home-banner h2.logo-assist {
-    color: #19761C;
-    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 3.1em;
-    font-weight: bold;
-    letter-spacing: -2px;
-    line-height: 1em;
-    margin: 20px 0 10px;
-}
-
-Keaan
-Peter
-Chris
-Artur
-Darryl
-Jan
-Tim
-
-
-Elaine
-Radim
-Lukas
-Matous
 
 
 #navigation {
   float: right;
-  margin: 20px 0px 0;	
+  margin: 40px 0px 0;	
 }
 
 ul#nav {
-float: right;
-font-size:15px;
-margin: 0;
-color: #ee6464;
+    color: #EE6464;
+    float: left;
+    margin: 0;
+    padding-left: 0;
 }
 
-#navigation ul li {
+ul#nav li {
   display: inline;
-  padding-left: 0px;
 }
 
-
-#navigation a:link, #nav a:visited {
-  color: #1A6D18;
-  text-decoration: none;
-  font-weight: normal;
-
+ul#nav li:not(:last-child) a {
+  border-right: 2px dotted #F1F1F1;
 }
 
-#navigation a:hover, #nav a:active {
-
-  color: #ee6464;
-  cursor: pointer;
+ul#nav li a {
+    display: block;
+    float: left;
+    font-family: 'Helvetica Neue';
+    padding: 0px 13px;
+    color: #999;
+    font-weight: bold;
+    font-size: 13px;
 }
 
+ul#nav li a:hover {
+  text-decoration: underline;
+  color: #439249;
+}
+
+ul#nav li a.selected:hover {
+    color: #439249;	
+}
+
+ul#nav li a.selected {
+    color: #439249;
+}
 
 /* homepage styles */
 
-
-div.featured-top {
-  background: url('/images/stripe2.png') bottom;
-  height: 15px;	
-  width: 800px;
-  margin-left: 40px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-
-div#home-extra div.featured-top {
-  margin-left: 0;
-  height: 5px;	
-  background: url("/images/stripe.png") repeat-x scroll 0 0 transparent;
-  margin-top: 10px;
-}
-
-div#featured-small {
-  background: url('/images/stripe2.png') bottom;
-  height: 20px;	
-  width: 800px;
-  margin: 0 auto;
-}
 
 
 
@@ -382,7 +387,7 @@ div#add-a-photo:hover a {
 }
 
 div#box {
-  width: 800px;
+  width: 100%;
   margin: 0 auto;
   margin-top: 0px;
 }
@@ -390,41 +395,73 @@ div#box {
 div.home-products {
     float: left;
     margin-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 0px;
+    display: none;
 }
 
 div#home-extra {
   float:left;
   margin-left:0px;
-  width:780px;
-  padding: 0px 20px 10px 0px;
+  width:100%;
+  padding: 10px 20px 10px 0px;
   margin-top: 0px;
 }
 
-div#home-extra div#user-photos img {
+div#home-extra div.user-photos img {
 
 }
 
-div#home-extra div#user-photos {
+div#home-extra div.user-photos {
+    border-top: medium none;
     margin-left: 0;
-    margin-top: 10px;
-    padding: 20px 30px 30px;
+    padding: 20px 30px 20px;
     width: 740px;
-    border-top: none;
+    position: relative;
+    -moz-transition-duration: 300ms;
+    -moz-transition-property: background;
+    border-radius: 10px;
 }
 
-div#home-extra div#user-photos div.a-user-photo {
+div#home-extra div.user-photos.last {
+    border-bottom: none;
+}
+
+div#home-extra div.user-photos span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+div#home-extra div.user-photos:hover {
+  background-color: #f1f1f1;	
+}
+
+
+div#home-extra div.user-photos:hover h4 {
+  text-decoration: underline;	
+}
+
+
+div#home-extra div.user-photos div.left p a {
+  z-index: 2;	
+  position: relative;
+}
+
+div#home-extra div.user-photos div.a-user-photo {
     border-bottom: medium none;
     margin: 0 10px 0px 0px;
     padding-bottom: 0;
     width: 90px;
 }
 
-div#home-extra div#user-photos div.a-user-photo div.info {
+div#home-extra div.user-photos div.a-user-photo div.info {
     width: 490px;
 }
 
-div#home-extra div#user-photos div.a-user-photo div.photo {
+div#home-extra div.user-photos div.a-user-photo div.photo {
   margin-right: 10px;
 }
 
@@ -437,35 +474,97 @@ div#home-extra a.see-more {
     top: -2px;
 }
 
-div#home-extra h2 {
-    font-size: 32px;
-    text-shadow: 0 2px 3px #e1e1e1;
-    margin-bottom: 10px;
+div#home-extra h4 {
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    margin: 0;
+    color: #439249;
 }
 
 
+div#home-extra div.left p {
+  margin-bottom: -5px;	
+}
+
+
+/* right navigation styles */
+ul#right-nav {
+  list-style-type: none;
+  padding: 0;	
+}
+
+ul#right-nav li {
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-size: 12px;	
+  font-weight: bold;
+}
+
+ul#right-nav li a {
+  -moz-transition-duration: 300ms;
+  -moz-transition-property: background;
+  background-color: #f6f6f6;
+  padding: 5px 5px 5px 20px;
+  display: block;
+  margin-bottom: 2px;
+  color: #666;  	
+}
+
+ul#right-nav li a.selected {
+  color: #197621;  	
+  background-color: #e9e9e9;
+}
+
+ul#right-nav li a:hover {
+  color: #197621;  	
+  background-color: #E0F1E4;
+}
+
+ul#right-nav ul.subnav {
+  list-style-type: square;
+  padding-left: 10px;
+  margin-left: 20px;	
+}
+
+ul#right-nav ul.subnav li a {
+  background-color: #fff;
+	
+  font-size: 11px;
+  padding: 3px;
+    padding-left: 10px;
+  margin: 0;
+  border-bottom: 2px dotted #e1e1e1;
+}
+
+ul#right-nav ul.subnav li a.last {
+  border-bottom: none;	
+  margin-bottom: 2px;
+}
+
+
+/* end rightnav styles */
 
 
 /* content page styles */
 
 div#main-text-wide {
-  margin:0 auto;
   padding-top:30px;
-  width:800px;
+  width:100%;
+  float:left;
+  margin-left: 0px;
   margin-bottom: 80px;
 }
 
-div#main-text-wide div.left {
+div#main-text-wide div#left {
     float: left;
     margin: 0 10px 20px 0px;
-    width: 500px;
+    width: 560px;
 }
 
 div#main-text-wide div#right {
-    border-left: 1px solid #E1E1E1;
     float: right;
-    padding-left: 30px;
-    padding-top: 10px;
+    padding-left: 20px;
     width: 240px;
 }
 
@@ -480,20 +579,97 @@ p.introduction {
 
 /* tea listing styles */
 
+div#teas {
+  padding-left: 0px;
+  margin-top: 30px;	
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 3px dotted #e1e1e1;
+  float: left;
+}
+
 div.tea-promo {
-  border-right:1px solid #E1E1E1;
-  float:left;
-  margin-bottom:20px;
-  margin-top:0;
-  padding: 0 25px 20px 25px;
-  width:215px;
-  height: 270px;
+    float: left;
+    margin: 0 30px 20px 0px;
+    padding: 0px 0px 20px 0px;
+    position: relative;
+    width: 260px;
 }
 
 div.tea-promo.last {
-  margin-right:0;
-  border-right: none;
+  margin-right: 0;	
 }
+
+
+div.tea-promo:hover {	
+  cursor: pointer;
+}
+
+div.tea-promo div.image {
+    float: left;
+    margin-right: 20px;
+    width: 300px;
+}
+
+div.tea-promo:hover div.image img {
+  opacity: 0.8;	
+}
+
+div.tea-promo div.text {
+
+  float: left;
+  padding-left: 5px;
+  padding-top: 15px;	
+}
+
+div#main-text-wide div#left div.tea-promo div.text p {
+  margin: 0 0 0 0;	
+}
+
+div.tea-promo span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+div.tea-promo a.add-to-basket {
+  background: url('/images/price-back-small.png') no-repeat top;
+  width: 108px;
+  height: 25px;
+  position: relative;
+  float:left;	
+  margin-right: 10px;
+  z-index: 2;
+}
+
+div.tea-promo a.more-details {
+  background: url('/images/more-details.png') no-repeat top;
+  width: 108px;
+  height: 25px;
+  position: relative;
+  float:left;
+    z-index: 2;	
+}
+
+div.tea-promo:hover a.more-details {
+  background: url('/images/more-details.png') no-repeat center;
+}
+
+div.tea-promo:hover a.add-to-basket {
+  background: url('/images/price-back-small.png') no-repeat center;	
+}
+
+div.tea-promo a.add-to-basket:hover {
+  background: url('/images/price-back-small.png') no-repeat bottom;
+}
+
+div.tea-promo a.more-details:hover {
+  background: url('/images/more-details.png') no-repeat bottom;
+}
+
 
 
 
@@ -506,36 +682,47 @@ div.image-top {
 }
 
 div.tea-promo h4 {
-  margin-left: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 0px;
   margin-top: 0;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 1.3em;
+    font-size: 20px;
     font-weight: bold;
     letter-spacing: -1px;
-  color: #1a6d18;	
+    border-bottom: none;	
+}
+
+div.tea-promo h4 a {
+  color: #439249;
+}
+
+div.tea-promo:hover h4 a {
+  text-decoration: underline;	
 }
 
 
 div.tea-promo p {
-  margin-top: 5px;
+  margin-top: 0px;
   font-size: 13px;	
-  margin-left: 5px;
+  margin-left: 0px;
   margin-bottom: 10px;
   float: left;
   height: 80px;
 }
 
+
+
 div.tea-promo div.price {
-    color: #EE6464;
+    color: #439249;
     float: right;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 20px;
     font-weight: bold;
-    height: 18px;
     letter-spacing: -2px;
-    margin: -35px 0 5px 5px;
+    margin: 0 20px 5px 10px;
+    position: relative;
 }
+
+
 
 div#right p {
   margin: 0 0 10px 0;
@@ -543,39 +730,10 @@ div#right p {
   font-size: 13px;	
 }
 
-
-
-div.tea-top div.price {
-    background: url("/images/price-back.png") no-repeat scroll right top transparent;
-    float: left;
-    height: 21px;
-    margin: 0;
-    padding: 12px 0 15px 3px;
-    width: 265px;
+div#right p.small {
+  font-size: 11px;
 }
 
-div.tea-top div.price:hover {
-  cursor: pointer;
-  background: url('/images/price-back.png') no-repeat bottom right;
-}
-
-div.tea-top div.main-image img {
-  border-radius: 10px;	
-}
-
-div.price-text {
-    color: #EE6464;
-    float: left;
-    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 28px;
-    font-weight: bold;
-    height: 23px;
-    letter-spacing: -1px;
-    margin: 0;
-    position: relative;
-    top: -4px;
-    width: 200px;
-}
 
 div.price-text span {
   font-size:13px;
@@ -584,8 +742,8 @@ div.price-text span {
 
 
 img.tea-promo {
-    border-radius: 10px 10px 10px 10px;
-    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-bottom: 0px;
     margin-right: 0;
 }
 
@@ -598,6 +756,10 @@ span.grey {
   font-weight: normal;
 }
 
+span.lightgrey {
+  color:#e1e1e1;	
+}
+
 .small {
   font-size: 0.7em;	
 }
@@ -608,109 +770,130 @@ span.grey {
 
 /* SHOPPING BASKET PAGE STYLES */
 
-p.checkout {
-    float: left;
-    font-size: 14px;
+
+ /* these are the styles for the 'start checkout' button */
+div#start-checkout-button {
+    float: right;
+    margin: -120px 10px 0 0;
     width: 220px;
 }
 
-div#checkout-button {
-    -moz-border-radius: 10px 10px 10px 10px;
-    float: right;
-    margin: 15px 0px 0 0;
-    border-left: 1px solid #e1e1e1;
-    padding-left: 20px;
+div#start-checkout-button p, div#confirm-details-button p, div#confirm-and-pay-button p {
+    font-size: 12px;
+    padding-left: 5px;
 }
 
-div#checkout-button p {
-  width: 200px;
-  padding-left: 5px;
-  	
-}
-
-div#checkout-button a:link, div#checkout-button a:visited {
+div#start-checkout-button a:link, div#start-checkout-button a:visited {
 	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll left top transparent;
-	width: 227px;
-	height: 55px;
+	width: 220px;
+	height: 51px;
+	margin-bottom: 10px;
 }
 
-div#checkout-button a:hover {
-	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll bottom left transparent;
-	cursor: pointer;
-}
-
-div.checkout-button {
-    border-left: 1px solid #E1E1E1;
-    float: right;
-    margin-top: 15px;
-    padding-left: 36px;
-    width: 220px;
-}
-
-input.checkout-button {
-  background: url('/images/button-confirm-and-pay.png') no-repeat top left;
-  width: 227px;
-  height: 53px;
-  float: right;	
-  border: none;
-  margin-top:-10px;
-    -moz-border-radius-topleft:10px;
-  -moz-border-radius-topright:10px;
-  -moz-border-radius-bottomleft:10px;
-  -moz-border-radius-bottomright:10px;
-}
-
-input.checkout-button:hover {
-  background: url('/images/button-confirm-and-pay.png') no-repeat bottom left;
-  cursor: pointer;
-}
-
-input.button-confirm-address {
-  background: url('/images/button-confirm-address.png') no-repeat top left;
-  width: 227px;
-  height: 53px;
-  float: right;
-  border: none;
-    -moz-border-radius-topleft:10px;
-  -moz-border-radius-topright:10px;
-  -moz-border-radius-bottomleft:10px;
-  -moz-border-radius-bottomright:10px;
-}
-
-input.button-confirm-address:hover {
-  background: url('/images/button-confirm-address.png') no-repeat bottom left;
-  cursor: pointer;
-}
-
-input.submit-button {
-  background: url('/images/submit.png') no-repeat top left;
-  width: 227px;
-  height: 55px;
-  float: right;
-  border: none;
-}
-
-input.submit-button:hover {
-  cursor: pointer;
-  background: url('/images/submit.png') no-repeat bottom left;	
-}
-
-div#checkout-button a {
+div#start-checkout-button a {
   height: 55px;
   width: 227px;	
   display: block;
 }
 
+div#start-checkout-button a:hover {
+	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll center left transparent;
+	cursor: pointer;
+}
+
+div#start-checkout-button a:focus {
+	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll bottom left transparent;
+	cursor: pointer;
+}
+
+/* these are the styles for the 'confirm address' button */
+
+div#confirm-details-button {
+    float: right;
+    margin-top: 15px;
+    padding-right: 0px;
+    width: 220px;
+}
+
+input.confirm-details-button {
+    background: url("/images/button-confirm-address.png") no-repeat scroll left top transparent;
+    border: medium none;
+    height: 51px;
+    width: 220px;
+}
+
+input.confirm-details-button:hover {
+  background: url('/images/button-confirm-address.png') no-repeat center left;
+  cursor: pointer;
+}
+
+input.confirm-details-button:active {
+  background: url('/images/button-confirm-address.png') no-repeat bottom left;
+  cursor: pointer;
+}
+
+/* these are the styles for the 'confirm and pay' button */
+
+div#confirm-and-pay-button {
+    float: right;
+    margin-top: 15px;
+    padding-right: 0px;
+    width: 220px;
+}
+
+input.confirm-and-pay-button {
+    background: url("/images/button-confirm-and-pay.png") no-repeat scroll left top transparent;
+    border: medium none;
+    height: 51px;
+    width: 220px;
+}
+
+input.confirm-and-pay-button:hover {
+  background: url('/images/button-confirm-and-pay.png') no-repeat center left;
+  cursor: pointer;
+}
+
+input.confirm-and-pay-button:active {
+  background: url('/images/button-confirm-and-pay.png') no-repeat bottom left;
+  cursor: pointer;
+}
+
+/* these are styles for the 'submit button' like on the review form  */
+
+div#submit-button {
+    float: right;
+    margin-top: 15px;
+    padding-right: 0px;
+    width: 220px;	
+}
+
+input.submit-button {
+    background: url("/images/submit.png") no-repeat scroll left top transparent;
+    border: medium none;
+    float: right;
+    height: 51px;
+    width: 227px;
+}
+
+input.submit-button:hover {
+  cursor: pointer;
+  background: url('/images/submit.png') no-repeat center left;	
+}
+
+input.submit-button:active {
+  cursor: pointer;
+  background: url('/images/submit.png') no-repeat bottom left;	
+}
+
+
+
 
 
 div.row {
-    -moz-border-radius: 10px 10px 10px 10px;
-    background-image: url("/images/gray-stripe.png");
-    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
     float: left;
     margin-bottom: 20px;
-    padding: 10px 20px 0px 20px;
-    width: 470px;
+    padding: 0px;
+    width: 500px;
 }
 
 div.row.wide {
@@ -729,19 +912,19 @@ div.row-label {
   width: 100%;
   color: #d95b5e;
   font-size: 1.1em;
-  padding: 10px;
   margin-bottom: 0px;
 }
 
 div.row-label h3 {
-    font-size: 1.5em;
-    font-weight: bold;
+    color: #19761C;
+    font-size: 1.3em;
+    font-weight: normal;
     margin: 0;
 }
 
 div.row-box {
   float: left;
-  margin: 0px 0 10px 10px;	
+  margin: 0px 0 10px 0px;	
   padding-top: 5px;
 }
 
@@ -749,28 +932,40 @@ div.row-box table {
   font-size: 14px;	
 }
 
+div.row-box table td {
+  padding-bottom: 10px;	
+}
+
 div.row-box input {
-    -moz-border-radius: 7px 7px 7px 7px;
-    border-color: #D1D1D1 #E1E1E1 #E1E1E1 #D1D1D1;
+    border-color: #D1D1D1;
+    border-radius: 7px 7px 7px 7px;
     border-style: solid;
-    border-width: 1px 0 0 1px;
+    border-width: 1px;
     color: #666666;
     float: left;
-    font: 95% arial,helvetica,clean,sans-serif;
+    font: 14px arial,helvetica,clean,sans-serif;
     height: 20px;
-    margin: 0 0 20px 0px;
+    margin: 0 0 20px 0;
     padding: 10px 15px;
     width: 280px;
+}
+
+div.row-box input:focus {
+  border-color: #6acc75;
+  border-width: 1px;
+  margin-bottom: 19px;
 }
 
 div.row-box label {
     float: left;
     line-height: 1.2em;
-    margin-left: 0;
-    margin-right: 20px;
+    margin-left: 20px;
     position: relative;
+    text-align: left;
     top: 10px;
-    width: 100px;
+    width: 120px;
+    font-size: 14px;
+    color: #555;
 }
 
 div.row-box p {
@@ -778,9 +973,10 @@ div.row-box p {
 }
 
 div.row-box p.intro {
-  margin: -10px 0 25px 0;	
+  margin: 0px 0 25px 0;	
   color: #333;
   font-size: 14px;  
+  line-height: 1.4em;
 }
 
 
@@ -832,41 +1028,43 @@ ul.errorlist {
 
 
 
-div#user-photos {
-    border-top: 1px solid #E1E1E1;
+div.user-photos {
     float: left;
     margin: 0 0 0;
     padding-bottom: 20px;
     padding-right: 20px;
-    padding-top: 30px;
-    width: 780px;
+    padding-top: 10px;
 }
 
-div#user-photos div.a-user-photo {
+div.user-photos div.a-user-photo {
     float: left;
-    margin: 0 20px 40px 0;
-    padding-bottom: 40px;
-    width: 120px;
+    margin: 0 10px 0px 0;
+    padding-bottom: 0px;
+    width: 90px;
 }
 
-div#user-photos div.a-user-photo div.photo {
+div.user-photos div.a-user-photo div.photo {
   float: left;
-  margin-bottom: 5px;	
+  margin-bottom: 10px;	
 }
 
-div#user-photos div.a-user-photo div.info {
+div.user-photos div.a-user-photo div.info {
     float: left;
+    width: 120px;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
-div#user-photos div.a-user-photo div.info p {
+div.user-photos div.a-user-photo div.info p {
   margin: 0;
   float: left;	
 }
 
-div#user-photos div.a-user-photo div.info p.recommend {
+div#right div.user-photos div.a-user-photo p.recommend {
     color: black;
     float: left;
-    font-size: 12px;
+    font-size: 11px;
     font-style: italic;
 }
 
@@ -957,7 +1155,7 @@ div.about-box {
     border-radius: 10px 10px 10px 10px;
     float: left;
     margin: 0 0 20px;
-    width: 210px;
+    width: 220px;
 }
 
 div.flatpage p.about-promo {
@@ -1020,9 +1218,11 @@ img.map {
   margin-bottom: 5px;	
 }
 
-div.left p.caption {
+div.left p.caption, div.flatpage p.caption {
   font-size: 0.8em;
   padding-left: 10px;
+  color: #000;
+  
 }
 
 
@@ -1092,4 +1292,457 @@ img.flag {
 }
 div.about-box img.flag {
   top: 1px;	
+}
+
+div.right-image {
+  float: left;
+  margin-bottom: 20px;	
+}
+
+div.like {
+  float: left;	
+  margin-top: 10px;
+  border-bottom: 3px dotted #e1e1e1;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+div.like.last {
+  border-bottom: none;	
+}
+
+div.like div.image {
+  float: left;
+  margin-right: 10px;	
+}
+
+div#blog-right div.box.clear div.like p.description {
+  color: #666;	
+  line-height: 14px;
+  font-size: 12px;
+}
+
+div.like a {
+  font-size: 13px;	
+}
+
+div.like div.text {
+  float: left;
+  width: 160px;
+}
+
+div#right div.like div.text p {
+  line-height: 1.2em;
+  font-size: 12px;
+}
+
+
+div.rss {
+  position: relative;
+  top: 35px;
+  right:20px;
+  float: right;
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+div.rss img {
+  position: relative;
+  top: 4px;	
+}
+
+div.info {
+    border-bottom: 3px dotted #F7D2D2;
+    float: left;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    width: 240px;
+}
+
+div.info.last {
+  border-bottom: none;	
+}
+
+div#right p.mail {
+    float: left;
+    font-size: 12px;
+    height: 30px;
+    line-height: 1.2em;
+    margin-top: 15px;
+    width: 200px;
+    position: relative;
+}
+
+div#right a.title {
+  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-weight: 900;	
+}
+
+div#right p.mail:hover img.mail-icon {
+  opacity: 0.8;	
+}
+
+div#right p.mail:hover a.title {
+  text-decoration: underline;	
+}
+
+div#right p.mail span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+img.mail-icon {
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    margin-right: 10px;
+    position: relative;
+}
+
+span.red {
+  color: #BE373A;	
+}
+
+div#main-text-wide div#left div.box {
+  width: 230px;
+  float: left;
+  margin-right: 20px;	
+}
+
+div#main-text-wide div#left div.box p {
+  padding: 10px;
+  background-color: #e1e1e1;
+  margin: 0;
+}
+
+div#main-text-wide div#left div.caption {
+    background-color: #F1F1F1;
+    float: left;
+    font-size: 11px;
+    margin-bottom: 20px;
+    padding: 10px;	
+}
+
+div#main-text-wide div#left div.caption.wide {
+    width: 510px;
+}
+
+div#main-text-wide div#left img.about {
+    float: right;
+    margin-left: 20px;
+}
+
+
+
+/* root element for single scroll */
+	.scroll {
+		position:relative;
+		overflow:hidden;
+		width: 530px;
+		height: 352px;
+		float:left;
+		margin-bottom: 30px;
+	}
+	
+	/* root element for the scroll pics */
+	.scroll .pics {
+		width:20000em;
+		position:absolute;
+		clear:both;
+	}
+	
+	/* single scroll item */
+	.pics div {
+		float:left;
+		cursor:pointer;
+		width:530px !important;
+		height:352px;
+		margin:0px;
+		border-radius: 10px;
+	}
+	
+	.pics p {
+	  position: absolute;
+	  top: 321px;
+	  float: none;
+	  background-color: #fff;
+	  padding: 5px 10px;
+	  font-size: 12px;
+	  opacity: 0.8;
+	  width: 510px;
+	  color:#333;
+	}
+
+	.pics span.click {
+	  color: #439249;	
+	}
+	
+	/* possible settings for the active scroll */
+	.scroll.active {
+	
+	}
+
+.did-you-know {
+   position:relative;
+   width:460px;
+   padding: 15px;
+   float: left;
+   color:#fff;
+   background:#f3f3f3;
+   margin-top: 20px;
+   border: 1px solid #e1e1e1;
+   z-index: 3;
+   border-radius: 5px;
+   background-image: -moz-linear-gradient(#f3f3f3, #f9f9f9);
+   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#f9f9f9));
+   background-image: -webkit-linear-gradient(#f3f3f3, #f9f9f9); 
+   background-image: -o-linear-gradient(#f3f3f3, #f9f9f9);
+}
+
+div#right .did-you-know {
+  width: 190px;
+  margin-top: 0px;
+  padding: 10px;  	
+}
+
+div#right .did-you-know p, .did-you-know-p {
+  font-size: 11px;
+  margin: 0;	
+}
+
+.did-you-know span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;		
+}
+
+.did-you-know:hover {
+  border: 1px solid #84c37d;
+}
+
+.did-you-know:hover:after {
+  border-bottom: 15px solid #84c37d;	
+}
+   
+
+
+/* this is the background of the arrow */
+.did-you-know:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 15px solid #e1e1e1;         
+        border-top: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        top: -15px;
+        left: 29px;
+        z-index: 1;
+        margin-left: ;
+}
+
+/* this is the foreground of the arrow */
+.did-you-know:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 15px solid hsla(0,0%,95%,1);     
+        border-top: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        top: -14px;
+        left: 30px;
+        z-index: 2;
+        margin-left: -1px;
+}
+
+div#main-text-wide div#left div.did-you-know h3, div.did-you-know h3 {
+    color: #439249;
+    font-family: Helvetica,sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 2px 0 #FFFFFF;
+}
+
+div#main-text-wide div#left div.did-you-know h3 span.grey, div.did-you-know h3 span.grey {
+  text-align: right;
+  font-size: 14px;
+  padding-left: 10px;	
+}
+
+div#main-text-wide div#left div.did-you-know p {
+    font-size: 12px;
+    margin: 5px 0 0 0;
+    line-height: 1.5em;
+}
+
+div#main-text-wide div#left div.did-you-know img {
+  float: left; 
+  margin-right: 10px;
+  position: relative;
+  top: 8px;	
+}
+
+div#comments {
+  border-bottom: 3px dotted #e1e1e1;
+  margin-bottom: 20px;
+  float: left;	
+  width: 560px;
+  padding-bottom: 20px;
+}
+
+div#main-text-wide div#left div#comments h3 {
+    background-color: #F1F1F1;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 1px 1px #C1C1C1;
+    float: left;
+    font-size: 24px;
+    margin: 10px 0 0 -20px;
+    padding: 15px 45px 15px 30px;
+    position: relative;
+}
+
+div#comments h3:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 30px solid hsla(0,0%,95%,1);     
+        border-top: 0;
+        border-left: 0px solid transparent;
+        border-right: 50px solid transparent;
+        position: absolute;
+        top: -15px;
+        left: 1px;
+        z-index: 2;
+        margin-left: -1px; 
+}
+
+div#comments div#comments-list {
+    float: left;
+    margin-top: 20px;
+    width: 100%;
+}
+
+div#comments div#comments-list div.comment {
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  float: left;	
+  width: 100%;
+}
+
+div#comments div#comments-list div.comment p {
+  	margin: 0;
+  	padding: 0;
+}
+
+div#comments div#comment-form #form {
+  	float: left;
+  	margin-top: 30px;
+}
+
+div#comments div#comment-form label {
+  width: 100px;	
+}
+
+div#comments div#comment-form input, div#comments div#comment-form textarea {
+  width: 400px;	
+}
+
+div#comments div#comment-form input.submit-preview {
+  display: none;	
+}
+
+div#comments div#comment-form input.submit-post {
+  float: right;
+  width: 200px;
+  padding: 10px 15px;
+  height: 40px;
+  border-radius: 7px;
+  margin-top: 10px;
+   background-image: -moz-linear-gradient(#f3f3f3, #f9f9f9);
+   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#f9f9f9));
+   background-image: -webkit-linear-gradient(#f3f3f3, #f9f9f9); 
+   background-image: -o-linear-gradient(#f3f3f3, #f9f9f9);
+ font-weight: bold;
+ font-family: Helvetica, sans-serif;
+ font-size: 15px;
+ text-shadow: 0 1px 1px #fff;	
+ position: relative;
+}
+
+div#comments div#comment-form input.submit-post:hover {
+  border-color: #439249;
+  cursor: pointer;
+  color: #439249;
+}
+
+div#main-text-wide div#left div#comments div#comment-form p {
+  margin: 0;	
+}
+
+button.prev {
+    background: url("/images/prev-arrow.png") no-repeat scroll center top transparent;
+    border: medium none;
+    cursor: pointer;
+    float: left;
+    height: 45px;
+    left: 10px;
+    position: relative;
+    top: -240px;
+    width: 46px;
+    z-index: 4;
+}
+
+button.prev:hover {	
+  background: url('/images/prev-arrow.png') no-repeat scroll bottom transparent;
+}
+
+button.next {
+    background: url("/images/next-arrow.png") no-repeat scroll center top transparent;
+    border: medium none;
+    cursor: pointer;
+    float: right;
+    height: 45px;
+    left: -40px;
+    position: relative;
+    top: -240px;
+    width: 46px;
+    z-index: 4;
+}
+
+button.next:hover {
+  	background: url("/images/next-arrow.png") no-repeat scroll bottom transparent;
+}
+
+div#basket {
+    background-color: #f3fff6;
+    border-radius: 10px 10px 10px 10px;
+    float: left;
+    font-size: 0.9em;
+    padding: 30px;
+    width: 795px;
+    margin-top: 20px;
+    border: 1px solid #d9ebde;
+}	
+
+div.learn-box {
+  float: left;
+  border-bottom: 3px dotted #e1e1e1;	
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
