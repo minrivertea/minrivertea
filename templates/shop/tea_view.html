@@ -203,19 +203,19 @@ div.tea-top div#prices div.price.large {
 }
 
 div.tea-top div#prices div.price.large div.button {
-  background: url("/images/price-back-two.png") no-repeat scroll right top transparent;	
+  background: url("{% staticfile '/images/price-back-two.png' %}") no-repeat scroll right top transparent;	
   width: 186px;
   height: 43px;
 }
 
 div.tea-top div#prices div.price.large div.button:hover {
-  background: url("/images/price-back-two.png") no-repeat scroll right center transparent;	
+  background: url("{% staticfile '/images/price-back-two.png' %}") no-repeat scroll right center transparent;	
   width: 186px;
   height: 43px;
 }
 
 div.tea-top div#prices div.price.large div.button:active {
-  background: url("/images/price-back-two.png") no-repeat scroll right bottom transparent;	
+  background: url("{% staticfile '/images/price-back-two.png' %}") no-repeat scroll right bottom transparent;	
   width: 186px;
   height: 43px;
 }
@@ -240,7 +240,7 @@ div.tea-top div#prices div.price.last {
 }
 
 div.tea-top div.button {
-    background: url("/images/add-to-basket-button.png") no-repeat scroll right top transparent;
+    background: url("{% staticfile '/images/add-to-basket-button.png' %}") no-repeat scroll right top transparent;
     float: left;
     height: 33px;
     margin: 10px 0 0 0;
@@ -249,12 +249,12 @@ div.tea-top div.button {
 
 div.tea-top div.button:hover {
   cursor: pointer;
-  background: url('/images/add-to-basket-button.png') no-repeat center right;
+  background: url("{% staticfile '/images/add-to-basket-button.png' %}") no-repeat center right;
 }
 
 div.tea-top div.button:active {
   cursor: pointer;
-  background: url('/images/add-to-basket-button.png') no-repeat bottom right;
+  background: url("{% staticfile '/images/add-to-basket-button.png' %}") no-repeat bottom right;
 }
 
 div.tea-top div.main-image img {
