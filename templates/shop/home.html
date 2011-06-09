@@ -2,9 +2,9 @@
 {% load thumbnail %}
 {% load django_static %}
 
-{% block pagetitle %}authentic Chinese teas delivered to your door from the Min River Tea Farm{% endblock %}
+{% block pagetitle %}Chinese tea delivered to your door in the UK and Europe{% endblock %}
 
-{% block metadescription %}The Min River Tea Farm is a UK-based tea merchant. We sell great quality, authentic oolong green tea, jasmine tea and da hong pao tea sourced from farms in China and delivered direct to your door. {% endblock %}
+{% block metadescription %}We sell great quality Chinese tea and deliver it to your home in the UK or Europe. Our oolong and green teas are organic, sourced directly from farms in China, and hand-picked. {% endblock %}
 
 
 {% block extracss %}
@@ -82,6 +82,7 @@ div#feature {
     background: url("{% staticfile '/images/home-feature.jpg' %}") no-repeat;
     border-radius: 10px;
     margin: 20px 0;
+    position: relative;
 }
 
 div#feature img {
@@ -111,6 +112,15 @@ div#feature div.top p {
   float: left;
   padding: 0 0 0 15px;
   color: #333;
+}
+
+div#feature span.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index:2;	
 }
 
 
@@ -316,8 +326,9 @@ div#home-bottom h3 {
 	</div>
 	
 		<div id="feature">
+		<a title="Click to view photos of the 2011 tea harvest from Wuyi Shan, China" alt="View photos of the 2011 tea harvest from Wuyi Shan, China" href="/blog/wu-yi-shan-da-hong-pao-harvest-photos/"><span class="link"></span></a>
 		<div class="top">
-			<h3>Spring tea harvest - our photos from Wuyi Mountain</h3>
+			<h3><a href="/blog/wu-yi-shan-da-hong-pao-harvest-photos/">Spring tea harvest - our photos from Wuyi Mountain</a></h3>
 			<p>Wuyi Mountain is the home of our tea The Big Red (da hong pao)</p>
 		</div>
 		
@@ -330,7 +341,7 @@ div#home-bottom h3 {
 		
 	<div id="home-bottom">
 		<div class="right">
-		<h3>What our customers say... <span class="small"><a href="{% url reviews %}">(see more)</a></span></h3>
+		<h3>What our customers say... <span class="small"><a title="Click to see customer testimonials of our Chinese tea" href="{% url reviews %}">(see more)</a></span></h3>
 
 		{% for r in review %}
 		<div class="box">
@@ -340,13 +351,13 @@ div#home-bottom h3 {
 		</div>
 		<div class="left">
 			<div class="did-you-know">
-				<a href=""><span class="link"></span></a>
-				<h3><a href="">First time trying Chinese tea? <span class="grey">Get a taster pack and try out all three of our delicious teas for just £6 &raquo;</span></a></h3>
+				<a title="Try samples of our three main teas in a simple taster pack" href="/teas/chinese-tea-sampler-pack/"><span class="link"></span></a>
+				<h3><a href="/teas/chinese-tea-sampler-pack/">First time trying Chinese tea? <span class="grey">Get a taster pack and try out all three of our delicious teas for just £6 &raquo;</span></a></h3>
 				<img style="float:right; margin-top: 0px;" src="{% staticfile '/images/taster-promo.png' %}">
 			</div>
 			<div class="box">
 			<img src="{% staticfile '/images/brew-promo.png' %}">
-			<h4><a href="">Learn how to brew the perfect cup</a><br/><span class="small">A simple guide &raquo;</span></h4>
+			<h4><a title="Short and simple guides to brewing Chinese tea" href="/learn/how-to-brew-chinese-tea/">Learn how to brew the perfect cup</a><br/><span class="small">A simple guide &raquo;</span></h4>
 			</div>
 		</div>
 	</div>

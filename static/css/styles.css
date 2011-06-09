@@ -195,7 +195,13 @@ div.footer-box ul li {
 /* typography */
 
 h1 {
-	
+    color: #FF8585;
+    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+    font-size: 2em;
+    font-weight: normal;
+    letter-spacing: -1px;
+    margin: 0 0 5px;
+    padding-bottom: 0;
 }
 
 h2 {
@@ -271,17 +277,21 @@ p.shipping {
 
 div#logo {	 
  width: 400px;
+ height: 100px;
+ background: url("/images/logo8.jpg") no-repeat scroll 0 0 transparent;
  float: left;
  margin: 20px 0 0 0px;
+ position: relative;
 }
 
-div#logo h1 {
-    background: url("/images/logo8.jpg") no-repeat scroll 0 0 transparent;
-    height: 100px;
-    margin: 0px 0 0 0px;
+div#logo a {
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;	
 }
 
-div#logo h1 span {
+div#logo a span {
   display: none;	
 }
 

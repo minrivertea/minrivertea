@@ -131,6 +131,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=80)
     meta_title = models.CharField(max_length=200, blank=True, null=True)		
     description = models.TextField()
+    meta_description = models.TextField(blank=True, null=True)
     super_short_description = models.CharField(max_length=200)
     body_text = models.TextField()
     long_description = models.TextField(blank=True, null=True)

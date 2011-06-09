@@ -2,6 +2,7 @@
 {% load thumbnail %}
 {% load django_static %}
 
+{% block pagetitle %}Your basket ({{ basket_quantity }}){% endblock %}
 {% block metadescription %}Your basket - shop on www.minrivertea.com and get the best prices and great tasting authentic Chinese teas delivered direct to your door.{% endblock %}
 
 {% block extracss %}
@@ -214,14 +215,14 @@ a.minus:hover {
 </style>
 {% endblock %}
 
-{% block pagetitle %}your basket ({{ basket_quantity }}){% endblock %}
+
 
 {% block content %}
 
 
 <div id="main-text-wide">
 
-<h2 class="fontface">Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h2>
+<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
 
 {% if basket_items %}
 

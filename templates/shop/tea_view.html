@@ -2,7 +2,7 @@
 {% load thumbnail %}
 {% load django_static %}
 
-{% block metadescription %}{{ tea.name }} - {{ tea.description }}{% endblock %}
+{% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description }}{% else %}{{ tea.name }} - {{ tea.description }}{% endif %}{% endblock %}
 {% block pagetitle %}{{ tea.meta_title }}{% endblock %}
 
 {% block extrajs %}
@@ -181,19 +181,6 @@ div.tea-top div.main-image {
   width: 500px;
   float: left;
   margin-right: 20px;	
-}
-
-div.tea-top div.main-image div.caption {
-  position: relative;
-  top: -30px;
-  background-color: #fff;
-  opacity: 0.8;	
-  padding: 5px 10px;
-}
-
-div.tea-top div.main-image div.caption p {
-  margin: 0;
-  font-size: 12px;	
 }
 
 div.tea-top div#prices {
@@ -476,7 +463,7 @@ Share this page with friends
 <a title="Tweet this tea to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fteas%2F{{ tea.slug }}"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
 <a title="Checkout photos of this tea and more on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
 </div>
-	<h2 class="fontface">{{ tea.name }} tea</h2>
+	<h1>{{ tea.name }} Chinese tea</h1>
 	    		<p class="subtitle">{{ tea.super_short_description }}</p>
 
 	
@@ -632,7 +619,7 @@ Share this page with friends
 
 	<div id="left">
 		{% if reviews %}
-			<h3>Customer reviews for this tea <span class="">- <a href="{% url review_tea tea.slug %}">Add your own review &raquo;</a></span></h3>
+			<h3>Customer reviews for {{ tea.name }} Chinese tea <span class="">- <a href="{% url review_tea tea.slug %}">Add your own review &raquo;</a></span></h3>
 			<ul class="reviews">
 			{% for review in reviews %}
 				<li><em>"{{ review.short_text }}"</em> <br/><span>{{ review.first_name }} {{ review.last_name }}</span></li>

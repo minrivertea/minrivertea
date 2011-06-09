@@ -3,7 +3,7 @@
 {% load django_static %}
 {% load comments %}
 
-{% block meta-description %}{{ entry.summary }}{% endblock %}
+{% block metadescription %}{{ entry.summary|safe }}{% endblock %}
 {% block pagetitle %}{{ entry.title }}{% endblock %}
 
 
@@ -148,7 +148,7 @@ div#entry-content img.tweet {
 <a title="Tweet this blog entry to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F{{ entry.slug }}"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
 </div>
 		
-			<h2 class="fontface">{{ entry.title }}</h2>
+			<h1>{{ entry.title }}</h1>
 			<p class="subtitle"><em>{{ entry.date_added|date:"D d M Y" }}</em> <span class="small"><a href="{% url blog_home %}">&laquo; back to blog home</a></span></p>
 
 	<div id="right">

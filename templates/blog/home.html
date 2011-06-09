@@ -2,7 +2,9 @@
 {% load thumbnail %}
 {% load django_static %}
 
-{% block pagetitle %}our tea blog{% endblock %}
+{% block pagetitle %}Our Chinese tea blog{% endblock %}
+{% block metadescription %}A blog about Chinese tea from the Min River Tea Farm - tea reviews, Chinese tea photos, articles and latest updates from the UK's best Chinese tea shop.{% endblock %}
+
 
 {% block extracss %}
 <style type="text/css">
@@ -139,8 +141,7 @@ div.like div.text {
 </style>
 {% endblock %}
 
-{% block meta-description %}Chris West's blog about photography, the web and Fuzhou, China - my home{% endblock %}
-{% block title %}photography, the web and life in China{% endblock %}
+
 
 
 {% block content %}
@@ -155,7 +156,7 @@ div.like div.text {
 <a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
 </div>
 
-	<h2 class="fontface">The Min River blog</h2>
+	<h1>The Min River blog</h1>
 	<p class="subtitle">News, photos and info about Chinese tea.</p>
 	
 
