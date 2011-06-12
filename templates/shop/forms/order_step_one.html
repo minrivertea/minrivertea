@@ -116,7 +116,7 @@ div#confirm-details-button {
   {% if shopper %}
     margin-top: 50px;
   {% else %}
-    margin-top: 315px;
+    margin-top: 285px;
   {% endif %}	
 }
 
@@ -230,7 +230,7 @@ span.country {
 		</div>
     	<div class="row-box">
     	{{ form.non_field_errors }}
-    		<p class="intro">Please confirm which address we should send your tea to. We only ship to the UK and Europe, so please make sure this is a valid UK/EU address.</p>
+    		<p class="intro">Please confirm which address we should send your tea to. Please make sure this is a valid UK address, or we will not be able to ship your tea.</p>
     		
 
       <p>
@@ -264,13 +264,15 @@ span.country {
       	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" /> 
       	<label for="id_postcode"><span class="red">*</span> Postcode:</label>
       	</p>
-      	
+      
+      <div style="display:none;">	
 	  <p>
 	    <span class="country">
 	    {{ confirm_form.country }}
 	    </span>
 	    <label for="id_country"><span class="red">*</span> Country:</label>
 	  </p>
+	  </div>
  	  <br clear="all">
  	  
  	</div> 
