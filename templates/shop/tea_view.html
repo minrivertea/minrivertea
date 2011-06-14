@@ -460,8 +460,8 @@ div.fb-recommend {
 <div class="rss">
 Share this page with friends
 <a title="Share this tea on facebook" target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com%2Fteas%2F{{ tea.slug }}"><img src="{% staticfile '/images/facebook.png' %}"></a>
-<a title="Tweet this tea to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fteas%2F{{ tea.slug }}"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
 <a title="Checkout photos of this tea and more on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
+<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com/teas/{{ tea.slug }}/" data-text="{{ tea.name }}" data-count="none" data-via="minrivertea"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
 </div>
 	<h1>{{ tea.name }} Chinese tea</h1>
 	    		<p class="subtitle">{{ tea.super_short_description }}</p>
