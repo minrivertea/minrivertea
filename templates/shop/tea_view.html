@@ -2,7 +2,7 @@
 {% load thumbnail %}
 {% load django_static %}
 
-{% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description }}{% else %}{{ tea.name }} - {{ tea.description }}{% endif %}{% endblock %}
+{% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
 {% block pagetitle %}{{ tea.meta_title }}{% endblock %}
 
 {% block extrajs %}
