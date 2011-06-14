@@ -63,6 +63,16 @@
 				{% else %}
 				<a href="{% url ship_it order.id %}">Ship it</a>
 				{% endif %}
+				<br/>
+				{% if order.sampler_email_sent %}
+					{% if order.sampler_sent %}
+					sampler sent
+					{% else %}
+					sampler email sent
+					{% endif %}
+				{% else %}
+				<a href="{% url send_sampler_email order.id %}">Send sampler email</a>
+				{% endif %}
 			</td>
 			<td>
  				{{ order.get_amount }}

@@ -697,3 +697,38 @@ def ship_it(request, id):
     order.save()
     
     return HttpResponseRedirect('/admin-stuff')
+
+# function for sending the 'send sample to friend' email
+def send_sampler_email(request, id):
+    order = get_object_or_404(Order, pk=id)
+    shopper = order.owner
+    if order.sampler_email_sent:
+        return False
+
+    sender = settings.SITE_EMAIL
+    recipient = shopper.email
+            
+    # create email
+    body = render_to_string('shop/emails/send_sample_to_friend_email.txt', {'shopper': shopper})
+    subject_line = "Give a tea gift to a friend, courtesy of the Min River Tea Farm"
+    send_mail(
+                      subject_line, 
+                      body, 
+                      sender,
+                      [recipient], 
+                      fail_silently=False
+    )
+    
+    order.sampler_email_sent = True
+    order.save()
+    
+    return HttpResponseRedirect('/admin-stuff')
+    
+    
+    
+    
+    
+    
+    
+    
+    
