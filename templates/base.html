@@ -75,21 +75,21 @@
     	
 	    <div id="header">
 	    	<div id="logo">
-	    		<a title="The Min River Team Farm - Chinese tea delivered to your door" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"><span>Chinese tea delivered to your door - the Min River Tea Farm</span></a>
+	    		<a title="Chinese tea delivered to your door by www.minrivertea.com" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"></a>
 	    	</div>
 	    	
 	    	<p class="shipping">
-				<img class="flag" src="{% staticfile '/images/uk-flag.gif' %}">
-	    		<a title="click for more info about delivery and packaging of your tea" href="/where-do-we-deliver/">We ship in 1-2 days anywhere in the UK</a>
+				<img class="flag" src="{% staticfile '/images/004.gif' %}">
+	    		<a title="Chinese tea delivered to your door in the UK" href="/where-do-we-deliver/">We ship in 1-2 days anywhere in the UK</a>
 	    	</p>
 
 	    	<div id="navigation">
 	    	    <ul id="nav">
 	    	    	<li>
-	    	    		<a class="{% nav_selected request '^/$' %}" href="{% url home %}" title="Home">Home</a>
+	    	    		<a class="{% nav_selected request '^/$' %}" href="{% url home %}" title="Chinese tea delivered to your door.">Home</a>
 	    	    	</li>
 	    	        <li>
-	    	        	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="See all of our authentic Chinese teas" alt="">Our teas</a>
+	    	        	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Our teas</a>
 	    	        </li>
 	    	        <li>
 	    	        	<a class="{% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn</a>
@@ -122,10 +122,10 @@
     </div>
 
 		<ul class="footer-links">
-		      <li>&copy; Min River Tea Farm 2011 145 - 157 St John St, London, EC1V 4PW, UK &raquo;</li>
-	          <li><a title="Terms and Conditions" href="/terms-and-conditions/"><span class="fontface">Terms and Conditions</span></a>  /</li>
-	          <li><a title="Read about the Min River Tea Farm" href="/about/"><span class="fontface">About Us</span></a>  /</li>
-	          <li><a title="Read our Privacy Policy" href="/privacy/"><span class="fontface">Privacy</span></a>  /</li>
+		      <li>&copy;2011 minrivertea.com | 145 - 157 St John St, London, EC1V 4PW, UK &raquo;</li>
+	          <li><a href="/terms-and-conditions/"><span class="fontface">Terms and Conditions</span></a>  /</li>
+	          <li><a href="/about/"><span class="fontface">About Us</span></a>  /</li>
+	          <li><a href="/privacy/"><span class="fontface">Privacy</span></a>  /</li>
 	          <li><a href="{% url contact_us %}">Contact Us</a></li>
 	          <li><br/></li>
 	   </ul>
