@@ -186,7 +186,7 @@ div.basket-row:hover div.plus-minus a {
 
 a.plus {
   display: block;
-  background: url('/images/plus.png') no-repeat top left;
+  background: url('{% staticfile "/images/plus.png" %}') no-repeat top left;
   height: 14px;
   width: 15px;
   float: right;
@@ -195,12 +195,12 @@ a.plus {
 }
 
 a.plus:hover {
-  background: url('/images/plus.png') no-repeat bottom left;
+  background-position: bottom left;
 }
 
 a.minus {
   display: block;
-  background: url('/images/minus.png') no-repeat top left;
+  background: url('{% staticfile "/images/minus.png" %}') no-repeat top left;
   height: 14px;
   width: 15px;
   float: left;	
@@ -209,7 +209,7 @@ a.minus {
 }
 
 a.minus:hover {
-  background: url('/images/minus.png') no-repeat bottom left;
+  background-position: bottom left;
 }
 
 </style>
