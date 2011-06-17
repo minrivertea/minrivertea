@@ -59,11 +59,9 @@ def twitter_post(tweet):
 # the homepage view
 def index(request):
     
-    # load variables
-    photos = Photo.objects.filter(published_homepage=True).order_by('?')[:6]        
-    featured = Product.objects.filter(is_active=True).exclude(category="POS") 
+    # load variables       
+    featured = Product.objects.filter(is_active=True).exclude(category="POS")[:3] 
     prices = UniqueProduct.objects.filter(is_active=True)
-    welike = WeLike.objects.all().order_by('-date_added')[:2]
     review = Review.objects.all()[:2]
     
     # load the products and prices combinations
