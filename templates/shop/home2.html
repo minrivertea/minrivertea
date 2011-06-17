@@ -301,41 +301,89 @@ div#home-bottom h3 {
   color: #333;
 }
 
+div#products {
+  float: right;
+  margin-top: 50px;	
+  width: 650px;
+  margin-bottom: 20px;
+}
+
+div#products div.tea-promo {
+  width: 190px;
+  margin-right: 15px;
+  border-bottom: none;
+  border-right: 1px solid #e1e1e1;
+  padding-right: 15px;
+}
+
+div#products div.tea-promo.last {
+  margin-right: 0;
+  padding-right: 0;
+  border-right: none;	
+}
+
+div#products div.tea-promo h4 {
+  font-size: 16px;	
+}
+
+div#products div.tea-promo div.price {
+  font-size: 16px;	
+}
+
+div#products div.tea-promo div.image {
+  width: 180px;	
+}
+
+div#products img.tea-promo {
+  border-radius: 0;	
+}
+
+div#text {
+  float: left;
+  width: 150px;	
+  margin-top: 40px;
+  background-color: #f1f1f1;
+  height: 300px;
+  padding: 10px 15px;
+  border-right: 5px solid #e1e1e1;
+}
+
+div#text h1 {
+  color: #439249;
+  font-weight: bold;
+  font-size: 20px;	
+  margin: 0;
+  line-height: 1.2em;
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 10px;
+}
+
+div#text p {
+  margin: 10px 0 0 0;	
+  font-size: 12px;
+}
+
 </style>
 {% endblock %}
 
 {% block content %}
 
-	<div id="top">
-		<div class="left">
-			<a href="{% url teas %}"><span class="link"></span></a>
-			<h3><a href="{% url teas %}">Buy tea</a></h3>
-			<p>We sell a small, hand-selected range  of fresh Chinese teas from the Fujian Province</p>
-			<p><a href="{% url teas %}">Browse our teas</a></p>
-		</div>
-		
-		<div class="right">
-		    <a href="/learn/"><span class="link"></span></a>
-			<h3><a href="/learn/">Learn</a></h3>
-			<p>We don’t just sell tea - we help you learn about Chinese tea history, culture and how to make it too!</p>
-			<p><a href="/learn/">Learn more about tea</a> | <a href="/about/">About us</a></p>
-		</div>
-	
-	</div>
-	
-		<div id="feature">
+<div id="text">
+<h1>Try out our best selling Chinese teas today &raquo;</h1>
+<p><em>We sell high quality loose-leaf Chinese tea direct from China. No middle-men, no nonsense, just great tea at great prices, delivered to your door.</em></p>
+</div>
+<div id="products">
+{% include "shop/snippets/products2.html" %}
+</div>
+
+	<div id="feature">
 		<a title="Click to view photos of the 2011 tea harvest from Wuyi Shan, China" alt="View photos of the 2011 tea harvest from Wuyi Shan, China" href="/blog/wu-yi-shan-da-hong-pao-harvest-photos/"><span class="link"></span></a>
 		<div class="top">
 			<h3><a href="/blog/wu-yi-shan-da-hong-pao-harvest-photos/">Spring tea harvest - our photos from Wuyi Mountain</a></h3>
 			<p>Wuyi Mountain is the home of our tea The Big Red (da hong pao)</p>
 		</div>
-		
 	</div>
-
-
-
 	
-
 		
 	<div id="home-bottom">
 		<div class="right">
