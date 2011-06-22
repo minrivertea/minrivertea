@@ -8,7 +8,7 @@
 	<link>http://www.minrivertea.com</link>
 
 <item>
-<title>Iron Buddha (tie guan yin)</title>
+<title>Iron Buddha Chinese tea (tie guan yin)</title>
 <g:brand>Min River Tea Farm</g:brand>
 <g:mpn>IRONBUDDHA125</g:mpn>
 <g:condition>new</g:condition>
@@ -31,7 +31,7 @@
 </item>
  
 <item>
-<title>Jasmine Pearls (mo li hua)</title>
+<title>Jasmine Pearls Chinese tea (mo li hua)</title>
 <g:brand>Min River Tea Farm</g:brand>
 <g:mpn>JASMINEPEARLS250</g:mpn>
 <g:condition>new</g:condition>
@@ -54,7 +54,7 @@
 </item>
 
 <item>
-<title>The Big Red (da hong pao)</title>
+<title>The Big Red Chinese tea (da hong pao)</title>
 <g:brand>Min River Tea Farm</g:brand>
 <g:mpn>DAHONGPAO100</g:mpn>
 <g:condition>new</g:condition>
@@ -75,6 +75,80 @@
 </g:shipping>
 <g:shipping_weight>120 gram</g:shipping_weight>
 </item>
+
+
+<item>
+<title>Iron Buddha Chinese tea (tie guan yin) Sampler Pack</title>
+<g:brand>Min River Tea Farm</g:brand>
+<g:mpn>IRONBUDDHA20</g:mpn>
+<g:condition>new</g:condition>
+<description>Iron Buddha (an oolong tea) is the classic Chinese green tea. We've selected a special variety of Iron Buddha for the Min River Tea Farm which has what the Chinese call 'tou suan' - a slightly crisp and tingling aftertaste that refreshes the taste buds and cleans the palette.</description>
+<g:id>6</g:id>
+<g:gtin>5060271120031</g:gtin>
+<g:image_link>http://static.minrivertea.com/images/product-photos/iron-buddha-1_1_png_500x500_q85.jpg</g:image_link>
+<link>http://www.minrivertea.com/teas/iron-buddha/</link>
+<g:price>3.00 GBP</g:price>
+<g:product_type>Food, Beverages &amp; Tobacco &gt; Beverages &gt; Tea &amp; Infusions</g:product_type>
+<g:quantity>40</g:quantity>
+<g:availability>in stock</g:availability>
+<g:online_only>y</g:online_only>
+<g:shipping>
+   <g:country>GB</g:country>
+   <g:service>Royal Mail</g:service>
+   <g:price>3.00</g:price>
+</g:shipping>
+<g:shipping_weight>20 gram</g:shipping_weight>
+</item>
+
+
+
+<item>
+<title>Jasmine Pearls Chinese tea (mo li hua) Sampler Pack</title>
+<g:brand>Min River Tea Farm</g:brand>
+<g:mpn>JASMINEPEARLS20</g:mpn>
+<g:condition>new</g:condition>
+<description>Jasmine Pearls tea (mo li hua long zhu) is a deliciously fragrant green tea scented with the leaves of a jasmine flower. Great for special occasions or guests, your local Chinese probably serves a version of Jasmine tea, but don't be fooled. This Jasmine tea is like nothing you've experienced before.</description>
+<g:id>5</g:id>
+<g:gtin>5060271120048</g:gtin>
+<g:image_link>http://static.minrivertea.com/images/product-photos/jasmine-1_3_png_500x500_q85.jpg</g:image_link>
+<link>http://www.minrivertea.com/teas/jasmine-pearls/</link>
+<g:price>3.00 GBP</g:price>
+<g:product_type>Food, Beverages &amp; Tobacco &gt; Beverages &gt; Tea &amp; Infusions</g:product_type>
+<g:quantity>22</g:quantity>
+<g:availability>in stock</g:availability>
+<g:online_only>y</g:online_only>
+<g:shipping>
+   <g:country>GB</g:country>
+   <g:service>Royal Mail</g:service>
+   <g:price>3.00</g:price>
+</g:shipping>
+<g:shipping_weight>20 gram</g:shipping_weight>
+</item>
+
+
+<item>
+<title>The Big Red Chinese tea (da hong pao) Sampler Pack</title>
+<g:brand>Min River Tea Farm</g:brand>
+<g:mpn>DAHONGPAO20</g:mpn>
+<g:condition>new</g:condition>
+<description>The Big Red (da hong pao) is an earthy and honest red tea. It has a subtle red colour and a rich, nutty and rusty aftertaste. Particularly suited to English tea drinkers, it's great in the mornings or when you need a bit of a kick. If you're used to 'builders tea', then this is a more classy, tasty and healthy substitute.</description>
+<g:id>4</g:id>
+<g:gtin>5060271120055</g:gtin>
+<g:image_link>http://static.minrivertea.com/images/product-photos/da-hong-pao-1_2_png_500x500_q85.jpg</g:image_link>
+<link>http://www.minrivertea.com/teas/the-big-red/</link>
+<g:price>3.00 GBP</g:price>
+<g:product_type>Food, Beverages &amp; Tobacco &gt; Beverages &gt; Tea &amp; Infusions</g:product_type>
+<g:quantity>40</g:quantity>
+<g:availability>in stock</g:availability>
+<g:online_only>y</g:online_only>
+<g:shipping>
+   <g:country>GB</g:country>
+   <g:service>Royal Mail</g:service>
+   <g:price>3.00</g:price>
+</g:shipping>
+<g:shipping_weight>20 gram</g:shipping_weight>
+</item>
+
 
 </channel>
 </rss>
