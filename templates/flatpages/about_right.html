@@ -5,7 +5,19 @@
 		<div class="info">	
 			<p class="quote"><em>&ldquo;My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.&rdquo;</em><br/><span class="review">Brad Robinson, UK</span></p>
 
-		</div>
+
+				{% for other in teas %}
+			 		<p class="mail">
+			 			<a href="{% url tea_view other.slug %}"><span class="link"></span></a>
+			 				{% thumbnail other.image "80x55" crop="center" as im%}
+			 				<img class="mail-icon" src="{{ im.url }}" />
+			 				{% endthumbnail %}
+			 			<a class="title" href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
+			 			<br/>{{ other.super_short_description }}<br/>
+			 			<strong>from £{{ other.get_lowest_price.price }}</strong>
+			 		</p>
+			 	{% endfor %}
+			</div>
 		
 		<div class="info">
 		  <div class="social">
@@ -18,19 +30,6 @@
 	      </div>
 	    </div>
 		
-		<div class="info">
-			<h3 class="small">Take a look at our teas</h3>
-				{% for other in teas %}
-			 		<p class="mail">
-			 			<a href="{% url tea_view other.slug %}"><span class="link"></span></a>
-			 				{% thumbnail other.image "60x45" crop="center" as im%}
-			 				<img class="mail-icon" src="{{ im.url }}" />
-			 				{% endthumbnail %}
-			 			<a class="title" href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
-			 			<br/>{{ other.super_short_description }}
-			 		</p>
-			 	{% endfor %}
-			</div>
 
 		
 	

@@ -154,6 +154,11 @@ class Product(models.Model):
     def get_absolute_url(self):
         return "/teas/%s/" % self.slug  #important, do not change
     
+    def get_lowest_price(self):
+        prices = UniqueProduct.objects.filter(parent_product=self).order_by('price')[0]
+        return prices
+        
+    
     def save(self, force_insert=False, force_update=False):
          super(Product, self).save(force_insert, force_update)
          try:

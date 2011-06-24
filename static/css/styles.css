@@ -365,7 +365,7 @@ ul#nav li a.selected {
 
 
 strong {
-  color: black;	
+    color: #666666;
 }
 
 div#add-a-photo {
@@ -1368,10 +1368,10 @@ div.info.last {
 div#right p.mail {
     float: left;
     font-size: 12px;
-    height: 30px;
+    height: 55px;
     line-height: 1.2em;
-    margin-top: 15px;
-    width: 200px;
+    margin: 15px 0 0 0;
+    width: 245px;
     position: relative;
 }
 
