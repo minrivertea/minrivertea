@@ -15,6 +15,7 @@ import os, md5
 import datetime
 import uuid
 import twitter
+import re
 
 from minriver.shop.models import *
 from minriver.shop.forms import *
@@ -78,7 +79,7 @@ def teas(request):
         added = request.session['ADDED']
     except:
         added = None
-        
+       
     if added:
         thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
         message = "1 x %s%s added to your basket!" % (thing.item.weight, thing.item.weight_unit)
@@ -103,7 +104,7 @@ def tea_view(request, slug):
         thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
         message = "1 x %s%s added to your basket!" % (thing.item.weight, thing.item.weight_unit)
         request.session['ADDED'] = None
-        
+    
     tea = get_object_or_404(Product, slug=slug)
     prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True).order_by('price')
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)

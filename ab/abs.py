@@ -1,6 +1,8 @@
 from django.template import TemplateDoesNotExist
 from ab.models import Experiment, Test
 
+import re
+
 
 # @@@ The interface to this is shazbot. Rethink is in order.
 class AB(object):
@@ -22,8 +24,10 @@ class AB(object):
         True if request location is the Goal of Experiment and this request
         hasn't already been converted.
         """
+        # use the re module to match a string or regular expression in the exp.goal
+        match = re.match(exp.goal, self.request.path)
         return self.is_experiment_active(exp) and not self.is_experiment_converted(exp) \
-            and exp.goal in self.request.path
+            and match
         
     def is_experiment_active(self, exp):
         """True if this Experiment is active."""
