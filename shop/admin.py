@@ -8,6 +8,8 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('invoice_id', 'is_paid', 'notes')
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('product', 'email', 'is_published')
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Address)
@@ -19,7 +21,7 @@ admin.site.register(Discount)
 admin.site.register(Photo)
 admin.site.register(Referee)
 admin.site.register(WeLike)
-admin.site.register(Review)
+admin.site.register(Review, ReviewAdmin)
 
 
 

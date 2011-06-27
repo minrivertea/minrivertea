@@ -533,6 +533,21 @@ def review_tea(request, slug):
                 email=email,
             )
             
+            body = "%s %s just posted a review of %s" % (first_name, last_name, tea.name)              
+            subject_line = "New Review Posted - %s" % tea.name 
+            email_sender = settings.SITE_EMAIL
+            recipient = settings.SITE_EMAIL
+      
+            send_mail(
+                subject_line, 
+                body, 
+                email_sender,
+                [recipient], 
+                fail_silently=False
+            )
+            
+            
+            
             return HttpResponseRedirect('/review/thanks')
         
     else:
