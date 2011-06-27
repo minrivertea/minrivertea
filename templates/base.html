@@ -90,6 +90,7 @@
 </script>
 
 {% if "order/complete" in request.path %}
+{% if order %}
 <!-- Google Code for Bought Something Conversion Page -->
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -111,7 +112,7 @@ if (15.00) {
 <img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/970474503/?value=15.00&amp;label=mTM9CJHq3AIQh4jhzgM&amp;guid=ON&amp;script=0"/>
 </div>
 </noscript>
-
+{% endif %}
 {% endif %}
 
 
