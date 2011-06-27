@@ -88,7 +88,38 @@
   })();
 
 </script>
+
+{% if "order/complete" in request.path %}
+<!-- Google Code for Bought Something Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 970474503;
+var google_conversion_language = "en";
+var google_conversion_format = "2";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "mTM9CJHq3AIQh4jhzgM";
+var google_conversion_value = 0;
+if (15.00) {
+  google_conversion_value = 15.00;
+}
+/* ]]> */
+</script>
+<script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/970474503/?value=15.00&amp;label=mTM9CJHq3AIQh4jhzgM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+{% endif %}
+
+
+
     {% endif %}
+    
+    
+    
     {% endblock %}
 </head>
 
