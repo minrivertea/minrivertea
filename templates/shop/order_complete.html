@@ -2,13 +2,6 @@
 
 {% block pagetitle %}Order Complete{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">Order complete</h2>
-	    	<p class="normal">Congratulations! Your order has been received and we've sent you an email confirming the details.</p>
-			
-			</div>
-{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
@@ -25,25 +18,35 @@ div.row-box img {float: left; margin-right: 10px; margin-top: -10px;}
 
 {% block content %}
 
-<div id="featured-small"></div>
-
 <div id="main-text-wide">
+
 
 {% ifequal order None %}
 
-<p class="introduction">You've come through to the 'Completed Order' page, but we don't think you've made an order yet. Try returning to the homepage, and if you think there's been a problem, just get in touch - <a href="mailto:mail@minrivertea.com">mail@minrivertea.com</a>
+<h1>Ooops!?</h1>
+<p class="subtitle">You've come through to the 'Completed Order' page, but we don't think you've made an order yet. Try returning to the homepage, and if you think there's been a problem, just get in touch - <a href="mailto:mail@minrivertea.com">mail@minrivertea.com</a>.</p>
+
+<p><em>ps. if you have cookies turned off on your browser, this could be the reason why.</em></p>
 
 {% else %}
 
+<h1>Order complete!</h1>
+
+<p class="subtitle">We've received your order and we'll send your tea immediately. We've also sent you an email confirming the details.</p>
+
+<div id="left">
+<h3>Your order ID is: {{ order }}</h3>
+<p>Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience.</p>
+
+<h3>Contact us</h3>
+<p>If for any reason you need to contact us about your order, email us at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> quoting your order ID. We normally respond to emails within 2-3 hours at the latest.</p>
+
 	{% ifequal shopper.twitter_username None %}
 		<form method="post" action="">
-		<div class="row">
-			<div class="row-label">
 				<h3>Want updates on your order via twitter?</h3>
-			</div>
+				<p>Enter your twitter username below, and we'll tweet you when your order is confirmed and shipped.</p>
 				
     		<div class="row-box">
-		    	<p class="intro">Enter your twitter username below, and we'll tweet you when your order is confirmed and shipped.</p>
 				<input type="text" id="id_twitter_username" name="twitter_username">
 				<input type="submit" value="" next="" class="twitter-submit"/>
 			</div>		
@@ -63,8 +66,7 @@ div.row-box img {float: left; margin-right: 10px; margin-top: -10px;}
 	
 	{% endifequal %}
 
-<p>Your order ID is: <strong>{{ order }}</strong></p>
-<p><span class="small">* Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience.</span></p>
+
 
 {% endifequal %}
 
