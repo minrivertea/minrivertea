@@ -4,7 +4,6 @@ from django.contrib import admin
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
    
-
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('invoice_id', 'is_paid', 'notes')
 

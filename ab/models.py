@@ -23,6 +23,8 @@ class Test(models.Model):
     experiment = models.ForeignKey(Experiment)
     template_name = models.CharField(max_length=255,
         help_text="Example: 'registration/signup_1.html'. The template to be tested.")
+    description = models.CharField(max_length=255,
+        help_text="A short description of the content of this variation")
     hits = models.IntegerField(blank=True, default=0, 
         help_text="# uniques that have seen this test.")
     conversions = models.IntegerField(blank=True, default=0,
