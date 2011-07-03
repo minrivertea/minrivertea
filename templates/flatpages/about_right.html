@@ -7,7 +7,7 @@
 
 
 				{% for other in teas %}
-			 		<p class="mail">
+			 		<p class="mail{% if forloop.last %} last{% endif %}">
 			 			<a href="{% url tea_view other.slug %}"><span class="link"></span></a>
 			 				{% thumbnail other.image "80x55" crop="center" as im%}
 			 				<img class="mail-icon" src="{{ im.url }}" />
