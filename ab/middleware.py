@@ -5,6 +5,7 @@ except ImportError:
 
 from ab.abs import AB
 from ab.models import Experiment
+from django.contrib.auth.models import User
 import re
 
 
@@ -21,6 +22,7 @@ class ABMiddleware:
         the template loader. If an Experiment is active then check whether we've
         reached it's goal.
         """
+        
         # don't want to keep validating against images and CSS/JS files
         if re.match('^.+\.(jpg|jpeg|gif|png|ico|css|js)', request.path):
             pass
