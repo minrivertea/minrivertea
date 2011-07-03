@@ -6,7 +6,7 @@
       <div class="tea-promo{% cycle '' '' ' last' %}">
       		<a title="{{ product.name }} Chinese tea - click to view more details" href="{% url tea_view product.slug %}"><span class="link"></span></a>	
       	  <div class="image">
-			{% thumbnail product.image "190x140" crop="center" as im %}
+			{% thumbnail product.image "266x200" crop="center" as im %}
 			<img alt="a picture of {{ product.name }}" title="{{ product.name }} Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
 			{% endthumbnail %}
 		  </div>
@@ -17,15 +17,7 @@
 			{{ product.name }}
 			</a>
 			
-			{% for price in prices %}  	
-    	    	{% if forloop.first %}
-    	    		<div class="price">
-        				{{ price.price_unit }}{{ price.price|floatformat }} <span class="small grey">/ {{ price.weight }}{{ price.weight_unit }}</span>
-        	   		</div>
-	        	{% else %}
-    	    	{% endif %}
-        	{% endfor %}
-			
+		
 			</h4> 
 			<p>{{ product.description }}</p>	
 
