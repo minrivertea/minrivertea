@@ -100,7 +100,7 @@ span.review {
 
 
 div.learn-comment {
-  background: url('/images/learn-comment.png') no-repeat top left;
+  background: url('{% staticfile "/images/learn-comment.png" %}') no-repeat top left;
   float: left;	
   height: 195px;
   width: 280px;
@@ -111,7 +111,7 @@ div.learn-comment {
 }
 
 div.learn-comment a.button {
-    background: url("/images/try-tea-today-button.png") no-repeat scroll left top transparent;
+    background: url('{% staticfile "/images/try-tea-today-button.png" %}') no-repeat scroll left top transparent;
     display: block;
     float: left;
     height: 53px;
