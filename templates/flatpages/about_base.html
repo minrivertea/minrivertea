@@ -56,7 +56,35 @@ span.review {
   color: #333;	
 }
 
+div.about-right {
+    float: left;
+    padding-bottom: 20px;
+    width: 241px;
+    margin: 40px 0 20px 0;
+    background-color: #38a267;
+    border-radius: 0 0 10px 10px;
+}
 
+div.about-right img {
+  border: 2px solid #fff;	
+}
+
+div.about-right img.top {
+    margin-top: -100px;
+    position: relative;
+    border: none;
+}
+
+div#right div.about-right p.mail {
+  color: #fff;
+  margin-left: 15px;
+  float: left;
+  width: 210px;	
+}
+
+div#right div.about-right p.mail a {
+  color: #fff;	
+}
 
 </style>
 {% endblock %}
@@ -68,10 +96,10 @@ span.review {
 
 	<div id="right">	
   		{% block right %}
-  			
-  			{% include 'flatpages/about_navigation.html' %}
   				
   			{% include 'flatpages/about_right.html' %}
+  			
+  			{% include 'flatpages/about_navigation.html' %}
 
   		{% endblock %}
 	</div>

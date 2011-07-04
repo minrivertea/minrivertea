@@ -493,6 +493,8 @@ div#home-extra div.left p {
 ul#right-nav {
   list-style-type: none;
   padding: 0;	
+  float: left;
+  width: 245px;
 }
 
 ul#right-nav li {
