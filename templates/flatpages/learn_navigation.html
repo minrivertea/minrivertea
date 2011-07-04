@@ -67,21 +67,9 @@
   <li><a class="{% nav_selected request '/learn/varieties-of-chinese-tea/' %}" href="/learn/varieties-of-chinese-tea/">Varieties of Chinese tea</a></li>
 </ul>
 
+<div class="learn-comment">
+ <a class="button" href="{% url teas %}"></a>
+</div>
 
-<div class="info">	
-			<p class="quote"><em>&ldquo;My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.&rdquo;</em><br/><span class="review">Brad Robinson, UK</span></p>
 
-
-				{% for other in teas %}
-			 		<p class="mail">
-			 			<a href="{% url tea_view other.slug %}"><span class="link"></span></a>
-			 				{% thumbnail other.image "80x55" crop="center" as im%}
-			 				<img class="mail-icon" src="{{ im.url }}" />
-			 				{% endthumbnail %}
-			 			<a class="title" href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
-			 			<br/>{{ other.super_short_description }}<br/>
-			 			<strong>from £{{ other.get_lowest_price.price }}</strong>
-			 		</p>
-			 	{% endfor %}
-			</div>
 
