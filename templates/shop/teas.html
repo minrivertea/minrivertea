@@ -195,6 +195,19 @@ div.did-you-know {
   width: 500px;	
 }
 
+p.quote {
+    background-color: #F3FFF6;
+    border: 1px solid #D9EBDE;
+    border-radius: 10px 10px 10px 10px;
+    float: right;
+    font-size: 14px;
+    margin: 0 0 0 40px;
+    padding: 10px 15px;
+    position: relative;
+    top: -40px;
+    width: 330px;
+}
+
 </style>
 {% endblock %}
 
@@ -204,7 +217,9 @@ div.did-you-know {
 <div id="main-text-wide">
 
 	<h1>Choose your Chinese tea</h1>
-		<p class="subtitle">Choose from a small, hand-selected range of fresh, authentic and traditionally made Chinese teas.</p>
+		<p class="quote">&ldquo;<em>My eyes are well and truly opened. The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.</em>&rdquo;<br/><span class="red">Brad Robinson, London</span></p>
+		
+		<p class="subtitle">We sell a small range of high quality Chinese teas. We keep it small so we can guarantee the best price and taste of every cup of tea you brew.</p>
 		<div id="teas">
 			{% include "shop/snippets/products.html" %}
 		</div>
