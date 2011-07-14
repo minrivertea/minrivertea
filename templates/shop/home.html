@@ -79,39 +79,53 @@ div#feature {
     height: 360px;
     float: left;
     width: 860px;
-    background: url("{% staticfile '/images/home-feature.jpg' %}") no-repeat;
-    border-radius: 10px;
+    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat;
     margin: 20px 0;
     position: relative;
-}
-
-div#feature img {
-  border-radius: 10px;
-  width: 880px; 	
+    border-bottom: 3px dotted #e1e1e1;
+    padding-bottom: 20px;
 }
 
 div#feature div.top {
-  width: ;
-  background-color: #fff;
-  opacity: 0.8;	
-  float: left;
-  padding-bottom: 10px;
-  padding-right: 30px;
-  position: relative;
-  top: 30px;
+    background-color: #FFFFFF;
+    float: right;
+    padding-bottom: 10px;
+    padding-right: 30px;
+    position: relative;
+    top: 120px;
+    width: 228px;
 }
 
 div#feature div.top h3 {
-  margin: 10px 0 0 15px;	
-  color: #333;
+  margin: 10px 0 0 0px;	
+  color: #666;
 }
 
 div#feature div.top p {
   text-align: left;
   margin: 0;	
   float: left;
-  padding: 0 0 0 15px;
+  padding: 0 0 0 0px;
   color: #333;
+}
+
+div#feature div.top div.button a {
+  width: 214px;
+  height: 50px;
+  background: url('{% staticfile "/images/find-your-tea.png" %}') no-repeat top left;	
+  float: left;
+  margin-top: 20px;
+  margin-left: -5px;
+}
+
+div#feature div.top div.button a:hover {
+  background-position: center left;	
+  cursor: pointer;
+}
+
+div#feature div.top div.button a:active {
+  background-position: bottom left;	
+  cursor: pointer;
 }
 
 div#feature span.link {
@@ -303,12 +317,14 @@ div#home-bottom h3 {
 
 div#products {
   float: left;
-  margin-top: 30px;	
+  margin-top: 10px;	
   width: 860px;
+  border-top: 3px dotted #e1e1e1;
+  padding-top: 30px;
 }
 
 div#products div.tea-promo {
-  width: 266px;
+  width: 200px;
   margin-right: 15px;
   border-bottom: none;
   border-right: 1px solid #e1e1e1;
@@ -322,7 +338,7 @@ div#products div.tea-promo.last {
 }
 
 div#products div.tea-promo h4 {
-  font-size: 22px;	
+  font-size: 18px;	
 }
 
 div#products div.tea-promo div.price {
@@ -358,49 +374,49 @@ div#text p {
   font-size: 12px;
 }
 
+h1 {
+   margin-bottom: 30px;	
+   font-size: 24px;
+}
+
 </style>
 {% endblock %}
 
 {% block content %}
 
 
-
-<div id="products">
-{% include "shop/snippets/products2.html" %}
-</div>
-
-	<div id="feature">
-		<a title="Click to view photos of the 2011 tea harvest from Wuyi Shan, China" alt="View photos of the 2011 tea harvest from Wuyi Shan, China" href="/blog/wu-yi-shan-da-hong-pao-harvest-photos/"><span class="link"></span></a>
-		<div class="top">
-			<h3><a href="/blog/wu-yi-shan-da-hong-pao-harvest-photos/">Spring tea harvest - our photos from Wuyi Mountain</a></h3>
-			<p>Wuyi Mountain is the home of our tea The Big Red (da hong pao)</p>
-		</div>
+<div id="feature">
+	<div class="top">
+		<h3>Healthy, fresh  and great tasting Chinese tea  - make it a part of your day</h3>
+		<div class="button"><a href="{% url teas %}"></a></div>
 	</div>
-	
+</div>
 		
-	<div id="home-bottom">
-		<div class="right">
-		<h3>What our customers say... <span class="small"><a title="Click to see customer testimonials of our Chinese tea" href="{% url reviews %}">(see more)</a></span></h3>
+<div id="home-bottom">
+	<div class="right">
+		<h3>What our customers say... 
+			<span class="small"><a title="Click to see customer testimonials of our Chinese tea" href="{% url reviews %}">(see more)</a></span>
+		</h3>
 
 		{% for r in review %}
 		<div class="box">
 			<p><em>&ldquo;{{ r.short_text }}&rdquo;</em><br/><span class="red">{{ r.first_name }} {{ r.last_name }}</span></p>
 		</div>
 		{% endfor %}
+	</div>
+	
+	<div class="left">
+		<div class="did-you-know">
+			<a title="Try samples of our three main teas in a simple taster pack" href="/teas/chinese-tea-sampler-pack/"><span class="link"></span></a>
+			<h3><a href="/teas/chinese-tea-sampler-pack/">First time trying Chinese tea? <span class="grey">Try out all of our delicious teas for just £9 in  our new Chinese tea sampler pack &raquo;</span></a></h3>
+			<img style="float:right; margin-top: 0px;" src="{% staticfile '/images/taster-promo.png' %}">
 		</div>
-		<div class="left">
-			<div class="did-you-know">
-				<a title="Try samples of our three main teas in a simple taster pack" href="/teas/chinese-tea-sampler-pack/"><span class="link"></span></a>
-				<h3><a href="/teas/chinese-tea-sampler-pack/">First time trying Chinese tea? <span class="grey">Get a taster pack and try out all three of our delicious teas for just £9 &raquo;</span></a></h3>
-				<img style="float:right; margin-top: 0px;" src="{% staticfile '/images/taster-promo.png' %}">
-			</div>
-			<div class="box">
+		<div class="box">
 			<img src="{% staticfile '/images/brew-promo.png' %}">
 			<h4><a title="Short and simple guides to brewing Chinese tea" href="/learn/how-to-brew-chinese-tea/">Learn how to brew the perfect cup</a><br/><span class="small">A simple guide &raquo;</span></h4>
-			</div>
 		</div>
 	</div>
-
+</div>
 
 
 
