@@ -1748,3 +1748,47 @@ div.learn-box {
   padding-bottom: 20px;
   margin-bottom: 20px;
 }
+
+div#steps {
+    background: url("/images/stepsback.png") no-repeat scroll -110px -2px transparent;
+    border: 1px solid #E1E1E1;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    height: 37px;
+    width: 855px;
+    margin-bottom: 20px;
+}
+
+div#steps div {
+  padding: 10px 0px;
+  width: 210px;	
+  float: left;
+  text-align: center;
+}
+
+div#steps div.selected {
+  float: left;
+  border: none;
+  padding: 11px 0;
+}
+
+div#steps div.completed {
+  border-right: 1px solid #307835;	
+}
+
+div#steps div h1 {
+  font-size: 13px;
+  color: #666;
+  letter-spacing: 0;
+  font-weight: normal;
+  margin: 0;
+}
+
+div#steps div.completed h1 {
+  color: #9fc8a2;	
+}
+
+div#steps div.selected h1 {
+  color: #fff;	
+  font-weight: normal;
+}

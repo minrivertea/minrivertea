@@ -212,6 +212,10 @@ a.minus:hover {
   background-position: bottom left;
 }
 
+div#steps {
+    background-position: -540px -2px;
+}
+
 </style>
 {% endblock %}
 
@@ -222,7 +226,20 @@ a.minus:hover {
 
 <div id="main-text-wide">
 
-<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
+<div id="steps">
+	<div class="selected">
+	<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
+	</div>
+	<div>
+	<h1>Your details</h1>
+	</div>
+	<div>
+	<h1>Confirm order</h1>
+	</div>
+	<div>
+	<h1>Payment</h1>
+	</div>
+</div>
 
 {% if basket_items %}
 

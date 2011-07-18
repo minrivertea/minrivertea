@@ -19,37 +19,12 @@ div.row {
 }
 
 div#steps {
-    float: right;
-    width: auto;
-}
-
-div#steps div.step {
-    background-color: #F1F1F1;
-    border: 1px solid #FFFFFF;
-    color: #D1D1D1;
+    background-position: -110px -2px;
+    border: 1px solid #E1E1E1;
+    border-radius: 5px 5px 5px 5px;
     float: left;
-    font-size: 14px;
-    padding: 7px 20px;
-    text-align: center;
-    width: auto;
-}
-
-div#steps div.step.first {
-  -moz-border-radius: 10px 0px 0px 10px;	
-}
-
-div#steps div.step.finished {
-  background-color: #e1e1e1;
-  color: #19761C;	
-}
-
-div#steps div.step.selected {
-    background-color: #ddeedf;
-    color: #333;
-}
-
-div#steps div.step.last {
-  -moz-border-radius: 0px 10px 10px 0px;	
+    height: 37px;
+    width: 855px;
 }
 
 
@@ -62,7 +37,20 @@ div#steps div.step.last {
 
 <div id="main-text-wide">
 
-	<h1>Confirm and pay</h1>
+<div id="steps">
+	<div class="completed">
+	<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
+	</div>
+	<div class="completed">
+	<h1>Your details</h1>
+	</div>
+	<div class="selected">
+	<h1>Confirm order</h1>
+	</div>
+	<div>
+	<h1>Payment</h1>
+	</div>
+</div>
 	
 	<div id="basket">
 		
