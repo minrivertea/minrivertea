@@ -6,7 +6,7 @@ html {
 
 body {
   font-weight: 0.9em;
-  font-family: Georgia, serif;	
+  font-family: Georgia, serif;
   background: url('/images/back.jpg') repeat scroll 50% 0 #fff;
   
   margin: 10px 0 0;
@@ -197,8 +197,8 @@ div.footer-box ul li {
 h1 {
     color: #FF8585;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 2em;
-    font-weight: normal;
+    font-size: 26px;
+    font-weight: bold;
     letter-spacing: -1px;
     margin: 0 0 5px;
     padding-bottom: 0;
@@ -308,7 +308,7 @@ div#home-banner {
 }
 
 p.subtitle {
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: 0px;
     padding-bottom: 10px;
     margin: 0px 0 10px 0px;
@@ -582,12 +582,12 @@ p.introduction {
 /* tea listing styles */
 
 div#teas {
-  padding-left: 0px;
   margin-top: 30px;	
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 3px dotted #e1e1e1;
   float: left;
+  width: 580px;
 }
 
 div.tea-promo {
@@ -595,7 +595,7 @@ div.tea-promo {
     margin: 0 30px 20px 0px;
     padding: 0px 0px 20px 0px;
     position: relative;
-    width: 260px;
+    width: 580px;
 }
 
 div.tea-promo.last {
@@ -610,7 +610,7 @@ div.tea-promo:hover {
 div.tea-promo div.image {
     float: left;
     margin-right: 20px;
-    width: 300px;
+    width: 260px;
 }
 
 div.tea-promo:hover div.image img {
@@ -618,7 +618,7 @@ div.tea-promo:hover div.image img {
 }
 
 div.tea-promo div.text {
-
+  width: 280px;
   float: left;
   padding-left: 5px;
   padding-top: 15px;	
@@ -1341,7 +1341,7 @@ div#right div.like div.text p {
 
 div.rss {
   position: relative;
-  top: 35px;
+  top: 25px;
   right:20px;
   float: right;
   font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
@@ -1770,6 +1770,8 @@ div#steps div.selected {
   float: left;
   border: none;
   padding: 11px 0;
+  border-left: 1px solid #124B13;
+  height: 15px;
 }
 
 div#steps div.completed {
