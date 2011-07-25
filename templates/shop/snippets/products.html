@@ -16,21 +16,19 @@
 			<a title="{{ product.name }} Chinese tea - find out more or order some now!" href="{% url tea_view product.slug %}">
 			{{ product.name }}
 			</a>
-			
-			{% for price in prices %}  	
-    	    	{% if forloop.first %}
-    	    		<div class="price">
-        				{{ price.price_unit }}{{ price.price|floatformat }} <span class="small grey">/ {{ price.weight }}{{ price.weight_unit }}</span>
-        	   		</div>
-	        	{% else %}
-    	    	{% endif %}
-        	{% endfor %}
+		
+    	  <div class="price">
+        		<span>from {{ product.get_lowest_price.price_unit }}{{ product.get_lowest_price.price|floatformat }}</span>
+          </div>
+
+          
 			
 			</h4> 
 			<p>{{ product.description }}</p>	
 			
-
-
+			{% if product.get_reviews %}
+			<p class="reviews"><em>{{ product.get_reviews.count }} customer review{{ product.get_reviews.count|pluralize }}</em></p>
+			{% endif %}
 		</div>     	
 	  </div>      
 {% endfor %}

@@ -157,7 +157,10 @@ class Product(models.Model):
     def get_lowest_price(self):
         prices = UniqueProduct.objects.filter(parent_product=self).order_by('price')[0]
         return prices
-        
+    
+    def get_reviews(self):
+        reviews = Review.objects.filter(product=self)
+        return reviews    
     
     def save(self, force_insert=False, force_update=False):
          super(Product, self).save(force_insert, force_update)
