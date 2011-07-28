@@ -443,6 +443,17 @@ div.fb-recommend {
   float: left;	
 }
 
+div.coming-soon {
+  float: right;
+  width: 300px;
+  height: 50px;
+}
+
+div.coming-soon p {
+  font-size: 11px;
+  color: #	
+}
+
 </style>
 {% endblock %}
 
@@ -523,6 +534,12 @@ Share this page with friends
 		</div>
 		
 		<div id="prices">
+	      {% if tea.coming_soon %}
+		  	<div class="coming-soon">
+		  		<img src="{% staticfile '/images/coming-soon.png' %}"/>
+		  		<p><em>This tea was too popular - we're restocking it now!</em></p>
+		  	</div>
+		  {% else %}
 			{% ifequal prices.count 1 %}
 				{% for price in prices %}
 		    	  <div class="price large">
@@ -561,6 +578,7 @@ Share this page with friends
             	  </div>
            		{% endfor %}
            	{% endifequal %}
+          {% endif %}
 
 		</div>
 		
