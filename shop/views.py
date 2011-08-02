@@ -7,7 +7,8 @@ from django.template import RequestContext
 from paypal.standard.forms import PayPalPaymentsForm
 from django.http import HttpResponseRedirect 
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
+
 
 from PIL import Image
 from cStringIO import StringIO
@@ -558,15 +559,25 @@ def send_review_email(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     
     # create and send an email to the user to say thanks.
-    body = render_to_string('shop/emails/review_email.txt', {
+    text_content = render_to_string('shop/emails/review_email.txt', {
         'shopper': order.owner, 
         'items': order.items.all(),
         }
     )
+    
+    html_content = render_to_string('shop/emails/html_review_email.html', {
+        	
+    })
+    
+    subject = "minrivertea.com - how to brew your tea"
+    from_email = settings.SITE_EMAIL
+    to_email = order.owner.email
+    
+    
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
                  
-    subject_line = "minrivertea.com - how to brew your tea" 
-    email_sender = settings.SITE_EMAIL
-    recipient = order.owner.email
       
     send_mail(
         subject_line, 
