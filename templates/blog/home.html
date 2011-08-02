@@ -19,7 +19,7 @@ div#main-text-wide div#right {
 
 div.entry-list {
     float: left;
-    width: 540px;
+    width: 660px;
 }
 
 div.entry {
@@ -86,7 +86,7 @@ div.entry div.image img {
 
 div.entry div.text {
   float: left;
-  width: 380px;	
+  width: 520px;	
 }
 
 div.entry div.text h3 {
@@ -150,13 +150,18 @@ img.tweets {
 
 {% block content %}
 
-<div id="featured-small"></div>
+<div id="banner">
+  <div class="super">
+    <h1>The Min River Farm Chinese tea blog</h1>
+    <p class="subtitle">News, photos and tea tips from the Min River Tea Farm in China</p>
+  </div>
+</div>
 
 <div id="main-text-wide">
+  <div class="super">
 
-
-	<h1>The Min River Farm tea blog</h1>
-	<p class="subtitle">News, photos and tea tips from the Min River Tea Farm in China</p>
+	
+	
 	
 
 	<div id="right">
@@ -169,7 +174,7 @@ img.tweets {
 			{% include "blog/snippets/entry-list.html" %}
 		</div>
 	</div>
-	
+  </div>
 </div>
 
 

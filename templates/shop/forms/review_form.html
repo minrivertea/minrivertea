@@ -18,11 +18,33 @@ textarea {
     border-radius: 10px 10px 10px 10px;
     padding: 15px;
     width: 500px;
+    font-size: 16px;
 }
 
 div#submit-button {
 position: relative;
 top: 240px;	
+}
+
+#facebook {
+  float: left;
+  width: 80px;
+}
+
+#google {
+  margin-bottom: 10px;
+  float: left;
+  width: 80px;
+}
+
+div.rss {
+  width: 700px;
+}
+
+div.rss p {
+  float: left; 
+  font-size: 11px;
+  color: #666;
 }
 
 </style>
@@ -36,10 +58,36 @@ top: 240px;
 
 {% block content %}
 
-	<div id="main-text-wide">
-		<h1>Write a review for {{ tea }} tea</h1>
-		<p class="subtitle">Thanks for taking the time to write a review. Quality is extremely important to us, so feel free to write down any thoughts, positive or negative, about your tea.</p>
+<div id="banner">
+  <div class="super">
+  	<h1>Write a review for {{ tea }} tea</h1>
+  	<p class="subtitle">Thanks for taking the time to write a review. Quality is extremely important to us, so feel free to write down any thoughts, positive or negative, about your tea.</p>
+  </div>
+</div>
 
+<div id="main-text-wide">
+  <div class="super">
+  
+      <div class="rss">
+		<div id="google">
+			<g:plusone></g:plusone>
+			<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+		</div>
+    	<div id="facebook">
+		    <div id="fb-root"></div>
+		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
+		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+		    </fb:like>
+		</div>
+		<p>&laquo; If you liked your tea, please tell your friends about it!</p>
+	</div>		
+		
 	  <div id="basket">
 	  	<form action="." method="post">
 	  		<div id="submit-button">
@@ -85,10 +133,9 @@ top: 240px;
 		{% endif %}
 
 	</div>
+  </div>
 </div>
-		
-		<br clear="all"/>
-
+	
 
 		
 

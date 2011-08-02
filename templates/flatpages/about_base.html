@@ -91,26 +91,29 @@ div#right div.about-right p.mail a {
 
 {% block content %}
 
+<div id="banner">
+  <div class="super">
+  <h1>{{ flatpage.title }}</h1>
+  </div>
+</div>
 
 <div id="main-text-wide">
-
+  <div class="super">
 	<div id="right">	
   		{% block right %}
-  				
-  			{% include 'flatpages/about_right.html' %}
   			
   			{% include 'flatpages/about_navigation.html' %}
+  			{% include 'flatpages/about_right.html' %}
 
   		{% endblock %}
 	</div>
 
 	<div id="left">
-		<h1>{{ flatpage.title }}</h1>
 		{{ flatpage.content }}
 	</div>
 
 		
-	
+  </div>
 </div>
 
 

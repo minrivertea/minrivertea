@@ -16,13 +16,15 @@
 {% block pagetitle %}Order : {{ order }}{% endblock %}
 
 {% block content %}
-
-<div id="featured-small"></div>
+<div id="banner">
+  <div class="super">
+    <h1>{{ order }}</h1>
+    <p><a href="{% url admin_stuff %}">&laquo; back to admin stuff</a></p>
+  </div>
+</div>
 
 <div id="main-text-wide">
-<a href="{% url admin_stuff %}">&laquo; back to admin stuff</a>
-
-<h2>{{ order }}</h2>
+  <div class="super">
 
 <h3>Owner</h3>
 <p>{{ order.owner.first_name }} {{ order.owner.last_name }} - ({{ order.owner }})</p>
@@ -33,5 +35,7 @@
 	{{ item }}<br/>
 {% endfor %}
 
+
+  </div>
 </div>
 {% endblock %}

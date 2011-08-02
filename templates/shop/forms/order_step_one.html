@@ -5,6 +5,11 @@
 
 {% block extracss %}
 <style type="text/css">
+
+div#main-text-wide  {
+  margin-top: 30px;	
+}
+
 div#main-text-wide div#left {
   margin-top: 20px;	
 }
@@ -141,7 +146,7 @@ span.country {
 
 
 div#steps {
-    background-position: -325px -2px;
+    background-position: -240px -2px;
 }
 
 
@@ -152,21 +157,22 @@ div#steps {
 {% block content %}
 
 <div id="main-text-wide">
+  <div class="super">
 
-<div id="steps">
-	<div class="completed">
-	<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
+	<div id="steps">
+		<div class="completed">
+		<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
+		</div>
+		<div class="selected">
+		<h1>Your details</h1>
+		</div>
+		<div>
+		<h1>Confirm order</h1>
+		</div>
+		<div>
+		<h1>Payment</h1>
+		</div>
 	</div>
-	<div class="selected">
-	<h1>Your details</h1>
-	</div>
-	<div>
-	<h1>Confirm order</h1>
-	</div>
-	<div>
-	<h1>Payment</h1>
-	</div>
-</div>
 	
 	<div id="basket">
 	
@@ -309,15 +315,9 @@ div#steps {
 	</form>
 
 
-</div>
-
-	<div id="right">
-
 	</div>
-	
-	<div id="left">
-	
-	</div>
+
+  </div>
 </div>
 
 {% endblock %}

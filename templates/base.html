@@ -130,71 +130,57 @@ if (15.00) {
 
 <body>
 
-<div id="super">
-    <div id="container">
-		{% if user.is_superuser %}
-	    <div id="header-messages">    
-		   	<div class="hm"><a href="{% url admin_stuff %}">Admin stuff</a> | <a href="/admin/logout/">Logout</a></div>
-		</div>    
-		{% endif %}
+{% if user.is_superuser %}
+	<div id="header-messages">    
+	   	<div class="hm"><a href="{% url admin_stuff %}">Admin stuff</a> | <a href="/admin/logout/">Logout</a></div>
+	</div>    
+{% endif %}
     	
-	    <div id="header">
-	    	<div id="logo">
-	    		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"></a>
-	    	</div>
+<div id="header">
+   <div class="super">
+	   	<div id="logo">
+	   		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"></a>
+	   	</div>
 	    	
-	    	<p class="shipping">
-				<img class="flag" src="{% staticfile '/images/004.gif' %}">
-	    		<a title="Chinese tea delivered to your door in the UK" href="/where-do-we-deliver/">We ship in 1-2 days anywhere in the UK</a>
-	    	</p>
+	   	<p class="shipping">
+			<img class="flag" src="{% staticfile '/images/004.gif' %}">
+	   		<a title="Chinese tea delivered to your door in the UK" href="/where-do-we-deliver/">We ship in 1-2 days anywhere in the UK</a>
+	   	</p>
 
-	    	<div id="navigation">
-	    	    <ul id="nav">
-	    	    	<li>
-	    	    		<a class="{% nav_selected request '^/$' %}" href="{% url home %}" title="Chinese tea delivered to your door.">Home</a>
-	    	    	</li>
-	    	        <li>
-	    	        	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Our teas</a>
-	    	        </li>
-	    	        <li>
-	    	        	<a class="{% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn</a>
-	    	        </li>
-	    	        <li>
-	    	        	<a class="{% nav_selected request '^/about/' %}" href="/about/" title="About the Min River Tea Farm" alt="">About us</a>
-	    	        </li>
-	    	        <li>
-	    	        	
-	    	        	<a class="{% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
-	    	        	
-	    	        	Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}
-	    	        	
-	    	        	</a>
-	    	        	
-	    	        </li>
-	  			</ul>
-			</div>
-			
-			{% block banner %}{% endblock %}
-
-
+	   	<div id="navigation">
+	   	    <ul id="nav">
+	   	    	<li>
+	    	    	<a class="{% nav_selected request '^/$' %}" href="{% url home %}" title="Chinese tea delivered to your door.">
+	    	    	Home
+	    	    	</a>
+	    	    </li>
+	    	    <li>
+	    	       	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">
+	    	       	Our teas
+	    	       	</a>
+	    	    </li>
+	    	    <li>
+	    	       	<a class="{% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn</a>
+	    	    </li>
+	    	    <li>
+	    	      	<a class="{% nav_selected request '^/about/' %}" href="/about/" title="About the Min River Tea Farm" alt="">About us</a>
+	    	    </li>
+	    	    <li>    	
+	    	        <a class="{% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
+	    	        Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}
+	    	        </a>
+	    	    </li>
+	  		</ul>
+		</div>
 	</div>
+</div><!-- end header -->
 
-		{% block content %}{% endblock %}
+	{% block content %}{% endblock %}
 	
 	
-		{% include "shop/snippets/footer.html" %} 
+	{% include "shop/snippets/footer.html" %} 
 
-    </div>
 
-		<ul class="footer-links">
-		      <li>&copy;2011 minrivertea.com | 145 - 157 St John St, London, EC1V 4PW, UK &raquo;</li>
-	          <li><a href="/terms-and-conditions/"><span class="fontface">Terms and Conditions</span></a>  /</li>
-	          <li><a href="/about/"><span class="fontface">About Us</span></a>  /</li>
-	          <li><a href="/privacy/"><span class="fontface">Privacy</span></a>  /</li>
-	          <li><a href="{% url contact_us %}">Contact Us</a></li>
-	          <li><br/></li>
-	   </ul>
-	   <p></p>
 </div>
 	{% block extrajs %}{% endblock %}
 

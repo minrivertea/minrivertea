@@ -73,9 +73,9 @@ div#right p.mail.last {
 
 div.next-previous {
   border-top: 3px dotted #e1e1e1;
-  padding-top: 20px;
+  padding: 20px 0;
   margin-bottom: 20px;	
-  width: 560px;
+  width: 660px;
   float: left;
   border-bottom: 3px dotted #e1e1e1;
 }
@@ -143,12 +143,16 @@ img.tweets {
 
 {% block content %}
 
-<div id="featured-small"></div>
+<div id="banner">
+  <div class="super">
+  	<h1>{{ entry.title }}</h1>
+	<p class="subtitle"><a href="{% url blog_home %}">&laquo; back to blog home</a> | {{ entry.date_added|date:"D d M Y" }}</p>
+  </div>
+</div>
 
-  <div id="main-text-wide">
-		
-			<h1>{{ entry.title }}</h1>
-			<p class="subtitle"><em>{{ entry.date_added|date:"D d M Y" }}</em> <span class="small"><a href="{% url blog_home %}">&laquo; back to blog home</a></span></p>
+<div id="main-text-wide">
+  <div class="super">		
+			
 
 	<div id="right">
 		{% include "blog/snippets/blog-right.html" %}
@@ -209,8 +213,8 @@ img.tweets {
 			
 		</div>
 	</div>
-
   </div>
+</div>
 
 {% endblock %}
 

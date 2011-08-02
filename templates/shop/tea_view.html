@@ -115,7 +115,7 @@ div.other-teas h3 {
 div.product-photos-small {
     float: left;
     margin: 0 0 25px 0;
-    width: 320px;
+    width: 440px;
     text-align: right;
 }
 
@@ -166,13 +166,14 @@ div.right-links ul li {
 
 div.tea-top {
     float: left;
-    margin-top: 10px;
+    margin: 10px 0 30px;
     padding-bottom: 30px;
 }
 
-div.image-top {
-  height: 5px;
-  margin-bottom: 30px;
+div.tea-top div.description p {
+  font-size: 16px;
+  color: #333;	
+  margin: 0 0 20px 0;
 }
 
 div.tea-top div.main-image {
@@ -188,22 +189,34 @@ div.tea-top div#prices {
 }
 
 div.tea-top div#prices div.price {
-  width: 153px;
+  width: 170px;
   float: left;
   margin-right: 10px;
-  border-right: 2px dotted #e1e1e1;	
-  padding: 10px 0;
+    background-color: #E6E6E6; 
+    background: -moz-linear-gradient(100% 100% 90deg, #efefef, #f6f6f6); 
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f6f6f6), to(#efefef)); 
+    background: -webkit-linear-gradient(#efefef, #f6f6f6); 
+    background: -o-linear-gradient(#efefef, #f6f6f6);  
+  border-radius: 5px 5px 5px 5px;
+  padding: 15px 20px;
+  box-shadow: 0 0px 4px #c1c1c1;
+}
+
+div.tea-top div#prices div.price:hover {
+  cursor: pointer;
+  box-shadow: 0 0px 8px #1C7600;	
 }
 
 div.tea-top div#prices div.price.large {
-  width: 320px;
-  border-right: none;	
+  width: 380px;
 }
 
 div.tea-top div#prices div.price.large div.button {
   background: url("{% staticfile '/images/price-back-two.png' %}") no-repeat scroll right top transparent;	
   width: 186px;
   height: 43px;
+  float:right;
+  margin-top: 0;
 }
 
 div.tea-top div#prices div.price.large div.button:hover {
@@ -219,9 +232,9 @@ div.tea-top div#prices div.price.large div.button:active {
 }
 
 div.tea-top div#prices div.price.large p.price-description {
-  width: 360px;
-  margin-left: 0px;
-  padding-top: 5px;
+  width: 100px;
+  float: left;
+  margin-left: 10px;
   margin-bottom: 0px;	
 }
 
@@ -233,16 +246,16 @@ div.tea-top div#prices div.price.large div.message {
 
 div.tea-top div#prices div.price.last {
  margin-right: 0;
- padding-left: 5px;
- border-right: none;	
 }
 
 div.tea-top div.button {
     background: url("{% staticfile '/images/add-to-basket-button.png' %}") no-repeat scroll right top transparent;
     float: left;
-    height: 33px;
+    height: 40px;
     margin: 10px 0 0 0;
-    width: 142px;
+    width: 171px;
+    position: relative;
+    left: -5px;  
 }
 
 div.tea-top div.button:hover {
@@ -286,7 +299,6 @@ div.price-text {
 }
 
 div.message {
-    background-color: #FFFFFF;
     border: medium none;
     line-height: 1.2em;
     margin-bottom: 0;
@@ -322,7 +334,7 @@ table.details {
     color: #333;
     font-size: 13px;
     margin-top: 10px;
-    width: 490px;
+    width: 660px;
 }
 
 table.details tr {
@@ -345,17 +357,13 @@ table.details td.left {
 }
 
 ul.reviews {
-    color: #666666;
-    font-size: 12px;
     list-style-type: square;
     padding-left: 20px;
     margin-bottom: 0;
-    border-bottom: 3px dotted #e1e1e1;
     margin-bottom: 20px;
 }
 
 ul.reviews li {
-  font-size: 14px;	
   padding-bottom: 15px;
   line-height: 1.6em;
 } 
@@ -387,26 +395,28 @@ p.price {
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 32px;
     font-weight: bold;
-    line-height: 1em;
     letter-spacing: -1px;
+    line-height: 1em;
     margin: 0;
+    text-shadow: 0 2px 2px #FFFFFF;
 }
 
 p.price span.grey {
-  color: #999;
-  font-weight: 300;
+  color: #555;
+  font-weight: bold;
   font-size: 20px;
+  text-shadow: none;
 }
 
 
 
 p.price-description {
-    color: #666666;
+    color: #333333;
     float: left;
-    font-size: 10px;
+    font-size: 14px;
+    line-height: 1.2em;
     margin: 0 0 0 5px;
-    width: 92px;
-    line-height: 1.3em;
+    width: 110px;
 }
 
 div.facts {
@@ -454,6 +464,17 @@ div.coming-soon p {
   color: #	
 }
 
+#facebook {
+  float: left;
+  width: 80px;
+}
+
+#google {
+  margin-bottom: 10px;
+  float: left;
+  width: 80px;
+}
+
 </style>
 {% endblock %}
 
@@ -461,21 +482,41 @@ div.coming-soon p {
 
 {% block content %}
 
-<div id="featured-small"></div>
 
+<div id="banner">
+  <div class="super">
+   
+	
+  	<h1>{{ tea.name }} Chinese tea</h1>
+
+    <div class="rss">
+		<div id="google">
+			<g:plusone></g:plusone>
+			<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+		</div>
+    	<div id="facebook">
+		    <div id="fb-root"></div>
+		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
+		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+		    </fb:like>
+		</div>
+
+	</div>
+
+
+  </div>
+</div>
 
 
 <div id="main-text-wide">
-<div class="rss">
-Share this page with friends
-<a title="Share this tea on facebook" target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com%2Fteas%2F{{ tea.slug }}"><img src="{% staticfile '/images/facebook.png' %}"></a>
-<a title="Checkout photos of this tea and more on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
-<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com/teas/{{ tea.slug }}/" data-text="{{ tea.name }}" data-count="none" data-via="minrivertea"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
-</div>
-	<h1>{{ tea.name }} Chinese tea</h1>
-	    		<p class="subtitle">{{ tea.super_short_description }}</p>
-
-	
+  <div class="super">
+     	
 	<div class="tea-top">
 		<div class="main-image">
 			<div id="image_wrap">	
@@ -483,13 +524,12 @@ Share this page with friends
 			</div>
 		</div>
 		
-		<div class="tea-description">
-			{{ tea.body_text|safe }}
-		</div>
+		<div class="description">{{ tea.body_text|safe }}</div>
+
+
 		<div class="product-photos-small">
 			<div class="scrollable">   
 			   <div class="items">
-  
   			    <div>
   			        {% thumbnail tea.image "50x50" crop="center" as im %}
   			    		{% thumbnail tea.image "500x331" crop="center" as im_large %}
@@ -531,8 +571,10 @@ Share this page with friends
       			</div>
       		  </div>
       		</div>
-		</div>
-		
+		</div><!-- end product photos small -->
+
+
+
 		<div id="prices">
 	      {% if tea.coming_soon %}
 		  	<div class="coming-soon">
@@ -543,7 +585,7 @@ Share this page with friends
 			{% ifequal prices.count 1 %}
 				{% for price in prices %}
 		    	  <div class="price large">
-		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }} <span class="grey">/ {{ price.weight|floatformat }}{{ price.weight_unit }}</span> </p> 
+		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
 					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
 					<div class="button"></div>
@@ -562,7 +604,7 @@ Share this page with friends
 			{% else %}
 		    	{% for price in prices %}
 		    	  <div class="price{% if forloop.last %} last{% endif %}">
-		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }} </p> 
+		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
 					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
 					<div class="button"></div>
@@ -579,15 +621,11 @@ Share this page with friends
            		{% endfor %}
            	{% endifequal %}
           {% endif %}
+        </div>
 
-		</div>
-		
+	</div><!-- end top product info div -->
 
-
-	</div>
 	
-	<div class="image-top"></div>
-<br clear="all"/>
 	<div id="right">       	
         <div class="info">
            	<img src="{% staticfile '/images/free-delivery.png' %}">
@@ -635,23 +673,22 @@ Share this page with friends
 
 	<div id="left">
 		{% if reviews %}
-			<h3>Customer reviews for {{ tea.name }} Chinese tea <span class="">- <a href="{% url review_tea tea.slug %}">Add your own review &raquo;</a></span></h3>
+			<h2>Customer reviews for this tea ({{ reviews.count }})</h2>
 			<ul class="reviews">
 			{% for review in reviews %}
 				<li><em>"{{ review.short_text }}"</em> <br/><span>{{ review.first_name }} {{ review.last_name }}</span></li>
 			{% endfor %}
 			</ul>
-			<p></p>
 		{% endif %}  
 
 	
-		
-	{{ tea.long_description|safe }}
-	{% if ga_is_on %}
-	<div class="fb-recommend">
-	<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=102598969829350&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ tea.get_absolute_url }}" send="false" width="450" show_faces="false" action="recommend" font=""></fb:like>
-	</div>
-	{% endif %}
+		<h2>More information about this tea</h2>
+		{{ tea.long_description|safe }}
+		{% if ga_is_on %}
+		<div class="fb-recommend">
+		<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=102598969829350&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ tea.get_absolute_url }}" send="false" width="450" show_faces="false" action="recommend" font=""></fb:like>
+		</div>
+		{% endif %}
 	
 	
 
@@ -659,7 +696,7 @@ Share this page with friends
 	
 			
 						 
-
+</div>
 
 </div>
 </div>
