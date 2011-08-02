@@ -559,6 +559,11 @@ def send_review_email(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     
     # create and send an email to the user to say thanks.
+    
+    subject = "minrivertea.com - how to brew your tea"
+    from_email = settings.SITE_EMAIL
+    to_email = order.owner.email
+    
     text_content = render_to_string('shop/emails/review_email.txt', {
         'shopper': order.owner, 
         'items': order.items.all(),
@@ -566,26 +571,24 @@ def send_review_email(request, order_id):
     )
     
     html_content = render_to_string('shop/emails/html_review_email.html', {
-        	
+        'items': order.items.all(),
+        'shopper': order.owner,
+        'subject': subject,
     })
     
-    subject = "minrivertea.com - how to brew your tea"
-    from_email = settings.SITE_EMAIL
-    to_email = order.owner.email
-    
-    
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
                  
       
-    send_mail(
-        subject_line, 
-        body, 
-        email_sender,
-        [recipient], 
-        fail_silently=False
-    )
+#    send_mail(
+#        subject_line, 
+#        body, 
+#        email_sender,
+#        [recipient], 
+#        fail_silently=False
+#    )
     
     order.review_email_sent = True
     order.save()
