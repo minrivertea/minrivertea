@@ -183,8 +183,8 @@
     font-size: 34px;
     font-weight: bold;
     line-height: 100%;
-    padding: 10px 0;
-    text-align: center;
+    padding: 30px 20px;
+    text-align: left;
     vertical-align: middle;
 }
 			
@@ -577,7 +577,7 @@
                                         <tr>
                                             <td class="headerContent">
                                             	<!-- // Begin Module: Standard Header Image \\ -->
-                                            	<img src="http://localhost:8000/images/email-header.jpg" style="max-width:600px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+                                            	<img src="http://localhost:8000/images/email-header.jpg" style="max-width:600px;" id="headerImage campaign-icon" />
                                             	<!-- // End Module: Standard Header Image \\ -->
                                             
                                             </td>
@@ -603,10 +603,10 @@
                                                                 <strong>Hopefully you've received your tea now, and you're already enjoying it!</strong> Remember, if you're not sure how to brew your tea, or would like some tips, please checkout the <a href="http://www.minrivertea.com/learn/">Learn</a> section of our website for guides and tips.
                                                                 <br />
                                                                 <br />
-                                                                <strong>It would be really helpful</strong> to us if you could write a review of your tea. It means a lot to hear your positive and negative impressions, and helps us improve our service and maintain quality. <br/>	
+                                                                <strong>It would be really helpful</strong> to us if you could write a review of your tea. It means a lot to hear your positive and negative impressions, and helps us improve our service and maintain quality. <br/>	<br/>
                                                                 {% for item in items %}
                                                                 <a href="http://www.minrivertea.com/teas/{{ item.item.parent_product.slug }}/review/">
-                                                                Write your review for {{ item.name }} here</a>
+                                                                Write your review for {{ item.item.parent_product.name }} here</a>
                                                                 <br/>
                                                                 {% endfor %}
                                                             </div>
