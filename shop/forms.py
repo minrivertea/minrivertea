@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
-from minriver.shop.models import Address, Order, Discount, Shopper, Product
+from minriver.shop.models import Address, Order, Discount, Shopper, Product, Notify
 
 UNITED_KINGDOM = 'united kingdom'
 INVALID = 'invalid'
@@ -174,3 +174,7 @@ class ReviewForm(forms.Form):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     email = forms.EmailField(required=True, error_messages={'required': '* You must give a valid email address'})
+
+class NotifyForm(forms.Form):
+    name = forms.CharField(required=True)
+    email = forms.EmailField(required=True, error_messages={'required': 'Please enter a valid email address'})

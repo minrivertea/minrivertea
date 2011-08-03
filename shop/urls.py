@@ -30,5 +30,6 @@ urlpatterns = patterns('',
     url(r'^tea-lover/(?P<slug>[\w-]+)/$', views.tea_lover, name="tea_lover"),
     url(r'^tell-a-friend/$', views.tell_a_friend, name="tell_a_friend"),
     url(r'^not-me/$', views.not_you, name="not_you"),
+    url(r'^shipping/$', views.shipping, name="shipping"),
 )
 

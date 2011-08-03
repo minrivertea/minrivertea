@@ -20,6 +20,7 @@ admin.site.register(Discount)
 admin.site.register(Photo)
 admin.site.register(Referee)
 admin.site.register(WeLike)
+admin.site.register(Notify)
 admin.site.register(Review, ReviewAdmin)
 
 

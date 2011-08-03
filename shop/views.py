@@ -8,6 +8,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.http import HttpResponseRedirect 
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.urlresolvers import reverse
 
 
 from PIL import Image
@@ -580,21 +581,42 @@ def send_review_email(request, order_id):
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
-                 
-      
-#    send_mail(
-#        subject_line, 
-#        body, 
-#        email_sender,
-#        [recipient], 
-#        fail_silently=False
-#    )
     
     order.review_email_sent = True
     order.save()
     
     return HttpResponseRedirect('/admin-stuff')   
+
+
+# view for the shipping page
+def shipping(request):
+    try:
+        if request.session['MESSAGE'] == "1":
+            message = True
+            request.session['MESSAGE'] = ""
+    except:
+        pass 
         
+    if request.method == 'POST':
+        form = NotifyForm(request.POST)
+        if form.is_valid():
+            
+            creation_args = {
+                'name': form.cleaned_data['name'],
+                'email': form.cleaned_data['email'],          
+            }
+            
+            Notify.objects.create(**creation_args)
+            
+            url = reverse('shipping')
+            request.session['MESSAGE'] = "1"
+            return HttpResponseRedirect(url)
+        
+    else:
+        form = NotifyForm()
+        
+    return render(request, "shop/forms/shipping.html", locals())
+            
 
 # view for the photo wall
 def reviews(request):
