@@ -103,7 +103,6 @@ INSTALLED_APPS = (
     'django_static',
     'registration',
     'ab',
-    
 )
 
 # Random app information for different things
