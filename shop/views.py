@@ -132,7 +132,7 @@ def contact_us(request):
             your_email = form.cleaned_data['your_email']
             
             # create email
-            body = render_to_string('shop/emails/contact_template.txt', {
+            body = render_to_string('shop/emails/text/contact_template.txt', {
             	 'message': message,
             	 'your_email': your_email,
             	 'your_name': your_name,
@@ -489,7 +489,7 @@ def order_complete(request):
             
             if shopper.get_orders() is not None:
                 # create a tweet
-                tweet =  render_to_string('shop/emails/tweet.txt', {'twitter_username': twitter_username})
+                tweet =  render_to_string('shop/emails/text/tweet.txt', {'twitter_username': twitter_username})
             
                 # tweet a message to them to say thanks for ordering!
                 twitter_post(tweet)            
@@ -565,13 +565,13 @@ def send_review_email(request, order_id):
     from_email = settings.SITE_EMAIL
     to_email = order.owner.email
     
-    text_content = render_to_string('shop/emails/review_email.txt', {
+    text_content = render_to_string('shop/emails/text/review_email.txt', {
         'shopper': order.owner, 
         'items': order.items.all(),
         }
     )
     
-    html_content = render_to_string('shop/emails/html_review_email.html', {
+    html_content = render_to_string('shop/emails/html/html_review_email.html', {
         'items': order.items.all(),
         'shopper': order.owner,
         'subject': subject,
@@ -648,9 +648,9 @@ def tell_a_friend(request):
             
             # create email
             if message:
-                body = render_to_string('shop/emails/custom_tell_friend.txt', {'message': message})
+                body = render_to_string('shop/emails/text/custom_tell_friend.txt', {'message': message})
             else:
-                body = render_to_string('shop/emails/tell_friend.txt', {'sender': sender})
+                body = render_to_string('shop/emails/text/tell_friend.txt', {'sender': sender})
             
             subject_line = "%s wants you to know about minrivertea.com" % sender
                 
@@ -755,19 +755,22 @@ def send_sampler_email(request, id):
     if order.sampler_email_sent:
         return False
 
-    sender = settings.SITE_EMAIL
-    recipient = shopper.email
+    from_email = settings.SITE_EMAIL
+    to_email = shopper.email
+    subject = "Give a tea gift to a friend, courtesy of the Min River Tea Farm"
             
     # create email
-    body = render_to_string('shop/emails/send_sample_to_friend_email.txt', {'shopper': shopper})
-    subject_line = "Give a tea gift to a friend, courtesy of the Min River Tea Farm"
-    send_mail(
-                      subject_line, 
-                      body, 
-                      sender,
-                      [recipient], 
-                      fail_silently=False
-    )
+    text_content = render_to_string('shop/emails/text/send_sample_to_friend_email.txt', {'shopper': shopper})
+    html_content = render_to_string('shop/emails/html/send_sample_to_friend_email.html', {
+    	'shopper': shopper,
+    	'subject': subject,
+    })
+    
+    
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
     
     order.sampler_email_sent = True
     order.save()

@@ -385,42 +385,44 @@ def show_me_the_money(sender, **kwargs):
     order.save()
     
     # create and send an email to the customer
-    invoice_id = order.invoice_id
-    first_name = order.owner.first_name
-    recipient = order.owner.email
-    body = render_to_string('shop/emails/order_confirm_customer.txt', {
-    	        'first_name': first_name, 
-    	        'invoice_id': invoice_id, 
+    to_email = order.owner.email
+    from_email = settings.SITE_EMAIL
+    subject = "Order confirmed - Min River Tea Farm" 
+    
+    text_content = render_to_string('shop/emails/text/order_confirm_customer.txt', {
+    	        'first_name': order.owner.first_name, 
+    	        'invoice_id': order.invoice_id, 
     	        'order_items': order.items.all(), 
-    	        'order_status': order.status})
-    subject_line = "Order confirmed - Min River Tea Farm" 
-    email_sender = settings.SITE_EMAIL
-      
-    send_mail(
-                  subject_line, 
-                  body, 
-                  email_sender,
-                  [recipient], 
-                  fail_silently=False
-     )
+    })
+    
+    html_content = render_to_string('shop/emails/html/html_order_confirm_customer.html', {
+                'first_name': order.owner.first_name,
+                'invoice_id':	order.invoice_id,
+                'order_item': order.items.all(),
+                'subject': subject,
+    })
+    
+    
+    
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    
      
-     # create and send an email to me
+    # create and send an email to me
     invoice_id = order.invoice_id
-    email = order.owner.email
-    recipient = 'mail@minrivertea.com'
-    body = render_to_string('shop/emails/order_confirm_admin.txt', {
-    	        'email': email, 
+    body = render_to_string('shop/emails/text/order_confirm_admin.txt', {
+    	        'email': to_email, 
     	        'invoice_id': invoice_id, 
     	        'order_items': order.items.all(), 
     	        'order_status': order.status})
     subject_line = "NEW ORDER - %s" % invoice_id      
-    email_sender = settings.SITE_EMAIL
       
     send_mail(
                   subject_line, 
                   body, 
-                  email_sender,
-                  [recipient], 
+                  from_email,
+                  [from_email], 
                   fail_silently=False
      )  
 payment_was_successful.connect(show_me_the_money)    
@@ -436,7 +438,7 @@ def payment_flagged(sender, **kwargs):
     invoice_id = order.invoice_id
     email = order.owner.email
     recipient = 'mail@minrivertea.com'
-    body = render_to_string('shop/emails/order_confirm_admin.txt', {'email': email, 'invoice_id': invoice_id, 'order_items': order.items.all()})
+    body = render_to_string('shop/emails/text/order_confirm_admin.txt', {'email': email, 'invoice_id': invoice_id, 'order_items': order.items.all()})
     subject_line = "FLAGGED ORDER - %s" % invoice_id 
     email_sender = 'mail@minrivertea.com'
       

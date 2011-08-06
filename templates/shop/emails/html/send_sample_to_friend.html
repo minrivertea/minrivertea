@@ -10,7 +10,7 @@
 		<style type="text/css">
 			/* Client-specific Styles */
 			#outlook a{padding:0;} /* Force Outlook to provide a "view in browser" button. */
-			body{width:100% !important; font-family: Georgia, serif;} 
+			body{width:100% !important; font-family: Arial, Helvetica, sans-serif;} 
 			.ReadMsgBody{width:100%;} 
 			.ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
 			body{-webkit-text-size-adjust:none;} /* Prevent Webkit platforms from changing default text sizes. */
@@ -600,15 +600,20 @@
                                                             <div mc:edit="std_content00">
                                                                 <h1 class="h1">Hi {{ shopper.first_name }}!</h1>
 
-                                                                <strong>Hopefully you've received your tea now, and you're already enjoying it!</strong> Remember, if you're not sure how to brew your tea, or would like some tips, please checkout the <a href="http://www.minrivertea.com/learn/">Learn</a> section of our website for guides and tips.
-                                                                <br />
-                                                                <br />
-                                                                <strong>It would be really helpful</strong> to us if you could write a review of your tea. It means a lot to hear your positive and negative impressions, and helps us improve our service and maintain quality. <br/>	<br/>
-                                                                {% for item in items %}
-                                                                <a href="http://www.minrivertea.com/teas/{{ item.item.parent_product.slug }}/review/">
-                                                                Write your review for {{ item.item.parent_product.name }} here</a>
+                                                                <strong>Would you like to send a free tea gift to a friend?</strong>
                                                                 <br/>
-                                                                {% endfor %}
+                                                                <br/>
+We really hope you've enjoyed your tea, and we'd like to help you share the experience. If there's a friend, relative or colleague that you think would enjoy drinking Chinese tea, then we'll happily send them a sample pack, totally for free.
+																<br/>
+																<br/>
+Just reply to this email including the name and address in the UK of the person you'd like us to send some tea to, and a custom message if you like. 
+																<br/>
+																<br/>
+
+We'll send them the tea, <strong>totally free of charge</strong>, and let them know that it's a gift from you.
+                                                                <br />
+                                                                <br />
+                                                               
                                                             </div>
 														</td>
                                                     </tr>
@@ -633,7 +638,7 @@
 
                                                     <tr>
                                                         <td valign="top" width="350">
-                                                        	Thanks again, and enjoy your tea!<br/><br/>
+                                                        	All the best,<br/><br/>
                                                         	<span style="font-size:1.2em;">
                                                         	Chris West, Founder
                                                         	</span><br/>
