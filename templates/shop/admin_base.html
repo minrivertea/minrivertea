@@ -58,7 +58,9 @@
 				  {% if order.review_email_sent %}
 				     review email sent
 				  {% else %}
+				    {% if order.ready_to_send_review %}
    				     <a href="{% url send_review_email order.id %}">Send review email</a>
+   				    {% endif %}
 				  {% endif %}
 				{% else %}
 				<a href="{% url ship_it order.id %}">Ship it</a>
@@ -71,7 +73,9 @@
 					sampler email sent
 					{% endif %}
 				{% else %}
-				<a href="{% url send_sampler_email order.id %}">Send sampler email</a>
+				  {% if order.ready_to_send_sampler_email %}
+					<a href="{% url send_sampler_email order.id %}">Send sampler email</a>
+				  {% endif %}
 				{% endif %}
 			</td>
 			<td>

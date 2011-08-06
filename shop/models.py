@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
 from django.shortcuts import get_object_or_404
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from slugify import smart_slugify
 from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
@@ -320,6 +320,22 @@ class Order(models.Model):
         else:
             amount += 3
         return amount
+    
+    def ready_to_send_review(self):
+        if (self.date_paid + timedelta(days=7)) < datetime.now():
+            review = True
+        else:
+            review = False
+        return review
+    
+    def ready_to_send_sampler_email(self):
+        if (self.date_paid + timedelta(days=14)) < datetime.now():
+            sampler = True
+        else:
+            sampler = False
+        return sampler
+        
+            
     
 class WeLike(models.Model):
     title = models.CharField(max_length=200)
