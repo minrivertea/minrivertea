@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
 from django.shortcuts import get_object_or_404
@@ -156,7 +157,10 @@ class Product(models.Model):
         return "/teas/%s/" % self.slug  #important, do not change
     
     def get_lowest_price(self):
-        prices = UniqueProduct.objects.filter(parent_product=self).order_by('price')[0]
+        try:
+            prices = UniqueProduct.objects.filter(parent_product=self).order_by('price')[0]
+        except:
+            prices = None
         return prices
     
     def get_reviews(self):
