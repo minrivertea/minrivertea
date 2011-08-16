@@ -71,7 +71,13 @@ def index(request):
         products_and_prices.append((product, prices.filter(parent_product=product)))
     
     return render(request, "shop/home.html", locals())
-    
+
+def page(request, slug):
+    return render(request, "shop/page.html", locals())
+
+
+def sub_page(request, slug, sub_slug):
+    return render(request, "shop/page.html", locals())
     
 # the product listing page
 def teas(request):

@@ -325,6 +325,8 @@ class Order(models.Model):
             amount += 3
         return amount
     
+    
+# can be deleted, not used anymore (Aug 2011)
 class WeLike(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -364,7 +366,17 @@ class Referee(models.Model):
     def __unicode__(self):
         return self.email
        
-
+class Page(models.Model):
+    slug = models.SlugField()
+    title = models.CharField(max_length=200)
+    meta_title = models.CharField(max_length=200, blank=True, null=True)
+    meta_description = models.TextField(blank=True, null=True)
+    content = models.TextField()
+    right_side_boxes = models.CharField(max_length=200)
+    
+    def __unicode__(self):
+        return self.title
+    
 
 
 # signals to connect to receipt of PayPal IPNs

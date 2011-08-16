@@ -43,36 +43,11 @@ div.row-box img {float: left; margin-right: 10px; margin-top: -10px;}
 
 
 <div id="left">
-<h2>Your order ID is: {{ order }}</h2>
+<h3>Your order ID is: {{ order }}</h3>
 <p>Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience.</p>
 
-<h2>Contact us</h2>
-<p>If for any reason you need to contact us about your order, email us at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> quoting your order ID. We normally respond to emails within 2-3 hours at the latest.</p>
 
-	{% ifequal shopper.twitter_username None %}
-		<form method="post" action="">
-				<h2>Tell your friends about the Min River Tea Farm</h2>
-				<p>It would really help us if you'd help spread the word about the Min River Tea Farm -  </p>
-				
-    		<div class="row-box">
-				<input type="text" id="id_twitter_username" name="twitter_username">
-				<input type="submit" value="" next="" class="twitter-submit"/>
-			</div>		
-		</div>
-	{% else %}
-	<div class="row">
-			<div class="row-label">
-			<h3>Twitter updates</h3>
-			</div>
-			<div class="row-box">
-			<img src="/images/twitter-small.png"/>
-			<p class="intro">We've stored your twitter name as <a href="">@{{ shopper.twitter_username }}</a></p>
-			<p class="intro">If you don't want to receive twitter updates when your order is shipped, <a href="{% url turn_off_twitter shopper.id %}">click here to turn off twitter updates.</a></p>
-			</div>
-	</div>
-	
-	
-	{% endifequal %}
+<p>If for any reason you need to contact us about your order, email us at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> quoting your order ID. We normally respond to emails within 2-3 hours at the latest.</p>
 
 
 
