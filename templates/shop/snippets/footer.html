@@ -2,35 +2,42 @@
 
 
 <div id="footer">
+  <div class="super">
+		
+	<div class="footer-box">
+	    <h4><a href="{% url blog_home %}">Read our Chinese tea blog &raquo;</a></h4>
+	    <p>News, information and ideas about Chinese tea from the Min River Tea Farm</p>
+	    <ul>
+	    {% for blog in latestblogs %}
+	      <li>
+	      	<a href="{% url blog_entry blog.slug %}">{{ blog.title }}</a><br/>
+	      </li>
+		{% endfor %}
+		</ul>
+	</div>
+		
+	<div class="footer-box">
+	    <h4><a href="/learn/">Learn more about Chinese tea &raquo;</a></h4>
+	    <p>Our guides and information can help you get the most out of your Chinese tea</p>
+		<ul>
+		  {% include 'shop/snippets/learn_pages_list.html' %}
+		</ul>
+	</div>
+	
+	<div class="footer-box">
+	  <h4>About the Min River Tea Farm</h4>
+	  <p>We're a UK retailer of high quality Chinese teas, sourced directly from China.</p>
+	  	<ul class="">
+	      <li><a href="/terms-and-conditions/"><span class="fontface">Terms and Conditions</span></a></li>
+	      <li><a href="/about/"><span class="fontface">About Us</span></a></li>
+	      <li><a href="/privacy/"><span class="fontface">Privacy</span></a></li>
+	      <li><a href="{% url contact_us %}">Contact Us</a></li>
+	      <li><a href="/about/wholesale/">Trade / Wholesale</a></li>
+		</ul>
+	  
+	</div>
 
 
 
-		
-		<div class="payments">	
-		<img src="{% staticfile '/images/001.png' %}"/>
-		<p>Safe and secure payments.<br/> Quick and reliable delivery</p>
-		</div>
-		
-		<div class="footer-box">
-		    <h4><a href="{% url blog_home %}">Read our Chinese tea blog &raquo;</a></h4>
-		    <ul>
-		    {% for blog in latestblogs %}
-		      <li>
-		      	<a href="{% url blog_entry blog.slug %}">{{ blog.title }}</a><br/>
-		      	{% if forloop.first %}
-		      	<span class="grey"><em>{{ blog.summary }}</em></span>
-		      	{% endif %}
-		      </li>
-			{% endfor %}
-			</ul>
-		</div>
-		
-		 <div class="footer-box">
-		    <h4><a href="/learn/">Learn more about tea &raquo;</a></h4>
-			<ul>
-			  {% include 'shop/snippets/learn_pages_list.html' %}
-			</ul>
-		</div>
-
-		
-    </div>
+  </div>	
+</div>

@@ -31,5 +31,7 @@ urlpatterns = patterns('',
     url(r'^tell-a-friend/$', views.tell_a_friend, name="tell_a_friend"),
     url(r'^not-me/$', views.not_you, name="not_you"),
     url(r'^shipping/$', views.shipping, name="shipping"),
+    url(r'^(?P<slug>[\w-]+)/$', views.page, name="page"),
+    url(r'^(?P<slug>[\w-]+)/(?P<sub_slug>[\w-]+)/$', views.sub_page, name="sub_page"),
 )
 

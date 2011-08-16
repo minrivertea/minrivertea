@@ -23,12 +23,18 @@ div#main-text-wide div#right {
 {% block pagetitle %}What our customers say about the Min River Tea Farm{% endblock %}
 
 {% block content %}
-<div id="featured-small"></div>
+
+<div id="banner">
+  <div class="super">
+  	<h1>What our customers are saying</h1>
+  	<p class="subtitle">Testimonials and reviews from happy customers who've bought our tea recently.</p>
+  </div>
+</div>
 
 <div id="main-text-wide">
-
-	<h1>What our customers are saying</h1>
-	<p class="subtitle">Testimonials and reviews from happy customers who've bought our tea recently.</p>
+  <div class="super">
+	
+	
 
 	<div id="left">
 		{% for review in reviews %}
@@ -57,7 +63,7 @@ div#main-text-wide div#right {
 			<p>* <em>Want to see your photo here? <a href="mailto:chris@minrivertea.com">Send us a picture</a> of you drinking tea, and we'll donate £1 to <a href="http://www.mind.org.uk">Mind UK</a> for every photo we receive.</em></p>
 		</div>
 	</div>
-
+  </div>
 </div>
 {% endblock %}
 

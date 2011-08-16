@@ -20,12 +20,17 @@
 
 {% block content %}
 
-<div id="featured-small"></div>
+<div id="banner">
+  <div class="super">
+    <h1>Admin pages</h1>
+    <a href="/admin/">Login to admin interface</a>
+  </div>
+</div>
 
 <div id="main-text-wide">
+  <div class="super">
 
-<h2>Admin pages</h2>
-<a href="/admin/">Login to admin interface</a>
+
 <p></p>
 <h3>Orders ({{ orders.count }})</h3>
 	<table id="orders-table">
@@ -145,5 +150,6 @@
 <p>{{ published_photos.count }} published photos</p>
 </div>
 
+  </div>
 </div>
 {% endblock %}

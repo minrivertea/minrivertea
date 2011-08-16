@@ -10,6 +10,35 @@
 {% block extracss %}
 <style type="text/css">
 
+div#logo {
+  background: url('/images/logo-blue-back.png') no-repeat top left;	
+  margin-top: 30px;
+}
+
+div#header {
+  background-color: #D8EEF1;	
+}
+
+div#footer {
+  margin-top: 10px;	
+}
+
+ul#nav li:not(:last-child) a {
+  border-right: none;	
+}
+
+div.social {
+  float: right;
+  width: 400px;	
+  text-align: right;
+  margin-top: 40px;
+}
+
+div.social div.twitter {
+  float: right;
+  width: 100px;	
+}
+
 div#top {
   height: 180px;
   padding: 10px 0 0px;
@@ -76,10 +105,10 @@ div#top div.right {
 }
 
 div#feature {
-    height: 380px;
+    height: 450px;
     float: left;
     width: 100%;
-    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat #fff;
+    background: url("{% staticfile '/images/noteanazis.png' %}") no-repeat #D8EEF1;
     background-position: 190px 0px;
     margin: 0px 0 0;
     padding-bottom: 0px;
@@ -91,14 +120,14 @@ div#feature div.top {
     padding-right: 30px;
     position: relative;
     top: 60px;
-    width: 400px;
+    width: 470px;
 }
 
 div#feature div.top h1 {
-    color: #333;
+    color: #333333;
     font-size: 40px;
     font-weight: normal;
-    margin: 10px 0 10px 0;
+    margin: 50px 0 10px;
     text-align: right;
 }
 
@@ -251,11 +280,9 @@ div#benefits img.first-time {
 }
 
 #benefits #teas .tea {
-    float: left;
-    height: 210px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    width: 200px;
+  width: 200px;
+  float: left;	
+  margin-right: 20px;
 }
 
 #benefits #teas .tea h4 {
@@ -432,68 +459,21 @@ ul#benefits {
 <div id="feature">
   <div class="super">
 	<div class="top">
-		<h1>We sell authentic, great tasting Chinese teas</h1>
-		<p>Our teas are sourced locally from the mountains of the Fujian province, and delivered to your door quickly and reliably the next day. </p>
+		<h1>There's no tea nazis<br/> in our shop</h1>
+		<p>If you're looking for good quality teas, honest advice and fair prices, we can help. We don't believe in exclusivity, and so we sell teas that are good for everyone - you, your friends, your family.</p>
 		<div class="button"><a href="{% url teas %}"></a></div>
-	</div>
-  </div>
-</div>
-
-
-<div id="adventure">
-  <div class="super">
-	<img src="{% staticfile '/images/maps.jpg' %}"/>
-	<h2>Our teas come direct from the mountains of Fujian, China</h2>
-	<p>We're based full time in the Fujian Province, where we source our teas direct from farms and growers. This means you get superb quality at great prices, because there's no middlemen or trading companies involved.
-	<br/><a href="/about/our-teas/">&raquo; See where our Chinese teas are grown</a>
-	</p>
-	
-  </div>
-</div>
-
-<div class="super">
-	<div id="customers">
-	    <img src="/images/why.png" class="why">
-		<h2 class="black">We're proud that our customers are really happy</h2>
-
-		<div class="box benefits">
-			<ul id="benefits">
-			  <li>We deliver fast, in a few days, anywhere</li>
-			  <li>We're obsessed about the quality of our teas</li>
-			  <li>Our pricing is simple and clear</li>
-			  <li>We help you enjoy your tea to the fullest <br/><a href="/learn/">with our tea guides and info &raquo;</a> </li>
-			</ul>
-		</div>
-
-		{% for r in review %}
-			<div class="box">
-				<p><span class="red">{{ r.first_name }} {{ r.last_name }} said...</span><br/>&ldquo;{{ r.short_text }}&rdquo;</p>
+				<div class="social">
+			<div class="twitter">
+				<a href="http://twitter.com/share" class="twitter-share-button" data-text="Chinese tea without the 'nazis'" data-count="horizontal" data-via="minrivertea">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 			</div>
-		{% endfor %}
-
-		<p style="margin-top: 0px; float:left"><a href="{% url reviews %}">&raquo; See more customer reviews</a></p>
-	</div>
-
-	<div id="benefits">
-	    <img class="first-time" src="{% staticfile '/images/first-time.png' %}"/>
-		<h2 class="black">So take a look at our teas and see if <br/>we can't help you improve your brew</h2>
-		<div id="teas">
-		{% for tea in teas %}
-		<div class="tea">
-		{% thumbnail tea.image "200" crop="center" as im %}
-		<a href="{% url tea_view tea.slug %}"><img src="{{ im.url }}"/></a>
-		{% endthumbnail %}
-		<h4><a href="">{{ tea.name }}</a></h4>
-		<p>{{ tea.super_short_description }}</p>
+		<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=261736307186739&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com/noteaheroics/" send="false" layout="button_count" width="80" show_faces="false" font=""></fb:like>
 		</div>
-		{% endfor %}
-		</div>
+	</div>
+  </div>
+</div>
 
-	</div>
-		
-		
-		
-	</div>
+
+
 </div>
 
 

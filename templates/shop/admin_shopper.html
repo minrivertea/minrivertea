@@ -17,12 +17,17 @@
 
 {% block content %}
 
-<div id="featured-small"></div>
+<div id="banner">
+  <div class="super">
+  	<h1>{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }})</h1>
+  	<p><a href="{% url admin_stuff %}">&laquo; back to admin stuff</a></p>
+  </div>
+</div>
 
 <div id="main-text-wide">
-<a href="{% url admin_stuff %}">&laquo; back to admin stuff</a>
+  <div class="super">
 
-<h2>{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }})</h2>
+
 <p>{{ shopper.first_name }} has spent £{{ shopper.get_value }} in total. {% ifequal shopper.is_subscribed True %}They ARE subscribed to emails{% else %}They are NOT subscribed to emails.{% endifequal %}. They have referred {% ifequal shopper.number_referred None %}0{% else %}{{ shopper.number_referred }}{% endifequal %} people.</p>
 
 <h3>Orders</h3>
@@ -41,5 +46,6 @@
 {% endfor %}
 </ul>
 
+  </div>
 </div>
 {% endblock %}

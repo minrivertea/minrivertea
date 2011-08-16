@@ -130,18 +130,17 @@ if (15.00) {
 
 <body>
 
-<div id="super">
-    <div id="container">
-		{% if user.is_superuser %}
-	    <div id="header-messages">    
-		   	<div class="hm"><a href="{% url admin_stuff %}">Admin stuff</a> | <a href="/admin/logout/">Logout</a></div>
-		</div>    
-		{% endif %}
+{% if user.is_superuser %}
+	<div id="header-messages">    
+	   	<div class="hm"><a href="{% url admin_stuff %}">Admin stuff</a> | <a href="/admin/logout/">Logout</a></div>
+	</div>    
+{% endif %}
     	
-	    <div id="header">
-	    	<div id="logo">
-	    		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"></a>
-	    	</div>
+<div id="header">
+   <div class="super">
+	   	<div id="logo">
+	   		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"></a>
+	   	</div>
 	    	
 	    	<p class="shipping">
 				<img class="flag" src="{% staticfile '/images/004.gif' %}">
@@ -176,25 +175,15 @@ if (15.00) {
 			
 			{% block banner %}{% endblock %}
 
-
 	</div>
+</div><!-- end header -->
 
-		{% block content %}{% endblock %}
+	{% block content %}{% endblock %}
 	
 	
-		{% include "shop/snippets/footer.html" %} 
+	{% include "shop/snippets/footer.html" %} 
 
-    </div>
 
-		<ul class="footer-links">
-		      <li>&copy;2011 minrivertea.com | 145 - 157 St John St, London, EC1V 4PW, UK &raquo;</li>
-	          <li><a href="/terms-and-conditions/"><span class="fontface">Terms and Conditions</span></a>  /</li>
-	          <li><a href="/about/"><span class="fontface">About Us</span></a>  /</li>
-	          <li><a href="/privacy/"><span class="fontface">Privacy</span></a>  /</li>
-	          <li><a href="{% url contact_us %}">Contact Us</a></li>
-	          <li><br/></li>
-	   </ul>
-	   <p></p>
 </div>
 	{% block extrajs %}{% endblock %}
 

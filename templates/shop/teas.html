@@ -62,10 +62,6 @@ div#bottom div.right img.delivery {
   margin-bottom: 20px;	
 }
 
-p.subtitle {
-  margin-bottom: 0px;	
-}
-
 div.more-info {
   float: left;
   width: 100px;	
@@ -195,39 +191,32 @@ div.did-you-know {
   width: 500px;	
 }
 
-p.quote {
-    background-color: #F3FFF6;
-    border: 1px solid #D9EBDE;
-    border-radius: 10px 10px 10px 10px;
-    float: right;
-    font-size: 14px;
-    margin: 0 0 0 40px;
-    padding: 10px 15px;
-    position: relative;
-    top: -40px;
-    width: 330px;
+div.tea-promo p.reviews {
+  color: #333;
+  font-size: 13px;
 }
 
-p.reviews {
-  color: #FF8585;
-  border-top: 1px solid #f1f1f1;
-  width: 100%;
-  float: left;
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-div.price span {
+p.price span {
     color: #439249;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: normal;
     letter-spacing: -1px;
-    position: relative;
-    top: 5px;
 }
 
-div.price span.coming-soon {
-  color: #666;	
+p.price span.coming-soon {
+  color: #BE373A;	
+}
+
+p.subtitle {
+  margin-bottom: 0px;
+  float: left;
+  width: 500px;	
+}
+
+p.quote {
+    float: right;
+    margin: 10px 0 0;
+    width: 360px;
 }
 
 </style>
@@ -235,16 +224,26 @@ div.price span.coming-soon {
 
 {% block content %}
 
-
-<div id="main-text-wide">
-
+<div id="banner">
+  <div class="super">
+  <p class="quote">&ldquo;<em>Nunc non metus massa. Fusce nec eros nisi! Aenean ultrices pulvinar malesuada. Nulla facilisi.</em>&rdquo;
+  <span class="red">James Parsons</span>
+  </p>
 	<h1>Choose your Chinese tea</h1>
+	<p class="subtitle">We sell a small range of high quality Chinese teas. We keep it small so we can guarantee the best price and taste of every cup of tea you brew.</p>
+	
+  </div>
+</div>
 		
-		
-		<p class="subtitle">We sell a small range of high quality Chinese teas. We keep it small so we can guarantee the best price and taste of every cup of tea you brew.</p>
-		
+<div id="main-text-wide">
+  <div class="super">
 
-	<div id="right">	
+
+	<div id="teas">
+		{% include "shop/snippets/products.html" %}
+	</div>
+		
+		<div id="right">	
 		<div class="info">
            	<h3 class="">Delivered fast</h3>
            	<p>We offer fast and reliable delivery through Amazon - 
@@ -264,17 +263,6 @@ div.price span.coming-soon {
 		</div>
 	</div>
 	
-		
-		
-		
-		<div id="teas">
-			{% include "shop/snippets/products.html" %}
-		</div>
-		
-		
-
-
-		
 	<div id="left">
 		<div class="did-you-know">
 			<a href="/about/personal-tea-shopping/"><span class="link"></span></a>
@@ -283,11 +271,10 @@ div.price span.coming-soon {
 		</div>
 		<br clear="all"/>
 
-
 	</div>
 		
 	
-
+  </div>
 </div>
 
 

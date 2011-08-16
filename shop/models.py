@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
 from django.shortcuts import get_object_or_404
@@ -156,7 +157,10 @@ class Product(models.Model):
         return "/teas/%s/" % self.slug  #important, do not change
     
     def get_lowest_price(self):
-        prices = UniqueProduct.objects.filter(parent_product=self).order_by('price')[0]
+        try:
+            prices = UniqueProduct.objects.filter(parent_product=self).order_by('price')[0]
+        except:
+            prices = None
         return prices
     
     def get_reviews(self):
@@ -321,6 +325,7 @@ class Order(models.Model):
             amount += 3
         return amount
     
+
     def ready_to_send_review(self):
         if (self.date_paid + timedelta(days=7)) < datetime.now():
             review = True
@@ -334,9 +339,9 @@ class Order(models.Model):
         else:
             sampler = False
         return sampler
-        
-            
+
     
+# can be deleted, not used anymore (Aug 2011)
 class WeLike(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -376,6 +381,7 @@ class Referee(models.Model):
     def __unicode__(self):
         return self.email
        
+
 class Notify(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=200)
@@ -386,6 +392,20 @@ class Notify(models.Model):
 
     def __unicode__(self):
         return self.email
+
+class Page(models.Model):
+    slug = models.SlugField()
+    title = models.CharField(max_length=200)
+    meta_title = models.CharField(max_length=200, blank=True, null=True)
+    meta_description = models.TextField(blank=True, null=True)
+    content = models.TextField()
+    right_side_boxes = models.CharField(max_length=200)
+    
+    def __unicode__(self):
+        return self.title
+    
+
+
 
 # signals to connect to receipt of PayPal IPNs
 

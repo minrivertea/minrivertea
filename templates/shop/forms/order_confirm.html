@@ -6,6 +6,10 @@
 
 {% block extracss %}
 <style type="text/css">
+div#main-text-wide {
+  margin-top: 30px;	
+}
+
 
 div#main-text-wide div#left h3 {
     font-size: 18px;
@@ -19,12 +23,7 @@ div.row {
 }
 
 div#steps {
-    background-position: -110px -2px;
-    border: 1px solid #E1E1E1;
-    border-radius: 5px 5px 5px 5px;
-    float: left;
-    height: 37px;
-    width: 855px;
+    background-position: 0px -2px;
 }
 
 
@@ -36,21 +35,21 @@ div#steps {
 
 
 <div id="main-text-wide">
-
-<div id="steps">
-	<div class="completed">
-	<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
+  <div class="super">
+	<div id="steps">
+		<div class="completed">
+		<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
+		</div>
+		<div class="completed">
+		<h1>Your details</h1>
+		</div>
+		<div class="selected">
+		<h1>Confirm order</h1>
+		</div>
+		<div>
+		<h1>Payment</h1>
+		</div>
 	</div>
-	<div class="completed">
-	<h1>Your details</h1>
-	</div>
-	<div class="selected">
-	<h1>Confirm order</h1>
-	</div>
-	<div>
-	<h1>Payment</h1>
-	</div>
-</div>
 	
 	<div id="basket">
 		
@@ -105,7 +104,7 @@ div#steps {
 		
 				<div class="row">
 			<div class="row-label">
-				<h3>You have ordered:</h3>
+				<h2>You have ordered:</h2>
 			</div>
 		<div class="row-box">
 			<table>
@@ -144,7 +143,7 @@ div#steps {
 
 <div class="row">
 	<div class="row-label">
-		<h3>We'll send your order to:</h3>
+		<h2>We'll send your order to:</h2>
 	</div>
 	
 	<div class="row-box">
@@ -173,14 +172,9 @@ div#steps {
 </div>
 
 
-
-		<br clear="all"/>
-
-		
-
 	</form> 
 
-</div>
-
+	</div>
+  </div>
 </div>
 {% endblock %}
