@@ -406,6 +406,17 @@ class Page(models.Model):
     def __unicode__(self):
         return self.title
     
+    def get_absolute_url(self):
+        if self.parent:
+            if self.parent.parent:
+                url = "/%s/%s/%s/" % (self.parent.parent.slug, self.parent.slug, self.slug)
+            else:
+                url = "/%s/%s/" % (self.parent.slug, self.slug)
+        else:
+            url = "/%s/" % (self.slug)
+            
+        return url
+    
     def get_children(self):
         pages = Page.objects.filter(parent=self)
         return pages
