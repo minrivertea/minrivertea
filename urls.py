@@ -3,7 +3,7 @@ from django.conf import settings
 import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
-from shop.models import Product
+from shop.models import Product, Page
 from shop.views import page, sub_page, sub_sub_page
 from blog.models import BlogEntry
 from minriver.blog.feeds import LatestEntries
@@ -21,8 +21,12 @@ blogs = {
     'queryset': BlogEntry.objects.filter(is_draft=False),	
 }
 
+blogs = {
+    'queryset': Page.objects.all(),	
+}
+
 sitemaps = {
-    'flatpages': FlatPageSitemap,
+    'pages': GenericSitemap(products, priority=0.6),
     'products': GenericSitemap(products, priority=0.6),
     'blogs': GenericSitemap(blogs, priority=0.6),
 }
