@@ -9,6 +9,9 @@ class OrderAdmin(admin.ModelAdmin):
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('product', 'email', 'is_published')
+    
+class PageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'parent')
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Address)
@@ -21,7 +24,7 @@ admin.site.register(Photo)
 admin.site.register(Referee)
 admin.site.register(WeLike)
 admin.site.register(Notify)
-admin.site.register(Page)
+admin.site.register(Page, PageAdmin)
 admin.site.register(Review, ReviewAdmin)
 
 
