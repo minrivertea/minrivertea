@@ -925,15 +925,15 @@ div.row-box input:focus {
 }
 
 div.row-box label {
+    color: #555555;
     float: left;
+    font-size: 14px;
     line-height: 1.2em;
-    margin-left: 20px;
+    margin-bottom: 5px;
+    margin-left: 10px;
     position: relative;
     text-align: left;
-    top: 10px;
     width: 120px;
-    font-size: 14px;
-    color: #555;
 }
 
 div.row-box p {
