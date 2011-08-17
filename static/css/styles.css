@@ -1404,8 +1404,8 @@ div#main-text-wide div#left img.about {
 	.scroll {
 		position:relative;
 		overflow:hidden;
-		width: 530px;
-		height: 352px;
+		width: 660px;
+		height: 438px;
 		float:left;
 		margin-bottom: 30px;
 	}
@@ -1421,23 +1421,23 @@ div#main-text-wide div#left img.about {
 	.pics div {
 		float:left;
 		cursor:pointer;
-		width:530px !important;
-		height:352px;
+		width:660px !important;
+		height:438px;
 		margin:0px;
 		border-radius: 10px;
 	}
 	
-	.pics p {
-	  position: absolute;
-	  top: 321px;
-	  float: none;
-	  background-color: #fff;
-	  padding: 5px 10px;
-	  font-size: 12px;
-	  opacity: 0.8;
-	  width: 510px;
-	  color:#333;
-	}
+.pics p {
+    background-color: #FFFFFF;
+    bottom: -20px;
+    color: #333333;
+    float: none;
+    font-size: 12px;
+    opacity: 0.8;
+    padding: 5px 10px;
+    position: absolute;
+    width: 640px;
+}
 
 	.pics span.click {
 	  color: #439249;	
@@ -1664,7 +1664,7 @@ button.prev {
     height: 45px;
     left: 10px;
     position: relative;
-    top: -240px;
+    top: -270px;
     width: 46px;
     z-index: 4;
 }
@@ -1681,7 +1681,7 @@ button.next {
     height: 45px;
     left: -40px;
     position: relative;
-    top: -240px;
+    top: -270px;
     width: 46px;
     z-index: 4;
 }
