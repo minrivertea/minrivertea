@@ -398,13 +398,17 @@ class Page(models.Model):
     title = models.CharField(max_length=200)
     meta_title = models.CharField(max_length=200, blank=True, null=True)
     meta_description = models.TextField(blank=True, null=True)
+    parent = models.ForeignKey('self', blank=True, null=True)
     content = models.TextField()
-    right_side_boxes = models.CharField(max_length=200)
+    template = models.CharField(max_length=200, blank=True, null=True)
+    right_side_boxes = models.CharField(max_length=200, blank=True, null=True)
     
     def __unicode__(self):
         return self.title
     
-
+    def get_children(self):
+        pages = Page.objects.filter(parent=self)
+        return pages
 
 
 # signals to connect to receipt of PayPal IPNs

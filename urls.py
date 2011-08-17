@@ -4,6 +4,7 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product
+from shop.views import page, sub_page, sub_sub_page
 from blog.models import BlogEntry
 from minriver.blog.feeds import LatestEntries
 
@@ -48,7 +49,10 @@ urlpatterns = patterns('',
     (r'^noteaheroics/$', direct_to_template, {'template': 'no_heroics.html'}),
     (r'^noteanazis/$', direct_to_template, {'template': 'no_tea_nazis.html'}),
     (r'^400/$', direct_to_template, {'template': '404.html'}),  
-    (r'^comments/', include('django.contrib.comments.urls')),  
+    (r'^comments/', include('django.contrib.comments.urls')), 
+    url(r'^(?P<slug>[\w-]+)/$', page, name="page"),
+    url(r'^(?P<slug>[\w-]+)/(?P<sub_slug>[\w-]+)/$', sub_page, name="sub_page"),
+    url(r'^(?P<slug>[\w-]+)/(?P<sub_slug>[\w-]+)/(?P<sub_sub_slug>[\w-]+)/$', sub_sub_page, name="sub_sub_page"), 
 )
 
 

@@ -75,12 +75,33 @@ def index(request):
     return render(request, "shop/home.html", locals())
 
 def page(request, slug):
-    return render(request, "shop/page.html", locals())
+    page = get_object_or_404(Page, slug=slug)
+    nav_items = Page.objects.filter(parent=page)
+    if page.template:
+        template = page.template
+    else:
+        template = "shop/page.html"
+    return render(request, template, locals())
 
 
 def sub_page(request, slug, sub_slug):
+    page = get_object_or_404(Page, slug=sub_slug)
+    nav_items = Page.objects.filter(parent=page.parent)
+    if page.template:
+        template = page.template
+    else:
+        template = "shop/page.html"
     return render(request, "shop/page.html", locals())
-    
+ 
+def sub_sub_page(request, slug, sub_slug, sub_sub_slug):
+    page = get_object_or_404(Page, slug=sub_sub_slug)
+    nav_items = Page.objects.filter(parent=page.parent.parent)
+    if page.template:
+        template = page.template
+    else:
+        template = "shop/page.html"
+    return render(request, "shop/page.html", locals())
+   
 # the product listing page
 def teas(request):
     try:
