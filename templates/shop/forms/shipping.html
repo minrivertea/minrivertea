@@ -67,22 +67,26 @@ div#left p.help-text {
 
 
 {% block content %}
-   
-	<div id="main-text-wide">
-		
+
+<div id="banner">
+  <div class="super">
+  <h1>Shipping and delivery information</h1>
+  </div>
+</div>
+
+<div id="main-text-wide">
+  <div class="super">		
 		<div id="right">
 			{% include 'flatpages/about_navigation.html' %}
 
-
 		 	<p>If you just want to keep in touch, we tweet a lot, and also post tea related photos on flickr regularly.</p>
-		 				<a title="Checkout our tea photos on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
-<a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
+		 	<a title="Checkout our tea photos on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
+			<a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
 
 		</div>
 		
 		<div id="left">
-		
-				<h1>Shipping and delivery information</h1>
+
 		<p class="subtitle">Where we currently ship orders to</p>
 			<p>We currently can only ship orders <strong>within the UK.</strong> This includes: <em>United Kingdom, BFPO, Channel Islands, Northern Ireland and the Outer Hebrides</em></p>
 			
@@ -115,7 +119,7 @@ div#left p.help-text {
 			{% endif %}
 		</div>
 	</div>
-
+</div>
 
 
 		
