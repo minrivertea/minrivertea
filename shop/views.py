@@ -65,7 +65,7 @@ def index(request):
     # load variables       
     featured = Product.objects.filter(is_active=True).exclude(category="POS")[:3] 
     prices = UniqueProduct.objects.filter(is_active=True)
-    review = Review.objects.all()[:2]
+    review = Review.objects.all()[:1]
     
     # load the products and prices combinations
     products_and_prices = []
