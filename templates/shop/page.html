@@ -10,11 +10,22 @@
 {% block extrajs %}
 <script>
 $(function() {
-// enable circular scrollables with a click handler
 $(".scroll").scrollable({ circular: true }).click(function() {
 	$(this).data("scrollable").next();		
 });
 });
+
+$(function() { 
+	$('.hoverbox').hover(
+		function() {
+			$('div', this).animate({top: '100px',}, 200);
+		},
+		function() {
+			$('div', this).animate({top: '145px',}, 200);
+		}
+	);	  
+});
+
 </script>
 
 {% endblock %}
@@ -156,6 +167,41 @@ div.learn-comment a.button:hover {
 
 div.learn-comment a.button:active {
   background-position: bottom left;	
+}
+
+.hoverbox {
+    display: block;
+    float: left;
+    height: 180px;
+    list-style: none outside none;
+    margin: 0 28px 30px 0;
+    overflow: hidden;
+    position: relative;
+    width: 290px;
+    cursor: pointer;
+    border: 1px solid #e1e1e1;
+}
+
+.hoverbox h2 {
+  font-size: 20px;
+  margin: 5px 0 5px 10px;
+}
+
+.hoverbox p {
+  font-size: 13px;
+  margin-left: 10px;
+  line-height: 1.4em;
+  padding-right: 10px;	
+}
+
+.hoverbox div {
+    background-color: #f1f1f1;
+    left: 0;
+    top:145px;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    border-top: 1px solid #e1e1e1;
 }
 
 
