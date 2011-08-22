@@ -533,14 +533,14 @@ div.coming-soon p {
   			    <div>
   			        {% thumbnail tea.image "50x50" crop="center" as im %}
   			    		{% thumbnail tea.image "500x331" crop="center" as im_large %}
-						<img class="product-small" alt="a photo of {{ tea.name }} Chinese tea" title="{{ tea.image_caption }}" src="{{ im.url }}"/></a>
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					
 					{% if tea.image_2 %}
   			    	{% thumbnail tea.image_2 "50x50" crop="center" as im %}
   			    		{% thumbnail tea.image_2 "500x331" crop="center" as im_large %}
-						<img class="product-small" alt="a photo of {{ tea.name }} Chinese tea" title="{{ tea.image_2_caption }}" src="{{ im.url }}"/></a>
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_2_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					{% endif %}
@@ -548,7 +548,7 @@ div.coming-soon p {
 					{% if tea.image_3 %}
 					{% thumbnail tea.image_3 "50x50" crop="center" as im %}
   			    		{% thumbnail tea.image_3 "500x331" crop="center" as im_large %}
-						<img class="product-small" alt="a photo of {{ tea.name }} Chinese tea" title="{{ tea.image_3_caption }}" src="{{ im.url }}"/></a>
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_3_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					{% endif %}
@@ -556,7 +556,7 @@ div.coming-soon p {
 					{% if tea.image_4 %}
 					{% thumbnail tea.image_4 "50x50" crop="center" as im %}
   			    		{% thumbnail tea.image_4 "500x331" crop="center" as im_large %}
-						<img class="product-small" alt="a photo of {{ tea.name }} Chinese tea" title="{{ tea.image_4_caption }}" src="{{ im.url }}"/></a>
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_4_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					{% endif %}
@@ -564,7 +564,7 @@ div.coming-soon p {
 					{% if tea.image_5 %}
 					{% thumbnail tea.image_5 "50x50" crop="center" as im %}
   			    		{% thumbnail tea.image_5 "500x331" crop="center" as im_large %}
-						<img class="product-small" alt="a photo of {{ tea.name }} Chinese tea" title="{{ tea.image_5_caption }}" src="{{ im.url }}"/></a>
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_5_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					{% endif %}
