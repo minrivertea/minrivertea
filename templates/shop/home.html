@@ -476,12 +476,12 @@ ul#benefits {
 
 	<div id="benefits">
 	    <img class="first-time" src="{% staticfile '/images/first-time.png' %}"/>
-		<h2 class="black">So take a look at our teas and see if <br/>we can't help you improve your brew</h2>
+		<h2 class="black">So take a look at our teas and see if <br/>we can help you improve your brew</h2>
 		<div id="teas">
 		{% for tea in teas %}
 		<div class="tea">
 		{% thumbnail tea.image "200" crop="center" as im %}
-		<a href="{% url tea_view tea.slug %}"><img src="{{ im.url }}"/></a>
+		<a alt="a picture of our {{ tea.name }} Chinese tea" title="{{ tea.name }} Chinese tea" href="{% url tea_view tea.slug %}"><img src="{{ im.url }}"/></a>
 		{% endthumbnail %}
 		<h4><a href="">{{ tea.name }}</a></h4>
 		<p>{{ tea.super_short_description }}</p>
