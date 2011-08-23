@@ -384,7 +384,7 @@ class Referee(models.Model):
 
 class Notify(models.Model):
     email = models.EmailField()
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, blank=True, null=True)
     product = models.ForeignKey(Product, blank=True, null=True)
     date = models.DateTimeField('date', default=datetime.now,
         help_text="The date that they made contact")

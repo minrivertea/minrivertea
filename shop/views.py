@@ -128,7 +128,13 @@ def tea_view(request, slug):
         added = request.session['ADDED']
     except:
         added = None
-        
+    
+    try:
+        notify_message = request.session['NOTIFY']
+        request.session['NOTIFY'] = None
+    except:
+        notify_message = None
+       
     if added:
         thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
         message = "1 x %s%s added to your basket!" % (thing.item.weight, thing.item.weight_unit)
@@ -138,6 +144,23 @@ def tea_view(request, slug):
     prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True).order_by('price')
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
     reviews = Review.objects.filter(product=tea.id, is_published=True)[:2]
+    
+    # here we're handling the notify form, if the product is out of stock
+    if request.method == 'POST':
+        form = NotifyForm(request.POST)
+        if form.is_valid():
+            Notify.objects.create(
+                name="",
+                email=form.cleaned_data['email'],
+                product=tea,
+            )
+            
+            request.session['NOTIFY'] = "1"
+            url = request.META.get('HTTP_REFERER','/')
+            return HttpResponseRedirect(url)
+    
+    else:
+        form = NotifyForm()
 
     return render(request, "shop/tea_view.html", locals())
     
@@ -629,7 +652,6 @@ def shipping(request):
         if form.is_valid():
             
             creation_args = {
-                'name': form.cleaned_data['name'],
                 'email': form.cleaned_data['email'],          
             }
             

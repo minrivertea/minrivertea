@@ -44,6 +44,26 @@ $(".items img").hover(function() {
 
 }).filter(":first").hover();
 });
+
+// this controls the notify form email behaviour
+$('#id_email').focus(function() {
+	if ($(this).val() == "Your email address") {
+		$(this).css('color', '#333');
+		$(this).val("");
+	}
+	else {
+	  return;	
+	}
+});
+
+$('#id_email').focusout(function() {
+	if ($(this).val() == "") {
+		$(this).val("Your email address");
+		$(this).css('color', '#999');
+	}
+});
+
+
 </script>
 
 {% endblock %}
@@ -454,14 +474,50 @@ div.fb-recommend {
 }
 
 div.coming-soon {
-  float: right;
-  width: 300px;
-  height: 50px;
+    background-color: #F1F1F1;
+    border-radius: 10px 10px 10px 10px;
+    float: right;
+    height: 85px;
+    padding: 15px 15px;
+    width: 410px;
 }
 
 div.coming-soon p {
-  font-size: 11px;
-  color: #	
+  font-size: 12px;
+  margin: 0 0 10px 0;
+}
+
+div.coming-soon span {
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;	
+  color: #b91f1f;
+}
+
+div.coming-soon span.green {
+  color: #1C7600;
+  line-height: 1.6em;
+  font-size: 20px;
+}
+
+div.coming-soon input {
+  float: left;
+  color: #999;	
+}
+
+div.coming-soon input.submit {
+    background-color: #1C7600;
+    border-left: medium none;
+    color: #FFFFFF;
+    font-family: Helvetica,sans-serif;
+    font-weight: bold;
+    height: 32px;
+    padding: 7px;
+    width: 70px;
+}
+
+div.coming-soon input.submit:hover {
+  cursor: pointer;	
+  background-color: #359318; 
 }
 
 #facebook {
@@ -578,8 +634,20 @@ div.coming-soon p {
 		<div id="prices">
 	      {% if tea.coming_soon %}
 		  	<div class="coming-soon">
+		  	    {% if notify_message %}
+		  	    	<span class="green">Thanks - as soon as this product is available again, we'll notify you by email!</span>
+		  	    {% else %}
+		  		<span class="">Sorry, this tea is out of stock :(</span><br/>
+		  		<p>But we'd be happy to notify you when this tea becomes available.</p>
+		  		<form method="post" action="">
+		  			<input type="text" name="email" id="id_email" value="Your email address"/>
+		  			<input type="submit" value="Submit" class="submit"/>
+		  		</form>
+		  		{% endif %}
+		  		<!-- REMOVED FOR TESTING NOTIFY FORM
 		  		<img src="{% staticfile '/images/coming-soon.png' %}"/>
 		  		<p><em>This tea was too popular - we're restocking it now!</em></p>
+		  		-->
 		  	</div>
 		  {% else %}
 			{% ifequal prices.count 1 %}

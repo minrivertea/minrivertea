@@ -176,5 +176,4 @@ class ReviewForm(forms.Form):
     email = forms.EmailField(required=True, error_messages={'required': '* You must give a valid email address'})
 
 class NotifyForm(forms.Form):
-    name = forms.CharField(required=True)
     email = forms.EmailField(required=True, error_messages={'required': 'Please enter a valid email address'})
