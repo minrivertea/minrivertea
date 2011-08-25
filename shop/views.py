@@ -810,7 +810,7 @@ def send_sampler_email(request, id):
             
     # create email
     text_content = render_to_string('shop/emails/text/send_sample_to_friend_email.txt', {'shopper': shopper})
-    html_content = render_to_string('shop/emails/html/send_sample_to_friend_email.html', {
+    html_content = render_to_string('shop/emails/html/send_sample_to_friend.html', {
     	'shopper': shopper,
     	'subject': subject,
     })
