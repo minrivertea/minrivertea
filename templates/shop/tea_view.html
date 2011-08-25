@@ -589,7 +589,7 @@ div.coming-soon input.submit:hover {
   			    <div>
   			        {% thumbnail tea.image "50x50" crop="center" as im %}
   			    		{% thumbnail tea.image "500x331" crop="center" as im_large %}
-						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_caption }}" src="{{ im.url }}"/></a>
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.description }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					
