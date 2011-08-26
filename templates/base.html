@@ -147,6 +147,7 @@ if (15.00) {
 	    		<a title="Chinese tea delivered to your door in the UK" href="{% url shipping %}">1-2 days, anywhere in the UK</a>
 	    		- <a href="{% url contact_us %}">Contact us</a>
 	    		- <a href="/about/wholesale/">Wholesale</a>
+	    		- <a href="/about/" title="About the Min River Tea Farm">About Us</a>
 	    	</p>
 
 	    	<div id="navigation">
@@ -155,14 +156,12 @@ if (15.00) {
 	    	    		<a class="{% nav_selected request '^/$' %}" href="{% url home %}" title="Chinese tea delivered to your door.">Home</a>
 	    	    	</li>
 	    	        <li>
-	    	        	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Our teas</a>
+	    	        	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Our Chinese teas</a>
 	    	        </li>
 	    	        <li>
-	    	        	<a class="{% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn</a>
+	    	        	<a class="{% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn about tea</a>
 	    	        </li>
-	    	        <li>
-	    	        	<a class="{% nav_selected request '^/about/' %}" href="/about/" title="About the Min River Tea Farm" alt="">About us</a>
-	    	        </li>
+	    	        
 	    	        <li>
 	    	        	
 	    	        	<a class="{% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
