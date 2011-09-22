@@ -41,6 +41,73 @@
 		<link rel="stylesheet" media="screen" type="text/css" href="{% staticfile '/css/ie6.css' %}" />
 		<![endif]-->
 
+		<style type="text/css">
+			#banner-message {
+    			background-color: #E0F4F5;
+    			border-bottom: 1px solid #FFFFFF;
+   				box-shadow: 0 1px 3px #76C2C5;
+    			margin-bottom: 20px;
+    			padding: 10px 0;
+    			width: 100%;
+			}
+			
+			#banner-message p {
+			  line-height: 1.5em;
+			  font-size: 13px;	
+			  margin: 0;
+			}
+			
+			#banner-message #inner {
+			  width: 600px;
+			  margin: 0 auto;
+			  margin-top: 10px;
+			  margin-bottom: 10px;	
+			}
+			
+			#banner-message img.logo {
+			  border: 3px solid #a3d9db;	
+			}
+			
+			#banner-message span.title {
+			  font-size: 20px;
+			  color: #156e71;
+			}
+			
+			p.shipping {margin-top: 35px;}
+			#navigation {margin-top: 5px;}
+			
+			#banner-message img.foot {
+			  position: absolute;
+			  display: none;	
+			}
+			
+			img.left {
+			  top: 15px;	
+			}
+			
+			img.right {
+			  top: 40px;	
+			}
+			
+			.one { left: 20px;}
+			.two { left: 60px;}
+			.three { left: 110px;}
+			.four { left: 150px;}
+			.five { left: 200px;}
+			.six { left: 240px;}
+			.seven { left: 290px;}
+			.eight { left: 340px;}
+			
+			.nine { left: 1000px;}
+			.ten { left: 1040px;}
+			.eleven { left: 1100px;}
+			.twelve { left: 1140px;}
+			.thirteen { left: 1200px;}
+			.fourteen { left: 1240px;}
+			.fifteen { left: 1300px;}
+			.sixteen { left: 1340px;}
+									
+		</style>
 
 	{% block extracss %}{% endblock %}
 	
@@ -135,6 +202,31 @@ if (15.00) {
 	   	<div class="hm"><a href="{% url admin_stuff %}">Admin stuff</a> | <a href="/admin/logout/">Logout</a></div>
 	</div>    
 {% endif %}
+
+	<div id="banner-message">
+		<div id="inner">
+		<img class="foot left one" src="{% staticfile '/images/footprint-left.png' %}">
+		<img class="foot right two" src="{% staticfile '/images/footprint-right.png' %}">
+		<img class="foot left three" src="{% staticfile '/images/footprint-left.png' %}">
+		<img class="foot right four" src="{% staticfile '/images/footprint-right.png' %}">
+		<img class="foot left five" src="{% staticfile '/images/footprint-left.png' %}">
+		<img class="foot right six" src="{% staticfile '/images/footprint-right.png' %}">
+		<img class="foot left seven" src="{% staticfile '/images/footprint-left.png' %}">
+		<img class="foot right eight" src="{% staticfile '/images/footprint-right.png' %}">
+		<img class="foot left nine" src="{% staticfile '/images/footprint-left.png' %}">
+		<img class="foot right ten" src="{% staticfile '/images/footprint-right.png' %}">
+		<img class="foot left eleven" src="{% staticfile '/images/footprint-left.png' %}">
+		<img class="foot right twelve" src="{% staticfile '/images/footprint-right.png' %}">
+		<img class="foot left thirteen" src="{% staticfile '/images/footprint-left.png' %}">
+		<img class="foot right fourteen" src="{% staticfile '/images/footprint-right.png' %}">
+		<img class="foot left fifteen" src="{% staticfile '/images/footprint-left.png' %}">
+		<img class="foot right sixteen" src="{% staticfile '/images/footprint-right.png' %}">
+		
+		<img class="logo" src="{% staticfile '/images/barefoot.png' %}" style="float: left; margin-right: 10px; position: relative; top: -5px;"> 
+		<p><span class="title">Go Barefoot for Peace on Sat 24 September</span><br/>
+		International Refugee Trust's Barefoot Peace Walk in London - <a href="http://www.irt.org.uk/barefoot/">find out more &raquo;</a></p>
+		</div>
+	</div>
     	
 <div id="header">
    <div class="super">
@@ -187,6 +279,22 @@ if (15.00) {
 
 </div>
 	{% block extrajs %}{% endblock %}
+	
+	<script type="text/javascript">
+
+function InOut( elem )
+{
+ elem.delay(100)
+     .fadeIn(300, function(){ InOut(elem.next() ); });
+}
+
+InOut( $('img.foot:first') );
+
+
+
+	
+	  
+	</script>
 
 </body>
 
