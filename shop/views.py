@@ -212,6 +212,7 @@ def contact_us(request):
 # function for adding stuff to your basket
 def add_to_basket(request, productID):
     product = get_object_or_404(UniqueProduct, id=productID)
+    
     if request.user.is_anonymous:
         try:
             #try to find out if they already have a session open
@@ -230,6 +231,7 @@ def add_to_basket(request, productID):
     except:
         item = BasketItem.objects.create(item=product, quantity=1, basket=basket)
         item.save()
+        
     else:
         item.quantity += 1
         item.save()
