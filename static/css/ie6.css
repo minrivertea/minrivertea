@@ -24,6 +24,7 @@ ul#nav li {
 
 div#feature {
     height: 400px;
+    display: block;
     float: left;
     width: 100%;
     background: url("/images/feature2.jpg") no-repeat #fff;
