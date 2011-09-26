@@ -13,6 +13,16 @@ div#headerhome {
   float: left;	
 }
 
+div#navigation {
+  float: right;
+  width: 600px;
+  display: block;	
+}
+
+ul#nav li {
+	float: left;
+}
+
 div.tea-promo p {
   width: 190px;	
 }

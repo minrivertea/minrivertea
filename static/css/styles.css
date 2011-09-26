@@ -318,12 +318,11 @@ ul#nav {
     float: left;
     margin: 0;
     padding-left: 0;
-    display: inline;
     float: right;
+    list-style-type: none;
 }
 
 ul#nav li {
-  display: inline;
   float: left
 }
 
