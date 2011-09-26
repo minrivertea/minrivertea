@@ -310,6 +310,7 @@ p.subtitle {
 #navigation {
   float: right;
   margin: 25px 0px 0;	
+  width: 500px;
 }
 
 ul#nav {
@@ -318,6 +319,7 @@ ul#nav {
     margin: 0;
     padding-left: 0;
     display: inline;
+    float: right;
 }
 
 ul#nav li {
