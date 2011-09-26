@@ -6,7 +6,7 @@ html {
 
 body {
   font-weight: 0.9em;
-  font-family: Georgia, serif;
+  font-family: Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
   color: #666;
@@ -19,7 +19,6 @@ div#super, .super {
 
 h3 {
     color: #333;
-    font-family: Georgia, serif;
     font-weight: normal;
     margin: 0 0 5px;
     font-size: 24px;
@@ -42,7 +41,7 @@ div#main-text-wide div#left p {
 }
 
 h4 {
-  font-weight: normal;
+  font-weight: bold;
   margin-bottom: 10px;
   padding-bottom: 5px;
 }
@@ -59,6 +58,7 @@ div#right h3 {
     font-size: 14px;
     color: #333;
     margin-bottom: 0;
+    font-weight: bold;
 }
 
 div#right h4 {
@@ -103,6 +103,34 @@ ul, ol {
 ol {
   font-weight: italic;	
   font-size: 12px;
+}
+
+.button {
+
+	background-color: #f1f1f1;
+    /* Firefox 3.6+ */ 
+    background: -moz-linear-gradient(100% 100% 90deg, #e6e6e6, #f1f1f1); 
+    
+    /* Safari 4-5, Chrome 1-9 */ /* -webkit-gradient(<type>, <point> [, <radius>]?, <point> [, <radius>]? [, <stop>]*) */ 
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1f1f1), to(#e6e6e6)); 
+    
+    /* Safari 5.1+, Chrome 10+ */ 
+    background: -webkit-linear-gradient(#e6e6e6, #f1f1f1); 
+    
+    /* Opera 11.10+ */ 
+    background: -o-linear-gradient(#e6e6e6, #f1f1f1);   
+    
+    border: 1px solid #fff;
+    box-shadow: 0 1px 2px #999, 0 1px 0px #f6f6f6;
+    border-radius: 4px;
+
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-shadow: 0 1px 1px #fff;
+    text-align: center;
+    cursor: pointer;
+    color: #2d7886;	
 }
 
 div#container {
@@ -189,17 +217,15 @@ div.footer-box ul li {
 h1 {
     color: #1c7600;
     font-size: 40px;
-    font-weight: normal;
+    font-weight: bold;
     letter-spacing: -1px;
     margin: 0 0 5px;
     padding-bottom: 0;
 }
 
 h2 {
-    color: #333;
-    font-family: Georgia, serif;
-    font-size: 2em;
-    font-weight: normal;
+    color: #333333;
+    font-size: 26px;
     letter-spacing: -1px;
     margin: 0 0 5px;
     padding-bottom: 0;
@@ -217,8 +243,8 @@ div#user-photos h2 {
 
 p {
     color: #333;
-    font-size: 16px;
-    line-height: 1.8em;
+    font-size: 14px;
+    line-height: 1.6em;
 }
 
 p.intro {
@@ -302,7 +328,7 @@ div#home-banner {
 p.subtitle {
     color: #333333;
     letter-spacing: 0;
-    margin: 10px 0 0;
+    margin: 0px;
     width: 600px;
 }
 
@@ -549,7 +575,7 @@ div#banner {
 }
 
 div#banner p {
-  font-size: 16px;	
+  font-size: 14px;	
 }
 
 div#main-text-wide {
@@ -673,8 +699,8 @@ div.tea-promo a.more-details:hover {
 
 div.tea-promo h4 {
     border-bottom: medium none;
-    font-size: 30px;
-    font-weight: normal;
+    font-size: 25px;
+    font-weight: bold;
     letter-spacing: -1px;
     margin-bottom: 0;
     margin-top: 0;

@@ -76,13 +76,12 @@ div#top div.right {
 }
 
 div#feature {
-    height: 400px;
+    background: url("/images/feature2.jpg") no-repeat scroll 190px -10px #FFFFFF;
     float: left;
+    height: 350px;
+    margin: 0 0 0;
+    padding-bottom: 0;
     width: 100%;
-    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat #fff;
-    background-position: 190px 0px;
-    margin: 0px 0 0;
-    padding-bottom: 0px;
 }
 
 div#feature div.top {
@@ -96,8 +95,7 @@ div#feature div.top {
 
 div#feature div.top h1 {
     color: #333;
-    font-size: 40px;
-    font-weight: normal;
+    font-size: 35px;
     margin: 10px 0 10px 0;
     text-align: right;
 }
@@ -108,17 +106,23 @@ div#feature div.top p {
   float: left;
   padding: 0 0 0 0px;
   color: #333;
-  font-size: 15px;
+  font-size: 14px;
   text-align: right;
 }
 
-div#feature div.top div.button a {
-  width: 214px;
-  height: 50px;
-  background: url('{% staticfile "/images/find-your-tea.png" %}') no-repeat top left;	
-  float: right;
-  margin-top: 20px;
-  margin-left: -5px;
+div#feature div.top a.button {
+    float: right;
+    font-size: 18px;
+    margin-left: -5px;
+    margin-top: 20px;
+    padding-bottom: 12px;
+    padding-top: 15px;
+    text-align: center;
+    width: 300px;
+}
+
+div#feature div.top a.button:hover {
+	
 }
 
 div#feature div.top div.button a:hover {
@@ -173,11 +177,11 @@ div#adventure {
 div#adventure h2 {
   float: left;
   width: 460px;	
-  margin-right: 0px;
+  margin: 0px 0px 0 0;
 }
 
 div#adventure p {
-  font-size: 16px;
+  font-size: 14px;
   color: #333;
   float: left;	
   width: 400px;
@@ -435,8 +439,8 @@ ul#benefits {
   <div class="super">
 	<div class="top">
 		<h1>Traditional Chinese tea, delivered to your door</h1>
-		<p>Spice up your brew with a cup of fresh, healthy Chinese tea. Locally sourced from the mountains of Fujian, China and delivered direct to your door quickly and reliably. </p>
-		<div class="button"><a href="{% url teas %}"></a></div>
+		<p>Locally sourced from the mountains of Fujian, China and delivered direct to your door quickly and reliably. </p>
+		<div class=""><a class="button" href="{% url teas %}">Browse our Chinese teas &raquo;</a></div>		
 	</div>
   </div>
 </div>

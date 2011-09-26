@@ -186,12 +186,12 @@ div.right-links ul li {
 
 div.tea-top {
     float: left;
-    margin: 10px 0 30px;
+    margin: 10px 0 10px;
     padding-bottom: 30px;
 }
 
 div.tea-top div.description p {
-  font-size: 16px;
+  font-size: 14px;
   color: #333;	
   margin: 0 0 20px 0;
 }
@@ -209,23 +209,12 @@ div.tea-top div#prices {
 }
 
 div.tea-top div#prices div.price {
-  width: 170px;
-  float: left;
-  margin-right: 10px;
-    background-color: #E6E6E6; 
-    background: -moz-linear-gradient(100% 100% 90deg, #efefef, #f6f6f6); 
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f6f6f6), to(#efefef)); 
-    background: -webkit-linear-gradient(#efefef, #f6f6f6); 
-    background: -o-linear-gradient(#efefef, #f6f6f6);  
-  border-radius: 5px 5px 5px 5px;
-  padding: 15px 20px;
-  box-shadow: 0 0px 4px #c1c1c1;
-  border: 1px solid #fff;
-}
-
-div.tea-top div#prices div.price:hover {
-  cursor: pointer;
-  box-shadow: 0 0px 8px #1C7600;	
+    background: none repeat scroll 0 0 #F6F6F6;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    margin-right: 10px;
+    padding: 15px 20px;
+    width: 170px;
 }
 
 div.tea-top div#prices div.price.large {
@@ -269,24 +258,14 @@ div.tea-top div#prices div.price.last {
  margin-right: 0;
 }
 
-div.tea-top div.button {
-    background: url("{% staticfile '/images/add-to-basket-button.png' %}") no-repeat scroll right top transparent;
+div.tea-top a.button {
     float: left;
-    height: 40px;
-    margin: 10px 0 0 0;
-    width: 171px;
+    font-size: 16px;
+    left: -5px;
+    margin: 10px 0 0;
     position: relative;
-    left: -5px;  
-}
-
-div.tea-top div.button:hover {
-  cursor: pointer;
-  background: url("{% staticfile '/images/add-to-basket-button.png' %}") no-repeat center right;
-}
-
-div.tea-top div.button:active {
-  cursor: pointer;
-  background: url("{% staticfile '/images/add-to-basket-button.png' %}") no-repeat bottom right;
+    width: 150px;
+    color: #19761C;
 }
 
 div.tea-top div.main-image img {
@@ -411,7 +390,7 @@ div.product-photos-small p.helper {
 }
 
 p.price {
-    color: #19761C;
+    color: #444;
     float: left;
     font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 32px;
@@ -434,10 +413,12 @@ p.price span.grey {
 p.price-description {
     color: #333333;
     float: left;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.2em;
     margin: 0 0 0 5px;
-    width: 110px;
+    width: 90px;
+    position: relative;
+    top: 5px;
 }
 
 div.facts {
@@ -645,10 +626,8 @@ div.coming-soon input.submit:hover {
 		  			<input type="submit" value="Submit" class="submit"/>
 		  		</form>
 		  		{% endif %}
-		  		<!-- REMOVED FOR TESTING NOTIFY FORM
 		  		<img src="{% staticfile '/images/coming-soon.png' %}"/>
 		  		<p><em>This tea was too popular - we're restocking it now!</em></p>
-		  		-->
 		  	</div>
 		  {% else %}
 			{% ifequal prices.count 1 %}
@@ -656,9 +635,7 @@ div.coming-soon input.submit:hover {
 		    	  <div class="price large">
 		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
-					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
-					<div class="button"></div>
-            		</a>
+					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button">Add to basket +</a>
             		{% if message %}
             		{% ifequal thing.item.weight price.weight %}
 	  				<div class="message">
@@ -675,9 +652,7 @@ div.coming-soon input.submit:hover {
 		    	  <div class="price{% if forloop.last %} last{% endif %}">
 		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
-					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}">
-					<div class="button"></div>
-            		</a>
+					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button">Add to basket +</a>
             		{% if message %}
             		{% ifequal thing.item.weight price.weight %}
 	  				<div class="message">
