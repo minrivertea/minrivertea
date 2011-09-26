@@ -22,6 +22,15 @@ ul#nav li {
 	float: left;
 }
 
+div#feature {
+    height: 400px;
+    float: left;
+    width: 100%;
+    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat #fff;
+    margin: 0px 0 0;
+    padding-bottom: 0px;
+}
+
 div.tea-promo p {
   width: 190px;	
 }
