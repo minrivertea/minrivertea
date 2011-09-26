@@ -317,10 +317,12 @@ ul#nav {
     float: left;
     margin: 0;
     padding-left: 0;
+    display: inline;
 }
 
 ul#nav li {
   display: inline;
+  float: left
 }
 
 ul#nav li:not(:last-child) a {
