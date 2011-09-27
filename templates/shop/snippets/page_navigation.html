@@ -1,16 +1,20 @@
 
-
 <ul id="right-nav">
   {% for item in nav_items %}
-  <li>
-  	<a class="{% if item.slug in request.path %}selected{% endif %}" href="{% url sub_page item.parent.slug item.slug %}">{{ item.title }}</a>
-    {% if item.slug in request.path %}
-      <ul class="subnav">
-         {% for item in item.get_children %}
-           <li><a class="{% ifequal page item %}selected{% endifequal %}" href="{% url sub_sub_page page.parent.slug page.slug item.slug %}">{{ item.title }}</a></li>
-         {% endfor %}
-      </ul>
-    {% endif %}
-  </li>
+	<li>	
+  	  <a class="{% if item.slug in request.path %}selected{% endif %}" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+		{% if item.slug in request.path %}
+		  {% if item.get_children %}
+			<ul class="subnav">
+			  {% for page in item.get_children %}
+				<li>
+				  <a class="{% if page.slug in request.path %}selected{% endif %}" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+				</li>
+			  {% endfor %}
+			</ul>
+		  {% endif %}
+		{% endif %}
+    </li>
   {% endfor %}
 </ul>
+

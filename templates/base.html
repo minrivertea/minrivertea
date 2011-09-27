@@ -136,6 +136,8 @@ if (15.00) {
 	</div>    
 {% endif %}
 
+
+
     	
 <div id="header">
    <div class="super">
@@ -145,11 +147,28 @@ if (15.00) {
 	    	
 	    	<p class="shipping">
 				<img class="flag" src="{% staticfile '/images/truck.png' %}">
-	    		<span>1-2 days, anywhere in the UK</span>
+	    		<span>1-3 days anywhere in the UK</span>
 	    		- <a href="{% url contact_us %}">Contact us</a>
 	    		- <a href="/about/wholesale/">Wholesale</a>
 	    		- <a href="/about/" title="About the Min River Tea Farm">About Us</a>
+	    		
+	    		<!--
+	    		<span id="language">
+	    			<img style="position:relative;top:3px; margin:0 4px 0 10px;" src="{% staticfile '/images/sweden.png' %}"> 
+	    			<span style="color:#3b69a4;" href="#"><strong>Svenska?</strong></span> 
+	    		</span>
+	    		-->
 	    	</p>
+	    	
+	    	<!--
+	    	<div id="language-block">
+	    		<h4>Welcome to the Min River Tea Farm!</h4>
+	    		<p>
+	    		Hej! Välkommen till Min floden Tea Farm - vi säljer kinesiska teer, och ja, vi levererar till [land]. Webbplatsen har inte översatts till [LANGUAGE] ännu, och vi är ledsna för detta. Du kan fortsätta använda den engelska versionen, eller läs lite grundläggande information om våra teer och hur man köper i [LANGUAGE] här. Tack!
+	    		</p>
+	    		<a href="#" id="close-language">X Close</a>	    	
+	    	</div>
+	    	-->
 
 	    	<div id="navigation">
 	    	    <ul id="nav">
@@ -164,13 +183,9 @@ if (15.00) {
 	    	        </li>
 	    	        
 	    	        <li>
-	    	        	
 	    	        	<a class="{% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
-	    	        	
-	    	        	Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}
-	    	        	
+	    	        	   	Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}
 	    	        	</a>
-	    	        	
 	    	        </li>
 	  			</ul>
 			</div>
@@ -188,7 +203,23 @@ if (15.00) {
 
 </div>
 	{% block extrajs %}{% endblock %}
-	
+	<script type="text/javascript">
+		function languageToggle() {
+			if ($('#language-block').is(":visible")) {
+				$('#language').css('background-color', '#fff');
+				$('#language-block').toggle();
+				$('#language span').css('color', '#3B69A4');
+			}
+			else {
+				$('#language-block').toggle();
+				$('#language').css('background-color', '#333');
+				$('#language span').css('color', '#fff');
+			}
+		}
+
+		$('#language').click(languageToggle);
+		$('#close-language').click(languageToggle);
+	</script>
 
 </body>
 

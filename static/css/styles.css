@@ -15,6 +15,7 @@ body {
 div#super, .super {
   width: 960px;
   margin: 0 auto;	
+  position: relative;
 }
 
 h3 {
@@ -290,7 +291,53 @@ p.shipping {
   float: right;
   margin: 20px 0 0 0;
   font-size: 11px;
-  padding-right: 30px;	
+  padding-right: 15px;	
+}
+
+#language {
+    display: block;
+    float: right;
+    margin-left: 6px;
+    padding: 5px 10px 5px 0;
+    position: relative;
+    top: -5px;
+    width: auto;
+    border-radius: 5px 5px 0 0;
+}
+
+#language:hover {
+  cursor: pointer;	
+}
+
+#language-block {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 45px;
+  width: 400px;
+  z-index: 20;
+  background-color: #333;
+  border-radius: 5px;
+  padding: 10px 25px;	
+  height: 300px;
+}
+
+#language-block p {
+  font-size: 12px;	
+  color: #f1f1f1;
+}
+
+#language-block h4 {
+  color: #fff;	
+}
+
+#language-block a:link {
+  color: #FFAEAE;
+  font-size: 12px;
+}
+
+#language-block a:hover {
+  color: #439249;	
 }
 
 div#logo {	 
@@ -717,7 +764,7 @@ div.tea-promo:hover h4 a {
 
 div.tea-promo p {
     color: #333333;
-    font-size: 15px;
+    font-size: 14px;
     margin: 0;
 }
 
