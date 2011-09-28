@@ -409,7 +409,10 @@ class Page(models.Model):
     def get_absolute_url(self):
         if self.parent:
             if self.parent.parent:
-                url = "/%s/%s/%s/" % (self.parent.parent.slug, self.parent.slug, self.slug)
+                if self.parent.parent.parent:
+                    url = "/%s/%s/%s/%s/" % (self.parent.parent.parent.slug, self.parent.parent.slug, self.parent.slug, self.slug)
+                else:
+                    url = "/%s/%s/%s/" % (self.parent.parent.slug, self.parent.slug, self.slug)
             else:
                 url = "/%s/%s/" % (self.parent.slug, self.slug)
         else:

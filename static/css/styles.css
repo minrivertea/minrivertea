@@ -594,10 +594,9 @@ ul#right-nav ul.subnav {
 
 ul#right-nav ul.subnav li a {
   background-color: #fff;
-	
   font-size: 11px;
   padding: 3px;
-    padding-left: 10px;
+  padding-left: 10px;
   margin: 0;
   border-bottom: 2px dotted #e1e1e1;
 }
@@ -607,6 +606,22 @@ ul#right-nav ul.subnav li a.last {
   margin-bottom: 2px;
 }
 
+
+ul#right-nav ul.subnav ul.subsubnav {
+  list-style-type: none;
+  padding-left: 10px;
+  margin-left: 5px;	
+  border-bottom: 2px dotted #e1e1e1;
+}
+
+ul#right-nav ul.subnav ul.subsubnav li a {
+  font-weight: normal;	
+  border-bottom: none;
+}
+
+ul#right-nav ul.subnav ul.subsubnav li a.selected {
+  font-weight: bold;	
+}
 
 /* end rightnav styles */
 

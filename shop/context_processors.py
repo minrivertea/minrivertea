@@ -1,6 +1,7 @@
 from django.conf import settings
 from minriver.shop.models import *
 from minriver.blog.models import BlogEntry
+from minriver.shop.views import GetCountry
 
 
 def common(request):
@@ -12,6 +13,14 @@ def common(request):
     context['paypal_receiver_email'] = settings.PAYPAL_RECEIVER_EMAIL
     context['paypal_submit_url'] = settings.PAYPAL_SUBMIT_URL
     context['ga_is_on'] = settings.GA_IS_ON
+    
+    # check on the country lookup
+    context['country'] = GetCountry(request)['countryCode']
+    current_languages = ("SE", "FR", "CN", "US")
+    print context['country']
+    if context['country'] not in current_languages:
+        context['country'] = None
+    
     return context
 
 def get_teas(request):

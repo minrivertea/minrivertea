@@ -11,6 +11,11 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 
 
+import urllib
+import urllib2
+import xml.etree.ElementTree as etree
+from django.utils import simplejson
+
 from PIL import Image
 from cStringIO import StringIO
 import os, md5
@@ -39,6 +44,21 @@ def render(request, template, context_dict=None, **kwargs):
                               **kwargs
     )
 
+def GetCountry(request):
+    # this is coming from http://ipinfodb.com JSON api
+    # the variables
+    apikey = settings.IPINFO_APIKEY 
+    ip = request.META.get('REMOTE_ADDR')
+    baseurl = "http://api.ipinfodb.com/v3/ip-country/?key=%s&ip=%s&format=json" % (apikey, ip)
+    urlobj = urllib2.urlopen(baseurl)
+    
+    # get the data
+    url = baseurl + "?" + apikey + "?"
+    data = urlobj.read()
+    urlobj.close()
+    datadict = simplejson.loads(data)
+    return datadict
+
 def twitter_post(tweet):   
     if not twitter or not hasattr(settings, 'TWITTER_USER') or \
         not hasattr(settings, 'TWITTER_PASS'):
@@ -65,7 +85,7 @@ def index(request):
     # load variables       
     featured = Product.objects.filter(is_active=True).exclude(category="POS")[:3] 
     prices = UniqueProduct.objects.filter(is_active=True)
-    review = Review.objects.all()[:1]
+    review = Review.objects.all().order_by('?')[:2]
     
     # load the products and prices combinations
     products_and_prices = []
@@ -96,6 +116,15 @@ def sub_page(request, slug, sub_slug):
 def sub_sub_page(request, slug, sub_slug, sub_sub_slug):
     page = get_object_or_404(Page, slug=sub_sub_slug)
     nav_items = Page.objects.filter(parent=page.parent.parent)
+    if page.template:
+        template = page.template
+    else:
+        template = "shop/page.html"
+    return render(request, "shop/page.html", locals())
+
+def sub_sub_sub_page(request, slug, sub_slug, sub_sub_slug, sub_sub_sub_slug):
+    page = get_object_or_404(Page, slug=sub_sub_sub_slug)
+    nav_items = Page.objects.filter(parent=page.parent.parent.parent)
     if page.template:
         template = page.template
     else:

@@ -152,23 +152,22 @@ if (15.00) {
 	    		- <a href="/about/wholesale/">Wholesale</a>
 	    		- <a href="/about/" title="About the Min River Tea Farm">About Us</a>
 	    		
-	    		<!--
+	    		{% if country %}
 	    		<span id="language">
-	    			<img style="position:relative;top:3px; margin:0 4px 0 10px;" src="{% staticfile '/images/sweden.png' %}"> 
+	    			
+	    			<img style="position:relative;top:3px; margin:0 4px 0 10px;" src="/images/{{ country }}.png"> 
 	    			<span style="color:#3b69a4;" href="#"><strong>Svenska?</strong></span> 
 	    		</span>
-	    		-->
+	    		{% endif %}
+	    		
 	    	</p>
 	    	
-	    	<!--
+	    	{% if country %}
 	    	<div id="language-block">
-	    		<h4>Welcome to the Min River Tea Farm!</h4>
-	    		<p>
-	    		Hej! Välkommen till Min floden Tea Farm - vi säljer kinesiska teer, och ja, vi levererar till [land]. Webbplatsen har inte översatts till [LANGUAGE] ännu, och vi är ledsna för detta. Du kan fortsätta använda den engelska versionen, eller läs lite grundläggande information om våra teer och hur man köper i [LANGUAGE] här. Tack!
-	    		</p>
+	    		{% include "language-snippets/language-block.html" %}
 	    		<a href="#" id="close-language">X Close</a>	    	
 	    	</div>
-	    	-->
+	    	{% endif %}
 
 	    	<div id="navigation">
 	    	    <ul id="nav">
