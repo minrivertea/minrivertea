@@ -17,7 +17,11 @@
 			{% endthumbnail %}
  			<a class="title" href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
  			<br/>{{ other.super_short_description }}<br/>
+ 			{% if other.coming_soon %}
+ 			<span class="red">Coming soon!</span>
+ 			{% else %}
  			<strong>from £{{ other.get_lowest_price.price }}</strong>
+ 			{% endif %}
  		</p>
  	{% endfor %}
 	</div>
