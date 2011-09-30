@@ -15,7 +15,7 @@ class PageAdmin(admin.ModelAdmin):
 
 
 class UniqueProductAdmin(admin.ModelAdmin):
-    list_display = ('parent_product', 'weight', 'price', 'is_sale_price')
+    list_display = ('parent_product', 'weight', 'price', 'is_sale_price', 'is_active')
     
     
 admin.site.register(Product, ProductAdmin)
