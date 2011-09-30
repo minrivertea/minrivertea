@@ -208,7 +208,7 @@ p.price span.coming-soon {
 }
 
 p.subtitle {
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   float: left;
   width: 500px;	
 }
@@ -217,6 +217,15 @@ p.quote {
     float: right;
     margin: 10px 0 0;
     width: 360px;
+}
+
+p.subtitle span {
+    background-color: #BE373A;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin: 0 6px 0 6px;
+    padding: 4px 5px 2px;
 }
 
 </style>
@@ -230,7 +239,7 @@ p.quote {
   <span class="red">James Parsons</span>
   </p>
 	<h1>Choose your Chinese tea</h1>
-	
+    <p class="subtitle"><span>SALE!</span><a href="{% url sale %}">We're selling off our Spring Teas at ridiculous low prices!</a></p>	
   </div>
 </div>
 		

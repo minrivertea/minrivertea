@@ -144,12 +144,16 @@ def teas(request):
         request.session['ADDED'] = None
         
     products = Product.objects.filter(category="TEA", is_active=True)
-    prices = UniqueProduct.objects.filter(is_active=True)
+    prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=False)
     products_and_prices = []
     for product in products:
         products_and_prices.append((product, prices.filter(parent_product=product)))
 
     return render(request, "shop/teas.html", locals())
+
+def sale(request):
+    prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=True)
+    return render(request, "shop/sale.html", locals())
 
 # view for a single product
 def tea_view(request, slug):
@@ -170,7 +174,7 @@ def tea_view(request, slug):
         request.session['ADDED'] = None
     
     tea = get_object_or_404(Product, slug=slug)
-    prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True).order_by('price')
+    prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True, is_sale_price=False).order_by('price')
     others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
     reviews = Review.objects.filter(product=tea.id, is_published=True)[:2]
     

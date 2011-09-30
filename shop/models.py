@@ -158,7 +158,7 @@ class Product(models.Model):
     
     def get_lowest_price(self):
         try:
-            prices = UniqueProduct.objects.filter(parent_product=self).order_by('price')[0]
+            prices = UniqueProduct.objects.filter(parent_product=self, is_sale_price=False).order_by('price')[0]
         except:
             prices = None
         return prices
@@ -185,6 +185,11 @@ class UniqueProduct(models.Model):
     description = models.TextField()
     available_stock = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
+    # bool
+    is_sale_price = models.BooleanField(default=False)
+    # numeric(8, 2)
+    old_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
+        help_text="If it's a sale item, what was the old price?")
     
     def __unicode__(self):
         return "%s (%s%s)" % (self.parent_product, self.weight, self.weight_unit)
