@@ -13,10 +13,15 @@ class ReviewAdmin(admin.ModelAdmin):
 class PageAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'parent')
 
+
+class UniqueProductAdmin(admin.ModelAdmin):
+    list_display = ('parent_product', 'weight', 'price', 'is_sale_price')
+    
+    
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Address)
 admin.site.register(Shopper)
-admin.site.register(UniqueProduct)
+admin.site.register(UniqueProduct, UniqueProductAdmin)
 admin.site.register(Basket)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Discount)
