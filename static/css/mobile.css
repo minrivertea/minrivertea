@@ -30,3 +30,14 @@ a:hover, a:active, a:focus {
   margin-left: 50%;
   left: -141px; 	
 }
+
+#banner {
+  background-color: #f1f1f1;
+  width: 100%;
+  padding: 10px 0 10px;	
+}
+
+#banner p {
+  margin: 0;
+  padding: 0 10px 0 10px;	
+}
