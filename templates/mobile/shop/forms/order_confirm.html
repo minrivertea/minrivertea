@@ -6,61 +6,38 @@
 
 {% block extracss %}
 <style type="text/css">
-div#main-text-wide {
-  margin-top: 30px;	
+input.checkout-button {
+  background: none;
+  background-color: #439249;
+  padding: 10px 15px;
+  -webkit-border-radius: 5px;
+  -webkit-appearance: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  float: right;
+  margin: 0 15px 15px 0;
+  text-align: right;
+  display:block;
+  border: none;	
+  font-size: 16px;
 }
 
-
-div#main-text-wide div#left h3 {
-    font-size: 18px;
-    font-weight: 900;
-    margin: 0 0 -10px;
+table {
+  width: 88%;
+  padding: 0 5% 0 7%;	
 }
-
-div.row {
-  background-image: none;	
-  -moz-box-shadow: none;
-}
-
-div#steps {
-    background-position: 0px -2px;
-}
-
-
 </style>
 
 {% endblock %}
 
+{% block banner %}
+<h1>3/4 Confirm your order</h1>
+{% endblock %}
+
 {% block content %}
 
-
-<div id="main-text-wide">
-  <div class="super">
-	<div id="steps">
-		<div class="completed">
-		<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
-		</div>
-		<div class="completed">
-		<h1>Your details</h1>
-		</div>
-		<div class="selected">
-		<h1>Confirm order</h1>
-		</div>
-		<div>
-		<h1>Payment</h1>
-		</div>
-	</div>
-	
-	<div id="basket">
-		
-    <form method="post" action="{{ paypal_submit_url }}">
-    
-    	<div id="confirm-and-pay-button">
-			<input type="submit" value="" next="" class="confirm-and-pay-button"/>
-			<p class="checkout"><strong>Next step:</strong> <em>pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</em></p>
-			<img src="{% staticfile '/images/002.gif' %}" class="paypal">
-		</div>	
-    
+<form method="post" action="{{ paypal_submit_url }}">    
 
 		<input type="hidden" name="cmd" value="_cart"> 
 		<input type="hidden" name="upload" value="1"> 
@@ -102,43 +79,41 @@ div#steps {
 			 {% endfor %}
 		{% endif %}
 		
-				<div class="row">
-			<div class="row-label">
-				<h2>You have ordered:</h2>
-			</div>
-		<div class="row-box">
-			<table>
-			{% for thing in basket_items %}
-			  <tr>				
-		    	<td width="200px">
-		    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
-		    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
-		    	</td>
-		    	<td width="150px">
-		    	</td>
-		    	<td>£{{ thing.get_price }}</td>		    				
-			  </tr>
-		  {% endfor %}
-		  {% if postage_discount %}
-		  <tr>
-		    <td><span class="small"><em>There is no postage charge, because your order is over £50</em></span></td>
-		  </tr>
-		  {% else %}
-		  <tr>
-		  	<td>Postage</td>
-		  	<td>&nbsp;</td>
-		  	<td>£3.00</td>		  
-		  </tr>
-		  {% endif %}
-		  <tr>
-		  	<td><strong>TOTAL</strong></td>
-		  	<td>&nbsp;</td>
-		  	<td><strong>£{{ total_price }}</strong></td>		  
-		  </tr>
-		</table>
-		</div>
-	</div>
 
+<p><strong>You have ordered:</strong>
+	
+	
+			
+<table>
+{% for thing in basket_items %}
+  <tr>				
+	<td width="200px">
+		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
+		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
+	</td>
+	<td width="150px">
+	</td>
+	<td>£{{ thing.get_price }}</td>		    				
+	</tr>
+{% endfor %}
+
+{% if postage_discount %}
+  <tr>
+    <td><span class="small"><em>There is no postage charge, because your order is over £50</em></span></td>
+  </tr>
+  {% else %}
+  <tr>
+  	<td>Postage</td>
+	<td>&nbsp;</td>
+  	<td>£3.00</td>		  
+  </tr>
+  {% endif %}
+  <tr>
+  	<td><strong>TOTAL</strong></td>
+  	<td>&nbsp;</td>
+  	<td><strong>£{{ total_price }}</strong></td>		  
+  </tr>
+</table>
 
 
 <div class="row">
@@ -160,15 +135,10 @@ div#steps {
 	</div>
 </div>
 
-<div class="row">
-	<div class="row-label">
-		<h3>Problems or questions?</h3>
-	</div>
-	
-	<div class="row-box">
-	    <p>We aim to offer first class customer service - if you have ANY problems or questions, contact Chris West, the owner, directly on email at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> - I'll respond normally within a few hours to every email.</p>
+<input class="checkout-button" type="submit" value="Confirm and pay &raquo;"/>
 
-	</div>
+<div class="infoblock">
+  <p>If you have any problems or questions, just contact us at <a href="mailto:mail@minrivertea.com">mail@minrivertea.com</a>
 </div>
 
 
