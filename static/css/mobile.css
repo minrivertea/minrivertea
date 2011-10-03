@@ -38,15 +38,15 @@ a:hover, a:active, a:focus {
 
 #banner {
   background-color: #f1f1f1;
-  width: 93%;
-  padding: 10px 0 10px 7%;	
+  width: 100%;
+  padding: 10px 0 10px 0;	
   margin-bottom: 10px;
   float: left;
 }
 
 #banner p {
   margin: 0;
-  padding: 0 10px 0 10px;
+  padding: 0 10px 0 7%;
   font-family: Georgia, serif;
   color: #000;	
 }
