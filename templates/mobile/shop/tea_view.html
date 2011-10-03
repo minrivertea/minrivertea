@@ -35,7 +35,7 @@
 #prices {
   width: 93%;
   float: left;
-  margin-left: 7%;	
+  margin: 0 0 10px 7%;	
 }
 
 #prices a {
@@ -94,25 +94,13 @@
 </div>
 
 	           	
-  
+<div id="choices">
+	<a href="">View customer reviews ({{ reviews.count }})</a>
+	<a href="">More photos of this tea</a>
+	<a href="">Brewing guides</a>
+</div>  
 
 
-
-	<div id="left">
-		{% if reviews %}
-			<h2>Customer reviews for this tea ({{ reviews.count }})</h2>
-			<ul class="reviews">
-			{% for review in reviews %}
-				<li><em>"{{ review.short_text }}"</em> <br/><span>{{ review.first_name }} {{ review.last_name }}</span></li>
-			{% endfor %}
-			</ul>
-		{% endif %}  
-
-	
-		<h2>More information about this tea</h2>
-		{{ tea.long_description|safe }}
-
-	
 	
 
 {% endblock %}
