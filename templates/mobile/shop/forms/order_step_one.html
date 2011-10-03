@@ -13,9 +13,18 @@ form {
 
 label {
   font-size: 12px;
-  font-weight: bold;
-  color: #000;	
+  font-weight: normal;	
 }
+
+p.ex {
+  line-height: 1.6em;	
+}
+
+.green {
+  color: #439249;
+  font-weight: bold;	
+}
+
 </style>
 
 {% endblock %}
@@ -38,28 +47,36 @@ label {
    		<ul class="errorlist"><li>* you must provide all your details - thanks!</li></ul>
    		{% endif %}
 
-   	<p>Please provide your name and email address:</p>
+   	<p class="ex">Please provide your name and email address (<span class="green">green</span> fields are mandatory)</p>
 
-    <p><input  class="{% if form.first_name.errors %}red{% endif %}" type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/><label for="id_first_name"><span class="red">*</span> First name</label></p>
-    		<p><input class="{% if form.last_name.errors %}red{% endif %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/><label for="id_last_name"><span class="red">*</span> Surname</label></p>
-    		<p><input class="{% if form.email.errors %}red{% endif %}" type="email" name="email" id="id_email" value="{{ email }}"/><label for="id_email"><span class="red">*</span> Email address</label></p>	
+    <p>
+    	<input  class="{% if form.first_name.errors %}red{% endif %}" type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/>
+    	<label class="green" for="id_first_name">* First name</label>
+    </p>
+    <p>
+    	<input class="{% if form.last_name.errors %}red{% endif %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
+    	<label class="green" for="id_last_name">* Surname</label>
+    </p>
+    <p>
+    	<input class="{% if form.email.errors %}red{% endif %}" type="email" name="email" id="id_email" value="{{ email }}"/>
+    	<label class="green" for="id_email">* Email address</label></p>	
     	</div>
     </div>
     
 	
     {{ form.non_field_errors }}
-    <p class="intro">Please confirm which address we should send your tea to (please give a full address, or we may have trouble posting your tea!)</p>
+    <p class="ex">Please confirm which address we should send your tea to (please give a full address, or we may have trouble posting your tea!)</p>
     		
 
       <p>
       	<input id="id_house_name_number" type="text" name="house_name_number" maxlength="200" value="{{ house_name_number }}"/>
-      	<label for="id_house_name_number"><span class="red">*</span> House name number:</label>
-      	</p>
+      	<label class="green" for="id_house_name_number">* House name number:</label>
+      </p>
 	  	{{ form.address_line_1.error }}
 	  
 	  <p>
 	  	<input id="id_address_line_1" type="text" name="address_line_1" maxlength="200" value="{{ address_line_1 }}"/> 
-	 	    <label for="id_address_line_1">Address line 1:</label>
+	 	<label for="id_address_line_1">Address line 1:</label>
 	  </p>
       	{{ form.address_line_2.errors }}
       	
@@ -80,7 +97,7 @@ label {
       <p>
       	
       	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" /> 
-      	<label for="id_postcode"><span class="red">*</span> Postcode:</label>
+      	<label class="green" for="id_postcode">* Postcode:</label>
       	</p>
       	
 	  <p>
