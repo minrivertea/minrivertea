@@ -22,6 +22,11 @@ a:hover, a:active, a:focus {
   text-decoration: none;
 }
 
+img {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;	
+}
+
 #header {
   margin-bottom: 10px;
   padding-top: 10px;
