@@ -130,7 +130,6 @@ if (15.00) {
 	   	<div id="nav">
 	   		<a class="{% ifequal request.path '/' %}selected{% endifequal %}" href="/">Home</a>
 	   		<a class="{% if '/teas/' in request.path %}selected{% endif %}" href="{% url teas %}">Teas</a>
-	   		<a href="/learn/">Learn</a>
 	   		<a class="{% ifequal '/basket/' request.path %}selected{% endifequal %}" href="{% url basket %}">Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</a>
 	   	</div>
 </div>
