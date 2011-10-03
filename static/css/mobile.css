@@ -59,7 +59,7 @@ a:hover, a:active, a:focus {
 
 #choices a {
   float: left;
-  margin-left: 7%;
+  padding-left: 7%;
   width: 93%;
   padding: 10px 0 10px 0;
 }
