@@ -59,9 +59,8 @@ a:hover, a:active, a:focus {
 
 #choices a {
   float: left;
-  padding-left: 7%;
   width: 93%;
-  padding: 10px 0 10px 0;
+  padding: 10px 0 10px 7%;
 }
 
 #choices a:not(:last-child) {
