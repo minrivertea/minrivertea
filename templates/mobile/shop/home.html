@@ -45,6 +45,18 @@ ul#teas li {
   font-size: 13px;	
 }
 
+#shipping {
+  width: 80%;
+  background-color: #e2eede;
+  padding: 10px;	
+}
+
+#shipping p {
+  margin: 0;
+  padding: 0;
+  color: #36861d;	
+}
+
 </style>
 {% endblock %}
 
@@ -72,6 +84,10 @@ ul#teas li {
 		{% endif %}
 	{% endfor %}
 	</ul>
+	
+	<div id="shipping">
+		<p>We offer free shipping on all orders over £50</p>
+	</div>
 
 	<div id="choices">
 		<a href="{% url teas %}">Browse all teas</a>
