@@ -81,16 +81,7 @@ def twitter_post(tweet):
 
 # the homepage view
 def index(request):
-    
-    # load variables       
-    featured = Product.objects.filter(is_active=True).exclude(category="POS")[:3] 
-    prices = UniqueProduct.objects.filter(is_active=True)
     review = Review.objects.all().order_by('?')[:2]
-    
-    # load the products and prices combinations
-    products_and_prices = []
-    for product in featured:
-        products_and_prices.append((product, prices.filter(parent_product=product)))
     
     return render(request, "shop/home.html", locals())
 

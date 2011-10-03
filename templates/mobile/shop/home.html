@@ -9,7 +9,22 @@
 
 {% block extracss %}
 <style type="text/css">
+ul#teas {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;	
+}
 
+#teas .image {
+  float: left;
+  width: 90px;
+  margin-right: 10px;	
+}
+
+#teas .text {
+  float: left;
+  width: auto;	
+}
 
 </style>
 {% endblock %}
@@ -21,9 +36,20 @@
 
 {% block content %}
 
+	<ul id="teas">
 	{% for tea in teas %}
-
+		<li>
+			<div class="image">
+			{% thumbnail tea.image "90x60" crop="center" as im %}
+				<img src="{{ im.url }}"/>
+			{% endthumbnail %}
+			</div>
+			<div class="text">
+				<p><a href="">{{ tea.name }}</a><br/>{{ tea.description }}</p>
+			</div>
+		</li>
 	{% endfor %}
+	</ul>
 
 	<div id="choices">
 		<a href="{% url teas %}">Browse all teas</a>
