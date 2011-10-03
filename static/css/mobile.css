@@ -42,7 +42,8 @@ img {
 }
 
 #basket a {
-  color: #ffde00;	
+  color: #ffde00;
+  font-weight: bold;	
 }
 
 #header {
