@@ -28,6 +28,12 @@ form {
   float: left;
   padding: 0 5% 0 7%;	
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;	
+}
 </style>
 
 {% endblock %}
@@ -85,36 +91,29 @@ form {
 	
 	
 			
-<table>
+<ul id="things">
 {% for thing in basket_items %}
-  <tr>				
-	<td width="200px">
-		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
-		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
-	</td>
-	<td width="150px">
-	</td>
-	<td>£{{ thing.get_price }}</td>		    				
-	</tr>
+  <li>
+	<span>{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
+		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})</span>
+	<span class="price">£{{ thing.get_price }}</span>
+  </li>
 {% endfor %}
-
 {% if postage_discount %}
-  <tr>
-    <td><span class="small"><em>There is no postage charge, because your order is over £50</em></span></td>
-  </tr>
-  {% else %}
-  <tr>
-  	<td>Postage</td>
-	<td>&nbsp;</td>
-  	<td>£3.00</td>		  
-  </tr>
-  {% endif %}
-  <tr>
-  	<td><strong>TOTAL</strong></td>
-  	<td>&nbsp;</td>
-  	<td><strong>£{{ total_price }}</strong></td>		  
-  </tr>
-</table>
+	<li>
+		<span>There is no postage charge on this order</span>
+	</li>
+{% else %}
+	<li>
+		<span>Postage</span>
+		<span class="price">£3.00</span>
+	</li>
+{% endif %}
+	<li>
+		<span>TOTAL PRICE:</span>
+		<span class="price">£{{ total_price }}</span>
+	</li>
+</ul>
 
 
 <p><strong>We'll send your order to (please check):</strong></p>
