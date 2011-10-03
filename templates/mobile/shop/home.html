@@ -29,7 +29,7 @@ ul#teas li {
 
 #teas .text {
   float: left;
-  width: 150px;	
+  width: 180px;	
 }
 
 </style>
@@ -46,7 +46,7 @@ ul#teas li {
 	{% for tea in teas %}
 		<li>
 			<div class="image">
-			{% thumbnail tea.image "90x60" crop="center" as im %}
+			{% thumbnail tea.image "80x60" crop="center" as im %}
 				<img src="{{ im.url }}"/>
 			{% endthumbnail %}
 			</div>
