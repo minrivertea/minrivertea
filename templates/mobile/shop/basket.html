@@ -10,10 +10,18 @@
 {% endblock %}
 
 
-{% block basket %}{% endblock %}
+{% block basket %}
+<div id="basket">
+  <p>&laquo; Not finished? <a href="{% url teas %}">Keep browsing</a></p>
+</div>
+{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
+#basket {
+  text-align: left;	
+}
+
 #items {
   list-style-type: none;
   margin: 0;
