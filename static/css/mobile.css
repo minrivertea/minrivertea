@@ -1,0 +1,32 @@
+html {
+  border: none;
+  margin: none;
+  padding: none;	
+}
+
+body {
+  font-weight: 0.9em;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #666;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: #439249;	
+}
+
+a:hover, a:active, a:focus {
+  color: #FFAEAE;
+  text-decoration: none;
+}
+
+#header
+
+#logo img {
+  float: left;
+  position: relative;
+  margin-left: 50%;
+  left: -141px; 	
+}
