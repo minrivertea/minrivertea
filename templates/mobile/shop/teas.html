@@ -50,8 +50,6 @@
 		
 <ul id="teas">
 	{% for tea in teas %}
-		{% if forloop.counter > 3 %}
-		{% else %}
 		<li>
 			<div class="image">
 			{% thumbnail tea.image "80x60" crop="center" as im %}
@@ -62,7 +60,6 @@
 				<p><a href="{% url tea_view tea.slug %}">{{ tea.name }}</a><br/>{{ tea.description|truncatewords:10 }}</p>
 			</div>
 		</li>
-		{% endif %}
 	{% endfor %}
 </ul>
 
