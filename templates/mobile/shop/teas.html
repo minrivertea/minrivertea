@@ -12,6 +12,10 @@
 
 {% block extracss %}
 <style type="text/css">
+.infoblock {
+  margin-bottom: 20px;	
+}
+
 #teas {
   list-style-type: none;
   margin: 10px 0 0 7%;
@@ -42,6 +46,12 @@
   padding: 0;
   font-size: 12px;	
 }
+
+#teas .text p a {
+  font-weight: bold;
+  font-size: 13px;	
+}
+
 </style>
 {% endblock %}
 
@@ -63,9 +73,9 @@
 	{% endfor %}
 </ul>
 
-	<div class="infoblock">
-		<p>All of our teas are sourced from the Fujian Province in China, and naturally produced the traditional way.</p>
-	</div>	
+<div class="infoblock">
+	<p>All of our teas are sourced from the Fujian Province in China, and naturally produced the traditional way.</p>
+</div>	
 
 
 {% endblock %}
