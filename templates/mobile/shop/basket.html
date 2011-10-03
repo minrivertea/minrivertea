@@ -40,7 +40,7 @@
   color: #000;
   display: block;
   position: absolute;
-  right: 10px;
+  right: 15px;
   
 }
 
@@ -62,23 +62,27 @@
 		<a class="remove" href="{% url remove_from_basket thing.item.id %}">Remove from basket</a>
 	</li>
 {% endfor %}
+	{% if postage_discount %}
+		<li>
+			<span class="title">No postage charge for you!</span>
+		</li>
+	{% else %}
+		<li>
+			<span class="title">Postage</span>
+			<span class="details">£3</span>
+		</li>
+	{% endif %}
+	<li class="total">
+		<span class="title">TOTAL</span>
+		<span class="details">£{{ total_price }}</span>
+	</li>
 </ul>
 
 
 
+<a class="checkout-button" href="{% url order_step_one">Start checkout</a>
 
-	<br clear="all"/>
-	  	<div id="start-checkout-button">		
-		
-		<p class="checkout">
-			<strong>Next step</strong>: your details. 
-			<em>No login or registration required to purchase.</em>
-		</p>
-		<a href="{% url order_step_one %}"></a>
-	</div>
 
-			
-  </div>
   
 
 {% endblock %}
