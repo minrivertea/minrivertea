@@ -60,6 +60,18 @@ img {
   left: -141px; 	
 }
 
+#nav {
+  width: 100%;	
+  float: left;
+}
+
+#nav a {
+  float: left;
+  margin-right: 10px;
+  background-color:#f1f1f1;
+  padding: 5px 8px;
+}
+
 #banner {
   background-color: #f1f1f1;
   width: 100%;
