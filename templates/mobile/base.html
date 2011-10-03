@@ -118,11 +118,12 @@ if (15.00) {
 
 <body>
 
-{% if basket_quantity > 0 %}
+{% ifequal basket_quantity 0 %}
+{% else %}
 <div id="basket">
   {{ basket_quantity }} items in basket
 </div>
-{% endif %}
+{% endifequal %}
     	
 <div id="header">
 	   	<div id="logo">
