@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load django_static %}
+
+{% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
+{% block pagetitle %}{{ tea.meta_title }}{% endblock %}
+
+{% block extrajs %}
+<script>
+
+</script>
+
+{% endblock %}
+
+{% block extracss %}
+
+<style type="text/css">
+#main-image {
+  float: left;
+  width: 100%;
+  margin-bottom: 20px;	
+}
+
+p.description {
+  margin-left: 7%;	
+}
+
+</style>
+{% endblock %}
+
+{% block banner %}
+<h1>{{ tea.name }} Chinese tea</h1>
+{% endblock %}
+
+{% block content %}
+
+
+<div id="main-image">
+	{% thumbnail tea.image "240x180" crop="center" as im %}
+		<img src="{{ im.url }}"/>
+	{% endthumbnail %}
+</div>
+		
+<p class="description">{{ tea.body_text|safe }}</p>
+
+
+<div id="prices">
+	{% if tea.coming_soon %}
+	 	<div class="coming-soon">
+		</div>
+	{% else %}
+		{% for price in prices %}
+			<a href="">
+				<span class="price"> {{ price.price_unit}}{{ price.price|floatformat }}</span>
+				/{{ price.weight|floatformat }}{{ price.weight_unit }}
+				<span class="button">Add to basket</span>
+			</a>
+		{% endfor %}
+	{% endif %}
+</div>
+
+	           	
+  
+
+
+
+	<div id="left">
+		{% if reviews %}
+			<h2>Customer reviews for this tea ({{ reviews.count }})</h2>
+			<ul class="reviews">
+			{% for review in reviews %}
+				<li><em>"{{ review.short_text }}"</em> <br/><span>{{ review.first_name }} {{ review.last_name }}</span></li>
+			{% endfor %}
+			</ul>
+		{% endif %}  
+
+	
+		<h2>More information about this tea</h2>
+		{{ tea.long_description|safe }}
+		{% if ga_is_on %}
+		<div class="fb-recommend">
+		<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=102598969829350&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ tea.get_absolute_url }}" send="false" width="450" show_faces="false" action="recommend" font=""></fb:like>
+		</div>
+		{% endif %}
+	
+	
+
+{% endblock %}
