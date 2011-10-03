@@ -52,11 +52,10 @@ a:hover, a:active, a:focus {
 }
 
 #banner h1 {
-  margin: 0;
+  margin: 0 0 0 7%;
   font-size: 14px;
   font-weight: bold;
-  color: #000;
-  margin-left: 7%;	
+  color: #000;	
 }
 
 #choices {
