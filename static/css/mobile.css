@@ -22,7 +22,11 @@ a:hover, a:active, a:focus {
   text-decoration: none;
 }
 
-#header
+#header {
+  margin-bottom: 10px;
+  width: 100%;
+  float: left;	
+}
 
 #logo img {
   float: left;
@@ -43,5 +47,5 @@ a:hover, a:active, a:focus {
   padding: 0 10px 0 10px;
   font-family: Georgia, serif;
   color: #000;
-  font-size: 11px;	
+  font-size: 13px;	
 }
