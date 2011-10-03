@@ -120,9 +120,9 @@ if (15.00) {
 
 {% ifequal basket_quantity 0 %}
 {% else %}
-<div id="basket">
-  {{ basket_quantity }} items in basket
-</div>
+	<div id="basket">
+	  <p>{{ basket_quantity }} item{% basket_quantity|pluralize %} in basket - <a href="">checkout now</a></p>
+	</div>
 {% endifequal %}
     	
 <div id="header">

@@ -29,11 +29,15 @@ img {
 
 #basket {
   float: left;
-  width: 93%;
-  padding: 5px 7% 5px 0;
+  width: 100%;
+  padding: 7px 0 7px 0;
   text-align: right;
   color: #fff;
   background-color:	#439249;
+}
+
+#basket p {
+  padding-right: 10px;	
 }
 
 #header {
