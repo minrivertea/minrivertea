@@ -22,7 +22,9 @@
 }
 
 p.description {
-  margin-left: 7%;	
+  margin-left: 7%;
+  float: left;
+  width: 93%;	
 }
 
 </style>
@@ -36,7 +38,7 @@ p.description {
 
 
 <div id="main-image">
-	{% thumbnail tea.image "240x180" crop="center" as im %}
+	{% thumbnail tea.image "300x230" crop="center" as im %}
 		<img src="{{ im.url }}"/>
 	{% endthumbnail %}
 </div>
