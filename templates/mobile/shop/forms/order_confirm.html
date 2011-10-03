@@ -23,8 +23,9 @@ input.checkout-button {
   font-size: 16px;
 }
 
-table {
+form {
   width: 88%;
+  float: left;
   padding: 0 5% 0 7%;	
 }
 </style>
@@ -116,24 +117,18 @@ table {
 </table>
 
 
-<div class="row">
-	<div class="row-label">
-		<h2>We'll send your order to:</h2>
-	</div>
+<p><strong>We'll send your order to (please check):</strong></p>
 	
-	<div class="row-box">
-	    {{ shopper.first_name }} {{ shopper.last_name }}<br/>
-		{{ order.address.house_name_number }}<br/>
-		{{ order.address.address_line_1 }}<br/>
-		{{ order.address.address_line_2 }}<br/>
-		{{ order.address.town_city }}<br/>
-		{{ order.address.postcode }}<br/>
-		{{ order.address.country|upper }}
-		<br/>
-		<br/>
-		<p class="intro">* Please check your address - if this is not a valid address, we won't be able to post your tea!</p>
-	</div>
-</div>
+	<ul>
+	    <li>{{ shopper.first_name }} {{ shopper.last_name }}</li>
+		<li>{{ order.address.house_name_number }}</li>
+		<li>{{ order.address.address_line_1 }}</li>
+		<li>{{ order.address.address_line_2 }}</li>
+		<li>{{ order.address.town_city }}</li>
+		<li>{{ order.address.postcode }}</li>
+		<li>{{ order.address.country|upper }}</li>
+	</ul>
+	
 
 <input class="checkout-button" type="submit" value="Confirm and pay &raquo;"/>
 
