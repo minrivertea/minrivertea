@@ -41,6 +41,16 @@ input.checkout-button {
   border: none;	
 }
 
+p.red, ul.errorlist {
+  color: red;
+}
+
+ul.errorlist {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;	
+}
+
 </style>
 
 {% endblock %}
@@ -53,15 +63,10 @@ input.checkout-button {
 	
     <form method="post" action="">
 		 
-		
-		{% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
-		 <p class="red">&laquo; there were some errors - please check and provide all required information.</p>
-		 {% endif %}
-
-
-   		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
-   		<ul class="errorlist"><li>* you must provide all your details - thanks!</li></ul>
-   		{% endif %}
+	
+   	{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
+   	<ul class="errorlist"><li>* you must provide all your details - thanks!</li></ul>
+   	{% endif %}
 
    	<p class="ex">Please provide your name and email address (<span class="green">green</span> fields are mandatory)</p>
 
