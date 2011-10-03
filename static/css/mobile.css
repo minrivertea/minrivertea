@@ -61,9 +61,9 @@ img {
 }
 
 #nav {
-  width: 100%;	
+  width: 93%;	
   float: left;
-  margin-top: 5px;
+  margin: 10px 0 0 7%;
 }
 
 #nav a {
@@ -73,6 +73,8 @@ img {
   padding: 5px 8px;
   font-size: 12px;
   font-weight: bold;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
 }
 
 #banner {
