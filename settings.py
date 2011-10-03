@@ -64,6 +64,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'minriver.shop.context_processors.common',
     'minriver.shop.context_processors.get_latest_blogs',
     'minriver.shop.context_processors.get_teas',
+    'django_mobile.context_processors.flavour',
 )
 
 
@@ -73,6 +74,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'ab.middleware.ABMiddleware',
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -103,6 +106,7 @@ INSTALLED_APPS = (
     'django_static',
     'registration',
     'ab',
+    'django_mobile',
 )
 
 # Random app information for different things
