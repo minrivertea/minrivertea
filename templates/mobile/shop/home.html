@@ -49,7 +49,9 @@ ul#teas li {
   float:left;
   width: 85%;
   background-color: #e2eede;
-  margin: 0 0 15px 7%; 	
+  margin: 0 0 15px 7%; 
+  border-radius: 5px;
+  -webkit-border-radius: 5px;	
 }
 
 #shipping p {
@@ -80,7 +82,7 @@ ul#teas li {
 			{% endthumbnail %}
 			</div>
 			<div class="text">
-				<p><a href="{% url tea_view tea.slug %}">{{ tea.name }}</a><br/>{{ tea.description }}</p>
+				<p><a href="{% url tea_view tea.slug %}">{{ tea.name }}</a><br/>{{ tea.description|truncatewords:10 }}</p>
 			</div>
 		</li>
 		{% endif %}
