@@ -27,6 +27,15 @@ img {
   -webkit-border-radius: 5px;	
 }
 
+#basket {
+  float: left;
+  width: 93%;
+  padding: 5px 7% 5px 0;
+  text-align: right;
+  color: #fff;
+  background-color:	#439249;
+}
+
 #header {
   margin-bottom: 10px;
   padding-top: 10px;

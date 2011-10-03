@@ -86,7 +86,7 @@
 		</div>
 	{% else %}
 		{% for price in prices %}
-			<a href="">
+			<a href="{% url add_to_basket price.id %}">
 				<span class="price"> {{ price.price_unit}}{{ price.price|floatformat }}</span>
 				/{{ price.weight|floatformat }}{{ price.weight_unit }}
 				<span class="button">Add to basket</span>
