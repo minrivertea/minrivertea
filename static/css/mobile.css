@@ -39,6 +39,7 @@ a:hover, a:active, a:focus {
   background-color: #f1f1f1;
   width: 100%;
   padding: 10px 0 10px;	
+  margin-bottom: 10px;
   float: left;
 }
 
