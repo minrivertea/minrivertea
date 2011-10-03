@@ -80,7 +80,8 @@ img {
 
 #nav a.selected {
   background-color: #439249;
-  color: #fff;	
+  color: #fff;
+  text-shadow: none;	
 }
 
 #banner {
