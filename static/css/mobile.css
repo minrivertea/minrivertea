@@ -78,3 +78,20 @@ img {
 #choices a:not(:last-child) {
   border-bottom: 1px solid #e1e1e1;	
 }
+
+
+.infoblock {
+  float:left;
+  width: 85%;
+  background-color: #e2eede;
+  margin: 0 0 15px 7%; 
+  border-radius: 5px;
+  -webkit-border-radius: 5px;	
+}
+
+.infoblock p {
+  margin: 0;
+  padding: 10px 12px;
+  color: #36861d;
+  font-size: 12px;	
+}
