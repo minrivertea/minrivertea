@@ -9,6 +9,8 @@
 	<h1>Your basket ({{ basket_quantity }} item{{ basket_quantity|pluralize }})</h1>
 {% endblock %}
 
+{% block basket %}{% endblock %}
+
 {% block extracss %}
 <style type="text/css">
 #items {
@@ -48,39 +50,23 @@
 	<li>
 		<span class="title">{{ thing.item.parent_product.name }}</span> ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})<br/>
 		<span class="details">{{ thing.item.price_unit }}{{ thing.item.price }}</span>
+		<a class="remove" href="{% url remove_from_basket thing.item.id %}">Remove from basket</a>
 	</li>
 {% endfor %}
 </ul>
 
 
 
-{% if basket_items %}
-
-  <div id="basket">
+  <div id="">
  
 	<div id="basket-full">
 	 
-	{% for thing in basket_items %}
-	  <div class="basket-row">
-		<div class="tea-name">
-			{% thumbnail thing.item.parent_product.image "80x53" crop="center" as im %}
-			<img src="{{ im.url }}"/>
-			{% endthumbnail %}
-			<br/>
-		</div>
-		<div class="tea-weight">
-			<a title="{{ thing.item.parent_product.description }}" href="{% url tea_view thing.item.parent_product.slug %}">{{ thing.item.parent_product.name }}</a>
-			{% if not thing.item.weight %}{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
-			{{ thing.item.price_unit }}{{ thing.item.price }}<br/>
-			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">Remove from basket</span></a>
-		</div>
-		<div class="tea-price">&nbsp;</div>
 		<div class="tea-quantity">x {{ thing.quantity }} 
-			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}"></a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}"></a>{% endifequal %}</div> </div>
+			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}"></a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}"></a>{% endifequal %}</div> 
+		</div>
 		<div class="tea-total">{{ thing.item.price_unit}}{{ thing.get_price }}</div>
 		
-	  </div>
-	{% endfor %}
+
 	{% if postage_discount %}
 	  <div class="basket-row postage">
 		<div class="tea-name strikethrough"><em>Postage <span class="small">(Standard)</span></em></div>
@@ -115,42 +101,5 @@
 			
   </div>
   
-  	<div id="right">
-           	<div class="info">
-           	
-           	<h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
-           	<p>We accept all major credit and debit cards through Paypal</p>
-           	<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
-           	
-           	</div>  	
-  	</div>
 
-	<div id="left">
-
-		<h2>Buyer protection</h2>
-		<p>Your online safety is extremely important to us too. Your purchase has these guarantees:</p>
-		<ul>
-		  <li><strong>Returns policy:</strong> we operate a 'no questions asked' returns policy. If you're not happy with your order, just get in touch.</li>
-		  <li><strong>Safe payments:</strong> payments are taken via Paypal. We never see your credit card details, and your online payment is secured by the highest standard industry technology.</li>
-		  <li><strong>Fast delivery:</strong> we deliver via Amazon UK. This means your order is trackable, and normally delivered within 1-2 days.</li>
-		  <li><strong>Customer services:</strong> if you need to contact us about anything, you can email us directly at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>. </li>
-		</ul>
-
-	</div>
-
- 
-
-{% else %}
-  <div id="basket">
-	<p>There's nothing in your basket - add something, quick! <br/><a href="{% url teas %}">&raquo; Browse our selection of Chinese teas here.</a></p>
-  </div>
-	<div class="did-you-know">
-	<a href="/learn/varieties-of-tea/suggestions/"><span class="link"></span></a>
-	<h3>Need some help choosing a tea? <span class="grey">Let us help you &raquo;</span></h3>
-	</div>
-
-{% endif %}
-
-  </div>
-</div>
 {% endblock %}
