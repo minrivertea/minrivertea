@@ -56,15 +56,6 @@
 
 
 
-  <div id="">
- 
-	<div id="basket-full">
-	 
-		<div class="tea-quantity">x {{ thing.quantity }} 
-			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}"></a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}"></a>{% endifequal %}</div> 
-		</div>
-		<div class="tea-total">{{ thing.item.price_unit}}{{ thing.get_price }}</div>
-		
 
 	<br clear="all"/>
 	  	<div id="start-checkout-button">		
