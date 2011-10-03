@@ -50,3 +50,19 @@ a:hover, a:active, a:focus {
   font-family: Georgia, serif;
   color: #000;	
 }
+
+#choices {
+  float: left;
+  width: 100%;
+  background-color: #f1f1f1;	
+}
+
+#choices a {
+  float: left;
+  margin-left: 15px;
+  padding: 10px 0 10px 0;
+}
+
+#choices a:not(:last-child) {
+  border-bottom: 1px solid #e1e1e1;	
+}
