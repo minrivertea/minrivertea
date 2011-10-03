@@ -64,6 +64,12 @@
 </style>
 {% endblock %}
 
+{% block message %}
+	{% if message %}
+		<p>1 x {{ thing.item.parent_product.name }} ({{ thing.item.weight }}{{ thing.item.weight_unit }}) added!</p>
+	{% endif %}
+{% endblock %}
+
 {% block banner %}
 <h1>{{ tea.name }} Chinese tea</h1>
 {% endblock %}

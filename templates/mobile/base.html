@@ -118,14 +118,7 @@ if (15.00) {
 
 <body>
 
-{% block basket %}
-	{% ifequal basket_quantity 0 %}
-	{% else %}
-		<div id="basket">
-		  <p>{{ basket_quantity }} item{{ basket_quantity|pluralize }} in basket - <a href="{% url basket %}">checkout now &raquo;</a></p>
-		</div>
-	{% endifequal %}
-{% endblock %}
+{% block message %}{% endblock %}
     	
 <div id="header">
 	   	<div id="logo">
@@ -136,9 +129,9 @@ if (15.00) {
 	   	
 	   	<div id="nav">
 	   		<a href="/">Home</a>
-	   		<a href="">Our teas</a>
+	   		<a href="">Teas</a>
 	   		<a href="">Learn</a>
-	   		<a href="">Your basket</a>
+	   		<a href="">Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</a>
 	   	</div>
 </div>
 
