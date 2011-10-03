@@ -126,6 +126,7 @@ img {
 .infoblock {
   float:left;
   width: 85%;
+  display: block;
   background-color: #e2eede;
   margin: 0 0 15px 7%; 
   border-radius: 5px;
