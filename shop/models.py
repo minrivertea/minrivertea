@@ -193,7 +193,7 @@ class UniqueProduct(models.Model):
     
     def __unicode__(self):
         return "%s (%s%s)" % (self.parent_product, self.weight, self.weight_unit)
-
+                
 
 class Shopper(models.Model):
     user = models.ForeignKey(User)
