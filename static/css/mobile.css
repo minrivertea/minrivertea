@@ -35,9 +35,13 @@ a:hover, a:active, a:focus {
   background-color: #f1f1f1;
   width: 100%;
   padding: 10px 0 10px;	
+  float: left;
 }
 
 #banner p {
   margin: 0;
-  padding: 0 10px 0 10px;	
+  padding: 0 10px 0 10px;
+  font-family: Georgia, serif;
+  color: #000;
+  font-size: 11px;	
 }
