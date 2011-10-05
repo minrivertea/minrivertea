@@ -17,8 +17,6 @@
 	
 	<title>{% block pagetitle %}{% endblock %} | The Min River Tea Farm</title>
 
-	
-	{% block extra-head %}{% endblock %}
 
 	    <link rel="stylesheet" href="{% staticfile '/css/mobile.css' %}" />
 	    <script type="text/javascript" src="{% staticfile '/js/jquery-1.6.min.js' %}"></script>
@@ -27,7 +25,6 @@
 	    {% else %}
 	    <script src="/js/jquery.tools.min.js"></script>
 	    {% endif %}
-	    <script src="{% staticfile '/js/searchbar.js' %}"></script>
 
 
 	{% block extracss %}{% endblock %}

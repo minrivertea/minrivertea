@@ -448,7 +448,7 @@ ul#benefits {
 
 <div id="adventure">
   <div class="super">
-	<img src="{% staticfile '/images/home-mountain.jpg' %}"/>
+	<img alt="Min River Tea Farm co-founder hugging a tea tree on Wuyi Mountain" src="{% staticfile '/images/home-mountain.jpg' %}"/>
 	<h2>Buy your Chinese tea direct - at the best quality and price available.</h2>
 	<p>We're the <strong>only</strong> independent UK tea company actually based in China. We don't use middle-men, wholesalers or annual buying trips like other tea companies, so you can rely on great quality at the lowest prices around. 
 	<br/><br/><a href="/learn/our-teas/">&raquo; See where our Chinese teas are grown</a>
@@ -487,7 +487,9 @@ ul#benefits {
 		{% for tea in teas %}
 		<div class="tea">
 		{% thumbnail tea.image "200" crop="center" as im %}
-		<a alt="a picture of our {{ tea.name }} Chinese tea" title="{{ tea.name }} Chinese tea" href="{% url tea_view tea.slug %}"><img src="{{ im.url }}"/></a>
+			<a alt="a picture of our {{ tea.name }} Chinese tea" title="{{ tea.name }} Chinese tea" href="{% url tea_view tea.slug %}">
+				<img alt="{{ tea.description }}" src="{{ im.url }}"/>
+			</a>
 		{% endthumbnail %}
 		<h4><a href="{% url tea_view tea.slug %}">{{ tea.name }}</a></h4>
 		<p>{{ tea.super_short_description }}</p>
