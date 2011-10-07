@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from slugify import smart_slugify
 from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from minriver import settings
 
 
@@ -460,7 +460,6 @@ def show_me_the_money(sender, **kwargs):
                 'order_item': order.items.all(),
                 'subject': subject,
     })
-    
     
     
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
