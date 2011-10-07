@@ -65,6 +65,7 @@ NORWAY = 'norway'
 POLAND = 'poland'
 PORTUGAL = 'portugal' 
 ROMANIA = 'romania'
+RUSSIA = 'russia'
 SAN_MARINO = 'san marino'
 SLOVAK_REPUBLIC = 'slovak republic'
 SLOVENIA = 'slovenia'
@@ -115,6 +116,7 @@ COUNTRY_CHOICES = (
     (POLAND, u"Poland"),
     (PORTUGAL, u"Portugal"),
     (ROMANIA, u"Romania"),
+    (RUSSIA, u"Russia"),
     (SAN_MARINO, u"San Marino"),
     (SLOVAK_REPUBLIC, u"Slovak Republic"),
     (SLOVENIA, u"Slovenia"),
