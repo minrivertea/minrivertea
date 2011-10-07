@@ -19,6 +19,7 @@ from minriver import settings
 # these are the categories of products on the site.
 PRODUCT_CATEGORY = (
     (u'TEA', u'Tea'),
+    (u'PACK', u'Package'),
     (u'OTH', u'Other'),
     (u'POS', u'Postage'),
 )

@@ -34,7 +34,7 @@
 <item>
 <title>Iron Buddha (tie guan yin) Chinese tea 125g </title>
 <g:brand>Min River Tea Farm</g:brand>
-<g:mpn>IRONBUDDHA100</g:mpn>
+<g:mpn>IRONBUDDHA125</g:mpn>
 <g:condition>new</g:condition>
 <description>Iron Buddha (an oolong tea) is the classic Chinese green tea. We've selected a special variety of Iron Buddha for the Min River Tea Farm which has what the Chinese call 'tou suan' - a slightly crisp and tingling aftertaste that refreshes the taste buds and cleans the palette.</description>
 <g:id>2</g:id>
@@ -108,7 +108,7 @@
 <item>
 <title>Jasmine Pearls Chinese tea (mo li hua) 100g</title>
 <g:brand>Min River Tea Farm</g:brand>
-<g:mpn>JASMINEPEARLS250</g:mpn>
+<g:mpn>JASMINEPEARLS100</g:mpn>
 <g:condition>new</g:condition>
 <description>Jasmine Pearls tea (mo li hua long zhu) is a deliciously fragrant green tea scented with the leaves of a jasmine flower. Great for special occasions or guests, your local Chinese probably serves a version of Jasmine tea, but don't be fooled. This Jasmine tea is like nothing you've experienced before.</description>
 <g:id>5</g:id>
@@ -268,30 +268,6 @@
 <g:price>15.00 GBP</g:price>
 <g:google_product_category>Food, Beverages &amp; Tobacco &gt; Beverages &gt; Tea &amp; Infusions</g:google_product_category>
 <g:product_type>Tea &gt; Chinese tea &gt; oolong tea </g:product_type>
-<g:quantity>8</g:quantity>
-<g:availability>in stock</g:availability>
-<g:online_only>y</g:online_only>
-<g:shipping>
-   <g:country>GB</g:country>
-   <g:service>Royal Mail</g:service>
-   <g:price>3.00</g:price>
-</g:shipping>
-<g:shipping_weight>110 gram</g:shipping_weight>
-</item>
-
-<item>
-<title>Jasmine Pearls (mo li hua zhen zhu)</title>
-<g:brand>Min River Tea Farm</g:brand>
-<g:mpn>JASMINE100</g:mpn>
-<g:condition>new</g:condition>
-<description>Jasmine Pearls tea (mo li hua long zhu) is a deliciously fragrant green tea scented with the leaves of a jasmine flower. Great for special occasions or guests, your local Chinese probably serves a version of Jasmine tea, but don't be fooled. This Jasmine tea is like nothing you've experienced before.</description>
-<g:id>12</g:id>
-<g:gtin>5060271120093</g:gtin>
-<g:image_link>http://static.minrivertea.com/images/product-photos/jasmine.jpg</g:image_link>
-<link>http://www.minrivertea.com/teas/jasmine-pearls/</link>
-<g:price>11.00 GBP</g:price>
-<g:google_product_category>Food, Beverages &amp; Tobacco &gt; Beverages &gt; Tea &amp; Infusions</g:google_product_category>
-<g:product_type>Tea &gt; Chinese tea &gt; scented tea </g:product_type>
 <g:quantity>8</g:quantity>
 <g:availability>in stock</g:availability>
 <g:online_only>y</g:online_only>
