@@ -278,6 +278,7 @@ class Discount(models.Model):
     discount_code = models.CharField(max_length=40)
     name = models.CharField(max_length=200)
     discount_value = models.DecimalField(max_digits=3, decimal_places=2)
+    is_active = models.BooleanField(default=False)
     
     
 class Order(models.Model):
