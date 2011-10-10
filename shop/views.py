@@ -348,7 +348,7 @@ def basket(request):
         form = UpdateDiscountForm(request.POST)
         if form.is_valid():
             try:
-                code = Discount.objects.get(discount_code=form.cleaned_data['discount_code'])
+                code = Discount.objects.get(discount_code=form.cleaned_data['discount_code'], is_active=True)
             except:
                 code = None
                 
