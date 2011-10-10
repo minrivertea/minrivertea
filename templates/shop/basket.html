@@ -5,6 +5,15 @@
 {% block pagetitle %}Your basket ({{ basket_quantity }}){% endblock %}
 {% block metadescription %}Your basket - shop on www.minrivertea.com and get the best prices and great tasting authentic Chinese teas delivered direct to your door.{% endblock %}
 
+{% block extrajs %}
+<script type="text/javascript">
+$("#link").click( function() {
+	$("#form form").toggle();
+	$(this).toggle();
+});
+</script>
+{% endblock %}
+
 {% block extracss %}
 <style type="text/css">
 div#main-text-wide  {
@@ -220,6 +229,37 @@ div#steps {
     background-position: -458px -2px;
 }
 
+div.basket-row.discount {
+   height: auto;
+   width: 520px;
+   padding-bottom: 10px; 	
+}
+
+div.basket-row.discount span#link {
+  font-weight: bold;
+  color: #439249;	
+}
+
+div.basket-row.discount form {
+    display: none;	
+    float: left;
+}
+div.basket-row.discount form label {
+  float: left;
+  width: 520px;	
+}
+
+div.discount input.button {
+    color: #439249;
+    font-family: Helvetica,sans-serif;
+    height: 30px;
+    padding: 2px 4px;
+    width: 120px;
+}
+
+div.discount span.red {
+  padding-bottom: 10px;	
+}
 </style>
 {% endblock %}
 
@@ -290,10 +330,35 @@ div#steps {
 		<div class="tea-total">£3.00</div>
 	  </div>
 	{% endif %}
+	  <div class="basket-row discount">
+	  	{% if code %}
+	  	<div class="tea-name">&nbsp;</div>
+	  	<div class="tea-weight">You have entered a discount code worth {{ percent|floatformat }}% off!</div>
+	  	<div class="tea-price">&nbsp;</div>
+	  	<div class="tea-quantity">&nbsp;</div>
+	  	<div class="tea-total"><span class="red">-£{{ value|floatformat:"2" }}</span></div>
+	  	{% else %}
+	  	<span id="link">Got a discount code?</span>
+	  	<div id="form">
+			  	<form action="." method="post">
+				{{ form }}
+				<input type="submit" class="button" value="Apply discount"/>
+				{% if discount_message %}
+	  				<br/><span class="red">{{ discount_message }}</span><br/>
+	  			{% endif %}
+				</form>
+		</div>
+		{% endif %}
+	  </div>
 	</div>
 	<div id="totals">
-		<div class="label">Total:</div><div class="total">£{{ total_price }}</div>
+		<div class="label">Total:</div><div class="total">£{{ total_price|floatformat:"2" }}</div>
 	</div>
+	
+	
+	
+	
+	
 	<br clear="all"/>
 	  	<div id="start-checkout-button">		
 		

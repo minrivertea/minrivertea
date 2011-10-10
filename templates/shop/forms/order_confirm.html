@@ -80,6 +80,11 @@ div#steps {
 		<input type="hidden" id="id_charset" value="utf-8" name="charset">
 
 		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
+		
+		{% if order.discount %}
+		<input TYPE="hidden" NAME="discount_amount_cart" value="{{ value|floatformat:'2' }}">
+		{% endif %}
+		
 
 		{% if postage_discount %}
 		{% else %}
@@ -130,10 +135,17 @@ div#steps {
 		  	<td>£3.00</td>		  
 		  </tr>
 		  {% endif %}
+		  {% if order.discount %}
+		  <tr>
+		  	<td>Discount</td>
+		  	<td>&nbsp;</td>
+		  	<td>-£{{ value|floatformat:"2" }}</td>
+		  </tr>
+		  {% endif %}
 		  <tr>
 		  	<td><strong>TOTAL</strong></td>
 		  	<td>&nbsp;</td>
-		  	<td><strong>£{{ total_price }}</strong></td>		  
+		  	<td><strong>£{{ total_price|floatformat:"2" }}</strong></td>		  
 		  </tr>
 		</table>
 		</div>

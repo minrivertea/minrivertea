@@ -343,8 +343,25 @@ def basket(request):
         postage_discount = True
     else:
         total_price += 3
-        
-    discount_form = UpdateDiscountForm()
+    
+    if request.method == 'POST':
+        form = UpdateDiscountForm(request.POST)
+        if form.is_valid():
+            try:
+                code = Discount.objects.get(discount_code=form.cleaned_data['discount_code'])
+            except:
+                code = None
+                
+            if code:
+               value = total_price * code.discount_value
+               percent = code.discount_value * 100
+               total_price -= value
+               request.session['DISCOUNT_ID'] = code.id
+            else:
+                discount_message = "Sorry, that's not a valid discount code!"
+            return render(request, "shop/basket.html", locals())
+    
+    form = UpdateDiscountForm()
         
     return render(request, "shop/basket.html", locals())
 
@@ -441,6 +458,13 @@ def order_step_one(request):
                 invoice_id = "TEMP"
             )
             
+            try: 
+                discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
+                order.discount = discount
+                order.save()
+            except:
+                pass
+            
             # add the items to the order
             for item in basket_items:
                 order.items.add(item)
@@ -517,6 +541,11 @@ def order_confirm(request):
         postage_discount = True
     else: 
         total_price += 3
+    
+    if order.discount:
+        value = total_price * order.discount.discount_value
+        percent = order.discount.discount_value * 100
+        total_price -= value
         
     if request.method == 'POST': 
         form = OrderCheckDetailsForm(request.POST)
