@@ -10,6 +10,7 @@
 {% block extracss %}
 <style type="text/css">
 
+
 div#top {
   height: 180px;
   padding: 10px 0 0px;
@@ -76,7 +77,7 @@ div#top div.right {
 }
 
 div#feature {
-    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat scroll 190px -10px #FFFFFF;
+    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat scroll 190px -10px #FFFFFF; 
     float: left;
     height: 350px;
     margin: 0 0 0;
@@ -98,6 +99,7 @@ div#feature div.top h1 {
     font-size: 35px;
     margin: 10px 0 10px 0;
     text-align: right;
+    font-weight: bold;
 }
 
 div#feature div.top p {
@@ -438,8 +440,8 @@ ul#benefits {
 <div id="feature">
   <div class="super">
 	<div class="top">
-		<h1>Traditional Chinese tea, delivered to your door</h1>
-		<p>Locally sourced from the mountains of Fujian, China and delivered direct to your door quickly and reliably. </p>
+		<h1>Traditional Chinese tea, direct from the source</h1>
+		<p>Buy tea direct from the mountains of Fujian, China and we'll deliver it direct to your door, quickly and reliably. </p>
 		<div class=""><a class="button" href="{% url teas %}">Browse our Chinese teas &raquo;</a></div>		
 	</div>
   </div>
