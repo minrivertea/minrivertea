@@ -228,6 +228,48 @@ p.subtitle span {
     padding: 4px 5px 2px;
 }
 
+div.tea-promo {
+  width: 260px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px #999;
+  padding: 15px 15px;
+  height: 350px;
+  border-radius: 5px;		
+}
+
+div.tea-promo div.text {
+  width: auto;	
+  margin-top: 15px;
+}
+
+div.tea-promo div.text p {
+  font-size: 13px;	
+  margin-bottom: 5px;
+}
+
+div.tea-promo div.text p.price span {
+  font-weight: bold;
+  font-size: 14px;	
+}
+
+img.tea-promo {
+  border-radius: 3px;	
+}
+
+span.reviews {
+  display: block;
+  float: right;
+  font-size: 11px;
+  font-weight: bold;
+  color: #666;
+  background-color: #f1f1f1;
+  padding: 5px 8px;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px #fff;
+  border-width: 1px;
+  border-color: #c1c1c1 #e1e1e1 #e1e1e1 #c1c1c1;
+  border-style: solid;
+}
 
 </style>
 {% endblock %}
@@ -250,7 +292,7 @@ p.subtitle span {
 
 
 	<div id="teas">
-		{% include "shop/snippets/products.html" %}
+		{% include "shop/ab/products-list.html" %}
 	</div>
 		
 	<div id="right">	
