@@ -143,7 +143,8 @@ div#container {
 
 
 div#footer {
-    background-color: #F1F1F1;
+    background-color: #fff;
+    border-top: 10px solid #f6f6f6;
     float: left;
     height: 300px;
     margin-top: 30px;
@@ -1415,12 +1416,14 @@ div.rss img {
 }
 
 div.info {
-    border-bottom: 3px dotted #F7D2D2;
+    background-color: #FFFFFF;
+    border: 1px solid #E1E1E1;
     float: left;
     margin-bottom: 20px;
-    padding-bottom: 20px;
+    padding: 10px 15px;
     width: 240px;
 }
+
 
 div.info.last {
   border-bottom: none;	

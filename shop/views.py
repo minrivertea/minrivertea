@@ -81,7 +81,7 @@ def twitter_post(tweet):
 
 # the homepage view
 def index(request):
-    review = Review.objects.all().order_by('?')[:2]
+    review = Review.objects.all().order_by('?')[:1]
     
     return render(request, "shop/home.html", locals())
 
