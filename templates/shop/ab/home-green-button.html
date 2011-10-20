@@ -14,6 +14,8 @@ div#header {
   border-bottom: none;	
 }
 
+
+
 div#top {
   height: 180px;
   padding: 10px 0 0px;
@@ -80,7 +82,7 @@ div#top div.right {
 }
 
 div#feature {
-    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat scroll 190px -10px #FFFFFF;
+    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat scroll 190px -10px #FFFFFF; 
     float: left;
     height: 350px;
     margin: 0 0 0;
@@ -102,6 +104,7 @@ div#feature div.top h1 {
     font-size: 35px;
     margin: 10px 0 10px 0;
     text-align: right;
+    font-weight: bold;
 }
 
 div#feature div.top p {
@@ -202,33 +205,49 @@ div#adventure img {
 
 div#customers {
     float: left;
-    height: 360px;
     margin: 20px 0 50px 0;
+    padding: 10px 0;
     width: 100%;
     position: relative;
-}
-
-#customers img.why {
-  float: right;
-  position:absolute;
-  right: 10px;	
-}
-
-div#customers p {
-    color: #666666;
-    font-size: 14px;
-    font-style: italic;
+    background-color: #f6f6f6;
 }
 
 div#customers div.box {
     float: left;
     margin-right: 30px;
-    width: 500px;
+    width: 700px;
+}
+
+div#customers div.box:last-child {
+  margin-right: 0px;	
 }
 
 div#customers div.box p {
-  margin-bottom: 10px;	
+    float: left;
+    margin-bottom: 10px;
+    width: 590px;
 }
+
+div#customers span.quotation {
+    color: #999999;
+    float: left;
+    font-family: Georgia,serif;
+    font-size: 200px;
+    line-height: 1em;
+    margin-right: 20px;
+    height: 100px;
+}
+
+div#customers a.read-more {
+    float: right;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 0;
+    position: absolute;
+    right: 0;
+    top: 15px;
+}
+
 
 div#customers div.box.benefits {
   float: right;
@@ -243,13 +262,16 @@ div#customers div.box.benefits {
 div#benefits {
   float: left;	
   position: relative;
+  width: 100%;
+  margin-top: 30px;
 }
 
 div#benefits img.first-time {
   box-shadow: none;
   position: absolute;
-  right: 180px;	
+  right: 160px;	
   top: -30px;
+  border: none;
 }
 
 #benefits #teas {
@@ -263,7 +285,7 @@ div#benefits img.first-time {
     float: left;
     height: 210px;
     margin-bottom: 30px;
-    margin-right: 20px;
+    margin-right: 30px;
     width: 200px;
 }
 
@@ -304,10 +326,11 @@ div#benefits div.did-you-know img {
 }
 
 #benefits img {
-  border-radius: 5px;
-  box-shadow: 0 2px 3px #999;
-  margin-right: 0px;
-  margin-top: 0px;	
+    border: 7px solid #FFFFFF;
+    border-radius: 0 0 0 0;
+    box-shadow: 0 2px 3px #999999;
+    margin-right: 0;
+    margin-top: 0;
 }
 
 div.user-photos div.left {
@@ -433,6 +456,7 @@ ul#benefits {
     width: 400px;
 }
 
+
 .button.green {
 	background-color: #1c7834;
     /* Firefox 3.6+ */ 
@@ -475,6 +499,41 @@ ul#benefits {
     text-shadow: 0 -1px 2px #333;	
 }
 
+
+div#adventure #icons {
+  float: left;
+  margin-top: 15px;	
+}
+
+.icons {
+ background: url('{% staticfile "/images/adventure-benefits.png" %}') no-repeat top left #f1f1f1;
+ float: left;
+ width:110px;
+ height: 100px;	
+ display: block;
+ margin-right: 20px;
+}
+
+.icons a {
+  font-size: 12px;
+  font-weight: bold;
+  position: relative;
+  top: 105px;
+  left: 5px;	
+}
+
+#home-icon {
+  background-position: 0 0;
+}
+
+#fresh-icon {
+  background-position: top center;
+}
+
+#recycle-icon {
+  background-position: top right;
+}
+
 </style>
 {% endblock %}
 
@@ -498,60 +557,50 @@ ul#benefits {
 	<img alt="Min River Tea Farm co-founder hugging a tea tree on Wuyi Mountain" src="{% staticfile '/images/home-mountain.jpg' %}"/>
 	<h2>We hug the trees, you drink good teas</h2>
 	<p>We're the <strong>only</strong> independent UK tea company actually based in China. It means we can spend more time finding great teas (and hugging more tea trees!), and you can spend more time relaxing with a great cup of tea. 
-	<br/><br/><a href="/learn/our-teas/">&raquo; See where our Chinese teas are grown</a>
-	</p>
 	
+	</p>
+	<div id="icons">
+	<div id="home-icon" class="icons"><a href="">We deliver direct to your home</a></div>
+	<div id="fresh-icon" class="icons"><a href="">100% fresh and natural tea leaves</a></div>
+	<div id="recycle-icon" class="icons"><a href="">Tea is great for the environment!</a></div>
+	</div>
   </div>
 </div>
 
-<div class="super">
-	<div id="customers">
-	    <img src="{% staticfile '/images/why.png' %}" class="why">
-		<h2 class="black">We're proud that our customers are really happy</h2>
-
-		<div class="box benefits">
-			<ul id="benefits">
-			  <li>We deliver fast, in a few days, anywhere</li>
-			  <li>We're obsessed about the quality of our teas</li>
-			  <li>Our pricing is simple and clear</li>
-			  <li>We help you enjoy your tea to the fullest <br/><a href="/learn/">with our tea guides and info &raquo;</a> </li>
-			</ul>
-		</div>
-
+<div id="customers">
+	<div class="super">
 		{% for r in review %}
 			<div class="box">
-				<p><span class="red">{{ r.first_name }} {{ r.last_name }} said...</span><br/>&ldquo;{{ r.short_text }}&rdquo;</p>
+				<span class="quotation">&ldquo;</span>
+				<p>{{ r.short_text }}<br/><span class="red">{{ r.first_name }} {{ r.last_name }}</span></p>
 			</div>
 		{% endfor %}
 
-		<p style="margin-top: 0px; float:left"><a href="{% url reviews %}">&raquo; See more customer reviews</a></p>
-	</div>
-
-	<div id="benefits">
-	    <img class="first-time" src="{% staticfile '/images/first-time.png' %}"/>
-		<h2 class="black">So take a look at our teas and see if <br/>we can help you improve your brew</h2>
-		<div id="teas">
-		{% for tea in teas %}
-		<div class="tea">
-		{% thumbnail tea.image "200" crop="center" as im %}
-			<a alt="a picture of our {{ tea.name }} Chinese tea" title="{{ tea.name }} Chinese tea" href="{% url tea_view tea.slug %}">
-				<img alt="{{ tea.description }}" src="{{ im.url }}"/>
-			</a>
-		{% endthumbnail %}
-		<h4><a href="{% url tea_view tea.slug %}">{{ tea.name }}</a></h4>
-		<p>{{ tea.super_short_description }}</p>
-		</div>
-		{% endfor %}
-		</div>
-
-	</div>
-		
-		
-		
+		<a class="read-more" href="{% url reviews %}">&raquo; See more customer reviews</a>
 	</div>
 </div>
 
+<div id="benefits">
+	<div class="super">
+	    <img class="first-time" src="{% staticfile '/images/first-time.png' %}"/>
+		<h2 class="black">Choose your tea and improve your brew</h2>
+		<div id="teas">
+			{% for tea in teas %}
+				<div class="tea">
+				{% thumbnail tea.image "200" crop="center" as im %}
+					<a alt="a picture of our {{ tea.name }} Chinese tea" title="{{ tea.name }} Chinese tea" href="{% url tea_view tea.slug %}">
+						<img alt="{{ tea.description }}" src="{{ im.url }}"/>
+					</a>
+				{% endthumbnail %}
+				<h4><a href="{% url tea_view tea.slug %}">{{ tea.name }}</a></h4>
+				<p>{{ tea.super_short_description }}</p>
+				</div>
+			{% endfor %}
+		</div>
 
+	</div>
+</div>	
+	
 
 
 
