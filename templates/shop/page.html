@@ -33,6 +33,29 @@ $(function() {
 {% block extracss %}
 <style type="text/css">
 
+#feature {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 3px #E1E1E1;
+    float: left;
+    height: 300px;
+    margin-top: 0px;
+    width: 100%;
+}
+
+div#main-text-wide {
+  margin-top: 40px;	
+}
+
+h1 {
+  margin-bottom: 20px;	
+}
+
+div#main-text-wide div#right {
+  float: left;
+  padding-right: 30px;
+  padding-left: 0px;	
+}
+
 div.tea {
   float: left;
   width: 220px;	
@@ -226,10 +249,11 @@ div#right p.mail.last {
 {% block content %}
 
 <div id="banner">
-  <div class="super">
-  <h1>{{ page.title }}</h1>
-  </div>
+	<div class="super">
+		<h1>{{ page.title }}</h1>
+	</div>
 </div>
+
 
 <div id="main-text-wide">
   <div class="super">
@@ -244,6 +268,7 @@ div#right p.mail.last {
 	</div>
 
 	<div id="left">
+		
 		{{ page.content|safe }}
 	</div>
 

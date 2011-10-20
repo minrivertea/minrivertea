@@ -13,7 +13,7 @@ body {
   background-color: #f1f1f1;
 }
 
-div#super, .super {
+.super {
   width: 960px;
   margin: 0 auto;	
   position: relative;
@@ -562,51 +562,51 @@ div#home-extra div.left p {
 
 /* right navigation styles */
 ul#right-nav {
-  list-style-type: none;
-  padding: 0;	
+  list-style-type: square;
+  color: #EE6464;
+  padding: 0px;	
+  margin: 0 0 30px 15px;
   float: left;
-  width: 245px;
+  width: 220px;
 }
 
 ul#right-nav li {
-  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-  font-size: 12px;	
+  font-size: 13px;	
   font-weight: bold;
 }
 
-ul#right-nav li a {
+ul#right-nav li a:link {
   -moz-transition-duration: 300ms;
   -moz-transition-property: background;
-  background-color: #f6f6f6;
-  padding: 5px 5px 5px 20px;
+  padding: 5px 5px 5px 0px;
   display: block;
-  margin-bottom: 2px;
-  color: #666;  	
+  margin-bottom: 2px; 
+  text-transform: uppercase;	
 }
 
 ul#right-nav li a.selected {
-  color: #197621;  	
-  background-color: #E0F1E4;
+  color: #333;  	
 }
 
 ul#right-nav li a:hover {
-  color: #197621;  	
-  background-color: #E0F1E4;
+  text-decoration: underline;	
 }
 
 ul#right-nav ul.subnav {
-  list-style-type: square;
-  padding-left: 10px;
-  margin-left: 20px;	
+    list-style-type: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    text-transform: uppercase;
 }
 
 ul#right-nav ul.subnav li a {
-  background-color: #fff;
   font-size: 11px;
   padding: 3px;
-  padding-left: 10px;
+  padding-left: 5px;
   margin: 0;
   border-bottom: 2px dotted #e1e1e1;
+  width: 170px;
+  font-weight: normal;
 }
 
 ul#right-nav ul.subnav li a.last {
@@ -1421,7 +1421,7 @@ div.info {
     float: left;
     margin-bottom: 20px;
     padding: 10px 15px;
-    width: 240px;
+    width: 210px;
 }
 
 
@@ -1435,7 +1435,7 @@ div#right p.mail {
     height: 55px;
     line-height: 1.2em;
     margin: 15px 0 0 0;
-    width: 245px;
+    width: 210px;
     position: relative;
 }
 
