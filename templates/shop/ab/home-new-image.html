@@ -82,7 +82,7 @@ div#top div.right {
 }
 
 div#feature {
-    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat scroll 190px -10px #FFFFFF; 
+    background: url("{% staticfile '/images/home-test.jpg' %}") no-repeat scroll 190px -10px #FFFFFF; 
     float: left;
     height: 350px;
     margin: 0 0 0;
@@ -456,50 +456,6 @@ ul#benefits {
     width: 400px;
 }
 
-
-.button.green {
-	background-color: #1c7834;
-    /* Firefox 3.6+ */ 
-    background: -moz-linear-gradient(100% 100% 90deg, #1c7834, #2d8a45); 
-    
-    /* Safari 4-5, Chrome 1-9 */ /* -webkit-gradient(<type>, <point> [, <radius>]?, <point> [, <radius>]? [, <stop>]*) */ 
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2d8a45), to(#1c7834)); 
-    
-    /* Safari 5.1+, Chrome 10+ */ 
-    background: -webkit-linear-gradient(#1c7834, #2d8a45); 
-    
-    /* Opera 11.10+ */ 
-    background: -o-linear-gradient(#1c7834, #2d8a45);   
-    
-    border: 1px solid #96D9A7;
-    box-shadow: 0 1px 2px #2D8A45, 0 1px 0px #52a567;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-
-    font-size: 12px;
-    font-weight: bold;
-    padding: 10px 15px;
-    text-shadow: 0 1px 2px #333;
-    text-align: center;
-    cursor: pointer;
-    color: #fff;		
-}
-
-.button.green:hover {
-    background: -moz-linear-gradient(100% 100% 90deg, #2d8a45, #1c7834); 
-    
-    /* Safari 4-5, Chrome 1-9 */ /* -webkit-gradient(<type>, <point> [, <radius>]?, <point> [, <radius>]? [, <stop>]*) */ 
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1c7834), to(#2d8a45)); 
-    
-    /* Safari 5.1+, Chrome 10+ */ 
-    background: -webkit-linear-gradient(#2d8a45, #1c7834); 
-    
-    /* Opera 11.10+ */ 
-    background: -o-linear-gradient(#2d8a45, #1c7834); 
-    text-shadow: 0 -1px 2px #333;	
-}
-
-
 div#adventure #icons {
   float: left;
   margin-top: 15px;	
@@ -546,7 +502,7 @@ div#adventure #icons {
 	<div class="top">
 		<h1>Traditional Chinese tea, direct from the source</h1>
 		<p>Buy tea direct from the mountains of Fujian, China and we'll deliver it direct to your door, quickly and reliably. </p>
-		<div class=""><a class="button green" href="{% url teas %}">Browse our Chinese teas &raquo;</a></div>		
+		<div class=""><a class="button" href="{% url teas %}">Browse our Chinese teas &raquo;</a></div>		
 	</div>
   </div>
 </div>
