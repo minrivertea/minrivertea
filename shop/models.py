@@ -439,8 +439,6 @@ class Page(models.Model):
 def show_me_the_money(sender, **kwargs):
     ipn_obj = sender
     order = get_object_or_404(Order, invoice_id=ipn_obj.invoice)
-    if order.status == Order.STATUS_PAID:
-        return
         
     order.status = Order.STATUS_PAID
     order.date_paid = ipn_obj.payment_date
@@ -458,7 +456,7 @@ def show_me_the_money(sender, **kwargs):
     	        'order_items': order.items.all(), 
     })
     
-    html_content = render_to_string('shop/emails/html/html_order_confirm_customer.html', {
+    html_content = render_to_string('shop/emails/html/html_order_confirm.html', {
                 'first_name': order.owner.first_name,
                 'invoice_id':	order.invoice_id,
                 'order_item': order.items.all(),
