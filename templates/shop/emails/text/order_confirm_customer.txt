@@ -1,14 +1,14 @@
-Hi {{ first_name }},
+Hey {{ first_name }},
 
-Just to let you know, we've received your order at http://www.minrivertea.com:
+You're awesome - and your tea cup is about get more awesome too!
+
+We've received your tea order at www.minrivertea.com, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote this order ID: {{ invoice_id }}.
 
 {% for item in order_items %}
 	- {{ item }}
 {% endfor %}
 
-Please note, we must confirm payment is received before we send any orders. If there is a problem with your payment, we'll contact you immediately. Otherwise, if you need to contact us, please quote this order ID: {{ invoice_id }}
-
-Many thanks for ordering from the Min River Tea Farm and we hope you enjoy drinking your tea!
+We hope you enjoy drinking your tea!
 
 Chris West, 
 Founder - Min River Tea Farm
