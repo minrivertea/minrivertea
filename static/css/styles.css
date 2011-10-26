@@ -1669,30 +1669,9 @@ div#comments {
 }
 
 div#main-text-wide div#left div#comments h3 {
-    background-color: #F1F1F1;
-    border-radius: 20px 20px 20px 20px;
-    box-shadow: 0 1px 1px #C1C1C1;
     float: left;
     font-size: 24px;
-    margin: 10px 0 0 -20px;
-    padding: 15px 45px 15px 30px;
     position: relative;
-}
-
-div#comments h3:before {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-bottom: 30px solid hsla(0,0%,95%,1);     
-        border-top: 0;
-        border-left: 0px solid transparent;
-        border-right: 50px solid transparent;
-        position: absolute;
-        top: -15px;
-        left: 1px;
-        z-index: 2;
-        margin-left: -1px; 
 }
 
 div#comments div#comments-list {

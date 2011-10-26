@@ -138,7 +138,7 @@ img.tweets {
 }
 
 div#right h3.touch {
-  margin-bottom: 10px;
+  margin: 5px 0 10px;
   border-bottom: 2px dotted #e1e1e1;
   padding-bottom: 5px;	
 }
@@ -159,6 +159,38 @@ div#right li.twitter {
   float: left;
   width: 110px;	
   margin-right: 0;
+}
+
+div#right div.info.tea {
+  padding: 0;
+  width: 220px;	
+  border: none;
+  background: none;
+  position: relative;
+}
+
+div#right div.info.tea img {
+  border: 10px solid #fff;	
+}
+
+div#right div.info.tea p {
+  margin-top: 10px;
+  font-weight: normal;	
+  padding: 10px 20px;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0px;
+  width: 200px;
+  display: none;
+  background-color: #fff;
+}
+
+div#right div.info.tea p:hover {
+  cursor: pointer;	
+}
+
+div#right div.info.tea:hover p {
+  display: block;	
 }
 
 </style>
@@ -224,16 +256,7 @@ div#right li.twitter {
 				</div>
 			</div>
 			
-			{% if other_entries %}
-				<h3>Other recent posts you might like</h3>		
-				{% for other in other_entries %}
-					<div class="other-entry">
-		 			<a href="{% url blog_entry other.slug %}"><span class="link"></span></a>
-			 		<a class="title" href="{% url blog_entry other.slug %}" title="{{ other.title }} - a blog entry">{{ other.title }}</a>
-	 				<p>{{ other.summary }}</p>
-	 				</div>
-				{% endfor %}
-			{% endif %}	
+
 			
 		</div>
 	</div>

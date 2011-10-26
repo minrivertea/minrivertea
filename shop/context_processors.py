@@ -13,14 +13,14 @@ def common(request):
     context['paypal_receiver_email'] = settings.PAYPAL_RECEIVER_EMAIL
     context['paypal_submit_url'] = settings.PAYPAL_SUBMIT_URL
     context['ga_is_on'] = settings.GA_IS_ON
-    
-    countrycode = GetCountry(request)['countryCode']
-    context['country_snippet'] = "language-snippets/%s.html" % countrycode.lower()
+    if settings.DEBUG == 'False':
+        countrycode = GetCountry(request)['countryCode']
+        context['country_snippet'] = "language-snippets/%s.html" % countrycode.lower()
    
     return context
 
 def get_teas(request):
-    teas = Product.objects.filter(is_active=True, category="TEA")
+    teas = Product.objects.filter(is_active=True, coming_soon=False, category="TEA").order_by('?')[:3]
     return {'teas': teas}
 
 def get_latest_blogs(request):
