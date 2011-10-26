@@ -20,7 +20,7 @@ def common(request):
     return context
 
 def get_teas(request):
-    teas = Product.objects.filter(is_active=True, coming_soon=False, category="TEA").order_by('?')[:3]
+    teas = Product.objects.filter(is_active=True, coming_soon=False, category="TEA")
     return {'teas': teas}
 
 def get_latest_blogs(request):
