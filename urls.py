@@ -21,12 +21,12 @@ blogs = {
     'queryset': BlogEntry.objects.filter(is_draft=False),	
 }
 
-blogs = {
-    'queryset': Page.objects.all(),	
+pages = {
+    'queryset': Page.objects.all()
 }
 
 sitemaps = {
-    'pages': GenericSitemap(products, priority=0.6),
+    'pages': GenericSitemap(pages, priority=0.6),
     'products': GenericSitemap(products, priority=0.6),
     'blogs': GenericSitemap(blogs, priority=0.6),
 }
