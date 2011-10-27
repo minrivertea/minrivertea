@@ -82,18 +82,16 @@ def twitter_post(tweet):
 # the homepage view
 def index(request):
     review = Review.objects.all().order_by('?')[:1]
-    
+    template = "shop/home.html"
     try:
-        cookie = request.session['SPLASH']
-        if cookie == '1':
-            pass 
+        if request.session['SPLASH'] == '1':
+            pass
     except:
         if GetCountry(request)['countryCode'] == 'US':
             request.session['SPLASH'] = '1'
-            return render(request, "shop/home_usa.html", locals())
-        else: 
-            pass 
-    return render(request, "shop/home.html", locals())
+            template = "shop/home_usa.html"
+  
+    return render(request, template, locals())
 
 def page(request, slug):
     page = get_object_or_404(Page, slug=slug)
