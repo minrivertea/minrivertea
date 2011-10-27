@@ -193,9 +193,9 @@ if (15.00) {
 
 	{% block content %}{% endblock %}
 	
-	
-	{% include "shop/snippets/footer.html" %} 
-
+	{% block footer %}
+		{% include "shop/snippets/footer.html" %} 
+	{% endblock %}
 
 </div>
 	{% block extrajs %}{% endblock %}

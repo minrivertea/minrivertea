@@ -4,57 +4,52 @@
 {% block extracss %}
 <style type="text/css">
 
-
-div.right-box label {
-  margin-bottom: 5px;	
-}
-
-div.row {
-  margin-top: 0px;
-  padding-bottom: 20px;
-  margin-bottom: 10px;
-  background-color: #f1f1f1;
-  width: 490px;
-  padding: 20px;
-  border-top: 3px dotted #e1e1e1;	
-}
-
-div.row-box {
-  margin-left: 0;	
-}
-
-div#main-text-wide div#left div.row-box p {
-  margin: 0;
+form {
+  padding: 30px 35px;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;	
   float: left;
-  	
+  width: 550px;
 }
 
-div.row-box textarea {
-  float: left;	
+form label {
+  text-align: left;
+  font-size: 14px;
+  width: 100%;
+  padding: 0 20px 5px 0;	
 }
 
-div#left input.submit-button {
-    background: url("{% staticfile '/images/submit.png' %}") no-repeat scroll left top transparent;
-    border: medium none;
-    height: 51px;
-    margin-top: 0px;
-    width: 227px;
-    margin-right: 30px;
+input.button {
+  height: auto;
+  padding: auto;
+  font-size: 15px;
+  font-family: Helvetica, sans-serif;
+  float: ;	
 }
 
-div#left input.submit-button:hover {
-    background: url("{% staticfile '/images/submit.png' %}") no-repeat scroll left center transparent;
-}
-
-div#left input.submit-button:active {
-    background: url("{% staticfile '/images/submit.png' %}") no-repeat scroll left bottom transparent;
-}
-
-div#left p.help-text {
-    float: right;
+p.help-text {
+    float: left;
     font-size: 0.7em;
     padding-right: 35px;
     margin-top: 20px;
+}
+
+div.message {
+    background-color: #FFFFFF;
+    border: 1px solid #E1E1E1;
+    border-radius: 10px 10px 10px 10px;
+    margin: 0 0 10px;
+    padding: 20px 25px;
+}
+
+div#main-text-wide div#left div.message h3 {
+  margin: 0 0 10px 0;	
+  color: #237A2A;
+}
+
+div#main-text-wide div#left div.message p {
+  margin: 0;	
 }
 
 </style>
@@ -70,52 +65,47 @@ div#left p.help-text {
 
 <div id="banner">
   <div class="super">
-  <h1>Shipping and delivery information</h1>
+  <h1>I want to be notified!</h1>
   </div>
 </div>
 
 <div id="main-text-wide">
   <div class="super">		
 		<div id="right">
-			{% include 'flatpages/about_navigation.html' %}
 
+			<div class="info">
+			<h3>Keep in touch!</h3>
 		 	<p>If you just want to keep in touch, we tweet a lot, and also post tea related photos on flickr regularly.</p>
+		 	<a href="http://www.facebook.com/minrivertea" title="Friend us on Facebook"><img src="{% staticfile '/images/facebook.png' %}"></a>
 		 	<a title="Checkout our tea photos on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
 			<a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
-
+			</div>
 		</div>
 		
 		<div id="left">
 
-			<p>We currently can only ship orders <strong>to Europe and the UK.</strong> This includes: <em>United Kingdom, BFPO, Channel Islands, Northern Ireland and the Outer Hebrides</em></p>
-			
-			<h3>North America and other countries</h3>
-			<p>We are currently in the process of expanding our shipping service to include full worldwide delivery.</p>
-			<p>If you would like us to <strong>notify you</strong> when shipping becomes available in your country, just drop your email address below. We'll send you a single notification email as soon as it's possible to order in your country.</p>
+			<p class="introduction">Do you want us to notify you when you can order fantastic Chinese tea in your country?</p>
 			
 
-			{% if message %}
-			  <div class="message">
-				<h3>Thanks!</h3>
-				<p>We've received your request, and once shipping becomes available worldwide, we'll drop you an email to remind you. Many thanks - The Min River Tea Farm.</p>
-			  </div>
-			{% else %}
+		{% if message %}
+		  <div class="message">
+			<h3>Thanks!</h3>
+			<p>We've received your request, and once shipping is available for your country, we'll let you know.</p>
+			<ul><li>While you're here, <a href="/learn/how-to-brew-chinese-tea/">do you want to know the best way to brew Chinese tea?</a></li></ul>
+		  </div>
+		{% else %}
 
-				<div class="row">
-					<div class="row-box">
-					<form action="." method="post">
-					{{ form.as_p }}
-					</div>
-					</div>
-
-					<p class="help-text">
-					<img src="{% staticfile '/images/lock.gif' %}"> We will never share, sell or spam your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)
-					</p>					
-					<input class="submit-button" value="" type="submit">
-
-					
-				</form>
-			{% endif %}
+		<form action="." method="post">
+		<p><strong>Just drop your email address below, and we'll email you when shipping is available in your country.</strong> Our promise is that you'll never receive more than 1 email from us letting you know you can order. No spam.</p>
+			{{ form.as_p }}
+	
+			<p class="help-text">
+			<img src="{% staticfile '/images/lock.gif' %}"> We will never share, sell or spam your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)
+			</p>					
+			<input class="button" value="Get notified!" type="submit">
+				
+			</form>
+		{% endif %}
 		</div>
 	</div>
 </div>

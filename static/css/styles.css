@@ -59,7 +59,6 @@ div.left h4 {
 div#right h3 {
     font-size: 14px;
     color: #333;
-    margin-bottom: 0;
     font-weight: bold;
 }
 
@@ -463,101 +462,6 @@ div#box {
   margin-top: 0px;
 }
 
-div.home-products {
-    float: left;
-    margin-bottom: 10px;
-    margin-top: 0px;
-    display: none;
-}
-
-div#home-extra {
-  float:left;
-  margin-left:0px;
-  width:100%;
-  padding: 10px 20px 10px 0px;
-  margin-top: 0px;
-}
-
-div#home-extra div.user-photos img {
-
-}
-
-div#home-extra div.user-photos {
-    border-top: medium none;
-    margin-left: 0;
-    padding: 20px 30px 20px;
-    width: 740px;
-    position: relative;
-    -moz-transition-duration: 300ms;
-    -moz-transition-property: background;
-    border-radius: 10px;
-}
-
-div#home-extra div.user-photos.last {
-    border-bottom: none;
-}
-
-div#home-extra div.user-photos span.link {
-  position:absolute;
-  width:100%; 
-  height:100%; 
-  top:0; 
-  left: 0; 
-  z-index: 1;	
-}
-
-div#home-extra div.user-photos:hover {
-  background-color: #f1f1f1;	
-}
-
-
-div#home-extra div.user-photos:hover h4 {
-  text-decoration: underline;	
-}
-
-
-div#home-extra div.user-photos div.left p a {
-  z-index: 2;	
-  position: relative;
-}
-
-div#home-extra div.user-photos div.a-user-photo {
-    border-bottom: medium none;
-    margin: 0 10px 0px 0px;
-    padding-bottom: 0;
-    width: 90px;
-}
-
-div#home-extra div.user-photos div.a-user-photo div.info {
-    width: 490px;
-}
-
-div#home-extra div.user-photos div.a-user-photo div.photo {
-  margin-right: 10px;
-}
-
-
-div#home-extra a.see-more {
-    float: left;
-    font-size: 0.9em;
-    margin-right: 0;
-    position: relative;
-    top: -2px;
-}
-
-div#home-extra h4 {
-    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: -1px;
-    margin: 0;
-    color: #439249;
-}
-
-
-div#home-extra div.left p {
-  margin-bottom: -5px;	
-}
 
 
 /* right navigation styles */
@@ -1424,9 +1328,14 @@ div.info {
     width: 210px;
 }
 
-
 div.info.last {
   border-bottom: none;	
+}
+
+div.info h3 {
+  margin: 5px 0 10px;
+  border-bottom: 2px dotted #e1e1e1;
+  padding-bottom: 5px;	
 }
 
 div#right p.mail {
@@ -1434,9 +1343,13 @@ div#right p.mail {
     font-size: 12px;
     height: 55px;
     line-height: 1.2em;
-    margin: 15px 0 0 0;
+    margin: 0px 0 10px 0;
     width: 210px;
     position: relative;
+}
+
+div#right p.mail.last {
+  margin-bottom: 0;	
 }
 
 div#right a.title {
@@ -1773,7 +1686,7 @@ button.next:hover {
 }
 
 div#basket {
-    background-color: #f3fff6;
+    background-color: #fff;
     border-radius: 10px 10px 10px 10px;
     float: left;
     font-size: 0.9em;
