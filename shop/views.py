@@ -48,12 +48,11 @@ def GetCountry(request):
     # this is coming from http://ipinfodb.com JSON api
     # the variables
     apikey = settings.IPINFO_APIKEY 
-    ip = request.META.get('REMOTE_ADDR')
+    ip = '67.208.221.172' #request.META.get('REMOTE_ADDR')
     baseurl = "http://api.ipinfodb.com/v3/ip-country/?key=%s&ip=%s&format=json" % (apikey, ip)
     urlobj = urllib2.urlopen(baseurl)
     
     # get the data
-    url = baseurl + "?" + apikey + "?"
     data = urlobj.read()
     urlobj.close()
     datadict = simplejson.loads(data)
@@ -83,7 +82,7 @@ def twitter_post(tweet):
 def index(request):
     review = Review.objects.all().order_by('?')[:1]
     template = "shop/home.html"
-    countrycode = GetCountry(request)['countryCode']
+
     try:
         if request.session['SPLASH'] == '1':
             pass
