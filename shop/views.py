@@ -57,7 +57,7 @@ def GetCountry(request):
     data = urlobj.read()
     urlobj.close()
     datadict = simplejson.loads(data)
-    return datadict
+    return 'US'
 
 def twitter_post(tweet):   
     if not twitter or not hasattr(settings, 'TWITTER_USER') or \
@@ -82,6 +82,7 @@ def twitter_post(tweet):
 # the homepage view
 def index(request):
     review = Review.objects.all().order_by('?')[:1]
+    
     try:
         cookie = request.session['SPLASH']
         if cookie == '1':
