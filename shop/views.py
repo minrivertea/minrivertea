@@ -88,7 +88,7 @@ def index(request):
         if cookie == '1':
             pass 
     except:
-        if str(GetCountry(request)['countryCode']) == 'US':
+        if GetCountry(request)['countryCode'] == 'US':
             request.session['SPLASH'] = '1'
             return render(request, "shop/home_usa.html", locals())
         else: 
