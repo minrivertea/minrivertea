@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load django_static %}
+
+{% block pagetitle %}Chinese tea delivered to your door in the UK{% endblock %}
+
+{% block metadescription %}We sell great quality Chinese tea and deliver it to your home in the UK. Our Chinese teas are organic, hand-picked and sourced directly from farms in China.{% endblock %}
+
+
+{% block extrajs %}
+<script type="application/javascript">
+  (function($){
+    $(document).ready(function(){
+      var docWidth    = $(window).width()
+      var docHeight   = $(window).height()
+
+      // add parallaxable elements
+      var pList  = [
+                             { 'obj'    : $('#soup-front'),
+                               'xStart' : 0,
+                               'yStart' : 0,
+                               'xRange' : 10,
+                               'yRange' : 10,
+                               'invert' : false
+                             },
+                             { 'obj'    : $('#soup-back'),
+                               'xStart' : 0,
+                               'yStart' : 0,
+                               'xRange' : 0,
+                               'yRange' : 0,
+                               'invert' : false
+                             },
+                             { 'obj'    : $('#soup-fields'),
+                               'xStart' : 0,
+                               'yStart' : 0,
+                               'xRange' : 0,
+                               'yRange' : 30,
+                               'invert' : false
+                             }
+                           ]
+
+      // set the initial locations, used for mathmatical reference
+      $.each(pList, function(index,value) {
+        var position = value.obj.position()
+        value.xStart = position.left
+        value.yStart = position.top
+      })
+
+      $(document).mousemove(function(e){
+        var x      = e.pageX
+        var y      = e.pageY
+        var hRatio = Math.round((x/docWidth)*100)/100
+        var vRatio = Math.round((y/docWidth)*100)/100
+        $.each(pList, function(index,value) {
+          if(value.invert != true){
+            value.obj.css('left',value.xStart + (value.xRange*hRatio))
+            value.obj.css('top',value.yStart + (value.yRange*vRatio))
+          } else {
+            value.obj.css('left',value.xStart - (value.xRange*hRatio))
+            value.obj.css('top',value.yStart - (value.yRange*vRatio))
+          }
+        })
+      })
+      $(window).resize(function(e){
+        docWidth  = $(window).width()
+        docHeight = $(window).height()
+      })
+    })
+  })(jQuery)
+</script>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+	 	
+	 	body {
+	 	background-color: #fff;	
+	 	}
+	 	
+	 	div#header {
+	 	  border-bottom: none;	
+	 	}
+		#soup-main {display: block; position: relative; overflow: hidden; width:960px; height: 460px; margin-top: 0px;}
+		img#soup-back {position: absolute; z-index: 1; left: 0px; width: 960px; height: 460px;}
+		img#soup-front {position: absolute; z-index: 14; width: 960px; height: 460px; left: 0px; top: 0px;}
+		img#soup-fields {position: absolute; z-index:10; width: 1000px; height: 460px; top: 50px; left: -20px;}
+		#text {position: absolute; z-index: 16; width: 300px; top: 60px; right: 80px; padding: 20px 25px; background-color: #fff; border-radius: 10px; opacity: 0.8;}
+		#text h1 {font-weight: bold;}
+		#text p {}
+		#text ul {padding: 0 10px; margin: 0 0 0 10px; position: relative; z-index: 100;}
+		
+		div.text {padding: 20px 0; margin-top: 1px; }
+
+		p.small {font-size: 12px; padding: 0; margin: 0; float:right;}
+		a img {text-decoration: none; border: none;}
+		ul.social {list-style-type: none; float: left; margin: 0; padding: 0;}
+		
+		ul.social li {float: left; margin-right: 10px;}
+		
+		</style>
+{% endblock %}
+
+{% block content %}
+
+
+<div id="main-text-wide">
+	<div class="super">
+        <div id="soup-main">
+        	<img id="soup-back" src="{% staticfile '/images/soup-back.png' %}">
+        	<img id="soup-fields" src="{% staticfile '/images/soup-fields.png' %}">
+        	<img id="soup-front" src="{% staticfile '/images/soup-front.png' %}">
+        	<div id="text">
+        		<h1>No tea for you!</h1>
+        		<p>We're really sorry, but we <strong>can't deliver our amazing Chinese teas to the USA yet!</strong> It's a shame because we're pretty sure you'd love them. Would you like us to notify you when USA shipping is available?</p>
+        		<ul>
+        		<li><a href="/shipping/">Yes! Notify me when you start US deliveries!</a></li>
+        		</ul>
+        	</div>
+        </div>
+        
+        <div class="text">
+	        <ul class="social">
+	        <li class="facebook"><a title="Keep in touch on Facebook" href="http://www.facebook.com/minrivertea/"><img src="{% staticfile '/images/facebook-small.png' %}"></a>
+	        </li>
+	        
+        	<li>
+               	<a href="https://twitter.com/minrivertea" class="twitter-follow-button" data-show-count="false">
+				Follow @minrivertea</a>
+				<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+			</li>
+			</ul>
+        	<p class="small"><em>If you're not sure who this guy is, check out the <a href="http://www.youtube.com/watch?v=M2lfZg-apSA">Soup Nazi on Youtube</a> (it's a Seinfeld thing…)</em></p>
+        </div>
+	</div>       
+</div>
+
+
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
