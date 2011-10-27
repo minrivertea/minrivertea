@@ -152,7 +152,7 @@ if (15.00) {
 	    		- <a href="{% url contact_us %}">Contact us</a>
 	    		- <a href="/about/wholesale/">Wholesale</a>
 	    		- <a href="/about/" title="About the Min River Tea Farm">About Us</a>
-	    		
+	    		- {{ countrycode }}
 
 	    		{% if country_snippet %}
 	    			{% include country_snippet %}
@@ -200,9 +200,7 @@ if (15.00) {
 </div>
 	{% block extrajs %}{% endblock %}
 	<script type="text/javascript">
-		{% if country_snippet %}
-		alert('{{ country_snippet }}')
-		{% endif %}
+
 		function languageToggle() {
 			if ($('#language-block').is(":visible")) {
 				$('#language').css('background-color', '#fff');

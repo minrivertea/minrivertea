@@ -83,6 +83,7 @@ def twitter_post(tweet):
 def index(request):
     review = Review.objects.all().order_by('?')[:1]
     template = "shop/home.html"
+    countrycode = GetCountry(request)['countryCode']
     try:
         if request.session['SPLASH'] == '1':
             pass
