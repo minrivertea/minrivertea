@@ -1,3 +1,4 @@
+{% load django_static %}
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
@@ -18,15 +19,15 @@
 	<meta name="DC.type" content="Django Site" />
 	<meta name="robots" content="ALL" />
 	<title>Site unavailable - The Min River Tea Farm</title>
-	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
 	
 	<script type="text/javascript" src="/static/js/jquery-1.6.min.js"></script>
 	<style type="text/css">
-	 	body {font-family: Georgia, serif; }
-	 	div#header { width: 800px; margin: 0 auto; height: 100px;}
+	 	body {font-family: Helvetica, sans-serif; }
+	 	div#header { width: 960px; margin: 0 auto; height: 110px;}
 	 	
-	 	div#logo { width: 320px; float: left; margin: 20px 0 0 0px;}
-		div#logo h1 {background: url("/static/images/logo7.jpg") no-repeat scroll 0 0 transparent; height: 88px; margin: 0px 0 0 0px;
+	 	div#logo { width: 420px; float: left; margin: 20px 0 0 0px;}
+		div#logo h1 {background: url("/static/images/logo10.png") no-repeat scroll 0 0 transparent; height: 110px; margin: 0px 0 0 0px;
 }
 
 		div#logo h1 span {
@@ -34,13 +35,13 @@
 		}
 	
 	    
-	    div#main-text-wide {width: 800px; margin: 0 auto; margin-top: 0px;}
+	    div#main-text-wide {width: 960px; margin: 0 auto; margin-top: 0px;}
 		
-		#soup-main {display: block; position: relative; overflow: hidden; width:800px; height: 420px; margin-top: 30px;}
-		img#soup-back {position: absolute; z-index: 1; left: 0px; width: 800px; height: 420px;}
-		img#soup-front {position: absolute; z-index: 14; width: 800px; height: 420px; left: 0px; top: 0px;}
-		img#soup-fields {position: absolute; z-index:10; width: 850px; height: 420px; top: 50px; left: -20px;}
-		img#soup-text {position: absolute; z-index:18; width: 800px; height: 420px; top: 0px; left: 0px;}
+		#soup-main {display: block; position: relative; overflow: hidden; width:960px; height: 460px; margin-top: 30px;}
+		img#soup-back {position: absolute; z-index: 1; left: 0px; width: 960px; height: 460px;}
+		img#soup-front {position: absolute; z-index: 14; width: 960px; height: 460px; left: 0px; top: 0px;}
+		img#soup-fields {position: absolute; z-index:10; width: 1000px; height: 460px; top: 50px; left: -20px;}
+		img#soup-text {position: absolute; z-index:18; width: 800px; height: 420px; top: 20px; right: 30px;}
 		
 		div.text {padding: 20px; margin-top: 1px; }
 
@@ -129,7 +130,6 @@
 			<div id="logo">
 				<h1><span></span></h1>
 			</div>
-
         </div>
         
         <div id="featured-small"></div>
@@ -139,7 +139,7 @@
         	
           <div id="soup-main">
         	<img id="soup-back" src="/static/images/soup-back.png">
-        	<img id="soup-fields" src="/static/images/soup-fields.png">
+        	<img id="soup-fields" src="/staticimages/soup-fields.png">
         	<img id="soup-front" src="/static/images/soup-front.png">
         	<img id="soup-text" src="/static/images/soup-text.png">
           </div>
