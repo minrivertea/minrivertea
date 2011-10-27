@@ -57,7 +57,7 @@ def GetCountry(request):
     data = urlobj.read()
     urlobj.close()
     datadict = simplejson.loads(data)
-    return 'US'
+    return datadict
 
 def twitter_post(tweet):   
     if not twitter or not hasattr(settings, 'TWITTER_USER') or \
@@ -88,7 +88,7 @@ def index(request):
         if cookie == '1':
             pass 
     except:
-        if GetCountry(request) == 'US':
+        if str(GetCountry(request)['countryCode']) == 'US':
             request.session['SPLASH'] = '1'
             return render(request, "shop/home_usa.html", locals())
         else: 
