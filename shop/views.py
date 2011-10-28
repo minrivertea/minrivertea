@@ -48,7 +48,7 @@ def GetCountry(request):
     # this is coming from http://ipinfodb.com JSON api
     # the variables
     apikey = settings.IPINFO_APIKEY 
-    ip = '67.208.221.172' #request.META.get('REMOTE_ADDR')
+    ip = request.META.get('REMOTE_ADDR')
     baseurl = "http://api.ipinfodb.com/v3/ip-country/?key=%s&ip=%s&format=json" % (apikey, ip)
     urlobj = urllib2.urlopen(baseurl)
     
@@ -88,6 +88,7 @@ def index(request):
             pass
     except:
         if GetCountry(request)['countryCode'] == 'US':
+            print GetCountry(request)['countryCode']
             request.session['SPLASH'] = '1'
             template = "shop/home_usa.html"
   
