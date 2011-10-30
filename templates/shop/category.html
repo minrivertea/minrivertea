@@ -2,9 +2,9 @@
 {% load thumbnail %}
 {% load django_static %}
 
-{% block metadescription %}Buy authentic Chinese tea in the UK - choose from green and red oolong or Jasmine scented green tea. Each has been specially selected for its unique taste and quality and can be delivered to your door in 1-2 days.{% endblock %}
+{% block metadescription %}{{ category.meta_description }}{% endblock %}
 
-{% block pagetitle %}Choose your Chinese tea{% endblock %}
+{% block pagetitle %}{{ category.long_title }}{% endblock %}
 
 {% block extracss %}
 <link rel="stylesheet" type="text/css" href="{% staticfile '/css/teas.css' %}"/>
@@ -19,7 +19,7 @@
   <span class="red">James Parsons</span>
   </p>
 	<h1>{{ category.long_title }}</h1>
-    <p class="subtitle"><span>SALE!</span><a href="{% url sale %}">We're selling off our Spring Teas at ridiculous low prices!</a></p>	
+    {{ category.short_description|safe }}	
   </div>
 </div>
 		
