@@ -25,12 +25,6 @@
 			{% if product.get_reviews %}
 			<strong>{{ product.get_reviews.count }} customer review{{ product.get_reviews.count|pluralize }}</strong><br/>
 			{% endif %}
-
-			{% if product.coming_soon %}
-    	  		<span class="coming-soon">Coming soon!</span>
-    	  	{% else %}
-        		<span>from {{ product.get_lowest_price.price_unit }}{{ product.get_lowest_price.price|floatformat }}</span>
-          	{% endif %}
           	
 			
 
