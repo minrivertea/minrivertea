@@ -4,7 +4,7 @@
 {% for product, prices in products_and_prices %}
 
       <div class="tea-promo{% cycle '' '' ' last' %}">
-      		<a title="{{ product.name }} Chinese tea - click to view more details" href="{% url tea_view product.slug %}"><span class="link"></span></a>	
+      		<a title="{{ product.name }} Chinese tea - click to view more details" href="{{ product.get_absolute_url }}"><span class="link"></span></a>	
       	  <div class="image">
 			{% thumbnail product.image "260x180" crop="center" as im %}
 			<img alt="a picture of {{ product.name }} Chinese tea" title="{{ product.name }} Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
@@ -13,7 +13,7 @@
 		  
 		  <div class="text">
 			<h4 class="">
-			<a title="{{ product.name }} Chinese tea - find out more or order some now!" href="{% url tea_view product.slug %}">
+			<a title="{{ product.name }} Chinese tea - find out more or order some now!" href="{{ product.get_absolute_url }}">
 			{{ product.name }}
 			</a>
 	      

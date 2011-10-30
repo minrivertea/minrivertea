@@ -19,7 +19,7 @@ from minriver import settings
 # these are the categories of products on the site.
 PRODUCT_CATEGORY = (
     (u'TEA', u'Tea'),
-    (u'PACK', u'Package'),
+    (u'PAK', u'Package'),
     (u'OTH', u'Other'),
     (u'POS', u'Postage'),
 )
@@ -45,7 +45,7 @@ FAROE_ISLANDS = 'faroe islands'
 FINLAND = 'finland'
 FRANCE = 'france'  
 GEORGIA = 'georgia'
-GERMANY = 'georgia' 
+GERMANY = 'germany' 
 GIBRALTAR = 'gibraltar'
 GREECE = 'greece' 
 GREENLAND = 'greenland'
@@ -148,7 +148,7 @@ class Product(models.Model):
     image_4_caption = models.CharField(max_length=200, blank=True)
     image_5 = models.ImageField(upload_to='images/product-photos', blank=True, null=True)
     image_5_caption = models.CharField(max_length=200, blank=True)
-    category = models.CharField(max_length=3, choices=PRODUCT_CATEGORY)
+    category = models.ForeignKey('Category', blank=True, null=True)
     is_featured = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     coming_soon = models.BooleanField(default=False)
@@ -157,7 +157,7 @@ class Product(models.Model):
         return self.name
       
     def get_absolute_url(self):
-        return "/teas/%s/" % self.slug  #important, do not change
+        return "/%s/%s/" % (self.category.slug, self.slug)  #important, do not change
     
     def get_lowest_price(self):
         try:
@@ -178,6 +178,20 @@ class Product(models.Model):
              # Bare 'except' because we could get a variety
              # of HTTP-related exceptions.
              pass 
+
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+    long_title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=80)
+    meta_description = models.TextField(help_text="No HTML please!")
+    short_description = models.TextField(help_text="Goes under the title on the page, HTML is OK.")
+    
+    def __unicode__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return "/%s/" % self.slug
+
  
 class UniqueProduct(models.Model):
     weight = models.IntegerField(null=True, blank=True)

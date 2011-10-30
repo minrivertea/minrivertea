@@ -1,14 +1,3 @@
-{% extends "base.html" %}
-{% load thumbnail %}
-{% load django_static %}
-
-{% block metadescription %}Buy authentic Chinese tea in the UK - choose from green and red oolong or Jasmine scented green tea. Each has been specially selected for its unique taste and quality and can be delivered to your door in 1-2 days.{% endblock %}
-
-{% block pagetitle %}Choose your Chinese tea{% endblock %}
-
-{% block extracss %}
-<style type="text/css">
-
 div#main-text-wide div#right {
   margin-top: 20px;	
 }
@@ -213,9 +202,11 @@ p.subtitle {
   width: 500px;	
 }
 
-p.quote {
+div#banner p.quote {
     float: right;
-    margin: 10px 0 0;
+    font-family: Georgia,serif;
+    font-size: 16px;
+    margin: 15px 50px 0;
     width: 360px;
 }
 
@@ -228,50 +219,57 @@ p.subtitle span {
     padding: 4px 5px 2px;
 }
 
+span.reviews {
+  display: block;
+  float: right;
+  font-size: 11px;
+  font-weight: bold;
+  color: #666;
+  background-color: #f1f1f1;
+  padding: 5px 8px;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px #fff;
+  border-width: 1px;
+  border-color: #c1c1c1 #e1e1e1 #e1e1e1 #c1c1c1;
+  border-style: solid;
+}
 
-</style>
-{% endblock %}
+#chooser {
+  background-color: #fff;
+  
+  width: 900px;	
+  float: left;
+  border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  border-color: #C1C1C1 #E1E1E1 #E1E1E1 #C1C1C1;
+  position: relative;
+}
 
-{% block content %}
+#chooser ul {
+  list-style-type: none;
+  display: inline;	
+  margin: 0;
+  padding: 0 0 0 0px;
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+}
 
+#chooser ul li {
+  margin-right: 0px;
+  float: left;
+  padding: 8px 20px;
+}
 
-<div id="banner">
-  <div class="super">
-  <p class="quote">&ldquo;<em>The tea is simply delicious, a world apart from any other green tea I have drunk.</em>&rdquo;
-  <span class="red">James Parsons</span>
-  </p>
-	<h1>Choose your Chinese tea</h1>
-    <p class="subtitle"><span>SALE!</span><a href="{% url sale %}">We're selling off our Spring Teas at ridiculous low prices!</a></p>	
-  </div>
-</div>
-		
-<div id="main-text-wide">
-  <div class="super">
+#chooser ul li:first-child {
+  text-transform: uppercase;
+  color: #666;	
+}
 
+#chooser li.selected {
+  background: url('/images/chooser-arrow.png') bottom center #237A2A;	
+}
 
-	<div id="teas">
-		{% include "shop/snippets/products.html" %}
-	</div>
-		
-	<div id="right">	
-		<div class="info">
-			<img src="{% staticfile '/images/tea-view-right.png' %}"/>
-		</div>
-	</div>
-	
-	<div id="left">
-		<div class="did-you-know">
-			<a href="/about/personal-tea-shopping/"><span class="link"></span></a>
-			<h3>Don't see what you were looking for?</h3>
-			<p>We offer a personal tea shopping service from our base in China, so we can get just about anything you need - get in touch with us now!</p>
-		</div>
-		<br clear="all"/>
-
-	</div>
-		
-	
-  </div>
-</div>
-
-
-{% endblock %}
+#chooser li.selected a {
+  color: #fff;	
+}

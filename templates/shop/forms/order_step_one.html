@@ -109,7 +109,6 @@ div.address label {
 
 p.hint {
     color: #999;
-    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 1.1em;
     font-weight: bold;
     letter-spacing: -1px;
@@ -145,11 +144,6 @@ span.country {
 }
 
 
-div#steps {
-    background-position: -240px -2px;
-}
-
-
 </style>
 
 {% endblock %}
@@ -159,20 +153,17 @@ div#steps {
 <div id="main-text-wide">
   <div class="super">
 
-	<div id="steps">
-		<div class="completed">
-		<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
-		</div>
-		<div class="selected">
-		<h1>Your details</h1>
-		</div>
-		<div>
-		<h1>Confirm order</h1>
-		</div>
-		<div>
-		<h1>Payment</h1>
-		</div>
-	</div>
+	<ul id="steps">
+		<li class="selected">
+			1. Your details
+		</li>
+		<li>
+			2. Confirm and pay
+		</li>
+		<li>
+			3. Get your tea!
+		</li>
+	</ul>
 	
 	<div id="basket">
 	
@@ -303,11 +294,11 @@ div#steps {
 
 	{% endif %}
 
-	<div id="confirm-details-button">
+	<div id="checkout-button">
 		<p class="checkout"><strong>Next step:</strong> 
 		<em>Confirm your order. We'll let you check your order, and then you can pay using Paypal.</em>
 		</p>
-		<input type="submit" value="" next="" class="confirm-details-button"/>
+		<input type="submit" value="Confirm your details" next="" class="button"/>
 	</div>
 		
 	</form>

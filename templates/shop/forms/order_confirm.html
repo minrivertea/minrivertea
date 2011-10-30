@@ -10,11 +10,13 @@ div#main-text-wide {
   margin-top: 30px;	
 }
 
+div#main-text-wide div#left {
+  margin: 30px 0 0 20px;	
+}
 
-div#main-text-wide div#left h3 {
-    font-size: 18px;
-    font-weight: 900;
-    margin: 0 0 -10px;
+
+div#main-text-wide div#left h2 {
+    font-weight: normal;
 }
 
 div.row {
@@ -22,8 +24,8 @@ div.row {
   -moz-box-shadow: none;
 }
 
-div#steps {
-    background-position: 0px -2px;
+.paypal {
+  margin-bottom: 20px;	
 }
 
 
@@ -36,29 +38,27 @@ div#steps {
 
 <div id="main-text-wide">
   <div class="super">
-	<div id="steps">
-		<div class="completed">
-		<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
-		</div>
-		<div class="completed">
-		<h1>Your details</h1>
-		</div>
-		<div class="selected">
-		<h1>Confirm order</h1>
-		</div>
-		<div>
-		<h1>Payment</h1>
-		</div>
-	</div>
+	<ul id="steps">
+		<li class="selected">
+			1. Your details
+		</li>
+		<li class="selected">
+			2. Confirm and pay
+		</li>
+		<li>
+			3. Get your tea!
+		</li>
+	</ul>
 	
 	<div id="basket">
 		
     <form method="post" action="{{ paypal_submit_url }}">
     
-    	<div id="confirm-and-pay-button">
-			<input type="submit" value="" next="" class="confirm-and-pay-button"/>
-			<p class="checkout"><strong>Next step:</strong> <em>pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</em></p>
+    	<div id="checkout-button">
 			<img src="{% staticfile '/images/002.gif' %}" class="paypal">
+			<input type="submit" value="Confirm and pay" next="" class="button"/>
+			<p class="checkout"><strong>Next step:</strong> <em>pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</em></p>
+			
 		</div>	
     
 
@@ -109,7 +109,7 @@ div#steps {
 		
 				<div class="row">
 			<div class="row-label">
-				<h2>You have ordered:</h2>
+				<h2>You have ordered...</h2>
 			</div>
 		<div class="row-box">
 			<table>
@@ -155,7 +155,7 @@ div#steps {
 
 <div class="row">
 	<div class="row-label">
-		<h2>We'll send your order to:</h2>
+		<h2>…and we'll send your order to:</h2>
 	</div>
 	
 	<div class="row-box">
@@ -166,27 +166,24 @@ div#steps {
 		{{ order.address.town_city }}<br/>
 		{{ order.address.postcode }}<br/>
 		{{ order.address.country|upper }}
-		<br/>
-		<br/>
-		<p class="intro">* Please check your address - if this is not a valid address, we won't be able to post your tea!</p>
 	</div>
 </div>
 
-<div class="row">
-	<div class="row-label">
-		<h3>Problems or questions?</h3>
+	</form> 
+
 	</div>
 	
-	<div class="row-box">
+	
+	<div id="left">
+		<h2>Problems or questions?</h2>
 	    <p>We aim to offer first class customer service - if you have ANY problems or questions, contact Chris West, the owner, directly on email at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> - I'll respond normally within a few hours to every email.</p>
 
 	</div>
 </div>
 
-
-	</form> 
-
-	</div>
+	
+	
+	
   </div>
 </div>
 {% endblock %}

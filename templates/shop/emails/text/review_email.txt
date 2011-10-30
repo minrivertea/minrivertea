@@ -9,7 +9,7 @@ Take a big pinch or two of the tea (depending on how strong you like it) and thr
 That's it! Remember, you can normally re-brew Chinese tea 2-3 times using the same leaves by simply pouring more hot water into the cup when you've finished. I really hope you enjoy it, and if you feel like adding a review to let other people know your thoughts, please use this URL:
 
 {% for item in items %}
-   * {{ item.item.parent_product.name }} : http://www.minrivertea.com/teas/{{ item.item.parent_product.slug }}/review/
+   * {{ item.item.parent_product.name }} : http://www.minrivertea.com/{{ item.item.parent_product.get_absolute_url }}/review/
 {% endfor %}
 
 All the best

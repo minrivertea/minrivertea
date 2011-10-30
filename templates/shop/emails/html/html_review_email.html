@@ -605,7 +605,7 @@
                                                                 <br />
                                                                 <strong>It would be really helpful</strong> to us if you could write a review of your tea. It means a lot to hear your positive and negative impressions, and helps us improve our service and maintain quality. <br/>	<br/>
                                                                 {% for item in items %}
-                                                                <a href="http://www.minrivertea.com/teas/{{ item.item.parent_product.slug }}/review/">
+                                                                <a href="http://www.minrivertea.com{{ item.item.parent_product.get_absolute_url }}/review/">
                                                                 Write your review for {{ item.item.parent_product.name }} here</a>
                                                                 <br/>
                                                                 {% endfor %}

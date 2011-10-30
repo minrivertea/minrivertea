@@ -131,7 +131,14 @@ ol {
     text-shadow: 0 1px 1px #fff;
     text-align: center;
     cursor: pointer;
-    color: #2d7886;	
+}
+
+input.button {
+  color: #237A2A;	
+}
+
+input.button:hover {
+  color: #FFAEAE;	
 }
 
 div#container {
@@ -588,6 +595,7 @@ div#teas {
   margin-bottom: 20px;
   border-bottom: 3px dotted #e1e1e1;
   float: left;
+  width: 100%;
 }
 
 div.tea-promo {
@@ -743,92 +751,29 @@ span.lightgrey {
 
 /* SHOPPING BASKET PAGE STYLES */
 
-
- /* these are the styles for the 'start checkout' button */
-div#start-checkout-button {
-    float: right;
-    margin: -120px 10px 0 0;
-    width: 220px;
+#checkout-button {
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  float: right;
+  width: 240px;
+  margin: -100px 20px 0 0;	
 }
 
-div#start-checkout-button p, div#confirm-details-button p, div#confirm-and-pay-button p {
-    font-size: 12px;
-    padding-left: 5px;
+#checkout-button a.button, #checkout-button input.button {
+  font-size: 20px;	
+  margin-top: 0px;
+  float: right;
+  padding-top: 13px;
+  width: 240px;
+  height: auto;
+  font-family: Helvetica, sans-serif;
 }
 
-div#start-checkout-button a:link, div#start-checkout-button a:visited {
-	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll left top transparent;
-	width: 220px;
-	height: 51px;
-	margin-bottom: 10px;
-}
-
-div#start-checkout-button a {
-  height: 55px;
-  width: 227px;	
-  display: block;
-}
-
-div#start-checkout-button a:hover {
-	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll center left transparent;
-	cursor: pointer;
-}
-
-div#start-checkout-button a:focus {
-	background: url("/images/button-proceed-to-checkout.png") no-repeat scroll bottom left transparent;
-	cursor: pointer;
-}
-
-/* these are the styles for the 'confirm address' button */
-
-div#confirm-details-button {
-    float: right;
-    margin-top: 15px;
-    padding-right: 0px;
-    width: 220px;
-}
-
-input.confirm-details-button {
-    background: url("/images/button-confirm-address.png") no-repeat scroll left top transparent;
-    border: medium none;
-    height: 51px;
-    width: 220px;
-}
-
-input.confirm-details-button:hover {
-  background: url('/images/button-confirm-address.png') no-repeat center left;
-  cursor: pointer;
-}
-
-input.confirm-details-button:active {
-  background: url('/images/button-confirm-address.png') no-repeat bottom left;
-  cursor: pointer;
-}
-
-/* these are the styles for the 'confirm and pay' button */
-
-div#confirm-and-pay-button {
-    float: right;
-    margin-top: 15px;
-    padding-right: 0px;
-    width: 220px;
-}
-
-input.confirm-and-pay-button {
-    background: url("/images/button-confirm-and-pay.png") no-repeat scroll left top transparent;
-    border: medium none;
-    height: 51px;
-    width: 220px;
-}
-
-input.confirm-and-pay-button:hover {
-  background: url('/images/button-confirm-and-pay.png') no-repeat center left;
-  cursor: pointer;
-}
-
-input.confirm-and-pay-button:active {
-  background: url('/images/button-confirm-and-pay.png') no-repeat bottom left;
-  cursor: pointer;
+#checkout-button p {
+  font-size: 12px;
+  text-align: right;
+  padding-right: 0px;	
 }
 
 /* these are styles for the 'submit button' like on the review form  */
@@ -1691,9 +1636,10 @@ div#basket {
     float: left;
     font-size: 0.9em;
     padding: 30px;
-    margin-top: 20px;
     border: 1px solid #d9ebde;
     width: 900px;
+    position: relative;
+    min-height: 300px;
 }	
 
 div.learn-box {
@@ -1703,14 +1649,25 @@ div.learn-box {
   margin-bottom: 20px;
 }
 
-div#steps {
-    background: url("/images/stepsback.png") no-repeat scroll -110px -2px transparent;
-    border: 1px solid #E1E1E1;
-    border-radius: 5px 5px 5px 5px;
+ul#steps {
     float: left;
-    height: 37px;
-    width: 960px;
-    margin-bottom: 20px;
+    width: auto;
+    padding: 0;
+    margin: 0 0 40px 140px;
+    list-style-type: none;
+}
+
+ul#steps li {
+  float: left;	
+  margin-right: 100px;
+  font-size: 20px;
+  color: #c1c1c1;
+  padding-top: 10px;
+}
+
+ul#steps li.selected {
+  color: #19761C;
+  font-weight: bold;	
 }
 
 div#steps div {

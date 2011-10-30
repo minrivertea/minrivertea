@@ -4,7 +4,7 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, sub_page, sub_sub_page, sub_sub_sub_page
+from shop.views import page, sub_page, sub_sub_page, sub_sub_sub_page, category, review_tea, tea_view
 from blog.models import BlogEntry
 from minriver.blog.feeds import LatestEntries
 
@@ -54,6 +54,18 @@ urlpatterns = patterns('',
     (r'^noteanazis/$', direct_to_template, {'template': 'no_tea_nazis.html'}),
     (r'^400/$', direct_to_template, {'template': '404.html'}),  
     (r'^comments/', include('django.contrib.comments.urls')), 
+    
+    # urls for the products/categories
+    url(r'^teas/$', category, name="teas"),
+    url(r'^tea-equipment/$', category, name="equipment"),
+    url(r'^tea-boxes/$', category, name="boxes"),
+    url(r'^teas/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
+    url(r'^teas/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(r'^tea-equipment/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(r'^tea-boxes/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    
+    
+    # urls for the pages
     url(r'^(?P<slug>[\w-]+)/$', page, name="page"),
     url(r'^(?P<slug>[\w-]+)/(?P<sub_slug>[\w-]+)/$', sub_page, name="sub_page"),
     url(r'^(?P<slug>[\w-]+)/(?P<sub_slug>[\w-]+)/(?P<sub_sub_slug>[\w-]+)/$', sub_sub_page, name="sub_sub_page"),

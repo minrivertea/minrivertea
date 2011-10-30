@@ -765,7 +765,7 @@ a#explain-prices:hover span {
 			<h3 class="small">Take a look at our other teas</h3>
 				{% for other in others %}
 			 		<p class="mail">
-			 			<a href="{% url tea_view other.slug %}"><span class="link"></span></a>
+			 			<a href="{{ other.get_absolute_url }}"><span class="link"></span></a>
 			 				{% thumbnail other.image "60x45" crop="center" as im%}
 			 				<img alt="{{ other.description }}" class="mail-icon" src="{{ im.url }}" />
 			 				{% endthumbnail %}

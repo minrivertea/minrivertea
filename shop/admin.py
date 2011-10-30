@@ -3,6 +3,9 @@ from django.contrib import admin
 
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
    
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('invoice_id', 'is_paid', 'owner', 'notes')
@@ -20,6 +23,7 @@ class UniqueProductAdmin(admin.ModelAdmin):
     
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Address)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Shopper)
 admin.site.register(UniqueProduct, UniqueProductAdmin)
 admin.site.register(Basket)

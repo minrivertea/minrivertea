@@ -76,7 +76,20 @@ def twitter_post(tweet):
     except Exception, e:
         if settings.DEBUG:
             raise(e)
-            
+
+def _get_products(request, cat=None):
+    
+    if cat:
+        products = Product.objects.filter(category=cat, is_active=True)
+    else:        
+        products = Product.objects.filter(is_active=True)
+    
+    prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=False)
+    products_and_prices = []
+    for product in products:
+        products_and_prices.append((product, prices.filter(parent_product=product)))    
+    
+    return products_and_prices     
 
 # the homepage view
 def index(request):
@@ -132,24 +145,11 @@ def sub_sub_sub_page(request, slug, sub_slug, sub_sub_slug, sub_sub_sub_slug):
     return render(request, "shop/page.html", locals())
    
 # the product listing page
-def teas(request):
-    try:
-        added = request.session['ADDED']
-    except:
-        added = None
-       
-    if added:
-        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
-        message = "1 x %s%s added to your basket!" % (thing.item.weight, thing.item.weight_unit)
-        request.session['ADDED'] = None
-        
-    products = Product.objects.filter(category="TEA", is_active=True)
-    prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=False)
-    products_and_prices = []
-    for product in products:
-        products_and_prices.append((product, prices.filter(parent_product=product)))
-
-    return render(request, "shop/teas.html", locals())
+def category(request):
+    category = get_object_or_404(Category, slug=request.path.strip('/'))
+    categories = Category.objects.all()
+    products_and_prices = _get_products(request, category)
+    return render(request, "shop/category.html", locals())
 
 def sale(request):
     prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=True)
@@ -175,7 +175,7 @@ def tea_view(request, slug):
     
     tea = get_object_or_404(Product, slug=slug)
     prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True, is_sale_price=False).order_by('price')
-    others = Product.objects.filter(category="TEA", is_active=True).exclude(id=tea.id)
+    others = Product.objects.filter(is_active=True).exclude(id=tea.id)
     reviews = Review.objects.filter(product=tea.id, is_published=True)[:2]
     
     # here we're handling the notify form, if the product is out of stock

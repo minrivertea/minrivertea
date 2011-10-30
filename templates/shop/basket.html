@@ -17,12 +17,9 @@ $("#link").click( function() {
 
 {% block extracss %}
 <style type="text/css">
-div#main-text-wide  {
-  margin-top: 30px;	
-}
 
 div#main-text-wide div#left {
-  margin-top: 20px;	
+  margin-top: 30px;	
 }
 
 div#main-text-wide div#right {
@@ -36,7 +33,6 @@ div.row-box p.intro {
 div#basket-full {
   width: 520px;
   float: left;	
-  font-size: 0.9em;
 }
 
 div#basket-full img {
@@ -45,15 +41,16 @@ div#basket-full img {
 }
 
 div.basket-row {
-    border-bottom: 2px dotted #d9ebde;
+    border-bottom: 2px dotted #e1e1e1;
     float: left;
-    height: 70px;
+    height: auto;
     margin-bottom: 0px;
-    padding: 10px 0 0 10px;
+    padding: 15px 0 15px 10px;
+    width: 100%;
 }
 
-div.basket-row.postage {
-    height: 40px;
+div.basket-row:first-child {
+  padding-top: 0px;	
 }
 
 div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
@@ -75,12 +72,12 @@ div.basket-head-row {
 
 div.tea-name {
   float: left;
-  width: 100px;	
+  width: 140px;	
 }
 
 div.tea-weight {
   float: left;
-  width: 180px;	
+  width: 200px;	
   padding-top: 6px;
 }
 
@@ -91,11 +88,10 @@ div.tea-price {
 
 div.tea-quantity {
   float: left;
-  width: 70px;	
+  width: 60px;	
   text-align: center;
   padding-top: 8px;
   font-size: 1.3em;
-  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
   font-weight: bold;  
 }
 
@@ -107,7 +103,6 @@ div.tea-total {
   text-align: center;
   font-size: 1.2em;
   padding-top: 8px;
-  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
   font-weight: bold;
 }
 
@@ -131,15 +126,14 @@ div.tea-remove a:hover {
 }
 
 div#totals {
-    float: left;
-    font-size: 20px;
+    color: #666666;
+    float: right;
+    font-size: 25px;
     font-weight: bold;
-    margin-left: 205px;
+    letter-spacing: -1px;
+    margin: 20px;
     text-align: right;
     width: 250px;
-    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-    letter-spacing: -1px;
-    color: #666;
 }
 
 div.label {
@@ -188,11 +182,6 @@ div.plus-minus a {
  display: none	
 }
 
-div.basket-row:hover {
-  background-color: #e6f8eb;
-  cursor: pointer;	
-}
-
 div.basket-row:hover div.plus-minus a {
   display: block;	
 }
@@ -226,14 +215,10 @@ a.minus:hover {
   background-position: bottom left;
 }
 
-div#steps {
-    background-position: -458px -2px;
-}
-
 div.basket-row.discount {
    height: auto;
    width: 520px;
-   padding-bottom: 10px; 	
+   padding-bottom: 15px; 	
 }
 
 div.basket-row.discount span#link {
@@ -261,6 +246,7 @@ div.discount input.button {
 div.discount span.red {
   padding-bottom: 10px;	
 }
+
 </style>
 {% endblock %}
 
@@ -268,24 +254,15 @@ div.discount span.red {
 
 {% block content %}
 
+<div id="banner">
+	<div class="super">
+		<h1>Your basket ({{ basket_quantity }} item{{ basket_quantity|pluralize }})</h1>
+	</div>
+</div>
+
 
 <div id="main-text-wide">
   <div class="super">
-
-<div id="steps">
-	<div class="selected">
-	<h1>Your basket ({{ basket_quantity }} item{% ifequal basket_quantity 1 %}{% else %}s{% endifequal %})</h1>
-	</div>
-	<div>
-	<h1>Your details</h1>
-	</div>
-	<div>
-	<h1>Confirm order</h1>
-	</div>
-	<div>
-	<h1>Payment</h1>
-	</div>
-</div>
 
 {% if basket_items %}
 
@@ -296,13 +273,13 @@ div.discount span.red {
 	{% for thing in basket_items %}
 	  <div class="basket-row">
 		<div class="tea-name">
-			{% thumbnail thing.item.parent_product.image "80x53" crop="center" as im %}
+			{% thumbnail thing.item.parent_product.image "120" crop="center" as im %}
 			<img src="{{ im.url }}"/>
 			{% endthumbnail %}
 			<br/>
 		</div>
 		<div class="tea-weight">
-			<a title="{{ thing.item.parent_product.description }}" href="{% url tea_view thing.item.parent_product.slug %}">{{ thing.item.parent_product.name }}</a>
+			<a title="{{ thing.item.parent_product.description }}" href="{{ thing.item.parent_product.get_absolute_url }}"><strong>{{ thing.item.parent_product.name }}</strong></a>
 			{% if not thing.item.weight %}{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
 			{{ thing.item.price_unit }}{{ thing.item.price }}<br/>
 			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">Remove from basket</span></a>
@@ -349,23 +326,26 @@ div.discount span.red {
 		</div>
 		{% endif %}
 	  </div>
-	</div>
+
 	<div id="totals">
 		<div class="label">Total:</div><div class="total">£{{ total_price|floatformat:"2" }}</div>
 	</div>
+
+	</div>
+
 	
 	
 	
 	
 	
 	<br clear="all"/>
-	  	<div id="start-checkout-button">		
+	  	<div id="checkout-button">		
 		
 		<p class="checkout">
 			<strong>Next step</strong>: your details. 
 			<em>No login or registration required to purchase.</em>
 		</p>
-		<a href="{% url order_step_one %}"></a>
+		<a class="button" href="{% url order_step_one %}">Start checkout now &raquo;</a>
 	</div>
 
 			

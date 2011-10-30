@@ -14,9 +14,6 @@ urlpatterns = patterns('',
     url(r'^admin-stuff/send-sampler-email/(\w+)/$', views.send_sampler_email, name="send_sampler_email"),
     url(r'^contact-us/$', views.contact_us, name="contact_us"),
     url(r'^sale/$', views.sale, name="sale"),
-    url(r'^teas/$', views.teas, name="teas"),
-    url(r'^teas/(?P<slug>[\w-]+)/review/$', views.review_tea, name="review_tea"),
-    url(r'^teas/(?P<slug>[\w-]+)/$', views.tea_view, name="tea_view"),
     url(r'^basket/$', views.basket, name="basket"),
     url(r'^basket/add/(\w+)$', views.add_to_basket, name="add_to_basket"),
     url(r'^basket/reduce/(\w+)$', views.reduce_quantity, name="reduce_quantity"),
@@ -32,6 +29,5 @@ urlpatterns = patterns('',
     url(r'^tell-a-friend/$', views.tell_a_friend, name="tell_a_friend"),
     url(r'^not-me/$', views.not_you, name="not_you"),
     url(r'^shipping/$', views.shipping, name="shipping"),
-
 )
 

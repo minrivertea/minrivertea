@@ -4,6 +4,15 @@
 {% block extracss %}
 <style type="text/css">
 
+h1 {
+  margin-bottom: 20px;	
+}
+
+div#main-text-wide div#right {
+  float: left;
+  padding-right: 30px;
+  padding-left: 0px;	
+}
 
 div.right-box label {
   margin-bottom: 5px;	
@@ -29,35 +38,66 @@ div#main-text-wide div#left div.row-box p {
   	
 }
 
-div.row-box textarea {
+form {
+  padding: 30px 35px;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;	
+  float: left;
+  width: 550px;
+}
+
+form label {
+  text-align: left;
+  font-size: 14px;
+  width: 100%;
+  padding: 0 20px 5px 0;	
+}
+
+form input {
+  width: 530px;	
+}
+
+form textarea {
   float: left;	
-  width: 370px;
+  width: 530px;
 }
 
-div#left input.submit-button {
-    background: url("{% staticfile '/images/submit.png' %}") no-repeat scroll left top transparent;
-    border: medium none;
-    height: 51px;
-    margin-top: 0px;
-    width: 227px;
-    float:right;
-    margin-right: 20px;
+div#main-text-wide div#left form h3 {
+  margin-top: 0;	
 }
 
-div#left input.submit-button:hover {
-    background: url("{% staticfile '/images/submit.png' %}") no-repeat scroll left center transparent;
-}
-
-div#left input.submit-button:active {
-    background: url("{% staticfile '/images/submit.png' %}") no-repeat scroll left bottom transparent;
-}
-
-div#left p.help-text {
-    float: right;
+div#main-text-wide div#left p.help-text {
+    float: left;
     font-size: 0.7em;
     padding-left: 10px;
     margin-top: 20px;
     margin-right: 20px;
+}
+
+input.button {
+  height: auto;
+  font-size: 16px;
+  font-family: Helvetica, sans-serif;	
+  margin-top: 15px;
+  width: 300px;
+}
+
+div.message {
+    background-color: #FFFFFF;
+    border: 1px solid #E1E1E1;
+    border-radius: 10px 10px 10px 10px;
+    margin: 0 0 10px;
+    padding: 20px 25px;
+}
+
+div#main-text-wide div#left div.message h3 {
+  margin: 0 0 10px 0;	
+  color: #237A2A;
+}
+
+div#main-text-wide div#left div.message p {
+  margin: 0;	
 }
 
 </style>
@@ -73,7 +113,7 @@ div#left p.help-text {
   
 <div id="banner">
   <div class="super">
-  	<h1>Contact the Min River Tea Farm</h1>
+  	
   </div>
 </div>  
 
@@ -82,17 +122,18 @@ div#left p.help-text {
 	<div id="right">
 		{% include 'flatpages/about_navigation.html' %}
 
-	 	<p>If you just want to keep in touch, we tweet a lot, and also post tea related photos on flickr regularly.</p>
-			<a title="Checkout our tea photos on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/">
-			<img src="{% staticfile '/images/flickr.png' %}">
-			</a>
-			<a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F">
-			<img src="{% staticfile '/images/twitter-small.png' %}">
-			</a>
-
+	 	<div class="info">
+			<h3>Keep in touch!</h3>
+		 	<p>If you just want to keep in touch, we tweet a lot, and also post tea related photos on flickr regularly.</p>
+		 	<a href="http://www.facebook.com/minrivertea" title="Friend us on Facebook"><img src="{% staticfile '/images/facebook.png' %}"></a>
+		 	<a title="Checkout our tea photos on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
+			<a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
 		</div>
+
+	</div>
 		
 	<div id="left">
+		<h1>Contact the Min River Tea Farm</h1>
 		<img src="{% staticfile '/images/blog-chris.jpg' %}" style="float:left;margin-right: 20px;">
 		<p>Hi, I'm Chris, the owner of the Min River Tea Farm. If you'd like to get in touch, for whatever reason, please feel free to contact me. The Min River Tea Farm is a UK company, but we're permanently based in China close to many tea growing areas in Fujian Province. The best ways to get in contact are:</p>
 			
@@ -105,35 +146,24 @@ div#left p.help-text {
 	 	
 	 	<h3>Wholesale/trade</h3>
 	 	<p>If you're looking for wholesale orders or information, please just get in touch - we're based in China, near many of the best tea growing regions. Regardless of your price-range or requirements, I'll be happy to help out.</p>
+		
 		{% if message %}
-			<h3>Thanks!</h3>
+		<div class="message">
+			<h3>Thanks for your message!</h3>
 			<p>Your message has been sent to the Min River Tea Farm. We'll be in touch as soon as possible (normally within 12 hours).</p>
+		</div>
 		{% else %}
+			
+
+			<form action="." method="post">
 			<h3>Send us a message</h3>
 			<p>Use our online contact form to send us a message. We respond to all messages within 12 hours.</p>
-			<div class="row">
-				<div class="row-box">
-				<form action="." method="post">
-				<p>	 
-					<input type="text" name="your_name" id="id_your_name" />
-					<label for="id_your_name">Your name</label>
-				</p>
-				<p> 
-					<input type="text" name="your_email" id="id_your_email" />
-					<label for="id_your_email">Your email</label>
-				</p>
-				<p>
-					<textarea id="id_your_message" rows="10" cols="40" name="your_message"></textarea>
-					<label for="id_your_message">Your message</label> 
-				</p>
-
-				</div>
-			</div>
-				
-			<input class="submit-button" value="" type="submit">
-<p class="help-text">
-			<img src="{% staticfile '/images/lock.gif' %}"> We will never share, sell or spam your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)
-			</p>	
+				{{ form.as_p }}				
+				<input class="button" value="Submit" type="submit">
+				<p class="help-text">
+				<img src="{% staticfile '/images/lock.gif' %}"> 
+				We will never share, sell or spam your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)
+				</p>	
 					
 			</form>
 		{% endif %}

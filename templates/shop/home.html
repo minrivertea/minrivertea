@@ -544,11 +544,11 @@ div#adventure #icons {
 			{% for tea in teas %}
 				<div class="tea">
 				{% thumbnail tea.image "200" crop="center" as im %}
-					<a alt="a picture of our {{ tea.name }} Chinese tea" title="{{ tea.name }} Chinese tea" href="{% url tea_view tea.slug %}">
+					<a alt="a picture of our {{ tea.name }} Chinese tea" title="{{ tea.name }} Chinese tea" href="{{ tea.get_absolute_url }}">
 						<img alt="{{ tea.description }}" src="{{ im.url }}"/>
 					</a>
 				{% endthumbnail %}
-				<h4><a href="{% url tea_view tea.slug %}">{{ tea.name }}</a></h4>
+				<h4><a href="{{ tea.get_absolute_url }}">{{ tea.name }}</a></h4>
 				<p>{{ tea.super_short_description }}</p>
 				</div>
 			{% endfor %}
