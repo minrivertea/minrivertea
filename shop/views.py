@@ -850,7 +850,7 @@ def admin_stuff(request):
         is_confirmed_by_user=True, 
         is_paid=False, 
         is_giveaway=False, 
-        reminder_email_sent=True).order_by('-date_confirmed')
+        reminder_email_sent=False).order_by('-date_confirmed')
     giveaways = Order.objects.all().filter(is_giveaway=True).order_by('-date_confirmed')
     
     # work out how many sales we've made
