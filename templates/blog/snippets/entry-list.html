@@ -1,8 +1,6 @@
 {% load thumbnail %}
 
-  {% for thing in entries %}
-  
-  
+  {% for thing in entries.object_list.all %}
   <div class="entry{% if forloop.last %} last{% endif %}">
     <h2>
   		<a alt="{{ thing.title }}" title="{{ thing.title }}" href="{% url blog_entry thing.slug %}">{{ thing.title }}</a>
@@ -19,5 +17,4 @@
   		</p>
 	</div> 
   </div>
-
   {% endfor %}

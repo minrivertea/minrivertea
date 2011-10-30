@@ -175,6 +175,25 @@ img.tweets {
   margin: -70px 0 10px 0;	
 }
 
+#next-previous {
+  width: 100%;
+  float: left;
+  margin: 20px 0;	
+  font-size: 12px;
+  text-align: center;
+}
+
+.next {
+  float: right;
+
+  border-radius: 5px;	
+}
+
+.previous {
+  float: left;
+  border-radius: 5px;		
+}
+
 </style>
 {% endblock %}
 
@@ -203,8 +222,38 @@ img.tweets {
 	</div>
 
 	<div id="left">
+		{% if entries.has_previous %}
+			<div id="next-previous">
+			<div class="next">
+			{% if entries.has_previous %}
+	            <a href="?page={{ entries.previous_page_number }}">Get newer entries &raquo;</a>
+	        {% endif %}
+	        </div>
+	Showing entries {{ entries.start_index }} - {{ entries.end_index }}
+			<div class="previous">
+	        {% if entries.has_next %}
+	            <a href="?page={{ entries.next_page_number }}">&laquo; Get older entries</a>
+	        {% endif %}
+	        </div>
+		</div>
+		{% endif %}
+			
  		<div class="entry-list">
 			{% include "blog/snippets/entry-list.html" %}
+		</div>
+		
+		<div id="next-previous">
+			<div class="next">
+			{% if entries.has_previous %}
+	            <a href="?page={{ entries.previous_page_number }}">Get newer entries &raquo;</a>
+	        {% endif %}
+	        </div>
+	
+			<div class="previous">
+	        {% if entries.has_next %}
+	            <a href="?page={{ entries.next_page_number }}">&laquo; Get older entries</a>
+	        {% endif %}
+	        </div>
 		</div>
 	</div>
   </div>
