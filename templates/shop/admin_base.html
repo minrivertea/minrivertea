@@ -92,6 +92,34 @@
 	{% endfor %}
 	</table>
 
+<h3>Unconfirmed orders</h3>
+<table id="unconfirmed-orders">
+	<thead>
+		<tr>
+			<td>Order ID</td>
+			<td>Email address</td>
+			<td>Items</td>
+			<td></td>
+		</tr>
+	</thead>
+	{% for order in unconfirmed_orders %}
+	<tr>
+		<td>{{ order.invoice_id }}</td>
+		<td>{{ order.owner.email }}</td>
+		<td>
+			<ul>
+			{% for item in order.items.all %}
+				<li>{{ item }}</li>
+			{% endfor %}
+			</ul>
+		</td>
+		<td><a href="{% url send_reminder_email order.id %}">Send reminder email</a></td>
+	</tr>
+	{% endfor %}	
+
+</table>
+
+
 <h3>Giveaways ({{ orders.count }})</h3>
 	<table id="orders-table">
 		<thead>

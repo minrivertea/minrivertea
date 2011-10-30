@@ -1,0 +1,13 @@
+Hey {{ order.owner.first_name }}!
+
+I just noticed that you started to order some tea recently on www.minrivertea.com, but then didn't complete the order - was there something wrong?
+
+If there was something not quite right, I'd be so grateful if you could let me know. It helps improve things hugely, so that next time we can get it right for you. You can just reply to this email and let me know your thoughts - I'm a big boy and can take criticism :)
+
+But if you want to pick up the order where you left off, just click this URL and you'll jump straight back to where you left off:
+
+http://www.minrivertea.com{{ url }}
+
+
+Chris West
+www.minrivertea.com

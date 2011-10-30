@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 
+{% block pagetitle %}Whoops, there's been a problem!{% endblock %}
+
 {% block content %}
+
+<div id="banner">
+	<div class="super">
+		<h1>There's been a problem!</h1>
+	</div>
+</div>
 
 <div id="main-text-wide">
   <div class="super">
-	<h2 class="fontface">There's been a problem!</h2>
+
 	<p class="introduction">{{ problem }}</p>
+	<p>You can head back to the <a href="{% url teas %}">Teas page to search through our Chinese teas</a> or if you think there's been a problem, <a href="/contact-us/">just get in touch.</a></p>
   </div>
 </div>
 {% endblock %}

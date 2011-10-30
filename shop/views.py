@@ -511,7 +511,28 @@ def order_step_one(request):
     confirm_form = OrderStepOneForm() 
 
     return render(request, 'shop/forms/order_step_one.html', locals())
- 
+
+def order_url(request, hash):
+    order = get_object_or_404(Order, hashkey=hash)
+    shopper = order.owner
+    basket_items = order.items.all()
+    order_items = basket_items
+
+    total_price = 0
+    for item in order_items:
+        price = item.quantity * item.item.price
+        total_price += price
+            
+    if total_price > 50:
+        postage_discount = True
+    else: 
+        total_price += 3
+    
+    if order.discount:
+        value = total_price * order.discount.discount_value
+        percent = order.discount.discount_value * 100
+        total_price -= value
+    return render(request, 'shop/forms/order_confirm.html', locals())
  
 # the view for 'logging out' if you're logged in with the wrong account   
 def not_you(request):
@@ -537,10 +558,16 @@ def not_you(request):
     
 # the view for the order step 2 - confirming your order
 def order_confirm(request):
-    shopper = get_object_or_404(Shopper, user=request.user)
-    basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
+    
+    try:
+        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
+    except:
+        problem = "You don't have any items in your basket, so you can't process an order!"
+        return render(request, 'shop/order-problem.html', locals())
+        
     order = Order.objects.get(invoice_id=request.session['ORDER_ID'])
-    order_items = BasketItem.objects.filter(basket=basket)
+    shopper = order.owner
+    order_items = order.items.all() #BasketItem.objects.filter(basket=basket)
     total_price = 0
     for item in order_items:
         price = item.quantity * item.item.price
@@ -819,6 +846,11 @@ def admin_stuff(request):
     published_photos = Photo.objects.filter(published=True)
     unpublished_photos = Photo.objects.filter(published=False)
     orders = Order.objects.all().filter(is_giveaway=False).order_by('-date_confirmed')
+    unconfirmed_orders = Order.objects.filter(
+        is_confirmed_by_user=True, 
+        is_paid=False, 
+        is_giveaway=False, 
+        reminder_email_sent=True).order_by('-date_confirmed')
     giveaways = Order.objects.all().filter(is_giveaway=True).order_by('-date_confirmed')
     
     # work out how many sales we've made
@@ -889,7 +921,38 @@ def send_sampler_email(request, id):
     order.save()
     
     return HttpResponseRedirect('/admin-stuff')
+
+
+# function for sending the 'send sample to friend' email
+def send_reminder_email(request, id):
+    order = get_object_or_404(Order, pk=id)
+    order.hashkey = uuid.uuid1().hex
+    shopper = order.owner
+    if order.reminder_email_sent:
+        return False
+
+    from_email = settings.SITE_EMAIL
+    to_email = order.owner.email
     
+    # load up the variables for the email
+    subject_line = "Was it something I said?"
+    url = reverse('order_url', args=[order.hashkey])
+    body = render_to_string('shop/emails/text/send_reminder_email.txt', {'order': order, 'url': url})
+    
+                
+    send_mail(
+              subject_line, 
+              body, 
+              from_email,
+              [to_email], 
+              fail_silently=False
+    )
+            
+    
+    order.reminder_email_sent = True
+    order.save()
+    
+    return HttpResponseRedirect('/admin-stuff')    
     
     
     

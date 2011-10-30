@@ -306,9 +306,11 @@ class Order(models.Model):
     owner = models.ForeignKey(Shopper)
     discount = models.ForeignKey(Discount, null=True, blank=True)
     invoice_id = models.CharField(max_length=20)
+    hashkey = models.CharField(max_length=200, blank=True, null=True)
     notes = models.TextField(null=True, blank=True)
     sampler_email_sent = models.BooleanField(default=False)
     sampler_sent = models.BooleanField(default=False)
+    reminder_email_sent = models.BooleanField(default=False)
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
     STATUS_PAID = 'paid'

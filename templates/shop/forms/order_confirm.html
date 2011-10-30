@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load django_static %}
+{% load django_static thumbnail %}
 
 {% block pagetitle %}Order (Step 2 of 3) - Confirm Order{% endblock %}
 
@@ -107,47 +107,56 @@ div.row {
 			 {% endfor %}
 		{% endif %}
 		
-				<div class="row">
+		<div class="row">
 			<div class="row-label">
-				<h2>You have ordered...</h2>
+				<h2>You're ordering...</h2>
 			</div>
-		<div class="row-box">
-			<table>
-			{% for thing in basket_items %}
-			  <tr>				
-		    	<td width="200px">
-		    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
-		    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
-		    	</td>
-		    	<td width="150px">
-		    	</td>
-		    	<td>£{{ thing.get_price }}</td>		    				
+			
+			<div class="row-box">
+				<table>
+				{% for thing in basket_items %}
+				  <tr>				
+			    	<td width="110px" valign="top">
+			    		{% thumbnail thing.item.parent_product.image "100" as im %}
+			    			<img src="{{ im.url }}"/>
+			    		{% endthumbnail %}
+			    	</td>
+			    	<td>
+			    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
+			    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
+			    	</td>
+			    	<td width="150px" valign="top">
+			    	</td>
+			    	<td>£{{ thing.get_price }}</td>		    				
+				  </tr>
+			    {% endfor %}
+			  {% if postage_discount %}
+			  <tr>
+			    <td><span class="small"><em>There is no postage charge, because your order is over £50</em></span></td>
 			  </tr>
-		  {% endfor %}
-		  {% if postage_discount %}
-		  <tr>
-		    <td><span class="small"><em>There is no postage charge, because your order is over £50</em></span></td>
-		  </tr>
-		  {% else %}
-		  <tr>
-		  	<td>Postage</td>
-		  	<td>&nbsp;</td>
-		  	<td>£3.00</td>		  
-		  </tr>
-		  {% endif %}
-		  {% if order.discount %}
-		  <tr>
-		  	<td>Discount</td>
-		  	<td>&nbsp;</td>
-		  	<td>-£{{ value|floatformat:"2" }}</td>
-		  </tr>
-		  {% endif %}
-		  <tr>
-		  	<td><strong>TOTAL</strong></td>
-		  	<td>&nbsp;</td>
-		  	<td><strong>£{{ total_price|floatformat:"2" }}</strong></td>		  
-		  </tr>
-		</table>
+			  {% else %}
+			  <tr>
+			  	<td>Postage</td>
+			  	<td>&nbsp;</td>
+			  	<td>&nbsp;</td>
+			  	<td>£3.00</td>		  
+			  </tr>
+		  	  {% endif %}
+		  	  {% if order.discount %}
+			  <tr>
+			  	<td>Discount</td>
+			  	<td>&nbsp;</td>
+			  	<td>&nbsp;</td>
+			  	<td>-£{{ value|floatformat:"2" }}</td>
+			  </tr>
+			  {% endif %}
+			  <tr>
+			  	<td><strong>TOTAL</strong></td>
+			  	<td>&nbsp;</td>
+			  	<td>&nbsp;</td>
+			  	<td><strong>£{{ total_price|floatformat:"2" }}</strong></td>		  
+			  </tr>
+			</table>
 		</div>
 	</div>
 

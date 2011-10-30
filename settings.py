@@ -116,6 +116,7 @@ EMAIL_HOST_USER = ''
 EMAIL_PORT = ''
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 GA_IS_ON = True
+SITE_URL = "http://www.minrivertea.com"
 
 # django-static info
 DJANGO_STATIC = True
