@@ -22,47 +22,30 @@ div.entry-list {
     width: 660px;
 }
 
-div.entry {
-  float: left;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
+div.entry-list h2 {
+  font-weight: ;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #e1e1e1;	
-  position: relative;
+}
+
+div.entry {
+    background-color: #FFFFFF;
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    float: left;
+    margin-bottom: 20px;
+    padding: 20px 25px;
+    position: relative;
+    width: 630px;
 }
 
 div.entry span.read-more a {
-  color: #fff;	
-}
-
-div.entry:hover div.text p {
-  color: #333;	
-}
-
-div.entry:hover div.image img {
-  opacity: 0.7;
-}
-
-div#main-text-wide div#left div.entry:hover h3 a {
-  color: #439249;
-  text-decoration: underline;
-}
-
-div.entry h3 a {
-  color: #777;
-}
-
-div.entry:hover h4 a {
-  color: #1a6d18;	
+	
 }
 
 div#main-text-wide div#left div.entry h3 {
   font-weight: 900;
-}
-
-div#right h3.touch {
-  margin-bottom: 10px;
-  border-bottom: 2px dotted #e1e1e1;
-  padding-bottom: 5px;	
 }
 
 div#right ul.follow  {
@@ -116,32 +99,20 @@ div#right div.info.tea:hover p {
 }
 
 
-div.entry span.entry {
-  position:absolute;
-  width:100%; 
-  height:100%; 
-  top:0; 
-  left: 0; 
-  z-index: 1;	
-}
-
-
 div.entry.last {
   border-bottom: none;	
 }
 
 div.entry div.image {
-  float: left;
-  margin-right: 20px;	
-}
-
-div.entry div.image img {
-  border-radius: 5px;	
+  float: right;
+  margin: 5px 0 0 20px;	
+  border: 5px solid #fff;
+  box-shadow: 0 1px 3px #999;
 }
 
 div.entry div.text {
   float: left;
-  width: 520px;	
+  width: 460px;	
 }
 
 div.entry div.text h3 {
@@ -149,13 +120,20 @@ div.entry div.text h3 {
 }
 
 div#main-text-wide div#left div.entry div.text p {
-  margin: 5px 0px;	
+  margin: 0px;
+  line-height: 1.9em;	
+  padding-bottom: 10px;
 }
 
 div.entry div.text span.entry-meta {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: #666;	
+    color: #666666;
+    float: left;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 14px;
+    position: absolute;
+    bottom: 20px;
+    left: 25px;
 }
 
 a.see-more {

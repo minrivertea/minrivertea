@@ -492,7 +492,6 @@ ul#right-nav li a:link {
   padding: 5px 5px 5px 0px;
   display: block;
   margin-bottom: 2px; 
-  text-transform: uppercase;	
 }
 
 ul#right-nav li a.selected {
@@ -507,7 +506,6 @@ ul#right-nav ul.subnav {
     list-style-type: none;
     margin-left: 0px;
     padding-left: 0px;
-    text-transform: uppercase;
 }
 
 ul#right-nav ul.subnav li a {
