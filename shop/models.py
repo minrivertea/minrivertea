@@ -426,6 +426,7 @@ class Page(models.Model):
     meta_description = models.TextField(blank=True, null=True)
     parent = models.ForeignKey('self', blank=True, null=True)
     content = models.TextField()
+    feature_block = models.TextField(blank=True, null=True)
     template = models.CharField(max_length=200, blank=True, null=True)
     right_side_boxes = models.CharField(max_length=200, blank=True, null=True)
     
@@ -450,13 +451,26 @@ class Page(models.Model):
         pages = Page.objects.filter(parent=self)
         return pages
 
+    def get_products_mentioned(self):
+        teas = Product.objects.filter(is_active=True)
+        products = []
+        for tea in teas:
+            if tea.name in self.content:
+                products.append(tea)
+        return products
+        
+        
 
 # signals to connect to receipt of PayPal IPNs
 
 def show_me_the_money(sender, **kwargs):
     ipn_obj = sender
     order = get_object_or_404(Order, invoice_id=ipn_obj.invoice)
-        
+    
+    # this prevents double emails being sent...
+    if order.status == Order.STATUS_PAID:
+        return
+    
     order.status = Order.STATUS_PAID
     order.date_paid = ipn_obj.payment_date
     order.is_paid = True
@@ -508,6 +522,11 @@ payment_was_successful.connect(show_me_the_money)
 def payment_flagged(sender, **kwargs):
     ipn_obj = sender
     order = get_object_or_404(Order, invoice_id=ipn_obj.invoice)
+    
+    # this prevents double emails being sent...
+    if order.status == Order.STATUS_PAYMENT_FLAGGED:
+        return
+    
     order.status = Order.STATUS_PAYMENT_FLAGGED
     order.save()
 

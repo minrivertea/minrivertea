@@ -479,6 +479,7 @@ ul#right-nav {
   margin: 0 0 30px 15px;
   float: left;
   width: 220px;
+  text-transform: uppercase;
 }
 
 ul#right-nav li {
@@ -494,8 +495,9 @@ ul#right-nav li a:link {
   margin-bottom: 2px; 
 }
 
-ul#right-nav li a.selected {
-  color: #333;  	
+ul#right-nav li a.selected, ul#right-nav ul.subnav li a.selected {
+  color: #333; 
+  font-weight: bold; 	
 }
 
 ul#right-nav li a:hover {
@@ -1639,13 +1641,6 @@ div#basket {
     position: relative;
     min-height: 300px;
 }	
-
-div.learn-box {
-  float: left;
-  border-bottom: 3px dotted #e1e1e1;	
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-}
 
 ul#steps {
     float: left;
