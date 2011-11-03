@@ -426,7 +426,6 @@ class Page(models.Model):
     meta_description = models.TextField(blank=True, null=True)
     parent = models.ForeignKey('self', blank=True, null=True)
     content = models.TextField()
-    feature_block = models.TextField(blank=True, null=True)
     template = models.CharField(max_length=200, blank=True, null=True)
     right_side_boxes = models.CharField(max_length=200, blank=True, null=True)
     
