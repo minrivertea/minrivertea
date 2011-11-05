@@ -376,7 +376,7 @@ class Wishlist(models.Model):
     times_purchased = models.IntegerField(default="0", blank=True, null=True)
     
     def __unicode__(self):
-        return self.owner
+        return self.owner.email
         
     
 # can be deleted, not used anymore (Aug 2011)
