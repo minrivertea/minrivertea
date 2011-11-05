@@ -633,7 +633,8 @@ def order_makewishlist(request):
             hashkey = uuid.uuid1().hex,
             address = order.address,
         )
-        wishlist.wishlist_items = order.items.all(),
+        
+        wishlist.wishlist_items = order.items,
         wishlist.save()
 
             
