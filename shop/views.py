@@ -634,7 +634,9 @@ def order_makewishlist(request):
             address = order.address,
         )
         
-        wishlist.wishlist_items = order.items,
+        for item in order.items.all():
+            wishlist.wishlist_items.add(item)
+        
         wishlist.save()
 
             
