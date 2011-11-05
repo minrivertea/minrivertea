@@ -537,9 +537,9 @@ def order_url(request, hash):
     return render(request, 'shop/forms/order_confirm.html', locals())
     
 def wishlist_url(request, hash):
-    order = get_object_or_404(Order, hashkey=hash)
-    shopper = order.owner
-    basket_items = order.items.all()
+    wishlist = get_object_or_404(Wishlist, hashkey=hash)
+    shopper = wishlist.owner
+    basket_items = wishlist.wishlist_items.all()
     order_items = basket_items
 
     total_price = 0
@@ -552,10 +552,6 @@ def wishlist_url(request, hash):
     else: 
         total_price += 3
     
-    if order.discount:
-        value = total_price * order.discount.discount_value
-        percent = order.discount.discount_value * 100
-        total_price -= value
         
     return render(request, 'shop/forms/wishlist_confirm.html', locals())
  

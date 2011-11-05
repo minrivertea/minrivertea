@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load django_static thumbnail %}
 
-{% block pagetitle %}{{ order.owner.first_name }}'s Chinese tea wishlist - Confirm Order{% endblock %}
+{% block pagetitle %}{{ wishlist.owner.first_name }}'s Chinese tea wishlist - Confirm Order{% endblock %}
 
 
 {% block extracss %}
@@ -94,7 +94,7 @@ div.row-box {
 	<ul id="steps">
 		<li class="selected">
 			<img src="{% staticfile '/images/gift.png' %}" style="float: left;margin-right:15px;position:relative;top:-20px;"/>
-			You're looking at <span class="name">{{ order.owner.first_name }} {{ order.owner.last_name }}'s</span> Chinese tea wishlist<br/>
+			You're looking at <span class="name">{{ wishlist.owner.first_name }} {{ wishlist.owner.last_name }}'s</span> Chinese tea wishlist<br/>
 			<span class="grey">Are you ready to give the gift of tea?</span>
 		</li>
 	</ul>
@@ -117,20 +117,20 @@ div.row-box {
 		<input type="hidden" name="currency_code" value="GBP">
 		<input type="hidden" name="address_override" value="1">
 		
-		<input type="hidden" name="address1" value="{{ order.address.house_name_number }}, {{ order.address.address_line_1 }}">		
-		<input type="hidden" name="address2" value="{{ order.address.address_line_2 }}">
-		<input type="hidden" name="city" value="{{ order.address.town_city }}">
+		<input type="hidden" name="address1" value="{{ wishlist.address.house_name_number }}, {{ wishlist.address.address_line_1 }}">		
+		<input type="hidden" name="address2" value="{{ wishlist.address.address_line_2 }}">
+		<input type="hidden" name="city" value="{{ wishlist.address.town_city }}">
 		<input type="hidden" name="country" value="GB">
-		<input type="hidden" name="zip" value="{{ order.address.postcode }}">
+		<input type="hidden" name="zip" value="{{ wishlist.address.postcode }}">
 		<input TYPE="hidden" NAME="return" value="{{ paypal_return_url }}">
 		<input TYPE="hidden" NAME="cancel" value="{{ paypal_notify_url }}">
 		<input TYPE="hidden" NAME="notify_url" value="{{ paypal_notify_url }}">
 		<input type="hidden" id="id_no_shipping" value="1" name="no_shipping">
 		<input type="hidden" id="id_charset" value="utf-8" name="charset">
 
-		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
+		<input type="hidden" name="invoice" value="TEA-00{{ wishlist.id }}" id="id_invoice" />
 		
-		{% if order.discount %}
+		{% if wishlist.discount %}
 		<input TYPE="hidden" NAME="discount_amount_cart" value="{{ value|floatformat:'2' }}">
 		{% endif %}
 		
@@ -143,13 +143,13 @@ div.row-box {
 		{% endif %}
 		 
 		 {% if postage_discount %}
-	 		 {% for thing in order.items.all %}
+	 		 {% for thing in wishlist.wishlist_items.all %}
 				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
 				<input type="hidden" name="quantity_{{ forloop.counter }}" value="{{ thing.quantity }}">
 				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.item.price }}"> 
 			 {% endfor %}
 		{% else %}
-			 {% for thing in order.items.all %}
+			 {% for thing in wishlist.wishlist_items.all %}
 				<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
 				<input type="hidden" name="quantity_{{ forloop.counter|add:"1" }}" value="{{ thing.quantity }}">
 				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.item.price }}"> 
@@ -158,12 +158,12 @@ div.row-box {
 		
 		<div class="row">
 			<div class="row-label">
-				<h2>You're purchasing these items for {{ order.owner.first_name }}:</h2>
+				<h2>You're purchasing these items for {{ wishlist.owner.first_name }}:</h2>
 			</div>
 			
 			<div class="row-box">
 				<table>
-				{% for thing in order.items.all %}
+				{% for thing in wishlist.wishlist_items.all %}
 				  <tr>				
 			    	<td width="110px" valign="top">
 			    		{% thumbnail thing.item.parent_product.image "100" as im %}
@@ -190,7 +190,7 @@ div.row-box {
 			  	<td>£3.00</td>		  
 			  </tr>
 		  	  {% endif %}
-		  	  {% if order.discount %}
+		  	  {% if wishlist.discount %}
 			  <tr>
 			  	<td>&nbsp;</td>
 			  	<td>Discount</td>
@@ -214,12 +214,12 @@ div.row-box {
 	
 <div id="left">
 	<h2>How does this work?</h2>
-	<p>It's simple - {{ order.owner.first_name }} has created a wishlist of Chinese tea items, and you can buy those items on their behalf. We'll send the items you purchase to {{ order.owner.first_name }} and you'll get a big warm fuzzy feeling.</p>
+	<p>It's simple - {{ wishlist.owner.first_name }} has created a wishlist of Chinese tea items, and you can buy those items on their behalf. We'll send the items you purchase to {{ wishlist.owner.first_name }} and you'll get a big warm fuzzy feeling.</p>
 	<h2>Where will we send the order?</h2>
-    <p>{{ order.owner.first_name }} has already provided their shipping address to us - we'll send the teas there. However, just to be sure, we will contact {{ order.owner.first_name }} to confirm before we send the teas. For privacy reasons, we can't show you the address they provided.</p>
+    <p>{{ wishlist.owner.first_name }} has already provided their shipping address to us - we'll send the teas there. However, just to be sure, we will contact {{ wishlist.owner.first_name }} to confirm before we send the teas. For privacy reasons, we can't show you the address they provided.</p>
     
     <h2>Is it safe to order?</h2>
-    <p>Yes! You and {{ order.owner.first_name }} are protected by our standard <strong>no questions asked</strong> refund policy, fast and friendly customer services, and privacy of your data. If you ever have any questions about this order, you can contact us directly at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>.</p>
+    <p>Yes! You and {{ wishlist.owner.first_name }} are protected by our standard <strong>no questions asked</strong> refund policy, fast and friendly customer services, and privacy of your data. If you ever have any questions about this order, you can contact us directly at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>.</p>
     
     <p>Similarly, because you pay via Paypal, your online payment is secured with industry standard technology and <strong>we never see or store your credit card details.</strong>. We take your data extremely seriously.</p>
 
