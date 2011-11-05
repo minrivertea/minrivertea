@@ -5,10 +5,12 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.template import RequestContext
 from paypal.standard.forms import PayPalPaymentsForm
-from django.http import HttpResponseRedirect 
+from django.http import HttpResponseRedirect, HttpResponse 
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
+from django.utils import simplejson
+from django.core.serializers.json import DjangoJSONEncoder
 
 
 import urllib
@@ -533,6 +535,29 @@ def order_url(request, hash):
         percent = order.discount.discount_value * 100
         total_price -= value
     return render(request, 'shop/forms/order_confirm.html', locals())
+    
+def wishlist_url(request, hash):
+    order = get_object_or_404(Order, hashkey=hash)
+    shopper = order.owner
+    basket_items = order.items.all()
+    order_items = basket_items
+
+    total_price = 0
+    for item in order_items:
+        price = item.quantity * item.item.price
+        total_price += price
+            
+    if total_price > 50:
+        postage_discount = True
+    else: 
+        total_price += 3
+    
+    if order.discount:
+        value = total_price * order.discount.discount_value
+        percent = order.discount.discount_value * 100
+        total_price -= value
+        
+    return render(request, 'shop/forms/wishlist_confirm.html', locals())
  
 # the view for 'logging out' if you're logged in with the wrong account   
 def not_you(request):
@@ -598,7 +623,29 @@ def order_confirm(request):
 
     return render(request, 'shop/forms/order_confirm.html', locals())
    
+ 
+def order_makewishlist(request):
     
+    if request.GET.get('xhr'):
+        order = get_object_or_404(Order, id=request.GET.get('order'))
+        wishlist = Wishlist.objects.create(
+            owner = order.owner,
+            hashkey = uuid.uuid1().hex,
+            address = order.address,
+        )
+        wishlist.wishlist_items = order.items.all(),
+        wishlist.save()
+
+            
+        html = render_to_string('shop/snippets/make_wishlist.html', {
+                'order': wishlist,
+        }, context_instance=RequestContext(request))
+        
+        json = simplejson.dumps(html, cls=DjangoJSONEncoder)
+        return HttpResponse(json, mimetype='application/json')
+    
+
+    return   
     
     
 def order_complete(request):

@@ -12,10 +12,18 @@ $("#link").click( function() {
 	$(this).toggle();
 	$('#message').toggle();
 });
+
+$(document).ready( function() {
+	$('a#wishlist').fancybox({
+    	'autoDimensions':true,
+    });
+});
 </script>
+<script type="application/javascript" src="{% staticfile '/js/lightbox/jquery.fancybox-1.3.4.pack.js' %}"></script>
 {% endblock %}
 
 {% block extracss %}
+<link rel="stylesheet" href="{% staticfile '/css/fancybox/jquery.fancybox-1.3.4.css' %}" />
 <style type="text/css">
 
 div#main-text-wide div#left {
@@ -36,8 +44,9 @@ div#basket-full {
 }
 
 div#basket-full img {
-  border-radius:5px;
-  border: 3px solid #fff;	
+    border: 3px solid #FFFFFF;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 2px #999999;
 }
 
 div.basket-row {
@@ -247,6 +256,15 @@ div.discount span.red {
   padding-bottom: 10px;	
 }
 
+#main-text-wide #wishlist-full {
+  display: none;	
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0px;
+  width: 0px;
+}
+
 </style>
 {% endblock %}
 
@@ -353,12 +371,26 @@ div.discount span.red {
   
   	<div id="right">
            	<div class="info">
-           	
-           	<h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
-           	<p>We accept all major credit and debit cards through Paypal</p>
-           	<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
-           	
+           		<h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
+           		<p>We accept all major credit and debit cards through Paypal</p>
+           		<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
            	</div>  	
+  			<div class="info">
+  				<h3>
+  					<img style="float:right; margin-left: 5px; position:relative; top: -8px; left: 4px;" src="{% staticfile '/images/gift.png' %}"/>
+  					Create a wishlist from your basket
+  				</h3>
+  				<p>A wishlist saves your basket so that other people can buy it for you as a gift.</p>
+  				<p><a style="font-weight: bold;" id="wishlist" href="#wishlist-full">How does it work?</a></p>
+  				<div id="wishlist-full" style="width: 400px; padding: 30px;">
+  					<h2>How the 'wishlist' works</h2>
+  					<p><img src="{% staticfile '/images/gift.png' %}" style="float: left;margin-right: 15px; position: relative; top: -10px;"/><strong>Creating a wishlist turns your basket into a list of gifts that other people can buy for you.</strong></p>
+  				
+  					<p>Maybe your birthday is coming up, or a special anniversary, or you're just fed up of getting the obligatory socks and chocolates for Christmas! Creating a wishlist lets you <span style="text-decoration: underline; font-weight: bold;">tell your friends and family what you really want</span> to receive.</p>
+  					<p><strong>To create a wishlist, go through the normal checkout process.</strong> On the 'Confirm your order' page, you'll see a link "Create a wishlist now!" - just click this, and we'll show you what to do next.</p>
+  					<img src="{% staticfile '/images/wishlist-screenshot.jpg' %}">
+  				</div>
+  			</div>
   	</div>
 
 	<div id="left">

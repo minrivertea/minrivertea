@@ -296,7 +296,7 @@ class Discount(models.Model):
     
     
 class Order(models.Model):
-    items = models.ManyToManyField(BasketItem)
+    items = models.ManyToManyField(BasketItem, db_index=True)
     is_confirmed_by_user = models.BooleanField(default=False)
     date_confirmed = models.DateTimeField()
     is_paid = models.BooleanField(default=False)
@@ -365,6 +365,19 @@ class Order(models.Model):
             sampler = False
         return sampler
 
+
+class Wishlist(models.Model):
+    wishlist_items = models.ManyToManyField(BasketItem)
+    owner = models.ForeignKey(Shopper, db_index=True)
+    address = models.ForeignKey(Address)
+    hashkey = models.CharField(max_length=200, blank=True, null=True)
+    date_created = models.DateTimeField(default=datetime.now())
+    views = models.IntegerField(default="0", blank=True, null=True)
+    times_purchased = models.IntegerField(default="0", blank=True, null=True)
+    
+    def __unicode__(self):
+        return self.owner
+        
     
 # can be deleted, not used anymore (Aug 2011)
 class WeLike(models.Model):

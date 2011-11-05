@@ -1,35 +1,10 @@
 {% extends "base.html" %}
 {% load django_static thumbnail %}
 
-{% block pagetitle %}Order (Step 2 of 3) - Confirm Order{% endblock %}
+{% block pagetitle %}{{ order.owner.first_name }}'s Chinese tea wishlist - Confirm Order{% endblock %}
 
-{% block extrajs %}
-<script type="text/javascript">
-
-$("#wishlist-link").click(function() {	
-	$.getJSON("/order/make_wishlist/", {xhr: "true", order: {{ order.id }}},
-  		function(data) {
-  		$('#loading').toggle();
-  		$(data).appendTo('#wishlist-full');
-  		$('#wishlist-link').unbind('click');
-  		$('a#wishlist-link').fancybox();
-  	}); 
-        	
-});
-
-
-$(document).ready( function() {
-	
-	$('a#wishlist-link').fancybox();
-});
-
-</script>
-
-<script type="application/javascript" src="{% staticfile '/js/lightbox/jquery.fancybox-1.3.4.pack.js' %}"></script>
-{% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{% staticfile '/css/fancybox/jquery.fancybox-1.3.4.css' %}" />
 <style type="text/css">
 div#main-text-wide {
   margin-top: 30px;	
@@ -37,7 +12,27 @@ div#main-text-wide {
 
 div#main-text-wide div#left {
   margin: 30px 0 0 20px;
-  width: 550px;	
+}
+
+ul#steps {
+  margin-left: 110px;
+  line-height: 2em;
+  margin-bottom: 20px;	
+}
+
+ul#steps li.selected {
+  font-size: 24px;	
+}
+
+ul#steps li.selected span.name {
+  color: #333;
+  text-decoration: underline;	
+}
+
+ul#steps li.selected span.grey {
+  color: #999;	
+  font-weight: bold;
+  font-size: 18px;
 }
 
 
@@ -48,6 +43,10 @@ div#main-text-wide div#left h2 {
 div.row {
   background-image: none;	
   -moz-box-shadow: none;
+}
+
+div.row-box {
+  width: 600px;	
 }
 
 .paypal {
@@ -94,13 +93,9 @@ div.row {
   <div class="super">
 	<ul id="steps">
 		<li class="selected">
-			1. Your details
-		</li>
-		<li class="selected">
-			2. Confirm and pay
-		</li>
-		<li>
-			3. Get your tea!
+			<img src="{% staticfile '/images/gift.png' %}" style="float: left;margin-right:15px;position:relative;top:-20px;"/>
+			You're looking at <span class="name">{{ order.owner.first_name }} {{ order.owner.last_name }}'s</span> Chinese tea wishlist<br/>
+			<span class="grey">Are you ready to give the gift of tea?</span>
 		</li>
 	</ul>
 	
@@ -163,7 +158,7 @@ div.row {
 		
 		<div class="row">
 			<div class="row-label">
-				<h2>You're ordering...</h2>
+				<h2>You're purchasing these items for {{ order.owner.first_name }}:</h2>
 			</div>
 			
 			<div class="row-box">
@@ -175,24 +170,23 @@ div.row {
 			    			<img src="{{ im.url }}"/>
 			    		{% endthumbnail %}
 			    	</td>
-			    	<td width="250px">
-			    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
-			    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
-			    	</td>
-			    	<td width="150px" valign="top">
+			    	<td width="350px" valign="">
+			    		<strong>{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
+			    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})</strong>
+			    		<br/>
+			    		{{ thing.item.parent_product.super_short_description }}
 			    	</td>
 			    	<td>£{{ thing.get_price }}</td>		    				
 				  </tr>
 			    {% endfor %}
 			  {% if postage_discount %}
 			  <tr>
-			    <td><span class="small"><em>There is no postage charge, because your order is over £50</em></span></td>
+			    <td><span class="small"><em>There is no postage charge, because the order is over £50</em></span></td>
 			  </tr>
 			  {% else %}
 			  <tr>
 			  	<td>&nbsp;</td>
 			  	<td>Postage</td>
-			  	<td>&nbsp;</td>
 			  	<td>£3.00</td>		  
 			  </tr>
 		  	  {% endif %}
@@ -200,35 +194,15 @@ div.row {
 			  <tr>
 			  	<td>&nbsp;</td>
 			  	<td>Discount</td>
-			  	<td>&nbsp;</td>
 			  	<td>-£{{ value|floatformat:"2" }}</td>
 			  </tr>
 			  {% endif %}
 			  <tr>
 			  	<td>&nbsp;</td>
 			  	<td><strong>TOTAL</strong></td>
-			  	<td>&nbsp;</td>
 			  	<td><strong>£{{ total_price|floatformat:"2" }}</strong></td>		  
 			  </tr>
 			</table>
-		</div>
-	</div>
-
-
-
-	<div class="row">
-		<div class="row-label">
-			<h2>…and we'll send your order to:</h2>
-		</div>
-		
-		<div class="row-box">
-		    {{ order.owner.first_name }} {{ order.owner.last_name }}<br/>
-			{{ order.address.house_name_number }}<br/>
-			{{ order.address.address_line_1 }}<br/>
-			{{ order.address.address_line_2 }}<br/>
-			{{ order.address.town_city }}<br/>
-			{{ order.address.postcode }}<br/>
-			{{ order.address.country|upper }}
 		</div>
 	</div>
 
@@ -237,17 +211,17 @@ div.row {
 
 </div>
 
-
-<div id="wishlist">
-	<a id="wishlist-link" href="#wishlist-full">Turn this basket into a wishlist! <img src="{% staticfile '/images/gift_small.png' %}"></a>
-	<div id="wishlist-full" style="width: 600px; height: 300px; padding: 30px;">
-		<img id="loading" src="{% staticfile '/images/loading.gif' %}"/>
-	</div>
-</div>
 	
 <div id="left">
-	<h2>Problems or questions?</h2>
-    <p>We aim to offer first class customer service - if you have ANY problems or questions, contact Chris West, the owner, directly on email at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> - I'll respond normally within a few hours to every email.</p>
+	<h2>How does this work?</h2>
+	<p>It's simple - {{ order.owner.first_name }} has created a wishlist of Chinese tea items, and you can buy those items on their behalf. We'll send the items you purchase to {{ order.owner.first_name }} and you'll get a big warm fuzzy feeling.</p>
+	<h2>Where will we send the order?</h2>
+    <p>{{ order.owner.first_name }} has already provided their shipping address to us - we'll send the teas there. However, just to be sure, we will contact {{ order.owner.first_name }} to confirm before we send the teas. For privacy reasons, we can't show you the address they provided.</p>
+    
+    <h2>Is it safe to order?</h2>
+    <p>Yes! You and {{ order.owner.first_name }} are protected by our standard <strong>no questions asked</strong> refund policy, fast and friendly customer services, and privacy of your data. If you ever have any questions about this order, you can contact us directly at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>.</p>
+    
+    <p>Similarly, because you pay via Paypal, your online payment is secured with industry standard technology and <strong>we never see or store your credit card details.</strong>. We take your data extremely seriously.</p>
 
 </div>
 

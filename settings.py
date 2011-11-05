@@ -108,6 +108,7 @@ INSTALLED_APPS = (
     'registration',
     'ab',
     'django_mobile',
+    'south',
 )
 
 # Random app information for different things
