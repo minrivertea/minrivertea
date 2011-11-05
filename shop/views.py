@@ -624,16 +624,21 @@ def order_makewishlist(request):
     
     if request.GET.get('xhr'):
         order = get_object_or_404(Order, id=request.GET.get('order'))
-        wishlist = Wishlist.objects.create(
-            owner = order.owner,
-            hashkey = uuid.uuid1().hex,
-            address = order.address,
-        )
         
-        for item in order.items.all():
-            wishlist.wishlist_items.add(item)
+        # check if this person already has a wishlist with EXACTLY the same items before creating a new one...
+        if Wishlist.objects.filter(owner=order.owner, wishlist_items=order.items.all()):
+            wishlist = Wishlist.objects.get(owner=order.owner, wishlist_items=order.items.all())
+        else:
+            wishlist = Wishlist.objects.create(
+                owner = order.owner,
+                hashkey = uuid.uuid1().hex,
+                address = order.address,
+            )
+         
+            for item in order.items.all():
+                wishlist.wishlist_items.add(item)
         
-        wishlist.save()
+            wishlist.save()
 
             
         html = render_to_string('shop/snippets/make_wishlist.html', {
