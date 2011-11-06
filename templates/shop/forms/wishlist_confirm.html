@@ -22,16 +22,8 @@ function bindSubmitEmailHandler() {
                 $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');  
             }  
         });  
+        
         return false;
-        
-        $.ajaxStart(function() {
-        	$('#loading').toggle();	
-        });
-        
-        $.ajaxStop(function() {
-        	$('#loading').toggle();	
-        });
-          
     });  
 }  
 
@@ -52,22 +44,20 @@ function bindSelectItemsHandler() {
             }  
         });  
         return false; 
-        
-        $.ajaxStart(function() {
-        	$('#loading').toggle();	
-        });
-        
-        $.ajaxStop(function() {
-        	$('#loading').toggle();	
-        });
-        
+       
          
     });  
 }  
   
 $(document).ready(function() {  
     bindSelectItemsHandler(); 
-    
+    $.ajaxStart(function() {
+       	$('#loading').toggle();	
+    });
+        
+    $.ajaxStop(function() {
+       	$('#loading').toggle();	
+    });
 });  
 
 </script>
