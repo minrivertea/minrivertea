@@ -699,7 +699,7 @@ def order_makewishlist(request):
         order = get_object_or_404(Order, id=request.GET.get('order'))
         
         # check if this person already has a wishlist with EXACTLY the same items before creating a new one...
-        if Wishlist.objects.filter(owner=order.owner, wishlist_items=order.items.all()):
+        if Wishlist.objects.filter(owner=order.owner):
             objects = Wishlist.objects.filter(owner=order.owner)
             wishlist = objects[:0]
         else:
