@@ -709,10 +709,10 @@ def order_makewishlist(request):
                 address = order.address,
             )
          
-            for item in order.items.all():
-                wishlist.wishlist_items.add(item)
+        for item in order.items.all():
+            wishlist.wishlist_items.add(item)
         
-            wishlist.save()
+        wishlist.save()
   
         html = render_to_string('shop/snippets/make_wishlist.html', {
                 'order': wishlist,
