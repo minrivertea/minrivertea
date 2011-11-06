@@ -7,7 +7,8 @@
 <script type="text/javascript">
 
 function bindSubmitEmailHandler() {    
-    $('#submit_email_form').submit(function() {  
+    $('#submit_email_form').submit(function() { 
+    	$('#loading').toggle();
         $.ajax({  
             type: "POST",  
             data: $('#submit_email_form').serialize(),  
@@ -16,7 +17,8 @@ function bindSubmitEmailHandler() {
             dataType: "html",  
             success: function(html, textStatus) {  
                 $('#submit_email_form').replaceWith(html);
-                $('#paypal').toggle();   
+                $('#paypal').toggle();
+                $('#loading').toggle();   
             },  
             error: function (XMLHttpRequest, textStatus, errorThrown) {  
                 $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');  
@@ -29,6 +31,7 @@ function bindSubmitEmailHandler() {
 
 function bindSelectItemsHandler() {    
     $('#select-items-form').submit(function() {  
+    	$('#loading').toggle();
         $.ajax({  
             type: "POST",  
             data: $('#select-items-form').serialize(),  
@@ -37,27 +40,20 @@ function bindSelectItemsHandler() {
             dataType: "html",  
             success: function(html, textStatus) {  
                 $('#select-items-form').replaceWith(html);
-                bindSubmitEmailHandler();   
+                bindSubmitEmailHandler();
+                $('#loading').toggle();   
             },  
             error: function (XMLHttpRequest, textStatus, errorThrown) {  
                 $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');  
             }  
         });  
         return false; 
-       
-         
     });  
-}  
+} 
+
   
 $(document).ready(function() {  
     bindSelectItemsHandler(); 
-    $.ajaxStart(function() {
-       	$('#loading').toggle();	
-    });
-        
-    $.ajaxStop(function() {
-       	$('#loading').toggle();	
-    });
 });  
 
 </script>
