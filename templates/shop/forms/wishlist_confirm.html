@@ -153,12 +153,6 @@ div.row-box {
   position: relative;	
 }
 
-#wishlist-full img#loading {
-  position: relative;
-  left: 230px;	
-  top: 135px;
-}
-
 #paypal {
   display: none;	
 }
@@ -230,6 +224,26 @@ input.button {
   font-family: Helvetica, sans-serif;	
 }
 
+div#loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  opacity: 0.9;
+  display: none;
+  z-index: 15;	
+}
+
+div#loading img {
+  float: left;
+  position: relative;
+  margin-left: 50%;
+  top: 40%;
+  z-index: 20;	
+}
+
 </style>
 
 {% endblock %}
@@ -248,7 +262,9 @@ input.button {
 	</ul>
 	
 	<div id="basket">
-	<img id="loading" src="{% staticfile '/images/spinner.gif' %}"/>
+		<div id="loading">
+			<img id="loading" src="{% staticfile '/images/loading.gif' %}"/>
+		</div>
 	<form id="select-items-form" method="post" action="{% url wishlist_select_items %}">
 	<h2>Which items would you like to buy for {{ wishlist.owner.first_name }}?</h2>
 	<p><strong>Click an item to select it or - <a href="">select all items</a></strong></p>
