@@ -1,0 +1,35 @@
+<h2>You're purchasing these items for ABCDJKLH:</h2>
+
+<ul>
+{% for item in order.items.all %}
+	<li><strong>{{ item.quantity }} x {{ item.item.parent_product.name }} ({% if not item.item.weight %}{% else %}{{ item.item.weight|floatformat }}{{ item.item.weight_unit }}{% endif %}) - <span class="price">{{ item.item.price_unit }}{{ item.item.price }}<span></strong></li>
+{% endfor %}
+	<li>
+		<strong>
+		{% if postage_discount %}
+			There is no postage charge, because the order is over £50
+		{% else %}
+			Postage - <span class="price">£3.00
+		{% endif %}
+		 </strong>
+	</li>
+</ul>
+
+<p style="font-size: 18px; text-transform: uppercase;"><strong>Total order amount: <span class="price">£{{ total_price|floatformat:"2" }}</span></strong></p>
+
+<br/><br/>
+
+<form action="{% url wishlist_submit_email %}" method="post" id="submit_email_form">
+<h2>Next step - your email address</h2>
+
+<p>We'd like to send you a confirmation email and have your email address<br/> on record, in case there are any problems with the order. <strong>We will never send you spam email.</strong></p>
+
+
+	<div style="float: left; width: 100%;margin-bottom: 20px;">
+	<input type="text" name="order" id="id_order" style="display:none;" value="{{ order.id }}"/>
+	<input type="text" name="email" id="id_email" style="float: left; margin-right: 20px;" />
+	<label>Your email address</label>
+	</div>
+	<br/>
+	<input type="submit" class="button" value="Submit email"/>
+</form>

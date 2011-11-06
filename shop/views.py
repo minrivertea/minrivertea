@@ -552,9 +552,82 @@ def wishlist_url(request, hash):
     else: 
         total_price += 3
     
+    select_items_form = SelectWishlistItemsForm()
         
     return render(request, 'shop/forms/wishlist_confirm.html', locals())
+
+def wishlist_select_items(request):
  
+    if request.method == 'POST':
+        form = SelectWishlistItemsForm(request.POST)
+        if form.is_valid():
+            wishlist = get_object_or_404(Wishlist, hashkey=request.POST['hashkey'])
+            # create an order here:
+            order = Order.objects.create(
+                owner=wishlist.owner,
+                address=wishlist.address,
+                date_confirmed=datetime.now(),
+                is_confirmed_by_user=True,
+                status = Order.STATUS_CREATED_NOT_PAID,
+            )
+            
+            for item in request.POST.getlist(u'items'):
+                order.items.add(BasketItem.objects.get(id=item))
+            
+            order.invoice_id = "TEA-00%s" % (order.id)
+            order.save()
+            total_price = 0
+            for item in order.items.all():
+                price = item.quantity * item.item.price
+                total_price += price
+            
+            if total_price > 50:
+                postage_discount = True
+            else: 
+                total_price += 3
+                postage_discount = False
+                
+            html = render_to_string('shop/snippets/wishlist_order_form.html', {
+            	    'order': order,
+            	    'postage_discount': postage_discount,
+            	    'total_price': total_price,
+            	    })
+            return HttpResponse(html, mimetype="text/html")
+    
+    return HttpResponse()
+
+def wishlist_submit_email(request):
+    if request.method == 'POST':
+        form = WishlistSubmitEmailForm(request.POST)
+        if form.is_valid():
+            order = get_object_or_404(Order, id=request.POST['order'])
+            # create an order here:
+            order.wishlist_payee = request.POST['email']
+            order.save()
+            total_price = 0
+            for item in order.items.all():
+                price = item.quantity * item.item.price
+                total_price += price
+            
+            if total_price > 50:
+                postage_discount = True
+            else: 
+                total_price += 3
+                postage_discount = False
+                
+            html = render_to_string('shop/snippets/wishlist_complete_form.html', {
+            	    'order': order, 
+            	    'postage_discount': postage_discount,
+            	    'total_price': total_price,
+            	    'paypal_submit_url': settings.PAYPAL_SUBMIT_URL,
+            	    'paypal_return_url': settings.PAYPAL_RETURN_URL,
+            	    'paypal_notify_url': settings.PAYPAL_NOTIFY_URL,
+            	    'paypal_receiver_email': settings.PAYPAL_RECEIVER_EMAIL,
+            	    })
+            return HttpResponse(html, mimetype="text/html")
+    
+    return HttpResponse()
+
 # the view for 'logging out' if you're logged in with the wrong account   
 def not_you(request):
 
@@ -639,8 +712,7 @@ def order_makewishlist(request):
                 wishlist.wishlist_items.add(item)
         
             wishlist.save()
-
-            
+  
         html = render_to_string('shop/snippets/make_wishlist.html', {
                 'order': wishlist,
         }, context_instance=RequestContext(request))

@@ -13,13 +13,11 @@ $("#wishlist-link").click(function() {
   		$(data).appendTo('#wishlist-full');
   		$('#wishlist-link').unbind('click');
   		$('a#wishlist-link').fancybox();
-  	}); 
-        	
+  	});    	
 });
 
 
 $(document).ready( function() {
-	
 	$('a#wishlist-link').fancybox();
 });
 
@@ -73,7 +71,7 @@ div.row {
   display: none;
   float: left;
   width: 500px;
-  height: 200px;
+  height: auto;
   position: relative;	
 }
 
@@ -81,6 +79,15 @@ div.row {
   position: relative;
   left: 230px;	
   top: 135px;
+}
+
+#wishlist-full p.url {
+  background-color: #f1f1f1;
+  padding: 10px 15px;	
+}
+
+#wishlist-full strong {
+  color: #333;	
 }
 
 </style>
@@ -240,7 +247,7 @@ div.row {
 
 <div id="wishlist">
 	<a id="wishlist-link" href="#wishlist-full">Turn this basket into a wishlist! <img src="{% staticfile '/images/gift_small.png' %}"></a>
-	<div id="wishlist-full" style="width: 600px; height: 300px; padding: 30px;">
+	<div id="wishlist-full" style="width: 550px; height: 300px; padding: 30px;">
 		<img id="loading" src="{% staticfile '/images/loading.gif' %}"/>
 	</div>
 </div>

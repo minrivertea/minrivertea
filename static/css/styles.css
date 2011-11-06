@@ -134,7 +134,8 @@ ol {
 }
 
 input.button {
-  color: #237A2A;	
+  color: #237A2A;
+  height: auto;	
 }
 
 input.button:hover {

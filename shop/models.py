@@ -311,6 +311,7 @@ class Order(models.Model):
     sampler_email_sent = models.BooleanField(default=False)
     sampler_sent = models.BooleanField(default=False)
     reminder_email_sent = models.BooleanField(default=False)
+    wishlist_payee = models.CharField(max_length=200, blank=True, null=True)
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
     STATUS_PAID = 'paid'

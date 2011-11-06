@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
-from minriver.shop.models import Address, Order, Discount, Shopper, Product, Notify
+from minriver.shop.models import Address, Order, Discount, Shopper, Product, Notify, BasketItem
 from minriver.countries import countries
 
 
@@ -180,3 +180,22 @@ class ReviewForm(forms.Form):
 class NotifyForm(forms.Form):
     email = forms.EmailField(required=True, error_messages={'required': 'Please enter a valid email address'})
     country = forms.ChoiceField(required=False, choices=countries)
+
+
+basket_items = BasketItem.objects.all()
+
+class SelectWishlistItemsForm(forms.Form):
+    hashkey = forms.CharField()
+    items = forms.CharField(required=False)
+    
+
+class WishlistSubmitEmailForm(forms.Form):
+    email = forms.CharField()
+    order = forms.CharField()    
+    
+    
+    
+    
+    
+    
+    
