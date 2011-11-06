@@ -136,6 +136,7 @@ ol {
 input.button {
   color: #237A2A;
   height: auto;	
+  font-family: Helvetica, sans-serif;
 }
 
 input.button:hover {

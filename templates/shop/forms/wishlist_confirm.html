@@ -156,7 +156,7 @@ ul#items {
   font-weight: normal;
   padding: 20px;
   font-size:14px;
-  margin-bottom: 1px;
+  margin-bottom: 5px;
   border-radius: 5px;	
 }
 
@@ -291,9 +291,9 @@ div#loading img {
 	
 <div id="left">
 	<h2>How does this work?</h2>
-	<p>It's simple - {{ wishlist.owner.first_name }} has created a wishlist of Chinese tea items, and you can buy those items on their behalf. We'll send the items you purchase to {{ wishlist.owner.first_name }} and you'll get a big warm fuzzy feeling.</p>
+	<p>It's simple - {{ wishlist.owner.first_name }} has created a wishlist of Chinese tea items, and you can buy those items for them. We'll send the items you purchase to {{ wishlist.owner.first_name }} and you'll get a big warm fuzzy feeling.</p>
 	<h2>Where will we send the order?</h2>
-    <p>{{ wishlist.owner.first_name }} has already provided their shipping address to us - we'll send the teas there. However, just to be sure, we will contact {{ wishlist.owner.first_name }} to confirm before we send the teas. For privacy reasons, we can't show you the address they provided.</p>
+    <p>{{ wishlist.owner.first_name }} has already provided a shipping address to us - we'll send the teas there. However, just to be sure, we will contact {{ wishlist.owner.first_name }} to confirm before we send the teas. For privacy reasons, we can't show you the address they provided.</p>
     
     <h2>Is it safe to order?</h2>
     <p>Yes! You and {{ wishlist.owner.first_name }} are protected by our standard <strong>no questions asked</strong> refund policy, fast and friendly customer services, and privacy of your data. If you ever have any questions about this order, you can contact us directly at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>.</p>
