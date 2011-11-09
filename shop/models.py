@@ -379,21 +379,6 @@ class Wishlist(models.Model):
     def __unicode__(self):
         return self.owner.email
         
-    
-# can be deleted, not used anymore (Aug 2011)
-class WeLike(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    url = models.URLField()
-    image = models.ImageField(upload_to='images/likes')
-    date_added = models.DateTimeField(default=datetime.now)
-    
-    def __unicode__(self):
-        return self.title
-    
-    # still need to do this properly
-    def get_short_url(self):
-        return url
           
      
 
@@ -488,6 +473,18 @@ def show_me_the_money(sender, **kwargs):
     order.date_paid = ipn_obj.payment_date
     order.is_paid = True
     order.save()
+    
+    # if this was from a wishlist, remove the items from the corresponding wishlist
+    if order.wishlist_payee:
+        # get the owner's wishlist (remember, they can only have 1 wishlist)
+        wishlist = get_object_or_404(Wishlist, owner=order.owner)
+        for item in order.items.all():
+            try:
+                wishlist.wishlist_items.remove(item)
+            except:
+                pass
+        
+        wishlist.save()
     
     # create and send an email to the customer
     to_email = order.owner.email

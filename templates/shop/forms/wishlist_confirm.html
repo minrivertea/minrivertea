@@ -8,46 +8,58 @@
 
 function bindSubmitEmailHandler() {    
     $('#submit_email_form').submit(function() { 
-    	$('#loading').toggle();
-        $.ajax({  
-            type: "POST",  
-            data: $('#submit_email_form').serialize(),  
-            url: "{% url wishlist_submit_email %}",  
-            cache: false,  
-            dataType: "html",  
-            success: function(html, textStatus) {  
-                $('#submit_email_form').replaceWith(html);
-                $('#paypal').toggle();
-                $('#loading').toggle();   
-            },  
-            error: function (XMLHttpRequest, textStatus, errorThrown) {  
-                $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');  
-            }  
-        });  
-        
+    	if ($('#submit_email_form input#id_email').val() == "") {
+    		$('#submit_email_form .error').prepend('<p style="color:red;">* You must provide an email address</p>');
+    		return false;
+    	}
+    	else {
+    		$('#loading').toggle();
+        	$.ajax({  
+        	    type: "POST",  
+        	    data: $('#submit_email_form').serialize(),  
+        	    url: "{% url wishlist_submit_email %}",  
+        	    cache: false,  
+        	    dataType: "html",  
+        	    success: function(html, textStatus) {  
+        	        $('#submit_email_form').replaceWith(html);
+        	        $('#paypal').toggle();
+        	        $('#loading').toggle();   
+        	    },  
+        	    error: function (XMLHttpRequest, textStatus, errorThrown) {  
+        	        $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');  
+        	    }  
+        	});  
         return false;
+    	}
     });  
 }  
 
 function bindSelectItemsHandler() {    
-    $('#select-items-form').submit(function() {  
-    	$('#loading').toggle();
-        $.ajax({  
-            type: "POST",  
-            data: $('#select-items-form').serialize(),  
-            url: "{% url wishlist_select_items %}",  
-            cache: false,  
-            dataType: "html",  
-            success: function(html, textStatus) {  
-                $('#select-items-form').replaceWith(html);
-                bindSubmitEmailHandler();
-                $('#loading').toggle();   
-            },  
-            error: function (XMLHttpRequest, textStatus, errorThrown) {  
-                $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');  
-            }  
-        });  
-        return false; 
+    $('#select-items-form').submit(function() {
+    	
+    	if ($('#select-items-form :checkbox:not(:checked)').length > 0) {
+    		$('.error').prepend('<p style="color:red;">* You must select at least one item (click to select an item)!</p>');
+    		return false;
+    	}
+    	else { 	 
+ 	   		$('#loading').toggle();
+        	$.ajax({  
+        	    type: "POST",  
+        	    data: $('#select-items-form').serialize(),  
+        	    url: "{% url wishlist_select_items %}",  
+        	    cache: false,  
+        	    dataType: "html",  
+        	    success: function(html, textStatus) {  
+        	        $('#select-items-form').replaceWith(html);
+        	        bindSubmitEmailHandler();
+        	        $('#loading').toggle();   
+        	    },  
+        	    error: function (XMLHttpRequest, textStatus, errorThrown) {  
+        	        $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');  
+        	    }  
+        	});  
+        	return false; 
+    	}
     });  
 } 
 
@@ -251,9 +263,11 @@ div#loading img {
 		<div id="loading">
 			<img id="loading" src="{% staticfile '/images/loading.gif' %}"/>
 		</div>
+		
 	<form id="select-items-form" method="post" action="{% url wishlist_select_items %}">
 	<h2>Which items would you like to buy for {{ wishlist.owner.first_name }}?</h2>
-	<p><strong>Click an item to select it or - <a href="">select all items</a></strong></p>
+	<p><strong>Click an item to select it:</strong></p>
+	<div class="error"></div>
 		<ul id="items">
 			{% for item in wishlist.wishlist_items.all %}
 			<li>
