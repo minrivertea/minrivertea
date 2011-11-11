@@ -6,8 +6,86 @@
 
 {% block pagetitle %}{{ category.long_title }}{% endblock %}
 
+{% block extrajs %}
+<script type="text/javascript">
+$('#types').click(function() {
+	$('#subnav').toggle(300);
+});
+</script>
+{% endblock %}
+
 {% block extracss %}
 <link rel="stylesheet" type="text/css" href="{% staticfile '/css/teas.css' %}"/>
+<style type="text/css">
+#chooser2 {
+  float: right;
+  width: auto;	
+  margin-bottom: 30px;
+}
+
+#chooser2 a {
+  height: 59px;
+  width: 59px;
+  float: left;
+  margin-right: 25px;
+  background: url('{% staticfile "/images/chooser-icons.png" %}') no-repeat bottom left;	
+}
+
+#chooser2 a span {
+  position: relative;
+  top: 69px;
+  font-size: 12px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  display: block;
+  color: #666;	
+}
+
+#chooser2 a.selected span {
+  color: #237A2A;
+}
+
+#chooser2 a:hover span {
+  color:#237A2A;	
+}
+
+#chooser2 a.teas {
+  background-position:	0px bottom;
+}
+
+#chooser2 a.teas:hover {
+  opacity: 0.7;	
+}
+
+#chooser2 a.teas.selected {
+  background-position:	0px top;
+}
+
+#chooser2 a.samples {
+  background-position:	-59px bottom;
+}
+
+#chooser2 a.samples.selected, #chooser2 a.samples:hover {
+  background-position:	-59px top;
+}
+
+#chooser2 a.equipment {
+  background-position:	-118px bottom;
+}
+
+#chooser2 a.equipment.selected, #chooser2 a.equipment:hover {
+  background-position:	-118px top;
+}
+
+#chooser2 a.gifts {
+  background-position:	-177px bottom;
+}
+
+#chooser2 a.gifts.selected, #chooser2 a.gifts:hover {
+  background-position:	-177px top;
+}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -15,9 +93,19 @@
 
 <div id="banner">
   <div class="super">
+  
   <p class="quote">&ldquo;<em>The tea is simply delicious, a world apart from any other green tea I have drunk.</em>&rdquo;
   <span class="red">James Parsons</span>
   </p>
+  <!--
+  	<div id="chooser2">
+		<a class="teas{% ifequal request.path '/teas/' %} selected{% endifequal %}" href="/teas/"><span>Teas</span></a>
+		<a class="samples" href=""><span>Samplers</span></a>
+		<a class="equipment{% ifequal request.path '/tea-equipment/' %} selected {% endifequal %}" href="/tea-equipment/"><span>Equipment</span></a>
+		<a class="gifts{% ifequal request.path '/gift-boxes/' %} selected{% endifequal %}" href="/gift-boxes/"><span>Gift boxes</span></a>
+	</div>
+	-->
+	
 	<h1>{{ category.long_title }}</h1>
     {{ category.short_description|safe }}	
   </div>
@@ -26,16 +114,30 @@
 <div id="main-text-wide">
   <div class="super">
 
+
+	
+
+	
+	
 	<!--
 	<div id="chooser">
 		<ul>
-			<li>Showing:</li>
+			<li>Filter by:</li>
+			<li><img style="margin: 0 5px 0 -15px;" src="{% staticfile '/images/small-arrow.png' %}"/> <span id="types">Types of tea</span>
+				<ul id="subnav">
+					<li><a href="">Oolong tea</a></li>
+					<li><a href="">Green tea</a></li>
+					<li><a href="">Red tea</a></li>
+				</ul>
+			</li>
 			{% for c in categories %}
 			<li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
 			{% endfor %}
 		</ul>
 	</div>
+	
 	-->
+	
 
 	<div id="teas">
 		{% include "shop/snippets/products.html" %}

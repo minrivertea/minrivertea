@@ -718,7 +718,7 @@ a#explain-prices:hover span {
 		    	  <div class="price large">
 		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
-					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button single">Add to basket +</a>
+					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat:'2' }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button single">Add to basket +</a>
             		{% if message %}
             		{% ifequal thing.item.weight price.weight %}
 	  				<div class="message">
@@ -733,7 +733,7 @@ a#explain-prices:hover span {
 			{% else %}
 		    	{% for price in prices %}
 		    	  <div class="price{% if forloop.last %} last{% endif %}">
-		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
+		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat:'2' }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
 					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button">Add to basket +</a>
             		{% if message %}
