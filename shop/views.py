@@ -29,6 +29,7 @@ import re
 from minriver.shop.models import *
 from minriver.shop.forms import *
 from minriver.slugify import smart_slugify
+from minriver.shop.emails import _admin_notify_new_review, _admin_notify_contact
 
 
 
@@ -211,31 +212,9 @@ def contact_us(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             
-            # get cleaned data from form submission
-            message = form.cleaned_data['your_message']
-            your_name = form.cleaned_data['your_name']
-            your_email = form.cleaned_data['your_email']
-            
-            # create email
-            body = render_to_string('shop/emails/text/contact_template.txt', {
-            	 'message': message,
-            	 'your_email': your_email,
-            	 'your_name': your_name,
-            })
-
-            recipient = settings.SITE_EMAIL
-            sender = settings.SITE_EMAIL
-            subject_line = "MINRIVERTEA.COM - WEBSITE CONTACT SUBMISSION"
+            _admin_notify_contact(request, form.cleaned_data)
                 
-            send_mail(
-                          subject_line, 
-                          body, 
-                          sender,
-                          [recipient], 
-                          fail_silently=False
-            )
-            
-            
+                        
             url = request.META.get('HTTP_REFERER','/')
             request.session['MESSAGE'] = "1"
             return HttpResponseRedirect(url) 
@@ -714,8 +693,11 @@ def order_makewishlist(request):
         for item in order.items.all():
             wishlist.wishlist_items.add(item)
         
+        
         wishlist.save()
-  
+  		
+  		
+  		
         html = render_to_string('shop/snippets/make_wishlist.html', {
                 'order': wishlist,
         }, context_instance=RequestContext(request))
@@ -802,57 +784,17 @@ def review_tea(request, slug):
                 email=email,
             )
             
-            body = "%s %s just posted a review of %s" % (first_name, last_name, tea.name)              
-            subject_line = "New Review Posted - %s" % tea.name 
-            email_sender = settings.SITE_EMAIL
-            recipient = settings.SITE_EMAIL
-      
-            send_mail(
-                subject_line, 
-                body, 
-                email_sender,
-                [recipient], 
-                fail_silently=False
-            )
+            review.save()
             
-            
-            
+            _admin_notify_new_review(request, tea, review)
+                        
             return HttpResponseRedirect('/review/thanks')
         
     else:
         form = ReviewForm()
     return render(request, "shop/forms/review_form.html", locals())
 
-def send_review_email(request, order_id):
-    order = get_object_or_404(Order, id=order_id)
-    
-    # create and send an email to the user to say thanks.
-    
-    subject = "minrivertea.com - how to brew your tea"
-    from_email = settings.SITE_EMAIL
-    to_email = order.owner.email
-    
-    text_content = render_to_string('shop/emails/text/review_email.txt', {
-        'shopper': order.owner, 
-        'items': order.items.all(),
-        }
-    )
-    
-    html_content = render_to_string('shop/emails/html/html_review_email.html', {
-        'items': order.items.all(),
-        'shopper': order.owner,
-        'subject': subject,
-    })
-    
-
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
-    
-    order.review_email_sent = True
-    order.save()
-    
-    return HttpResponseRedirect('/admin-stuff')   
+ 
 
 
 # view for the shipping page
@@ -1019,66 +961,9 @@ def ship_it(request, id):
     
     return HttpResponseRedirect('/admin-stuff')
 
-# function for sending the 'send sample to friend' email
-def send_sampler_email(request, id):
-    order = get_object_or_404(Order, pk=id)
-    shopper = order.owner
-    if order.sampler_email_sent:
-        return False
-
-    from_email = settings.SITE_EMAIL
-    to_email = shopper.email
-    subject = "Give a tea gift to a friend, courtesy of the Min River Tea Farm"
-            
-    # create email
-    text_content = render_to_string('shop/emails/text/send_sample_to_friend_email.txt', {'shopper': shopper})
-    html_content = render_to_string('shop/emails/html/send_sample_to_friend.html', {
-    	'shopper': shopper,
-    	'subject': subject,
-    })
-    
-    
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
-
-    
-    order.sampler_email_sent = True
-    order.save()
-    
-    return HttpResponseRedirect('/admin-stuff')
 
 
-# function for sending the 'send sample to friend' email
-def send_reminder_email(request, id):
-    order = get_object_or_404(Order, pk=id)
-    order.hashkey = uuid.uuid1().hex
-    shopper = order.owner
-    if order.reminder_email_sent:
-        return False
-
-    from_email = settings.SITE_EMAIL
-    to_email = order.owner.email
-    
-    # load up the variables for the email
-    subject_line = "Was it something I said?"
-    url = reverse('order_url', args=[order.hashkey])
-    body = render_to_string('shop/emails/text/send_reminder_email.txt', {'order': order, 'url': url})
-    
-                
-    send_mail(
-              subject_line, 
-              body, 
-              from_email,
-              [to_email], 
-              fail_silently=False
-    )
-            
-    
-    order.reminder_email_sent = True
-    order.save()
-    
-    return HttpResponseRedirect('/admin-stuff')    
+  
     
     
     

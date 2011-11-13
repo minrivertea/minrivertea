@@ -2,17 +2,19 @@ from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 import views
 
+import emails
+
 
 urlpatterns = patterns('',
 
     url(r'^$', views.index, name="home"),
     url(r'^admin-stuff/$', views.admin_stuff, name="admin_stuff"),
-    url(r'^admin-stuff/send-review-email/(\w+)$', views.send_review_email, name="send_review_email"),
-    url(r'^admin-stuff/send-reminder-email/(\w+)$', views.send_reminder_email, name="send_reminder_email"),
+    url(r'^admin-stuff/send-review-email/(\w+)$', emails._product_review_email, name="send_review_email"),
+    url(r'^admin-stuff/send-reminder-email/(\w+)$', emails._order_reminder_email, name="send_reminder_email"),
     url(r'^admin-stuff/ship-it/(\w+)$', views.ship_it, name="ship_it"),
     url(r'^admin-stuff/shopper/(\w+)$', views.admin_shopper, name="admin_shopper"),
     url(r'^admin-stuff/order/(\w+)$', views.admin_order, name="admin_order"),
-    url(r'^admin-stuff/send-sampler-email/(\w+)/$', views.send_sampler_email, name="send_sampler_email"),
+    url(r'^admin-stuff/send-sampler-email/(\w+)/$', emails._free_sampler_email, name="send_sampler_email"),
     url(r'^contact-us/$', views.contact_us, name="contact_us"),
     url(r'^sale/$', views.sale, name="sale"),
     url(r'^basket/$', views.basket, name="basket"),
