@@ -8,6 +8,7 @@ h1 {
   margin-bottom: 20px;	
 }
 
+
 div#main-text-wide div#right {
   float: left;
   padding-right: 30px;
@@ -38,49 +39,40 @@ div#main-text-wide div#left div.row-box p {
   	
 }
 
-form {
-  padding: 30px 35px;
-  background-color: #fff;
-  border: 1px solid #e1e1e1;
-  border-radius: 10px;	
-  float: left;
-  width: 550px;
-}
-
 form label {
   text-align: left;
   font-size: 14px;
-  width: 100%;
-  padding: 0 20px 5px 0;	
+  width: 120px;
+  position: relative;
+  top: 4px;	
+}
+
+#main-text-wide div#left form p {
+  margin: 10px 0 0px 0;	
 }
 
 form input {
-  width: 530px;	
+  width: 430px;	
 }
 
 form textarea {
   float: left;	
-  width: 530px;
+  width: 430px;
 }
 
-div#main-text-wide div#left form h3 {
-  margin-top: 0;	
+form input.button {
+  margin-right: 100px;
+  float: right; 
+    font-size: 16px;	
+  margin-top: 15px;
+  width: 300px;	
 }
+
 
 div#main-text-wide div#left p.help-text {
-    float: left;
+    float: right;
     font-size: 0.7em;
-    padding-left: 10px;
-    margin-top: 20px;
-    margin-right: 20px;
-}
-
-input.button {
-  height: auto;
-  font-size: 16px;
-  font-family: Helvetica, sans-serif;	
-  margin-top: 15px;
-  width: 300px;
+    margin-right: 100px;
 }
 
 div.message {
@@ -98,6 +90,92 @@ div#main-text-wide div#left div.message h3 {
 
 div#main-text-wide div#left div.message p {
   margin: 0;	
+}
+
+div.top {
+  float: left;
+  width: 100%;
+  margin-bottom: 30px;	
+}
+
+.white {
+  background-color: #fff;
+  padding: 20px 25px;
+  float: left;	
+  width: 650px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  position: relative;
+}
+
+.white p {
+  font-size: 16px;	
+  margin: 0 0 10px 0;
+}
+
+.white p.nihao {
+  font-size: 20px;	
+}
+
+.white ul {
+  list-style-type: none;
+  display: inline;
+  font-size: 20px;
+  margin: 0;	
+  padding: 0;
+}
+
+/* this is the background of the arrow */
+.white:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid transparent;         
+        border-left: 0;
+        border-top: 20px solid transparent;
+        border-right: 20px solid #d1d1d1;
+        position: absolute;
+        top: 20px;
+        left: -21px;
+        z-index: 1;
+        margin-left: ;
+}
+
+/* this is the foreground of the arrow */
+.white:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-right: 20px solid #fff;     
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-left: 0;
+        position: absolute;
+        top: 20px;
+        left: -19px;
+        z-index: 2;
+        margin-left: -1px;
+}
+
+ul.follow {
+  float: left;
+  list-style-type: none;
+  margin: 10px 0 0 20px;
+  padding: 0;	
+}
+
+ul.follow li {
+  display: inline;	
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+ul.follow li img {
+  position: relative;
+  top: 10px;	
 }
 
 </style>
@@ -118,29 +196,35 @@ div#main-text-wide div#left div.message p {
 </div>  
 
 <div id="main-text-wide">
-  <div class="super">		
-	<div id="right">
-		{% include 'flatpages/about_navigation.html' %}
+  <div class="super">			
+	
+	<h1>Contact the Min River Tea Farm</h1>
+		
+		<div class="top">
+		
+			<img src="{% staticfile '/images/christopher.jpg' %}" style="float:left;margin-right: 30px;">
+		
+			<div class="white">
+				<p class="nihao"><strong>Nǐ hǎo (that's <em>hello</em> in China!)</strong></p>
+				<p>I'm Chris, the owner of the Min River Tea Farm. If you have questions about tea or about us, I will do everything I can to help you out. The best way to get in touch is to drop me an email - you'll always get a quick response.</p>
+			
+				<ul>
+					<li><strong>Email:</strong> <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> </li>
+				</ul>
+				
+	 		</div>
+	 		<ul class="follow">
+	 		<li><a href="http://www.facebook.com/minrivertea/"><img src="{% staticfile '/images/facebook.png' %}"/></a></li>
+			<li><a href="https://twitter.com/minrivertea"><img src="{% staticfile '/images/twitter.png' %}"/></a></li>
+			<li><a href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"/></a></li>
+			<li><strong>&laquo; if you just want to stay in touch, we're on Facebook, Twitter and Flickr too</strong></li>
+			</ul>
+	 	</div>
+	
 
-	 	<div class="info">
-			<h3>Keep in touch!</h3>
-		 	<p>If you just want to keep in touch, we tweet a lot, and also post tea related photos on flickr regularly.</p>
-		 	<a href="http://www.facebook.com/minrivertea" title="Friend us on Facebook"><img src="{% staticfile '/images/facebook.png' %}"></a>
-		 	<a title="Checkout our tea photos on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
-			<a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
-		</div>
-
-	</div>
 		
 	<div id="left">
-		<h1>Contact the Min River Tea Farm</h1>
-		<img src="{% staticfile '/images/blog-chris.jpg' %}" style="float:left;margin-right: 20px;">
-		<p>Hi, I'm Chris, the owner of the Min River Tea Farm. If you'd like to get in touch, for whatever reason, please feel free to contact me. The Min River Tea Farm is a UK company, but we're permanently based in China close to many tea growing areas in Fujian Province. The best ways to get in contact are:</p>
-			
-		<ul>
-			<li><strong>Email me:</strong> <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> </li>
-			<li><strong>Follow me:</strong> <a href="http://twitter.com/minrivertea">@minrivertea</a></li>
-		</ul>
+	 		 	
 	 	<h3>Returns</h3>
 	 	<p>If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked.</p>
 	 	

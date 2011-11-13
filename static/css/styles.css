@@ -137,6 +137,7 @@ input.button {
   color: #237A2A;
   height: auto;	
   font-family: Helvetica, sans-serif;
+  font-size: 16px;
 }
 
 input.button:hover {
@@ -837,8 +838,7 @@ div.row-label {
 
 div.row-label h3 {
     color: #19761C;
-    font-size: 1.3em;
-    font-weight: normal;
+    font-weight: bold;
     margin: 0;
 }
 
@@ -863,11 +863,11 @@ div.row-box input {
     border-width: 1px;
     color: #666666;
     float: left;
-    font: 14px arial,helvetica,clean,sans-serif;
+    font: 16px arial,helvetica,clean,sans-serif;
     height: 20px;
     margin: 0 0 20px 0;
     padding: 10px 15px;
-    width: 350px;
+    width: 380px;
 }
 
 div.row-box input:focus {
@@ -881,10 +881,9 @@ div.row-box label {
     float: left;
     font-size: 14px;
     line-height: 1.2em;
-    margin-bottom: 5px;
-    margin-left: 10px;
+    margin: 0 0 5px 10px;
     position: relative;
-    text-align: left;
+    top: 10px;
     width: 120px;
 }
 

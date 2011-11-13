@@ -17,13 +17,8 @@ div.other-reviews {
 textarea {
     border-radius: 10px 10px 10px 10px;
     padding: 15px;
-    width: 500px;
+    width: 600px;
     font-size: 16px;
-}
-
-div#submit-button {
-position: relative;
-top: 240px;	
 }
 
 #facebook {
@@ -90,14 +85,14 @@ div.rss p {
 		
 	  <div id="basket">
 	  	<form action="." method="post">
-	  		<div id="submit-button">
+	  		<div id="checkout-button">
 			<p>* <em>we may publish this review on our website - by submitting your review, you give us permission to do so.</em></p>
-			<input class="submit-button" value="" type="submit">
+			<input class="button" value="Submit your review &raquo;" type="submit">
 			</div>
 		<div class="row">
 		
 			<div class="row-box">
-			<textarea id="id_text" rows="10" cols="40" name="text" onclick="clearInput(this)">Add your review here</textarea>
+			<textarea id="id_text" rows="10" cols="40" name="text" onclick="clearInput(this)">Write your review here...</textarea>
 			</div>
 			
 			<div class="row-box">
@@ -126,7 +121,7 @@ div.rss p {
 			<h3>What have other people said about our  {{ tea }}?</h3>
 			{% for review in other_reviews %}
 				<div class="review">
-					<p><em>"{{ review.short_text }}"</em> <span>{{ review.first_name }} {{ review.last_name }}</span></p>
+					<p><em>"{{ review.short_text }}"</em> <span class="red">{{ review.first_name }} {{ review.last_name }}</span></p>
 				</div>				
 			{% endfor %}
 		</div>

@@ -214,7 +214,6 @@ def contact_us(request):
             
             _admin_notify_contact(request, form.cleaned_data)
                 
-                        
             url = request.META.get('HTTP_REFERER','/')
             request.session['MESSAGE'] = "1"
             return HttpResponseRedirect(url) 
@@ -397,12 +396,10 @@ def order_step_one(request):
                 try:
                     this_user = get_object_or_404(User, email=form.cleaned_data['email'])
                 except:
-                    username = form.cleaned_data['email']
-                    random_password = uuid.uuid1().hex
                     creation_args = {
                         'username': form.cleaned_data['email'],
                         'email': form.cleaned_data['email'],
-                        'password': random_password,
+                        'password': uuid.uuid1().hex,
                     }
                      
                     this_user = User.objects.create(**creation_args)
@@ -571,6 +568,7 @@ def wishlist_select_items(request):
             	    'postage_discount': postage_discount,
             	    'total_price': total_price,
             	    })
+            	    
             return HttpResponse(html, mimetype="text/html")
     
     return HttpResponse()
@@ -695,8 +693,7 @@ def order_makewishlist(request):
         
         
         wishlist.save()
-  		
-  		
+
   		
         html = render_to_string('shop/snippets/make_wishlist.html', {
                 'order': wishlist,

@@ -228,25 +228,6 @@ div.tea-top div#prices div.price.large {
   width: 380px;
 }
 
-div.tea-top div#prices div.price.large div.button {
-  background: url("{% staticfile '/images/price-back-two.png' %}") no-repeat scroll right top transparent;	
-  width: 186px;
-  height: 43px;
-  float:right;
-  margin-top: 0;
-}
-
-div.tea-top div#prices div.price.large div.button:hover {
-  background: url("{% staticfile '/images/price-back-two.png' %}") no-repeat scroll right center transparent;	
-  width: 186px;
-  height: 43px;
-}
-
-div.tea-top div#prices div.price.large div.button:active {
-  background: url("{% staticfile '/images/price-back-two.png' %}") no-repeat scroll right bottom transparent;	
-  width: 186px;
-  height: 43px;
-}
 
 div.tea-top div#prices div.price.large p.price-description {
   width: 100px;
@@ -301,7 +282,6 @@ div.tea-top div.tea-description p {
 div.price-text {
     color: #EE6464;
     float: left;
-    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 28px;
     font-weight: bold;
     height: 23px;
@@ -366,7 +346,6 @@ table.details td a {
 
 table.details td.left {
   padding-right: 10px;
-  font-family:"helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;	
   background-color: #e1e1e1;
 }
 
@@ -406,7 +385,6 @@ div.product-photos-small p.helper {
 p.price {
     color: #444;
     float: left;
-    font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
     font-size: 32px;
     font-weight: bold;
     letter-spacing: -1px;
@@ -435,34 +413,6 @@ p.price-description {
     top: 5px;
 }
 
-div.facts {
-    -moz-border-bottom-colors: none;
-    -moz-border-image: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background-color: #F6F6F6;
-    border-color: #F1F1F1 #E1E1E1 #E1E1E1 #F1F1F1;
-    border-radius: 10px 10px 10px 10px;
-    border-right: 1px solid #E1E1E1;
-    border-style: solid;
-    border-width: 1px;
-    margin-bottom: 20px;
-    padding: 15px 15px 15px 20px;
-}
-
-div.facts ul {
-  list-style-type: square;
-  font-size: 13px;
-  margin-bottom: 5px;
-  margin-top: 5px;	
-  padding-left: 15px;
-}
-
-div.facts h3 {
-  color: #19761C;
-  font-size: 18px;	
-} 
 
 div.fb-recommend {
   margin-top: 20px;
@@ -733,7 +683,7 @@ a#explain-prices:hover span {
 			{% else %}
 		    	{% for price in prices %}
 		    	  <div class="price{% if forloop.last %} last{% endif %}">
-		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat:'2' }}</p> 
+		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
 					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button">Add to basket +</a>
             		{% if message %}

@@ -598,15 +598,15 @@
                                                     <tr>
                                                         <td valign="top">
                                                             <div mc:edit="std_content00">
-                                                                <h1 class="h1">Hey {{ first_name }}!</h1>
+                                                                <h1 class="h1">Hey {{ order.owner.first_name }}!</h1>
 																<br/>
                                                                 <strong>You're awesome - and your tea cup is about get more awesome too!</strong>
                                                                 
-                                                                <br/><br/>We've received your tea order at <a href="http://www.minrivertea.com">www.minrivertea.com</a>, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote this order ID: {{ invoice_id }}.
+                                                                <br/><br/>We've received your tea order at <a href="http://www.minrivertea.com">www.minrivertea.com</a>, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote this order ID: {{ order.invoice_id }}.
                                                                 <br />
                                                                 <br />
                                                                 
-                                                                {% for item in order_items %}
+                                                                {% for item in order.items.all %}
 																* {{ item }}<br/>
 																{% endfor %}
                                                             </div>
