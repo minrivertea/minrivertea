@@ -1261,8 +1261,13 @@ div.rss {
   margin-top: 10px;
 }
 
-div.rss img {
-
+ul.rss {
+   float: right;
+   list-style-type: none;
+   width: 200px;
+   overflow: hidden;
+   position: relative;
+   margin: 0;
 }
 
 div.info {
