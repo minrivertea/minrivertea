@@ -81,13 +81,24 @@ div#top div.right {
   position: relative;
 }
 
+div#logo {
+  z-index: 20;	
+  background: url('{% staticfile "/images/logo12.png" %}') no-repeat top left;
+}
+
 div#feature {
-    background: url("{% staticfile '/images/feature2.jpg' %}") no-repeat scroll 190px -10px #FFFFFF; 
+	background-color: #fff;
     float: left;
-    height: 350px;
+    height: 400px;
     margin: 0 0 0;
     padding-bottom: 0;
     width: 100%;
+}
+
+div#feature img {
+  position: relative;
+  top: -130px;	
+  left: -30px;
 }
 
 div#feature div.top {
@@ -95,7 +106,7 @@ div#feature div.top {
     padding-bottom: 10px;
     padding-right: 10px;
     position: relative;
-    top: 60px;
+    top: 90px;
     width: 400px;
 }
 
@@ -382,7 +393,7 @@ p.testimonial {
 }
 
 span.red {
-  color:#BE373A;	
+  font-size: 18px;	
 }
 
 
@@ -498,7 +509,9 @@ div#adventure #icons {
 </div>
 
 <div id="feature">
+	
   <div class="super">
+  <img src="{% staticfile '/images/homepage-feature.jpg' %}"/>
 	<div class="top">
 		<h1>Traditional Chinese tea, direct from the source</h1>
 		<p>Buy tea direct from the mountains of Fujian, China and we'll deliver it direct to your door, quickly and reliably. </p>
@@ -510,7 +523,7 @@ div#adventure #icons {
 
 <div id="adventure">
   <div class="super">
-	<img alt="Min River Tea Farm co-founder hugging a tea tree on Wuyi Mountain" src="{% staticfile '/images/home-mountain.jpg' %}"/>
+	<img alt="Min River Tea Farm co-founder hugging a tea tree on Wuyi Mountain" src="{% staticfile '/images/image3.jpg' %}"/>
 	<h2>We hug the trees, you drink good teas</h2>
 	<p>We're the <strong>only</strong> independent UK tea company actually based in China. It means we can spend more time finding great teas (and hugging more tea trees!), and you can spend more time relaxing with a great cup of tea. 
 	
