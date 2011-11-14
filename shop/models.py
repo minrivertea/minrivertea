@@ -61,7 +61,7 @@ class Product(models.Model):
         return prices
     
     def get_reviews(self):
-        reviews = Review.objects.filter(product=self)
+        reviews = Review.objects.filter(product=self, is_published=True)
         return reviews    
     
     def save(self, force_insert=False, force_update=False):
