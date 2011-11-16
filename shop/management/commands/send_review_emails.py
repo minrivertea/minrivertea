@@ -22,8 +22,9 @@ class Command(NoArgsCommand):
             if order.date_shipped is None:
                 # IMPORTANT this stops old orders with no shipping date from being included.
                 pass
-            else:            
-                if (order.date_shipped + timedelta(days=7)) > datetime.now():
+            else: 
+                # if 1 week after the order was shipped is great than the time now... do this...           
+                if (order.date_shipped + timedelta(days=7)) < datetime.now():
                     # if it's been 1 week since the order was shipped, send the email.
                     # note that the function below updates and saves the 'review_email_sent' boolean, 
                     # so we don't need to do it twice.
