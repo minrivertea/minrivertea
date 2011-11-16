@@ -57,7 +57,7 @@
 				/*@editable*/ font-size:36px;
 				/*@editable*/ font-weight: normal;
 				/*@editable*/ line-height:100%;
-				margin-top:0;
+				margin-top:20px;
 				margin-right:0;
 				margin-bottom:10px;
 				margin-left:0;
@@ -570,22 +570,7 @@
                 	<td align="center" valign="top">
                     	<table style="background-color:#fff;" border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer">
 
-                        	<tr>
-                            	<td align="center" valign="top">
-                                    <!-- // Begin Template Header \\ -->
-                                	<table style="padding:30px;" border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
-                                        <tr>
-                                            <td class="headerContent">
-                                            	<!-- // Begin Module: Standard Header Image \\ -->
-                                            	<img src="http://www.minrivertea.com/static/images/email-header2.jpg" style="max-width:600px;padding-left:0px;" id="headerImage campaign-icon" />
-                                            	<!-- // End Module: Standard Header Image \\ -->
-                                            
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!-- // End Template Header \\ -->
-                                </td>
-                            </tr>
+
                         	<tr>
                             	<td align="center" valign="top">
                                     <!-- // Begin Template Body \\ -->
@@ -600,7 +585,7 @@
                                                             <div mc:edit="std_content00">
                                                                 <h1 class="h1">Hey {{ order.owner.first_name }}!</h1>
 																<br/>
-                                                                <strong>You're awesome - and your tea cup is about get more awesome too!</strong>
+                                                                <strong>Your tea cup is about get a whole lot more awesome!</strong>
                                                                 
                                                                 <br/><br/>We've received your tea order at <a href="http://www.minrivertea.com">www.minrivertea.com</a>, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote this order ID: {{ order.invoice_id }}.
                                                                 <br />

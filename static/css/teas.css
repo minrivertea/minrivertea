@@ -236,7 +236,6 @@ span.reviews {
 
 #chooser {
   background-color: #fff;
-  
   width: 900px;	
   float: left;
   border-radius: 5px;
@@ -283,37 +282,10 @@ span#types:hover {
   cursor: pointer;	
 }
 
-ul#subnav {
-  position: absolute;
-  top: 38px;
-  left: -10px;
+a.more {
   float: left;
-  background-color: #fff;
-  padding: 0;
-  margin: 0;
-  z-index: 20;
-  border: 1px solid #e1e1e1;
-  border-width: 0 1px 1px 1px;
-  display: none;
-  border-radius: 0px 0px 5px 5px;
-}
-
-ul#subnav li {
-  border-bottom: 1px solid #e1e1e1;	
-  padding: 10px 0 0 20px;
-}
-
-ul#subnav li a {
-  padding: 5px 20px 5px 10px;
-  margin-bottom: 10px;	
-  width: 100px;
-  float: left;
-}
-
-ul#subnav li:last-child {
-  border-bottom: none;	
-}
-
-#chooser ul#subnav li:first-child {
-  text-transform: none;	
+  margin-top: 5px;	
+  padding: 5px 10px;
+  position: relative;
+  z-index: 10;
 }

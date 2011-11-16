@@ -1,0 +1,6 @@
+{% for item in items %}
+ * {{ item.invoice_id }} - {{ item.owner.email }}
+{% endfor %}
+
+
+SENT BY CRON

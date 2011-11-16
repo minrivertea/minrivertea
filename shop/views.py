@@ -953,6 +953,7 @@ def ship_it(request, id):
     
     order = get_object_or_404(Order, pk=id)
     order.status = Order.STATUS_SHIPPED
+    order.date_shipped = datetime.now()
     order.save()
     
     return HttpResponseRedirect('/admin-stuff')

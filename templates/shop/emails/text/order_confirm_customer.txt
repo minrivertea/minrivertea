@@ -1,6 +1,6 @@
 Hey {{ order.owner.first_name }},
 
-You're awesome - and your tea cup is about get more awesome too!
+Your tea cup is about get a whole lot more awesome!
 
 We've received your tea order at www.minrivertea.com, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote this order ID: {{ order.invoice_id }}.
 

@@ -15,7 +15,7 @@ import re
 from minriver.shop.models import *
 
 
-def _send_email(request, receiver, subject_line, text, html=None, sender=None):
+def _send_email(receiver, subject_line, text, request=None, html=None, sender=None):
     
     sender = settings.SITE_EMAIL
     
@@ -82,7 +82,7 @@ def _free_sampler_email(request, id):
 
 
 # send email to user asking for a review of a product
-def _product_review_email(request, order_id):
+def _product_review_email(order_id):
     order = get_object_or_404(Order, id=order_id)
     
     subject_line = "minrivertea.com - how to brew your tea"
@@ -90,17 +90,15 @@ def _product_review_email(request, order_id):
     
     text = render_to_string('shop/emails/text/review_email.txt', {
         'shopper': order.owner, 
-        'items': order.items.all(),
         }
     )
     
     html = render_to_string('shop/emails/html/html_review_email.html', {
-        'items': order.items.all(),
         'shopper': order.owner,
         'subject': subject_line,
     })
     
-    _send_email(request, receiver, subject_line, text, html)
+    _send_email(receiver, subject_line, text, html)
     
     order.review_email_sent = True
     order.save()
@@ -132,6 +130,14 @@ def _admin_notify_contact(request, data):
     _send_email(request, receiver, subject_line, text)
     
     return
+
+def _admin_cron_update(data, subject_line):
+    text = render_to_string('shop/emails/text/admin_cron_update.txt', {
+        'items': data,	
+    })
+    receiver = settings.SITE_EMAIL
+    subject_line = subject_line
+    _send_email(receiver, subject_line, text)
 
 def _payment_success_email(request, order):
     

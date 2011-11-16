@@ -57,7 +57,7 @@
 				/*@editable*/ font-size:36px;
 				/*@editable*/ font-weight: normal;
 				/*@editable*/ line-height:100%;
-				margin-top:0;
+				margin-top:20px;
 				margin-right:0;
 				margin-bottom:10px;
 				margin-left:0;
@@ -572,22 +572,6 @@
 
                         	<tr>
                             	<td align="center" valign="top">
-                                    <!-- // Begin Template Header \\ -->
-                                	<table style="padding:30px;" border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
-                                        <tr>
-                                            <td class="headerContent">
-                                            	<!-- // Begin Module: Standard Header Image \\ -->
-                                            	<img src="http://www.minrivertea.com/static/images/email-header2.jpg" style="max-width:600px;padding-left:0px;" id="headerImage campaign-icon" />
-                                            	<!-- // End Module: Standard Header Image \\ -->
-                                            
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!-- // End Template Header \\ -->
-                                </td>
-                            </tr>
-                        	<tr>
-                            	<td align="center" valign="top">
                                     <!-- // Begin Template Body \\ -->
                                 	<table style="padding: 0 15px;" border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
                                     	<tr>
@@ -599,16 +583,14 @@
                                                         <td valign="top">
                                                             <div mc:edit="std_content00">
                                                                 <h1 class="h1">Hi {{ shopper.first_name }}!</h1>
-
-                                                                <strong>Hopefully you've received your tea now, and you're already enjoying it!</strong> Remember, if you're not sure how to brew your tea, or would like some tips, please checkout the <a href="http://www.minrivertea.com/learn/">Learn</a> section of our website for guides and tips.
+																<br/>
+                                                                <strong>I hope you've received your tea safe and sound and you're already enjoying it!</strong>
+                                                                <br/><br/>
+                                                                Remember, if you're not sure how to brew your tea, or would like some tips, the <a href="http://www.minrivertea.com/learn/">Learn section of our website</a> has loads of information and guides to get the most out of your excellent tea. 
                                                                 <br />
                                                                 <br />
-                                                                <strong>It would be really helpful</strong> to us if you could write a review of your tea. It means a lot to hear your positive and negative impressions, and helps us improve our service and maintain quality. <br/>	<br/>
-                                                                {% for item in items %}
-                                                                <a href="http://www.minrivertea.com{{ item.item.parent_product.get_absolute_url }}/review/">
-                                                                Write your review for {{ item.item.parent_product.name }} here</a>
+                                                                In the meantime, if you have any more questions you can reply to this email to get in touch with me directly.
                                                                 <br/>
-                                                                {% endfor %}
                                                             </div>
 														</td>
                                                     </tr>
