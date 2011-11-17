@@ -103,10 +103,10 @@ def index(request):
         if request.session['SPLASH'] == '1':
             pass
     except:
-        if GetCountry(request)['countryCode'] == 'US':
-            print GetCountry(request)['countryCode']
-            request.session['SPLASH'] = '1'
-            template = "shop/home_usa.html"
+        if settings.DEBUG == 'False':
+            if GetCountry(request)['countryCode'] == 'US':
+                request.session['SPLASH'] = '1'
+                template = "shop/home_usa.html"
   
     return render(request, template, locals())
 
@@ -510,6 +510,54 @@ def order_url(request, hash):
         percent = order.discount.discount_value * 100
         total_price -= value
     return render(request, 'shop/forms/order_confirm.html', locals())
+
+
+def order_repeat(request, hash):
+    old_order = get_object_or_404(Order, hashkey=hash)
+    order = Order.objects.create(
+        is_confirmed_by_user = True,
+        date_confirmed = datetime.now(),
+        address = old_order.address,
+        owner = old_order.owner,
+        status = Order.STATUS_CREATED_NOT_PAID,
+        invoice_id = "TEMP",
+    )
+    for item in old_order.items.all():
+        order.items.add(item)
+        
+    order.invoice_id = "TEA-00%s" % (order.id)
+    order.save()
+    
+    # it looks silly, but we'll also create a basket for them.
+    # because IF they want to add something else to the order, they'll need a basket.   
+    basket = Basket.objects.create(
+        date_modified = datetime.now(),
+        owner = order.owner,
+    )
+    
+    for item in order.items.all():
+        item.basket = basket
+        item.save()
+        
+    request.session['BASKET_ID'] = basket.id
+    
+    total_price = 0
+    for item in order.items.all():
+        price = item.quantity * item.item.price
+        total_price += price
+            
+    if total_price > 50:
+        postage_discount = True
+    else: 
+        total_price += 3
+    
+    if order.discount:
+        value = total_price * order.discount.discount_value
+        percent = order.discount.discount_value * 100
+        total_price -= value
+    
+    return render(request, 'shop/forms/order_confirm.html', locals())
+
     
 def wishlist_url(request, hash):
     wishlist = get_object_or_404(Wishlist, hashkey=hash)

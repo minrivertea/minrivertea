@@ -46,9 +46,12 @@ def _order_reminder_email(request, id):
 
     receiver = order.owner.email
     subject_line = "Was it something I said?"
-    text = render_to_string('shop/emails/text/send_reminder_email.txt', {'order': order, 'url': reverse('order_url', args=[order.hashkey])})
+    text = render_to_string('shop/emails/text/send_reminder_email.txt', {
+        'order': order, 
+        'url': reverse('order_url', args=[order.hashkey])}
+    )
     
-    _send_email(request, receiver, subject_line, text)
+    _send_email(receiver, subject_line, text)
                     
     order.reminder_email_sent = True
     order.save()

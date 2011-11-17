@@ -18,18 +18,23 @@ class Command(NoArgsCommand):
                 is_giveaway=False,
                 status=Order.STATUS_SHIPPED, 
                 review_email_sent=False,
-         ):
-            if order.date_shipped is None:
-                # IMPORTANT this stops old orders with no shipping date from being included.
+        ):
+             
+            if len(Order.objects.filter(is_paid=True, owner=order.owner)) > 1:
+                # if the person has previously made an order, then don't send them this email (see notes)
                 pass
-            else: 
-                # if 1 week after the order was shipped is great than the time now... do this...           
-                if (order.date_shipped + timedelta(days=7)) < datetime.now():
-                    # if it's been 1 week since the order was shipped, send the email.
-                    # note that the function below updates and saves the 'review_email_sent' boolean, 
-                    # so we don't need to do it twice.
-                    _product_review_email(order.id)
-                    items.append(order)
+            else:
+                if order.date_shipped is None:
+                    # IMPORTANT this stops old orders with no shipping date from being included.
+                    pass
+                else: 
+                    # if 1 week after the order was shipped is great than the time now... do this...           
+                    if (order.date_shipped + timedelta(days=7)) < datetime.now():
+                        # if it's been 1 week since the order was shipped, send the email.
+                        # note that the function below updates and saves the 'review_email_sent' boolean, 
+                        # so we don't need to do it twice.
+                        _product_review_email(order.id)
+                        items.append(order)
         
         #finally, if there were any emails sent, then drop the admin user an email too
         if items:
@@ -43,5 +48,9 @@ class Command(NoArgsCommand):
  2. Check if the shipping date is more than 7 days before
  3. If it has been 7 days since the item was shipped, send the customer an email.
  4. Send the admin user a list of the emails sent
+ 
+ There is also logic in here so that IF a customer has already ordered from us before, they don't
+ get another review email. The logic is that we don't want to bombard return customers with information
+ they already know.
  
 """

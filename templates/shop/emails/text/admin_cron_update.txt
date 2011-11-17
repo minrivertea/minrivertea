@@ -3,4 +3,4 @@
 {% endfor %}
 
 
-SENT BY CRON
+SENT BY CRON - minrivertea.com
