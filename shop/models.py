@@ -115,6 +115,7 @@ class Shopper(models.Model):
     subscribed = models.BooleanField(default=False)
     slug = models.SlugField(max_length=200)
     twitter_username = models.CharField(max_length=200, blank=True, null=True)
+    reminder_email_sent = models.DateTimeField(blank=True, null=True)
 
     def __unicode__(self):
         return self.email

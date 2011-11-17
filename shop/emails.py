@@ -134,6 +134,60 @@ def _admin_notify_contact(request, data):
     
     return
 
+def _send_two_month_reminder_email(order):
+
+    items = []
+    
+    for item in order.items.all():
+           # what happens if the item they ordered isn't available?
+           if item.item.is_active == False or item.item.parent_product.coming_soon == True:
+               # if it's not available, suggest another product
+               new_product = UniqueProduct.objects.filter(
+                   parent_product=item.item.parent_product, 
+                   is_sale_price=False
+               ).exclude(id=item.item.id).order_by('-price')
+               
+               if len(new_product) == 0:
+                   # if there isn't a valid replacement, then don't send the email.
+                   print "no replacement for %s" % item
+                   return False
+               else:
+                   product = new_product[0]
+                   items.append(product)
+           else:
+               items.append(item)         
+    
+    if len(items) == 0:
+        return
+    
+    
+    receiver = order.owner.email
+    subject_line = "Have you finished your tea yet?"
+    if not order.hashkey:
+        order.hashkey = uuid.uuid1().hex
+        order.save()
+    
+    url = "http://www.minrivertea.com/order/repeat/%s" % order.hashkey
+    text = render_to_string('shop/emails/text/two_month_reminder.txt', {
+        'url': url,
+        'order': order	
+    })
+    html = render_to_string('shop/emails/html/two_month_reminder.html', {
+        'url': url,
+        'order': order,
+        'subject': subject_line,
+    })
+    
+    _send_email(receiver, subject_line, text, html)
+    print "Email sent to: %s" % receiver
+    order.owner.reminder_email_sent = datetime.now()
+    order.owner.save()
+    
+    
+    
+    
+    return
+
 def _admin_cron_update(data, subject_line):
     text = render_to_string('shop/emails/text/admin_cron_update.txt', {
         'items': data,	

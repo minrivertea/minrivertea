@@ -90,6 +90,20 @@ div.row {
   color: #333;	
 }
 
+span.grey {
+  line-height: 2em;
+  font-size: 15px;
+  font-weight: bold;	
+}
+
+ul#steps li.selected {
+  font-size: 24px;	
+}
+
+ul#steps {
+  margin-left: 100px;	
+}
+
 </style>
 
 {% endblock %}
@@ -101,14 +115,10 @@ div.row {
   <div class="super">
 	<ul id="steps">
 		<li class="selected">
-			<a href="{% url order_step_one %}">1. Your details</a>
+			Hey {{ order.owner.first_name }}, welcome back! Are you ready to make this order again?<br/>
+			<span class="grey">(…or you can try something new this time - <a href="{% url teas %}">check out our other teas</a>)</span>
 		</li>
-		<li class="selected">
-			<a href="{% url order_confirm %}">2. Confirm and pay</a>
-		</li>
-		<li>
-			3. Get your tea!
-		</li>
+		
 	</ul>
 	
 	<div id="basket">
@@ -117,7 +127,7 @@ div.row {
 		
 		<div class="row">
 			<div class="row-label">
-				<h2>You're ordering...</h2>
+				<h2>You're re-ordering…</h2>
 			</div>
 			
 			<div class="row-box">
@@ -172,7 +182,7 @@ div.row {
 
 	<div class="row">
 		<div class="row-label">
-			<h2>…and we'll send your order to:</h2>
+			<h2>…and is this still the right address?</h2>
 		</div>
 		
 		<div class="row-box">
@@ -182,7 +192,8 @@ div.row {
 			{{ order.address.address_line_2 }}<br/>
 			{{ order.address.town_city }}<br/>
 			{{ order.address.postcode }}<br/>
-			{{ order.address.country|upper }}
+			{{ order.address.country|upper }}<br/><br/>
+			<a href="{% url order_step_one %}">Change your address</a>
 		</div>
 	</div>
 

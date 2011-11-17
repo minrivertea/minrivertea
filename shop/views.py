@@ -364,7 +364,7 @@ def order_step_one(request):
         return render(request, 'shop/order-problem.html', locals())   
 
     try:
-        order = get_object_or_404(Order, invoice_id=request.session['ORDER_ID'])
+        order = get_object_or_404(Order, id=request.session['ORDER_ID'])
         # load their data from cookie
         if not order == None:    
             email = order.owner.email
@@ -521,10 +521,7 @@ def order_repeat(request, hash):
         owner = old_order.owner,
         status = Order.STATUS_CREATED_NOT_PAID,
         invoice_id = "TEMP",
-    )
-    for item in old_order.items.all():
-        order.items.add(item)
-        
+    )        
     order.invoice_id = "TEA-00%s" % (order.id)
     order.save()
     
@@ -534,12 +531,21 @@ def order_repeat(request, hash):
         date_modified = datetime.now(),
         owner = order.owner,
     )
+    for item in old_order.items.all():
+        if item.item.is_active == False or item.item.parent_product.coming_soon == True:
+            # if it's not available, suggest another product
+            product = UniqueProduct.objects.filter(parent_product=item.item.parent_product, is_sale_price=False).order_by('-price')[0]
+            basket_item = BasketItem.objects.create(item=product, quantity=item.quantity, basket=basket)
+            order.items.add(basket_item)
+        else:
+            order.items.add(item)
     
     for item in order.items.all():
         item.basket = basket
         item.save()
         
     request.session['BASKET_ID'] = basket.id
+    request.session['ORDER_ID'] = order.id
     
     total_price = 0
     for item in order.items.all():
@@ -556,7 +562,7 @@ def order_repeat(request, hash):
         percent = order.discount.discount_value * 100
         total_price -= value
     
-    return render(request, 'shop/forms/order_confirm.html', locals())
+    return render(request, 'shop/forms/order_repeat.html', locals())
 
     
 def wishlist_url(request, hash):
