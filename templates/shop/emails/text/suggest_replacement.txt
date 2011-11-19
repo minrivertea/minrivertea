@@ -1,0 +1,19 @@
+Hi {{ order.owner.first_name }}!
+
+Have you finished your tea yet?
+
+A few months ago you ordered some {% for item in items %}{% ifequal items.count 1 %}{{ item.parent_product }}{% endifequal %}{% ifequal items.count 2 %}{% if forloop.last %} and {% endif %}{{ item.parent_product }}{% else %}{% if forloop.first %}{% else %}{% if forloop.last %} and {% else %}, {% endif %}{% endif %}{{ item.parent_product }}{% endifequal %}{% endfor %} tea from us at www.minrivertea.com. If you've finished it and want to order more, just click this link:
+
+{{ url }}
+
+You'll be taken straight to the confirmation page, and can skip all the hassle of filling in your details again.
+
+Of course, you might want to try something different - check out our other amazing teas and see if you find something you like.
+
+All the best,
+
+Chris West, Founder
+www.minrivertea.com
+
+
+ps. We don't stock the exact size bag you bought last time, so we've substituted the nearest size bag, hope that's OK!

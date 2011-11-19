@@ -136,7 +136,11 @@ def _admin_notify_contact(request, data):
 
 def _send_two_month_reminder_email(order):
 
+    text_template = "shop/emails/text/two_month_reminder.txt"
+    html_template = 'shop/emails/html/two_month_reminder.html'
+
     items = []
+    
     
     for item in order.items.all():
            # what happens if the item they ordered isn't available?
@@ -146,6 +150,8 @@ def _send_two_month_reminder_email(order):
                    parent_product=item.item.parent_product, 
                    is_sale_price=False
                ).exclude(id=item.item.id).order_by('-price')
+               text_template = 'shop/emails/text/suggest_replacement.txt'
+               html_template = 'shop/emails/html/suggest_replacement.html'
                
                if len(new_product) == 0:
                    # if there isn't a valid replacement, then don't send the email.
@@ -153,13 +159,20 @@ def _send_two_month_reminder_email(order):
                    return False
                else:
                    product = new_product[0]
-                   items.append(product)
+                   if product in items:
+                       pass
+                   else:
+                       items.append(product)
            else:
-               items.append(item)         
+               if item.item in items:
+                   pass
+               else:
+                   items.append(item.item)         
     
     if len(items) == 0:
         return
     
+    print items
     
     receiver = order.owner.email
     subject_line = "Have you finished your tea yet?"
@@ -168,13 +181,15 @@ def _send_two_month_reminder_email(order):
         order.save()
     
     url = "http://www.minrivertea.com/order/repeat/%s" % order.hashkey
-    text = render_to_string('shop/emails/text/two_month_reminder.txt', {
-        'url': url,
-        'order': order	
-    })
-    html = render_to_string('shop/emails/html/two_month_reminder.html', {
+    text = render_to_string(text_template, {
         'url': url,
         'order': order,
+        'items': items,	
+    })
+    html = render_to_string(html_template, {
+        'url': url,
+        'order': order,
+        'items': items,
         'subject': subject_line,
     })
     
