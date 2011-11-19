@@ -2,7 +2,7 @@ from django.core.management.base import NoArgsCommand, CommandError
 from datetime import datetime, timedelta
 
 from minriver.shop.models import Order, Shopper, Product, UniqueProduct
-from minriver.shop.emails import _send_two_month_reminder_email
+from minriver.shop.emails import _send_two_month_reminder_email, _admin_cron_update
 
 
 class Command(NoArgsCommand):
@@ -40,9 +40,18 @@ class Command(NoArgsCommand):
             
         
         # so send them the email!
+        emails_sent = []
         for x in relevant_orders:
-            _send_two_month_reminder_email(x)
+            print "we're sending an email to: %s" % x
+            if _send_two_month_reminder_email(x) == True:
+                emails_sent.append(x)
             
+        if len(emails_sent) > 0:     
+            _admin_cron_update(data=emails_sent, subject_line="Minrivertea.com - 2 month reminder emails sent")
+
+
+        
+           
                    
      
                     

@@ -1,5 +1,5 @@
-{% for item in items %}
- * {{ item.invoice_id }} - {{ item.owner.email }}
+{% for item in data %}
+ * {{ item }}
 {% endfor %}
 
 

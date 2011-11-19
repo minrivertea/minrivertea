@@ -183,14 +183,11 @@ def _send_two_month_reminder_email(order):
     order.owner.reminder_email_sent = datetime.now()
     order.owner.save()
     
-    
-    
-    
-    return
+    return True
 
 def _admin_cron_update(data, subject_line):
     text = render_to_string('shop/emails/text/admin_cron_update.txt', {
-        'items': data,	
+        'data': data,	
     })
     receiver = settings.SITE_EMAIL
     subject_line = subject_line
