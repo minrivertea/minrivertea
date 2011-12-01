@@ -109,7 +109,7 @@ def _product_review_email(order_id):
     return HttpResponseRedirect('/admin-stuff')  
 
 
-def _admin_notify_new_review(request, tea, review):
+def _admin_notify_new_review(tea, review):
     
     text = "%s %s just posted a review of %s" % (review.first_name, review.last_name, tea.name)              
     subject_line = "New Review Posted - %s" % tea.name 
@@ -120,7 +120,7 @@ def _admin_notify_new_review(request, tea, review):
     return
 
 
-def _admin_notify_contact(request, data):
+def _admin_notify_contact(data):
 
     text = render_to_string('shop/emails/text/contact_template.txt', {
     	 'message': data['your_message'],
@@ -130,7 +130,7 @@ def _admin_notify_contact(request, data):
     
     receiver = settings.SITE_EMAIL
     subject_line = "MINRIVERTEA.COM - WEBSITE CONTACT SUBMISSION"
-    _send_email(request, receiver, subject_line, text)
+    _send_email(receiver, subject_line, text)
     
     return
 

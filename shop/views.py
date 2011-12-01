@@ -211,7 +211,7 @@ def contact_us(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             
-            _admin_notify_contact(request, form.cleaned_data)
+            _admin_notify_contact(form.cleaned_data)
                 
             url = request.META.get('HTTP_REFERER','/')
             request.session['MESSAGE'] = "1"
@@ -836,7 +836,7 @@ def review_tea(request, slug):
             
             review.save()
             
-            _admin_notify_new_review(request, tea, review)
+            _admin_notify_new_review(tea, review)
                         
             return HttpResponseRedirect('/review/thanks')
         
