@@ -65,9 +65,7 @@ $('#id_email').focusout(function() {
 
 $(document).ready( function() {
 	$('a#explain-prices').fancybox({
-    	'autoDimensions':false,
-    	'width':600,
-    	'padding': 30,
+    	'autoDimensions':true,
     });
 });
 
@@ -143,12 +141,12 @@ div.other-teas h3 {
 
 div.product-photos-small {
     float: left;
-    margin: 0 0 15px 0;
+    margin: 15px 0 15px 0;
     width: 420px;
     text-align: right;
 }
 
-div.product-photos-small img {
+div.tea-top div.main-image div.product-photos-small img {
     border-radius: 5px 5px 5px 5px;
     float: left;
     margin: 0 5px 0 0;
@@ -200,7 +198,7 @@ div.tea-top {
 }
 
 div.tea-top div.description p {
-  font-size: 14px;
+  font-size: 21px;
   color: #333;	
   margin: 0 0 10px 0;
 }
@@ -213,7 +211,7 @@ div.tea-top div.main-image {
 
 div.tea-top div#prices {
     float: left;
-    margin-bottom: 0px;
+    margin-top: 10px;
     padding-top: 0px;
     width: 420px;
 }
@@ -408,6 +406,7 @@ p.price-description {
     line-height: 1.2em;
     margin: 0 0 0 5px;
     width: 90px;
+    position: relative;
 }
 
 
@@ -503,9 +502,10 @@ div.coming-soon input.submit:hover {
 }	
 
 #price-helper {
-  float: left;
-  height: 25px;
-  width: 200px;	
+    float: right;
+    height: 25px;
+    margin: 25px 40px 0 0;
+    width: auto;
 }
 
 a#explain-prices {
@@ -576,12 +576,7 @@ a#explain-prices:hover span {
 			<div id="image_wrap">	
 				<img src="http://static.flowplayer.org/tools/img/blank.gif" width="500" height="331" /> 
 			</div>
-		</div>
-		
-		<div class="description">{{ tea.body_text|safe }}</div>
-
-
-		<div class="product-photos-small">
+					<div class="product-photos-small">
 			<div class="scrollable">   
 			   <div class="items">
   			    <div>
@@ -626,22 +621,9 @@ a#explain-prices:hover span {
       		  </div>
       		</div>
 		</div><!-- end product photos small -->
-
-		<div id="price-helper">
-			<a id="explain-prices" href="#explain-prices-full"><span>£</span> Explaining our prices</a>		
-			<div id="explain-prices-full">
-				<span class="pound">£</span>
-				<h3>We strongly believe our prices reflect the best available value around - here's why:</h3>
-				<ul>
-				<li><strong>We're the only independent UK tea store actually based in China</strong> - there are no middlemen making extra-profits, and we pay local market rates for our tea, not 'tourist' rates.</li>	
-				<li><strong>You pay for tea, not packaging.</strong> Our packaging is intentionally simple, and costs less than 3% of the price you pay.</li>
-				<li><strong>Each cup costs less than 25p.</strong> Because high quality loose-leaf teas can be rebrewed 3-5 times, a 100g bag of tea can make around 50-80 big mugs!</li>
-				</ul>
-				<p>Plus, we offer a <strong>no questions asked refund</strong> if you're not satisfied, and a flat rate postage fee of £3. If you order over £50, shipping is totally free.</p>
-				
-				
-			</div>
 		</div>
+		
+		<div class="description">{{ tea.body_text|safe }}</div>
 		
 		<div id="prices">
 	      {% if tea.coming_soon %}
@@ -694,6 +676,22 @@ a#explain-prices:hover span {
            	{% endifequal %}
           {% endif %}
         </div>
+        
+        <div id="price-helper">
+			<a id="explain-prices" href="#explain-prices-full"><span>£</span> Explaining our prices</a>		
+			<div id="explain-prices-full" style="width: 600px; padding: 30px;">
+				<span class="pound">£</span>
+				<h3>We strongly believe our prices reflect the best available value around - here's why:</h3>
+				<ul>
+				<li><strong>We're the only independent UK tea store actually based in China</strong> - there are no middlemen making extra-profits, and we pay local market rates for our tea, not 'tourist' rates.</li>	
+				<li><strong>You pay for tea, not packaging.</strong> Our packaging is intentionally simple, and costs less than 3% of the price you pay.</li>
+				<li><strong>Each cup costs less than 25p.</strong> Because high quality loose-leaf teas can be rebrewed 3-5 times, a 100g bag of tea can make around 50-80 big mugs!</li>
+				</ul>
+				<p>Plus, we offer a <strong>no questions asked refund</strong> if you're not satisfied, and a flat rate postage fee of £3. If you order over £50, shipping is totally free.</p>
+				
+				
+			</div>
+		</div>
 
 	</div><!-- end top product info div -->
 
