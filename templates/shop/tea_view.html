@@ -11,38 +11,25 @@ $(function() {
 
 $(".scrollable").scrollable();
 
-$(".items img").hover(function() {
+$(".items img").click(function() {
 
-	// see if same thumb is being clicked
 	if ($(this).hasClass("active")) { return; }
-
-	// calclulate large image's URL based on the thumbnail URL (flickr specific)
 	var url = $(this).attr("alt");
-	
-	// get handle to element that wraps the image and make it semi-transparent
 	var wrap = $("#image_wrap").fadeTo("medium", 0.5);
 
-	// the large image from www.flickr.com
 	var img = new Image();
     
-	// call this function after it's loaded
 	img.onload = function() {
-
-		// make wrapper fully visible
 		wrap.fadeTo("fast", 1);
-
-		// change the image
 		wrap.find("img").attr("src", url);	
-
 	};
 
 	img.src = url;
 
-	// activate item
 	$(".items img").removeClass("active");
 	$(this).addClass("active");
 
-}).filter(":first").hover();
+}).filter(":first").click();
 });
 
 // this controls the notify form email behaviour
@@ -141,17 +128,17 @@ div.other-teas h3 {
 
 div.product-photos-small {
     float: left;
-    margin: 15px 0 15px 0;
-    width: 420px;
+    margin: 10px 0 0px;
     text-align: right;
 }
 
 div.tea-top div.main-image div.product-photos-small img {
-    border-radius: 5px 5px 5px 5px;
     float: left;
-    margin: 0 5px 0 0;
-    padding: 2px;
-    border: 1px solid #fff;
+    margin: 0 10px 0 0;
+}
+
+div.tea-top div.main-image div.product-photos-small img:last-child {
+  margin-right: 0;	
 }
 
 div.product-photos-small img:hover {
@@ -160,8 +147,7 @@ div.product-photos-small img:hover {
 }
 
 div.product-photos-small img.active {
-  padding: 2px;
-  border: 1px solid #4e9350;	
+  opacity: 0.5;	
 }
 
 div.product-photos-small p {
@@ -204,9 +190,11 @@ div.tea-top div.description p {
 }
 
 div.tea-top div.main-image {
-  width: 520px;
-  float: left;
-  margin-right: 20px;	
+    background-color: #f6f6f6;
+    float: left;
+    margin-right: 20px;
+    padding: 10px;
+    width: 500px;
 }
 
 div.tea-top div#prices {
@@ -260,8 +248,7 @@ div.tea-top a.button.single {
 }
 
 div.tea-top div.main-image img {
-  border: 10px solid #fff;
-  box-shadow: 0 2px 4px #999;	
+
 }
 
 div.tea-top div.tea-description {
@@ -576,18 +563,18 @@ a#explain-prices:hover span {
 			<div id="image_wrap">	
 				<img src="http://static.flowplayer.org/tools/img/blank.gif" width="500" height="331" /> 
 			</div>
-					<div class="product-photos-small">
+		    <div class="product-photos-small">
 			<div class="scrollable">   
 			   <div class="items">
   			    <div>
-  			        {% thumbnail tea.image "50x50" crop="center" as im %}
+  			        {% thumbnail tea.image "80x80" crop="center" as im %}
   			    		{% thumbnail tea.image "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.description }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					
 					{% if tea.image_2 %}
-  			    	{% thumbnail tea.image_2 "50x50" crop="center" as im %}
+  			    	{% thumbnail tea.image_2 "80x80" crop="center" as im %}
   			    		{% thumbnail tea.image_2 "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_2_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
@@ -595,7 +582,7 @@ a#explain-prices:hover span {
 					{% endif %}
 					
 					{% if tea.image_3 %}
-					{% thumbnail tea.image_3 "50x50" crop="center" as im %}
+					{% thumbnail tea.image_3 "80x80" crop="center" as im %}
   			    		{% thumbnail tea.image_3 "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_3_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
@@ -603,7 +590,7 @@ a#explain-prices:hover span {
 					{% endif %}
 					
 					{% if tea.image_4 %}
-					{% thumbnail tea.image_4 "50x50" crop="center" as im %}
+					{% thumbnail tea.image_4 "80x80" crop="center" as im %}
   			    		{% thumbnail tea.image_4 "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_4_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
@@ -611,7 +598,7 @@ a#explain-prices:hover span {
 					{% endif %}
 					
 					{% if tea.image_5 %}
-					{% thumbnail tea.image_5 "50x50" crop="center" as im %}
+					{% thumbnail tea.image_5 "80x80" crop="center" as im %}
   			    		{% thumbnail tea.image_5 "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_5_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
