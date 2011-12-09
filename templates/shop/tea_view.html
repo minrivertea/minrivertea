@@ -128,26 +128,27 @@ div.other-teas h3 {
 
 div.product-photos-small {
     float: left;
-    margin: 10px 0 0px;
+    margin: 15px 0 0px;
     text-align: right;
 }
 
 div.tea-top div.main-image div.product-photos-small img {
     float: left;
     margin: 0 10px 0 0;
+    opacity: 0.6;
 }
 
 div.tea-top div.main-image div.product-photos-small img:last-child {
   margin-right: 0;	
 }
 
-div.product-photos-small img:hover {
+div.tea-top div.main-image div.product-photos-small img:hover {
   cursor: pointer;
   opacity: 0.8;	
 }
 
-div.product-photos-small img.active {
-  opacity: 0.5;	
+div.tea-top div.main-image div.product-photos-small img.active {
+  opacity: 1;	
 }
 
 div.product-photos-small p {
@@ -190,10 +191,9 @@ div.tea-top div.description p {
 }
 
 div.tea-top div.main-image {
-    background-color: #f6f6f6;
     float: left;
     margin-right: 20px;
-    padding: 10px;
+    padding: 10px 10px 10px 0;
     width: 500px;
 }
 
@@ -239,6 +239,16 @@ div.tea-top a.button {
     margin: 10px 0 0;
     position: relative;
     width: 150px;
+    background: -moz-linear-gradient(100% 100% 90deg, #237A2A, #399440) repeat scroll 0 0 transparent;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    color: #fff;
+}
+
+div.tea-top a.button:hover {
+  text-shadow: 0 -1px 1px #333333;
+  box-shadow: 0 1px 3px #666;
 }
 
 div.tea-top a.button.single {
@@ -367,14 +377,14 @@ div.product-photos-small p.helper {
 }
 
 p.price {
-    color: #444;
+    color: #237A2A;
     float: left;
-    font-size: 32px;
+    font-size: 40px;
     font-weight: bold;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
     line-height: 1em;
     margin: 0;
-    text-shadow: 0 2px 2px #FFFFFF;
+    text-shadow: 0 1px 1px #FFFFFF;
 }
 
 p.price span.grey {
@@ -567,14 +577,14 @@ a#explain-prices:hover span {
 			<div class="scrollable">   
 			   <div class="items">
   			    <div>
-  			        {% thumbnail tea.image "80x80" crop="center" as im %}
+  			        {% thumbnail tea.image "60x60" crop="center" as im %}
   			    		{% thumbnail tea.image "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.description }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					
 					{% if tea.image_2 %}
-  			    	{% thumbnail tea.image_2 "80x80" crop="center" as im %}
+  			    	{% thumbnail tea.image_2 "60x60" crop="center" as im %}
   			    		{% thumbnail tea.image_2 "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_2_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
@@ -582,7 +592,7 @@ a#explain-prices:hover span {
 					{% endif %}
 					
 					{% if tea.image_3 %}
-					{% thumbnail tea.image_3 "80x80" crop="center" as im %}
+					{% thumbnail tea.image_3 "60x60" crop="center" as im %}
   			    		{% thumbnail tea.image_3 "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_3_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
@@ -590,7 +600,7 @@ a#explain-prices:hover span {
 					{% endif %}
 					
 					{% if tea.image_4 %}
-					{% thumbnail tea.image_4 "80x80" crop="center" as im %}
+					{% thumbnail tea.image_4 "60x60" crop="center" as im %}
   			    		{% thumbnail tea.image_4 "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_4_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
@@ -598,7 +608,7 @@ a#explain-prices:hover span {
 					{% endif %}
 					
 					{% if tea.image_5 %}
-					{% thumbnail tea.image_5 "80x80" crop="center" as im %}
+					{% thumbnail tea.image_5 "60x60" crop="center" as im %}
   			    		{% thumbnail tea.image_5 "500x331" crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_5_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
