@@ -19,7 +19,7 @@ def index(request):
     except ValueError:
         page = 1
     
-    paginator = Paginator(objects, 5) 
+    paginator = Paginator(objects, 10) 
     # If page request (9999) is out of range, deliver last page of results.
     try:
         entries = paginator.page(page)
