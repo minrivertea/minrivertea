@@ -251,7 +251,10 @@ def add_to_basket(request, productID):
         for x in BasketItem.objects.filter(basket=basket):
             basket_quantity += x.quantity
         
-        return HttpResponse(basket_quantity)
+        message = '<p><img src="/images/tick.png"/><strong>1 x %s</strong> added to your basket!<br/><br/> <a href="/basket/"><strong>Checkout now &raquo;</strong></a></p>' % item.item 
+        data = {'quantity': basket_quantity, 'item': message}
+        json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
+        return HttpResponse(json)
     
     else:
         url = request.META.get('HTTP_REFERER','/')

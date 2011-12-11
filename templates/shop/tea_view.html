@@ -52,12 +52,18 @@ $('#id_email').focusout(function() {
 
 function addToBasket(idx) {
    $('a#add_to_basket_' + idx).click( function() {
+   	  $('#price_' + idx).css('opacity', '0.5');
+   	  $('#price_' + idx + ' .message').replaceWith('<div class="message"></div>').toggle();
+   	  $('#price_' + idx + ' div.message').fadeIn(200);
    	  $.ajax({
    	      url: '/basket/add/' + idx,
    	      type: "GET",
    	      data: "xhr=true&id=" + idx,
+   	      dataType: 'json',
    	      success: function(data){
-    		$("#basket-number").replaceWith('<span id="basket-number">(' + data + ')</span>');
+    		$("#basket-number").replaceWith('<span id="basket-number">(' + data.quantity + ')</span>');
+            $('#price_' + idx + ' .message').append(data.item).delay(2800).fadeOut(1200);
+            $('#price_' + idx).css('opacity', '1');
   		  }
    	  })
    	  return false;
@@ -225,6 +231,7 @@ div.tea-top div#prices div.price {
     float: left;
     margin: 0 20px 0 10px;
     width: 170px;
+    position: relative;
 }
 
 div.tea-top div#prices div.price.large {
@@ -240,9 +247,7 @@ div.tea-top div#prices div.price.large p.price-description {
 }
 
 div.tea-top div#prices div.price.large div.message {
-  width: 110px;
-  float: left;	
-  padding-top: 6px;
+  top: 60px;
 }
 
 div.tea-top div#prices div.price.last {
@@ -314,35 +319,73 @@ div.price-text {
 }
 
 div.message {
-    border: medium none;
-    line-height: 1.2em;
-    margin-bottom: 0;
-    margin-left: 10px;
-    margin-top: 5px;
-    padding: 3px 0 0;
-    float: left;
-    width: 150px;
+   position: absolute;
+   top: 105px;
+   left: -10px;
+   width: 160px;
+   height: auto;
+   display: none;
+   z-index: 10;
+   border: none;
+   padding: 15px 15px;
+   background-color: #fff;
+   border: 1px solid #e1e1e1;
+   border-radius: 5px;
+}
+
+div.message:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 15px solid #d1d1d1;         
+        border-top: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        top: -15px;
+        left: 25px;
+        z-index: 1;
+        margin-left: ;
+}
+
+.message:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 15px solid #fff;     
+        border-top: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        top: -14px;
+        left: 26px;
+        z-index: 2;
+        margin-left: -1px;
 }
 
 div.message p {
-  line-height: 1.5em;	
+  margin: 0;
+  font-size: 13px;
+  font-weight: ;
+  line-height: 1.2em;
+  color:  ;	
 }
 
-div.message a {
-  color: #EE6464;	
+div.message p a {
+  font-size: 20px;	
+  color: #f37679;
+}
+
+div.message p a:hover {
+  text-decoration: underline;	
 }
 
 div.message img {
-    float: left;
-    margin-right: 3px;
-    position: relative;
-    top: 2px;
-}
-
-div.message p {
-  font-size: 13px;
-  margin: 0; 
-  color: #19761C;	
+  float: left;
+  margin-right: 5px;
+  margin-bottom: 15px;	
 }
 
 table.details {
@@ -666,35 +709,21 @@ a#explain-prices:hover span {
 		  {% else %}
 			{% ifequal prices.count 1 %}
 				{% for price in prices %}
-		    	  <div class="price large">
+		    	  <div id="price_{{ price.id }}" class="price large">
+		    	  	<div class="message"></div>
 		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
 					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat:'2' }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button single" id="add_to_basket_{{ price.id }}">Add to basket +</a>
-            		{% if message %}
-            		{% ifequal thing.item.weight price.weight %}
-	  				<div class="message">
-	  					<img src="{% staticfile '/images/tick.png' %}">
-						<p>Added! <a href="{% url basket %}">Checkout &raquo;</a></p>
-					</div>
-		  			{% endifequal %}
-		  			{% endif %}
               	</div>
            		{% endfor %}
 
 			{% else %}
 		    	{% for price in prices %}
-		    	  <div class="price{% if forloop.last %} last{% endif %}">
+		    	  <div id="price_{{ price.id }}" class="price{% if forloop.last %} last{% endif %}">
+		    	  	<div class="message"></div>
 		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
 					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button" id="add_to_basket_{{ price.id }}">Add to basket +</a>
-            		{% if message %}
-            		{% ifequal thing.item.weight price.weight %}
-	  				<div class="message">
-	  					<img src="{% staticfile '/images/tick.png' %}">
-						<p>Added! <a href="{% url basket %}">Checkout &raquo;</a></p>
-					</div>
-		  			{% endifequal %}
-		  			{% endif %}
             	  </div>
            		{% endfor %}
            	{% endifequal %}
