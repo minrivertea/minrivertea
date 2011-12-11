@@ -16,7 +16,7 @@ $(".items img").click(function() {
 	if ($(this).hasClass("active")) { return; }
 	var url = $(this).attr("alt");
 	var wrap = $("#image_wrap").fadeTo("medium", 0.5);
-    $('.loading').toggle();
+
 	var img = new Image();
     
 	img.onload = function() {
@@ -25,7 +25,7 @@ $(".items img").click(function() {
 	};
 
 	img.src = url;
-    $('.loading').toggle();
+
 	$(".items img").removeClass("active");
 	$(this).addClass("active");
 
@@ -602,7 +602,7 @@ a#explain-prices:hover span {
     left: 240px;
     position: absolute;
     top: 160px;
-    display: none;
+    z-index: -1;
 }
 
 </style>
@@ -647,8 +647,8 @@ a#explain-prices:hover span {
      	
 	<div class="tea-top">
 		<div class="main-image">
+			<img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
 			<div id="image_wrap">	
-			    <img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
 				<img src="http://static.flowplayer.org/tools/img/blank.gif" width="500" height="331" /> 
 			</div>
 		    <div class="product-photos-small">
