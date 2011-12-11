@@ -146,8 +146,9 @@ if (15.00) {
 	   	</div>
 	    	
 	    	<p class="shipping">
-	    	    <img class="flag" src="{% staticfile '/images/eu.png' %}"/>
-				<img class="flag" src="{% staticfile '/images/uk.gif' %}">
+	    	    <span class="euuk" id="eu"></span>
+	    	    <span class="euuk" id="uk"></span>
+
 	    		<span>EU/UK delivery in 3-5 days</span>
 	    		- <a href="{% url contact_us %}">Contact us</a>
 	    		- <a href="/about/wholesale/">Wholesale</a>
@@ -179,7 +180,7 @@ if (15.00) {
 	    	        
 	    	        <li>
 	    	        	<a class="{% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
-	    	        	   	Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}
+	    	        	   	Your basket <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
 	    	        	</a>
 	    	        </li>
 	  			</ul>

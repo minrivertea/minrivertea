@@ -61,6 +61,18 @@ def GetCountry(request):
     datadict = simplejson.loads(data)
     return datadict
 
+def _get_basket(request):
+    # this returns a basket if there is one, or creates it if there isn't one.
+    try:
+        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
+    except:
+        basket = Basket.objects.create(date_modified=datetime.now())
+        basket.save()
+        request.session['BASKET_ID'] = basket.id
+    
+    return basket
+
+
 def twitter_post(tweet):   
     if not twitter or not hasattr(settings, 'TWITTER_USER') or \
         not hasattr(settings, 'TWITTER_PASS'):
@@ -223,34 +235,28 @@ def contact_us(request):
    
 # function for adding stuff to your basket
 def add_to_basket(request, productID):
-    product = get_object_or_404(UniqueProduct, id=productID)
-    
-    if request.user.is_anonymous:
-        try:
-            #try to find out if they already have a session open
-            basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-        except:
-            #if not, we'll create one.
-            basket = Basket.objects.create(date_modified=datetime.now())
-            basket.save()
-            request.session['BASKET_ID'] = basket.id
+    uproduct = get_object_or_404(UniqueProduct, id=productID)
+    basket = _get_basket(request)
      
     try:
-        item = BasketItem.objects.get(
-            basket=basket,
-            item=product,
-        )
-    except:
-        item = BasketItem.objects.create(item=product, quantity=1, basket=basket)
-        item.save()
-        
-    else:
+        item = get_object_or_404(BasketItem, basket=basket, item=uproduct)
         item.quantity += 1
-        item.save()
+    except:
+        item = BasketItem.objects.create(item=uproduct, quantity=1, basket=basket)
         
-    url = request.META.get('HTTP_REFERER','/')
-    request.session['ADDED'] = item.id
-    return HttpResponseRedirect(url)
+    item.save()
+
+    if request.GET.get('xhr'):
+        basket_quantity = 0
+        for x in BasketItem.objects.filter(basket=basket):
+            basket_quantity += x.quantity
+        
+        return HttpResponse(basket_quantity)
+    
+    else:
+        url = request.META.get('HTTP_REFERER','/')
+        request.session['ADDED'] = item.id
+        return HttpResponseRedirect(url)
 
 
 # function for removing stuff from your basket

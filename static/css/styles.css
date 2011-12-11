@@ -310,6 +310,19 @@ p.shipping {
     padding: 6px 13px;
 }
 
+.euuk {
+  background: url('/images/eu-uk.png') no-repeat top left;	
+  display: block;
+  width: 24px;
+  height: 15px;
+  float: left;
+  margin-right: 5px;
+}
+
+#uk.euuk   {
+  background-position: top right;	
+}
+
 #language {
     display: block;
     float: right;
