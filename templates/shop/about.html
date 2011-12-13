@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+{% load django_static thumbnail %}
+
+{% block aboutselected %}selected{% endblock %}
+
+{% block metadescription %}{{ page.meta_description }}{% endblock %}
+
+{% block pagetitle %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
+
+{% block extrajs %}
+<script>
+$(function() {
+$(".scroll").scrollable({ circular: true }).click(function() {
+	$(this).data("scrollable").next();		
+});
+});
+
+$(function() { 
+	$('.hoverbox').hover(
+		function() {
+			$('div', this).animate({top: '100px',}, 200);
+		},
+		function() {
+			$('div', this).animate({top: '145px',}, 200);
+		}
+	);	  
+});
+
+</script>
+
+{% endblock %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+<style type="text/css">
+
+div.top {
+  float: left;
+  width: 100%;
+  margin-bottom: 30px;	
+}
+
+.white {
+  background-color: #fff;
+  padding: 20px 25px;
+  float: left;	
+  width: 650px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  position: relative;
+}
+
+.white p {
+  font-size: 16px;	
+  margin: 0 0 10px 0;
+}
+
+.white p.nihao {
+  font-size: 20px;	
+}
+
+.white ul {
+  list-style-type: none;
+  display: inline;
+  font-size: 20px;
+  margin: 0;	
+  padding: 0;
+}
+
+/* this is the background of the arrow */
+.white:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid transparent;         
+        border-left: 0;
+        border-top: 20px solid transparent;
+        border-right: 20px solid #d1d1d1;
+        position: absolute;
+        top: 20px;
+        left: -21px;
+        z-index: 1;
+        margin-left: ;
+}
+
+/* this is the foreground of the arrow */
+.white:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-right: 20px solid #fff;     
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-left: 0;
+        position: absolute;
+        top: 20px;
+        left: -19px;
+        z-index: 2;
+        margin-left: -1px;
+}
+
+div#main-text-wide {
+  margin-top: 30px;	
+}
+
+#banner {
+  margin-bottom: 30px;	
+}
+
+{% if page.feature_image %}
+h1 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  margin-bottom: 0px;
+  background-color: #fff;
+  padding: 15px 25px 10px ;
+}
+{% endif %}
+
+div#main-text-wide div#right {
+  float: left;
+  padding-right: 30px;
+  padding-left: 0px;	
+}
+
+div.tea {
+  float: left;
+  width: 220px;	
+  margin-bottom: 15px;
+}
+
+div.tea div.tea-image {
+  float: left;
+  margin-right: 10px;	
+}
+
+div.tea div.tea-image img {
+  border-radius: 5px;	
+  margin-bottom: 0px;
+}
+
+div.tea div.tea-text {
+  float: left;
+  width: 130px;
+  font-size: 13px;
+  color:#666;
+}
+
+div#main-text-wide div#right div.social {
+  float: left;
+  margin-left: 0px;
+
+}
+
+div#main-text-wide div#right div.social p {
+	  font-size: 11px;
+}
+
+div.social img {
+  margin-right: 5px;	
+}
+
+div.flatpage div#right div.social p {
+  font-size: 11px;	
+  line-height: 14px;
+}
+
+span.review {
+  color: #333;	
+}
+
+div.about-right {
+    float: left;
+    padding-bottom: 20px;
+    width: 241px;
+    margin: 40px 0 20px 0;
+    background-color: #38a267;
+    border-radius: 0 0 10px 10px;
+}
+
+div.about-right img {
+  border: 2px solid #fff;	
+}
+
+div.about-right img.top {
+    margin-top: -100px;
+    position: relative;
+    border: none;
+}
+
+
+/* position and dimensions of the navigator */
+.navi {
+	margin-left:328px;
+	width:200px;
+	height:20px;
+}
+
+
+/* items inside navigator */
+.navi a {
+	width:8px;
+	height:8px;
+	float:left;
+	margin:3px;
+	background:url(../img/scrollable/arrow/navigator.png) 0 0 no-repeat;
+	display:block;
+	font-size:1px;
+}
+
+/* mouseover state */
+.navi a:hover {
+	background-position:0 -8px;      
+}
+
+/* active state (current page state) */
+.navi a.active {
+	background-position:0 -16px;     
+}
+
+
+div.learn-comment {
+  background: url('{% staticfile "/images/learn-comment.png" %}') no-repeat top left;
+  float: left;	
+  height: 195px;
+  width: 280px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  left: -35px;
+}
+
+div.learn-comment a.button {
+    display: block;
+    float: left;
+    font-size: 19px;
+    height: 31px;
+    left: 44px;
+    padding-bottom: 2px;
+    padding-top: 15px;
+    position: relative;
+    top: 127px;
+    width: 192px;
+}
+
+div.learn-comment a.button:hover {
+  background-position: center left;	
+}
+
+div.learn-comment a.button:active {
+  background-position: bottom left;	
+}
+
+
+
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<div id="main-text-wide">
+  <div class="super">
+  	{% if page.feature_image %}
+		{% thumbnail page.feature_image "960" crop="" as im %}
+		  <img src="{{ im.url }}" style="margin-bottom: 30px;"/>
+		{% endthumbnail %}
+		<h1>{{ page.title }}</h1>
+  	{% else %}
+  		<h1>{{ page.title }}</h1>
+  	{% endif %}
+  	
+  			<div class="top">
+		
+			<img src="{% staticfile '/images/right-two.jpg' %}" style="float:left;margin-right: 30px;">
+		
+			<div class="white">
+				<p class="nihao"><strong>We sell authentic Chinese teas, sourced from our home in China.</strong></p>
+				<p>We help you enjoy fresh and 100% natural loose-leaf tea by sourcing only the best quality tea leaves from our home in Fujian, China. All our teas are produced organically and the traditional way, and then shipped direct to your door in just a few days.</p>
+				
+				<p>The result? You get a healthier, fresher and more enjoyable brew in your cup, everyday.</p>
+				
+	 		</div>
+	 	</div>
+
+ 
+  
+	<div id="right">	
+	  		  {% include 'shop/snippets/page_navigation.html' %}
+	  		  {% if '/about/' in request.path %}
+	  		    {% include 'shop/snippets/about_right.html' %}
+	  		  {% endif %}
+	  		  {% if '/learn/' in request.path %}
+	  		    {% include 'shop/snippets/learn_right.html' %}
+	  		  {% endif %}
+	</div>
+
+	<div id="left">
+	    
+		{{ page.content|safe }}
+	
+	
+		{% if '/learn/' in request.path %}
+			{% if page.get_products_mentioned %}
+			<div id="promo">
+				<h3>Chinese teas mentioned on this page:</h3>
+				{% for p in page.get_products_mentioned %}
+					<div>
+						{% thumbnail p.image "170x120" crop="center" as im %}
+							<a href="{{ p.get_absolute_url }}"><img src="{{ im.url }}"/></a>
+						{% endthumbnail %}
+						<h4><a href="{{ p.get_absolute_url }}">{{ p }}</a></h4>
+						<p>{{ p.super_short_description }}</p>
+					</div>
+				{% endfor %}
+			</div>
+			{% endif %}
+		{% endif %}
+	
+	
+	</div>
+
+		
+  </div>
+</div>
+
+
+{% endblock %}
