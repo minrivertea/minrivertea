@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load django_static thumbnail %}
+
+{% block aboutselected %}selected{% endblock %}
+
+{% block metadescription %}{{ page.meta_description }}{% endblock %}
+
+{% block pagetitle %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
+
+{% block extrajs %}
+<script>
+$(function() {
+$(".scroll").scrollable({ circular: true }).click(function() {
+	$(this).data("scrollable").next();		
+});
+});
+
+$(function() { 
+	$('.hoverbox').hover(
+		function() {
+			$('div', this).animate({top: '100px',}, 200);
+		},
+		function() {
+			$('div', this).animate({top: '145px',}, 200);
+		}
+	);	  
+});
+
+</script>
+
+{% endblock %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+<style type="text/css">
+
+div#main-text-wide div#left {
+  border-left: none;
+  width: 100%;	
+  padding-left: 0;
+}
+
+h1 {
+  margin-bottom: 20px;	
+}
+
+h2 {
+  font-size: 25px;
+}
+
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<div id="main-text-wide">
+  <div class="super">
+  	{% if page.feature_image %}
+		{% thumbnail page.feature_image "960" crop="" as im %}
+		  <img src="{{ im.url }}" style="margin-bottom: 30px;"/>
+		{% endthumbnail %}
+		<h1 class="{% if page.feature_image %}fimage{% endif %}">{{ page.title }}</h1>
+  	{% else %}
+  		<h1>{{ page.title }}</h1>
+  	{% endif %}
+
+
+	<div id="left">
+	    
+		{{ page.content|safe }}
+	
+	</div>
+
+		
+  </div>
+</div>
+
+
+{% endblock %}
