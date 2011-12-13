@@ -150,9 +150,9 @@ if (15.00) {
 	    	    <span class="euuk" id="uk"></span>
 
 	    		<span>EU/UK delivery in 3-5 days</span>
-	    		- <a href="{% url contact_us %}">Contact us</a>
-	    		- <a href="/about/wholesale/">Wholesale</a>
-	    		- <a href="/about/" title="About the Min River Tea Farm">About Us</a>
+	    		- <a class="{% nav_selected request '^/contact-us/$' %}" href="{% url contact_us %}">Contact us</a>
+	    		- <a class="{% nav_selected request '^/about/wholesale/$' %}" href="/about/wholesale/">Wholesale</a>
+	    		- <a class="{% nav_selected request '^/about/$' %}" href="/about/" title="About the Min River Tea Farm">About Us</a>
 
 	    		{% if country_snippet %}
 	    			{% include country_snippet %}

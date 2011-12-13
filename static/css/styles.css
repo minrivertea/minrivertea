@@ -116,7 +116,7 @@ ol {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1f1f1), to(#e6e6e6)); 
     
     /* Safari 5.1+, Chrome 10+ */ 
-    background: -webkit-linear-gradient(#e6e6e6, #f1f1f1); 
+    background: -webkit-linear-gradient(#f1f1f1, #e6e6e6); 
     
     /* Opera 11.10+ */ 
     background: -o-linear-gradient(#e6e6e6, #f1f1f1);   
@@ -313,6 +313,11 @@ p.shipping {
     font-size: 11px;
     margin: 0px 15px 0;
     padding: 6px 13px;
+}
+
+p.shipping a.selected {
+  font-weight: bold;
+  color: #000;	
 }
 
 .euuk {
@@ -1351,18 +1356,6 @@ img.mail-icon {
 
 span.red {
   color: #BE373A;	
-}
-
-div#main-text-wide div#left div.box {
-  width: 230px;
-  float: left;
-  margin-right: 20px;	
-}
-
-div#main-text-wide div#left div.box p {
-  padding: 10px;
-  background-color: #e1e1e1;
-  margin: 0;
 }
 
 div#main-text-wide div#left div.caption {

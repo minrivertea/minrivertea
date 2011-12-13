@@ -4,8 +4,8 @@
 {% block extracss %}
 <style type="text/css">
 
-h1 {
-  margin-bottom: 20px;	
+div#main-text-wide div#left {
+  width: 100%;	
 }
 
 
@@ -178,6 +178,23 @@ ul.follow li img {
   top: 10px;	
 }
 
+div.box {
+  float: left;
+  width: 270px;
+  margin-right: 50px;	
+}
+
+div#main-text-wide div#left div.box h3 {
+  color: #f37679;	
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+form {
+  width: 600px;	
+}
+
 </style>
 {% endblock %}
 
@@ -196,10 +213,7 @@ ul.follow li img {
 </div>  
 
 <div id="main-text-wide">
-  <div class="super">			
-	
-	<h1>Contact the Min River Tea Farm</h1>
-		
+  <div class="super">				
 		<div class="top">
 		
 			<img src="{% staticfile '/images/christopher.jpg' %}" style="float:left;margin-right: 30px;">
@@ -217,20 +231,28 @@ ul.follow li img {
 	 		<li><a href="http://www.facebook.com/minrivertea/"><img src="{% staticfile '/images/facebook.png' %}"/></a></li>
 			<li><a href="https://twitter.com/minrivertea"><img src="{% staticfile '/images/twitter.png' %}"/></a></li>
 			<li><a href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"/></a></li>
-			<li><strong>&laquo; if you just want to stay in touch, we're on Facebook, Twitter and Flickr too</strong></li>
+			<li><strong>&laquo; we're on Facebook, Twitter and Flickr too!</strong></li>
 			</ul>
 	 	</div>
 	
 
 		
 	<div id="left">
-	 		 	
-	 	<h3>Returns</h3>
-	 	<p>If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked.</p>
-	 	
-	 	<h3>Wholesale/trade</h3>
-	 	<p>If you're looking for wholesale orders or information, please just get in touch - we're based in China, near many of the best tea growing regions. Regardless of your price-range or requirements, I'll be happy to help out.</p>
+	 	<div class="box"> 		
+		 	<h3>Returns</h3>
+		 	<p>If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked.</p>
+		</div>
+		<div class="box">
+			<h3>Personal shopping</h3>
+			<p>We're based here in China, so if you have specific tea needs that can't be fulfilled anywhere else, just get in touch.</p>
+		</div>
+		<div class="box">		 	
+		 	<h3>Wholesale/trade</h3>
+		 	<p>Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch.</p>
+		</div>
 		
+		<br clear="all"/>
+			
 		{% if message %}
 		<div class="message">
 			<h3>Thanks for your message!</h3>
