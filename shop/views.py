@@ -225,7 +225,7 @@ def contact_us(request, xhr=None):
             
             _admin_notify_contact(form.cleaned_data)
             
-            if xhr=='xhr':
+            if request.is_ajax():
                 data = render_to_string('shop/forms/contact_form_message_snippet.html')
                 return HttpResponse(data)
 

@@ -10,7 +10,7 @@
 		$.ajax({  
     	    type: "POST",  
     	    data: $(this).serialize(), 
-    	    url: "{% url contact_us 'xhr' %}",  
+    	    url: "{% url contact_us %}",  
     	    cache: false,  
    		    dataType: "html",  
     	    success: function(data, textStatus) {
