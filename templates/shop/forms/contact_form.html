@@ -1,6 +1,35 @@
 {% extends "base.html" %}
 {% load django_static %}
 
+{% block extrajs %}
+<script type="text/javascript">
+
+	$('form#contact-form').submit(function() {
+		$(this).css('opacity', '0.5');
+		$('img#loading').toggle();
+		$.ajax({  
+    	    type: "POST",  
+    	    data: $(this).serialize(), 
+    	    url: "{% url contact_us 'xhr' %}",  
+    	    cache: false,  
+   		    dataType: "html",  
+    	    success: function(data, textStatus) {
+    	    	$('img#loading').toggle();
+    	    	$('form#contact-form').replaceWith(data);
+    	    },  
+    	    error: function (XMLHttpRequest, textStatus, errorThrown) {  
+    	       thisObject.replaceWith('Your comment could not be posted.');  
+    	    }  
+    	}); 
+	return false;
+	});
+
+
+
+</script>
+{% endblock %}
+
+
 {% block extracss %}
 <style type="text/css">
 
@@ -195,6 +224,17 @@ form {
   width: 600px;	
 }
 
+#form {
+  position: relative;	
+}
+
+img#loading {
+  display: none;
+  position: absolute;
+  left: 295px;
+  top: 50px;	
+}
+
 </style>
 {% endblock %}
 
@@ -252,19 +292,17 @@ form {
 		</div>
 		
 		<br clear="all"/>
-			
+		
+		<div id="form">	
 		{% if message %}
-		<div class="message">
-			<h3>Thanks for your message!</h3>
-			<p>Your message has been sent to the Min River Tea Farm. We'll be in touch as soon as possible (normally within 12 hours).</p>
-		</div>
+			{% include 'shop/forms/contact_form_message_snippet.html' %}
 		{% else %}
 			
-
-			<form action="." method="post">
+			<img id="loading" src="{% staticfile '/images/loading.gif' %}">
+			<form action="{% url contact_us %}" method="post" id="contact-form">
 			<h3>Send us a message</h3>
 			<p>Use our online contact form to send us a message. We respond to all messages within 12 hours.</p>
-				{{ form.as_p }}				
+				{{ form.as_p }}
 				<input class="button" value="Submit" type="submit">
 				<p class="help-text">
 				<img src="{% staticfile '/images/lock.gif' %}"> 
@@ -273,6 +311,7 @@ form {
 					
 			</form>
 		{% endif %}
+		</div>
 	</div>
   </div>
 </div>

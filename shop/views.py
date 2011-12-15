@@ -211,23 +211,28 @@ def tea_view(request, slug):
 
     return render(request, "shop/tea_view.html", locals())
     
-def contact_us(request):
+def contact_us(request, xhr=None):
     try:
         if request.session['MESSAGE'] == "1":
             message = True
             request.session['MESSAGE'] = ""
     except:
         pass 
-        
+    
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
             
             _admin_notify_contact(form.cleaned_data)
-                
-            url = request.META.get('HTTP_REFERER','/')
-            request.session['MESSAGE'] = "1"
-            return HttpResponseRedirect(url) 
+            
+            if xhr=='xhr':
+                data = render_to_string('shop/forms/contact_form_message_snippet.html')
+                return HttpResponse(data)
+
+            else:
+                url = request.META.get('HTTP_REFERER','/')
+                request.session['MESSAGE'] = "1"
+                return HttpResponseRedirect(url) 
     else:
         form = ContactForm() 
     
