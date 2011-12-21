@@ -208,7 +208,7 @@ def _admin_cron_update(data, subject_line):
     subject_line = subject_line
     _send_email(receiver, subject_line, text)
 
-def _payment_success_email(request, order):
+def _payment_success_email(order):
     
     # CUSTOMER EMAIL
     receiver = order.owner.email
@@ -217,16 +217,16 @@ def _payment_success_email(request, order):
     text = render_to_string('shop/emails/text/order_confirm_customer.txt', {'order': order})
     html = render_to_string('shop/emails/html/html_order_confirm.html', {'order': order, 'subject': subject_line})
     
-    _send_email(request, receiver, subject_line, text, html)
+    _send_email(receiver, subject_line, text, html)
     
      
     # ADMIN EMAIL (reset some of the values!!)
     receiver = settings.SITE_EMAIL
-    subject_line = "NEW ORDER - %s" % invoice_id 
+    subject_line = "NEW ORDER - %s" % order.invoice_id 
     text = render_to_string('shop/emails/text/order_confirm_admin.txt', {'order': order})
-    _send_email(request, receiver, subject_line, text)
+    _send_email(receiver, subject_line, text)
 
-    return
+    return HttpResponse()
 
 def _payment_flagged_email(request, order):
 

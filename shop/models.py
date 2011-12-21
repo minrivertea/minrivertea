@@ -388,7 +388,7 @@ def show_me_the_money(sender, **kwargs):
         
         wishlist.save()     
     from minriver.shop.emails import _payment_success_email 
-    _payment_success_email(request, order)
+    _payment_success_email(order)
     
 payment_was_successful.connect(show_me_the_money)    
 

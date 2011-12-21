@@ -1026,9 +1026,6 @@ def ship_it(request, id):
     
     return HttpResponseRedirect('/admin-stuff')
 
-
-
-  
     
     
     
