@@ -291,20 +291,11 @@ div.tea-top a.button.single {
     margin: 0;
 }
 
-div.tea-top div.main-image img {
-
-}
-
 div.tea-top div.tea-description {
   float: left;
   width: 330px;
   margin-top: 0px;
   margin-bottom: 0px;
-}
-
-div.tea-top div.tea-description p {
-  font-size: 13px;	
-  margin-top: 0;
 }
 
 div.price-text {
@@ -637,7 +628,7 @@ a#explain-prices:hover span {
 		</li>
 	</ul>
 	
-	<h1>{{ tea.name }} Chinese tea</h1>
+	<h1><a href="">{{ tea.category }}</a> > {{ tea.name }}</h1>
 
 
   </div>
@@ -651,7 +642,7 @@ a#explain-prices:hover span {
 		<div class="main-image">
 			<img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
 			<div id="image_wrap">	
-				<img src="http://static.flowplayer.org/tools/img/blank.gif" width="500" height="331" /> 
+				<img src="http://static.flowplayer.org/tools/img/blank.gif" width="500x331" height="auto" /> 
 			</div>
 		    <div class="product-photos-small">
 			<div class="scrollable">   

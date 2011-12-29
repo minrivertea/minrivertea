@@ -88,7 +88,7 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-  color: #ffaeae;
+  color: #F37679;
 }
 
 ul {
@@ -146,7 +146,7 @@ input.button {
 }
 
 input.button:hover {
-  color: #FFAEAE;	
+  color: #F37679;	
 }
 
 div#container {
@@ -233,11 +233,12 @@ div.footer-box ul li {
 
 h1 {
     color: #333;
-    font-size: 40px;
+    font-size: 35px;
     font-weight: normal;
     letter-spacing: -1px;
     margin: 0 0 5px;
     padding-bottom: 0;
+    text-shadow: 1px 1px 1px #FFFFFF
 }
 
 h2 {
@@ -286,6 +287,7 @@ div#header {
   width: 100%;
   background-color: #fff;
   border-bottom: 10px solid #F6F6F6;
+  
 }
 
 div#header-messages {
@@ -371,7 +373,7 @@ p.shipping a.selected {
 }
 
 #language-block a:link {
-  color: #FFAEAE;
+  color: #F37679;
   font-size: 12px;
 }
 
@@ -454,7 +456,7 @@ ul#nav li a:link, ul#nav li a:visited  {
 
 ul#nav li a:hover {
   text-decoration: underline;
-  color: #ffaeae;
+  color: #F37679;
 
 }
 
@@ -574,7 +576,6 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
 /* content page styles */
 
 div#banner {
-    background-color: #F1F1F1;
     float: left;
     margin: 10px 0 0;
     padding: 20px 0 10px;
@@ -611,122 +612,6 @@ p.introduction {
     padding-bottom: 10px;
 }
 
-
-/* tea listing styles */
-
-div#teas {
-  margin-top: 30px;	
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 3px dotted #e1e1e1;
-  float: left;
-  width: 100%;
-}
-
-div.tea-promo {
-    float: left;
-    margin: 0 30px 20px 0px;
-    padding: 0px 0px 20px 0px;
-    position: relative;
-    width: 780px;
-}
-
-div.tea-promo.last {
-  margin-right: 0;	
-}
-
-
-div.tea-promo:hover {	
-  cursor: pointer;
-}
-
-div.tea-promo div.image {
-    float: left;
-    margin-right: 20px;
-    width: 260px;
-}
-
-div.tea-promo:hover div.image img {
-  opacity: 0.8;	
-}
-
-div.tea-promo div.text {
-  width: 480px;
-  float: left;	
-}
-
-div#main-text-wide div#left div.tea-promo div.text p {
-  margin: 0 0 0 0;	
-}
-
-div.tea-promo span.link {
-  position:absolute;
-  width:100%; 
-  height:100%; 
-  top:0; 
-  left: 0; 
-  z-index: 1;	
-}
-
-div.tea-promo a.add-to-basket {
-  background: url('/images/price-back-small.png') no-repeat top;
-  width: 108px;
-  height: 25px;
-  position: relative;
-  float:left;	
-  margin-right: 10px;
-  z-index: 2;
-}
-
-div.tea-promo a.more-details {
-  background: url('/images/more-details.png') no-repeat top;
-  width: 108px;
-  height: 25px;
-  position: relative;
-  float:left;
-    z-index: 2;	
-}
-
-div.tea-promo:hover a.more-details {
-  background: url('/images/more-details.png') no-repeat center;
-}
-
-div.tea-promo:hover a.add-to-basket {
-  background: url('/images/price-back-small.png') no-repeat center;	
-}
-
-div.tea-promo a.add-to-basket:hover {
-  background: url('/images/price-back-small.png') no-repeat bottom;
-}
-
-div.tea-promo a.more-details:hover {
-  background: url('/images/more-details.png') no-repeat bottom;
-}
-
-
-div.tea-promo h4 {
-    border-bottom: medium none;
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: -1px;
-    margin-bottom: 0;
-    margin-top: 0;
-}
-
-div.tea-promo h4 a {
-  color: #439249;
-}
-
-div.tea-promo:hover h4 a {
-  text-decoration: underline;	
-}
-
-
-div.tea-promo p {
-    color: #333333;
-    font-size: 14px;
-    margin: 0;
-}
 
 
 
@@ -1432,15 +1317,11 @@ div#main-text-wide div#left img.about {
    padding: 15px;
    float: left;
    color:#fff;
-   background:#f3f3f3;
+   background:#fff;
    margin-top: 20px;
    border: 1px solid #e1e1e1;
    z-index: 3;
    border-radius: 5px;
-   background-image: -moz-linear-gradient(#f3f3f3, #f9f9f9);
-   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#f9f9f9));
-   background-image: -webkit-linear-gradient(#f3f3f3, #f9f9f9); 
-   background-image: -o-linear-gradient(#f3f3f3, #f9f9f9);
 }
 
 div#right .did-you-know {
@@ -1479,7 +1360,7 @@ div#right .did-you-know p, .did-you-know-p {
         display: block;
         width: 0;
         height: 0;
-        border-bottom: 15px solid #e1e1e1;         
+        border-bottom: 15px solid #d1d1d1;         
         border-top: 0;
         border-left: 15px solid transparent;
         border-right: 15px solid transparent;
@@ -1496,7 +1377,7 @@ div#right .did-you-know p, .did-you-know-p {
         display: block;
         width: 0;
         height: 0;
-        border-bottom: 15px solid hsla(0,0%,95%,1);     
+        border-bottom: 15px solid #fff;     
         border-top: 0;
         border-left: 15px solid transparent;
         border-right: 15px solid transparent;

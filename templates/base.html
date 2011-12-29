@@ -130,14 +130,6 @@ if (15.00) {
 
 <body>
 
-{% if user.is_superuser %}
-	<div id="header-messages">    
-	   	<div class="hm"><a href="{% url admin_stuff %}">Admin stuff</a> | <a href="/admin/logout/">Logout</a></div>
-	</div>    
-{% endif %}
-
-
-
     	
 <div id="header">
    <div class="super">
@@ -153,6 +145,12 @@ if (15.00) {
 	    		- <a class="{% nav_selected request '^/contact-us/$' %}" href="{% url contact_us %}">Contact us</a>
 	    		- <a class="{% nav_selected request '^/about/wholesale/$' %}" href="/about/wholesale/">Wholesale</a>
 	    		- <a class="{% nav_selected request '^/about/$' %}" href="/about/" title="About the Min River Tea Farm">About Us</a>
+	    		{% if request.user.is_superuser %}
+	    		<strong>
+	    		- <a href="{% url admin_stuff %}">Admin stuff</a> 
+	    		- <a href="/admin/logout/">Logout</a>
+	    		</strong>
+	    		{% endif %}
 
 	    		{% if country_snippet %}
 	    			{% include country_snippet %}

@@ -6,7 +6,7 @@
       <div class="tea-promo{% cycle '' '' ' last' %}">
       		<a title="{{ product.name }} Chinese tea - click to view more details" href="{{ product.get_absolute_url }}"><span class="link"></span></a>	
       	  <div class="image">
-			{% thumbnail product.image "260x180" crop="center" as im %}
+			{% thumbnail product.image "360x230" crop="center" as im %}
 			<img alt="a picture of {{ product.name }} Chinese tea" title="{{ product.name }} Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
 			{% endthumbnail %}
 		  </div>

@@ -136,7 +136,7 @@ span.message img {
 	-moz-box-shadow:-1px -1px 2px #004977;
 	-webkit-box-shadow:-1px -1px 2px #004977;
 	box-shadow:-1px -1px 2px #004977;
-	}
+}
 	
 div.tea-promo .did-you-know {
   margin-top: -5px;
@@ -175,6 +175,126 @@ div.tea-promo .did-you-know:before {
         top: -6px;
         left: 15px;
 }
+
+/* tea listing styles */
+
+div#teas {
+  margin-top: 30px;	
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 3px dotted #e1e1e1;
+  float: left;
+  width: 100%;
+}
+
+div.tea-promo {
+    float: left;
+    margin: 0 30px 20px 0px;
+    padding: 20px;
+    position: relative;
+    width: 780px;
+    background-color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+div.tea-promo.last {
+  margin-right: 0;	
+}
+
+div.tea-promo div.image {
+    float: left;
+    margin-right: 30px;
+    width: 360px;
+}
+
+
+div.tea-promo:hover {
+  box-shadow: 0 0px 8px #c1c1c1;
+  border: 1px solid #b1b1b1;	
+  cursor: pointer;
+}
+
+div.tea-promo div.text {
+  width: 380px;
+  float: left;	
+}
+
+div#main-text-wide div#left div.tea-promo div.text p {
+  margin: 0 0 0 0;	
+}
+
+div.tea-promo span.link {
+  position:absolute;
+  width:100%; 
+  height:100%; 
+  top:0; 
+  left: 0; 
+  z-index: 1;	
+}
+
+div.tea-promo a.add-to-basket {
+  background: url('/images/price-back-small.png') no-repeat top;
+  width: 108px;
+  height: 25px;
+  position: relative;
+  float:left;	
+  margin-right: 10px;
+  z-index: 2;
+}
+
+div.tea-promo a.more-details {
+  background: url('/images/more-details.png') no-repeat top;
+  width: 108px;
+  height: 25px;
+  position: relative;
+  float:left;
+    z-index: 2;	
+}
+
+div.tea-promo:hover a.more-details {
+  background: url('/images/more-details.png') no-repeat center;
+}
+
+div.tea-promo:hover a.add-to-basket {
+  background: url('/images/price-back-small.png') no-repeat center;	
+}
+
+div.tea-promo a.add-to-basket:hover {
+  background: url('/images/price-back-small.png') no-repeat bottom;
+}
+
+div.tea-promo a.more-details:hover {
+  background: url('/images/more-details.png') no-repeat bottom;
+}
+
+
+div.tea-promo h4 {
+    border-bottom: medium none;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+div.tea-promo h4 a {
+  color: #439249;
+}
+
+div.tea-promo:hover h4 a {
+  text-decoration: underline;	
+}
+
+
+div.tea-promo p {
+    color: #333333;
+    font-size: 17px;
+    margin: 0;
+}
+
+
 
 div.did-you-know {
   width: 500px;	
@@ -234,58 +354,144 @@ span.reviews {
   border-style: solid;
 }
 
-#chooser {
-  background-color: #fff;
-  width: 900px;	
-  float: left;
-  border-radius: 5px;
-  border: 1px solid #e1e1e1;
-  border-color: #C1C1C1 #E1E1E1 #E1E1E1 #C1C1C1;
-  position: relative;
-}
-
-#chooser ul {
-  list-style-type: none;
-  display: inline;	
-  margin: 0;
-  padding: 0 0 0 0px;
-  float: left;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-#chooser ul li {
-  margin-right: 0px;
-  float: left;
-  padding: 8px 20px;
-  position: relative;
-}
-
-#chooser ul li:first-child {
-  text-transform: uppercase;
-  color: #666;	
-}
-
-#chooser li.selected {
-  background: url('/images/chooser-arrow.png') bottom center #237A2A;	
-}
-
-#chooser li.selected a {
-  color: #fff;	
-}
-
-span#types {
-  color: #237A2A;	
-}
-
-span#types:hover {
-  cursor: pointer;	
-}
 
 a.more {
-  float: left;
-  margin-top: 5px;	
-  padding: 5px 10px;
-  position: relative;
-  z-index: 10;
+    bottom: 22px;
+    float: left;
+    margin-top: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 10;
 }
+
+
+.category-desc {
+  float: left;	
+  width: 100%;
+  border-bottom: 3px dotted #e1e1e1;
+  padding-bottom: 20px;
+}
+
+#banner .category-desc p {
+  font-size: 20px;	
+  margin: 5px 0 0;
+  color: #30A5C7;
+}
+
+#chooser {
+  float: left;
+  width: 100%;
+  margin: -15px 50px 30px 0;
+}
+
+#chooser p {
+  margin: 0;
+  color: #F37679;
+}
+
+#chooser a {
+  float: left;
+  width: 130px;
+  text-align: center;
+  font-size: 16px;	
+  margin-right: 0px;
+  margin-left: 0px;
+  padding: 6px 15px 5px;
+  border: 1px solid #d1d1d1;
+  position: relative; 
+  color: #F37679;
+        /* Firefox 3.6+ */ 
+    background: -moz-linear-gradient(100% 100% 90deg, #f1f1f1, #fff); 
+    
+    /* Safari 4-5, Chrome 1-9 */ /* -webkit-gradient(<type>, <point> [, <radius>]?, <point> [, <radius>]? [, <stop>]*) */ 
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1f1f1), to(#e6e6e6)); 
+    
+    /* Safari 5.1+, Chrome 10+ */ 
+    background: -webkit-linear-gradient(#f1f1f1, #e6e6e6); 
+    
+    /* Opera 11.10+ */ 
+    background: -o-linear-gradient(#e6e6e6, #f1f1f1);
+}
+
+#chooser a.selected {
+  color: #000;
+  font-weight: bold;
+  border: 1px solid #c1c1c1;
+  position: relative;
+  background: #fff;
+}
+
+#chooser a:first-child {
+  border-radius: 4px 0 0 4px;
+  border-right: none;
+}
+
+#chooser a:last-child {
+  border-radius: 0px 4px 4px 0;	
+  border-left: none;
+}
+
+#chooser a:hover:before {
+	    content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 15px solid #f1f1f1;     
+        border-bottom: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        bottom: -15px;
+        left: 60px;
+        z-index: 2;
+        margin-left: -1px;	
+}
+
+#chooser a:hover:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 15px solid #c1c1c1;         
+        border-bottom: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        bottom: -16px;
+        left: 59px;
+        z-index: 1;
+        margin-left: ;	
+}
+
+#chooser a.selected:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 15px solid #999;         
+        border-bottom: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        bottom: -16px;
+        left: 59px;
+        z-index: 1;
+        margin-left: ;	
+}
+
+#chooser a.selected:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 15px solid #fff;     
+        border-bottom: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        bottom: -15px;
+        left: 60px;
+        z-index: 2;
+        margin-left: -1px;	
+}
+
