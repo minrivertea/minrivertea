@@ -88,55 +88,53 @@ span.message img {
 	margin:0;
 	padding:0;
 	position:absolute;
-	right:24px;
-	bottom:-12px;
+	left: -30px;
+	top: 30px;
 	list-style:none;
 	}
 
 .tag {
 	margin-left:20px;
-	padding:0 10px 0 12px;
+	padding:8px 13px 6px 20px;
 	background:#0089e0;
 	color:#fff;
+	font-size: 15px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
 	text-decoration:none;
-	-moz-border-radius-bottomright:4px;
-	-webkit-border-bottom-right-radius:4px;	
-	border-bottom-right-radius:4px;
-	-moz-border-radius-topright:4px;
-	-webkit-border-top-right-radius:4px;	
-	border-top-right-radius:4px;	
-	} 
-	
-.tag:before{
-	content:"";
-	float:left;
-	position:absolute;
-	top:0;
-	left:-12px;
-	width:0;
-	height:0;
-	border-color:transparent #0089e0 transparent transparent;
-	border-style:solid;
-	border-width:12px 12px 12px 0;		
-	}
-
-
-.tag:after{
-	content:"";
-	position:absolute;
-	top:10px;
-	left:0;
-	float:left;
-	width:4px;
-	height:4px;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
-	background:#fff;
-	-moz-box-shadow:-1px -1px 2px #004977;
-	-webkit-box-shadow:-1px -1px 2px #004977;
-	box-shadow:-1px -1px 2px #004977;
+	border-radius: 0px 4px 4px 0px;
+	-webkit-border-radius: 0px 4px 4px 0px;	
 }
+
+.tag:after {
+    border-color: #0B72B3 transparent -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 20px 0 20px 20px;
+    bottom: -20px;
+    content: " ";
+    display: block;
+    height: 0;
+    left: 1px;
+    position: absolute;
+    width: 0;
+    z-index: -1;
+}
+
+.tag:before {
+    border-color: #084e7a transparent -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 20px 0 20px 20px;
+    bottom: -20px;
+    content: " ";
+    display: block;
+    height: 0;
+    left: 0;
+    margin-left: -1px;
+    position: absolute;
+    width: 0;
+    z-index: -1;	
+}
+	
 	
 div.tea-promo .did-you-know {
   margin-top: -5px;
@@ -196,7 +194,7 @@ div.tea-promo {
     background-color: #fff;
     border-radius: 10px;
     -webkit-border-radius: 10px;
-    border: 1px solid transparent;
+    border: 1px solid #e1e1e1;
 }
 
 div.tea-promo.last {
@@ -270,27 +268,21 @@ div.tea-promo a.more-details:hover {
 }
 
 
-div.tea-promo h4 {
-    border-bottom: medium none;
+div.tea-promo h3 {
     font-size: 30px;
-    font-weight: bold;
+    font-weight: normal;
     letter-spacing: -1px;
     margin-bottom: 0;
     margin-top: 0;
 }
 
-div.tea-promo h4 a {
-  color: #439249;
-}
-
-div.tea-promo:hover h4 a {
+div.tea-promo:hover h3 a {
   text-decoration: underline;	
 }
 
 
 div.tea-promo p {
-    color: #333333;
-    font-size: 17px;
+    font-size: 18px;
     margin: 0;
 }
 
@@ -356,26 +348,23 @@ span.reviews {
 
 
 a.more {
-    bottom: 22px;
+    bottom: 16px;
     float: left;
-    margin-top: 5px;
-    padding: 5px 10px;
     position: absolute;
     z-index: 10;
+    text-transform: uppercase;
 }
 
 
 .category-desc {
   float: left;	
-  width: 100%;
-  border-bottom: 3px dotted #e1e1e1;
-  padding-bottom: 20px;
+  width: 860px;
 }
 
 #banner .category-desc p {
   font-size: 20px;	
   margin: 5px 0 0;
-  color: #30A5C7;
+  color: #000;
 }
 
 #chooser {
@@ -399,6 +388,7 @@ a.more {
   padding: 6px 15px 5px;
   border: 1px solid #d1d1d1;
   position: relative; 
+  text-shadow: 1px 1px 0 #fff;
   color: #F37679;
         /* Firefox 3.6+ */ 
     background: -moz-linear-gradient(100% 100% 90deg, #f1f1f1, #fff); 

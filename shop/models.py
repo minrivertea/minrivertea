@@ -45,6 +45,7 @@ class Product(models.Model):
     category = models.ForeignKey('Category', blank=True, null=True)
     is_featured = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    tag_text = models.CharField(max_length="100", blank=True, null=True)
     coming_soon = models.BooleanField(default=False)
         
     def __unicode__(self):

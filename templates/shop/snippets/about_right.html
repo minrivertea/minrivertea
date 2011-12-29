@@ -2,7 +2,6 @@
 {% load django_static %}
 
 	<div class="info">
-			<h3 class="small">We sell authentic Chinese teas</h3>
 				{% for other in teas %}
 			 		<p class="mail{% if forloop.last %} last{% endif %}">
 			 			<a href="{{ other.get_absolute_url }}"><span class="link"></span></a>

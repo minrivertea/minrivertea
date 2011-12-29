@@ -14,8 +14,6 @@ div#header {
   border-bottom: none;	
 }
 
-
-
 div#top {
   height: 180px;
   padding: 10px 0 0px;
@@ -81,24 +79,20 @@ div#top div.right {
   position: relative;
 }
 
-div#logo {
-  z-index: 20;	
-  background: url('{% staticfile "/images/logo12.png" %}') no-repeat top left;
-}
-
 div#feature {
-	background-color: #fff;
     float: left;
     height: 400px;
     margin: 0 0 0;
     padding-bottom: 0;
     width: 100%;
+    background: url('{% staticfile "/images/feature2.jpg" %}') no-repeat top left #fff;
+    background-position: 180px 0;
 }
 
 div#feature img {
   position: relative;
-  top: -130px;	
-  left: -30px;
+  top: 30px;	
+  left: 30px;
 }
 
 div#feature div.top {
@@ -106,25 +100,22 @@ div#feature div.top {
     padding-bottom: 10px;
     padding-right: 10px;
     position: relative;
-    top: 90px;
-    width: 400px;
+    top: 50px;
+    width: 420px;
 }
 
 div#feature div.top h1 {
-    color: #333;
-    font-size: 35px;
+    font-size: 44px;
     margin: 10px 0 10px 0;
     text-align: right;
-    font-weight: bold;
+    color:#237A2A;
 }
 
 div#feature div.top p {
-  text-align: left;
   margin: 0;	
   float: left;
-  padding: 0 0 0 0px;
-  color: #333;
-  font-size: 14px;
+  padding: 0;
+  font-size: 18px;
   text-align: right;
 }
 
@@ -137,20 +128,6 @@ div#feature div.top a.button {
     padding-top: 15px;
     text-align: center;
     width: 300px;
-}
-
-div#feature div.top a.button:hover {
-	
-}
-
-div#feature div.top div.button a:hover {
-  background-position: center left;	
-  cursor: pointer;
-}
-
-div#feature div.top div.button a:active {
-  background-position: bottom left;	
-  cursor: pointer;
 }
 
 div#feature span.link {
@@ -183,30 +160,29 @@ div#home-extra div.box h4 {
   border-bottom: none;
 }
 
-div#adventure {
-    background-color: #F1F1F1;
+#adventure {
+    border-top: 10px solid #E1ECF3;
     float: left;
     height: 320px;
+    margin-bottom: 20px;
     padding: 40px 0 20px;
     width: 100%;
-    margin-bottom: 20px;
-    border-top: 10px solid #F6F6F6;
 }
 
-div#adventure h2 {
+#adventure h2 {
   float: left;
   width: 460px;	
   margin: 0px 0px 0 0;
 }
 
-div#adventure p {
-  font-size: 14px;
-  color: #333;
-  float: left;	
+#adventure p {
+  font-size: 18px;
+  float: left;
+  margin: 10px 0 0;	
   width: 400px;
 }
 
-div#adventure img {
+#adventure img {
   border-radius: 5px;
   border: 15px solid #fff;
   box-shadow: 0 3px 9px #c1c1c1;
@@ -214,13 +190,12 @@ div#adventure img {
   float: right;
 }
 
-div#customers {
+#customers {
     float: left;
     margin: 20px 0 50px 0;
     padding: 10px 0;
     width: 100%;
     position: relative;
-    background-color: #f6f6f6;
 }
 
 div#customers div.box {
@@ -237,10 +212,12 @@ div#customers div.box p {
     float: left;
     margin-bottom: 10px;
     width: 590px;
+    font-size: 18px;
+    text-shadow: 1px 1px 0 #fff;
 }
 
 div#customers span.quotation {
-    color: #999999;
+    color: #638ea9;
     float: left;
     font-family: Georgia,serif;
     font-size: 200px;
@@ -252,6 +229,7 @@ div#customers span.quotation {
 div#customers a.read-more {
     float: right;
     font-size: 13px;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
     margin-top: 0;
     position: absolute;
@@ -302,16 +280,17 @@ div#benefits img.first-time {
 
 #benefits #teas .tea h4 {
     float: left;
-    margin-bottom: 0;
+    margin: 10px 0 0;
     width: 200px;
     padding: 0;
+    font-weight: normal;
 }
 
 #benefits #teas .tea p {
   margin: 0;
   color: #666;
-  font-size: 13px;
-  line-height: 1.4em;	
+  font-size: 14px;
+  line-height: 1.3em;	
 }
 
 div#benefits div.did-you-know {
@@ -486,7 +465,8 @@ div#adventure #icons {
   font-weight: bold;
   position: relative;
   top: 105px;
-  left: 5px;	
+  left: 5px;
+  font-family: Helvetica, Arial, sans-serif;	
 }
 
 #home-icon {
@@ -508,10 +488,9 @@ div#adventure #icons {
   </div>
 </div>
 
+
 <div id="feature">
-	
   <div class="super">
-  <img src="{% staticfile '/images/homepage-feature.jpg' %}"/>
 	<div class="top">
 		<h1>Traditional Chinese tea, direct from the source</h1>
 		<p>Buy tea direct from the mountains of Fujian, China and we'll deliver it direct to your door, quickly and reliably. </p>
@@ -551,8 +530,7 @@ div#adventure #icons {
 
 <div id="benefits">
 	<div class="super">
-	    <img class="first-time" src="{% staticfile '/images/first-time.png' %}"/>
-		<h2 class="black">Choose your tea and improve your brew</h2>
+		<h2>Choose your tea and improve your brew</h2>
 		<div id="teas">
 			{% for tea in teas %}
 				<div class="tea">

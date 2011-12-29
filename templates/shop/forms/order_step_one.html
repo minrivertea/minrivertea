@@ -26,13 +26,24 @@ div#main-text-wide div#left h3 {
 
 div#basket div.security {
   float: right;
-  width: 220px;	
+  width: 240px;	
+  background-color: #f6f6f6;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  padding: 12px 12px;
 }
 
-div#basket div.security img {
-  position: relative;
-  top: 13px;	
+div#basket div.security p {
+  font-size: 14px;	
+  text-align: right;
+  margin: 0;
 }
+
+#basket .security img {
+  float:right; 
+  margin: 0 0 20px 10px;
+}
+
 
 input.checkbox {
     float: left;
@@ -175,8 +186,8 @@ span.country {
 		{% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
 		 <p class="red">&laquo; there were some errors - please check and provide all required information.</p>
 		 {% endif %}
-			<img src="{% staticfile '/images/lock-large.png' %}" style="float:left; margin-right: 10px; margin-bottom: 20px;">
-			<p>We will never share your details, nor will we send you email spam. <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a></p>
+			<img src="{% staticfile '/images/lock-large.png' %}">
+			<p>We will never share your details, nor will we send you email spam. <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy &raquo;</a></p>
 		</div>
 		
 	{% if shopper %}
@@ -307,7 +318,7 @@ span.country {
 
 	<div id="checkout-button">
 		<p class="checkout"><strong>Next step:</strong> 
-		<em>Confirm your order. We'll let you check your order, and then you can pay using Paypal.</em>
+		Confirm your order. We'll let you check your order, and then you can pay using Paypal.
 		</p>
 		<input type="submit" value="Confirm your details" next="" class="button"/>
 	</div>

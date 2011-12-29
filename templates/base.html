@@ -130,64 +130,62 @@ if (15.00) {
 
 <body>
 
-    	
+ 	  	
 <div id="header">
-   <div class="super">
+	<div class="super">
 	   	<div id="logo">
 	   		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"></a>
 	   	</div>
 	    	
-	    	<p class="shipping">
-	    	    <span class="euuk" id="eu"></span>
-	    	    <span class="euuk" id="uk"></span>
-
-	    		<span>EU/UK delivery in 3-5 days</span>
-	    		- <a class="{% nav_selected request '^/contact-us/$' %}" href="{% url contact_us %}">Contact us</a>
-	    		- <a class="{% nav_selected request '^/about/wholesale/$' %}" href="/about/wholesale/">Wholesale</a>
-	    		- <a class="{% nav_selected request '^/about/$' %}" href="/about/" title="About the Min River Tea Farm">About Us</a>
-	    		{% if request.user.is_superuser %}
-	    		<strong>
-	    		- <a href="{% url admin_stuff %}">Admin stuff</a> 
-	    		- <a href="/admin/logout/">Logout</a>
-	    		</strong>
-	    		{% endif %}
-
-	    		{% if country_snippet %}
-	    			{% include country_snippet %}
-	    		{% endif %}
-	    		
-
-	    		
-	    		
-	    	</p>
+	    <!--
+	    <p class="shipping">
+	        <span class="euuk" id="eu"></span>
+	        <span class="euuk" id="uk"></span>
+    		<span>EU/UK delivery in 3-5 days</span>
+    		- <a class="{% nav_selected request '^/contact-us/$' %}" href="{% url contact_us %}">Contact us</a>
+    		- <a class="{% nav_selected request '^/about/wholesale/$' %}" href="/about/wholesale/">Wholesale</a>
+    		- <a class="{% nav_selected request '^/about/$' %}" href="/about/" title="About the Min River Tea Farm">About Us</a>
+    		{% if user.is_superuser %}
+	    		- <a href="{% url admin_stuff %}"><strong>Admin stuff</strong></a>
+	    		- <a href="/admin/logout/"><strong>Logout</strong></a>
+			{% endif %}
+    		{% if country_snippet %}
+    			{% include country_snippet %}
+    		{% endif %}
+    	</p>
+    	-->
 	    	
-
-
-
-	    	<div id="navigation">
-	    	    <ul id="nav">
-	    	    	<li>
-	    	    		<a class="{% nav_selected request '^/$' %}" href="{% url home %}" title="Chinese tea delivered to your door.">Home</a>
-	    	    	</li>
-	    	        <li>
-	    	        	<a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Our Chinese teas</a>
-	    	        </li>
-	    	        <li>
-	    	        	<a class="{% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn about tea</a>
-	    	        </li>
-	    	        
-	    	        <li>
-	    	        	<a class="{% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
-	    	        	   	Your basket <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
-	    	        	</a>
-	    	        </li>
-	  			</ul>
-			</div>
-			
-			{% block banner %}{% endblock %}
-
+    	<div id="navigation">
+    	  <ul id="nav">
+			<li>
+    	      <a class="grey {% nav_selected request '^/$' %}" href="{% url home %}" title="Min River Tea Homepage" alt="">Home</a>
+    	    </li>
+    	    <li>
+    	      <a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Our Chinese teas</a>
+    	    </li>
+    	    <li>
+    	      <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="Teacups and teapots" alt="">Teaware</a>
+    	    </li>
+    	    <li>
+    	      <a class="{% nav_selected request '^/samplers/' %}" href="{% url samplers %}" title="Buy authentic Chinese tea" alt="">Taster Packs</a>
+    	    </li>
+    	    <li>
+    	      <a class="grey {% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn about tea</a>
+    	    </li>
+    	    <li>
+    	      <a class="grey {% nav_selected request '^/about/' %}" href="/about/" title="About Min River Tea" alt="">About us</a>
+    	    </li>
+    	    <li>
+    	      <a class="grey {% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
+    	      Your basket <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
+    	      </a>
+    	    </li>
+  		</ul>
 	</div>
-</div><!-- end header -->
+	{% block banner %}{% endblock %}
+	</div>
+</div>
+<!-- end header -->
 
 	{% block content %}{% endblock %}
 	

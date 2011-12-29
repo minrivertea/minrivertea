@@ -208,10 +208,20 @@ div.tea-top {
     padding-bottom: 30px;
 }
 
+.tea-top .description {
+  width: 430px;
+  float: left;	
+}
+
 div.tea-top div.description p {
-  font-size: 21px;
+  font-size: 25px;
   color: #333;	
   margin: 0 0 10px 0;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+div.tea-top div.description p.small {
+  font-size: 18px;	
 }
 
 div.tea-top div.main-image {
@@ -223,25 +233,24 @@ div.tea-top div.main-image {
 
 div.tea-top div#prices {
     float: left;
-    margin-top: 10px;
-    padding-top: 0px;
-    width: 420px;
+    width: auto;
+    margin: 15px 0 0;
 }
 
 div.tea-top div#prices div.price {
     float: left;
-    margin: 0 20px 0 10px;
+    margin: 0;
     width: 170px;
     position: relative;
 }
 
 div.tea-top div#prices div.price.large {
-  width: 380px;
+  width: 100%;
 }
 
 
 div.tea-top div#prices div.price.large p.price-description {
-  width: 100px;
+  width: 90px;
   float: left;
   margin-left: 10px;
   margin-bottom: 0px;	
@@ -257,37 +266,34 @@ div.tea-top div#prices div.price.last {
 }
 
 div.tea-top a.button {
-    float: left;
-    font-size: 16px;
-    left: -5px;
-    margin: 10px 0 0;
+    float: right;
+    font-size: 22px;
+    margin: 0;
     position: relative;
-    width: 150px;
+    width: 190px;
     background: #237A2A;
     background: -moz-linear-gradient(100% 100% 90deg, #237A2A, #399440) repeat scroll 0 0 transparent;
-        
     /* Safari 4-5, Chrome 1-9 */ 
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#399440), to(#237A2A)); 
-    
     /* Safari 5.1+, Chrome 10+ */ 
     background: -webkit-linear-gradient(#399440, #237A2A); 
-    
     /* Opera 11.10+ */ 
     background: -o-linear-gradient(#237A2A, #399440); 
-    border: none;
+    border: 1px solid transparent;
+    text-shadow: 0 -1px 1px #333333;
     box-shadow: none;
-    text-shadow: none;
-    color: #fff;
+    color: #fff; 
+    padding: 11px 20px 9px;
 }
 
 div.tea-top a.button:hover {
-  text-shadow: 0 -1px 1px #333333;
-  box-shadow: 0 1px 3px #666;
+  box-shadow: 0 1px 3px #999;
+  border: 1px solid #fff;
 }
 
 div.tea-top a.button.single {
     float: right;
-    left: -5px;
+    top: -5px;
     margin: 0;
 }
 
@@ -360,15 +366,17 @@ div.message:after {
 
 div.message p {
   margin: 0;
-  font-size: 13px;
-  font-weight: ;
+  font-size: 15px;
+  font-family: Helvetica, Arial, sans-serif;
   line-height: 1.2em;
   color:  ;	
 }
 
 div.message p a {
-  font-size: 20px;	
+  font-size: 20px;
+  line-height: 1em;	
   color: #f37679;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 div.message p a:hover {
@@ -383,7 +391,7 @@ div.message img {
 
 table.details {
     color: #333;
-    font-size: 13px;
+    font-size: 16px;
     margin-top: 10px;
     width: 660px;
 }
@@ -404,6 +412,8 @@ table.details td a {
 table.details td.left {
   padding-right: 10px;
   background-color: #e1e1e1;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 
 ul.reviews {
@@ -426,19 +436,6 @@ h3.small {
   font-size: 15px;	
 }
 
-div.product-photos-small p.helper {
-    background: url("/images/helper.png") no-repeat scroll left top transparent;
-    color: #f1f1f1;
-    float: left;
-    font-family: Helvetica;
-    font-size: 10px;
-    height: 7px;
-    margin: 0 0 0 30px;
-    padding: 15px 8px;
-    text-align: left;
-    width: 130px;
-}
-
 p.price {
     color: #237A2A;
     float: left;
@@ -447,7 +444,9 @@ p.price {
     letter-spacing: -2px;
     line-height: 1em;
     margin: 0;
-    text-shadow: 0 1px 1px #FFFFFF;
+    position: relative;
+    text-shadow: 1px 1px 0px #FFFFFF;
+    top: -5px;
 }
 
 p.price span.grey {
@@ -476,10 +475,9 @@ div.fb-recommend {
 }
 
 div.coming-soon {
-    float: right;
+    float: left;
     height: 85px;
-    padding: 15px 15px;
-    width: 410px;
+    width: auto;
 }
 
 div.coming-soon p {
@@ -500,22 +498,21 @@ div.coming-soon span.green {
 }
 
 div.coming-soon input {
-  float: left;
-  color: #999;	
+  float: left;	
 }
 
-div.coming-soon input.submit {
-    background-color: #1C7600;
-    border-left: medium none;
-    color: #FFFFFF;
-    font-family: Helvetica,sans-serif;
+div.coming-soon input.button {
     font-weight: bold;
-    height: 32px;
+    font-size: 13px;
+    height: 33px;
     padding: 7px;
     width: 70px;
+    position: relative;
+    top:-2px;
+    left: -3px;
 }
 
-div.coming-soon input.submit:hover {
+div.coming-soon input.button:hover {
   cursor: pointer;	
   background-color: #359318; 
 }
@@ -562,14 +559,15 @@ div.coming-soon input.submit:hover {
 }	
 
 #price-helper {
-    float: right;
+    float: left;
     height: 25px;
-    margin: 25px 40px 0 0;
+    margin: 15px 40px 0 12px;
     width: auto;
 }
 
 a#explain-prices {
-  font-size: 11px;	
+  font-size: 13px;
+  font-family: Helvetica, Arial, sans-serif;	
   margin-bottom: 15px;
   float: left;
   font-weight: bold;
@@ -609,6 +607,7 @@ a#explain-prices:hover span {
 <div id="banner">
   <div class="super">
 
+	{% if ga_is_on %}
     <ul class="rss">
 		<li id="google">
 			<g:plusone></g:plusone>
@@ -627,8 +626,9 @@ a#explain-prices:hover span {
 		    </fb:like>
 		</li>
 	</ul>
+	{% endif %}
 	
-	<h1><a href="">{{ tea.category }}</a> > {{ tea.name }}</h1>
+	<h1>{{ tea.name }}</h1>
 
 
   </div>
@@ -703,7 +703,7 @@ a#explain-prices:hover span {
 		  		<p>But we'd be happy to notify you when this tea becomes available again.</p>
 		  		<form method="post" action="">
 		  			<input type="text" name="email" id="id_email" value="Your email address"/>
-		  			<input type="submit" value="Submit" class="submit"/>
+		  			<input class="button" type="submit" value="Submit" class="submit"/>
 		  		</form>
 		  		{% endif %}
 		  	</div>

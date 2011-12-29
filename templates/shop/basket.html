@@ -230,7 +230,13 @@ div.basket-row.discount {
 
 div.basket-row.discount span#link {
   font-weight: bold;
-  color: #439249;	
+  color: #439249;
+  font-family: Helvetica, Arial, sans-serif;	
+}
+
+div.basket-row.discount span#link:hover {
+  cursor: pointer;
+  color: #F37679;	
 }
 
 div.basket-row.discount form {
@@ -379,7 +385,7 @@ div.discount span.red {
   					Create a wishlist from your basket
   				</h3>
   				<p>A wishlist saves your basket so that other people can buy it for you as a gift.</p>
-  				<p><a style="font-weight: bold;" id="wishlist" href="#wishlist-full">How does it work?</a></p>
+  				<p><a style="font-weight: bold; font-family: Helvetica, Arial, sans-serif" id="wishlist" href="#wishlist-full">How does it work?</a></p>
   				<div id="wishlist-full" style="width: 400px; padding: 30px;">
   					<h2>How the 'wishlist' works</h2>
   					<p><img src="{% staticfile '/images/gift.png' %}" style="float: left;margin-right: 15px; position: relative; top: -10px;"/><strong>Creating a wishlist turns your basket into a list of gifts that other people can buy for you.</strong></p>

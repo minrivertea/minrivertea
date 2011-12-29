@@ -60,11 +60,10 @@ urlpatterns = patterns('',
     url(r'^tea-equipment/$', category, name="equipment"),
     url(r'^samplers/$', category, name="samplers"),
     url(r'^samplers/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    url(r'^tea-equipment/$', category, name="tea-equipment"),
+    url(r'^teaware/$', category, name="teaware"),
+    url(r'^teaware/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     url(r'^teas/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
     url(r'^teas/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    url(r'^tea-equipment/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    url(r'^tea-boxes/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     
     
     # urls for the pages

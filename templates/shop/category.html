@@ -32,13 +32,6 @@ h1 {
 
 <div id="banner">
   <div class="super">
-    
-    
-    <div id="chooser">
-		<p>
-		  {% for c in categories %}<a class="{% nav_selected request c.slug %}" href="{{ c.get_absolute_url }}">{{ c.name }}</a>{% endfor %}
-		</p>
-	</div>
 	
 	<h1>{{ category.long_title }}</h1>
 	<div class="category-desc">{{ category.short_description|safe }}</div>	
