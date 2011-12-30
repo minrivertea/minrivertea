@@ -46,6 +46,8 @@ class Product(models.Model):
     is_featured = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     tag_text = models.CharField(max_length="100", blank=True, null=True)
+    tag_color = models.CharField(max_length="60", blank=True, null=True,
+        help_text="A Hex reference with the preceding # hash")
     coming_soon = models.BooleanField(default=False)
         
     def __unicode__(self):
