@@ -1099,7 +1099,7 @@ ul.rss {
    width: 200px;
    overflow: hidden;
    position: relative;
-   margin: 0;
+   margin: 15px 0 0 0;
 }
 
 div.info {
