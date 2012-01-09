@@ -61,21 +61,6 @@ div.tell-friend-box label {
     width: 100%;
 }
 
-
-
-div.tell-friend-box input.submit-button {
-    background: url('{% staticfile '/images/submit.png' %}') no-repeat scroll left top transparent;
-    border: medium none;
-    float: right;
-    height: 55px;
-    margin: -36px 20px 0 0;
-    width: 227px;
-}
-
-div.tell-friend-box input.submit-button:hover {
-    background: url('{% staticfile '/images/submit.png' %}') no-repeat scroll left bottom transparent;
-}
-
 div.tell-friend-box.email h3.message {
   font-size: 16px;	
   color: #1c8716;
@@ -148,7 +133,7 @@ p.help-text img {
 			<input type="text" name="recipient" id="id_recipient" />
 			<p class="help-text"><img src="{% staticfile '/images/lock.gif' %}"> We will never share, sell or spam these email addresses (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)</p>	
 			<br/>
-    		<input type="submit" value="" class="submit-button">
+    		<input type="submit" value="Submit" class="button">
     		    {{ form.sender.errors }}
     		    {{ form.recipient.errors }}        
 				{{ form.message.errors }}
