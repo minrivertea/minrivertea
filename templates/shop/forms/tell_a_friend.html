@@ -106,10 +106,16 @@ p.help-text img {
 
 
 {% block content %}
-    
-<div id="featured-small"></div>
 
-	<div id="main-text-wide">
+<div id="banner">
+	<div class="super">
+		<h1>Tell a friend!</h1>
+	</div>
+</div>
+
+
+<div id="main-text-wide">
+  <div class="super">
 
 		<h1>Tell a friend</h1>
 		<div class="tell-friend-box">
@@ -149,10 +155,9 @@ p.help-text img {
 				{{ form.message.errors }}
 			</form>
 		</div>
-		
-		<br clear="all"/>
 
-
+  </div>
+</div>
 		
 
     {% endblock %}
