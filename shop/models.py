@@ -25,7 +25,10 @@ PRODUCT_CATEGORY = (
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, 
+        help_text="Appears in listings and on product page if no long_name set")
+    long_name = models.CharField(max_length=200, blank=True, null=True,
+        help_text="Appears on the actual product page")
     slug = models.SlugField(max_length=80)
     meta_title = models.CharField(max_length=200, blank=True, null=True)		
     description = models.TextField()

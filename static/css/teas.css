@@ -95,7 +95,7 @@ span.message img {
 
 .tag {
 	margin-left:20px;
-	padding:8px 13px 6px 20px;
+	padding:8px 18px 6px 20px;
 	background:#0089e0;
 	color:#fff;
 	font-size: 15px;
@@ -107,7 +107,7 @@ span.message img {
 }
 
 .tag:after {
-    border-color: #0B72B3 transparent -moz-use-text-color;
+    border-color: #666 transparent -moz-use-text-color;
     border-style: solid solid none;
     border-width: 20px 0 20px 20px;
     bottom: -20px;
@@ -121,7 +121,7 @@ span.message img {
 }
 
 .tag:before {
-    border-color: #084e7a transparent -moz-use-text-color;
+    border-color: #333 transparent -moz-use-text-color;
     border-style: solid solid none;
     border-width: 20px 0 20px 20px;
     bottom: -20px;

@@ -88,6 +88,16 @@ $(document).ready( function() {
 {% block extracss %}
 <link rel="stylesheet" href="{% staticfile '/css/fancybox/jquery.fancybox-1.3.4.css' %}" />
 <style type="text/css">
+h1 {
+  font-size: 40px;	
+}
+
+h1 span {
+  font-size: 30px;
+  color: #999;
+  margin-left: 10px;	
+}
+
 div.more-info {
   padding-left: 0px;
   margin-bottom: 15px;
@@ -439,14 +449,14 @@ h3.small {
 p.price {
     color: #237A2A;
     float: left;
+    font-family: Helvetica,Arial,sans-serif;
     font-size: 40px;
     font-weight: bold;
     letter-spacing: -2px;
     line-height: 1em;
     margin: 0;
     position: relative;
-    text-shadow: 1px 1px 0px #FFFFFF;
-    top: -5px;
+    text-shadow: 1px 1px 0 #FFFFFF;
 }
 
 p.price span.grey {
@@ -628,7 +638,7 @@ a#explain-prices:hover span {
 	</ul>
 	{% endif %}
 	
-	<h1>{{ tea.name }}</h1>
+	<h1>{% if tea.long_name %}{{ tea.long_name|safe }}{% else %}{{ tea.name }}{% endif %}</h1>
 
 
   </div>

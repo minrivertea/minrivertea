@@ -10,7 +10,7 @@
 			<img alt="a picture of {{ product.name }} Chinese tea" title="{{ product.name }} Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
 			{% endthumbnail %}
 			{% if product.tag_text %}
-				<span class="tag">{{ product.tag_text }}</span>
+				<span class="tag" style="background-color: {{ product.tag_color }};" >{{ product.tag_text }}</span>
 			{% endif %}
 		  </div>
 		  

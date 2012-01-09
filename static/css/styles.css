@@ -179,7 +179,7 @@ input.button {
 }
 
 input.button:hover {
-  color: #FFAEAE;	
+  color: #F37679;	
 }
 
 div#container {
@@ -677,10 +677,6 @@ div.row-box {
   float: left;
   margin: 0px 0 10px 0px;	
   padding-top: 5px;
-}
-
-div.row-box table {
-  font-size: 14px;	
 }
 
 div.row-box table td {
