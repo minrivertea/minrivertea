@@ -741,6 +741,7 @@ a#explain-prices:hover span {
           {% endif %}
         </div>
         
+        {% if tea.coming_soon %}
         <div id="price-helper">
 			<a id="explain-prices" href="#explain-prices-full"><span>£</span> Explaining our prices</a>		
 			<div id="explain-prices-full" style="width: 600px; padding: 30px;">
@@ -756,6 +757,7 @@ a#explain-prices:hover span {
 				
 			</div>
 		</div>
+		{% endif %}
 
 	</div><!-- end top product info div -->
 
