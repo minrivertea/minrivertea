@@ -14,25 +14,18 @@ from minriver import settings
 from minriver.countries import COUNTRY_CHOICES
 
 
-
-# these are the categories of products on the site.
-PRODUCT_CATEGORY = (
-    (u'TEA', u'Tea'),
-    (u'PAK', u'Package'),
-    (u'OTH', u'Other'),
-    (u'POS', u'Postage'),
-)
-
-
 class Product(models.Model):
     name = models.CharField(max_length=200, 
         help_text="Appears in listings and on product page if no long_name set")
     long_name = models.CharField(max_length=200, blank=True, null=True,
         help_text="Appears on the actual product page")
     slug = models.SlugField(max_length=80)
-    meta_title = models.CharField(max_length=200, blank=True, null=True)		
-    description = models.TextField()
-    meta_description = models.TextField(blank=True, null=True)
+    meta_title = models.CharField(max_length=200, blank=True, null=True,
+        help_text="")		
+    description = models.TextField(
+        help_text="The short description appearing in product listings - no HTML")
+    meta_description = models.TextField(blank=True, null=True,
+        help_text="")
     super_short_description = models.CharField(max_length=200)
     body_text = models.TextField()
     long_description = models.TextField(blank=True, null=True)

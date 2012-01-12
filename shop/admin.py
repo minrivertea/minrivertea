@@ -3,6 +3,22 @@ from django.contrib import admin
 
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+    fieldsets = (
+        ('Name', {
+            'fields': ('name', 'long_name', 'slug', 'meta_title')
+        }),
+        ('Descriptions', {
+            'fields': ('description', 'meta_description', 'super_short_description', 'body_text', 'long_description')
+        }),
+        ('Images', {
+            'fields': ('image', 'image_2', 'image_2_caption', 'image_3', 'image_3_caption',
+                'image_4', 'image_4_caption', 'image_5', 'image_5_caption')
+        }),
+        ('Others', {
+            'fields': ('category', 'is_featured', 'is_active', 'tag_text', 'tag_color',
+                'coming_soon')
+        }),
+    )
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
