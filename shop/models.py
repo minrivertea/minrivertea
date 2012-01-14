@@ -94,8 +94,6 @@ class UniqueProduct(models.Model):
     parent_product = models.ForeignKey(Product)
     description = models.TextField()
     available_stock = models.IntegerField(null=True, blank=True)
-    amazon_stock = models.IntegerField(null=True, blank=True)
-    stock = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_sale_price = models.BooleanField(default=False)
     old_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,

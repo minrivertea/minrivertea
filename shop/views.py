@@ -1017,7 +1017,12 @@ def ship_it(request, id):
     order = get_object_or_404(Order, pk=id)
     
     # first we'll reduce the stock quantities of each one.
+    if request.GET.get('amazon'):
+        print "reduce amazon stock"
+        return
     
+    else:
+           
     
     order.status = Order.STATUS_SHIPPED
     order.date_shipped = datetime.now()
