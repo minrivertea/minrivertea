@@ -991,12 +991,10 @@ def admin_stuff(request):
         total_sales += order.get_amount() 
     
     # make the nice lists for paid/unpaid orders
-    orders = Order.objects.all().exclude(status=Order.STATUS_CREATED_NOT_PAID).order_by(
+    orders = Order.objects.filter(is_giveaway=False).exclude(status=Order.STATUS_CREATED_NOT_PAID).order_by(
         '-date_paid')
     
-    all_giveaways = []
-    for order in giveaways:
-        all_giveaways.append((order, order.items.all()))
+    giveaways = Order.objects.filter(is_giveaway=True).order_by('-date_paid')
 
     return render(request, "shop/admin_base.html", locals())
 

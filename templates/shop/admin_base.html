@@ -54,8 +54,11 @@
 			</tr>
 		</thead>
 	{% for order in orders %}
-		<tr class="{% cycle '' 'white' %} {% ifequal order.status 'paid' %}new{% endifequal %}">
-			<td class="id" valign="top"><a href="{% url admin_order order.id %}">{{ order }}</a></td>
+		<tr id="{{ order.id }}" class="{% cycle '' 'white' %} {% ifequal order.status 'paid' %}new{% endifequal %}">
+			<td class="id" valign="top">
+				<a href="{% url admin_order order.id %}">{{ order }}</a><br/>
+				<span style="font-weight: normal">{{ order.date_paid|date:"d M y" }}</span>
+			</td>
 			<td class="owner" valign="top">
 				<a href="{% url admin_shopper order.owner.id %}">{{ order.owner }}</a><br/>
 				<strong>{{ order.owner.first_name }} {{ order.owner.last_name }}</strong><br/>
@@ -151,12 +154,12 @@
 			<td>Value</td>
 			</tr>
 		</thead>
-	{% for order, items in all_giveaways %}
+	{% for order in giveaways %}
 		<tr>
 			<td><a href="{% url admin_order order.id %}">{{ order }}</a></td>
 			<td>
 				<ul>
-				{% for item in items %}
+				{% for item in order.get_items %}
 					<li>{{ item }}</li>
 				{% endfor %}
 				</ul>
