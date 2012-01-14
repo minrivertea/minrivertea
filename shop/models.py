@@ -102,8 +102,10 @@ class UniqueProduct(models.Model):
         help_text="If it's a sale item, what was the old price?")
     
     def __unicode__(self):
-        return "%s (%s%s)" % (self.parent_product, self.weight, self.weight_unit)
-                
+        if self.weight:
+            return "%s (%s%s)" % (self.parent_product, self.weight, self.weight_unit)
+        else: 
+            return "%s" % self.parent_product           
 
 class Shopper(models.Model):
     user = models.ForeignKey(User)
@@ -250,6 +252,8 @@ class Order(models.Model):
             amount += 3
         return amount
     
+    def get_items(self):
+        return self.items.all()
 
     def ready_to_send_review(self):
         if (self.date_paid + timedelta(days=7)) < datetime.now():

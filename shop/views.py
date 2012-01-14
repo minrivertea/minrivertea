@@ -991,12 +991,8 @@ def admin_stuff(request):
         total_sales += order.get_amount() 
     
     # make the nice lists for paid/unpaid orders
-    all_orders = []    
-    for order in orders:
-        if order.status == Order.STATUS_CREATED_NOT_PAID:
-            pass
-        else:
-            all_orders.append((order, order.items.all())) 
+    orders = Order.objects.all().exclude(status=Order.STATUS_CREATED_NOT_PAID).order_by(
+        '-date_paid')
     
     all_giveaways = []
     for order in giveaways:

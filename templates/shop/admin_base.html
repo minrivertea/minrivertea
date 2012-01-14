@@ -3,14 +3,23 @@
 
 {% block extracss %}
   <style type="text/css">
-      table {border: 1px solid #E1E1E1;font-family: helvetica,sans-serif;font-size: 12px;}
-      td { padding:5px 10px;}
+  	  #header {display: none;}
+  	  .super {width: 1060px;}
+  	  h1 {float: left;}
+      table {font-family: helvetica,sans-serif;font-size: 12px;}
+      tr.white td {background-color: #fff;}
+      tr.new td {background-color: #DBF2DA;}
+      td { padding:10px 10px; background-color: #f1f1f1;}
+      td.id {font-weight: bold;}
       td ul {padding:0; margin:0;}
-      td ul li {list-style-type:none;}
-      thead {font-weight: bold; background-color: #e1e1e1;}
+      td ul li {list-style-type:none; font-size: 12px; line-height: 1em;}
+      thead td {font-weight: bold; background-color: #666; color: #fff;}
+      tr.new td.trans {background-color: transparent;}
+      td.trans a.button {font-size: 16px; padding: 10px 25px 8px}
       h3 {margin: 30px 0 20px 0;}
       div.small-box {background-color: #F1F1F1; float: left; margin: 20px 10px 0 0; padding: 15px 20px; width: 200px; -moz-border-radius: 10px;}
       div.small-box h3 {margin-top: 0px;}
+      
   </style>
 {% endblock %}
 
@@ -22,7 +31,7 @@
 
 <div id="banner">
   <div class="super">
-    <h1>Admin pages</h1>
+    <h1>Minrivertea.com Order Admin</h1>
     <a href="/admin/">Login to admin interface</a>
   </div>
 </div>
@@ -37,28 +46,39 @@
 		<thead>
 			<tr>
 			<td>Order ID</td>
-			<td>Items</td>
 			<td>Owner</td>
-			<td>Status</td>
-			<td>Date paid</td>
-			<td>&nbsp;</td>
+			<td>Items</td>
 			<td>Value</td>
+			<td>Date paid</td>
+			<td>Status</td>
 			</tr>
 		</thead>
-	{% for order, items in all_orders %}
-		<tr>
-			<td><a href="{% url admin_order order.id %}">{{ order }}</a></td>
-			<td>
+	{% for order in orders %}
+		<tr class="{% cycle '' 'white' %} {% ifequal order.status 'paid' %}new{% endifequal %}">
+			<td class="id" valign="top"><a href="{% url admin_order order.id %}">{{ order }}</a></td>
+			<td class="owner" valign="top">
+				<a href="{% url admin_shopper order.owner.id %}">{{ order.owner }}</a><br/>
+				<strong>{{ order.owner.first_name }} {{ order.owner.last_name }}</strong><br/>
+				{% if order.address.house_name_number %}{{ order.address.house_name_number }}<br/>{% endif %}
+				{% if order.address.address_line_1 %}{{ order.address.address_line_1 }}<br/>{% endif %}
+				{% if order.address.address_line_2 %}{{ order.address.address_line_2 }}<br/>{% endif %}
+				{% if order.address.town_city %}{{ order.address.town_city }}<br/>{% endif %}
+				{{ order.address.postcode }}<br/>
+				{{ order.address.country|upper }}</br>
+			</td>
+			<td class="items" valign="top">
 				<ul>
-				{% for item in items %}
+				{% for item in order.get_items %}
 					<li>{{ item }}</li>
 				{% endfor %}
 				</ul>
 			</td>
-			<td><a href="{% url admin_shopper order.owner.id %}">{{ order.owner }}</a></td>
-			<td>{{ order.status }}</td>
-			<td>{{ order.date_paid }}</td>
-			<td>
+			<td class="value" valign="top">
+ 				{{ order.get_amount }}
+			</td>
+			<td class="date" valign="top">{{ order.date_paid }}</td>
+			<td class="status" valign="top">
+				<strong>{{ order.status }}</strong><br/>
 				{% if order.status == 'shipped' %}
 				  {% if order.review_email_sent %}
 				     review email sent
@@ -67,8 +87,6 @@
    				     <a href="{% url send_review_email order.id %}">Send review email</a>
    				    {% endif %}
 				  {% endif %}
-				{% else %}
-				<a href="{% url ship_it order.id %}">Ship it</a>
 				{% endif %}
 				<br/>
 				{% if order.sampler_email_sent %}
@@ -83,9 +101,11 @@
 				  {% endif %}
 				{% endif %}
 			</td>
-			<td>
- 				{{ order.get_amount }}
+			{% if order.status == 'paid' %}
+			<td class="trans">
+				<a title="Click to confirm this order has been sent (doesn't trigger any emails or anything sinister)" class="button" href="{% url ship_it order.id %}">Ship it!</a>
 			</td>
+			{% endif %}
 		</tr>
 	{% empty %}
 		<p>No current paid orders</p>
