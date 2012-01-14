@@ -49,7 +49,6 @@
 			<td>Owner</td>
 			<td>Items</td>
 			<td>Value</td>
-			<td>Date paid</td>
 			<td>Status</td>
 			</tr>
 		</thead>
@@ -79,7 +78,6 @@
 			<td class="value" valign="top">
  				{{ order.get_amount }}
 			</td>
-			<td class="date" valign="top">{{ order.date_paid }}</td>
 			<td class="status" valign="top">
 				<strong>{{ order.status }}</strong><br/>
 				{% if order.status == 'shipped' %}
