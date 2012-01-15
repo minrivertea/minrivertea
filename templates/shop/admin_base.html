@@ -19,7 +19,9 @@
       h3 {margin: 30px 0 20px 0;}
       div.small-box {background-color: #F1F1F1; float: left; margin: 20px 10px 0 0; padding: 15px 20px; width: 200px; -moz-border-radius: 10px;}
       div.small-box h3 {margin-top: 0px;}
-      
+      ul#stocks {padding: 0; margin: 0 0 30px 0; float: left; width: 100%; font-family: Helvetica, sans-serif;}
+      ul#stocks li {float: left; width: 200px; background-color: #f1f1f1; padding: 10px 15px; list-style-type: none; font-size: 12px; border: 1px solid #fff;}
+      ul#stocks li.red {color: red;}
   </style>
 {% endblock %}
 
@@ -112,7 +114,13 @@
 	{% else %}
 	<p><em>No orders in the last 30 days</em></p>
 	{% endif %}
-	
+
+<h3>Stocks</h3>
+<ul id="stocks">
+{% for i in stocks %}
+	<li class="{% if i.available_stock < 3 %}red{% endif %}"><strong>{{ i.available_stock }}</strong> x {{ i }} </li>
+{% endfor %}
+</ul>
 
 <h3>Unconfirmed orders</h3>
 <table id="unconfirmed-orders">
