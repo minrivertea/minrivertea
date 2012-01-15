@@ -1,4 +1,12 @@
-New order from {{ order.owner.email }}
+{% if order.wishlist_payee %}
+
+	THIS ORDER IS A WISHLIST! The payee is {{ order.wishlist_payee }} but the tea should be delivered to the person below:
+
+{% else %}
+
+	New order from {{ order.owner.email }}
+
+{% endif %}
 
 {% for item in order.items.all %}
 	{{ item }}
@@ -7,3 +15,12 @@ New order from {{ order.owner.email }}
 INVOICE ID: {{ order.invoice_id }}
 
 ORDER STATUS: {{ order.status }}
+
+ADDRESS:
+
+{{ order.address.house_name_number }}
+{{ order.address.address_line_1 }}
+{{ order.address.address_line_2 }}
+{{ order.address.town_city }}
+{{ order.address.postcode }}
+{{ order.address.city }}

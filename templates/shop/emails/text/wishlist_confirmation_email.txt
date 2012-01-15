@@ -1,0 +1,14 @@
+Hi {{ wishlist.owner.first_name }}!
+
+Here's your unique wishlist URL:
+
+http://www.minrivertea.com{% url wishlist_url wishlist.hashkey %}
+
+Other people can use this URL to buy items from your wishlist, and we'll deliver them direct to you. 
+
+But don't forget to tell people about it! You can copy and paste this URL to your Facebook, Twitter or blog.
+
+All the best,
+
+Chris West, Founder
+www.minrivertea.com

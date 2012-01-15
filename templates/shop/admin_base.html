@@ -4,8 +4,10 @@
 {% block extracss %}
   <style type="text/css">
   	  #header {display: none;}
+  	  #footer {display:none;}
   	  .super {width: 1060px;}
-  	  h1 {float: left;}
+  	  #banner ul {font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none; margin: 0; padding: 0;}
+  	  #banner ul li {float: left; margin-right: 50px;}
       table {font-family: helvetica,sans-serif;font-size: 12px;}
       tr.white td {background-color: #fff;}
       tr.new td {background-color: #DBF2DA;}
@@ -34,7 +36,10 @@
 <div id="banner">
   <div class="super">
     <h1>Minrivertea.com Order Admin</h1>
-    <a href="/admin/">Login to admin interface</a>
+    <ul>
+    	<li><a href="/admin/">Login to admin interface</a></li>
+    	<li><a href="/">Back to site</a></li>
+    </ul>
   </div>
 </div>
 
@@ -58,6 +63,12 @@
 			<td class="id" valign="top">
 				<a href="{% url admin_order order.id %}">{{ order }}</a><br/>
 				<span style="font-weight: normal">{{ order.date_paid|date:"d M y" }}</span>
+				{% if order.wishlist_payee %}
+				<br/><br/>
+				<span style="text-transform: uppercase;font-size: 10px; color: red;">WISHLIST PAID BY:</span><br/>
+				<span style="font-weight:normal;color:red; font-size: 10px;">{{ order.wishlist_payee }}</span>
+				
+				{% endif %}
 			</td>
 			<td class="owner" valign="top">
 				<a href="{% url admin_shopper order.owner.id %}">{{ order.owner }}</a><br/>

@@ -109,13 +109,29 @@ def _product_review_email(order_id):
     return HttpResponseRedirect('/admin-stuff')  
 
 
+def _wishlist_confirmation_email(wishlist):
+    
+    receiver = wishlist.owner.email
+    subject_line = "Your Min River Tea Wishlist!"
+            
+    # create email
+    text = render_to_string('shop/emails/text/wishlist_confirmation_email.txt', {'wishlist': wishlist})
+    html = render_to_string('shop/emails/html/wishlist_confirmation_email.html', {
+    	'wishlist': wishlist,
+    	'subject': subject_line,
+    })
+    
+    _send_email(receiver, subject_line, text, html)
+    
+    return
+
 def _admin_notify_new_review(tea, review):
     
     text = "%s %s just posted a review of %s" % (review.first_name, review.last_name, tea.name)              
     subject_line = "New Review Posted - %s" % tea.name 
     receiver = settings.SITE_EMAIL
       
-    _send_email(request, receiver, subject_line, text)
+    _send_email(receiver, subject_line, text)
     
     return
 

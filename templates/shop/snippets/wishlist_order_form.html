@@ -1,8 +1,8 @@
-<h2>You're purchasing these items for ABCDJKLH:</h2>
+<h2>You're purchasing these items for {{ order.owner.first_name }} {{ order.owner.last_name }}:</h2>
 
 <ul>
 {% for item in order.items.all %}
-	<li><strong>{{ item.quantity }} x {{ item.item.parent_product.name }} ({% if not item.item.weight %}{% else %}{{ item.item.weight|floatformat }}{{ item.item.weight_unit }}{% endif %}) - <span class="price">{{ item.item.price_unit }}{{ item.item.price }}<span></strong></li>
+	<li><strong>{{ item.quantity }} x {{ item.item.parent_product.name }} {% if not item.item.weight %}{% else %}({{ item.item.weight|floatformat }}{{ item.item.weight_unit }}){% endif %} - <span class="price">{{ item.item.price_unit }}{{ item.item.price }}<span></strong></li>
 {% endfor %}
 	<li>
 		<strong>

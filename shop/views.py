@@ -30,7 +30,7 @@ import re
 from minriver.shop.models import *
 from minriver.shop.forms import *
 from minriver.slugify import smart_slugify
-from minriver.shop.emails import _admin_notify_new_review, _admin_notify_contact
+from minriver.shop.emails import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email
 
 
 
@@ -606,7 +606,8 @@ def wishlist_select_items(request):
         form = SelectWishlistItemsForm(request.POST)
         if form.is_valid():
             wishlist = get_object_or_404(Wishlist, hashkey=request.POST['hashkey'])
-            # create an order here:
+            
+            # create an order object and save it:
             order = Order.objects.create(
                 owner=wishlist.owner,
                 address=wishlist.address,
@@ -614,12 +615,13 @@ def wishlist_select_items(request):
                 is_confirmed_by_user=True,
                 status = Order.STATUS_CREATED_NOT_PAID,
             )
-            
+            order.invoice_id = "WL-00%s" % (order.id)
             for item in request.POST.getlist(u'items'):
                 order.items.add(BasketItem.objects.get(id=item))
             
-            order.invoice_id = "TEA-00%s" % (order.id)
             order.save()
+            
+            # work out the price to display on the page
             total_price = 0
             for item in order.items.all():
                 price = item.quantity * item.item.price
@@ -630,13 +632,15 @@ def wishlist_select_items(request):
             else: 
                 total_price += 3
                 postage_discount = False
-                
+            
+            # create the HTML to send back via AJAX    
             html = render_to_string('shop/snippets/wishlist_order_form.html', {
             	    'order': order,
             	    'postage_discount': postage_discount,
             	    'total_price': total_price,
             	    })
-            	    
+            
+            # return the AJAX	    
             return HttpResponse(html, mimetype="text/html")
     
     return HttpResponse()
@@ -747,7 +751,6 @@ def order_makewishlist(request):
         if Wishlist.objects.filter(owner=order.owner):
             objects = Wishlist.objects.filter(owner=order.owner)
             wishlist = objects[0]
-            print wishlist
             
         else:
             wishlist = Wishlist.objects.create(
@@ -762,6 +765,7 @@ def order_makewishlist(request):
         
         wishlist.save()
 
+        _wishlist_confirmation_email(wishlist)
   		
         html = render_to_string('shop/snippets/make_wishlist.html', {
                 'order': wishlist,
@@ -979,7 +983,7 @@ def admin_stuff(request):
         reminder_email_sent=False).order_by('-date_confirmed')
     
     
-    start_date = (datetime.now() - timedelta(days=30)) # two months ago
+    start_date = (datetime.now() - timedelta(days=80)) # two months ago
     end_date = datetime.now() # now
     
     stocks = UniqueProduct.objects.filter(is_active=True)
