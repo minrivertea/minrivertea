@@ -983,7 +983,7 @@ def admin_stuff(request):
         reminder_email_sent=False).order_by('-date_confirmed')
     
     
-    start_date = (datetime.now() - timedelta(days=80)) # two months ago
+    start_date = (datetime.now() - timedelta(days=30)) # two months ago
     end_date = datetime.now() # now
     
     stocks = UniqueProduct.objects.filter(is_active=True)

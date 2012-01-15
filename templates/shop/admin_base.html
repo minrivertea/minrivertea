@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% load thumbnail %}
+{% load thumbnail django_static %}
 
 {% block extracss %}
   <style type="text/css">
-  	  #header {display: none;}
+  	  div#logo {background: url("{% staticfile '/images/logo-admin.jpg' %}") no-repeat scroll 0 0 transparent; width: 630px; height: 100px;}
+  	  #navigation {display: none }
   	  #footer {display:none;}
   	  .super {width: 1060px;}
   	  #banner ul {font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none; margin: 0; padding: 0;}
@@ -35,7 +36,6 @@
 
 <div id="banner">
   <div class="super">
-    <h1>Minrivertea.com Order Admin</h1>
     <ul>
     	<li><a href="/admin/">Login to admin interface</a></li>
     	<li><a href="/">Back to site</a></li>
