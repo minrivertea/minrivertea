@@ -992,11 +992,6 @@ def admin_stuff(request):
         ).order_by(
         '-date_paid')
     
-    # work out how many sales we've made
-    total_sales = 0
-    for order in orders:
-        total_sales += order.get_amount() 
-    
     giveaways = Order.objects.filter(is_giveaway=True).order_by('-date_paid')
 
     return render(request, "shop/admin_base.html", locals())
