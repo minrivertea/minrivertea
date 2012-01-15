@@ -39,9 +39,8 @@
 <div id="main-text-wide">
   <div class="super">
 
-
-<p></p>
-<h3>Orders ({{ orders.count }})</h3>
+<h3>Recent orders ({{ orders.count }})</h3>
+	{% if orders %}
 	<table id="orders-table">
 		<thead>
 			<tr>
@@ -108,10 +107,12 @@
 			</td>
 			{% endif %}
 		</tr>
-	{% empty %}
-		<p>No current paid orders</p>
 	{% endfor %}
 	</table>
+	{% else %}
+	<p><em>No orders in the last 30 days</em></p>
+	{% endif %}
+	
 
 <h3>Unconfirmed orders</h3>
 <table id="unconfirmed-orders">
@@ -191,12 +192,6 @@
 {{ total_orders.count }} not completed orders<br/>
 {{ total_shoppers.count }} shoppers<br/>
 {{ giveaways.count }} giveaways
-</div>
-
-<div class="small-box">
-<h3>Photos</h3>
-<p>{{ unpublished_photos.count }} unpublished photos</p>
-<p>{{ published_photos.count }} published photos</p>
 </div>
 
   </div>

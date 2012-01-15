@@ -22,6 +22,7 @@ from PIL import Image
 from cStringIO import StringIO
 import os, md5
 import datetime
+from datetime import timedelta
 import uuid
 import twitter
 import re
@@ -971,28 +972,28 @@ def admin_stuff(request):
         return HttpResponseRedirect("/")
     
     # get the stats
-    products = Product.objects.all()
-    total_baskets = Basket.objects.all()
-    total_orders = Order.objects.all()
-    total_shoppers = Shopper.objects.all()
-    published_photos = Photo.objects.filter(published=True)
-    unpublished_photos = Photo.objects.filter(published=False)
-    orders = Order.objects.all().filter(is_giveaway=False).order_by('-date_confirmed')
     unconfirmed_orders = Order.objects.filter(
         is_confirmed_by_user=True, 
         is_paid=False, 
         is_giveaway=False, 
         reminder_email_sent=False).order_by('-date_confirmed')
-    giveaways = Order.objects.all().filter(is_giveaway=True).order_by('-date_confirmed')
+    
+    
+    start_date = (datetime.now() - timedelta(days=30)) # two months ago
+    end_date = datetime.now() # now
+    
+    # make the nice lists for paid/unpaid orders
+    orders = Order.objects.filter(
+        is_giveaway=False, 
+        date_paid__range=(start_date, end_date)).exclude(
+        status=Order.STATUS_CREATED_NOT_PAID
+        ).order_by(
+        '-date_paid')
     
     # work out how many sales we've made
     total_sales = 0
     for order in orders:
         total_sales += order.get_amount() 
-    
-    # make the nice lists for paid/unpaid orders
-    orders = Order.objects.filter(is_giveaway=False).exclude(status=Order.STATUS_CREATED_NOT_PAID).order_by(
-        '-date_paid')
     
     giveaways = Order.objects.filter(is_giveaway=True).order_by('-date_paid')
 
@@ -1017,16 +1018,14 @@ def ship_it(request, id):
     order = get_object_or_404(Order, pk=id)
     
     # first we'll reduce the stock quantities of each one.
-    if request.GET.get('amazon'):
-        print "reduce amazon stock"
-        return
-    
-    else:
+    for item in order.items.all():
+        item.item.available_stock -= 1
+        item.item.save()
            
     
-    order.status = Order.STATUS_SHIPPED
-    order.date_shipped = datetime.now()
-    order.save()
+    #order.status = Order.STATUS_SHIPPED
+    #order.date_shipped = datetime.now()
+    #order.save()
     
     return HttpResponseRedirect('/admin-stuff')
 
