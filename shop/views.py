@@ -1020,9 +1020,9 @@ def ship_it(request, id):
         item.item.save()
            
     
-    #order.status = Order.STATUS_SHIPPED
-    #order.date_shipped = datetime.now()
-    #order.save()
+    order.status = Order.STATUS_SHIPPED
+    order.date_shipped = datetime.now()
+    order.save()
     
     return HttpResponseRedirect('/admin-stuff')
 
