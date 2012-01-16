@@ -41,6 +41,7 @@ class Product(models.Model):
     category = models.ForeignKey('Category', blank=True, null=True)
     is_featured = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    list_order = models.IntegerField(null=True, blank=True)
     tag_text = models.CharField(max_length="100", blank=True, null=True)
     tag_color = models.CharField(max_length="60", blank=True, null=True,
         help_text="A Hex reference with the preceding # hash")

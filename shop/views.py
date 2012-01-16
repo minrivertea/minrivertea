@@ -96,9 +96,9 @@ def twitter_post(tweet):
 def _get_products(request, cat=None):
     
     if cat:
-        products = Product.objects.filter(category=cat, is_active=True)
+        products = Product.objects.filter(category=cat, is_active=True).order_by('-list_order')
     else:        
-        products = Product.objects.filter(is_active=True)
+        products = Product.objects.filter(is_active=True).order_by('-list_order')
     
     prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=False)
     products_and_prices = []
