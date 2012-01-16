@@ -92,7 +92,9 @@ class WishlistSubmitEmailForm(forms.Form):
     email = forms.CharField()
     order = forms.CharField()    
     
-    
+class PostageCostForm(forms.Form):
+    cost = forms.DecimalField(required=True) 
+    order = forms.CharField(required=True)
     
     
     

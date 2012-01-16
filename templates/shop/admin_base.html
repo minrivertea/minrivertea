@@ -7,7 +7,7 @@
   	  #navigation {display: none }
   	  #footer {display:none;}
   	  .super {width: 1060px;}
-  	  #banner ul {font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none; margin: 0; padding: 0;}
+  	  #banner ul {position: absolute; right: 0; top: -100px;font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none; margin: 0; padding: 0;}
   	  #banner ul li {float: left; margin-right: 50px;}
       table {font-family: helvetica,sans-serif;font-size: 12px;}
       tr.white td {background-color: #fff;}
@@ -25,6 +25,8 @@
       ul#stocks {padding: 0; margin: 0 0 30px 0; float: left; width: 100%; font-family: Helvetica, sans-serif;}
       ul#stocks li {float: left; width: 200px; background-color: #f1f1f1; padding: 10px 15px; list-style-type: none; font-size: 12px; border: 1px solid #fff;}
       ul#stocks li.red {color: red;}
+      input {width: 120px;}
+      input.button {width: auto; float: left; padding:5px 15px 3px;}
   </style>
 {% endblock %}
 
@@ -114,11 +116,21 @@
 				  {% endif %}
 				{% endif %}
 			</td>
-			{% if order.status == 'paid' %}
-			<td class="trans">
-				<a title="Click to confirm this order has been sent (doesn't trigger any emails or anything sinister)" class="button" href="{% url ship_it order.id %}">Ship it!</a>
+			<td class="trans" width="80px">
+				{% if order.status == 'paid' %}
+					<a title="Click to confirm this order has been sent (doesn't trigger any emails or anything sinister)" class="button" href="{% url ship_it order.id %}">Ship it!</a>		
+				{% endif %}
+				{% if order.status == 'shipped' and not order.postage_cost %}
+					<form id="postage_{{ order.id }}" action="{% url postage_cost_update order.id %}" method="post">
+						<label>What was the postage cost?</label><input type="text" name="cost" id="id_cost"/>
+						<input type="hidden" name="order" id="id_order" value="{{ order.id }}"/>
+						<input type="submit" value="Save" class="button"/>
+					</form>
+				{% endif %}
+				{% if order.postage_cost %}
+				{{ order.postage_cost }}
+				{% endif %}
 			</td>
-			{% endif %}
 		</tr>
 	{% endfor %}
 	</table>

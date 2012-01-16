@@ -201,7 +201,6 @@ class Order(models.Model):
     discount = models.ForeignKey(Discount, null=True, blank=True)
     invoice_id = models.CharField(max_length=20)
     hashkey = models.CharField(max_length=200, blank=True, null=True)
-    notes = models.TextField(null=True, blank=True)
     sampler_email_sent = models.BooleanField(default=False, 
         help_text="Has an email been sent to the order customer about a free sample?")
     sampler_sent = models.BooleanField(default=False, 
@@ -211,6 +210,8 @@ class Order(models.Model):
     review_email_sent = models.BooleanField(default=False,
         help_text="Has a friendly review email been sent (around 1 week after order is shipped)?")
     wishlist_payee = models.CharField(max_length=200, blank=True, null=True)
+    notes = models.TextField(null=True, blank=True)
+    postage_cost = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
     STATUS_PAID = 'paid'

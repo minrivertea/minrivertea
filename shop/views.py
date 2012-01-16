@@ -983,7 +983,7 @@ def admin_stuff(request):
         reminder_email_sent=False).order_by('-date_confirmed')
     
     
-    start_date = (datetime.now() - timedelta(days=30)) # two months ago
+    start_date = (datetime.now() - timedelta(days=90)) # two months ago
     end_date = datetime.now() # now
     
     stocks = UniqueProduct.objects.filter(is_active=True)
@@ -1031,7 +1031,15 @@ def ship_it(request, id):
     return HttpResponseRedirect('/admin-stuff')
 
     
-    
+def postage_cost_update(request, id):
+    order = get_object_or_404(Order, pk=id)
+    if request.method == "POST":
+        form = PostageCostForm(request.POST)
+        if form.is_valid():
+            order.postage_cost = form.cleaned_data['cost']
+            order.save()
+            return HttpResponseRedirect('/admin-stuff')
+    return HttpResponseRedirect('/admin-stuff')
     
     
     
