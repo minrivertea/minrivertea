@@ -971,6 +971,7 @@ def tell_a_friend(request):
     return render(request, 'shop/forms/tell_a_friend.html', locals())
 
 # view for my private admin pages
+@login_required
 def admin_stuff(request):
     if not request.user.is_superuser:
         return HttpResponseRedirect("/")
@@ -1001,20 +1002,26 @@ def admin_stuff(request):
     return render(request, "shop/admin_base.html", locals())
 
 #specific shopper view in admin-stuff
+@login_required
 def admin_shopper(request, id):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect("/")
     shopper = get_object_or_404(Shopper, pk=id)
     return render(request, 'shop/admin_shopper.html', locals())
 
 # specific order view in admin-stuff
+@login_required
 def admin_order(request, id):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect("/")
     order = get_object_or_404(Order, pk=id)
     return render(request, 'shop/admin_order.html', locals())
 
 # function for changing order status from admin-stuff
+@login_required
 def ship_it(request, id):
     if not request.user.is_superuser:
         return HttpResponseRedirect("/")
-    
     
     order = get_object_or_404(Order, pk=id)
     
@@ -1030,8 +1037,11 @@ def ship_it(request, id):
     
     return HttpResponseRedirect('/admin-stuff')
 
-    
+# form for updating the postage cost of an order
+@login_required
 def postage_cost_update(request, id):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect("/")
     order = get_object_or_404(Order, pk=id)
     if request.method == "POST":
         form = PostageCostForm(request.POST)
