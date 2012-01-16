@@ -349,10 +349,11 @@ span.reviews {
 
 a.more {
     bottom: 16px;
-    float: left;
+    float: right;
     position: absolute;
     z-index: 10;
     text-transform: uppercase;
+    right: 30px;
 }
 
 

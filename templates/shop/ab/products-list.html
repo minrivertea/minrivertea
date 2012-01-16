@@ -1,0 +1,39 @@
+{% load thumbnail %}
+{% load django_static %}
+
+{% for product, prices in products_and_prices %}
+
+      <div class="tea-promo{% cycle '' '' ' last' %}">
+      		<a title="{{ product.name }} Chinese tea - click to view more details" href="{{ product.get_absolute_url }}"><span class="link"></span></a>	
+      	  <div class="image">
+			{% thumbnail product.image "360x230" crop="center" as im %}
+			<img alt="a picture of {{ product.name }} Chinese tea" title="{{ product.name }} Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+			{% endthumbnail %}
+			{% if product.tag_text %}
+				<span class="tag" style="background-color: {{ product.tag_color }};" >{{ product.tag_text }}</span>
+			{% endif %}
+		  </div>
+		  
+		  <div class="text">
+			<h3 class="">
+			<a title="{{ product.name }} Chinese tea - find out more or order some now!" href="{{ product.get_absolute_url }}">
+			{{ product.name }}
+			</a>
+	      
+			
+			</h4> 
+			<p>{{ product.description }}</p>	
+			
+			<p class="price">
+			{% if product.get_reviews %}
+			<strong>{{ product.get_reviews.count }} customer review{{ product.get_reviews.count|pluralize }}</strong><br/>
+			{% endif %}
+
+			<a class="more" href="{{ product.get_absolute_url }}">Find out more &raquo;</a>
+			</p>
+			{% for price in prices %}
+			<span style="position: absolute; bottom: 20px;font-weight:bold;color: #0089E0; font-size: 18px;font-family:Helvetica, sans-serif;">{{ price.price_unit }}{{ price.price|floatformat }} {% if price.weight %}({{ price.weight }}{{ price.weight_unit }}){% endif %}</span>
+			{% endfor %}
+		</div>     	
+	  </div>      
+{% endfor %}
