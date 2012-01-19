@@ -335,6 +335,25 @@ class Page(models.Model):
     def __unicode__(self):
         return self.title
     
+    
+    def get_nav_tree(self):
+        if self.parent is None: 
+            nav_items = Page.objects.filter(parent=self)
+        else:
+            if self.parent.parent is None:
+                nav_items = Page.objects.filter(parent=self.parent)
+            else:
+                if self.parent.parent.parent is None:
+                    nav_items = Page.objects.filter(parent=self.parent.parent)
+                else:
+                    if self.parent.parent.parent.parent is None:
+                        nav_items = Page.objects.filter(parent=self.parent.parent.parent)
+        return nav_items
+    
+    def get_children(self):
+        items = Page.objects.filter(parent=self)
+        return items
+    
     def get_absolute_url(self):
         if self.parent:
             if self.parent.parent:
@@ -348,10 +367,6 @@ class Page(models.Model):
             url = "/%s/" % (self.slug)
             
         return url
-    
-    def get_children(self):
-        pages = Page.objects.filter(parent=self)
-        return pages
 
     def get_products_mentioned(self):
         teas = Product.objects.filter(is_active=True)

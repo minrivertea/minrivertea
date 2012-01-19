@@ -77,6 +77,7 @@ MIDDLEWARE_CLASSES = (
     'ab.middleware.ABMiddleware',
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
+#    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -109,6 +110,7 @@ INSTALLED_APPS = (
     'ab',
     'django_mobile',
     'south',
+#    'debug_toolbar',
 )
 
 # Random app information for different things
@@ -138,6 +140,17 @@ PAYPAL_RETURN_URL = ''
 PAYPAL_NOTIFY_URL = ''
 PAYPAL_BUSINESS_NAME = ''
 PAYPAL_SUBMIT_URL = 'https://www.paypal.com/cgi-bin/webscr'
+
+#INTERNAL_IPS = ('127.0.0.1')
+#DEBUG_TOOLBAR_PANELS = (
+#    'debug_toolbar.panels.version.VersionDebugPanel',
+#    'debug_toolbar.panels.timer.TimerDebugPanel',
+#    'debug_toolbar.panels.headers.HeaderDebugPanel',
+#    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+#    'debug_toolbar.panels.sql.SQLDebugPanel',
+#    'debug_toolbar.panels.cache.CacheDebugPanel',
+#    'debug_toolbar.panels.logger.LoggingPanel',
+#)
 
 
 

@@ -4,7 +4,7 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, sub_page, sub_sub_page, sub_sub_sub_page, category, review_tea, tea_view
+from shop.views import page, category, review_tea, tea_view
 from blog.models import BlogEntry
 from minriver.blog.feeds import LatestEntries
 
@@ -67,11 +67,13 @@ urlpatterns = patterns('',
     
     
     # urls for the pages
+    url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_sub_page"),
+    url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_page"),
+    url(r'^(?P<y>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_page"),
     url(r'^(?P<slug>[\w-]+)/$', page, name="page"),
-    url(r'^(?P<slug>[\w-]+)/(?P<sub_slug>[\w-]+)/$', sub_page, name="sub_page"),
-    url(r'^(?P<slug>[\w-]+)/(?P<sub_slug>[\w-]+)/(?P<sub_sub_slug>[\w-]+)/$', sub_sub_page, name="sub_sub_page"),
-    url(r'^(?P<slug>[\w-]+)/(?P<sub_slug>[\w-]+)/(?P<sub_sub_slug>[\w-]+)/(?P<sub_sub_sub_slug>[\w-]+)/$', 
-        sub_sub_sub_page, name="sub_sub_sub_page"),  
+    
+    
+      
 )
 
 

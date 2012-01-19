@@ -251,106 +251,68 @@ all_countries = [
 
 # these are the country choices for an address
 UNITED_KINGDOM = 'united kingdom'
+UNITED_STATES = 'united states'
 INVALID = 'invalid'
-ALBANIA = 'albania'
-ANDORRA = 'andorra'
-ARMENIA = 'armenia'
 AUSTRIA = 'austria'
-BELARUS = 'be'
 BELGIUM = 'belgium'
-BOSNIA_HERZEGOVINA = 'bosnia and herzegovina'
 BULGARIA = 'bulgaria'
-CAPE_VERDE = 'cape verde'
-CROATIA = 'croatia'
 CYPRUS = 'cyprus'
 CZECH_REPUBLIC = 'czech republic'
 DENMARK = 'denmark'
 ESTONIA = 'estonia'
-FAROE_ISLANDS = 'faroe islands'
 FINLAND = 'finland'
 FRANCE = 'france'  
-GEORGIA = 'georgia'
 GERMANY = 'germany' 
-GIBRALTAR = 'gibraltar'
 GREECE = 'greece' 
-GREENLAND = 'greenland'
 HUNGARY = 'hungary'
-ICELAND = 'iceland'
 IRELAND = 'ireland'  
 ITALY = 'italy' 
 LATVIA = 'latvia'
-LIECHENSTEIN = 'liechenstein'
 LITHUANIA = 'lithuania'
 LUXEMBOURG = 'luxembourg'  
-MACEDONIA = 'macedonia'
 MALTA = 'malta'
-MOLDOVA = 'moldova'
-MONACO = 'monaco' 
 NETHERLANDS = 'netherlands'
 NORWAY = 'norway'
 POLAND = 'poland'
 PORTUGAL = 'portugal' 
 ROMANIA = 'romania'
-RUSSIA = 'russia'
-SAN_MARINO = 'san marino'
 SLOVAK_REPUBLIC = 'slovak republic'
 SLOVENIA = 'slovenia'
 SPAIN = 'spain'
 SWEDEN = 'sweden'
 SWITZERLAND = 'switzerland'
-TURKEY = 'turkey'
-UKRAINE = 'ukraine'
 COUNTRY_CHOICES = (
     (UNITED_KINGDOM, u"United Kingdom"),
+    (UNITED_STATES, u"USA"),
     (INVALID, u"-----"),
-    (ALBANIA, u"Albania"),
-    (ANDORRA, u"Andorra"),
-    (ARMENIA, u"Armenia"),
     (AUSTRIA, u"Austria"),
-    (BELARUS, u"Belarus"),
     (BELGIUM, u"Belgium"),
-    (BOSNIA_HERZEGOVINA, u"Bosnia and Herzegovina"),
     (BULGARIA, u"Bulgaria"),
-    (CAPE_VERDE, u"Cape Verde"),
-    (CROATIA, u"Croatia"),
     (CYPRUS, u"Cyprus"),
     (CZECH_REPUBLIC, u"Czech Republic"),
     (DENMARK, u"Denmark"),
     (ESTONIA, u"Estonia"),
-    (FAROE_ISLANDS, u"Faroe Islands"),
     (FINLAND, u"Finland"),
     (FRANCE, u"France"),
-    (GEORGIA, u"Georgia"),
     (GERMANY, u"Germany"), 
-    (GIBRALTAR, u"Gibraltar"),
     (GREECE, u"Greece"), 
-    (GREENLAND, u"Greenland"),
     (HUNGARY, u"Hungary"),
-    (ICELAND, u"Iceland"),
     (IRELAND, u"Ireland"),  
     (ITALY, u"Italy"), 
     (LATVIA, u"Latvia"),
-    (LIECHENSTEIN, u"Liechenstein"),
     (LITHUANIA, u"Lithuania"),
     (LUXEMBOURG, u"Luxembourg"),  
-    (MACEDONIA, u"Macedonia"),
     (MALTA, u"Malta"),
-    (MOLDOVA, u"Moldova"),
-    (MONACO, u"Monaco"), 
     (NETHERLANDS, u"Netherlands"),
     (NORWAY, u"Norway"),
     (POLAND, u"Poland"),
     (PORTUGAL, u"Portugal"),
     (ROMANIA, u"Romania"),
-    (RUSSIA, u"Russia"),
-    (SAN_MARINO, u"San Marino"),
     (SLOVAK_REPUBLIC, u"Slovak Republic"),
     (SLOVENIA, u"Slovenia"),
     (SPAIN, u"Spain"),
     (SWEDEN, u"Sweden"),
-    (SWITZERLAND, u"Switzerland"),
-    (TURKEY, u"Turkey"),
-    (UKRAINE, u"Ukraine"),     
+    (SWITZERLAND, u"Switzerland"),     
 )
 
 

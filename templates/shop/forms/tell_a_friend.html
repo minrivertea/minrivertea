@@ -2,6 +2,7 @@
 {% load django_static %}
 
 {% block extracss %}
+<link rel="stylesheet" href="{% staticfile '/css/teas.css' %}"/>
 <style type="text/css">
 div.tell-friend-box {
   width: 260px;
@@ -50,6 +51,14 @@ p.help-text img {
   top: 3px;	
 }
 
+div.tea-promo div.image {
+  width: 270px;	
+}
+
+div.tea-promo div.text {
+  width: 450px;	
+}
+
 
 </style>
 {% endblock %}
@@ -65,28 +74,47 @@ p.help-text img {
 <div id="banner">
 	<div class="super">
 		<h1>Spread the word</h1>
+		<p class="introduction">We're a young business, and we need your help! If you like our teas and you think a friend might like them too, then please tell them about it - here's how:</p>
 	</div>
 </div>
 
 
 <div id="main-text-wide">
   <div class="super">
-
-		<div class="tell-friend-box">
-			<p>We really hope that you like our teas and this website. So, if you can answer yes to both those, then why not talk about it!</p>
-			<p>Tweet, share or email about this site using the tools on this page.</p>
-		</div>
-		<div class="tell-friend-box">
+	
+		<div class="tea-promo">
+			<div class="image">
 			<a target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com">
 				<img src="{% staticfile '/images/facebook-large.png' %}">
 			</a>
-			<h3><span>&raquo;</span> <a target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com">Share on facebook</a></h3>
+			</div>
+			<div class="text">
+			<h3><a target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com">Share on facebook</a></h3>
+			<p>Facebook is really important for a small business like ours. We really appreciate the fact that you've had faith in us by ordering and enjoying our teas, and Facebook helps your friends get their introduction to Chinese tea through a company that <strong>you</strong> trust.</p>
+			</div>
 		</div>
-		<div class="tell-friend-box">
-			<a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com"><img src="{% staticfile '/images/twitter-large.png' %}"></a>
-			<h3><span>&raquo;</span> <a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com">Tweet this site</a></h3>
+		
+		<div class="tea-promo">
+			<div class="image">
+				<a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com"><img src="{% staticfile '/images/twitter-large.png' %}"></a>
+			</div>
+			<div class="text">
+				<h3><a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com">Get Tweeting</a></h3>
+				<p>Tweeting about us to your followers helps spread the word to a huge variety of people - Chinese tea is growing in popularity, but many people are still unaware that buying good quality Chinese tea is actually quite easy and enjoyable. We also use Twitter to announce news, information and get feedback from customers, so it's a good way to stay in touch.</p>
+				
+			</div>
 		</div>
-		<div class="tell-friend-box email">
+		<div class="tea-promo">
+			<div class="image">
+			
+			</div>
+			<div class="text">
+				<h3>GooglePlus</h3>
+				<p>Google now customises its search results for you, and provides specific recommendations for you from your network of friends. If you click the little 'Plus1' icon on our product pages, if your friends search for tea, they'll be recommended to checkout Min River Tea. Again, it's a useful way for you to tell your friends that you have used and trust our business.</p>
+			</div>
+		</div>
+		
+		<div class="tea-promo">
 			{% if message %}
 				<h3 class="message">{{ message }}</h3>
 			{% endif %}

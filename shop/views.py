@@ -110,55 +110,16 @@ def _get_products(request, cat=None):
 # the homepage view
 def index(request):
     review = Review.objects.all().order_by('?')[:1]
-    template = "shop/home.html"
+    return render(request, "shop/home.html", locals())
 
-    try:
-        if request.session['SPLASH'] == '1':
-            pass
-    except:
-        if settings.DEBUG == 'False':
-            if GetCountry(request)['countryCode'] == 'US':
-                request.session['SPLASH'] = '1'
-                template = "shop/home_usa.html"
-  
-    return render(request, template, locals())
-
-def page(request, slug):
+def page(request, slug, x=None, y=None, z=None):
     page = get_object_or_404(Page, slug=slug)
-    nav_items = Page.objects.filter(parent=page)
+    
+    template = "shop/page.html"
     if page.template:
         template = page.template
-    else:
-        template = "shop/page.html"
+        
     return render(request, template, locals())
-
-
-def sub_page(request, slug, sub_slug):
-    page = get_object_or_404(Page, slug=sub_slug)
-    nav_items = Page.objects.filter(parent=page.parent)
-    if page.template:
-        template = page.template
-    else:
-        template = "shop/page.html"
-    return render(request, "shop/page.html", locals())
- 
-def sub_sub_page(request, slug, sub_slug, sub_sub_slug):
-    page = get_object_or_404(Page, slug=sub_sub_slug)
-    nav_items = Page.objects.filter(parent=page.parent.parent)
-    if page.template:
-        template = page.template
-    else:
-        template = "shop/page.html"
-    return render(request, "shop/page.html", locals())
-
-def sub_sub_sub_page(request, slug, sub_slug, sub_sub_slug, sub_sub_sub_slug):
-    page = get_object_or_404(Page, slug=sub_sub_sub_slug)
-    nav_items = Page.objects.filter(parent=page.parent.parent.parent)
-    if page.template:
-        template = page.template
-    else:
-        template = "shop/page.html"
-    return render(request, "shop/page.html", locals())
    
 # the product listing page
 def category(request):
@@ -252,7 +213,7 @@ def add_to_basket(request, productID):
         
     item.save()
 
-    if request.GET.get('xhr'):
+    if request.is_ajax():
         basket_quantity = 0
         for x in BasketItem.objects.filter(basket=basket):
             basket_quantity += x.quantity
@@ -330,7 +291,6 @@ def increase_quantity(request, productID):
 
 # the view for your basket
 def basket(request):
-
     try:
         basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
     except:

@@ -1,6 +1,6 @@
 
 <ul id="right-nav">
-  {% for item in nav_items %}
+  {% for item in page.get_nav_tree %}
 	<li>	
   	  <a class="{% if item.slug in request.path %}selected{% endif %}" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
 		{% if item.slug in request.path %}
