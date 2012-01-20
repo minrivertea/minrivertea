@@ -13,11 +13,11 @@ def common(request):
     context['paypal_receiver_email'] = settings.PAYPAL_RECEIVER_EMAIL
     context['paypal_submit_url'] = settings.PAYPAL_SUBMIT_URL
     context['ga_is_on'] = settings.GA_IS_ON
-    #try:
-    #    code = request.session['CURRENCY']
-    #    context['currency'] = Currency.objects.get(code=code)
-    #except:
-    #    context['currency'] = Currency.objects.get(code='GBP')
+    try:
+        code = request.session['CURRENCY']
+        context['currency'] = Currency.objects.get(code=code)
+    except:
+        context['currency'] = Currency.objects.get(code='GBP')
     #if settings.DEBUG == 'False':
     #    countrycode = GetCountry(request)['countryCode']
     #    context['country_snippet'] = "language-snippets/%s.html" % countrycode.lower()
