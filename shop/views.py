@@ -419,17 +419,21 @@ def order_step_one(request):
                     shopper = get_object_or_404(Shopper, email=form.cleaned_data['email'])
                     this_user = shopper.user
                 except:
-                    # if there's no shopper with this email, we create a user and new shopper object
-                    creation_args = {
-                        'username': form.cleaned_data['email'],
-                        'email': form.cleaned_data['email'],
-                        'password': uuid.uuid1().hex,
-                    }
+                    try:
+                        # just double check if there's a user object
+                        this_user = get_object_or_404(User, email=form.cleaned_data['email'])
+                    except:
+                        # if there's no user with this email, we create a user and new shopper object
+                        creation_args = {
+                            'username': form.cleaned_data['email'],
+                            'email': form.cleaned_data['email'],
+                            'password': uuid.uuid1().hex,
+                        }
                      
-                    this_user = User.objects.create(**creation_args)
-                    this_user.first_name = form.cleaned_data['first_name']
-                    this_user.last_name = form.cleaned_data['last_name']
-                    this_user.save()
+                        this_user = User.objects.create(**creation_args)
+                        this_user.first_name = form.cleaned_data['first_name']
+                        this_user.last_name = form.cleaned_data['last_name']
+                        this_user.save()
                 
                     # now we create a new 'shopper' object too
                     full_name = "%s %s" % (form.cleaned_data['first_name'], form.cleaned_data['last_name'])
