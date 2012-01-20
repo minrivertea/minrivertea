@@ -182,82 +182,6 @@ input.button:hover {
   color: #F37679;	
 }
 
-div#container {
-  float: left;
-  margin-bottom: 30px;
-  border-radius: 10px;
-}
-
-
-#footer {
-    background-color: #fff;
-    border-top: 10px solid #E1ECF3;
-    float: left;
-    height: 300px;
-    margin-top: 80px;
-    padding: 20px 0 180px;
-    width: 100%;
-}
-
-#footer p {
-	font-size: 15px;
-}
-
-ul.footer-links {
-  width: 960px;
-  float: left;
-  margin-left: 50px;
-  padding-left: 0;
-  margin-bottom: 80px;	
-}
-
-ul.footer-links li {
-  display: inline;
-  color: #333;
-}
-
-ul.footer-links li a {
-  color: #fff;
-  font-size: 15px;	
-}
-
-div.payments {
-  margin-left: 0px;
-  margin-top: 20px;
-  float: left;
-  width: 250px;
-}
-
-div.payments p {
-  font-size: 0.8em;	
-  width: 250px;
-  margin-left: 0px;
-}
-
-div.footer-box {
-  margin-right: 40px;
-  margin-top: 0px;
-  float: left;
-  width: 260px;
-}
-
-#footer h4 {
-  font-family: Helvetica, Arial, sans-serif;
-  letter-spacing: -1px;
-  font-weight: bold;
-}
-
-#footer ul {
-  padding-left: 15px;
-}
-
-#footer ul li {
-  color: #EE6464;
-  margin-bottom: 5px;
-  font-size: 15px;
-  list-style-type: square;
-}
-
 /* typography */
 
 
@@ -360,7 +284,44 @@ div#logo a span {
 
 div#logo:hover {
   opacity: 0.8;	
-  
+}
+
+#currency {
+    color: #999999;
+    float: right;
+    font-size: 10px;
+    padding: 5px 10px;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: -30px;
+    line-height: 1.8em;
+}
+
+#currency a {
+    color: #999999;
+    float: left;
+    height: 30px;
+    margin-right: 5px;
+    overflow: hidden;
+    width: 24px;
+    opacity: 0.3;
+    font-family: Helvetica, sans-serif;
+}
+
+#currency a.eu img {position: relative; right: 24px;}
+
+#currency a.us img {position: relative; right: 48px;}
+
+#currency a.strong {
+  font-weight: bold;
+  color: #000;
+  opacity: 1;	
+}
+
+#currency a:hover {
+  color: #666;
+  opacity: 1;
 }
 
 div#home-banner {
@@ -375,6 +336,7 @@ div#home-banner {
   float: left;
   margin: 0px 0px 20px -10px;	
   width: 100%;
+  position: relative;
 }
 
 ul#nav {
@@ -1432,5 +1394,78 @@ ul#steps li {
 ul#steps li.selected {
   color: #19761C;
 }
+
+/* FOOTER STYLES */
+
+#footer {
+    background-color: #fff;
+    border-top: 10px solid #E1ECF3;
+    float: left;
+    height: 300px;
+    margin-top: 80px;
+    padding: 20px 0 180px;
+    width: 100%;
+}
+
+#footer p {
+	font-size: 15px;
+}
+
+ul.footer-links {
+  width: 960px;
+  float: left;
+  margin-left: 50px;
+  padding-left: 0;
+  margin-bottom: 80px;	
+}
+
+ul.footer-links li {
+  display: inline;
+  color: #333;
+}
+
+ul.footer-links li a {
+  color: #fff;
+  font-size: 15px;	
+}
+
+div.payments {
+  margin-left: 0px;
+  margin-top: 20px;
+  float: left;
+  width: 250px;
+}
+
+div.payments p {
+  font-size: 0.8em;	
+  width: 250px;
+  margin-left: 0px;
+}
+
+div.footer-box {
+  margin-right: 40px;
+  margin-top: 0px;
+  float: left;
+  width: 260px;
+}
+
+#footer h4 {
+  font-family: Helvetica, Arial, sans-serif;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+#footer ul {
+  padding-left: 15px;
+}
+
+#footer ul li {
+  color: #EE6464;
+  margin-bottom: 5px;
+  font-size: 15px;
+  list-style-type: square;
+}
+
+/* END FOOTER STYLES */
 
 

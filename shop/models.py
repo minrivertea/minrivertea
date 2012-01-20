@@ -14,6 +14,28 @@ from minriver import settings
 from minriver.countries import COUNTRY_CHOICES
 
 
+POUND = 'gbp'
+DOLLAR = 'usd'
+EURO = 'euro'
+CURRENCY_CHOICES = (
+    (POUND, u"&#163;"),
+    (DOLLAR, u"&#36;"),
+    (EURO, u"&#128;"),
+)
+
+
+class Currency(models.Model):
+    code = models.CharField(max_length=5)
+    symbol = models.CharField(max_length=5)
+    postage_discount_threshold = models.IntegerField()
+    postage_cost = models.IntegerField()
+    active = models.BooleanField(default=False)
+    
+    
+    def __unicode__(self):
+        return self.code
+
+
 class Product(models.Model):
     name = models.CharField(max_length=200, 
         help_text="Appears in listings and on product page if no long_name set")
@@ -92,6 +114,7 @@ class UniqueProduct(models.Model):
     weight_unit = models.CharField(help_text="Weight units", max_length=3, null=True, blank=True)
     price = models.DecimalField(help_text="Price", max_digits=8, decimal_places=2, null=True, blank=True)
     price_unit = models.CharField(help_text="Currency", max_length=3, null=True, blank=True)
+    currency = models.ForeignKey(Currency)
     parent_product = models.ForeignKey(Product)
     description = models.TextField()
     available_stock = models.IntegerField(null=True, blank=True)

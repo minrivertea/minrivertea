@@ -159,6 +159,10 @@ span.country {
 
 {% endblock %}
 
+{% block currency %}
+	{% include 'shop/snippets/currency.html' %}
+{% endblock %}
+
 {% block content %}
 
 <div id="main-text-wide">
@@ -177,62 +181,59 @@ span.country {
 	</ul>
 	
 	<div id="basket">
-	
-	
-    <form method="post" action="">
-		 
-		 
+
+      <form method="post" action="."> 	 
 		<div class="security">
-		{% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
-		 <p class="red">&laquo; there were some errors - please check and provide all required information.</p>
-		 {% endif %}
-			<img src="{% staticfile '/images/lock-large.png' %}">
-			<p>We will never share your details, nor will we send you email spam. <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy &raquo;</a></p>
+		  {% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
+			<p class="red">&laquo; there were some errors - please check and provide all required information.</p>
+		  {% endif %}
+		  <img src="{% staticfile '/images/lock-large.png' %}">
+		  <p>We will never share your details, nor will we send you email spam. 
+		  <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy &raquo;</a>
+		  </p>
 		</div>
 		
-	{% if shopper %}
-	  <div class="row">
-	  	<p class="intro">We've saved your information from last time - please check that everything is still correct:</p>
-		<div class="address-container">
-		<div class="address first">
-			<div class="address first">{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
-				
-		{% for address in shopper.get_addresses %}
-				{% if forloop.first %}
-					<br/>
-					{{ address.house_name_number }}<br/>
-					{{ address.address_line_1 }}<br/>
-					{{ address.address_line_2 }}<br/>
-					{{ address.town_city }}<br/>
-		 			{{ address.postcode }}<br/>
-		 			{{ address.country|upper }} - <a href="{% url not_you %}">Want to use a different address?</a>
-		 			</div>
-		 		{% else %}
-		 			<div class="address other">
-		 			{{ address.house_name_number }}, 
-					{{ address.address_line_1 }}, 
-					{{ address.address_line_2 }}, 
-					{{ address.town_city }}, 
-		 			{{ address.postcode }}
-		 			</div>
-		 		{% endif %}
-		{% endfor %}
-		</div>
+		{% if shopper %}
+	  	  <div class="row">
+	  		<p class="intro">We've saved your information from last time - please check that everything is still correct:</p>
+			<div class="address-container">
+				<div class="address first">
+					{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
 		
-		<div style="display:none;">
-		<input type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/>
-    	<input type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
-    	<input type="text" name="email" id="id_email" value="{{ email }}"/>
-    	<input type="text" name="house_name_number" id="id_house_name_number" value="{{ house_name_number }}"/>
-    	<input type="text" name="address_line_1" id="id_address_line_1" value="{{ address_line_1 }}"/>
-    	<input type="text" name="address_line_2" id="id_address_line_2" value="{{ address_line_2 }}"/>
-    	<input type="text" name="town_city" id="id_town_city" value="{{ town_city }}"/>
-    	<input type="text" name="postcode" id="id_postcode" value="{{ postcode }}"/>
-    	<input type="text" name="country" id="id_country" value="{{ country }}"/>
- 		</div>
- 		</div>
- 		</div>
-	{% else %}
+					{% for address in shopper.get_addresses %}
+						{% if forloop.first %}
+							<br/>
+							{{ address.house_name_number }}<br/>
+							{{ address.address_line_1 }}<br/>
+							{{ address.address_line_2 }}<br/>
+							{{ address.town_city }}<br/>
+		 					{{ address.postcode }}<br/>
+		 					{{ address.country|upper }}
+		 					</div>
+		 				{% else %}
+		 					<div class="address other">
+		 					{{ address.house_name_number }}, 
+							{{ address.address_line_1 }}, 
+							{{ address.address_line_2 }}, 
+							{{ address.town_city }}, 
+		 					{{ address.postcode }}
+		 					</div>
+		 				{% endif %}
+					{% endfor %}
+				</div>
+				<div style="display:none;">
+					<input type="text" name="first_name" id="id_first_name" value="{{ order.owner.first_name }}"/>
+	    			<input type="text" name="last_name" id="id_last_name" value="{{ order.owner.last_name }}"/>
+	    			<input type="text" name="email" id="id_email" value="{{ order.owner.email }}"/>
+	    			<input type="text" name="house_name_number" id="id_house_name_number" value="{{ order.address.house_name_number }}"/>
+	    			<input type="text" name="address_line_1" id="id_address_line_1" value="{{ order.address.address_line_1 }}"/>
+	    			<input type="text" name="address_line_2" id="id_address_line_2" value="{{ order.address.address_line_2 }}"/>
+	    			<input type="text" name="town_city" id="id_town_city" value="{{ order.address.town_city }}"/>
+	    			<input type="text" name="postcode" id="id_postcode" value="{{ order.address.postcode }}"/>
+	    			<input type="text" name="country" id="id_country" value="{{ order.address.country }}"/>
+	 			</div>
+	 		</div>
+		{% else %}
 
 	<div class="row">
 			<div class="row-label">

@@ -94,6 +94,10 @@ div.row {
 
 {% endblock %}
 
+{% block currency %}
+	{% include 'shop/snippets/currency.html' %}
+{% endblock %}
+
 {% block content %}
 
 
@@ -135,19 +139,19 @@ div.row {
 			    	</td>
 			    	<td width="150px" valign="top">
 			    	</td>
-			    	<td valign="top">£{{ thing.get_price }}</td>		    				
+			    	<td valign="top">{{ currency.symbol }}{{ thing.get_price }}</td>		    				
 				  </tr>
 			    {% endfor %}
 			  {% if postage_discount %}
 			  <tr>
-			    <td><span class="small"><em>There is no postage charge, because your order is over £50</em></span></td>
+			    <td><span class="small"><em>There is no postage charge, because your order is over {{ currency.symbol }}{{ currency.postage_discount_threshold }}</em></span></td>
 			  </tr>
 			  {% else %}
 			  <tr>
 			  	<td>&nbsp;</td>
 			  	<td>Postage</td>
 			  	<td>&nbsp;</td>
-			  	<td>£3.00</td>		  
+			  	<td>{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>		  
 			  </tr>
 		  	  {% endif %}
 		  	  {% if order.discount %}
@@ -155,14 +159,14 @@ div.row {
 			  	<td>&nbsp;</td>
 			  	<td>Discount</td>
 			  	<td>&nbsp;</td>
-			  	<td>-£{{ value|floatformat:"2" }}</td>
+			  	<td>-{{ currency.symbol }}{{ value|floatformat:"2" }}</td>
 			  </tr>
 			  {% endif %}
 			  <tr>
 			  	<td>&nbsp;</td>
 			  	<td><strong>TOTAL</strong></td>
 			  	<td>&nbsp;</td>
-			  	<td><strong>£{{ total_price|floatformat:"2" }}</strong></td>		  
+			  	<td><strong>{{ currency.symbol }}{{ total_price|floatformat:"2" }}</strong></td>		  
 			  </tr>
 			</table>
 		</div>

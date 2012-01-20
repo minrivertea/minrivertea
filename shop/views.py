@@ -93,6 +93,45 @@ def twitter_post(tweet):
         if settings.DEBUG:
             raise(e)
 
+def _get_currency(request):
+    try:
+        code = request.session['CURRENCY']
+        currency = get_object_or_404(Currency, code=code)
+    except:
+        currency = get_object_or_404(Currency, code='GBP')
+    return currency
+
+
+def change_currency(request):
+    try:
+        currency = get_object_or_404(Currency, code=request.GET.get('curr'))
+        request.session['CURRENCY'] = currency.code
+    except:
+        currency = get_object_or_404(Currency, code='GBP')
+        request.session['CURRENCY'] = currency.code
+    
+    # if they have a basket already, we need to change the unique products around
+    try:
+        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
+        for item in BasketItem.objects.filter(basket=basket):
+            print "%s" % item
+            newup = get_object_or_404(UniqueProduct,
+                is_active=True, 
+                parent_product=item.item.parent_product,
+                currency=currency,
+                weight=item.item.weight)
+            print "NEW: %s" % newup
+            item.item = newup
+            item.save()
+            
+    except:
+        pass  
+    
+    url = request.META.get('HTTP_REFERER','/')
+    return HttpResponseRedirect(url)
+    
+    
+
 def _get_products(request, cat=None):
     
     if cat:
@@ -100,7 +139,7 @@ def _get_products(request, cat=None):
     else:        
         products = Product.objects.filter(is_active=True).order_by('-list_order')
     
-    prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=False)
+    prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=False, currency=_get_currency(request))
     products_and_prices = []
     for product in products:
         products_and_prices.append((product, prices.filter(parent_product=product)))    
@@ -114,11 +153,9 @@ def index(request):
 
 def page(request, slug, x=None, y=None, z=None):
     page = get_object_or_404(Page, slug=slug)
-    
     template = "shop/page.html"
     if page.template:
         template = page.template
-        
     return render(request, template, locals())
    
 # the product listing page
@@ -151,7 +188,13 @@ def tea_view(request, slug):
         request.session['ADDED'] = None
     
     tea = get_object_or_404(Product, slug=slug)
-    prices = UniqueProduct.objects.filter(parent_product=tea, is_active=True, is_sale_price=False).order_by('price')
+    prices = UniqueProduct.objects.filter(
+        parent_product=tea, 
+        is_active=True, 
+        is_sale_price=False, 
+        currency=_get_currency(request),
+        ).order_by('price')
+    
     others = Product.objects.filter(is_active=True, category__slug='teas').exclude(id=tea.id)
     
     # here we're handling the notify form, if the product is out of stock
@@ -302,10 +345,11 @@ def basket(request):
         price = item.quantity * item.item.price
         total_price += price
     
-    if total_price > 50:
+    currency = _get_currency(request)
+    if total_price > currency.postage_discount_threshold:
         postage_discount = True
     else:
-        total_price += 3
+        total_price += currency.postage_cost
     
     if request.method == 'POST':
         form = UpdateDiscountForm(request.POST)
@@ -332,12 +376,15 @@ def basket(request):
 
 # the view for order process step 1 - adding your details
 def order_step_one(request):
+    
+    # first off, check that they have a basket
     try:
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
         problem = "You don't have any items in your basket, so you can't process an order!"
         return render(request, 'shop/order-problem.html', locals())   
 
+    # next, if they already have an order, try loading the information
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
         # load their data from cookie
@@ -354,22 +401,25 @@ def order_step_one(request):
     except:
         pass
     
+    # check if they're secretly logged in
     if request.user.is_authenticated():
         shopper = get_object_or_404(Shopper, user=request.user.id)
+    else:
+        shopper = None
 
+    # if it's a POST request
     if request.method == 'POST': 
         form = OrderStepOneForm(request.POST)
-        
-        # if the form has no errors...
         if form.is_valid(): 
-        
-            # get or create a user object
-            if request.user.is_authenticated():
-                this_user = request.user
-            else:
+            
+            # first, if there's a shopper, we don't need new User and Shopper objects
+            if not shopper:
+                # is there already a shopper with this email?
                 try:
-                    this_user = get_object_or_404(User, email=form.cleaned_data['email'])
+                    shopper = get_object_or_404(Shopper, email=form.cleaned_data['email'])
+                    this_user = shopper.user
                 except:
+                    # if there's no shopper with this email, we create a user and new shopper object
                     creation_args = {
                         'username': form.cleaned_data['email'],
                         'email': form.cleaned_data['email'],
@@ -381,23 +431,27 @@ def order_step_one(request):
                     this_user.last_name = form.cleaned_data['last_name']
                     this_user.save()
                 
-                        
-            # create a 'shopper' object
-            try:
-                shopper = get_object_or_404(Shopper, user=this_user.id)
-            except:
-                full_name = "%s %s" % (form.cleaned_data['first_name'], form.cleaned_data['last_name'])
-                slugger = smart_slugify(full_name, lower_case=True)
-                shopper = Shopper.objects.create(
-                    user = this_user,
-                    email = form.cleaned_data['email'],
-                    first_name = form.cleaned_data['first_name'],
-                    last_name = form.cleaned_data['last_name'],
-                    subscribed = form.cleaned_data['subscribed'],
-                    slug = slugger,     
-                )
+                    # now we create a new 'shopper' object too
+                    full_name = "%s %s" % (form.cleaned_data['first_name'], form.cleaned_data['last_name'])
+                    slugger = smart_slugify(full_name, lower_case=True)
+                    shopper = Shopper.objects.create(
+                        user = this_user,
+                        email = form.cleaned_data['email'],
+                        first_name = form.cleaned_data['first_name'],
+                        last_name = form.cleaned_data['last_name'],
+                        subscribed = form.cleaned_data['subscribed'],
+                        slug = slugger,     
+                    )
+                    
+                # we'll secretly log the user in now
+                from django.contrib.auth import load_backend, login
+                for backend in settings.AUTHENTICATION_BACKENDS:
+                    if this_user == load_backend(backend).get_user(this_user.pk):
+                        this_user.backend = backend
+                if hasattr(this_user, 'backend'):
+                    login(request, this_user)
             
-            # create an address based on the info they provided         
+            # everyone gets an address object created based on the form info         
             address = Address.objects.create(
                 owner = shopper,
                 house_name_number = form.cleaned_data['house_name_number'],
@@ -408,43 +462,37 @@ def order_step_one(request):
                 country = form.cleaned_data['country'],
             )
             
-            # create an order object
-            basket_items = BasketItem.objects.filter(basket=basket)
-            order = Order.objects.create(
-                is_confirmed_by_user = True,
-                date_confirmed = datetime.now(),
-                address = address,
-                owner = shopper,
-                status = Order.STATUS_CREATED_NOT_PAID,
-                invoice_id = "TEMP"
-            )
+            # now need to find an existing order object, or create a new one:
             
+            try:
+                order = get_object_or_404(Order, id=request.session['ORDER_ID'])
+            except:
+                order = Order.objects.create(
+                    is_confirmed_by_user = True,
+                    date_confirmed = datetime.now(),
+                    address = address,
+                    owner = shopper,
+                    status = Order.STATUS_CREATED_NOT_PAID,
+                    invoice_id = "TEMP"
+                )
+                order.save() # need to save it first, then give it an ID
+                order.invoice_id = "TEA-00%s" % (order.id)
+            
+            # check if the person has inputted a valid discount code?
             try: 
                 discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
                 order.discount = discount
-                order.save()
             except:
                 pass
             
-            # add the items to the order
+            # add the items to the order (we put this here not above just in case they added more items)
+            basket_items = BasketItem.objects.filter(basket=basket)
             for item in basket_items:
                 order.items.add(item)
-                order.save()
-
-            # give the order a unique ID
-            order.invoice_id = "TEA-00%s" % (order.id)
+                
             order.save()
-
-            request.session['ORDER_ID'] = order.invoice_id  
-            
-            # finally, we'll log the user in secretly (they don't even know it!)
-            from django.contrib.auth import load_backend, login
-            for backend in settings.AUTHENTICATION_BACKENDS:
-                if this_user == load_backend(backend).get_user(this_user.pk):
-                    this_user.backend = backend
-            if hasattr(this_user, 'backend'):
-                login(request, this_user)
-                         
+            request.session['ORDER_ID'] = order.id  
+ 
             return HttpResponseRedirect('/order/confirm') 
         
         # if the form has errors...
@@ -461,7 +509,6 @@ def order_step_one(request):
              last_name = request.POST['last_name']
 
     confirm_form = OrderStepOneForm() 
-
     return render(request, 'shop/forms/order_step_one.html', locals())
 
 def order_url(request, hash):
@@ -618,10 +665,11 @@ def wishlist_submit_email(request):
                 price = item.quantity * item.item.price
                 total_price += price
             
-            if total_price > 50:
+            currency = _get_currency(request)
+            if total_price > currency.postage_discount_threshold:
                 postage_discount = True
             else: 
-                total_price += 3
+                total_price += currency.postage_cost
                 postage_discount = False
                 
             html = render_to_string('shop/snippets/wishlist_complete_form.html', {
@@ -643,6 +691,7 @@ def not_you(request):
 	# remember the user's basket, otherwise they 'logout' but lose their own basket.
     this_user = request.user
     basket = Basket.objects.get(id=request.session['BASKET_ID'])
+    currency = _get_currency(request)
     
     # log the user out
     from django.contrib.auth import load_backend, logout
@@ -653,6 +702,7 @@ def not_you(request):
         logout(request)
         # re-add the basket cookie so they don't lose their items
         request.session['BASKET_ID'] = basket.id
+        request.session['CURRENCY'] = currency
     
     # now they can return to the usual Step 1 of the form    
     return HttpResponseRedirect('/order/step-one/')    
@@ -668,7 +718,7 @@ def order_confirm(request):
         problem = "You don't have any items in your basket, so you can't process an order!"
         return render(request, 'shop/order-problem.html', locals())
         
-    order = Order.objects.get(invoice_id=request.session['ORDER_ID'])
+    order = Order.objects.get(id=request.session['ORDER_ID'])
     shopper = order.owner
     order_items = order.items.all() #BasketItem.objects.filter(basket=basket)
     total_price = 0
