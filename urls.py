@@ -4,7 +4,7 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, category, review_tea, tea_view
+from shop.views import page, category, review_tea, tea_view, make_product_feed
 from blog.models import BlogEntry
 from minriver.blog.feeds import LatestEntries
 
@@ -47,7 +47,6 @@ urlpatterns = patterns('',
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
     (r'^humans\.txt$', direct_to_template, {'template': 'humans.txt', 'mimetype': 'text/plain'}),
-    (r'^products\.xml$', direct_to_template, {'template': 'products.xml', 'mimetype': 'text/xml'}),
     (r'^noteaforyou/$', direct_to_template, {'template': '500_fake.html'}),
     (r'^nomonkeys/$', direct_to_template, {'template': 'no_monkeys.html'}),
     (r'^noteaheroics/$', direct_to_template, {'template': 'no_heroics.html'}),
@@ -65,12 +64,18 @@ urlpatterns = patterns('',
     url(r'^teas/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
     url(r'^teas/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     
+    # URLs for the Google Product Feeds
+    (r'^products\.xml$', direct_to_template, {'template': 'products.xml', 'mimetype': 'text/xml'}),
+    (r'^products_us\.xml$', direct_to_template, {'template': 'products_us.xml', 'mimetype': 'text/xml'}),
+    url(r'^make_product_feed/$', make_product_feed, name="make_product_feed"),
     
     # urls for the pages
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_sub_page"),
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_page"),
     url(r'^(?P<y>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_page"),
     url(r'^(?P<slug>[\w-]+)/$', page, name="page"),
+    
+    
     
     
       

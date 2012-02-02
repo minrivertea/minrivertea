@@ -8,7 +8,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('name', 'long_name', 'slug', 'meta_title')
         }),
         ('Descriptions', {
-            'fields': ('description', 'meta_description', 'super_short_description', 'body_text', 'long_description')
+            'fields': ('description', 'meta_description', 'super_short_description', 'body_text', 'long_description', 'extra_info')
         }),
         ('Images', {
             'fields': ('image', 'image_2', 'image_2_caption', 'image_3', 'image_3_caption',
@@ -16,7 +16,7 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Others', {
             'fields': ('category', 'is_featured', 'is_active', 'tag_text', 'tag_color',
-                'coming_soon', 'list_order')
+                'coming_soon', 'list_order', 'recommended')
         }),
     )
 

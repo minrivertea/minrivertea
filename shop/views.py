@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.template import RequestContext
 from paypal.standard.forms import PayPalPaymentsForm
-from django.http import HttpResponseRedirect, HttpResponse 
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
@@ -120,7 +120,6 @@ def change_currency(request):
                 parent_product=item.item.parent_product,
                 currency=currency,
                 weight=item.item.weight)
-            print "NEW: %s" % newup
             item.item = newup
             item.save()
             
@@ -195,7 +194,7 @@ def tea_view(request, slug):
         currency=_get_currency(request),
         ).order_by('price')
     
-    others = Product.objects.filter(is_active=True, category__slug='teas').exclude(id=tea.id)
+    reviews = Review.objects.filter(product=tea)[:1]
     
     # here we're handling the notify form, if the product is out of stock
     if request.method == 'POST':
@@ -988,7 +987,7 @@ def tell_a_friend(request):
 @login_required
 def admin_stuff(request):
     if not request.user.is_superuser:
-        return HttpResponseRedirect("/")
+        raise Http404
     
     # get the stats
     unconfirmed_orders = Order.objects.filter(
@@ -998,16 +997,16 @@ def admin_stuff(request):
         reminder_email_sent=False).order_by('-date_confirmed')
     
     
-    start_date = (datetime.now() - timedelta(days=90)) # two months ago
+    start_date = (datetime.now() - timedelta(days=60)) # two months ago
     end_date = datetime.now() # now
     
-    stocks = UniqueProduct.objects.filter(is_active=True)
+    stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
     
     # make the nice lists for paid/unpaid orders
     orders = Order.objects.filter(
         is_giveaway=False, 
         date_paid__range=(start_date, end_date)).exclude(
-        status=Order.STATUS_CREATED_NOT_PAID
+            status=Order.STATUS_CREATED_NOT_PAID
         ).order_by(
         '-date_paid')
     
@@ -1041,8 +1040,12 @@ def ship_it(request, id):
     
     # first we'll reduce the stock quantities of each one.
     for item in order.items.all():
-        item.item.available_stock -= 1
-        item.item.save()
+        uniqueproduct = get_object_or_404(UniqueProduct, 
+            weight=item.item.weight, 
+            parent_product=item.item.parent_product,
+            currency__code='GBP')
+        uniqueproduct.available_stock -= item.quantity
+        uniqueproduct.save()
            
     
     order.status = Order.STATUS_SHIPPED
@@ -1066,7 +1069,13 @@ def postage_cost_update(request, id):
     return HttpResponseRedirect('/admin-stuff')
     
     
+
+def make_product_feed(request):
+    products = UniqueProduct.objects.filter(currency__code='GBP', is_active=True)
     
+    content = render_to_string('product_feed_template.xml', {'products': products}) 
+    print content
+    return HttpResponse(content, mimetype="application/xml") 
     
     
     

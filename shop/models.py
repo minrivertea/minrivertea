@@ -51,6 +51,7 @@ class Product(models.Model):
     super_short_description = models.CharField(max_length=200)
     body_text = models.TextField()
     long_description = models.TextField(blank=True, null=True)
+    extra_info = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='images/product-photos')
     image_2 = models.ImageField(upload_to='images/product-photos', blank=True, null=True)
     image_2_caption = models.CharField(max_length=200, blank=True)
@@ -68,6 +69,7 @@ class Product(models.Model):
     tag_color = models.CharField(max_length="60", blank=True, null=True,
         help_text="A Hex reference with the preceding # hash")
     coming_soon = models.BooleanField(default=False)
+    recommended = models.ManyToManyField('Product', blank=True, null=True)
         
     def __unicode__(self):
         return self.name

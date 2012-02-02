@@ -41,6 +41,7 @@
     <ul>
     	<li><a href="/admin/">Login to admin interface</a></li>
     	<li><a href="/">Back to site</a></li>
+    	<li><a href="{% url make_product_feed %}">Make Google Product Feed</a></li>
     </ul>
   </div>
 </div>
@@ -116,7 +117,7 @@
 				  {% endif %}
 				{% endif %}
 			</td>
-			<td class="trans" width="80px">
+			<td class="trans" width="180px">
 				{% if order.status == 'paid' %}
 					<a title="Click to confirm this order has been sent (doesn't trigger any emails or anything sinister)" class="button" href="{% url ship_it order.id %}">Ship it!</a>		
 				{% endif %}

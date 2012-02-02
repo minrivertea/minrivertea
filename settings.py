@@ -131,7 +131,7 @@ DJANGO_STATIC_MEDIA_URL = 'http://static.minrivertea.com'
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_PORT = ''
-SITE_EMAIL = ''
+SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
 
 # paypal info
 PAYPAL_IDENTITY_TOKEN = ""

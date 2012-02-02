@@ -525,15 +525,13 @@ div.coming-soon input.button:hover {
   background-color: #359318; 
 }
 
-#facebook {
+#facebook, #google {
   float: left;
   width: 80px;
 }
 
 #google {
   margin-bottom: 10px;
-  float: left;
-  width: 80px;
 }
 
 .tea-top #explain-prices-full {
@@ -602,6 +600,50 @@ a#explain-prices:hover span {
     position: absolute;
     top: 160px;
     z-index: -1;
+}
+
+#extras {
+  width: 100%;
+  float: left;
+  margin: 0 0 40px 0;	
+}
+
+#extras div.info {
+  width: 220px;
+  height: 250px;
+  margin-right: 10px;	
+}
+
+#extras div.info.long {
+  margin-right:0;
+  width: auto;	
+}
+
+#extras .info h4 {
+  font-weight: bold;
+  font-size: 18px;
+  color: #237A2A;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 10px 0 0 0;	
+}
+
+#extras .info h4.pink {
+  color: #F37679;	
+}
+
+#extras .info p {
+  font-size: 16px;
+  margin: 0;
+}
+	
+#extras .info .item {
+  float: left;
+  width: 200px;
+  margin: 5px 15px 0 0;	
+}
+
+#extras .info .item img {
+  margin-bottom: 10px;	
 }
 
 </style>
@@ -763,46 +805,39 @@ a#explain-prices:hover span {
 
 	</div><!-- end top product info div -->
 
-	
-	<div id="right">   
-	
+	<div id="extras">
+		{% if tea.extra_info %}
 		<div class="info">
-		<img src="{% staticfile '/images/tea-view-right.png' %}"/>
+			{{ tea.extra_info|safe }}
 		</div>
-		           	
-
-           	
-           	<div class="info">
-			<h3 class="small">Take a look at our other teas</h3>
-				{% for other in others %}
-			 		<p class="mail">
-			 			<a href="{{ other.get_absolute_url }}"><span class="link"></span></a>
-			 				{% thumbnail other.image "60x45" crop="center" as im%}
-			 				<img alt="{{ other.description }}" class="mail-icon" src="{{ im.url }}" />
-			 				{% endthumbnail %}
-			 			<a class="title" href="{% url tea_view other.slug %}" title="{{ other.name }} - another one of our great Chinese teas">{{ other.name }}</a>
-			 			<br/>{{ other.super_short_description }}
-			 		</p>
-			 	{% endfor %}
+		{% endif %}
+		{% if reviews %}
+		<div class="info">
+			{% for review in reviews %}
+			<h4 class="pink">{{ review.first_name }} {{ review.last_name }} says:</h4>
+			<p><em>{{ review.short_text }}</em></p>
+			{% endfor %}
+		</div>
+		{% endif %}
+		<div class="info long">
+			<h4>Also highly recommended…</h4>
+			{% for o in others %}
+			<div class="item">
+				<a href="{% url tea_view o.slug %}">
+					{% thumbnail o.image "200" crop="center" as im %}
+						<img src="{{ im.url }}"/>
+					{% endthumbnail %}
+				</a>
+				<p><strong><a href="{% url tea_view o.slug %}">{{ o.name }}</a></strong> - {{ o.super_short_description }}</p>
+				
 			</div>
-           	
-      	</div>
-           	
-  
-
+			{% endfor %}
+		</div>
+	</div>
 
 
 	<div id="left">
-		{% if tea.get_reviews %}
-			<h2>Customer reviews for this tea ({{ tea.get_reviews.count }})</h2>
-			<ul class="reviews">
-			{% for review in tea.get_reviews %}
-				<li><em>"{{ review.short_text }}"</em> <br/><span>{{ review.first_name }} {{ review.last_name }}</span></li>
-			{% endfor %}
-			</ul>
-		{% endif %}  
-
-	
+ 	
 		<h2>More information</h2>
 		{{ tea.long_description|safe }}
 		{% if ga_is_on %}
