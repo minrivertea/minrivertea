@@ -16,6 +16,13 @@
 		<input type="hidden" name="currency_code" value="{{ currency.code }}">
 		<input type="hidden" name="address_override" value="1">
 		
+		
+		<input type="hidden" name="first_name" value="{{ order.owner.first_name }}">
+		<input type="hidden" name="last_name" value="{{ order.owner.last_name }}">
+		<input type="hidden" name="email" value="{{ order.owner.email }}">
+		
+		
+		<input type="hidden" name="address2" value="{{ order.address.address_line_2 }}">
 		<input type="hidden" name="address1" value="{{ order.address.house_name_number }}, {{ order.address.address_line_1 }}">		
 		<input type="hidden" name="address2" value="{{ order.address.address_line_2 }}">
 		<input type="hidden" name="city" value="{{ order.address.town_city }}">
