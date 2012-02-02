@@ -819,9 +819,10 @@ a#explain-prices:hover span {
 			{% endfor %}
 		</div>
 		{% endif %}
+		{% if tea.recommended.all %}
 		<div class="info long">
 			<h4>Also highly recommended…</h4>
-			{% for o in others %}
+			{% for o in tea.recommended.all %}
 			<div class="item">
 				<a href="{% url tea_view o.slug %}">
 					{% thumbnail o.image "200" crop="center" as im %}
@@ -833,6 +834,7 @@ a#explain-prices:hover span {
 			</div>
 			{% endfor %}
 		</div>
+		{% endif %}
 	</div>
 
 
