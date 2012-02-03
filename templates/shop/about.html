@@ -308,21 +308,25 @@ div.learn-comment a.button:active {
 		{{ page.content|safe }}
 	
 	
-		{% if '/learn/' in request.path %}
-			{% if page.get_products_mentioned %}
-			<div id="promo">
-				<h3>Chinese teas mentioned on this page:</h3>
-				{% for p in page.get_products_mentioned %}
-					<div>
-						{% thumbnail p.image "170x120" crop="center" as im %}
-							<a href="{{ p.get_absolute_url }}"><img src="{{ im.url }}"/></a>
-						{% endthumbnail %}
-						<h4><a href="{{ p.get_absolute_url }}">{{ p }}</a></h4>
-						<p>{{ p.super_short_description }}</p>
-					</div>
-				{% endfor %}
-			</div>
-			{% endif %}
+		{% if ga_is_on %}
+		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
+			<li id="google">
+				<g:plusone></g:plusone>
+				<script type="text/javascript">
+				  (function() {
+				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				    po.src = 'https://apis.google.com/js/plusone.js';
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				  })();
+				</script>
+			</li>
+	    	<li id="facebook">
+			    <div id="fb-root"></div>
+			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
+			    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+			    </fb:like>
+			</li>
+		</ul>
 		{% endif %}
 	
 	
