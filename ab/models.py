@@ -10,7 +10,7 @@ class Experiment(models.Model):
     template_name = models.CharField(max_length=255, unique=True,
         help_text="Example: 'registration/signup.html'. The template to replaced.")
     goal = models.CharField(max_length=255, unique=True,
-        help_text="Example: '/signup/complete/'. The path where the goal is converted.")
+        help_text="The 'success' URL. Regular expressions OK - e.g. /teas/([\w-]+)")
     
     def __unicode__(self):
         return self.name
