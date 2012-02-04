@@ -138,7 +138,7 @@ ol {
   font-size: 12px;
 }
 
-.button {
+.button, div#comments div#comment-form input.submit-post {
 
 	background-color: #f1f1f1;
     /* Firefox 3.6+ */ 
@@ -170,7 +170,7 @@ ol {
   box-shadow: 0 1px 4px #999;	
 }
 
-input.button {
+input.button, div#comments div#comment-form input.submit-post {
   color: #237A2A;
   height: auto;	
   font-family: Helvetica, sans-serif;
@@ -736,76 +736,6 @@ ul.errorlist {
 }
 
 
-
-/* photo pages */
-
-
-
-div.user-photos {
-    float: left;
-    margin: 0 0 0;
-    padding-bottom: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-}
-
-div.user-photos div.a-user-photo {
-    float: left;
-    margin: 0 10px 0px 0;
-    padding-bottom: 0px;
-    width: 90px;
-}
-
-div.user-photos div.a-user-photo div.photo {
-  float: left;
-  margin-bottom: 10px;	
-}
-
-div.user-photos div.a-user-photo div.info {
-    float: left;
-    width: 120px;
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 0;
-}
-
-div.user-photos div.a-user-photo div.info p {
-  margin: 0;
-  float: left;	
-}
-
-div#right div.user-photos div.a-user-photo p.recommend {
-    color: black;
-    float: left;
-    font-size: 11px;
-    font-style: italic;
-}
-
-div#photo input#id_photo {
-    border-style: solid;
-    width: 300px;
-}
-
-
-h3.user-add-photo {	
-  margin: 0 0 0px 0;
-  color: #BE373A;
-  font-weight: normal;
-}
-
-div.message {
-    border-bottom: 2px solid #D6E7B9;
-    border-top: 2px solid #D6E7B9;
-    margin: 0px 0 10px;
-    padding: 10px 15px;
-}
-
-div#right div.message p {
-  color: #137517;
-  font-size: 13px;	
-}
-
-
 /* About styles */
 
 div.flatpage #left {
@@ -1077,11 +1007,17 @@ div.info.last {
   border-bottom: none;	
 }
 
-div.info h3 {
+div.info.wide {
+  width: 600px;	
+}
+
+
+
+div#main-text-wide #left div.info h3 {
   margin: 5px 0 10px;
-  border-bottom: 2px dotted #e1e1e1;
   padding-bottom: 5px;	
 }
+
 
 div#right p.mail {
     float: left;
@@ -1259,6 +1195,11 @@ div#comments {
   padding-bottom: 20px;
 }
 
+div#comments div#comment-form input.submit-post {
+  float: right;
+  margin-top: 10px;	
+}
+
 div#main-text-wide #left div#comments h3 {
     float: left;
     font-size: 24px;
@@ -1299,30 +1240,6 @@ div#comments div#comment-form input, div#comments div#comment-form textarea {
 
 div#comments div#comment-form input.submit-preview {
   display: none;	
-}
-
-div#comments div#comment-form input.submit-post {
-  float: right;
-  width: 200px;
-  padding: 10px 15px;
-  height: 40px;
-  border-radius: 7px;
-  margin-top: 10px;
-   background-image: -moz-linear-gradient(#f3f3f3, #f9f9f9);
-   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#f9f9f9));
-   background-image: -webkit-linear-gradient(#f3f3f3, #f9f9f9); 
-   background-image: -o-linear-gradient(#f3f3f3, #f9f9f9);
- font-weight: bold;
- font-family: Helvetica, sans-serif;
- font-size: 15px;
- text-shadow: 0 1px 1px #fff;	
- position: relative;
-}
-
-div#comments div#comment-form input.submit-post:hover {
-  border-color: #439249;
-  cursor: pointer;
-  color: #439249;
 }
 
 div#main-text-wide #left div#comments div#comment-form p {
@@ -1412,29 +1329,15 @@ ul#steps li.selected {
   margin-top: 0;
 }
 
-ul.footer-links {
-  width: 960px;
-  float: left;
-  margin-left: 50px;
-  padding-left: 0;
-  margin-bottom: 80px;	
-}
-
-ul.footer-links li {
-  display: inline;
-  color: #333;
-}
-
-ul.footer-links li a {
-  color: #fff;
-  font-size: 15px;	
-}
-
-div.footer-box {
+.footer-box {
   margin-right: 40px;
   margin-top: 0px;
   float: left;
   width: 260px;
+}
+
+.footer-box.about {
+	
 }
 
 #footer h4 {
@@ -1456,9 +1359,6 @@ div.footer-box {
 }
 
 #footer #email-signup {
-  background-color: #EFF5F8;
-  border: 2px solid #E1ECF3;
-  border-width: 3px 0 3px 0;
   padding: 10px;
   float: left;	
   position: relative;
@@ -1476,9 +1376,9 @@ div.footer-box {
     border-radius: 3px;
     box-shadow: none;
     color: #FFFFFF;
-    float: right;
+    float: left;
     font-size: 15px;
-    margin: 0 0px 0 8px;
+    margin: 0 0px 0 0px;
     padding: 7px 15px 5px;
     position: relative;
     text-shadow: 0 -1px 1px #333333;
@@ -1486,15 +1386,17 @@ div.footer-box {
 }
 
 #footer #email-signup p {
-  margin: 0;
-  font-family: Georgia, serif;
-  font-size: 12px;
-  font-weight: normal;	
-  line-height: 1.4em;
-  text-align: right;
+    color: #999999;
+    float: left;
+    font-family: Georgia,serif;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0 0 0 10px;
+    width: 130px;
 }
 
-#footer #email-signup img#loading {
+#email-signup img#loading {
   position: absolute;
   top: 30%;
   left: 40%;
