@@ -7,7 +7,7 @@
   	  #navigation {display: none }
   	  #footer {display:none;}
   	  .super {width: 1060px;}
-  	  #banner ul {position: absolute; right: 0; top: -100px;font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none; margin: 0; padding: 0;}
+  	  #banner ul {position: absolute; left: 0; top: -70px;font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none; margin: 0; padding: 0;}
   	  #banner ul li {float: left; margin-right: 50px;}
       table {font-family: helvetica,sans-serif;font-size: 12px;}
       tr.white td {background-color: #fff;}
@@ -25,8 +25,12 @@
       ul#stocks {padding: 0; margin: 0 0 30px 0; float: left; width: 100%; font-family: Helvetica, sans-serif;}
       ul#stocks li {float: left; width: 200px; background-color: #f1f1f1; padding: 10px 15px; list-style-type: none; font-size: 12px; border: 1px solid #fff;}
       ul#stocks li.red {color: red;}
-      input {width: 120px;}
+      table input {width: 120px;}
       input.button {width: auto; float: left; padding:5px 15px 3px;}
+      
+      #create_send input, textarea {width: 600px;float:left;}
+      #create_send input.button {float: left; margin-top: 20px; padding: 11px 20px 9px; font-size: 18px;}
+      .email-example {background-color: #fff; padding: 20px 25px; border: 1px solid #e1e1e1; line-height: 1.6em; margin: 30px 0 20px 0;}
   </style>
 {% endblock %}
 
@@ -42,6 +46,7 @@
     	<li><a href="/admin/">Login to admin interface</a></li>
     	<li><a href="/">Back to site</a></li>
     	<li><a href="{% url make_product_feed %}">Make Google Product Feed</a></li>
+    	<li><a href="{% url create_email %}">Create and send email</a></li>
     </ul>
   </div>
 </div>

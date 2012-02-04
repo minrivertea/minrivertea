@@ -43,6 +43,9 @@ urlpatterns = patterns('',
     
     # email signup specific URLs
     url(r'^email_signup/$', emails.email_signup, name="email_signup"),
+    url(r'^create_email/(?P<id>[\w+])$', emails.create_email, name="create_email_wid"),
+    url(r'^create_email/$', emails.create_email, name="create_email"),
+    url(r'^send_email/(?P<id>[\w+])$', emails.send_email, name="send_email"),
     url(r'^email_unsubscribe/(?P<hash>[\w-]+)/$', emails.email_unsubscribe, name="email_unsubscribe"),
 )
 

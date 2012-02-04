@@ -3,10 +3,11 @@
 from django.conf import settings
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse 
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 import os, md5
 import datetime
@@ -14,7 +15,7 @@ import uuid
 import re
 
 from minriver.shop.models import *
-from shop.forms import EmailSignupForm
+from shop.forms import EmailSignupForm, CreateSendEmailForm
 
 
 def _send_email(receiver, subject_line, text, request=None, html=None, sender=None):
@@ -252,7 +253,7 @@ def _payment_flagged_email(request, order):
     text = render_to_string('shop/emails/text/order_confirm_admin.txt', {'order': order})
     subject_line = "FLAGGED ORDER - %s" % invoice_id 
       
-    _send_email(request, receiver, subject_line, text)
+    _send_email(receiver, subject_line, text)
     
     return
     
@@ -290,3 +291,67 @@ def email_unsubscribe(request, hash):
     subscriber.save()
     from shop.views import render
     return render(request, 'shop/emails/unsubscribe_confirmed.html', locals())
+
+
+@login_required
+def create_email(request, id=None):
+    from shop.views import render
+    if not request.user.is_superuser:
+        return Http404
+    
+    if request.method == 'POST':
+        form = CreateSendEmailForm(request.POST)
+        if form.is_valid():
+            try:
+                email_object = get_object_or_404(EmailInstance, subject_line=form.cleaned_data['subject_line'])
+                email_object.content = form.cleaned_data['content']
+                
+            except:
+                email_object = EmailInstance.objects.create(
+                    subject_line = form.cleaned_data['subject_line'],
+                    content = form.cleaned_data['content'],
+                )
+            
+            email_object.save()
+            
+            recipients_list = EmailSignup.objects.exclude(date_unsubscribed__lte=datetime.now())
+            
+            return render(request, 'shop/emails/create_send_email.html', locals())
+    else:
+        if id:
+            email_object = get_object_or_404(EmailInstance, pk=id)
+            data = {'subject_line': email_object.subject_line, 'content': email_object.content}
+        else:
+            data = None
+        
+        
+        form = CreateSendEmailForm(initial=data)
+    
+    
+    return render(request, 'shop/emails/create_send_email.html', locals())
+
+
+@login_required
+def send_email(request, id):
+    
+    
+    email_object = get_object_or_404(EmailInstance, pk=id)
+    if email_object.date_sent:
+        message = "That email message has already been sent"
+        return HttpResponse(message)
+        
+    email_object.date_sent = datetime.now()
+    email_object.save()
+    
+    recipients_list = EmailSignup.objects.exclude(date_unsubscribed__lte=datetime.now()) 
+    
+    
+    
+    for r in recipients_list:
+        receiver = r.email
+        subject_line = email_object.subject_line
+        text = email_object.content
+        _send_email(receiver, subject_line, text)
+    
+    from shop.views import render
+    return render(request, 'shop/emails/email_sent_confirmation.html', locals()) 

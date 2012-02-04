@@ -1,0 +1,27 @@
+{% extends "shop/admin_base.html" %}
+{% load django_static  %}
+
+{% block content %}
+
+<div id="banner">
+  <div class="super">
+  </div>
+</div>
+
+<div id="main-text-wide">
+  <div class="super">
+  	<h1>Email Sent to these people!</h1>
+  	<div id="left">
+  	
+  	<ul>
+  	{% for r in recipients_list %}
+  		<li>{{ r }}</li>
+  	{% endfor%}
+  	</ul>
+  	</div>
+  
+  </div>
+</div>
+
+
+{% endblock %}

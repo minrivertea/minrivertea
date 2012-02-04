@@ -32,6 +32,8 @@ class ReviewAdmin(admin.ModelAdmin):
 class PageAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'parent')
 
+class EmailInstanceAdmin(admin.ModelAdmin):
+    list_display = ('subject_line', 'date_sent')
 
 class UniqueProductAdmin(admin.ModelAdmin):
     list_display = ('parent_product', 'available_stock', 'weight', 'price', 'is_sale_price', 'is_active', 'currency')
@@ -46,6 +48,7 @@ admin.site.register(Shopper)
 admin.site.register(UniqueProduct, UniqueProductAdmin)
 admin.site.register(Basket)
 admin.site.register(EmailSignup)
+admin.site.register(EmailInstance, EmailInstanceAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Discount)
 admin.site.register(Photo)

@@ -100,6 +100,8 @@ class PostageCostForm(forms.Form):
 class EmailSignupForm(forms.Form):
     email = forms.CharField(required=True)
     
-    
+class CreateSendEmailForm(forms.Form):
+    subject_line = forms.CharField(required=True)
+    content = forms.CharField(required=True, widget=forms.Textarea)
     
     

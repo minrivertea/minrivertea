@@ -342,7 +342,15 @@ class EmailSignup(models.Model):
     def __unicode__(self):
         return self.email
     
-         
+ 
+class EmailInstance(models.Model):
+    subject_line = models.CharField(max_length=256)
+    content = models.TextField()
+    date_sent = models.DateTimeField(blank=True, null=True)
+    
+    def __unicode__(self):
+        return self.subject_line   
+        
 
 class Notify(models.Model):
     email = models.EmailField()

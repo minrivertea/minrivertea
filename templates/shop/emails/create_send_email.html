@@ -1,0 +1,66 @@
+{% extends "shop/admin_base.html" %}
+{% load django_static  %}
+
+{% block content %}
+
+<div id="banner">
+  <div class="super">
+  </div>
+</div>
+
+<div id="main-text-wide">
+  <div class="super">
+  	<h1>Create and Send a TEAMail</h1>
+  	<div id="left">
+  	
+  	{% if data or not email_object %}
+  		<p class="introduction">This is a LIVE form which will create and send a bunch of emails. Be careful!</p>
+  		
+  		<form id="create_send" action="{% url create_email %}" method="post">
+  		{{ form.as_p }}
+  		<input type="submit" value="Save a draft (won't send it yet)" class="button"/>
+  		</form>
+  		
+  	{% else %}
+  	
+  		<div class="email-example">
+  			<p><strong>{{ email_object.subject_line }}</strong></p>
+	  		
+	  		<p>{{ email_object.content|truncatewords:9 }}</p>
+	  		
+	  		{{ email_object.content|safe }}
+		</div>  
+		
+		<h3>We'll send it to these people:</h3>
+		<ul>
+  		{% for r in recipients_list %}
+  			<li>{{ r }}</li>
+  		{% endfor%}
+  		</ul>
+		
+		<a href="{% url create_email_wid email_object.id %}" class="button" style="float: left; font-size: 18px; padding: 11px 15px 9px;">&laquo; Go back and edit</a>
+		
+		<a id="sendmail" href="{% url send_email email_object.id %}" class="button" style="float:right; font-size: 18px; padding: 11px 15px 9px;">Save and send</a>	
+  	{% endif %}
+  	</div>
+  
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+
+function checkSure() {
+    alert('If you click on Send now, it will send the email. If you dont want to send the emails, just click back.');
+    $(this).unbind('click');	
+}
+
+$(document).ready( function() {
+    $('#sendmail').bind('click', checkSure);	
+});
+
+</script>
+{% endblock %}
