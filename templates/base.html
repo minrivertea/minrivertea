@@ -230,6 +230,15 @@ if (15.00) {
 			return false;	
 		}
 		
+		function clearInput(elem) {
+    		if (elem.value && elem.defaultValue == elem.value) {
+        	elem.value = new String();
+    		}
+
+    		elem.style.color = 'black';
+		};
+		
+
 		$(document).ready( function() {
 			$('#email-signup').bind('submit', emailSignupSubmit);
 		});
