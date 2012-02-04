@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load django_static  %}
+
+
+{% block pagetitle %}Successfully signed up to TEAMails{% endblock %}
+
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+
+
+<div id="main-text-wide">
+  <div class="super">
+  	<h1>You're now signed up to receive TEAMails!</h1>
+  	<div id="left">
+  		<p class="introduction">TEAMails from Minrivertea are (roughly) monthly emails keeping you up to date with our company and the Chinese tea world.</p>
+  		
+  		<p>We're pleased you've decided to signup - if you have any questions or suggestions, please get in touch.</p>
+  		
+  	</div>
+  
+  </div>
+</div>
+
+
+
+{% endblock %}

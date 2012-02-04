@@ -1429,19 +1429,6 @@ ul.footer-links li a {
   font-size: 15px;	
 }
 
-div.payments {
-  margin-left: 0px;
-  margin-top: 20px;
-  float: left;
-  width: 250px;
-}
-
-div.payments p {
-  font-size: 0.8em;	
-  width: 250px;
-  margin-left: 0px;
-}
-
 div.footer-box {
   margin-right: 40px;
   margin-top: 0px;
@@ -1464,6 +1451,52 @@ div.footer-box {
   margin-bottom: 5px;
   font-size: 15px;
   list-style-type: square;
+}
+
+#footer #email-signup {
+  background-color: #EFF5F8;
+  border: 2px solid #E1ECF3;
+  border-width: 3px 0 3px 0;
+  padding: 10px;
+  float: left;	
+  position: relative;
+  left: -10px;
+  width: 260px;
+}
+
+#footer #email-signup input {
+  width: 250px;	
+  color: #999;
+}
+
+#footer #email-signup input.button {
+    background: -moz-linear-gradient(100% 100% 90deg, #237A2A, #399440) repeat scroll 0 0 transparent;
+    border-radius: 3px;
+    box-shadow: none;
+    color: #FFFFFF;
+    float: right;
+    font-size: 15px;
+    margin: 0 0px 0 8px;
+    padding: 7px 15px 5px;
+    position: relative;
+    text-shadow: 0 -1px 1px #333333;
+    width: 120px;
+}
+
+#footer #email-signup p {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  font-weight: normal;	
+  line-height: 1.4em;
+  text-align: right;
+}
+
+#footer #email-signup img#loading {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  display: none;	
 }
 
 /* END FOOTER STYLES */

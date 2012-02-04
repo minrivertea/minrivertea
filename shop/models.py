@@ -332,7 +332,17 @@ class Referee(models.Model):
     
     def __unicode__(self):
         return self.email
-       
+
+class EmailSignup(models.Model):
+    email = models.EmailField()
+    date_signed_up = models.DateField()
+    date_unsubscribed = models.DateField(blank=True, null=True)
+    hashkey = models.CharField(max_length=256, blank=True, null=True)
+    
+    def __unicode__(self):
+        return self.email
+    
+         
 
 class Notify(models.Model):
     email = models.EmailField()

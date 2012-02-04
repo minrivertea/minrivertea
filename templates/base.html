@@ -212,6 +212,27 @@ if (15.00) {
 
 		$('#language').click(languageToggle);
 		$('#close-language').click(languageToggle);
+		
+		function emailSignupSubmit() {
+		    $('#email-signup').css('opacity', '0.5');
+		    $('#loading').toggle();
+		    $.ajax({  
+	    	    type: "POST",  
+	    	    data: $('#email-signup').serialize(), 
+	    	    url: "{% url email_signup %}",  
+	    	    cache: false,  
+	   		    dataType: "html",  
+	    	    success: function(data, textStatus) {
+	    	    	$('#email-signup').replaceWith(data);
+	    	    	$('#loading').toggle();
+	    	    }
+    		}); 
+			return false;	
+		}
+		
+		$(document).ready( function() {
+			$('#email-signup').bind('submit', emailSignupSubmit);
+		});
 	</script>
 
 </body>

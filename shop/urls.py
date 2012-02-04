@@ -40,5 +40,9 @@ urlpatterns = patterns('',
     url(r'^not-me/$', views.not_you, name="not_you"),
     url(r'^shipping/$', views.shipping, name="shipping"),
     url(r'^currency/$', views.change_currency, name="change_currency"),
+    
+    # email signup specific URLs
+    url(r'^email_signup/$', emails.email_signup, name="email_signup"),
+    url(r'^email_unsubscribe/(?P<hash>[\w-]+)/$', emails.email_unsubscribe, name="email_unsubscribe"),
 )
 

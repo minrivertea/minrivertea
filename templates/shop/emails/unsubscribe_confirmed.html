@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load django_static  %}
+
+
+{% block pagetitle %}Unsubscribed from TEAMails{% endblock %}
+
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+
+
+<div id="main-text-wide">
+  <div class="super">
+  	<h1>Unsubscribed from TEAMails</h1>
+  	<div id="left">
+  		<p class="introduction">We're sad to see you go - you're now unsubscribed from any future TEAMails.</p>
+  		
+  		<p>If you continue to receive TEAMails from us (it shouldn't happen, but sometimes there are technical errors) please get in touch again and we'll sort it out.</p>
+  		
+  		<p>And also remember - although you're not signed up to receive our emails, there's nothing stopping you from enjoying a good cup of tea!</p>
+  	</div>
+  
+  </div>
+</div>
+
+
+
+{% endblock %}

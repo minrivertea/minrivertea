@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from django.template import RequestContext
+from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse 
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
@@ -13,6 +14,7 @@ import uuid
 import re
 
 from minriver.shop.models import *
+from shop.forms import EmailSignupForm
 
 
 def _send_email(receiver, subject_line, text, request=None, html=None, sender=None):
@@ -253,3 +255,38 @@ def _payment_flagged_email(request, order):
     _send_email(request, receiver, subject_line, text)
     
     return
+    
+
+def email_signup(request):
+    if request.method == 'POST':
+        form = EmailSignupForm(request.POST)
+        if form.is_valid():
+            try:
+                existing_signup = get_object_or_404(EmailSignup, email=form.cleaned_data['email'])
+                message = "<div id='email-signup'><strong>Looks like you're already signed up!</strong> You don't need to do anything else, and you'll receive TEAMails as normal.</div>"
+            except:
+                new_signup = EmailSignup.objects.create(
+                    email = form.cleaned_data['email'],
+                    date_signed_up = datetime.now(),
+                    hashkey = uuid.uuid1().hex,
+                )
+                new_signup.save()
+                message = "<div id='email-signup'><strong>Awesome!</strong> You're signed up to receive TEAMails - they're roughly monthly, and you can unsubscribe at any time by clicking the link in the email.</div>"
+            
+            if request.is_ajax():
+                return HttpResponse(message)
+            
+            else:
+                return render(request, 'shop/emails/signup_confirmed.html', locals())
+                    
+    else:
+        form = EmailSignupForm()
+    
+    return HttpResponseRedirect(url)
+    
+def email_unsubscribe(request, hash):
+    subscriber = get_object_or_404(EmailSignup, hashkey=hash)
+    subscriber.date_unsubscribed = datetime.now()
+    subscriber.save()
+    from shop.views import render
+    return render(request, 'shop/emails/unsubscribe_confirmed.html', locals())

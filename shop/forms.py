@@ -97,6 +97,9 @@ class PostageCostForm(forms.Form):
     order = forms.CharField(required=True)
     
     
+class EmailSignupForm(forms.Form):
+    email = forms.CharField(required=True)
+    
     
     
     
