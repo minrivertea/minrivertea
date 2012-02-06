@@ -52,15 +52,17 @@ $('#id_email').focusout(function() {
 
 function notifyFormSubmit() {
 	$('#notify-form').submit( function() {
+		$('#coming-soon').css('opacity', '0.5');
     	$.ajax({  
-        	    type: "POST",  
-        	    data: $('#notify-form').serialize(),  
-        	    url: "{% url tea_view tea.slug %}",  
-        	    cache: false,  
-        	    dataType: "html",  
-        	    success: function(html, textStatus) {  
-        	        $('#coming-soon').html(html); 
-        	    },   
+        	type: "POST",  
+        	data: $('#notify-form').serialize(),  
+        	url: "{% url tea_view tea.slug %}",  
+        	cache: false,  
+        	dataType: "html",  
+        	success: function(html, textStatus) {  
+        	    $('#coming-soon').html(html);
+        	    $('#coming-soon').css('opacity', '1'); 
+        	},   
         });  
         return false;
 	});
