@@ -989,6 +989,7 @@ def admin_stuff(request):
     end_date = datetime.now() # now
     
     subscribers = _get_subscriber_list()
+    subscriber_count = len(subscribers)
     
     stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
     

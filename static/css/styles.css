@@ -670,10 +670,9 @@ div.row-box label {
     float: left;
     font-size: 14px;
     line-height: 1.2em;
-    margin: 0 0 5px 10px;
-    position: relative;
-    top: 10px;
-    width: 120px;
+    margin: 0 0px 3px 10px;
+    text-align: left;
+    width: 100%;
 }
 
 div.row-box p {

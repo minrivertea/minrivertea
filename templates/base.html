@@ -223,7 +223,7 @@ if (15.00) {
 	    	    cache: false,  
 	   		    dataType: "html",  
 	    	    success: function(data, textStatus) {
-	    	    	$('#email-signup').replaceWith(data);
+	    	    	$('form#email-signup').replaceWith(data);
 	    	    	$('#loading').toggle();
 	    	    }
     		}); 

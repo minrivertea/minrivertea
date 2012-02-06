@@ -269,6 +269,24 @@ div.discount span.red {
   width: 0px;
 }
 
+#wishlist-full h2 {
+  color: #F37679;	
+  font-size: 40px;
+}
+
+#wishlist-full .block {
+    border-right: 1px solid #E1E1E1;
+    float: left;
+    margin: 20px 20px 30px 0;
+    padding-right: 20px;
+    width: 220px;
+}
+
+#wishlist-full div.block.last {
+    border-right: none;
+    margin-right: 0;
+}
+
 </style>
 {% endblock %}
 
@@ -390,13 +408,24 @@ div.discount span.red {
   				</h3>
   				<p>A wishlist saves your basket so that other people can buy it for you as a gift.</p>
   				<p><a style="font-weight: bold; font-family: Helvetica, Arial, sans-serif" id="wishlist" href="#wishlist-full">How does it work?</a></p>
-  				<div id="wishlist-full" style="width: 400px; padding: 30px;">
-  					<h2>How the 'wishlist' works</h2>
-  					<p><img src="{% staticfile '/images/gift.png' %}" style="float: left;margin-right: 15px; position: relative; top: -10px;"/><strong>Creating a wishlist turns your basket into a list of gifts that other people can buy for you.</strong></p>
-  				
-  					<p>Maybe your birthday is coming up, or a special anniversary, or you're just fed up of getting the obligatory socks and chocolates for Christmas! Creating a wishlist lets you <span style="text-decoration: underline; font-weight: bold;">tell your friends and family what you really want</span> to receive.</p>
-  					<p><strong>To create a wishlist, go through the normal checkout process.</strong> On the 'Confirm your order' page, you'll see a link "Create a wishlist now!" - just click this, and we'll show you what to do next.</p>
+  				<div id="wishlist-full" style="width: 800px; padding: 30px;">
+  					<h2>How to make a Wishlist</h2>
+  					<div class="block">
+  						<h3>1. Choose the teas you want</h3>
+  						<p>Choose the teas and other products that you want to have - add them to your basket as normal, and go through the checkout.</p>
+  					</div>
+  					<div class="block">
+  						<h3>2. We give you a unique URL</h3>
+  						<p>At the final stage of the order, click the 'Create Wishlist' link, and we'll give you a unique URL. Share it with friends and relatives.</p>
+  					</div>
+  					<div class="block last">
+  						<h3>3. Friends can buy items for you</h3>
+  						<p>Using your unique URL, friends and family can buy items from your wishlist for you. We'll deliver them direct to the address you provided.</p>
+  					</div>
+  					
   					<img src="{% staticfile '/images/wishlist-screenshot.jpg' %}">
+  						  					
+  					
   				</div>
   			</div>
   	</div>

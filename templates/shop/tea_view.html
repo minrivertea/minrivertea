@@ -600,7 +600,8 @@ a#explain-prices {
 
 #extras div.info.long {
   margin-right:0;
-  width: auto;	
+  width: 380px;
+  padding: 10px 25px;	
 }
 
 #extras .info h4 {
@@ -622,12 +623,29 @@ a#explain-prices {
 	
 #extras .info .item {
   float: left;
-  width: 200px;
-  margin: 5px 15px 0 0;	
+  width: 360px;
+  margin: 20px 15px 0 0;
+  border-bottom: 2px dotted #e1e1e1;	
+  padding-bottom: 20px;
+}
+
+#extras .info .item:last-child {
+  border-bottom: none;	
 }
 
 #extras .info .item img {
-  margin-bottom: 10px;	
+  float: left;
+  margin-right: 15px;	
+}
+
+#extras .info .item a {
+  font-family: Helvetica, sans-serif;	
+}
+
+#extras .info .item p {
+  font-size: 14px;	
+  margin: 0;
+  line-height: 1.4em;
 }
 
 </style>
@@ -797,11 +815,11 @@ a#explain-prices {
 			{% for o in tea.recommended.all %}
 			<div class="item">
 				<a href="{% url tea_view o.slug %}">
-					{% thumbnail o.image "200" crop="center" as im %}
+					{% thumbnail o.image "100" crop="center" as im %}
 						<img src="{{ im.url }}"/>
 					{% endthumbnail %}
 				</a>
-				<p><strong><a href="{% url tea_view o.slug %}">{{ o.name }}</a></strong> - {{ o.super_short_description }}</p>
+				<p><strong><a href="{% url tea_view o.slug %}">{{ o.name }}</a></strong><br/>{{ o.description|truncatewords:10 }}</p>
 				
 			</div>
 			{% endfor %}

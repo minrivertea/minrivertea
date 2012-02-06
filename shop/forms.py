@@ -32,14 +32,14 @@ class OrderStepOneForm(forms.Form):
         country = cleaned_data.get("country")
         if not postcode:
              if not house_name_number:
-                 raise forms.ValidationError("* You must provide a postcode and house name or number")
+                 raise forms.ValidationError("* You must provide at least your postcode, house name/number and country")
              else:
                  raise forms.ValidationError("* You must provide a postcode")
         
         if not house_name_number:
                 raise forms.ValidationError("* You must provide a house name or number")
         
-        if country == "invalid":
+        if country  == "invalid" or not country:
             raise forms.ValidationError("* Please specify which country you'd like the tea sent to")
         
         
