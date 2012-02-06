@@ -22,6 +22,26 @@ h1 {
   margin-bottom: 0px;	
 }
 
+div.info {
+  margin-right: 20px;
+  padding: 15px 20px;	
+}
+
+div.info h3 {
+  font-family: Helvetica, sans-serif;
+  font-size: 26px;
+  font-weight: bold;
+  color: #237A2A;
+  text-transform: ;
+  letter-spacing: -1px;	
+  margin: 0;
+}
+
+div.info p {
+  margin: 0;
+  font-size: 14px;	
+}
+
 </style>
 {% endblock %}
 
@@ -47,22 +67,19 @@ h1 {
 	<div id="teas">
 		{% include "shop/snippets/products.html" %}
 	</div>
-		
-	<div id="right">	
-		<div class="info">
-			<img src="{% staticfile '/images/tea-view-right.png' %}"/>
-		</div>
-	</div>
 	
-	<div id="left">
-		<div class="did-you-know">
-			<a href="/about/personal-tea-shopping/"><span class="link"></span></a>
-			<h3>Don't see what you were looking for?</h3>
-			<p>We offer a personal tea shopping service from our base in China, so we can get just about anything you need - get in touch with us now!</p>
-		</div>
-		<br clear="all"/>
+	<div id="extras">
 
-	</div>
+		<div class="info">
+			<h3>Tell a friend &raquo;</h3>
+			<p>If your friends might like our tea, be the first to recommend us to them.<br/><a href="/tell-a-friend/">Tell a friend now &raquo;</a></p>
+		</div>
+		<div class="info">
+			<h3>Free delivery</h3>
+			<p>If your order is over £50, we'll deliver it totally free of charge. <br/><a href="/shipping/">More info on P&P &raquo;</a></p>
+		</div>
+
+	</div>	
 		
 	
   </div>

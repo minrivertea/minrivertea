@@ -30,7 +30,7 @@ import re
 from minriver.shop.models import *
 from minriver.shop.forms import *
 from minriver.slugify import smart_slugify
-from minriver.shop.emails import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email
+from minriver.shop.emails import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email, _get_subscriber_list, _tell_a_friend_email
 
 
 
@@ -933,42 +933,25 @@ def tell_a_friend(request):
             
             # get cleaned data from form submission
             sender = form.cleaned_data['sender']
-            message = form.cleaned_data['message']
-            recipient = form.cleaned_data['recipient']
+            receiver = form.cleaned_data['recipient']
             
-            # create email
-            if message:
-                body = render_to_string('shop/emails/text/custom_tell_friend.txt', {'message': message})
-            else:
-                body = render_to_string('shop/emails/text/tell_friend.txt', {'sender': sender})
-            
-            subject_line = "%s wants you to know about minrivertea.com" % sender
-                
-            send_mail(
-                          subject_line, 
-                          body, 
-                          sender,
-                          [recipient], 
-                          fail_silently=False
-            )
-            
+            _tell_a_friend_email(sender, receiver)
+
             # create the referrer/referee objects
             try:
                 referrer = get_object_or_404(Shopper, email=sender)
                 referrer.number_referred += 1
                 referrer.save()
             except:
-                referrer = Shopper.objects.create(email=sender, number_referred=1)
-                referrer.save()
+                pass
             
             referee = Referee.objects.create(
-                    email=recipient,
-                    referred_by=referrer,
+                    email=receiver,
+                    referred_by=sender,
+                    date=datetime.now()
                     )
             referee.save()
-                 
-            
-            
+
             message = "We've sent an email to %s letting them know about minrivertea.com - thanks for your help!" % referee.email
             # then send them back to the tell a friend page
             return render(request, "shop/forms/tell_a_friend.html", locals())
@@ -999,6 +982,8 @@ def admin_stuff(request):
     
     start_date = (datetime.now() - timedelta(days=60)) # two months ago
     end_date = datetime.now() # now
+    
+    subscribers = _get_subscriber_list()
     
     stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
     

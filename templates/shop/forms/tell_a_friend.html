@@ -4,51 +4,18 @@
 {% block extracss %}
 <link rel="stylesheet" href="{% staticfile '/css/teas.css' %}"/>
 <style type="text/css">
-div.tell-friend-box {
-  width: 260px;
-  float: left;	
+
+div.tea-promo h3 {
+  font-size: 40px;	
 }
 
-div.tell-friend-box.email {
-  background-color: #fff
-  margin-top: 20px;
-  padding: 15px 20px;
-  width: 770px;
-}
 
-div.tell-friend-box.email h3 {
-  font-size: 2em;
-  text-shadow: 1px 1px #fff;	
-}
 
-div.tell-friend-box label {
-    color: #333333;
-    float: left;
-    font-family: Arial,sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-left: 20px;
-    width: 100%;
-}
-
-div.tell-friend-box.email h3.message {
-  font-size: 16px;	
-  color: #1c8716;
-}
-
-div.tell-friend-box p.help-text {
+div.tea-promo p.help {
     float: left;
     font-size: 0.7em;
-    padding-left: 22px;
     position: relative;
-    top: -15px;
-    width: 400px;
-}
-
-p.help-text img {
-  position: relative;
-  top: 3px;	
+    width: 140px;
 }
 
 div.tea-promo div.image {
@@ -57,6 +24,12 @@ div.tea-promo div.image {
 
 div.tea-promo div.text {
   width: 450px;	
+}
+
+div.text .button {
+  width: 150px;	
+  margin: 0 0 0 15px;
+  float: right;
 }
 
 
@@ -73,14 +46,20 @@ div.tea-promo div.text {
 
 <div id="banner">
 	<div class="super">
+		{% if message %}
+				<h1 class="message">{{ message }}</h1>
+		{% else %}
 		<h1>Spread the word</h1>
 		<p class="introduction">We're a young business, and we need your help! If you like our teas and you think a friend might like them too, then please tell them about it - here's how:</p>
+		{% endif %}
 	</div>
 </div>
 
 
 <div id="main-text-wide">
   <div class="super">
+  
+  			
 	
 		<div class="tea-promo">
 			<div class="image">
@@ -89,7 +68,7 @@ div.tea-promo div.text {
 			</a>
 			</div>
 			<div class="text">
-			<h3><a target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com">Share on facebook</a></h3>
+			<h3><a target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com">Click here to share on Facebook</a></h3>
 			<p>Facebook is really important for a small business like ours. We really appreciate the fact that you've had faith in us by ordering and enjoying our teas, and Facebook helps your friends get their introduction to Chinese tea through a company that <strong>you</strong> trust.</p>
 			</div>
 		</div>
@@ -99,27 +78,29 @@ div.tea-promo div.text {
 				<a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com"><img src="{% staticfile '/images/twitter-large.png' %}"></a>
 			</div>
 			<div class="text">
-				<h3><a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com">Get Tweeting</a></h3>
+				<h3><a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com">Click here to Tweet about us</a></h3>
 				<p>Tweeting about us to your followers helps spread the word to a huge variety of people - Chinese tea is growing in popularity, but many people are still unaware that buying good quality Chinese tea is actually quite easy and enjoyable. We also use Twitter to announce news, information and get feedback from customers, so it's a good way to stay in touch.</p>
 				
 			</div>
 		</div>
 		<div class="tea-promo">
 			<div class="image">
-			
+				<img style="box-shadow: 0 1px 2px #999 inner;" src="{% staticfile '/images/plusone.png' %}">
 			</div>
 			<div class="text">
-				<h3>GooglePlus</h3>
-				<p>Google now customises its search results for you, and provides specific recommendations for you from your network of friends. If you click the little 'Plus1' icon on our product pages, if your friends search for tea, they'll be recommended to checkout Min River Tea. Again, it's a useful way for you to tell your friends that you have used and trust our business.</p>
+				<h3>Give us a Google +1</h3>
+				<p>Wherever you see the new Google PlusOne button on our site, please click it! Google now customises search results for you and your social group, so if you like one of our teas or our website, clicking PlusOne will help spread that news throughout your social network. </p>
 			</div>
 		</div>
 		
 		<div class="tea-promo">
-			{% if message %}
-				<h3 class="message">{{ message }}</h3>
-			{% endif %}
 			<form method="post" action="/tell-a-friend/">
-			<h3>...or email someone else who loves tea</h3>
+			
+			<div class="image" style="width: 400px; padding-left: 10px;">
+				<h3>Email a friend </h3>
+				<p>If you know someone who would be interested in seeing our site our trying our teas, we'll send them an email on your behalf. Fill in the form on the right to start.</p>
+			</div>
+			<div class="text" style="width: 315px;">
 			{% if shopper %}
 			<input type="text" name="sender" id="id_sender" value="{{ shopper.email }}" style="display:none;"/>
 			{% else %}
@@ -128,13 +109,13 @@ div.tea-promo div.text {
 			{% endif %}
 			<label>Your friend's email:</label>
 			<input type="text" name="recipient" id="id_recipient" />
-			<p class="help-text"><img src="{% staticfile '/images/lock.gif' %}"> We will never share, sell or spam these email addresses (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)</p>	
-			<br/>
+			<p class="help"><img src="{% staticfile '/images/lock.gif' %}"> We will never share, sell or spam these email addresses (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)</p>	
     		<input type="submit" value="Submit" class="button">
     		    {{ form.sender.errors }}
     		    {{ form.recipient.errors }}        
 				{{ form.message.errors }}
 			</form>
+			</div>
 		</div>
 
   </div>

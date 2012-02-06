@@ -1,9 +1,10 @@
-Hi {{ shopper.first_name }},
+Hey there,
 
-{{ sender }} has recommended that you check out this tea from the Min River Tea Farm:
+I wanted to let you know about this company:
 
 http://www.minrivertea.com/
 
-The Min River Tea Farm sells fresh and delicious authentic Chinese teas at amazing prices.
+They're called Min River Tea, and they sell fresh Chinese teas direct from their base in China. Check out the website.
 
-http://www.minrivertea.com 
+
+ps. this email was send by www.minrivertea.com on behalf of {{ sender }}, with their explicit permission.

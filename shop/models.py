@@ -328,7 +328,7 @@ class Photo(models.Model):
 class Referee(models.Model):
     email = models.EmailField()
     date = models.DateTimeField('date_referred', default=datetime.now)
-    referred_by = models.ForeignKey(Shopper)
+    referred_by = models.CharField(max_length=200) # this needs to be changed to a simple email thing.
     
     def __unicode__(self):
         return self.email

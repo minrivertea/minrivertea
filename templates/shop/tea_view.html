@@ -768,7 +768,7 @@ a#explain-prices:hover span {
 		    	  	<div class="message"></div>
 		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
-					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat:'2' }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button single" id="add_to_basket_{{ price.id }}">Add to basket +</a>
+					<a title="Add 1x {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button single" id="add_to_basket_{{ price.id }}">Add to basket +</a>
               	</div>
            		{% endfor %}
 

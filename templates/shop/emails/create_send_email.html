@@ -31,12 +31,13 @@
 	  		{{ email_object.content|safe }}
 		</div>  
 		
-		<h3>We'll send it to these people:</h3>
+		<h3>We'll send it to these people ({{ recipients_count }}):</h3>
 		<ul>
   		{% for r in recipients_list %}
   			<li>{{ r }}</li>
   		{% endfor%}
   		</ul>
+		
 		
 		<a href="{% url create_email_wid email_object.id %}" class="button" style="float: left; font-size: 18px; padding: 11px 15px 9px;">&laquo; Go back and edit</a>
 		

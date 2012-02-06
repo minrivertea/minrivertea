@@ -20,7 +20,8 @@ from shop.forms import EmailSignupForm, CreateSendEmailForm
 
 def _send_email(receiver, subject_line, text, request=None, html=None, sender=None):
     
-    sender = settings.SITE_EMAIL
+    if not sender:
+        sender = settings.SITE_EMAIL
     
     # if there is an HTML version, do a multi email
     if html and text:
@@ -61,6 +62,16 @@ def _order_reminder_email(request, id):
     
     return HttpResponseRedirect('/admin-stuff')  
 
+
+
+def _tell_a_friend_email(sender, receiver):
+    
+    text = render_to_string('shop/emails/text/tell_friend.txt', {'sender': sender})
+    subject_line = "Check out minrivertea.com"
+    
+    _send_email(receiver, subject_line, text, sender=sender)    
+        
+    return
 
 # sends an email to a completed order owner, asking them if they want to send a sample to a friend
 def _free_sampler_email(request, id):
@@ -313,8 +324,8 @@ def create_email(request, id=None):
                 )
             
             email_object.save()
-            
-            recipients_list = EmailSignup.objects.exclude(date_unsubscribed__lte=datetime.now())
+            recipients_list = _get_subscriber_list()
+            recipients_count = len(recipients_list)
             
             return render(request, 'shop/emails/create_send_email.html', locals())
     else:
@@ -343,10 +354,8 @@ def send_email(request, id):
     email_object.date_sent = datetime.now()
     email_object.save()
     
-    recipients_list = EmailSignup.objects.exclude(date_unsubscribed__lte=datetime.now()) 
-    
-    
-    
+    recipients_list = _get_subscriber_list()
+        
     for r in recipients_list:
         receiver = r.email
         subject_line = email_object.subject_line
@@ -355,3 +364,23 @@ def send_email(request, id):
     
     from shop.views import render
     return render(request, 'shop/emails/email_sent_confirmation.html', locals()) 
+
+
+
+def _get_subscriber_list():
+    # get the subscribers for emails
+    email_signups = EmailSignup.objects.exclude(date_unsubscribed__lte=datetime.now())
+    signed_up_shoppers = Shopper.objects.filter(subscribed=True)
+    
+    from itertools import chain
+    
+    def idfun(x): return x 
+    seen = {}
+    result = []
+    for item in list(chain(email_signups, signed_up_shoppers)):
+        marker = idfun(item.email)
+        if marker in seen: continue
+        seen[marker] = 1
+        result.append(item)
+    
+    return result

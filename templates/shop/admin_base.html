@@ -212,6 +212,14 @@
 	{% endfor %}
 	</table>
 
+<h3>Email subscribers </h3>
+
+<ul>
+{% for s in subscribers %}
+	<li>{{ s.email }}</li>
+{% endfor %}
+</ul>
+
 
   </div>
 </div>

@@ -134,8 +134,8 @@ div.row {
 			    		{% endthumbnail %}
 			    	</td>
 			    	<td width="250px" valign="top">
-			    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
-			    		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})
+			    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} {% if not thing.item.weight %}
+			    		{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}){% endif %}
 			    	</td>
 			    	<td width="150px" valign="top">
 			    	</td>
