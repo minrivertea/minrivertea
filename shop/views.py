@@ -206,9 +206,14 @@ def tea_view(request, slug):
                 product=tea,
             )
             
-            request.session['NOTIFY'] = "1"
-            url = request.META.get('HTTP_REFERER','/')
-            return HttpResponseRedirect(url)
+            if request.is_ajax():
+                message = "<p class='message'><strong>Thanks!</strong> As soon as this product is available again, we'll notify you by email!</p>"
+                return HttpResponse(message)
+            
+            else:
+                request.session['NOTIFY'] = "1"
+                url = request.META.get('HTTP_REFERER','/')
+                return HttpResponseRedirect(url)
     
     else:
         form = NotifyForm()

@@ -50,6 +50,22 @@ $('#id_email').focusout(function() {
 	}
 });
 
+function notifyFormSubmit() {
+	$('#notify-form').submit( function() {
+    	$.ajax({  
+        	    type: "POST",  
+        	    data: $('#notify-form').serialize(),  
+        	    url: "{% url tea_view tea.slug %}",  
+        	    cache: false,  
+        	    dataType: "html",  
+        	    success: function(html, textStatus) {  
+        	        $('#coming-soon').html(html); 
+        	    },   
+        });  
+        return false;
+	});
+}
+
 function addToBasket(idx) {
    $('a#add_to_basket_' + idx).click( function() {
    	  $('#price_' + idx).css('opacity', '0.5');
@@ -71,12 +87,10 @@ function addToBasket(idx) {
 }
 
 $(document).ready( function() {
-	$('a#explain-prices').fancybox({
-    	'autoDimensions':true,
-    });
     {% for price in prices %}
     addToBasket({{ price.id }});
     {% endfor %}
+    notifyFormSubmit();
 });
 
 
@@ -483,33 +497,42 @@ div.fb-recommend {
   float: left;	
 }
 
-div.coming-soon {
+#coming-soon {
     float: left;
     height: 85px;
-    width: auto;
+    width: 400px;
 }
 
-div.coming-soon p {
+#coming-soon p {
   font-size: 12px;
   margin: 0 0 10px 0;
 }
 
-div.coming-soon span {
+#coming-soon p.message {
+    color: #333;
+    font-size: 20px;
+}
+
+#coming-soon p.message strong {
+  color: #F37679;	
+}
+
+#coming-soon span {
   font-size: 22px;
   color: #EE6464;
 }
 
-div.coming-soon span.green {
+#coming-soon span.green {
   color: #1C7600;
   line-height: 1.6em;
   font-size: 20px;
 }
 
-div.coming-soon input {
+#coming-soon input {
   float: left;	
 }
 
-div.coming-soon input.button {
+#coming-soon input.button {
     font-weight: bold;
     font-size: 13px;
     height: 33px;
@@ -520,7 +543,7 @@ div.coming-soon input.button {
     left: -3px;
 }
 
-div.coming-soon input.button:hover {
+#coming-soon input.button:hover {
   cursor: pointer;	
   background-color: #359318; 
 }
@@ -534,65 +557,24 @@ div.coming-soon input.button:hover {
   margin-bottom: 10px;
 }
 
-.tea-top #explain-prices-full {
-  display: none;	
-  position: absolute;
-  height: 0;
-}
-
-#explain-prices-full h3 {
-  position: relative;
-  top: 3px;
-  margin-bottom: 30px;	
-}
-
-#explain-prices-full p {
-  margin: 0 0 10px 0;	
-}
-
-#explain-prices-full span.pound {
-    background-color: green;
-    border-radius: 25px 25px 25px 25px;
-    color: #FFFFFF;
-    display: block;
-    float: left;
-    font-size: 30px;
-    font-weight: bold;
-    margin-right: 10px;
-    padding: 10px 16px 9px 17px;
-    position: relative;
-    top: 0;
-}	
 
 #price-helper {
-    float: left;
+    float: right;
     height: 25px;
     margin: 15px 40px 0 12px;
-    width: auto;
+    width: 250px;
+    text-align: right;
+    font-family: Helvetica,Arial,sans-serif;
+    color: #333;font-size: 13px;
+    font-weight: normal;
+    line-height: 1.2em;
+    display: none;
 }
 
 a#explain-prices {
   font-size: 13px;
   font-family: Helvetica, Arial, sans-serif;	
-  margin-bottom: 15px;
-  float: left;
   font-weight: bold;
-}
-
-a#explain-prices span {
-    background-color: green;
-    border-radius: 10px;
-    color: #FFFFFF;
-    font-weight: bold;
-    padding: 3px 5px 2px 5px;
-    position: relative;
-    left: -0px;
-    top: -1px;
-    font-size: 10px;
-}
-
-a#explain-prices:hover span {
-  background-color: #FFAEAE;	
 }
 
 .loading {
@@ -749,16 +731,16 @@ a#explain-prices:hover span {
 		
 		<div id="prices">
 	      {% if tea.coming_soon %}
-		  	<div class="coming-soon">
+		  	<div id="coming-soon">
 		  	    {% if notify_message %}
 		  	    	<span class="green">Thanks - as soon as this product is available again, we'll notify you by email!</span>
 		  	    {% else %}
-		  		<span class="">Sorry, this tea is out of stock :(</span><br/>
-		  		<p>But we'd be happy to notify you when this tea becomes available again.</p>
-		  		<form method="post" action="">
-		  			<input type="text" name="email" id="id_email" value="Your email address"/>
-		  			<input class="button" type="submit" value="Submit" class="submit"/>
-		  		</form>
+		  			<span class="">Sorry, this tea is out of stock :(</span><br/>
+		  			<p>But we'd be happy to notify you when this tea becomes available again.</p>
+		  			<form method="post" action="" id="notify-form">
+		  				<input type="text" name="email" id="id_email" value="Your email address"/>
+		  				<input class="button" type="submit" value="Submit" class="submit"/>
+		  			</form>
 		  		{% endif %}
 		  	</div>
 		  {% else %}
@@ -787,19 +769,7 @@ a#explain-prices:hover span {
         
         {% if not tea.coming_soon %}
         <div id="price-helper">
-			<a id="explain-prices" href="#explain-prices-full"><span>£</span> Explaining our prices</a>		
-			<div id="explain-prices-full" style="width: 600px; padding: 30px;">
-				<span class="pound">£</span>
-				<h3>We strongly believe our prices reflect the best available value around - here's why:</h3>
-				<ul>
-				<li><strong>We're the only independent UK tea store actually based in China</strong> - there are no middlemen making extra-profits, and we pay local market rates for our tea, not 'tourist' rates.</li>	
-				<li><strong>You pay for tea, not packaging.</strong> Our packaging is intentionally simple, and costs less than 3% of the price you pay.</li>
-				<li><strong>Each cup costs less than 25p.</strong> Because high quality loose-leaf teas can be rebrewed 3-5 times, a 100g bag of tea can make around 50-80 big mugs!</li>
-				</ul>
-				<p>Plus, we offer a <strong>no questions asked refund</strong> if you're not satisfied, and a flat rate postage fee of £3. If you order over £50, shipping is totally free.</p>
-				
-				
-			</div>
+			<a id="explain-prices" href="#explain-prices-full">Orders over £50 are delivered free</a>	
 		</div>
 		{% endif %}
 
@@ -847,7 +817,7 @@ a#explain-prices:hover span {
 		<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=102598969829350&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ tea.get_absolute_url }}" send="false" width="450" show_faces="false" action="recommend" font=""></fb:like>
 		</div>
 		{% endif %}
-	
+		
 	
 
 	
