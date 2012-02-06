@@ -56,7 +56,8 @@
 
 function checkSure() {
     alert('If you click on Send now, it will send the email. If you dont want to send the emails, just click back.');
-    $(this).unbind('click');	
+    $(this).unbind('click');
+    return false;	
 }
 
 $(document).ready( function() {

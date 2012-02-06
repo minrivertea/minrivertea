@@ -296,10 +296,16 @@ def email_signup(request):
     
     return HttpResponseRedirect(url)
     
-def email_unsubscribe(request, hash):
-    subscriber = get_object_or_404(EmailSignup, hashkey=hash)
-    subscriber.date_unsubscribed = datetime.now()
-    subscriber.save()
+def email_unsubscribe(request, key):
+    try:
+        subscriber = get_object_or_404(EmailSignup, hashkey=key)
+        subscriber.date_unsubscribed = datetime.now()
+        subscriber.save()
+    except:
+        subscriber = get_object_or_404(Shopper, slug=key)
+        subscriber.subscribed = False
+        subscriber.save()
+    
     from shop.views import render
     return render(request, 'shop/emails/unsubscribe_confirmed.html', locals())
 
@@ -322,6 +328,7 @@ def create_email(request, id=None):
                     subject_line = form.cleaned_data['subject_line'],
                     content = form.cleaned_data['content'],
                 )
+            
             
             email_object.save()
             recipients_list = _get_subscriber_list()
@@ -359,7 +366,12 @@ def send_email(request, id):
     for r in recipients_list:
         receiver = r.email
         subject_line = email_object.subject_line
-        text = email_object.content
+        try:
+            link = reverse('email_unsubscribe', args=[r.slug])
+        except:
+            link = reverse('email_unsubscribe', args=[r.hashkey])
+            
+        text = render_to_string('shop/emails/newsletter_template.txt', {'content': str(email_object.content), 'link':link})
         _send_email(receiver, subject_line, text)
     
     from shop.views import render
