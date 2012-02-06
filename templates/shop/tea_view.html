@@ -593,15 +593,16 @@ a#explain-prices {
 }
 
 #extras div.info {
-  width: 220px;
+  width: 200px;
   height: 280px;
-  margin-right: 10px;	
+  margin-right: 10px;
+  padding: 15px 25px;	
 }
 
 #extras div.info.long {
   margin-right:0;
   width: 380px;
-  padding: 10px 25px;	
+  padding: 15px 25px;	
 }
 
 #extras .info h4 {
@@ -804,8 +805,9 @@ a#explain-prices {
 		{% if reviews %}
 		<div class="info">
 			{% for review in reviews %}
-			<h4 class="pink">{{ review.first_name }} {{ review.last_name }} says:</h4>
-			<p><em>{{ review.short_text }}</em></p>
+			<h4 class="pink">{{ review.first_name }} says:</h4>
+			<p>&ldquo;<em>{{ review.short_text }}</em>&rdquo;</p>
+			<p><span class="red">{{ review.first_name }} {{ review.last_name }}</span></p>
 			{% endfor %}
 		</div>
 		{% endif %}

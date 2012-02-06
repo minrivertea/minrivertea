@@ -168,6 +168,7 @@ class Review(models.Model):
     email = models.EmailField()
     text = models.TextField()
     short_text = models.TextField(blank=True, null=True)
+    url = models.URLField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
     
     def __unicode__(self):
@@ -328,7 +329,7 @@ class Photo(models.Model):
 class Referee(models.Model):
     email = models.EmailField()
     date = models.DateTimeField('date_referred', default=datetime.now)
-    referred_by = models.CharField(max_length=200) # this needs to be changed to a simple email thing.
+    referred_by = models.CharField(max_length=200)
     
     def __unicode__(self):
         return self.email

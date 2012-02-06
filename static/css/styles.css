@@ -663,6 +663,7 @@ div.row-box input:focus {
   border-color: #6acc75;
   border-width: 1px;
   margin-bottom: 19px;
+  box-shadow: 0 1px 3px #C1C1C1 inset;
 }
 
 div.row-box label {

@@ -8,24 +8,14 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
-        # Renaming column for 'Referee.referred_by' to match new field type.
-        db.rename_column('shop_referee', 'referred_by_id', 'referred_by')
-        # Changing field 'Referee.referred_by'
-        db.alter_column('shop_referee', 'referred_by', self.gf('django.db.models.fields.CharField')(max_length=200))
-
-        # Removing index on 'Referee', fields ['referred_by']
-        db.delete_index('shop_referee', ['referred_by_id'])
+        # Adding field 'Review.url'
+        db.add_column('shop_review', 'url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True), keep_default=False)
 
 
     def backwards(self, orm):
         
-        # Adding index on 'Referee', fields ['referred_by']
-        db.create_index('shop_referee', ['referred_by_id'])
-
-        # Renaming column for 'Referee.referred_by' to match new field type.
-        db.rename_column('shop_referee', 'referred_by', 'referred_by_id')
-        # Changing field 'Referee.referred_by'
-        db.alter_column('shop_referee', 'referred_by_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['shop.Shopper']))
+        # Deleting field 'Review.url'
+        db.delete_column('shop_review', 'url')
 
 
     models = {
@@ -234,7 +224,8 @@ class Migration(SchemaMigration):
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'product': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['shop.Product']"}),
             'short_text': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'text': ('django.db.models.fields.TextField', [], {})
+            'text': ('django.db.models.fields.TextField', [], {}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
         },
         'shop.shopper': {
             'Meta': {'object_name': 'Shopper'},
@@ -267,7 +258,7 @@ class Migration(SchemaMigration):
         'shop.wishlist': {
             'Meta': {'object_name': 'Wishlist'},
             'address': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['shop.Address']"}),
-            'date_created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 2, 6, 12, 40, 48, 4498)'}),
+            'date_created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 2, 6, 12, 41, 39, 637793)'}),
             'hashkey': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['shop.Shopper']"}),
