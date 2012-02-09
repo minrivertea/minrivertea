@@ -5,6 +5,7 @@ from django.contrib.sitemaps import ping_google
 from django.shortcuts import get_object_or_404
 import logging
 from datetime import datetime, timedelta
+from urlparse import urlparse
 
 from slugify import smart_slugify
 from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
@@ -172,7 +173,11 @@ class Review(models.Model):
     is_published = models.BooleanField(default=False)
     
     def __unicode__(self):
-        return self.product.name       
+        return self.product.name  
+    
+    def show_url(self):
+        url = urlparse(self.url)
+        return url.netloc     
             
 class Address(models.Model):
     owner = models.ForeignKey(Shopper)
