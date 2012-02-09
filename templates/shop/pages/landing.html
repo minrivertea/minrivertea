@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load django_static thumbnail %}
+
+{% block aboutselected %}selected{% endblock %}
+
+{% block metadescription %}{{ page.meta_description }}{% endblock %}
+
+{% block pagetitle %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
+
+{% block extrajs %}
+<script>
+$(function() {
+$(".scroll").scrollable({ circular: true }).click(function() {
+	$(this).data("scrollable").next();		
+});
+});
+
+$(function() { 
+	$('.hoverbox').hover(
+		function() {
+			$('div', this).animate({top: '100px',}, 200);
+		},
+		function() {
+			$('div', this).animate({top: '145px',}, 200);
+		}
+	);	  
+});
+
+</script>
+
+{% endblock %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+<style type="text/css">
+div#main-text-wide #left {
+  border-left: none;	
+}
+
+p.characters {
+  float: left;
+  width: 150px;
+  font-size: 100px;
+  font-weight: bold;
+  line-height: 1em;
+  text-shadow: 2px 2px 2px #FFFFFF;	
+  border-right: 1px solid #e1e1e1;
+  margin: 0 50px 0px 0;
+  padding-right: 20px;
+}
+
+p.pinyin {
+  float:left;
+  width: 20px;
+  position: absolute;
+  line-height: 5.8em;
+  left: 110px;
+  top: 75px;
+  font-size: 17px;
+  font-style: italic;	
+}
+
+p.introduction {
+  float: left;
+  width: 700px;	
+}
+
+div.top {
+  float: left;
+  width: 100%;
+  margin-bottom: 30px;	
+}
+
+img.right {
+  float: right;
+  margin: 0 0 30px 30px;	
+}
+
+img.left {
+  float: left;
+  margin: 0 30px 30px 0;	
+}
+
+div.breaker {
+  float: left;
+  width: 100%;	
+}
+
+div.info {
+  margin: 0 30px 30px 0;
+  width: 300px;
+  padding: 20px 25px;
+}
+
+div.info.right {
+  margin: 0 0px 30px 30px;
+  width: 300px;
+  float: right;
+  padding: 20px 25px;
+}
+
+.info h3 {
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  color: #237A2A;
+  margin: 5px 0 0 0;	
+}
+
+.info p {
+  margin: 0;	
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+
+
+<div id="main-text-wide">
+  <div class="super">
+  	{% if page.feature_image %}
+		{% thumbnail page.feature_image "960" crop="" as im %}
+		  <img src="{{ im.url }}" style="margin-bottom: 30px;"/>
+		{% endthumbnail %}
+		<h1 class="{% if page.feature_image %}fimage{% endif %}">{{ page.title }}</h1>
+  	{% else %}
+  		<h1>{{ page.title }}</h1>
+  	{% endif %}
+
+
+
+	{{ page.content|safe }}
+	
+	
+		{% if ga_is_on %}
+		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
+			<li id="google">
+				<g:plusone></g:plusone>
+				<script type="text/javascript">
+				  (function() {
+				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				    po.src = 'https://apis.google.com/js/plusone.js';
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				  })();
+				</script>
+			</li>
+	    	<li id="facebook">
+			    <div id="fb-root"></div>
+			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
+			    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+			    </fb:like>
+			</li>
+		</ul>
+		{% endif %}
+
+		
+  </div>
+</div>
+
+
+{% endblock %}

@@ -26,7 +26,7 @@
 			
 			<p class="price">
 			{% if product.get_reviews %}
-			<strong>{{ product.get_reviews.count }} customer review{{ product.get_reviews.count|pluralize }}</strong><br/>
+			<strong>{{ product.get_reviews.count }} review{{ product.get_reviews.count|pluralize }}</strong><br/>
 			{% endif %}
 			
 			<a class="more" href="{{ product.get_absolute_url }}">Find out more &raquo;</a>

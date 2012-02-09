@@ -809,7 +809,9 @@ a#explain-prices {
 			<h4 class="pink">{{ review.first_name }} says:</h4>
 			<p>&ldquo;<em>{{ review.short_text }}</em>&rdquo;</p>
 			<p><span class="red">{{ review.first_name }} {{ review.last_name }}</span></p>
-			{% if review.url %}<a href="{{ review.url }}">{{ review.show_url }}</a>{% endif %}
+			{% if review.url %}
+				<a href="{{ review.url }}">{{ review.show_url }}</a>
+			{% endif %}
 			{% endfor %}
 		</div>
 		{% endif %}
