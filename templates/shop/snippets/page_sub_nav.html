@@ -1,0 +1,11 @@
+{% load nav_selected %}
+
+<div id="subnav">
+  <div class="super">
+	<ul>
+		{% for x in page.get_root.get_children %}
+			<li><a class="{% if x.slug == page.parent.slug %}selected{% endif %}" href="{% url page x.slug %}">{{ x.title }}</a></li>
+		{% endfor %}
+	</ul>
+  </div>
+</div>

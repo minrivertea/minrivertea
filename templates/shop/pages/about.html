@@ -34,6 +34,10 @@ $(function() {
 <link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
 <style type="text/css">
 
+#main-text-wide #left {
+  width: 630px;	
+}
+
 div.top {
   float: left;
   width: 100%;
@@ -104,7 +108,7 @@ div.top {
         margin-left: -1px;
 }
 
-div#main-text-wide {
+#main-text-wide {
   margin-top: 30px;	
 }
 
@@ -267,6 +271,9 @@ div.learn-comment a.button:active {
 {% block content %}
 
 
+{% include 'shop/snippets/page_sub_nav.html' %}
+
+
 <div id="main-text-wide">
   <div class="super">
   	{% if page.feature_image %}
@@ -290,18 +297,6 @@ div.learn-comment a.button:active {
 				
 	 		</div>
 	 	</div>
-
- 
-  
-	<div id="right">	
-	  		  {% include 'shop/snippets/page_navigation.html' %}
-	  		  {% if '/about/' in request.path %}
-	  		    {% include 'shop/snippets/about_right.html' %}
-	  		  {% endif %}
-	  		  {% if '/learn/' in request.path %}
-	  		    {% include 'shop/snippets/learn_right.html' %}
-	  		  {% endif %}
-	</div>
 
 	<div id="left">
 	    

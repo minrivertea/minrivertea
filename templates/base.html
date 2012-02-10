@@ -1,5 +1,5 @@
-{% load django_static %}
-{% load nav_selected %}
+{% load django_static nav_selected %}
+
 
 {% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
@@ -135,7 +135,7 @@ if (15.00) {
 	   	<div id="logo">
 	   		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"></a>
 	   	</div>
-	    	
+
 	    <!--
 	    <p class="shipping">
 	        <span class="euuk" id="eu"></span>
@@ -169,10 +169,10 @@ if (15.00) {
     	      <a class="{% nav_selected request '^/tasters/' %}" href="{% url tasters %}" title="Buy authentic Chinese tea" alt="">Taster Packs</a>
     	    </li>
     	    <li>
-    	      <a class="grey {% nav_selected request '^/learn/' %}" href="/learn/" title="Learn about Chinese tea" alt="">Learn about tea</a>
+    	      <a class="grey {% if page %}{% if page.get_root.slug == 'learn' %}selected{% endif %}{% else %}{% nav_selected request '^/learn/' %}{% endif %} learn" href="/learn/" title="Learn about Chinese tea" alt="">Learn about tea</a>
     	    </li>
     	    <li>
-    	      <a class="grey {% nav_selected request '^/about/' %}" href="/about/" title="About Min River Tea" alt="">About us</a>
+    	      <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about/' %}{% endif %} about" href="/about/" title="About Min River Tea" alt="">About us</a>
     	    </li>
     	    <li>
     	      <a class="grey {% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">

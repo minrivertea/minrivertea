@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load django_static thumbnail %}
+
+{% block aboutselected %}selected{% endblock %}
+
+{% block metadescription %}{{ page.meta_description }}{% endblock %}
+
+{% block pagetitle %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
+
+{% block extrajs %}
+<script href="http://stc-tx.meiliworks.com/js/posterize_fluid.js?v=201202101117" type="text/javascript"></script>
+<script>
+$(function() {
+$(".scroll").scrollable({ circular: true }).click(function() {
+	$(this).data("scrollable").next();		
+});
+});
+
+$(function() { 
+	$('.hoverbox').hover(
+		function() {
+			$('div', this).animate({top: '100px',}, 200);
+		},
+		function() {
+			$('div', this).animate({top: '145px',}, 200);
+		}
+	);	  
+});
+
+function reSize() {
+    var size = 0
+    var spacer = 50
+    $('.column_1').each( function(index) {
+    	if (index < 1) {
+    	    size = $(this).height() + spacer;
+    	} else {
+	        $(this).css('top', size);
+	        newSize = size + $(this).height() + spacer;
+	        size = newSize;
+    	}
+    });
+    var size = 0
+    $('.column_2').each( function(index) {
+    	if (index < 1) {
+    	    size = $(this).height() + spacer;
+    	} else {
+	        $(this).css('top', size);
+	        newSize = size + $(this).height() + spacer;
+	        size = newSize;
+    	}
+    });	
+    var size = 0
+    $('.column_3').each( function(index) {
+    	if (index < 1) {
+    	    size = $(this).height() + spacer;
+    	} else {
+	        $(this).css('top', size);
+	        newSize = size + $(this).height() + spacer;
+	        size = newSize;
+    	}
+    });		
+}
+
+$(document).ready( function() {
+	reSize();
+});
+
+</script>
+
+{% endblock %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+<style type="text/css">
+
+div#main-text-wide div#left {
+  border-left: none;
+  width: 100%;	
+  padding-left: 0;
+  height: 900px;
+  position: relative;
+}
+
+h1 {
+  margin-bottom: 20px;	
+}
+
+h2 {
+  font-size: 25px;
+}
+
+.block {
+  float: left;
+  position: absolute;
+  width: 250px;
+  height: auto;
+  background-color: #fff;
+  padding: 15px 20px;
+  margin: 0 20px 20px 0;
+  border: 1px solid #e1e1e1;	
+}
+
+.block.column_2 {
+  left: 310px;	
+}
+
+.block.column_3 {
+  left: 620px;	
+  margin-right: 0;
+}
+
+.block h4 {
+  margin: 0;
+  color: #237A2A;
+  font-size: 18px;
+  font-family: Helvetica, sans-serif;	
+}
+
+.block h4.hover {
+  position: absolute;
+  top: 20px;
+  background-color: #fff;
+  padding: 5px 10px;	
+  max-width: 200px;
+}
+
+.block img {
+  float:left;
+  margin-bottom: 10px;	
+  position: relative;
+  left: -5px;
+}
+
+#left .block p {
+  font-size: 15px;
+  margin: 0;	
+}
+
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'shop/snippets/page_sub_nav.html' %}
+
+<div id="main-text-wide">
+  <div class="super">
+  		<h1>{{ page.title }}</h1>
+
+
+	<div id="left">
+	    
+		{% for p in page.get_children %}
+		<div class="block column_{% cycle '1' '2' '3' %} " >
+			{% if p.feature_image %}
+				{% thumbnail p.feature_image "260" crop="" as im %}
+					<img src="{{ im.url }}"/>
+				{% endthumbnail %}
+			{% endif %}
+			<h4><a href="{% url page p.slug %}">{{ p.title }}</a></h4>
+			<p>{{ p.meta_description }}</p>
+		</div>
+		{% endfor %}
+	
+	</div>
+
+		
+  </div>
+</div>
+
+
+{% endblock %}

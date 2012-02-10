@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load django_static thumbnail %}
+{% load django_static thumbnail nav_selected %}
 
 {% block aboutselected %}selected{% endblock %}
 
@@ -37,6 +37,7 @@ $(function() {
 {% block content %}
 
 
+	{% include 'shop/snippets/page_sub_nav.html' %}
 
 
 <div id="main-text-wide">
@@ -50,19 +51,6 @@ $(function() {
   		<h1>{{ page.title }}</h1>
   	{% endif %}
 
-
-
- 
-  
-	<div id="right">	
-	  	{% include 'shop/snippets/page_navigation.html' %}
-	  	{% if '/about/' in request.path %}
-	  	    {% include 'shop/snippets/about_right.html' %}
-	  	{% endif %}
-	  	{% if '/learn/' in request.path %}
-	  	    {% include 'shop/snippets/learn_right.html' %}
-	  	{% endif %}
-	</div>
 
 	<div id="left">
 

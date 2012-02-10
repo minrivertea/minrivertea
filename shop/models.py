@@ -377,6 +377,7 @@ class Page(models.Model):
     meta_description = models.TextField(blank=True, null=True)
     parent = models.ForeignKey('self', blank=True, null=True)
     content = models.TextField()
+    promo_image = models.ImageField(upload_to='images/learn', blank=True, null=True)
     feature_image = models.ImageField(upload_to='images/learn', blank=True, null=True)
     template = models.CharField(max_length=200, blank=True, null=True)
     right_side_boxes = models.CharField(max_length=200, blank=True, null=True)
@@ -384,6 +385,16 @@ class Page(models.Model):
     def __unicode__(self):
         return self.title
     
+    def get_root(self):
+        
+        def _iterator(obj):
+            if obj.parent:
+                return _iterator(obj.parent)
+            else:
+                return obj
+        
+        return _iterator(self)
+        
     
     def get_nav_tree(self):
         if self.parent is None: 

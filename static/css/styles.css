@@ -401,6 +401,10 @@ ul#nav li a.selected:before {
    z-index: 2;
 }
 
+ul#nav li a.selected.learn:before, ul#nav li a.selected.about:before {
+  bottom: -30px;	
+}
+
 
 
 /* homepage styles */
@@ -517,19 +521,19 @@ div#banner {
     width: 100%;
 }
 
-div#main-text-wide {
+#main-text-wide {
   width:100%;
   float:left;
   margin: 0;
 }
 
-div#main-text-wide #left {
+#main-text-wide #left {
     float: left;
     margin: 0 10px 20px 0px;
     width: 660px;
 }
 
-div#main-text-wide div#right {
+#main-text-wide div#right {
     float: right;
     padding-left: 20px;
     width: 240px;
@@ -738,61 +742,6 @@ ul.errorlist {
 
 /* About styles */
 
-div.flatpage #left {
-    float: left;
-    width: 500px;
-}
-
-div.flatpage p {
-  margin-top: 0;
-  margin-bottom: 30px;	
-}
-
-div.flatpage h3 {
-  color: #BE373A;
-  font-weight: bold;	
-}
-
-div.flatpage a.more {
-
-}
-
-div.flatpage div.about-box ul {
-  margin: 0;
-  padding-left: 20px;
-  margin-top: 10px;
-
-}
-
-div.flatpage div.about-box li {
-  font-size: 13px;
-  list-style-type: square;	
-    color: #000;
-}
-
-div.flatpage div#right img.social-footer {
-    float: left;
-    margin-bottom: 20px;
-    margin-left: -10px;
-}
-
-div.flatpage div#right p.social-footer {
-  width: 100px;
-  font-size: 0.7em;
-  float: left;
-  margin: 5px 0 0 10px;	
-}
-
-div.flatpage ul {
-  margin-bottom: 30px;	
-}
-
-div.flatpage ul li {
-  font-size: 17px;
-  color: #666;
-  line-height: 1.5em	
-}
-
 div.about-box {
     border-radius: 10px 10px 10px 10px;
     float: left;
@@ -800,30 +749,12 @@ div.about-box {
     width: 220px;
 }
 
-div.flatpage p.about-promo {
-  font-size: 1.4em;
-  color: #30a5c7;	
-}
-
-div.flatpage div#right p {
-  font-size: 0.8em;
-  color: #333;
-  width: 100%;	
-  margin-bottom: 10px;
-}
 
 div#right div.about-box h3 {
     font-weight: bold;
     text-align: left;
 }
 
-div.flatpage div#right h4 {
-  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
-  color: black;
-  font-weight: bold;
-  font-size: 15px;	
-  margin-bottom: 0;
-}
 
 
 div.about-box img {
@@ -1364,6 +1295,7 @@ ul#steps li.selected {
   position: relative;
   left: -10px;
   width: 260px;
+  margin-bottom: 10px;
 }
 
 #footer #email-signup input {
