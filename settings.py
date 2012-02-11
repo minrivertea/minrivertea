@@ -77,6 +77,7 @@ MIDDLEWARE_CLASSES = (
     'ab.middleware.ABMiddleware',
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 #    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
@@ -110,6 +111,7 @@ INSTALLED_APPS = (
     'ab',
     'django_mobile',
     'south',
+    'django.contrib.redirects',
 #    'debug_toolbar',
 )
 
