@@ -569,8 +569,8 @@ div.fb-recommend {
     font-family: Helvetica,Arial,sans-serif;
     color: #333;font-size: 13px;
     font-weight: normal;
-    line-height: 1.2em;
-    display: none;
+    line-height: 1.5em;
+    font-size: 11px;
 }
 
 a#explain-prices {
@@ -789,11 +789,12 @@ a#explain-prices {
           {% endif %}
         </div>
         
-        {% if not tea.coming_soon %}
+        
         <div id="price-helper">
-			<a id="explain-prices" href="#explain-prices-full">Orders over £50 are delivered free</a>	
+			<a id="explain-prices" href="/where-do-we-deliver/">Wondering where we deliver?</a><br/>
+			UK, USA and Europe for just {{ currency.symbol }}{{ currency.postage_cost }} per order
 		</div>
-		{% endif %}
+		
 
 	</div><!-- end top product info div -->
 
