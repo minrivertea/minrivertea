@@ -296,6 +296,8 @@ def email_signup(request):
     
     return HttpResponseRedirect(url)
     
+    
+
 def email_unsubscribe(request, key):
     try:
         subscriber = get_object_or_404(EmailSignup, hashkey=key)
