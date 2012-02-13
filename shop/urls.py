@@ -39,7 +39,7 @@ urlpatterns = patterns('',
     url(r'^tell-a-friend/$', views.tell_a_friend, name="tell_a_friend"),
     url(r'^not-me/$', views.not_you, name="not_you"),
     url(r'^shipping/$', views.shipping, name="shipping"),
-    url(r'^currency/$', views.change_currency, name="change_currency"),
+    url(r'^currency/$', views._change_currency, name="change_currency"),
     
     # email signup specific URLs
     url(r'^email_signup/$', emails.email_signup, name="email_signup"),

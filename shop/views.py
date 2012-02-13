@@ -102,7 +102,7 @@ def _get_currency(request):
     return currency
 
 
-def change_currency(request):
+def _change_currency(request):
     try:
         currency = get_object_or_404(Currency, code=request.GET.get('curr'))
         request.session['CURRENCY'] = currency.code
@@ -524,35 +524,45 @@ def order_url(request, hash):
     shopper = order.owner
     basket_items = order.items.all()
     order_items = basket_items
-
+    
     total_price = 0
-    for item in order_items:
+    for item in basket_items:
         price = item.quantity * item.item.price
         total_price += price
-            
-    if total_price > 50:
+    
+    currency = _get_currency(request)
+    if total_price > currency.postage_discount_threshold:
         postage_discount = True
-    else: 
-        total_price += 3
+    else:
+        total_price += currency.postage_cost
     
     if order.discount:
         value = total_price * order.discount.discount_value
         percent = order.discount.discount_value * 100
         total_price -= value
+
     return render(request, 'shop/forms/order_confirm.html', locals())
 
 
 def order_repeat(request, hash):
+    # reuse an old unpaid order object, or create a new one
     old_order = get_object_or_404(Order, hashkey=hash)
-    order = Order.objects.create(
-        is_confirmed_by_user = True,
-        date_confirmed = datetime.now(),
-        address = old_order.address,
-        owner = old_order.owner,
-        status = Order.STATUS_CREATED_NOT_PAID,
-        invoice_id = "TEMP",
-    )        
-    order.invoice_id = "TEA-00%s" % (order.id)
+    try:
+        order = Order.objects.filter(owner=old_order.owner, is_paid=False)[0]
+        # we're reusing an old object, so lets clear it...
+        for i in order.items.all():
+            order.items.remove(i)
+    except:
+        order = Order.objects.create(
+            is_confirmed_by_user = True,
+            date_confirmed = datetime.now(),
+            address = old_order.address,
+            owner = old_order.owner,
+            status = Order.STATUS_CREATED_NOT_PAID,
+            invoice_id = "TEMP",
+        ) 
+        order.invoice_id = "TEA-00%s" % (order.id)       
+
     order.save()
     
     # it looks silly, but we'll also create a basket for them.
@@ -561,10 +571,18 @@ def order_repeat(request, hash):
         date_modified = datetime.now(),
         owner = order.owner,
     )
+    
+    
+    # now we'll check for replacements/substitutions
+    currency = _get_currency(request)
     for item in old_order.items.all():
         if item.item.is_active == False or item.item.parent_product.coming_soon == True:
-            # if it's not available, suggest another product
-            product = UniqueProduct.objects.filter(parent_product=item.item.parent_product, is_sale_price=False).order_by('-price')[0]
+            # if it's not available, replace it with the closest match UP
+            product = UniqueProduct.objects.filter(
+                    parent_product=item.item.parent_product, 
+                    is_sale_price=False, 
+                    currency=currency,
+                    ).order_by('-price')[0]
             basket_item = BasketItem.objects.create(item=product, quantity=item.quantity, basket=basket)
             order.items.add(basket_item)
         else:
@@ -581,16 +599,12 @@ def order_repeat(request, hash):
     for item in order.items.all():
         price = item.quantity * item.item.price
         total_price += price
-            
-    if total_price > 50:
-        postage_discount = True
-    else: 
-        total_price += 3
     
-    if order.discount:
-        value = total_price * order.discount.discount_value
-        percent = order.discount.discount_value * 100
-        total_price -= value
+    
+    if total_price > currency.postage_discount_threshold:
+        postage_discount = True
+    else:
+        total_price += currency.postage_cost
     
     return render(request, 'shop/forms/order_repeat.html', locals())
 

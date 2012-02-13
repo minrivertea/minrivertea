@@ -38,7 +38,7 @@ class Command(NoArgsCommand):
         
         #finally, if there were any emails sent, then drop the admin user an email too
         if items:
-            _admin_cron_update(data=items, subject_line="Minrivertea.com - review emails sent today")      
+            _admin_cron_update(data=items, subject_line="Minrivertea.com - REVIEW emails sent today")      
                     
 
 

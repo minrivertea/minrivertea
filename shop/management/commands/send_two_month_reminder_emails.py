@@ -42,7 +42,6 @@ class Command(NoArgsCommand):
         # so send them the email!
         emails_sent = []
         for x in relevant_orders:
-            print "we're sending an email to: %s" % x
             if _send_two_month_reminder_email(x) == True:
                 emails_sent.append(x)
             
