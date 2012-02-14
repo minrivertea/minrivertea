@@ -17,6 +17,8 @@ $('#sampler-form input').blur( function() {
 
 function submitForm() {
   $('#sampler-form form').submit( function() {
+    $('#sample-loading').toggle();
+    $('#sampler-form').css('opacity', '0.4');
     $.ajax({  
        type: "POST",  
        data: $('#sampler-form form').serialize(),  
@@ -696,6 +698,13 @@ p.late span {
   margin: 0;	
 }
 
+#sample-loading {
+  display: none;
+  position: absolute;
+  top: 200px;
+  left: 50%;	
+}
+
 </style>
 {% endblock %}
 
@@ -790,6 +799,7 @@ p.late span {
 					
 					<input type="submit" class="button" value="Get your sample!"/>
 				</form>
+				<img src="{% staticfile '/images/loading.gif' %}" id="sample-loading"/>
 			</div>
 			
 			{% endif %}
@@ -799,7 +809,7 @@ p.late span {
   
   <div id="sorry">
   	<img src="{% staticfile '/images/uk.jpg' %}"/>
-  	<p><strong>UK Only I'm afraid!</strong><br/> We do deliver to Europe and the US, but this promotion is only valid for the UK.</p>
+  	<p><strong>UK only I'm afraid!</strong><br/> We do deliver to Europe and the US, but this promotion is only valid for the UK.</p>
   </div>
 
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
