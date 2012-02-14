@@ -38,10 +38,29 @@ $(document).ready(function() {
 	$('a#sampler').fancybox({
 		'padding'	:	'40',
 		'autoDimensions'	: true, 
-		'speedOut'		:	200,
 	});
 	
 	submitForm();
+	
+		var clearMePrevious = '';
+	
+	// clear input on focus
+	$('.clearMeFocus').focus(function()
+	{
+		if($(this).val()==$(this).attr('title'))
+		{
+			clearMePrevious = $(this).val();
+			$(this).val('');
+		}
+	});
+	// if field is empty afterward, add text again
+	$('.clearMeFocus').blur(function()
+	{
+		if($(this).val()=='')
+		{
+			$(this).val(clearMePrevious);
+		}
+	});
 });
 
 </script>
@@ -761,13 +780,13 @@ p.late span {
 				<h3>Send a free Valentines taster to someone you love</h3>
 				<p class="info">&laquo; Fill in the details of the <strong>person who you want to receive the sample</strong> and we'll send it to them. You could fill in your own details, but who sends themselves Valentines gifts? We'll take care of the rest.<br/><br/><em>ps. No spam, of course.</em></p>
 				<form action="{% url valentines %}" method="post">
-					<input type="text" name="address_line_1" id="id_address_line_1" value="Address line 1"/><br/>
-					<input type="text" name="address_line_2" id="id_address_line_2" value="Address line 2"/><br/>
-					<input type="text" name="town_city" id="id_town_city" value="Town or City"/><br/>
-					<input type="text" name="postcode" id="id_postcode" value="Postcode"/><br/>
-					<input type="text" name="name" id="id_name" value="Full name of recipient"/><br/>
-					<input type="text" name="email" id="id_email" value="You@email.com"/><br/>
-					United Kingdom<br/>
+					<input type="text" class="clearMeFocus" title="Address line 1" name="address_line_1" id="id_address_line_1" value="Address line 1"/><br/>
+					<input type="text" class="clearMeFocus" title="Address line 2" name="address_line_2" id="id_address_line_2" value="Address line 2"/><br/>
+					<input type="text" class="clearMeFocus" title="Town or City" name="town_city" id="id_town_city" value="Town or City"/><br/>
+					<input type="text" class="clearMeFocus" title="Postcode" name="postcode" id="id_postcode" value="Postcode"/><br/>
+					<input type="text" class="clearMeFocus" title="Full name of recipient" name="name" id="id_name" value="Full name of recipient"/><br/>
+					<input type="text" class="clearMeFocus" title="Your email address" name="email" id="id_email" value="Your email address"/><br/>
+					This must be an address in the UNITED KINGDOM<br/>
 					
 					<input type="submit" class="button" value="Get your sample!"/>
 				</form>
