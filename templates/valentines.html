@@ -1,0 +1,818 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load django_static %}
+
+{% block pagetitle %}Happy Valentines Day{% endblock %}
+
+{% block metadescription %}We sell great quality Chinese tea and deliver it to your home in the UK. Our oolong and green teas are organic, sourced directly from farms in China, and hand-picked. {% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+
+$('#sampler-form input').blur( function() {
+	if ($(this).val == '') {
+		$(this).css('border', '1px solid red');
+	}
+});
+
+function submitForm() {
+  $('#sampler-form form').submit( function() {
+    $.ajax({  
+       type: "POST",  
+       data: $('#sampler-form form').serialize(),  
+       url: "{% url valentines %}",  
+       cache: false,  
+       dataType: "html",  
+       success: function(html, textStatus) {  
+           $('#sampler-form').replaceWith(html);
+           var newQuan = parseInt($('#quantity').text()) - 1
+           $('#quantity').html(newQuan);
+       },   
+    });  
+    return false;	
+});
+}
+
+
+$(document).ready(function() {
+	$('a#sampler').fancybox({
+		'padding'	:	'40',
+		'autoDimensions'	: true, 
+		'speedOut'		:	200,
+	});
+	
+	submitForm();
+});
+
+</script>
+
+<script type="application/javascript" src="{% staticfile '/js/lightbox/jquery.fancybox-1.3.4.pack.js' %}"></script>
+{% endblock %}
+
+
+{% block extracss %}
+<link rel="stylesheet" href="{% staticfile '/css/fancybox/jquery.fancybox-1.3.4.css' %}" />
+<style type="text/css">
+h1 {
+  font-size: 40px;	
+}
+
+h1 span {
+  font-size: 30px;
+  color: #999;
+  margin-left: 10px;	
+}
+
+div.more-info {
+  padding-left: 0px;
+  margin-bottom: 15px;
+  padding-top: 15px;	
+  border-top: 1px solid #e1e1e1;
+  margin-top: 15px;
+}
+
+#home-banner p.normal {
+    font-size: 15px;
+    width: 500px;
+}
+
+h3.more-info {
+    margin-bottom:10px;
+    margin-top: -3px;
+    padding-bottom: 0;
+}
+
+div.right-links h3.more-info {
+  margin-bottom: 15px;	
+  float: left;
+  width: 220px;
+}
+
+
+div.other-teas {
+    float: left;
+    margin: 0 0 10px 10px;
+    width: 500px;
+}
+
+div.other-tea {
+    border-bottom: 1px solid white;
+    color: #666666;
+    float: left;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    width: 460px;
+}
+
+div.other-tea.last {
+  border-bottom: none;	
+}
+
+div.other-tea div.image {
+  float: left;
+  margin-right: 15px;
+}
+
+div.other-tea div.text {
+  margin-top: 2px;	
+}
+
+div.other-teas h3 {
+  font-size: 1.5em;
+  text-shadow: 1px 1px #fff;
+  margin-bottom: 20px;
+}
+
+div.product-photos-small {
+    float: left;
+    margin: 15px 0 0px;
+    text-align: right;
+}
+
+div.tea-top div.main-image div.product-photos-small img {
+    float: left;
+    margin: 0 10px 0 0;
+    opacity: 0.6;
+}
+
+div.tea-top div.main-image div.product-photos-small img:last-child {
+  margin-right: 0;	
+}
+
+div.tea-top div.main-image div.product-photos-small img:hover {
+  cursor: pointer;
+  opacity: 0.8;	
+  box-shadow: 0 1px 3px #999;
+}
+
+div.tea-top div.main-image div.product-photos-small img.active {
+  opacity: 1;	
+}
+
+div.product-photos-small p {
+    float: left;
+    font-size: 13px;
+    line-height: 1.3em;
+    margin-top: 20px;
+    text-align: right;
+    width: 100px;
+}
+
+div.right-links {
+  padding-top: 0px;	
+  float: left;
+}
+
+div.right-links ul {
+    margin: 0 0 0 0;
+    padding-left: 15px;
+}
+
+div.right-links ul li {
+    color: #666666;
+    font-size: 13px;
+    list-style-type: square;
+    margin-bottom: 10px;
+    padding-left: 0;
+}
+
+div.tea-top {
+    float: left;
+    margin: 10px 0 10px;
+    padding-bottom: 30px;
+}
+
+.tea-top .description {
+  width: 430px;
+  float: left;	
+}
+
+div.tea-top div.description p {
+  font-size: 25px;
+  color: #333;	
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 0 #fff;
+}
+
+div.tea-top div.description p.small {
+  font-size: 18px;	
+}
+
+div.tea-top div.main-image {
+    float: left;
+    margin-right: 20px;
+    padding: 0px 10px 10px 0;
+    width: 500px;
+}
+
+div.tea-top div#prices {
+    float: left;
+    width: 420px;
+    margin: 15px 0 0;
+}
+
+div.tea-top div#prices div.price {
+    float: left;
+    margin: 0;
+    width: 170px;
+    position: relative;
+}
+
+div.tea-top div#prices div.price.large {
+  width: 100%;
+}
+
+
+div.tea-top div#prices div.price.large p.price-description {
+  width: 90px;
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 0px;	
+}
+
+div.tea-top div#prices div.price.large div.message {
+  top: 60px;
+  width: 260px;
+}
+
+div.tea-top div#prices div.price.last {
+ margin-right: 0;
+}
+
+div.tea-top a.button {
+    float: right;
+    font-size: 22px;
+    margin: 0;
+    position: relative;
+    width: 380px;
+    background: #237A2A;
+    background: -moz-linear-gradient(100% 100% 90deg, #237A2A, #399440) repeat scroll 0 0 transparent;
+    /* Safari 4-5, Chrome 1-9 */ 
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#399440), to(#237A2A)); 
+    /* Safari 5.1+, Chrome 10+ */ 
+    background: -webkit-linear-gradient(#399440, #237A2A); 
+    /* Opera 11.10+ */ 
+    background: -o-linear-gradient(#237A2A, #399440); 
+    border: 1px solid #fff;
+    text-shadow: 0 -1px 1px #333333;
+    box-shadow: none;
+    color: #fff; 
+    padding: 15px 20px 13px;
+}
+
+div.tea-top a.button:hover {
+  box-shadow: 0 1px 3px #999;
+  border: 1px solid #fff;
+}
+
+div.tea-top div.tea-description {
+  float: left;
+  width: 330px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+div.price-text {
+    color: #EE6464;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    height: 23px;
+    letter-spacing: -1px;
+    margin: 0;
+    position: relative;
+    top: -4px;
+    width: 200px;
+}
+
+div.message {
+   position: absolute;
+   top: 105px;
+   left: -10px;
+   width: 160px;
+   height: auto;
+   display: none;
+   z-index: 10;
+   border: none;
+   padding: 15px 15px;
+   background-color: #fff;
+   border: 1px solid #e1e1e1;
+   border-radius: 5px;
+}
+
+div.message:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 15px solid #d1d1d1;         
+        border-top: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        top: -15px;
+        left: 25px;
+        z-index: 1;
+        margin-left: ;
+}
+
+.message:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 15px solid #fff;     
+        border-top: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        position: absolute;
+        top: -14px;
+        left: 26px;
+        z-index: 2;
+        margin-left: -1px;
+}
+
+div.message p {
+  margin: 0;
+  font-size: 15px;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.2em;
+  color:  ;	
+}
+
+div.message p a {
+  font-size: 20px;
+  line-height: 1em;	
+  color: #f37679;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+div.message p a:hover {
+  text-decoration: underline;	
+}
+
+div.message img {
+  float: left;
+  margin-right: 5px;
+  margin-bottom: 15px;	
+}
+
+table.details {
+    color: #333;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 660px;
+}
+
+table.details tr {
+  padding-bottom: 10px;	
+}
+
+table.details td {
+  padding: 15px;	
+  background-color: #fff;
+}
+
+table.details td a {
+  font-size: 12px;	
+}
+
+table.details td.left {
+  padding-right: 10px;
+  background-color: #E1ECF3;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+ul.reviews {
+    list-style-type: none;
+    padding-left: 20px;
+    margin-bottom: 0;
+    margin-bottom: 20px;
+}
+
+ul.reviews li {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+}
+
+ul.reviews li span {
+  color: #BE373A;	
+}
+
+h3.small {
+  font-size: 15px;	
+}
+
+p.price {
+    color: #237A2A;
+    float: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    line-height: 1em;
+    margin: 0;
+    position: relative;
+    text-shadow: 1px 1px 0 #FFFFFF;
+}
+
+p.price span.grey {
+  color: #555;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: none;
+}
+
+
+
+p.price-description {
+    color: #333333;
+    float: left;
+    font-size: 12px;
+    line-height: 1.2em;
+    margin: 0 0 0 5px;
+    width: 90px;
+    position: relative;
+}
+
+
+div.fb-recommend {
+  margin-top: 20px;
+  float: left;	
+}
+
+#coming-soon {
+    float: left;
+    height: 85px;
+    width: 400px;
+}
+
+#coming-soon p {
+  font-size: 12px;
+  margin: 0 0 10px 0;
+}
+
+#coming-soon p.message {
+    color: #333;
+    font-size: 20px;
+}
+
+#coming-soon p.message strong {
+  color: #F37679;	
+}
+
+#coming-soon span {
+  font-size: 22px;
+  color: #EE6464;
+}
+
+#coming-soon span.green {
+  color: #1C7600;
+  line-height: 1.6em;
+  font-size: 20px;
+}
+
+#coming-soon input {
+  float: left;	
+}
+
+#coming-soon input.button {
+    font-weight: bold;
+    font-size: 13px;
+    height: 33px;
+    padding: 7px;
+    width: 70px;
+    position: relative;
+    top:-2px;
+    left: -3px;
+}
+
+#coming-soon input.button:hover {
+  cursor: pointer;	
+  background-color: #359318; 
+}
+
+#facebook, #google {
+  float: left;
+  width: 80px;
+}
+
+#google {
+  margin-bottom: 10px;
+}
+
+
+#price-helper {
+    float: right;
+    height: 25px;
+    margin: 15px 40px 0 12px;
+    width: 250px;
+    text-align: right;
+    font-family: Helvetica,Arial,sans-serif;
+    color: #333;font-size: 13px;
+    font-weight: normal;
+    line-height: 1.5em;
+    font-size: 11px;
+}
+
+a#explain-prices {
+  font-size: 13px;
+  font-family: Helvetica, Arial, sans-serif;	
+  font-weight: bold;
+}
+
+.loading {
+    left: 240px;
+    position: absolute;
+    top: 160px;
+    z-index: -1;
+}
+
+#extras {
+  width: 100%;
+  float: left;
+  margin: 0 0 40px 0;	
+}
+
+#extras div.info {
+  width: 200px;
+  height: 280px;
+  margin-right: 10px;
+  padding: 15px 25px;	
+}
+
+#extras div.info.long {
+  margin-right:0;
+  width: 380px;
+  padding: 15px 25px;	
+}
+
+#extras .info h4 {
+  font-weight: bold;
+  font-size: 18px;
+  color: #237A2A;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 10px 0 0 0;	
+}
+
+#extras .info h4.pink {
+  color: #F37679;	
+}
+
+#extras .info p {
+  font-size: 16px;
+  margin: 0;
+}
+	
+#extras .info .item {
+  float: left;
+  width: 360px;
+  margin: 10px 15px 0 0;
+  border-bottom: 2px dotted #e1e1e1;	
+  padding-bottom: 20px;
+}
+
+#extras .info .item:last-child {
+  border-bottom: none;
+  margin-top: 20px;	
+}
+
+#extras .info .item img {
+  float: left;
+  margin-right: 15px;	
+}
+
+#extras .info .item a {
+  font-family: Helvetica, sans-serif;	
+}
+
+#extras .info .item p {
+  font-size: 14px;	
+  margin: 0;
+  line-height: 1.4em;
+}
+
+ul.rss {
+  position: absolute;
+  top: -55px;
+  right: 0;
+}
+
+#sorry {
+  float: left;
+  width: 900px;
+  padding: 10px 15px;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+	
+}
+
+#sorry p {
+  font-size: 18px;
+  font-family: Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#sorry strong {
+  font-size: 24px;	
+}
+
+#sorry img {
+  float: left;
+  margin-right: 20px;	
+}
+
+#prices #sampler-form {
+  display: none;
+}
+
+#sampler-form h3 {
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  color: #237A2A;
+  margin-bottom: 15px;	
+}
+
+#sampler-form input {
+  font-size: 18px;
+  padding: 10px;
+  color: #999;
+  width: 400px;	
+}
+
+#sampler-form p.info {
+    float: right;
+    margin: 0;
+    width: 300px;
+}
+
+#sampler-form input:focus {
+  box-shadow: inset 0 1px 3px #e1e1e1;
+  border: 1px solid #237A2A;
+  color: #333;	
+}
+
+#sampler-form input.button {
+    color: #237A2A;
+    float: right;
+    margin-right: 10px;
+    position: relative;
+    top: -75px;
+    width: 300px;
+}
+
+p.late {
+  margin: 0;	
+}
+
+p.late span {
+  font-size: 34px;
+  font-weight: bold;
+  color: #F37679;
+  font-family: Helvetica, sans-serif;
+  text-shadow: 1px 1px 0 #fff;
+  margin: 0;	
+}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+
+<div id="banner">
+  <div class="super">
+  	<h1>Happy Valentines Day! <span>情人节快乐</span></h1>
+  </div>
+</div>
+
+<div id="main-text-wide">
+  <div class="super">
+
+  	<div class="tea-top">
+		<div class="main-image">
+			<div id="image_wrap">	
+				<img src="http://static.minrivertea.com/images/product-photos/jp1.jpg"/>
+			</div>
+		    <div class="product-photos-small">
+			<div class="scrollable">   
+			   <div class="items">
+  			    <div>
+  			        {% thumbnail tea.image "60x60" crop="center" as im %}
+  			    		{% thumbnail tea.image "500x331" crop="center" as im_large %}
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.description }}" src="{{ im.url }}"/></a>
+						{% endthumbnail %}
+					{% endthumbnail %}
+					
+					{% if tea.image_2 %}
+  			    	{% thumbnail tea.image_2 "60x60" crop="center" as im %}
+  			    		{% thumbnail tea.image_2 "500x331" crop="center" as im_large %}
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_2_caption }}" src="{{ im.url }}"/></a>
+						{% endthumbnail %}
+					{% endthumbnail %}
+					{% endif %}
+					
+					{% if tea.image_3 %}
+					{% thumbnail tea.image_3 "60x60" crop="center" as im %}
+  			    		{% thumbnail tea.image_3 "500x331" crop="center" as im_large %}
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_3_caption }}" src="{{ im.url }}"/></a>
+						{% endthumbnail %}
+					{% endthumbnail %}
+					{% endif %}
+					
+					{% if tea.image_4 %}
+					{% thumbnail tea.image_4 "60x60" crop="center" as im %}
+  			    		{% thumbnail tea.image_4 "500x331" crop="center" as im_large %}
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_4_caption }}" src="{{ im.url }}"/></a>
+						{% endthumbnail %}
+					{% endthumbnail %}
+					{% endif %}
+					
+					{% if tea.image_5 %}
+					{% thumbnail tea.image_5 "60x60" crop="center" as im %}
+  			    		{% thumbnail tea.image_5 "500x331" crop="center" as im_large %}
+						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_5_caption }}" src="{{ im.url }}"/></a>
+						{% endthumbnail %}
+					{% endthumbnail %}
+					{% endif %}
+      			</div>
+      		  </div>
+      		</div>
+		</div><!-- end product photos small -->
+		</div>
+		
+		{% if product.available_stock > 0 %}
+		<div class="description"><p><strong>We'd like to give you a sample of our stunningly fragrant Jasmine scented green tea</strong> - totally free.</p>
+<p class="small">It's a little Valentines Day gift from us, and there's a limited supply, so you'd better be quick! Just fill in the name and address of the person you'd like to send it to, and we'll take care of the rest.</p></div>
+{% else %}
+<p class="late"><span>Too late!</span><br/>You're a little bit late and all the free samples have gone - sorry, but there was a limited supply. Just so you're not too disappointed, here's a 10% discount code valid for today and tomorrow (14-15 Feb 2012):<br/><br/><strong>&nbsp;&nbsp;ILOVETEA</strong><br/><br/>It's valid on all of our products and we hope you have a good Valentines Day. </p>
+{% endif %}
+
+	<div id="prices">
+		<div class="price large">
+		
+			{% if product.available_stock > 0 %}		
+			<a title="" href="#sampler-form" class="button single" id="sampler">Get your free sample (only <span id="quantity">{{ product.available_stock }}</span> left!)</a> 
+			<div id="sampler-form" style="width: 800px; height: 400px;">
+				<h3>Send a free Valentines taster to someone you love</h3>
+				<p class="info">&laquo; Fill in the details of the <strong>person who you want to receive the sample</strong> and we'll send it to them. You could fill in your own details, but who sends themselves Valentines gifts? We'll take care of the rest.<br/><br/><em>ps. No spam, of course.</em></p>
+				<form action="{% url valentines %}" method="post">
+					<input type="text" name="address_line_1" id="id_address_line_1" value="Address line 1"/><br/>
+					<input type="text" name="address_line_2" id="id_address_line_2" value="Address line 2"/><br/>
+					<input type="text" name="town_city" id="id_town_city" value="Town or City"/><br/>
+					<input type="text" name="postcode" id="id_postcode" value="Postcode"/><br/>
+					<input type="text" name="name" id="id_name" value="Full name of recipient"/><br/>
+					<input type="text" name="email" id="id_email" value="You@email.com"/><br/>
+					United Kingdom<br/>
+					
+					<input type="submit" class="button" value="Get your sample!"/>
+				</form>
+			</div>
+			
+			{% endif %}
+				
+		</div>
+	</div>
+  
+  <div id="sorry">
+  	<img src="{% staticfile '/images/uk.jpg' %}"/>
+  	<p><strong>UK Only I'm afraid!</strong><br/> We do deliver to Europe and the US, but this promotion is only valid for the UK.</p>
+  </div>
+
+		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
+			<li id="google">
+				<g:plusone></g:plusone>
+				<script type="text/javascript">
+				  (function() {
+				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				    po.src = 'https://apis.google.com/js/plusone.js';
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				  })();
+				</script>
+			</li>
+	    	<li id="facebook">
+			    <div id="fb-root"></div>
+			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
+			    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+			    </fb:like>
+			</li>
+		</ul>
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+{% endblock %}

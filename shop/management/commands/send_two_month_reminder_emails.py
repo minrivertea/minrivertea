@@ -17,18 +17,22 @@ class Command(NoArgsCommand):
         start_date = (datetime.now() - timedelta(days=60)) # two months ago
         end_date = datetime.now() # now
         
-        # filter out shoppers who didn't buy anything outside of the last 2 months.
+        # our empty dictionary
         relevant_orders = []
 
-        # find shoppers who have made proper paid orders and haven't receive a reminder before
         for shopper in shoppers:
-            # if we've ever sent them a reminder at anytime anywhere, DON'T send another!
+            # if we've EVER sent them a reminder DON'T send another!
             if shopper.reminder_email_sent:
                 pass
             else:
-                orders = Order.objects.filter(owner=shopper, is_paid=True, status=Order.STATUS_SHIPPED).order_by('-date_paid')
+                orders = Order.objects.filter(
+                    owner=shopper, 
+                    is_paid=True, 
+                    status=Order.STATUS_SHIPPED
+                ).order_by('-date_paid')
+                
                 if orders.count() == 0:
-                    pass
+                    pass # because they haven't actually completed any orders
                 else:
                     # if they've made a new order in the last 2 months, exclude them
                     if len(orders.filter(date_paid__range=(start_date, end_date))) > 0:

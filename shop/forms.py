@@ -104,4 +104,11 @@ class CreateSendEmailForm(forms.Form):
     subject_line = forms.CharField(required=True)
     content = forms.CharField(required=True, widget=forms.Textarea)
     
-    
+
+class ValentinesForm(forms.Form):
+    email = forms.EmailField(error_messages={'required': '* Please give an email address', 'invalid': '* Please enter a valid e-mail address.'})
+    name = forms.CharField(max_length=200, required=True, error_messages={'required': '* Please give your surname'})
+    address_line_1 = forms.CharField(max_length=200, required=False)
+    address_line_2 = forms.CharField(max_length=200, required=False)
+    town_city = forms.CharField(max_length=200, required=False)
+    postcode = forms.CharField(max_length=200, required=False)

@@ -164,6 +164,8 @@ def _admin_notify_contact(data):
     
     return
 
+
+
 def _send_two_month_reminder_email(order):
 
     text_template = "shop/emails/text/two_month_reminder.txt"
@@ -171,15 +173,18 @@ def _send_two_month_reminder_email(order):
 
     receiver = order.owner.email
     subject_line = "Have you finished your tea yet?"
+    
     if not order.hashkey:
         order.hashkey = uuid.uuid1().hex
         order.save()
     
     url = "http://www.minrivertea.com/order/repeat/%s" % order.hashkey
+    
     text = render_to_string(text_template, {
         'url': url,
         'order': order,	
     })
+    
     html = render_to_string(html_template, {
         'url': url,
         'order': order,
@@ -190,7 +195,9 @@ def _send_two_month_reminder_email(order):
     order.owner.reminder_email_sent = datetime.now()
     order.owner.save()
     
-    return True
+    return True # important, make sure this returns True
+
+
 
 def _admin_cron_update(data, subject_line):
     text = render_to_string('shop/emails/text/admin_cron_update.txt', {
@@ -199,6 +206,7 @@ def _admin_cron_update(data, subject_line):
     receiver = settings.SITE_EMAIL
     subject_line = subject_line
     _send_email(receiver, subject_line, text)
+
 
 def _payment_success_email(order):
     

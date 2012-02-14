@@ -38,7 +38,10 @@ div#main-text-wide div#right {
 
 	<div id="left">
 		{% for review in reviews %}
-		<p>{{ review.short_text }}<br/><span class="red">{{ review.first_name }} {{ review.last_name }}</span></p>
+		<p>{{ review.short_text }}<br/>
+		<span class="red">{{ review.first_name }} {{ review.last_name }} is talking about <a href="{% url tea_view review.product.slug %}">{{ review.product }}</a></span>
+		{% if review.url %}<a href="{{ review.url }}">(read the full review here)</a>{% endif %}
+		</p>
 		{% endfor %}
 	<div class="did-you-know">
 	<a href="/teas/jasmine-pearls/"><span class="link"></span></a>

@@ -23,9 +23,10 @@
 	<meta name="DC.format" content="text/html" />
 	<meta name="DC.type" content="Django Site" />
 	<meta name="robots" content="ALL" />
+	
 	<title>{% block pagetitle %}{% endblock %} | The Min River Tea Farm</title>
 	<link rel="shortcut icon" href="{% staticfile '/images/favicon.ico' %}" type="image/x-icon">
-
+	{% block canonical %}{% endblock %}
 	
 	{% block extra-head %}{% endblock %}
 
@@ -196,22 +197,6 @@ if (15.00) {
 </div>
 	{% block extrajs %}{% endblock %}
 	<script type="text/javascript">
-
-		function languageToggle() {
-			if ($('#language-block').is(":visible")) {
-				$('#language').css('background-color', '#fff');
-				$('#language-block').toggle();
-				$('#language span').css('color', '#3B69A4');
-			}
-			else {
-				$('#language-block').toggle();
-				$('#language').css('background-color', '#333');
-				$('#language span').css('color', '#fff');
-			}
-		}
-
-		$('#language').click(languageToggle);
-		$('#close-language').click(languageToggle);
 		
 		function emailSignupSubmit() {
 		    $('#email-signup').css('opacity', '0.5');
@@ -229,14 +214,6 @@ if (15.00) {
     		}); 
 			return false;	
 		}
-		
-		function clearInput(elem) {
-    		if (elem.value && elem.defaultValue == elem.value) {
-        	elem.value = new String();
-    		}
-
-    		elem.style.color = 'black';
-		};
 		
 
 		$(document).ready( function() {

@@ -1,0 +1,14 @@
+NEW VALENTINES SAMPLER REQUEST:
+
+
+SEND TO:
+
+	{{ data.name }}
+	{{ data.address_line_1 }}
+	{{ data.address_line_2 }}
+	{{ data.town_city }}
+	{{ data.postcode }}
+
+REQUEST MADE BY:
+
+	{{ data.email }}

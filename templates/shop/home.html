@@ -226,6 +226,7 @@ div#customers span.quotation {
     height: 100px;
 }
 
+
 div#customers a.read-more {
     float: right;
     font-size: 13px;
@@ -520,7 +521,10 @@ div#adventure #icons {
 		{% for r in review %}
 			<div class="box">
 				<span class="quotation">&ldquo;</span>
-				<p>{{ r.short_text }}<br/><span class="red">{{ r.first_name }} {{ r.last_name }}</span></p>
+				<p>
+					<em>{{ r.short_text }}</em><br/>
+					<span class="red">{{ r.first_name }} {{ r.last_name }} is talking about </span><a href="{% url tea_view r.product.slug %}">{{ r.product }} &raquo;</a>
+				</p>
 			</div>
 		{% endfor %}
 

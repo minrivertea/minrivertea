@@ -7,6 +7,8 @@
 
 {% block pagetitle %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
 
+{% block canonical %}<link rel="canonical" href="http://www.minrivertea.com{{ page.get_absolute_url }}" />{% endblock %}
+
 {% block extrajs %}
 <script href="http://stc-tx.meiliworks.com/js/posterize_fluid.js?v=201202101117" type="text/javascript"></script>
 <script>
