@@ -787,7 +787,7 @@ p.late span {
 			<a title="" href="#sampler-form" class="button single" id="sampler">Get your free sample (only <span id="quantity">{{ product.available_stock }}</span> left!)</a> 
 			<div id="sampler-form" style="width: 800px; height: 400px;">
 				<h3>Send a free Valentines taster to someone you love</h3>
-				<p class="info">&laquo; Fill in the details of the <strong>person who you want to receive the sample</strong> and we'll send it to them. You could fill in your own details, but who sends themselves Valentines gifts? We'll take care of the rest.<br/><br/><em>ps. No spam, of course.</em></p>
+				<p class="info">&laquo; Fill in the details of the <strong>person who you want to receive the sample</strong> and we'll take care of the rest.<br/><br/><em>You could fill in your own address, but who sends themselves Valentines gifts? No spam, of course.</em></p>
 				<form action="{% url valentines %}" method="post">
 					<input type="text" class="clearMeFocus" title="Address line 1" name="address_line_1" id="id_address_line_1" value="Address line 1"/><br/>
 					<input type="text" class="clearMeFocus" title="Address line 2" name="address_line_2" id="id_address_line_2" value="Address line 2"/><br/>
@@ -797,7 +797,7 @@ p.late span {
 					<input type="text" class="clearMeFocus" title="Your email address" name="email" id="id_email" value="Your email address"/><br/>
 					This must be an address in the UNITED KINGDOM<br/>
 					
-					<input type="submit" class="button" value="Get your sample!"/>
+					<input type="submit" class="button" value="Send the sample!"/>
 				</form>
 				<img src="{% staticfile '/images/loading.gif' %}" id="sample-loading"/>
 			</div>
