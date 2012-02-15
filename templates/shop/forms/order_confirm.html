@@ -9,12 +9,12 @@
 $("#wishlist-link").click(function() {	
 	$.getJSON("/order/make_wishlist/", {xhr: "true", order: {{ order.id }}},
   		function(data) {
-  		$('#loading').toggle();
-  		$(data).appendTo('#wishlist-full');
-  		$('#wishlist-link').unbind('click');
-  		$('a#wishlist-link').fancybox();
-  	});    	
-});
+	  		$(data).appendTo('#wishlist-full');
+	  		$('#wishlist-link').unbind('click');
+	  		$('a#wishlist-link').fancybox();
+	  		$('#loading-wishlist').toggle();
+  		});    	
+	});
 
 
 $(document).ready( function() {
@@ -75,10 +75,10 @@ div.row {
   position: relative;	
 }
 
-#wishlist-full img#loading {
-  position: relative;
-  left: 230px;	
-  top: 135px;
+#loading-wishlist {
+  position: absolute;
+  left: 300px;	
+  top: 200px;
 }
 
 #wishlist-full p.url {
@@ -199,7 +199,7 @@ div.row {
 <div id="wishlist">
 	<a id="wishlist-link" href="#wishlist-full">Turn this basket into a wishlist! <img src="{% staticfile '/images/gift_small.png' %}"></a>
 	<div id="wishlist-full" style="width: 650px; height: 400px; padding: 30px;">
-		<img id="loading" src="{% staticfile '/images/loading.gif' %}"/>
+		<img id="loading-wishlist" src="{% staticfile '/images/loading.gif' %}"/>
 	</div>
 </div>
 	

@@ -609,7 +609,7 @@ div#submit-button {
 
 div.row {
     float: left;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     padding: 0px;
     width: 600px;
 }
@@ -649,36 +649,6 @@ div.row-box table td {
   padding-bottom: 10px;	
 }
 
-div.row-box input {
-    border-color: #D1D1D1;
-    border-radius: 7px 7px 7px 7px;
-    border-style: solid;
-    border-width: 1px;
-    color: #666666;
-    float: left;
-    font: 16px arial,helvetica,clean,sans-serif;
-    height: 20px;
-    margin: 0 0 20px 0;
-    padding: 10px 15px;
-    width: 380px;
-}
-
-div.row-box input:focus {
-  border-color: #6acc75;
-  border-width: 1px;
-  margin-bottom: 19px;
-  box-shadow: 0 1px 3px #C1C1C1 inset;
-}
-
-div.row-box label {
-    color: #555555;
-    float: left;
-    font-size: 14px;
-    line-height: 1.2em;
-    margin: 0 0px 3px 10px;
-    text-align: left;
-    width: 100%;
-}
 
 div.row-box p {
   margin: 0;	
@@ -711,23 +681,14 @@ label {
     width: 200px;
 }
 
-input {
-  margin-bottom: 10px;
-  height: 20px;
-  width: 300px;	
-  border: 1px solid #D1D1D1;
-  padding: 5px;
-  font-size: 15px;
-  font-family: "Times New Roman", Georgia, serif;
-}
-
 textarea {
-  width: 300px;	
-  padding: 5px;
+  width: 380px;	
+  padding: 10px 15px;
   border: 1px solid #d1d1d1;
-  font-family: "Times New Roman", Georgia, serif;
-  font-size: 15px;
-  line-height: 1.5em;
+  border-radius: 4px;
+  font: 16px arial,helvetica,clean,sans-serif;
+  color: #999;
+  margin: 0 0 20px 0;
 }
 
 ul.errorlist {
@@ -738,6 +699,35 @@ ul.errorlist {
   padding: 0;
   margin-bottom: 10px;	
 }
+
+input, div.row-box input {
+    border-radius: 4px;
+    border: 1px solid #d1d1d1;
+    color: #999;
+    float: left;
+    font: 16px arial,helvetica,clean,sans-serif;
+    height: 20px;
+    margin: 0 0 20px 0;
+    padding: 10px 15px;
+    width: 380px;
+}
+
+input:focus, div.row-box input:focus, textarea:focus {
+  border: 1px solid #6acc75;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px #C1C1C1 inset;
+}
+
+div.row-box label {
+    color: #555555;
+    float: left;
+    font-size: 14px;
+    line-height: 1.2em;
+    margin: 0 0px 3px 10px;
+    text-align: left;
+    width: 100%;
+}
+
 
 
 /* About styles */

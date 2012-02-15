@@ -9,8 +9,6 @@ div.tea-promo h3 {
   font-size: 40px;	
 }
 
-
-
 div.tea-promo p.help {
     float: left;
     font-size: 0.7em;
@@ -24,6 +22,10 @@ div.tea-promo div.image {
 
 div.tea-promo div.text {
   width: 450px;	
+}
+
+div.text input {
+  width: 280px;	
 }
 
 div.text .button {
@@ -104,11 +106,9 @@ div.text .button {
 			{% if shopper %}
 			<input type="text" name="sender" id="id_sender" value="{{ shopper.email }}" style="display:none;"/>
 			{% else %}
-			<label>Your email:</label><br/>
-			<input type="text" name="sender" id="id_sender"/> <br/>
+			<input type="text" name="sender" id="id_sender" title="Your email address" class="clearMeFocus"/> <br/>
 			{% endif %}
-			<label>Your friend's email:</label>
-			<input type="text" name="recipient" id="id_recipient" />
+			<input type="text" name="recipient" id="id_recipient" title="Your friend's email" class="clearMeFocus" />
 			<p class="help"><img src="{% staticfile '/images/lock.gif' %}"> We will never share, sell or spam these email addresses (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)</p>	
     		<input type="submit" value="Submit" class="button">
     		    {{ form.sender.errors }}

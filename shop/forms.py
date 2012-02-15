@@ -30,14 +30,33 @@ class OrderStepOneForm(forms.Form):
         postcode = cleaned_data.get("postcode")
         house_name_number = cleaned_data.get("house_name_number")
         country = cleaned_data.get("country")
-        if not postcode:
-             if not house_name_number:
-                 raise forms.ValidationError("* You must provide at least your postcode, house name/number and country")
+        
+        # clean out the default data
+        if cleaned_data.get('first_name') == 'First name':
+            raise forms.ValidationError('')
+        
+        if cleaned_data.get('last_name') == 'Last name':
+            raise forms.ValidationError('')
+        
+        if cleaned_data.get("address_line_1") == ' ...address continued (optional)':
+            del cleaned_data["address_line_1"]
+            
+        if cleaned_data.get('address_line_2') == ' ...address continued (optional)':
+            del cleaned_data["address_line_2"]
+        
+        if cleaned_data.get('town_city') == 'Town or city':
+            del cleaned_data["town_city"]
+        
+        
+        
+        if not postcode or postcode == 'Post/ZIP code':
+             if not house_name_number or house_name_number == 'Your address...':
+                 raise forms.ValidationError("* You must provide at least your postcode, first line of your address and country")
              else:
                  raise forms.ValidationError("* You must provide a postcode")
         
         if not house_name_number:
-                raise forms.ValidationError("* You must provide a house name or number")
+                raise forms.ValidationError("* You must provide the first line of your address")
         
         if country  == "invalid" or not country:
             raise forms.ValidationError("* Please specify which country you'd like the tea sent to")
@@ -79,9 +98,6 @@ class ReviewForm(forms.Form):
 class NotifyForm(forms.Form):
     email = forms.EmailField(required=True, error_messages={'required': 'Please enter a valid email address'})
     country = forms.ChoiceField(required=False, choices=all_countries)
-
-
-basket_items = BasketItem.objects.all()
 
 class SelectWishlistItemsForm(forms.Form):
     hashkey = forms.CharField()

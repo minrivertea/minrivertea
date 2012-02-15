@@ -4,7 +4,7 @@
 {% block extracss %}
 <style type="text/css">
 
-form {
+#left form {
   padding: 30px 35px;
   background-color: #fff;
   border: 1px solid #e1e1e1;
@@ -13,14 +13,14 @@ form {
   width: 550px;
 }
 
-form label {
+#left form label {
   text-align: left;
   font-size: 14px;
   width: 100%;
   padding: 0 20px 5px 0;	
 }
 
-input.button {
+#left input.button {
   height: auto;
   padding: auto;
   font-size: 15px;
@@ -97,7 +97,9 @@ div#main-text-wide div#left div.message p {
 
 		<form action="." method="post">
 		<p><strong>Just drop your email address below, and we'll email you when shipping is available in your country.</strong> Our promise is that you'll never receive more than 1 email from us letting you know you can order. No spam.</p>
-			{{ form.as_p }}
+			<input class="clearMeFocus" title="Your email address" name="email" id="id_name" type="text"/>
+			<label for="id_country">Country:</label>
+			<p>{{ form.country }}</p>
 	
 			<p class="help-text">
 			<img src="{% staticfile '/images/lock.gif' %}"> We will never share, sell or spam your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)

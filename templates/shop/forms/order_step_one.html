@@ -34,7 +34,7 @@ div#basket div.security {
 }
 
 div#basket div.security p {
-  font-size: 14px;	
+  font-size: 16px;	
   text-align: right;
   margin: 0;
 }
@@ -42,6 +42,19 @@ div#basket div.security p {
 #basket .security img {
   float:right; 
   margin: 0 0 20px 10px;
+}
+
+div.row {
+  float: left;
+  width: 580px;	
+}
+
+#checkout-button {
+  position: static;
+  margin-top: 0;
+  margin-right: 50px;
+  width: 800px;
+  	
 }
 
 
@@ -135,6 +148,10 @@ div#confirm-details-button {
   {% endif %}	
 }
 
+label {
+  display: none;	
+}
+
 label.red {
   color: red;	
 }
@@ -188,14 +205,14 @@ span.country {
 			<p class="red">&laquo; there were some errors - please check and provide all required information.</p>
 		  {% endif %}
 		  <img src="{% staticfile '/images/lock-large.png' %}">
-		  <p>We will never share your details, nor will we send you email spam. 
+		  <p>Your details are safe - no spam, no sharing. <br/>
 		  <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy &raquo;</a>
 		  </p>
 		</div>
 		
 		{% if shopper %}
 	  	  <div class="row">
-	  		<p class="intro">We've saved your information from last time - please check that everything is still correct:</p>
+	  		<p class="intro">Are these the correct address and peresonal details?</p>
 			<div class="address-container">
 				<div class="address first">
 					{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
@@ -236,70 +253,65 @@ span.country {
 		{% else %}
 
 	<div class="row">
-			<div class="row-label">
-			<h3>Please provide your details</h3>
-		</div>
+
     	<div class="row-box">
     		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
     		<ul class="errorlist"><li>* you must provide all your details - thanks!</li></ul>
     		{% endif %}
-    		<p class="intro">We need your name and your email address first. </p>
+    		<p class="intro">This step takes just 1 minute - your name and email first please! </p>
 
     		<p>
     			<label for="id_first_name"><span class="red">*</span> First name</label>
-    			<input  class="{% if form.first_name.errors %}red{% endif %}" type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/>
+    			<input  class="clearMeFocus" type="text" title="First name" name="first_name" id="id_first_name" value="{{ first_name }}"/>
     		</p>
     		<p>
     			<label for="id_last_name"><span class="red">*</span> Surname</label>
-    			<input class="{% if form.last_name.errors %}red{% endif %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
+    			<input class="clearMeFocus" title="Last name" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
     		</p>
     		<p>
     			<label for="id_email"><span class="red">*</span> Email address</label>
-    			<input class="{% if form.email.errors %}red{% endif %}" type="text" name="email" id="id_email" value="{{ email }}"/>
+    			<input class="clearMeFocus" title="Email address" type="text" name="email" id="id_email" value="{{ email }}"/>
     		</p>	
     	</div>
     </div>
     
 	
 	<div class="row">
-		<div class="row-label">
-			<h3>Where should we send your tea?</h3>
-		</div>
     	<div class="row-box">
     	{{ form.non_field_errors }}
-    		<p class="intro">Please give the address you'd like your tea sent to - please provide as much information as possible so that we can post your tea quickly and reliably.</p>
+    		<p class="intro">Where should we send your tea? Please provide your address here:</p>
     		
 
       <p>
       	<label for="id_house_name_number"><span class="red">*</span> House name number:</label>
-      	<input id="id_house_name_number" type="text" name="house_name_number" maxlength="200" value="{{ house_name_number }}"/>
+      	<input class="clearMeFocus" title="Your address..." id="id_house_name_number" type="text" name="house_name_number" value="{{ house_name_number }}"/>
       	
       	</p>
 	  	{{ form.address_line_1.error }}
 	  
 	  <p>
 	  	<label for="id_address_line_1">Address line 1:</label>
-	  	<input id="id_address_line_1" type="text" name="address_line_1" maxlength="200" value="{{ address_line_1 }}"/> 
+	  	<input class="clearMeFocus" title=" ...address continued (optional)" id="id_address_line_1" type="text" name="address_line_1" value="{{ address_line_1 }}"/> 
 	 	    
 	  </p>
       	{{ form.address_line_2.errors }}
       	
       <p>
       	<label for="id_address_line_2">Address line 2:</label>
-      	<input id="id_address_line_2" type="text" name="address_line_2" maxlength="200"  value="{{ address_line_2 }}"/>
+      	<input class="clearMeFocus" title=" ...address continued (optional)" id="id_address_line_2" type="text" name="address_line_2"  value="{{ address_line_2 }}"/>
       	
       	</p>
       	{{ form.town_city.errors }}
       
       <p>
       	<label for="id_town_city">Town / City:</label>
-      	<input id="id_town_city" type="text" name="town_city" maxlength="200" value="{{ town_city }}"/> 
+      	<input class="clearMeFocus" title="Town or city" id="id_town_city" type="text" name="town_city" value="{{ town_city }}"/> 
       </p>
       	{{ form.postcode.errors }}
       	
       <p>
       	<label for="id_postcode"><span class="red">*</span> Postcode:</label>
-      	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" /> 
+      	<input class="clearMeFocus" title="Post/ZIP code" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
       	
       	</p>
       	
@@ -321,7 +333,7 @@ span.country {
 		<p class="checkout"><strong>Next step:</strong> 
 		Confirm your order. We'll let you check your order, and then you can pay using Paypal.
 		</p>
-		<input type="submit" value="Confirm your details" next="" class="button"/>
+		<input type="submit" value="Confirm your details &raquo;" next="" class="button"/>
 	</div>
 		
 	</form>

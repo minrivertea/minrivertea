@@ -29,7 +29,7 @@
 	  <p><strong>Signup</strong> and we'll keep you up to date with Chinese tea news in our TEAMails</p>
 	  
 	  <form id="email-signup" action="{% url email_signup %}" method="post">
-	  	<input type="text" name="email" id="id_name" onfocus="if(this.value == 'Your email address') { this.value = ''; }" value="Your email address" />
+	  	<input type="text" name="email" id="id_name" title="Your email address" class="clearMeFocus" value="" />
 	  	<input type="submit" value="Signup!" class="button"/>
 	  	<p>No spam, and you can unsubscribe at any time</p>
 	  	<img id="loading" src="{% staticfile '/images/loading.gif' %}">

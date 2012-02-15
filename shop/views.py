@@ -391,6 +391,7 @@ def order_step_one(request):
     # next, if they already have an order, try loading the information
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
+        
         # load their data from cookie
         if not order == None:    
             email = order.owner.email
@@ -458,6 +459,8 @@ def order_step_one(request):
                         this_user.backend = backend
                 if hasattr(this_user, 'backend'):
                     login(request, this_user)
+                    
+                
             
             # everyone gets an address object created based on the form info         
             address = Address.objects.create(
@@ -469,6 +472,9 @@ def order_step_one(request):
                 postcode = form.cleaned_data['postcode'],
                 country = form.cleaned_data['country'],
             )
+            
+            # reset their basket object
+            request.session['BASKET_ID'] = basket.id
             
             # now need to find an existing order object, or create a new one:
             

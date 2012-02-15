@@ -32,23 +32,6 @@ $(".items img").click(function() {
 }).filter(":first").click();
 });
 
-// this controls the notify form email behaviour
-$('#id_email').focus(function() {
-	if ($(this).val() == "Your email address") {
-		$(this).css('color', '#333');
-		$(this).val("");
-	}
-	else {
-	  return;	
-	}
-});
-
-$('#id_email').focusout(function() {
-	if ($(this).val() == "") {
-		$(this).val("Your email address");
-		$(this).css('color', '#999');
-	}
-});
 
 function notifyFormSubmit() {
 	$('#notify-form').submit( function() {
@@ -531,18 +514,20 @@ div.fb-recommend {
 }
 
 #coming-soon input {
-  float: left;	
+  float: left;
+  width: 250px;	
 }
 
 #coming-soon input.button {
     font-weight: bold;
-    font-size: 13px;
-    height: 33px;
+    font-size: 15px;
+    height: 41px;
     padding: 7px;
-    width: 70px;
+    width: 110px;
     position: relative;
-    top:-2px;
     left: -3px;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
 }
 
 #coming-soon input.button:hover {
@@ -758,10 +743,10 @@ a#explain-prices {
 		  	    	<span class="green">Thanks - as soon as this product is available again, we'll notify you by email!</span>
 		  	    {% else %}
 		  			<span class="">Sorry, this tea is out of stock :(</span><br/>
-		  			<p>But we'd be happy to notify you when this tea becomes available again.</p>
+		  			<p>But we'd can notify you when this tea becomes available again.</p>
 		  			<form method="post" action="" id="notify-form">
-		  				<input type="text" name="email" id="id_email" value="Your email address"/>
-		  				<input class="button" type="submit" value="Submit" class="submit"/>
+		  				<input type="text" name="email" class="clearMeFocus" id="id_email" title="Your email address" value=""/>
+		  				<input class="button" type="submit" value="Notify Me!" class="submit"/>
 		  			</form>
 		  		{% endif %}
 		  	</div>
@@ -789,11 +774,12 @@ a#explain-prices {
           {% endif %}
         </div>
         
-        
+        {% if not tea.coming_soon %}
         <div id="price-helper">
 			<a id="explain-prices" href="/where-do-we-deliver/">Wondering where we deliver?</a><br/>
 			UK, USA and Europe for just {{ currency.symbol }}{{ currency.postage_cost }} per order
 		</div>
+		{% endif %}
 		
 
 	</div><!-- end top product info div -->

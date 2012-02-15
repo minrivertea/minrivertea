@@ -43,26 +43,6 @@ $(document).ready(function() {
 	});
 	
 	submitForm();
-	
-		var clearMePrevious = '';
-	
-	// clear input on focus
-	$('.clearMeFocus').focus(function()
-	{
-		if($(this).val()==$(this).attr('title'))
-		{
-			clearMePrevious = $(this).val();
-			$(this).val('');
-		}
-	});
-	// if field is empty afterward, add text again
-	$('.clearMeFocus').blur(function()
-	{
-		if($(this).val()=='')
-		{
-			$(this).val(clearMePrevious);
-		}
-	});
 });
 
 </script>

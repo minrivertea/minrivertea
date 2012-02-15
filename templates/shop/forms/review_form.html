@@ -37,9 +37,12 @@ div.rss {
 }
 
 div.rss p {
-  float: left; 
-  font-size: 11px;
-  color: #666;
+    color: #666666;
+    float: left;
+    font-size: 13px;
+    left: 20px;
+    position: relative;
+    top: -10px;
 }
 
 </style>
@@ -64,16 +67,6 @@ div.rss p {
   <div class="super">
   
       <div class="rss">
-		<div id="google">
-			<g:plusone></g:plusone>
-			<script type="text/javascript">
-			  (function() {
-			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-			    po.src = 'https://apis.google.com/js/plusone.js';
-			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-			  })();
-			</script>
-		</div>
     	<div id="facebook">
 		    <div id="fb-root"></div>
 		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
@@ -92,18 +85,15 @@ div.rss p {
 		<div class="row">
 		
 			<div class="row-box">
-			<textarea id="id_text" rows="10" cols="40" name="text" onclick="clearInput(this)">Write your review here...</textarea>
+			<textarea id="id_text" rows="10" cols="40" name="text" class="clearMeFocus" title="Write your review here…"></textarea>
 			</div>
 			
 			<div class="row-box">
-			<input type="text" name="first_name" id="id_first_name" />
-			<label for="id_first_name">First name</label>
+			<input type="text" name="first_name" id="id_first_name" class="clearMeFocus" title="First name" />
 			
-			<input type="text" name="last_name" id="id_last_name" />
-			<label for="id_last_name">Last name</label>
+			<input type="text" name="last_name" id="id_last_name" class="clearMeFocus" title="Last name" />
 			 
-			<input type="text" name="email" id="id_email" />
-			<label for="id_email">Email address</label>
+			<input type="text" name="email" id="id_email" class="clearMeFocus" title="Your email address" />
 			</div>
 			
 

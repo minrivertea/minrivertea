@@ -249,11 +249,13 @@ div.basket-row.discount form label {
 }
 
 div.discount input.button {
-    font-family: Helvetica,sans-serif;
-    height: 30px;
-    padding: 2px 4px;
-    width: 120px;
-    font-size: 12px;
+    border-radius: 0 4px 4px 0;
+    font-size: 15px;
+    left: -3px;
+    padding: 11px;
+    position: relative;
+    top: -1px;
+    width: 160px;
 }
 
 div.discount span.red {
@@ -286,6 +288,12 @@ div.discount span.red {
     border-right: none;
     margin-right: 0;
 }
+
+input#id_discount_code {
+  width: 325px;	
+}
+
+input.button
 
 </style>
 {% endblock %}
@@ -364,8 +372,8 @@ div.discount span.red {
 	  	<span id="link">Got a discount code?</span>
 	  	<div id="form">
 			  	<form action="." method="post">
-				{{ form }}
-				<input type="submit" class="button" value="Apply discount"/>
+				<input type="text" name="discount_code" id="id_discount_code" class="clearMeFocus" title="Enter discount code here"/>
+				<input type="submit" class="button" value="Apply discount" id="submit"/>
 				</form>
 		</div>
 		{% endif %}
