@@ -553,6 +553,7 @@ def order_url(request, hash):
 def order_repeat(request, hash):
     # reuse an old unpaid order object, or create a new one
     old_order = get_object_or_404(Order, hashkey=hash)
+    
     try:
         order = Order.objects.filter(owner=old_order.owner, is_paid=False)[0]
         # we're reusing an old object, so lets clear it...
@@ -578,16 +579,16 @@ def order_repeat(request, hash):
         owner = order.owner,
     )
     
-    
     # now we'll check for replacements/substitutions
     currency = _get_currency(request)
     for item in old_order.items.all():
         if item.item.is_active == False or item.item.parent_product.coming_soon == True:
-            # if it's not available, replace it with the closest match UP
+            # if it's not available, replace it with the closest matching UniqueProduct
             product = UniqueProduct.objects.filter(
                     parent_product=item.item.parent_product, 
                     is_sale_price=False, 
                     currency=currency,
+                    is_active=True,
                     ).order_by('-price')[0]
             basket_item = BasketItem.objects.create(item=product, quantity=item.quantity, basket=basket)
             order.items.add(basket_item)

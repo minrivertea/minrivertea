@@ -177,6 +177,7 @@ def _send_two_month_reminder_email(order):
     if not order.hashkey:
         order.hashkey = uuid.uuid1().hex
         order.save()
+            
     
     url = "http://www.minrivertea.com/order/repeat/%s" % order.hashkey
     
@@ -192,8 +193,8 @@ def _send_two_month_reminder_email(order):
     })
     
     _send_email(receiver, subject_line, text, html)
-    order.owner.reminder_email_sent = datetime.now()
-    order.owner.save()
+    #order.owner.reminder_email_sent = datetime.now()
+    #order.owner.save()
     
     return True # important, make sure this returns True
 

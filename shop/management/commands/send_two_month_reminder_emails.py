@@ -6,12 +6,12 @@ from minriver.shop.emails import _send_two_month_reminder_email, _admin_cron_upd
 
 
 class Command(NoArgsCommand):
-    help = 'Sends out all timed emails'
+    help = "Sends out a 2 month reminder email if someone hasn't ordered for 2 months "
 
     def handle_noargs(self, **options):
         
-        # get all the shoppers
-        shoppers = Shopper.objects.all()
+        # get all the shoppers who've never ever received a 2 month reminder
+        shoppers = Shopper.objects.exclude(reminder_email_sent__lte=datetime.now())
         
         # set a date range of the last 2 months
         start_date = (datetime.now() - timedelta(days=60)) # two months ago
@@ -21,31 +21,59 @@ class Command(NoArgsCommand):
         relevant_orders = []
 
         for shopper in shoppers:
-            # if we've EVER sent them a reminder DON'T send another!
-            if shopper.reminder_email_sent:
-                pass
-            else:
-                orders = Order.objects.filter(
-                    owner=shopper, 
-                    is_paid=True, 
-                    status=Order.STATUS_SHIPPED
-                ).order_by('-date_paid')
+            orders = Order.objects.filter(
+                owner=shopper, 
+                is_paid=True, 
+                status=Order.STATUS_SHIPPED
+            ).exclude(invoice_id__startswith='WL').order_by('-date_confirmed')
                 
-                if orders.count() == 0:
-                    pass # because they haven't actually completed any orders
-                else:
-                    # if they've made a new order in the last 2 months, exclude them
-                    if len(orders.filter(date_paid__range=(start_date, end_date))) > 0:
-                        pass
-                    else:                
-                        # if no orders in the last 2 months, email them.
-                        order = orders[0]
-                        relevant_orders.append(order)
-            
+            if orders.count() == 0:
+                pass # because they haven't actually completed any orders
+            else:
+                # if they've made a new order in the last 2 months, exclude them
+                if len(orders.filter(date_paid__range=(start_date, end_date))) > 0: 
+                    pass
+                else:                
+                    # if no orders in the last 2 months, email them.
+                    order = orders[0]
+                    relevant_orders.append(order)
         
-        # so send them the email!
+        
+        # now lets do some slow and painful filtering...
+        new_orders = []
+        removed = []
+        for order in relevant_orders:
+            for item in order.items.all():
+            
+                if order in new_orders or order in removed:
+                    break
+                  
+                # filter the order out if any UniqueProduct is not active     
+                if item.item.is_active == False:
+                    if order not in removed:
+                        removed.append(order)
+                        break
+                        
+                # filter out the order if their item quantity is more than we have available
+                if item.quantity > item.item.available_stock:
+                    if order not in removed:
+                        removed.append(order)
+                        break
+                
+                # filter out orders where the parent product of any item is marked as 'coming soon' 
+                if item.item.parent_product.coming_soon == True:
+                    if order not in removed:
+                        removed.append(order)
+                        break
+                
+                # if everything is good, then send them an email!
+                new_orders.append(order)
+
+            
+        # finally send them the email!
+        
         emails_sent = []
-        for x in relevant_orders:
+        for x in new_orders:
             if _send_two_month_reminder_email(x) == True:
                 emails_sent.append(x)
             
