@@ -12,9 +12,9 @@ class Command(NoArgsCommand):
     help = 'Sends out all timed emails'
 
     def handle_noargs(self, **options):
-        # get a list of orders that have been abandoned in the last 3 days.
+        # get a list of orders that have been abandoned in the last 1 day.
         
-        start_date = (datetime.now() - timedelta(days=3)) # three days ago
+        start_date = (datetime.now() - timedelta(days=1)) # one day ago (because the Cron runs everyday)
         end_date = datetime.now() # now
         
         # let's do the query, getting the most recent abandoned order and filtering out duplicates (duplicate owners)
