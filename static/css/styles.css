@@ -139,24 +139,15 @@ ol {
 }
 
 .button, div#comments div#comment-form input.submit-post {
-
-	background-color: #f1f1f1;
-    /* Firefox 3.6+ */ 
-    background: -moz-linear-gradient(100% 100% 90deg, #e6e6e6, #f1f1f1); 
-    
+	background-color: #f1f1f1; /* backup for older browsers */
+    background: -moz-linear-gradient(100% 100% 90deg, #e6e6e6, #f1f1f1);  /* Firefox 3.6+ */ 
     /* Safari 4-5, Chrome 1-9 */ /* -webkit-gradient(<type>, <point> [, <radius>]?, <point> [, <radius>]? [, <stop>]*) */ 
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1f1f1), to(#e6e6e6)); 
-    
-    /* Safari 5.1+, Chrome 10+ */ 
-    background: -webkit-linear-gradient(#f1f1f1, #e6e6e6); 
-    
-    /* Opera 11.10+ */ 
-    background: -o-linear-gradient(#e6e6e6, #f1f1f1);   
-    
+    background: -webkit-linear-gradient(#f1f1f1, #e6e6e6); /* Safari 5.1+, Chrome 10+ */
+    background: -o-linear-gradient(#e6e6e6, #f1f1f1);   /* Opera 11.10+ */
     border: 1px solid #fff;
     box-shadow: 0 1px 1px #999, 0 1px 0px #f6f6f6;
     border-radius: 4px;
-
     font-size: 12px;
     font-weight: bold;
     font-family: Helvetica, Arial, sans-serif;

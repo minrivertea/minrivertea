@@ -239,7 +239,7 @@ class Order(models.Model):
     sampler_sent = models.BooleanField(default=False, 
         help_text="Has a sample been sent to a friend of theirs from this order?")
     reminder_email_sent = models.BooleanField(default=False, 
-        help_text="Has a reminder email been send (only if they didn't complete the order at first)?")
+        help_text="Has a 3 day reminder email been sent if the order wasn't completed?")
     review_email_sent = models.BooleanField(default=False,
         help_text="Has a friendly review email been sent (around 1 week after order is shipped)?")
     wishlist_payee = models.CharField(max_length=200, blank=True, null=True)

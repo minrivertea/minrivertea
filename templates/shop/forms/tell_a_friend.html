@@ -5,8 +5,17 @@
 <link rel="stylesheet" href="{% staticfile '/css/teas.css' %}"/>
 <style type="text/css">
 
+div.tea-promo.small {
+  width: 250px;	
+  margin-right: 15px;
+}
+
 div.tea-promo h3 {
-  font-size: 40px;	
+  font-size: 32px;
+  float: left;
+  font-family: Helvetica, sans-serif;
+  color: #237A2A;
+  font-weight: bold;	
 }
 
 div.tea-promo p.help {
@@ -17,11 +26,14 @@ div.tea-promo p.help {
 }
 
 div.tea-promo div.image {
-  width: 270px;	
+  width: 250px;	
+  float: left;
+  display: block;
 }
 
 div.tea-promo div.text {
-  width: 450px;	
+  width: 250px;
+  margin-top: 15px;
 }
 
 div.text input {
@@ -63,35 +75,42 @@ div.text .button {
   
   			
 	
-		<div class="tea-promo">
+		<div class="tea-promo small">
 			<div class="image">
-			<a target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com">
-				<img src="{% staticfile '/images/facebook-large.png' %}">
-			</a>
+				<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+				<div class="fb-like" data-href="http://www.minrivertea.com/" data-send="false" data-layout="box_count" data-width="45" data-show-faces="false"></div>
+				<h3 style="width:180px;">Like us on Facebook</h3>
 			</div>
 			<div class="text">
-			<h3><a target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.minrivertea.com">Click here to share on Facebook</a></h3>
-			<p>Facebook is really important for a small business like ours. We really appreciate the fact that you've had faith in us by ordering and enjoying our teas, and Facebook helps your friends get their introduction to Chinese tea through a company that <strong>you</strong> trust.</p>
+			<p>You've put faith in us by ordering and enjoying our teas, so if you 'Like' us on Facebook, it helps your friends and relatives get introduced to Chinese tea through a company that <strong>you</strong> trust.</p>
 			</div>
 		</div>
 		
-		<div class="tea-promo">
+		<div class="tea-promo small">
 			<div class="image">
-				<a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com"><img src="{% staticfile '/images/twitter-large.png' %}"></a>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com" data-text="better #tea for your mug" data-via="minrivertea" data-size="large" data-related="minrivertea">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 			</div>
 			<div class="text">
-				<h3><a target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com">Click here to Tweet about us</a></h3>
-				<p>Tweeting about us to your followers helps spread the word to a huge variety of people - Chinese tea is growing in popularity, but many people are still unaware that buying good quality Chinese tea is actually quite easy and enjoyable. We also use Twitter to announce news, information and get feedback from customers, so it's a good way to stay in touch.</p>
+				<h3>Tweet about us</h3>				
+				<p>Tweeting about us helps spread the word to a huge variety of people - many people are still unaware that buying good quality Chinese tea is actually quite easy and enjoyable. </p>
 				
 			</div>
 		</div>
-		<div class="tea-promo">
+		<div class="tea-promo small">
 			<div class="image">
 				<img style="box-shadow: 0 1px 2px #999 inner;" src="{% staticfile '/images/plusone.png' %}">
 			</div>
 			<div class="text">
-				<h3>Give us a Google +1</h3>
-				<p>Wherever you see the new Google PlusOne button on our site, please click it! Google now customises search results for you and your social group, so if you like one of our teas or our website, clicking PlusOne will help spread that news throughout your social network. </p>
+				<h3 style="float:none;">Give us a +1</h3>
+				<p>Google now customises search results for you and your social group, so if you like one of our teas or our website, <strong>click the +1 button wherever you see it!</strong></p>
 			</div>
 		</div>
 		
@@ -99,7 +118,7 @@ div.text .button {
 			<form method="post" action="/tell-a-friend/">
 			
 			<div class="image" style="width: 400px; padding-left: 10px;">
-				<h3>Email a friend </h3>
+				<h3 style="float:none;">Email a friend </h3>
 				<p>If you know someone who would be interested in seeing our site our trying our teas, we'll send them an email on your behalf. Fill in the form on the right to start.</p>
 			</div>
 			<div class="text" style="width: 315px;">
