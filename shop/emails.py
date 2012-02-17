@@ -246,7 +246,7 @@ def email_signup(request):
         if form.is_valid():
             try:
                 existing_signup = get_object_or_404(EmailSignup, email=form.cleaned_data['email'])
-                message = "<div id='email-signup'><p><strong>Looks like you're already signed up!</strong> You don't need to do anything else, and you'll receive TEAMails as normal.</p></div>"
+                message = "<h3>Looks like you're already signed up! You don't need to do anything else, and you'll receive TEAMails as normal.</h3>"
             except:
                 new_signup = EmailSignup.objects.create(
                     email = form.cleaned_data['email'],
@@ -254,7 +254,7 @@ def email_signup(request):
                     hashkey = uuid.uuid1().hex,
                 )
                 new_signup.save()
-                message = "<div id='email-signup'><p><strong>Awesome!</strong> You're now signed up to receive TEAMails - they're roughly fortnightly, and you can unsubscribe at any time by clicking the link in the email.</p></div>"
+                message = "<h3>Awesome! You're now signed up to receive TEAMails - they're roughly fortnightly, and you can unsubscribe at any time by clicking the link in the email.</h3>"
             
             if request.is_ajax():
                 return HttpResponse(message)

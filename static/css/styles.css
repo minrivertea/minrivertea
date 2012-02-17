@@ -1228,11 +1228,10 @@ ul#steps li.selected {
 
 #footer {
     background-color: #fff;
-    border-top: 10px solid #E1ECF3;
     float: left;
     height: 300px;
     margin-top: 80px;
-    padding: 20px 0 180px;
+    padding: 0px 0 180px;
     width: 100%;
 }
 
@@ -1270,38 +1269,49 @@ ul#steps li.selected {
   list-style-type: square;
 }
 
-#footer #email-signup {
-  padding: 10px;
+#footer #email {
+  width: 100%;
+  background-color: #E1ECF3;
+  float: left;	
+  margin-bottom: 30px;
+  padding: 15px 0;
+}
+
+#footer #email h3 {
   float: left;	
   position: relative;
-  left: -10px;
-  width: 260px;
-  margin-bottom: 10px;
+  top: 4px;
+  margin-right: 20px;
+}
+
+
+#footer #email-signup {
+  float: left;	
+  position: relative;
+  width: auto;
 }
 
 #footer #email-signup input {
   width: 250px;	
   color: #999;
+  margin: 0;
 }
 
 #footer #email-signup input.button {
-    background: -moz-linear-gradient(100% 100% 90deg, #237A2A, #399440) repeat scroll 0 0 transparent;
-    border-radius: 3px;
-    box-shadow: none;
-    color: #FFFFFF;
-    float: left;
+    border-left: medium none;
+    border-radius: 0 4px 4px 0;
+    color: #237A2A;
     font-size: 15px;
-    margin: 0 0px 0 0px;
-    padding: 7px 15px 5px;
+    left: -3px;
     position: relative;
-    text-shadow: 0 -1px 1px #333333;
+    top: 1px;
     width: 120px;
 }
 
 #footer #email-signup p {
     color: #999999;
     float: left;
-    font-family: Georgia,serif;
+    font-family: "Times New Roman", Georgia,serif;
     font-size: 11px;
     font-weight: normal;
     line-height: 1.4em;

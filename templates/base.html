@@ -208,7 +208,7 @@ if (15.00) {
 	    	    cache: false,  
 	   		    dataType: "html",  
 	    	    success: function(data, textStatus) {
-	    	    	$('form#email-signup').replaceWith(data);
+	    	    	$('#footer #email .super').html(data);
 	    	    	$('#loading').toggle();
 	    	    }
     		}); 

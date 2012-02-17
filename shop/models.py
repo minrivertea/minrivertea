@@ -443,7 +443,7 @@ def show_me_the_money(sender, **kwargs):
     order.date_paid = ipn_obj.payment_date
     order.is_paid = True
     order.save()
-    
+        
     # if it was a WISHLIST payment...
     if order.wishlist_payee:
         # get the owner's wishlist (remember, they can only have 1 wishlist)
@@ -456,8 +456,10 @@ def show_me_the_money(sender, **kwargs):
                 pass
         
         wishlist.save()     
+    
     from minriver.shop.emails import _payment_success_email 
     _payment_success_email(order)
+    
     
 payment_was_successful.connect(show_me_the_money)    
 

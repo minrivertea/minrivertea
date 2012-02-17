@@ -152,6 +152,10 @@ def index(request):
 
 def page(request, slug, x=None, y=None, z=None):
     page = get_object_or_404(Page, slug=slug)
+    
+    if x or y or z:
+        return HttpResponseRedirect(page.get_absolute_url())
+        
     template = "shop/page.html"
     if page.template:
         template = page.template
@@ -1089,32 +1093,4 @@ def make_product_feed(request):
     print content
     return HttpResponse(content, mimetype="application/xml") 
     
-
-# valentines 2012 promotion., can be removed later
-def valentines(request):
-    
-    product = get_object_or_404(UniqueProduct, description="valentines")
-    
-    if request.method == 'POST':
-        form = ValentinesForm(request.POST)
-        if form.is_valid():
-            
-            text = render_to_string('shop/emails/valentines.txt', {'data': form.cleaned_data})
-            subject_line = "Valentines Sample"
-            receiver = settings.SITE_EMAIL
-            
-            product.available_stock -= 1
-            product.save()
-            
-            from emails import _send_email
-            _send_email(receiver, subject_line, text)
-            
-            if request.is_ajax():
-                message = render_to_string('shop/snippets/valentines.html')
-                return HttpResponse(message)
-            else:
-    
-                return render(request, 'shop/valentines_success.html', locals())
-        
-    return render(request, "valentines.html", locals()) 
     
