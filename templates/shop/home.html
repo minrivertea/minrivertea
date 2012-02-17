@@ -441,11 +441,6 @@ h1 {
    font-size: 24px;
 }
 
-ul#benefits {
-    list-style-image: url('{% staticfile "/images/large-tick.png" %}');
-    margin-left: 13px;
-    width: 400px;
-}
 
 div#adventure #icons {
   float: left;
@@ -525,7 +520,8 @@ div#adventure #icons {
 
 <div id="customers">
 
-		{% for r in review %}
+		{% for r in reviews %}
+		    {% if forloop.counter < 2 %}
 			<div class="box">
 				<span class="quotation">&ldquo;</span>
 				<p>
@@ -533,6 +529,8 @@ div#adventure #icons {
 					<span class="red">{{ r.first_name }} {{ r.last_name }} is talking about </span><a href="{% url tea_view r.product.slug %}">{{ r.product }} &raquo;</a>
 				</p>
 			</div>
+			{% else %}
+			{% endif %}
 		{% endfor %}
 
 		<a class="read-more" href="{% url reviews %}">&raquo; See more customer reviews</a>

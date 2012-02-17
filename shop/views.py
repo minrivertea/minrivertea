@@ -147,7 +147,7 @@ def _get_products(request, cat=None):
 
 # the homepage view
 def index(request):
-    review = Review.objects.all().order_by('?')[:1]
+    reviews = Review.objects.all().order_by('?')[:4]
     return render(request, "shop/home.html", locals())
 
 def page(request, slug, x=None, y=None, z=None):
