@@ -1092,5 +1092,4 @@ def make_product_feed(request):
     content = render_to_string('product_feed_template.xml', {'products': products}) 
     print content
     return HttpResponse(content, mimetype="application/xml") 
-    
-    
+       

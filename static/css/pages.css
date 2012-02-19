@@ -426,28 +426,3 @@ div.learn-comment a.button:active {
 	
 	}
 
-ul.rss {
-  position: absolute;
-  top: 0;
-  right: 20px;	
-}
-
-ul.rss.opaque {
-  background: #fff;
-  width: 150px;
-  padding: 10px 0 5px 20px;
-}
-
-ul.rss #google {
-  width: 70px;
-  float: left;
-  margin-right: 10px;
-}
-
-ul.rss #facebook {
-  width: 70px;
-  float: left;	
-  position: relative;
-  top: -2px;
-}
-

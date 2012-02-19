@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load thumbnail %}
-{% load django_static %}
-{% load comments %}
+{% load thumbnail django_static comments %}
 
 {% block metadescription %}{{ entry.summary|safe }}{% endblock %}
 {% block pagetitle %}{{ entry.title }}{% endblock %}
@@ -22,23 +20,24 @@ $(".scroll").scrollable({ circular: true }).click(function() {
 {% block extracss %}
 <style type="text/css">
 
+div#main-text-wide {
+  margin-top: 30px;	
+}
+
+ul.rss {
+  top: 60px;
+  right: 0px;
+  width: 180px;	
+}
+
 p {
   font-size: 18px;
   line-height: 1.9em;
 }
 
-p.introduction {
-  font-weight: ;
-  font-size: 22px;	
-}
-
-
-h2.fontface {
-  font-size: 34px/40px;	
-}
 
 div#main-text-wide div#right {
-  margin-top: 30px;	
+  margin-top: 0px;	
 }
 
 div#entry-content h3 {
@@ -49,10 +48,6 @@ div#entry-content h4 {
   border-bottom: none;
   font-weight: bold;
   margin-bottom: 5px;	
-}
-
-div#entry-content p {
-  margin-top: 10px;	
 }
 
 div#entry-content p.date {
@@ -214,16 +209,12 @@ div.info.wide input.button {
 
 {% block content %}
 
-<div id="banner">
-  <div class="super">
-  	<h1>{{ entry.title }}</h1>
-	<p class="subtitle"><a href="{% url blog_home %}">&laquo; back to blog home</a> | {{ entry.date_added|date:"D d M Y" }}</p>
-  </div>
-</div>
+
 
 <div id="main-text-wide">
   <div class="super">		
-			
+		<h1>{{ entry.title }}</h1>
+	<p class="subtitle"><a href="{% url blog_home %}">&laquo; back to blog home</a> | {{ entry.date_added|date:"D d M Y" }}</p>	
 
 	<div id="right">
 		{% include "blog/snippets/blog-right.html" %}
@@ -231,26 +222,13 @@ div.info.wide input.button {
 
 	<div id="left">
 
-		<div id="entry-content">
+			
+			{{ entry.content|safe }}
 
-			
-			<p>{{ entry.content|safe }}</p>
-
-			
-			<div class="info wide">
-				<h3>Want to read more? Signup for our free TEAMails</h3>
-					<form id="email-signup" action="{% url email_signup %}" method="post">
-					  	<input type="text" name="email" id="id_name" onfocus="if(this.value == 'Your email address') { this.value = ''; }" value="Your email address" />
-	  					<input type="submit" value="Signup now!" class="button"/>
-	  					<img id="loading" src="{% staticfile '/images/loading.gif' %}">
-	  				</form>
-	  			</div>
-			
+					
 			<div class="next-previous">
 			
-			{% if ga_is_on %}<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=198543263524427&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ entry.get_absolute_url }}" style="float:left;" send="false" layout="box_count" width="50" show_faces="true" font=""></fb:like>{% endif %}
-			<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com/blog/{{ entry.slug }}/" data-text="{{ entry.title }}" data-count="none" data-via="minrivertea"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
-			</div>
+		
 			
 			<div id="comments">
 			{% get_comment_list for entry as comment_list %}
@@ -281,11 +259,27 @@ div.info.wide input.button {
 					</div>
 				</div>
 			</div>
-			
-
-			
-		</div>
+				
 	</div>
+		
+		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
+			<li id="google">
+				<g:plusone></g:plusone>
+				<script type="text/javascript">
+				  (function() {
+				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				    po.src = 'https://apis.google.com/js/plusone.js';
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				  })();
+				</script>
+			</li>
+	    	<li id="facebook">
+			    <div id="fb-root"></div>
+			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
+			    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+			    </fb:like>
+			</li>
+		</ul>
   </div>
 </div>
 
