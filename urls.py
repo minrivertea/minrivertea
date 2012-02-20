@@ -4,7 +4,7 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, category, review_tea, tea_view, make_product_feed, birthday
+from shop.views import page, category, review_tea, tea_view, make_product_feed
 from blog.models import BlogEntry
 from minriver.blog.feeds import LatestEntries
 
