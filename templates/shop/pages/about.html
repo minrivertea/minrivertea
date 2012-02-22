@@ -110,14 +110,6 @@ div.top {
         margin-left: -1px;
 }
 
-#main-text-wide {
-  margin-top: 30px;	
-}
-
-#banner {
-  margin-bottom: 30px;	
-}
-
 {% if page.feature_image %}
 h1 {
   position: absolute;
@@ -128,12 +120,6 @@ h1 {
   padding: 15px 25px 10px ;
 }
 {% endif %}
-
-div#main-text-wide div#right {
-  float: left;
-  padding-right: 30px;
-  padding-left: 0px;	
-}
 
 div.tea {
   float: left;
@@ -289,7 +275,7 @@ div.learn-comment a.button:active {
   	
   			<div class="top">
 		
-			<img src="{% staticfile '/images/right-two.jpg' %}" style="float:left;margin-right: 30px;">
+			<img src="{% staticfile '/images/chris.jpg' %}" style="float:left;margin-right: 30px;">
 		
 			<div class="white">
 				<p class="nihao">We sell authentic Chinese teas, sourced from our home in China.</p>
@@ -299,6 +285,12 @@ div.learn-comment a.button:active {
 				
 	 		</div>
 	 	</div>
+
+
+	<div id="right">
+		<img src="{% staticfile '/images/right-two.jpg' %}"/>
+		
+	</div>
 
 	<div id="left">
 	    
