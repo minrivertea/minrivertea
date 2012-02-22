@@ -26,12 +26,8 @@ $(document).ready( function() {
 <link rel="stylesheet" href="{% staticfile '/css/fancybox/jquery.fancybox-1.3.4.css' %}" />
 <style type="text/css">
 
-div#main-text-wide div#left {
-  margin-top: 30px;	
-}
-
-div#main-text-wide div#right {
-  margin-top: 30px;	
+h1 {
+  margin-bottom: 20px;	
 }
 
 div.row-box p.intro {
@@ -54,6 +50,7 @@ div.basket-row {
     margin-bottom: 0px;
     padding: 15px 0 15px 10px;
     width: 100%;
+    position: relative;
 }
 
 div.basket-row:first-child {
@@ -293,7 +290,46 @@ input#id_discount_code {
   width: 325px;	
 }
 
-input.button
+.coming-soon {
+  position: absolute;
+  right: -240px;
+  float: left;
+  width: 200px;
+  font-size: 13px;
+  background-color: #F3F9F2;
+  padding: 7px 12px;
+  border: 1px solid #7CBA80;
+}
+
+.coming-soon:after {
+   content: " ";
+   display: block;
+   width: 0;
+   height: 0;
+   border-top: 12px solid transparent;     
+   border-left: 0;
+   border-bottom: 12px solid transparent;
+   border-right: 12px solid #F3F9F2;
+   position: absolute;
+   top: 15px;
+   left: -12px;
+   z-index: 2;
+}
+
+.coming-soon:before {
+   content: " ";
+   display: block;
+   width: 0;
+   height: 0;
+   border-top: 12px solid transparent;     
+   border-left: 0;
+   border-bottom: 12px solid transparent;
+   border-right: 12px solid #7CBA80;
+   position: absolute;
+   top: 15px;
+   left: -13px;
+   z-index: 2;
+}
 
 </style>
 {% endblock %}
@@ -306,15 +342,9 @@ input.button
 
 {% block content %}
 
-<div id="banner">
-	<div class="super">
-		<h1>Your basket ({{ basket_quantity }} item{{ basket_quantity|pluralize }})</h1>
-	</div>
-</div>
-
-
 <div id="main-text-wide">
   <div class="super">
+  	<h1>Your basket ({{ basket_quantity }} item{{ basket_quantity|pluralize }})</h1>
 
 {% if basket_items %}
 
@@ -324,6 +354,9 @@ input.button
 	 
 	{% for thing in basket_items %}
 	  <div class="basket-row">
+	    {% if thing.item.parent_product.coming_soon %}
+	    	<div class="coming-soon"><strong>Note:</strong> this product ({{ thing.item.parent_product }}) has been pre-ordered and will be delivered on XXXX</div>
+	    {% endif %}
 		<div class="tea-name">
 			{% thumbnail thing.item.parent_product.image "120" crop="center" as im %}
 			<img src="{{ im.url }}"/>
@@ -458,7 +491,7 @@ input.button
 	<p>There's nothing in your basket - add something, quick! <br/><a href="{% url teas %}">&raquo; Browse our selection of Chinese teas here.</a></p>
   </div>
 	<div class="did-you-know">
-	<a href="/learn/varieties-of-tea/suggestions/"><span class="link"></span></a>
+	<a href="/suggestions/"><span class="link"></span></a>
 	<h3>Need some help choosing a tea? <span class="grey">Let us help you &raquo;</span></h3>
 	</div>
 

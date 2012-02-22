@@ -67,18 +67,13 @@ div.info p {
 
 {% block content %}
 
-
-<div id="banner">
-  <div class="super">
 	
-	<h1>{{ category.long_title }}</h1>
-	<div class="category-desc">{{ category.short_description|safe }}</div>	
-	
-  </div>
-</div>
 		
 <div id="main-text-wide">
   <div class="super">
+  
+  	<h1>{{ category.long_title }}</h1>
+	<div class="category-desc">{{ category.short_description|safe }}</div>
 
 	<div id="teas">
 		{% include "shop/snippets/products.html" %}

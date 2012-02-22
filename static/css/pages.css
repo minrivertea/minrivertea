@@ -52,10 +52,6 @@
    z-index: 2;
 }
 
-div#main-text-wide {
-  margin-top: 30px;	
-}
-
 #main-text-wide #left {
     float: left;
     margin: 0 0px 20px 0;
@@ -175,7 +171,7 @@ div#right p.mail {
     padding-top: 30px;
 }
 
-div#main-text-wide #left #promo h3 {
+#main-text-wide #left #promo h3 {
   font-size: 18px;
   margin: 0 0 20px 0;
 }
@@ -272,13 +268,13 @@ div.tea div.tea-text {
   color:#666;
 }
 
-div#main-text-wide div#right div.social {
+#main-text-wide div#right div.social {
   float: left;
   margin-left: 0px;
 
 }
 
-div#main-text-wide div#right div.social p {
+#main-text-wide div#right div.social p {
 	  font-size: 11px;
 }
 

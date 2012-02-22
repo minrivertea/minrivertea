@@ -88,73 +88,13 @@ $(document).ready( function() {
 <style type="text/css">
 h1 {
   font-size: 40px;	
+  margin-bottom: 10px;
 }
 
 h1 span {
   font-size: 30px;
   color: #999;
   margin-left: 10px;	
-}
-
-div.more-info {
-  padding-left: 0px;
-  margin-bottom: 15px;
-  padding-top: 15px;	
-  border-top: 1px solid #e1e1e1;
-  margin-top: 15px;
-}
-
-#home-banner p.normal {
-    font-size: 15px;
-    width: 500px;
-}
-
-h3.more-info {
-    margin-bottom:10px;
-    margin-top: -3px;
-    padding-bottom: 0;
-}
-
-div.right-links h3.more-info {
-  margin-bottom: 15px;	
-  float: left;
-  width: 220px;
-}
-
-
-div.other-teas {
-    float: left;
-    margin: 0 0 10px 10px;
-    width: 500px;
-}
-
-div.other-tea {
-    border-bottom: 1px solid white;
-    color: #666666;
-    float: left;
-    font-size: 0.9em;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    width: 460px;
-}
-
-div.other-tea.last {
-  border-bottom: none;	
-}
-
-div.other-tea div.image {
-  float: left;
-  margin-right: 15px;
-}
-
-div.other-tea div.text {
-  margin-top: 2px;	
-}
-
-div.other-teas h3 {
-  font-size: 1.5em;
-  text-shadow: 1px 1px #fff;
-  margin-bottom: 20px;
 }
 
 div.product-photos-small {
@@ -190,24 +130,6 @@ div.product-photos-small p {
     margin-top: 20px;
     text-align: right;
     width: 100px;
-}
-
-div.right-links {
-  padding-top: 0px;	
-  float: left;
-}
-
-div.right-links ul {
-    margin: 0 0 0 0;
-    padding-left: 15px;
-}
-
-div.right-links ul li {
-    color: #666666;
-    font-size: 13px;
-    list-style-type: square;
-    margin-bottom: 10px;
-    padding-left: 0;
 }
 
 div.tea-top {
@@ -548,20 +470,22 @@ div.fb-recommend {
 #price-helper {
     float: right;
     height: 25px;
-    margin: 15px 40px 0 12px;
-    width: 250px;
+    margin: 15px 30px 0 0px;
+    width: 380px;
     text-align: right;
     font-family: Helvetica,Arial,sans-serif;
-    color: #333;font-size: 13px;
-    font-weight: normal;
-    line-height: 1.5em;
-    font-size: 11px;
+    color: #333;
+    font-size: 13px;
 }
 
-a#explain-prices {
-  font-size: 13px;
-  font-family: Helvetica, Arial, sans-serif;	
+#price-helper a {
+  font-size: 13px;	
   font-weight: bold;
+}
+
+#price-helper a.not-in-stock {
+  font-size: 16px;
+  color: #F37679;	
 }
 
 .loading {
@@ -647,10 +571,12 @@ a#explain-prices {
 {% block content %}
 
 
-<div id="banner">
-  <div class="super">
 
-	{% if ga_is_on %}
+<div id="main-text-wide">
+  <div class="super">
+  
+  
+  	{% if ga_is_on %}
     <ul class="rss">
 		<li id="google">
 			<g:plusone></g:plusone>
@@ -673,13 +599,6 @@ a#explain-prices {
 	
 	<h1>{% if tea.long_name %}{{ tea.long_name|safe }}{% else %}{{ tea.name }}{% endif %}</h1>
 
-
-  </div>
-</div>
-
-
-<div id="main-text-wide">
-  <div class="super">
      	
 	<div class="tea-top">
 		<div class="main-image">
@@ -737,20 +656,7 @@ a#explain-prices {
 		<div class="description">{{ tea.body_text|safe }}</div>
 		
 		<div id="prices">
-	      {% if tea.coming_soon %}
-		  	<div id="coming-soon">
-		  	    {% if notify_message %}
-		  	    	<span class="green">Thanks - as soon as this product is available again, we'll notify you by email!</span>
-		  	    {% else %}
-		  			<span class="">Sorry, this tea is out of stock :(</span><br/>
-		  			<p>But we'd can notify you when this tea becomes available again.</p>
-		  			<form method="post" action="" id="notify-form">
-		  				<input type="text" name="email" class="clearMeFocus" id="id_email" title="Your email address" value=""/>
-		  				<input class="button" type="submit" value="Notify Me!" class="submit"/>
-		  			</form>
-		  		{% endif %}
-		  	</div>
-		  {% else %}
+		  
 			{% ifequal prices.count 1 %}
 				{% for price in prices %}
 		    	  <div id="price_{{ price.id }}" class="price large">
@@ -771,15 +677,16 @@ a#explain-prices {
             	  </div>
            		{% endfor %}
            	{% endifequal %}
-          {% endif %}
         </div>
-        
-        {% if not tea.coming_soon %}
-        <div id="price-helper">
-			<a id="explain-prices" href="/where-do-we-deliver/">Wondering where we deliver?</a><br/>
-			UK, USA and Europe for just {{ currency.symbol }}{{ currency.postage_cost }} per order
+
+		<div id="price-helper">        
+        	{% if tea.coming_soon %}
+       			<a href="" class="not-in-stock">We're restocking this tea now!</a><br/>Pre-order this tea now and it will be delivered on 21 Feb 2012</a>
+        	{% else %}
+				<a href="/where-do-we-deliver/">Wondering where we deliver?</a><br/>
+				UK, USA and Europe for just {{ currency.symbol }}{{ currency.postage_cost }} per order
+			{% endif %}
 		</div>
-		{% endif %}
 		
 
 	</div><!-- end top product info div -->
