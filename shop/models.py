@@ -74,7 +74,11 @@ class Product(models.Model):
         
     def __unicode__(self):
         return self.name
-      
+    
+    def get_preorder_date(self):
+        date = (datetime.today() + timedelta(days=22))
+        return date
+    
     def get_absolute_url(self):
         return "/%s/%s/" % (self.category.slug, self.slug)  #important, do not change
     

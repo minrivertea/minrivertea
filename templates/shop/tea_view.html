@@ -681,7 +681,7 @@ div.fb-recommend {
 
 		<div id="price-helper">        
         	{% if tea.coming_soon %}
-       			<a href="" class="not-in-stock">We're restocking this tea now!</a><br/>Pre-order this tea now and it will be delivered on 21 Feb 2012</a>
+       			<a href="" class="not-in-stock">We're restocking this tea now!</a><br/>Pre-order this tea now and it will be delivered on {{ tea.get_preorder_date|date:"d M Y" }}</a>
         	{% else %}
 				<a href="/where-do-we-deliver/">Wondering where we deliver?</a><br/>
 				UK, USA and Europe for just {{ currency.symbol }}{{ currency.postage_cost }} per order

@@ -355,7 +355,7 @@ input#id_discount_code {
 	{% for thing in basket_items %}
 	  <div class="basket-row">
 	    {% if thing.item.parent_product.coming_soon %}
-	    	<div class="coming-soon"><strong>Note:</strong> this product ({{ thing.item.parent_product }}) has been pre-ordered and will be delivered on XXXX</div>
+	    	<div class="coming-soon"><strong>Note:</strong> this product ({{ thing.item.parent_product }}) has been pre-ordered and will be delivered on <strong>{{ thing.item.parent_product.get_preorder_date|date:"d M Y" }}</strong></div>
 	    {% endif %}
 		<div class="tea-name">
 			{% thumbnail thing.item.parent_product.image "120" crop="center" as im %}
