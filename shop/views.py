@@ -235,7 +235,6 @@ def contact_us(request, xhr=None):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            
             _admin_notify_contact(form.cleaned_data)
             
             if request.is_ajax():
@@ -246,6 +245,9 @@ def contact_us(request, xhr=None):
                 url = request.META.get('HTTP_REFERER','/')
                 request.session['MESSAGE'] = "1"
                 return HttpResponseRedirect(url) 
+        else:
+            if request.is_ajax():
+                raise Http404   
     else:
         form = ContactForm() 
     

@@ -6,20 +6,22 @@
 
 	$('form#contact-form').submit(function() {
 		$(this).css('opacity', '0.5');
-		$('img#loading').toggle();
+		$('img#loading-contact').toggle();
 		$.ajax({  
     	    type: "POST",  
     	    data: $(this).serialize(), 
     	    url: "{% url contact_us %}",  
     	    cache: false,  
    		    dataType: "html",  
-    	    success: function(data, textStatus) {
-    	    	$('img#loading').toggle();
+    	    success: function(data) {
+    	    	$('#loading-contact').toggle();
     	    	$('form#contact-form').replaceWith(data);
-    	    },  
-    	    error: function (XMLHttpRequest, textStatus, errorThrown) {  
-    	       thisObject.replaceWith('Your comment could not be posted.');  
-    	    }  
+    	    },
+            error: function(data) {
+                $('form#contact-form').css('opacity', '1');
+                $('#loading-contact').toggle();
+                $('#form').prepend('<span style="color:red; font-size: 20px;">There was some technical problem submitting the form - please check your details, try again, or just email us!</span>');
+            } 
     	}); 
 	return false;
 	});
@@ -234,7 +236,7 @@ div#main-text-wide div#left div.box h3 {
   width: 100%;	
 }
 
-img#loading {
+img#loading-contact {
   display: none;
   position: absolute;
   left: 295px;
@@ -304,7 +306,7 @@ img#loading {
 				{% include 'shop/forms/contact_form_message_snippet.html' %}
 			{% else %}
 
-			<img id="loading" src="{% staticfile '/images/loading.gif' %}"/>
+			<img id="loading-contact" src="{% staticfile '/images/loading.gif' %}"/>
 			<form action="{% url contact_us %}" method="post" id="contact-form">
 				<h3>Send us a message</h3>
 				<p>Use our online contact form to send us a message. We respond to all messages within 12 hours.</p>			
