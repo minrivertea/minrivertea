@@ -102,7 +102,7 @@ def _free_sampler_email(request, id):
 def _product_review_email(request, orderid):
     order = get_object_or_404(Order, id=orderid)
     
-    subject_line = "minrivertea.com - how to brew your tea"
+    subject_line = "Two things you can do right now"
     receiver = order.owner.email
     
     text = render_to_string('shop/emails/text/review_email.txt', {

@@ -589,7 +589,7 @@
                                                                 <a href="http://www.minrivertea.com/learn/">Visit the 'Learn' section of our website</a> if you want some tips about how to brew your tea. There's lots of pictures and information, and we're always adding more. 
                                                                 <br />
                                                                 <br />
-                                                                <a href="">Post a review of your tea</a> - it really helps us get feedback on what you did and didn't like about the tea, and helps other customers make better decisions too:
+                                                                <strong>Post a review of your tea</strong> - it really helps us get feedback on what you did and didn't like about the tea, and helps other customers make better decisions too:
                                                                 <ul>
                                                                 	{% for item in order.items.all %}
                                                                 	<li><a href="{% url review_tea item.item.parent_product.slug %}">Review your {{ item.item.parent_product }}</a></li>
