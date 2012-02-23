@@ -99,20 +99,22 @@ def _free_sampler_email(request, id):
 
 
 # send email to user asking for a review of a product
-def _product_review_email(order_id):
-    order = get_object_or_404(Order, id=order_id)
+def _product_review_email(request, orderid):
+    order = get_object_or_404(Order, id=orderid)
     
     subject_line = "minrivertea.com - how to brew your tea"
     receiver = order.owner.email
     
     text = render_to_string('shop/emails/text/review_email.txt', {
         'shopper': order.owner, 
+        'order': order,
         }
     )
     
     html = render_to_string('shop/emails/html/html_review_email.html', {
         'shopper': order.owner,
         'subject': subject_line,
+        'order': order,
     })
     
     _send_email(receiver, subject_line, text, html)

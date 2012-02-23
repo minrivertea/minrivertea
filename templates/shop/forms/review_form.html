@@ -5,10 +5,6 @@
 {% block extracss %}
 <style type="text/css">
 
-div#main-text-wide div#left, div#main-text-wide div#right {
-  margin-top: 20px;	
-}
-
 div.other-reviews {
   margin-top: 0px;
   float: left;	
@@ -56,16 +52,12 @@ div.rss p {
 
 {% block content %}
 
-<div id="banner">
-  <div class="super">
-  	<h1>Write a review for {{ tea }} tea</h1>
-  	<p class="subtitle">Thanks for taking the time to write a review. Quality is extremely important to us, so feel free to write down any thoughts, positive or negative, about your tea.</p>
-  </div>
-</div>
 
 <div id="main-text-wide">
   <div class="super">
   
+  <h1>Write a review for {{ tea }} tea</h1>
+  	<p class="introduction">Thanks for taking the time to write a review. Quality is extremely important to us, so feel free to write down any thoughts, positive or negative, about your tea.</p>
       <div class="rss">
     	<div id="facebook">
 		    <div id="fb-root"></div>
