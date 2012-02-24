@@ -148,6 +148,15 @@ h2 {
   margin: 0;	
 }
 
+.block h4.promo {
+    background-color: #F1F1F1;
+    bottom: 31px;
+    font-size: 15px;
+    left: 22px;
+    padding: 6px 8px 4px;
+    position: absolute;
+}
+
 </style>
 
 
@@ -172,7 +181,7 @@ h2 {
 					<img src="{{ im.url }}"/>
 				{% endthumbnail %}
 			{% endif %}
-			<h4><a href="{% url page p.slug %}">{{ p.title }}</a></h4>
+			<h4 {% if p.promo_image %}class="promo"{% endif %}><a href="{% url page p.slug %}">{{ p.title }}</a></h4>
 			<p>{{ p.meta_description }}</p>
 		</div>
 		{% endfor %}
@@ -194,7 +203,7 @@ h2 {
 	    	<li id="facebook">
 			    <div id="fb-root"></div>
 			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-			    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+			    <fb:like href="http://www.minrivertea.com{{ page.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 			    </fb:like>
 			</li>
 		</ul>
