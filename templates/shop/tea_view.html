@@ -574,28 +574,6 @@ div.fb-recommend {
 
 <div id="main-text-wide">
   <div class="super">
-  
-  
-  	{% if ga_is_on %}
-    <ul class="rss">
-		<li id="google">
-			<g:plusone></g:plusone>
-			<script type="text/javascript">
-			  (function() {
-			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-			    po.src = 'https://apis.google.com/js/plusone.js';
-			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-			  })();
-			</script>
-		</li>
-    	<li id="facebook">
-		    <div id="fb-root"></div>
-		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
-		    </fb:like>
-		</li>
-	</ul>
-	{% endif %}
 	
 	<h1>{% if tea.long_name %}{{ tea.long_name|safe }}{% else %}{{ tea.name }}{% endif %}</h1>
 
@@ -745,6 +723,29 @@ div.fb-recommend {
 			
 						 
 </div>
+
+
+  	{% if ga_is_on %}
+    <ul class="rss">
+		<li id="google">
+			<g:plusone></g:plusone>
+			<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+		</li>
+    	<li id="facebook">
+		    <div id="fb-root"></div>
+		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
+		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+		    </fb:like>
+		</li>
+	</ul>
+	{% endif %}
+
 
 </div>
 </div>
