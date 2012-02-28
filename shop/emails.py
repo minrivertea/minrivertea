@@ -195,8 +195,8 @@ def _send_two_month_reminder_email(order):
     })
     
     _send_email(receiver, subject_line, text, html)
-    #order.owner.reminder_email_sent = datetime.now()
-    #order.owner.save()
+    order.owner.reminder_email_sent = datetime.now()
+    order.owner.save()
     
     return True # important, make sure this returns True
 
