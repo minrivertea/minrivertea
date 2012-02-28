@@ -362,7 +362,7 @@ a.more {
   width: 860px;
 }
 
-#banner .category-desc p {
+.category-desc p {
   font-size: 20px;	
   margin: 5px 0 0;
   color: #000;
