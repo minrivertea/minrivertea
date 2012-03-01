@@ -3,7 +3,7 @@
 {% load django_static %}
 
 {% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
-{% block pagetitle %}{{ tea.meta_title }}{% endblock %}
+{% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
 
 {% block extrajs %}
 <script>
@@ -320,10 +320,7 @@ div.message img {
 }
 
 table.details {
-    color: #333;
-    font-size: 16px;
     margin-top: 10px;
-    width: 660px;
 }
 
 table.details tr {
@@ -639,7 +636,7 @@ div.fb-recommend {
 				{% for price in prices %}
 		    	  <div id="price_{{ price.id }}" class="price large">
 		    	  	<div class="message"></div>
-		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
+		    		<p class="price">{{ currency.symbol }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
 					<a title="Add 1x {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button single" id="add_to_basket_{{ price.id }}">Add to basket +</a>
               	</div>
@@ -649,7 +646,7 @@ div.fb-recommend {
 		    	{% for price in prices %}
 		    	  <div id="price_{{ price.id }}" class="price{% if forloop.last %} last{% endif %}">
 		    	  	<div class="message"></div>
-		    		<p class="price">{{ price.price_unit }}{{ price.price|floatformat }}</p> 
+		    		<p class="price">{{ currency.symbol }}{{ price.price|floatformat }}</p> 
 		    		<p class="price-description">{{ price.description }}</p>
 					<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button" id="add_to_basket_{{ price.id }}">Add to basket +</a>
             	  </div>
@@ -659,7 +656,7 @@ div.fb-recommend {
 
 		<div id="price-helper">        
         	{% if tea.coming_soon %}
-       			<a href="" class="not-in-stock">We're restocking this tea now!</a><br/>Pre-order this tea now and it will be delivered on {{ tea.get_preorder_date|date:"d M Y" }}</a>
+       			<a href="" class="not-in-stock">We're restocking this item right now!</a><br/>If you order now, it will be delivered on {{ tea.get_preorder_date|date:"d M Y" }}</a>
         	{% else %}
 				<a href="/where-do-we-deliver/">Wondering where we deliver?</a><br/>
 				UK, USA and Europe for just {{ currency.symbol }}{{ currency.postage_cost }} per order

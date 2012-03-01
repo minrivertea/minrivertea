@@ -35,10 +35,6 @@
 {% block extracss %}
 <style type="text/css">
 
-div#main-text-wide div#left {
-  width: 100%;	
-}
-
 
 div#main-text-wide div#right {
   float: left;
@@ -215,10 +211,10 @@ ul.follow li img {
 div.box {
   float: left;
   width: 270px;
-  margin-right: 50px;	
+  margin: 20px 50px 0 0;	
 }
 
-div#main-text-wide div#left div.box h3 {
+div.box h3 {
   color: #f37679;	
   border-bottom: 1px solid #e1e1e1;
   padding-bottom: 5px;
@@ -277,10 +273,6 @@ img#loading-contact {
 			</ul>
 	 	</div>
 	
-
-
-		
-	<div id="left">
 	 	<div class="box"> 		
 		 	<h3>Returns</h3>
 		 	<p>If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked.</p>
@@ -294,7 +286,7 @@ img#loading-contact {
 		 	<p>Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch.</p>
 		</div>
 		
-		
+			<div id="left">
 		<div id="form">	
 			{% if message %}
 				{% include 'shop/forms/contact_form_message_snippet.html' %}

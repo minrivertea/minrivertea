@@ -1,3 +1,5 @@
+{% load django_static %}
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -17,110 +19,66 @@
 	<meta name="DC.type" content="Django Site" />
 	<meta name="robots" content="ALL" />
 	<title>Site unavailable - The Min River Tea Farm</title>
-	<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
-	
-	<script type="text/javascript" src="/static/js/jquery-1.6.min.js"></script>
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+
 	<style type="text/css">
-	 	body {font-family: Helvetica, sans-serif; }
-	 	div#header { width: 960px; margin: 0 auto; height: 110px;}
+	 	body {font-family: "Times New Roman", serif; }
+	 	.super {
+    		margin: 0 auto;
+    		position: relative;
+    		width: 960px;
+		}
+		
+		a:link, a:visited {
+		  color: #237A2A;
+		  text-decoration: none;	
+		}
+		
+		a:hover {
+		  color: #F37679;	
+		}
 	 	
-	 	div#logo { width: 420px; float: left; margin: 40px 0 0 0px;}
-		div#logo h1 {background: url("/static/images/logo13.png") no-repeat scroll 0 0 transparent; height: 80px; margin: 0px 0 0 20px;
-}
+	 	#header { width: 100%; margin: 0 auto; height: 180px; }
+	 	
+	 	#logo { width: 420px; float: left; margin: 40px 0 0 0px;}
+		#logo h1 {
+			background: url("/images/logo13.png") no-repeat scroll 0 0 transparent; 
+			height: 80px; 
+			margin: 0px 0 0 20px;
+		}
+
 		div#logo h1 span {
   			display: none;	
 		}
 	
 	    
-	    div#main-text-wide {width: 960px; margin: 0 auto; margin-top: 0px;}
+	    div#main-text-wide {width: 100%;}
+	    
+		img.monkey {
+		  float: left;
+		  margin: 0 80px 20px 0;	
+		}
 		
-		#soup-main {display: block; position: relative; overflow: hidden; width:960px; height: 460px; margin-top: 30px;}
-		img#soup-back {position: absolute; z-index: 1; left: 0px; width: 960px; height: 460px;}
-		img#soup-front {position: absolute; z-index: 14; width: 960px; height: 460px; left: 0px; top: 0px;}
-		img#soup-fields {position: absolute; z-index:10; width: 1000px; height: 460px; top: 50px; left: -20px;}
-		img#soup-text {position: absolute; z-index:18; width: 800px; height: 420px; top: 20px; right: 30px;}
+		.top {
+		  float: left;
+		  width: 400px;
+		  margin-top: 50px;	
+		}
 		
-		div.text {padding: 20px; margin-top: 1px; }
-
-		p { text-align: center; font-size: 17px; line-height: 1.8em; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 5px dotted #9ee2b0;}
-		p.small {font-size: 12px; border-bottom: none; padding-bottom: 0; margin-bottom: 0;}
-		a img {text-decoration: none; border: none;}
+		.top h1 {
+		  font-family: Helvetica, Arial, sans-serif;
+		  letter-spacing: -1px;
+		  color: #237A2A;	
+		}
 		
-
+		.top p {
+		  font-size: 17px;
+		  line-height: 1.5em;	
+		}
+		
 	</style>
 
-<script type="application/javascript">
-  (function($){
-    $(document).ready(function(){
-      var docWidth    = $(window).width()
-      var docHeight   = $(window).height()
-
-      // add parallaxable elements
-      var pList  = [
-                             { 'obj'    : $('#soup-front'),
-                               'xStart' : 0,
-                               'yStart' : 0,
-                               'xRange' : 10,
-                               'yRange' : 10,
-                               'invert' : false
-                             },
-                             { 'obj'    : $('#soup-back'),
-                               'xStart' : 0,
-                               'yStart' : 0,
-                               'xRange' : 0,
-                               'yRange' : 0,
-                               'invert' : false
-                             },
-                             { 'obj'    : $('#soup-fields'),
-                               'xStart' : 0,
-                               'yStart' : 0,
-                               'xRange' : 0,
-                               'yRange' : 30,
-                               'invert' : false
-                             },
-                             { 'obj'    : $('#soup-text'),
-                               'xStart' : 0,
-                               'yStart' : 0,
-                               'xRange' : 7,
-                               'yRange' : 0,
-                               'invert' : false
-                             }
-                           ]
-
-      // set the initial locations, used for mathmatical reference
-      $.each(pList, function(index,value) {
-        var position = value.obj.position()
-        value.xStart = position.left
-        value.yStart = position.top
-      })
-
-      $(document).mousemove(function(e){
-        var x      = e.pageX
-        var y      = e.pageY
-        var hRatio = Math.round((x/docWidth)*100)/100
-        var vRatio = Math.round((y/docWidth)*100)/100
-        $.each(pList, function(index,value) {
-          if(value.invert != true){
-            value.obj.css('left',value.xStart + (value.xRange*hRatio))
-            value.obj.css('top',value.yStart + (value.yRange*vRatio))
-          } else {
-            value.obj.css('left',value.xStart - (value.xRange*hRatio))
-            value.obj.css('top',value.yStart - (value.yRange*vRatio))
-          }
-        })
-      })
-      $(window).resize(function(e){
-        docWidth  = $(window).width()
-        docHeight = $(window).height()
-      })
-    })
-  })(jQuery)
-</script>
-
-
 </head>
-
-
 
 <body>
 
@@ -128,29 +86,24 @@
     <div id="container">    
     
 	    <div id="header">
+	      <div class="super">
 			<div id="logo">
 				<h1><span></span></h1>
 			</div>
+		  </div>
         </div>
         
-        <div id="featured-small"></div>
         <div id="main-text-wide">
+		  <div class="super">
+		  	<img class="monkey" src="/images/monkey2.jpg"/>
+			<div class="top">
+				<h1>Looks like we've got some monkeys in our tea shop…</h1>
+				<p>Sorry, there's been a technical problem. We're aware of it and we'll try to fix it ASAP. You can try to refresh the page, or perhaps try again in 5-10 minutes. If it's urgent, just get in touch with us at <a href="mailto:mail@minrivertea.com">mail@minrivertea.com</a></p>
+			</div>
+		  </div>
 
-        <a href="http://www.minrivertea.com">
-        	
-          <div id="soup-main">
-        	<img id="soup-back" src="/static/images/soup-back.png">
-        	<img id="soup-fields" src="/staticimages/soup-fields.png">
-        	<img id="soup-front" src="/static/images/soup-front.png">
-        	<img id="soup-text" src="/static/images/soup-text.png">
-          </div>
-        </a>
-        
-        <div class="text">
-        <p class="small"><em>If you're wondering what this is about, check out the Soup Nazi on Youtube while we get the site back up and running - <a href="http://www.youtube.com/watch?v=M2lfZg-apSA">http://www.youtube.com/watch?v=M2lfZg-apSA</a></em></p>
-        </div>
-        
-        </div>
+
+
 
 
 	<br clear="all"/>
