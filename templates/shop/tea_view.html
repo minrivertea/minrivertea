@@ -656,7 +656,7 @@ div.fb-recommend {
 
 		<div id="price-helper">        
         	{% if tea.coming_soon %}
-       			<a href="" class="not-in-stock">We're restocking this item right now!</a><br/>If you order now, it will be delivered on {{ tea.get_preorder_date|date:"d M Y" }}</a>
+       			<a href="" class="not-in-stock">Pre-order and get this on {{ tea.get_preorder_date|date:"d M Y" }}</a><br/>We're restocking, so delivery will take longer than usual</a>
         	{% else %}
 				<a href="/where-do-we-deliver/">Wondering where we deliver?</a><br/>
 				UK, USA and Europe for just {{ currency.symbol }}{{ currency.postage_cost }} per order
@@ -703,23 +703,12 @@ div.fb-recommend {
 	</div>
 
 
+	{% if tea.long_description %}
 	<div id="left">
- 	
 		<h2>More information</h2>
-		{{ tea.long_description|safe }}
-		{% if ga_is_on %}
-		<div class="fb-recommend">
-		<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=102598969829350&amp;xfbml=1"></script><fb:like href="http://www.minrivertea.com{{ tea.get_absolute_url }}" send="false" width="450" show_faces="false" action="recommend" font=""></fb:like>
-		</div>
-		{% endif %}
-		
-	
-
-	
-	
-			
-						 
-</div>
+		{{ tea.long_description|safe }}						 
+	</div>
+	{% endif %}
 
 
   	{% if ga_is_on %}
