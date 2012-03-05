@@ -147,7 +147,22 @@ def _get_products(request, cat=None):
 
 # the homepage view
 def index(request):
-    reviews = Review.objects.all().order_by('?')[:4]
+    reviews_list = Review.objects.filter(is_published=True).order_by('?')
+    
+  
+    seen = {}
+    reviews_one = []
+    for item in reviews_list:
+        marker = item.product
+        # in old Python versions:
+        # if seen.has_key(marker)
+        # but in new ones:
+        if marker in seen: continue
+        seen[marker] = 1
+        reviews_one.append(item)
+    
+    reviews = reviews_one[:4]
+    
     return render(request, "shop/home.html", locals())
 
 def page(request, slug, x=None, y=None, z=None):

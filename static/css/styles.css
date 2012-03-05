@@ -22,7 +22,7 @@ body {
 /* typography */
 
 h1 {
-    color: #F37679;
+    color: #FF6569;
     font-size: 48px;
     font-weight: normal;
     letter-spacing: -1px;
@@ -121,7 +121,7 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-  color: #F37679;
+  color: #FF6569;
 }
 
 ul {
@@ -170,7 +170,28 @@ input.button, div#comments div#comment-form input.submit-post {
 }
 
 input.button:hover {
-  color: #F37679;	
+  color: #FF6569;	
+}
+
+.button.green {
+    background: #237A2A;
+    background: -moz-linear-gradient(100% 100% 90deg, #237A2A, #399440) repeat scroll 0 0 transparent;
+    /* Safari 4-5, Chrome 1-9 */ 
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#399440), to(#237A2A)); 
+    /* Safari 5.1+, Chrome 10+ */ 
+    background: -webkit-linear-gradient(#399440, #237A2A); 
+    /* Opera 11.10+ */ 
+    background: -o-linear-gradient(#237A2A, #399440); 
+    border: 1px solid transparent;
+    text-shadow: none;
+    box-shadow: none;
+    border-top: none;
+    color: #fff; 	
+}
+
+.button.green:hover {
+  box-shadow: 0 0px 4px #666;
+  text-shadow: 0px 1px 1px #333;	
 }
 
 .underline {
@@ -259,37 +280,17 @@ input.button:hover {
 
 div#logo {	 
  width: 440px;
- height: 119px;
- background: url("/images/logo-special.jpg") no-repeat scroll bottom left transparent;
+ height: 62px;
+ background: url("/images/logo13.png") no-repeat scroll bottom left transparent;
  float: left;
- margin: 0px 0 10px 0px;
+ margin: 20px 0 10px 0px;
  position: relative;
-}
-
-#logo span.birthday {
-  font-size: 13px;
-  color: #666;
-  position: absolute;
-  top: 10px;
-  right: 95px;	
-  display: none;
-  text-align: right;
-  width: 300px;
-}
-
-#logo span.birthday strong {
-  font-family: Helvetica, sans-serif;
-  font-size: 15px;	
 }
 
 div#logo:hover {
   opacity: 0.8;	
 }
 
-div#logo:hover {
-  background: url("/images/logo-special.jpg") no-repeat scroll top left transparent;
-  opacity: 1;
-}
 
 #logo:hover span.birthday {
   display: block;	
@@ -396,13 +397,13 @@ ul#nav li a.grey {
 
 ul#nav li a:hover {
   text-decoration: underline;
-  color: #F37679;
+  color: #FF6569;
 }
 
 
 
 ul#nav li a.selected:hover {
-    color: #F37679;	
+    color: #FF6569;	
 }
 
 ul#nav li a.selected {
@@ -1295,6 +1296,10 @@ ul#steps li.selected {
     width: 100%;
 }
 
+#footer .super.thin {
+  width: 860px;	
+}
+
 #footer p {
   font-size: 15px;
   margin-top: 0;
@@ -1308,7 +1313,7 @@ ul#steps li.selected {
 }
 
 .footer-box.about {
-	
+  margin-right: 0;
 }
 
 #footer h4 {
@@ -1316,6 +1321,7 @@ ul#steps li.selected {
   letter-spacing: -1px;
   font-weight: bold;
   margin-bottom: 0;
+  color:#FF6569;
 }
 
 #footer ul {
