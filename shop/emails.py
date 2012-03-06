@@ -345,7 +345,7 @@ def send_email(request, id):
         except:
             link = reverse('email_unsubscribe', args=[r.hashkey])
             
-        text = render_to_string('shop/emails/newsletter_template.txt', {'content': str(email_object.content), 'link':link})
+        text = render_to_string('shop/emails/newsletter_template.txt', {'content': email_object.content, 'link':link})
         _send_email(receiver, subject_line, text)
     
     from shop.views import render
