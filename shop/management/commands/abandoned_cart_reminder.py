@@ -24,7 +24,7 @@ class Command(NoArgsCommand):
                 is_giveaway=False,
                 date_confirmed__range=(start_date, end_date),
                 reminder_email_sent=False,
-        ).exclude(invoice_id__startswith='WL').order_by('-date_confirmed'):
+        ).exclude(invoice_id__startswith='WL'):
             marker = item.owner.email
             if marker in seen: continue
             seen[marker] = 1

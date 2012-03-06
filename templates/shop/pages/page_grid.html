@@ -138,7 +138,6 @@ h2 {
 
 .block img {
   float:left;
-  margin-bottom: 10px;	
   position: relative;
   left: -5px;
 }
@@ -150,7 +149,7 @@ h2 {
 
 .block h4.promo {
     background-color: #F1F1F1;
-    bottom: 31px;
+    bottom: 20px;
     font-size: 15px;
     left: 22px;
     padding: 6px 8px 4px;
@@ -187,27 +186,6 @@ h2 {
 		{% endfor %}
 	
 	</div>
-	
-	{% if ga_is_on %}
-		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
-			<li id="google">
-				<g:plusone></g:plusone>
-				<script type="text/javascript">
-				  (function() {
-				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-				    po.src = 'https://apis.google.com/js/plusone.js';
-				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-				  })();
-				</script>
-			</li>
-	    	<li id="facebook">
-			    <div id="fb-root"></div>
-			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-			    <fb:like href="http://www.minrivertea.com{{ page.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
-			    </fb:like>
-			</li>
-		</ul>
-		{% endif %}
 
 		
   </div>

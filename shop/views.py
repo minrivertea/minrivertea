@@ -154,9 +154,6 @@ def index(request):
     reviews_one = []
     for item in reviews_list:
         marker = item.product
-        # in old Python versions:
-        # if seen.has_key(marker)
-        # but in new ones:
         if marker in seen: continue
         seen[marker] = 1
         reviews_one.append(item)

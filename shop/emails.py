@@ -216,7 +216,6 @@ def _payment_success_email(order):
     # CUSTOMER EMAIL
     receiver = order.owner.email
     subject_line = "Order confirmed - Min River Tea Farm" 
-    
     text = render_to_string('shop/emails/text/order_confirm_customer.txt', {'order': order})
     html = render_to_string('shop/emails/html/html_order_confirm.html', {'order': order, 'subject': subject_line})
     
