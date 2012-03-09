@@ -382,7 +382,7 @@ ul#nav li:not(:last-child) a {
 ul#nav li a:link, ul#nav li a:visited  {
     display: block;
     float: left;
-    font-family: 'Helvetica Neue';
+    font-family: Helvetica, Arial, sans-serif;
     padding: 0px 16px;
     color: #237a2a;
     font-weight: bold;
@@ -399,7 +399,6 @@ ul#nav li a:hover {
   text-decoration: underline;
   color: #FF6569;
 }
-
 
 
 ul#nav li a.selected:hover {
@@ -850,7 +849,7 @@ div#blog-right div.box.clear h4 {
   font-weight: bold;
   border-bottom: 0;
   padding-bottom: 0;
-  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 div#blog-right div.box.clear p {
@@ -980,7 +979,7 @@ div#right p.mail.last {
 }
 
 div#right a.title {
-  font-family: "helveticaneue","helvetica neue","helveticaneueroman","helveticaneue-roman","helvetica neue roman","helvetica","arial",'texgyreherosregular',"tahoma","geneva",sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 900;	
 }
 
