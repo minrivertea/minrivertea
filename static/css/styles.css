@@ -379,7 +379,7 @@ ul#nav li:not(:last-child) a {
   border-right: 2px dotted #e1e1e1;
 }
 
-ul#nav li a:link, ul#nav li a:visited  {
+ul#nav li a, ul#nav li a:link, ul#nav li a:visited  {
     display: block;
     float: left;
     font-family: Helvetica, Arial, sans-serif;
