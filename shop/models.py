@@ -447,7 +447,21 @@ def show_me_the_money(sender, **kwargs):
     order.date_paid = ipn_obj.payment_date
     order.is_paid = True
     order.save()
-        
+    
+    # here we'll adjust the quantities of the stock:
+    try:
+        for item in order.items.all():
+            uniqueproduct = get_object_or_404(UniqueProduct, 
+                parent_product=item.item.parent_product,
+                currency__code='GBP',
+                is_active=True)
+            uniqueproduct.available_stock -= item.quantity
+            uniqueproduct.save()
+    
+    except:
+        pass
+    
+    
     # if it was a WISHLIST payment...
     if order.wishlist_payee:
         # get the owner's wishlist (remember, they can only have 1 wishlist)

@@ -1066,18 +1066,7 @@ def ship_it(request, id):
     if not request.user.is_superuser:
         return HttpResponseRedirect("/")
     
-    order = get_object_or_404(Order, pk=id)
-    
-    # first we'll reduce the stock quantities of each one.
-    for item in order.items.all():
-        uniqueproduct = get_object_or_404(UniqueProduct, 
-            weight=item.item.weight, 
-            parent_product=item.item.parent_product,
-            currency__code='GBP')
-        uniqueproduct.available_stock -= item.quantity
-        uniqueproduct.save()
-           
-    
+    order = get_object_or_404(Order, pk=id)    
     order.status = Order.STATUS_SHIPPED
     order.date_shipped = datetime.now()
     order.save()

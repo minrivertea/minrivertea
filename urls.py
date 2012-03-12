@@ -56,12 +56,13 @@ urlpatterns = patterns('',
     (r'^comments/', include('django.contrib.comments.urls')), 
     
     # urls for the products/categories
-    url(r'^teas/$', category, name="teas"),
-    url(r'^tea-equipment/$', category, name="equipment"),
+    url(r'^packages/$', category, name="packages"),
+    url(r'^packages/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     url(r'^tasters/$', category, name="tasters"),
     url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     url(r'^teaware/$', category, name="teaware"),
     url(r'^teaware/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(r'^teas/$', category, name="teas"),
     url(r'^teas/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
     url(r'^teas/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     

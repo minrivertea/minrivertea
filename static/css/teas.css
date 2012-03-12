@@ -66,7 +66,7 @@ span.more-info {
   left: 60px;	
 }
 
-div.tea-promo:hover span.more-info {
+.tea-promo:hover span.more-info {
   color: #666;	
 }
 
@@ -134,49 +134,10 @@ span.message img {
     width: 0;
     z-index: -1;	
 }
-	
-	
-div.tea-promo .did-you-know {
-  margin-top: -5px;
-  width: auto;
-  padding: 4px 8px;
-  margin-right: 5px;
-}
-
-div.tea-promo .did-you-know h3 {
-  font-size: 11px;
-  margin: 0;
-  color:#555;
-  text-shadow: 0 1px 1px #fff;
-}
-
-div.tea-promo .did-you-know:hover:after {
-  border-bottom-color: #84c37d;	
-}
-
-/* this is the background of the arrow */
-div.tea-promo .did-you-know:after {
-        border-bottom: 7px solid #e1e1e1;         
-        border-left: 7px solid transparent;
-        border-right: 7px solid transparent;
-        position: absolute;
-        top: -7px;
-        left: 14px;
-}
-
-/* this is the foreground of the arrow */
-div.tea-promo .did-you-know:before {
-        border-bottom: 7px solid hsla(0,0%,95%,1);     
-        border-left: 7px solid transparent;
-        border-right: 7px solid transparent;
-        position: absolute;
-        top: -6px;
-        left: 15px;
-}
 
 /* tea listing styles */
 
-div#teas {
+#teas {
   margin-top: 30px;	
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -197,33 +158,33 @@ div.tea-promo {
     border: 1px solid #e1e1e1;
 }
 
-div.tea-promo.last {
+.tea-promo.last {
   margin-right: 0;	
 }
 
-div.tea-promo div.image {
+.tea-promo div.image {
     float: left;
     margin-right: 30px;
     width: 360px;
 }
 
 
-div.tea-promo:hover {
+.tea-promo:hover {
   box-shadow: 0 0px 8px #c1c1c1;
   border: 1px solid #b1b1b1;	
   cursor: pointer;
 }
 
-div.tea-promo div.text {
+.tea-promo div.text {
   width: 380px;
   float: left;	
 }
 
-div#main-text-wide div#left div.tea-promo div.text p {
+div#main-text-wide div#left .tea-promo div.text p {
   margin: 0 0 0 0;	
 }
 
-div.tea-promo span.link {
+.tea-promo span.link {
   position:absolute;
   width:100%; 
   height:100%; 
@@ -232,43 +193,7 @@ div.tea-promo span.link {
   z-index: 1;	
 }
 
-div.tea-promo a.add-to-basket {
-  background: url('/images/price-back-small.png') no-repeat top;
-  width: 108px;
-  height: 25px;
-  position: relative;
-  float:left;	
-  margin-right: 10px;
-  z-index: 2;
-}
-
-div.tea-promo a.more-details {
-  background: url('/images/more-details.png') no-repeat top;
-  width: 108px;
-  height: 25px;
-  position: relative;
-  float:left;
-    z-index: 2;	
-}
-
-div.tea-promo:hover a.more-details {
-  background: url('/images/more-details.png') no-repeat center;
-}
-
-div.tea-promo:hover a.add-to-basket {
-  background: url('/images/price-back-small.png') no-repeat center;	
-}
-
-div.tea-promo a.add-to-basket:hover {
-  background: url('/images/price-back-small.png') no-repeat bottom;
-}
-
-div.tea-promo a.more-details:hover {
-  background: url('/images/more-details.png') no-repeat bottom;
-}
-
-
-div.tea-promo h3 {
+.tea-promo h3 {
     font-size: 30px;
     font-weight: normal;
     letter-spacing: -1px;
@@ -276,23 +201,17 @@ div.tea-promo h3 {
     margin-top: 0;
 }
 
-div.tea-promo:hover h3 a {
+.tea-promo:hover h3 a {
   text-decoration: underline;	
 }
 
 
-div.tea-promo p {
+.tea-promo p {
     font-size: 18px;
     margin: 0;
 }
 
-
-
-div.did-you-know {
-  width: 500px;	
-}
-
-div.tea-promo p.reviews {
+.tea-promo p.reviews {
   color: #333;
   font-size: 13px;
 }
@@ -312,23 +231,6 @@ p.subtitle {
   margin-bottom: 10px;
   float: left;
   width: 500px;	
-}
-
-div#banner p.quote {
-    float: right;
-    font-family: "Times New Roman", Georgia, serif;
-    font-size: 16px;
-    margin: 15px 50px 0;
-    width: 360px;
-}
-
-p.subtitle span {
-    background-color: #BE373A;
-    border-radius: 3px 3px 3px 3px;
-    color: #FFFFFF;
-    font-weight: bold;
-    margin: 0 6px 0 6px;
-    padding: 4px 5px 2px;
 }
 
 span.reviews {
@@ -371,123 +273,5 @@ a.more {
 .category-desc p {
   font-size: 20px;	
   margin: 5px 0 0;
-}
-
-#chooser {
-  float: left;
-  width: 100%;
-  margin: -15px 50px 30px 0;
-}
-
-#chooser p {
-  margin: 0;
-  color: #F37679;
-}
-
-#chooser a {
-  float: left;
-  width: 130px;
-  text-align: center;
-  font-size: 16px;	
-  margin-right: 0px;
-  margin-left: 0px;
-  padding: 6px 15px 5px;
-  border: 1px solid #d1d1d1;
-  position: relative; 
-  text-shadow: 1px 1px 0 #fff;
-  color: #F37679;
-        /* Firefox 3.6+ */ 
-    background: -moz-linear-gradient(100% 100% 90deg, #f1f1f1, #fff); 
-    
-    /* Safari 4-5, Chrome 1-9 */ /* -webkit-gradient(<type>, <point> [, <radius>]?, <point> [, <radius>]? [, <stop>]*) */ 
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f1f1f1), to(#e6e6e6)); 
-    
-    /* Safari 5.1+, Chrome 10+ */ 
-    background: -webkit-linear-gradient(#f1f1f1, #e6e6e6); 
-    
-    /* Opera 11.10+ */ 
-    background: -o-linear-gradient(#e6e6e6, #f1f1f1);
-}
-
-#chooser a.selected {
-  color: #000;
-  font-weight: bold;
-  border: 1px solid #c1c1c1;
-  position: relative;
-  background: #fff;
-}
-
-#chooser a:first-child {
-  border-radius: 4px 0 0 4px;
-  border-right: none;
-}
-
-#chooser a:last-child {
-  border-radius: 0px 4px 4px 0;	
-  border-left: none;
-}
-
-#chooser a:hover:before {
-	    content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-top: 15px solid #f1f1f1;     
-        border-bottom: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        position: absolute;
-        bottom: -15px;
-        left: 60px;
-        z-index: 2;
-        margin-left: -1px;	
-}
-
-#chooser a:hover:after {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-top: 15px solid #c1c1c1;         
-        border-bottom: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        position: absolute;
-        bottom: -16px;
-        left: 59px;
-        z-index: 1;
-        margin-left: ;	
-}
-
-#chooser a.selected:after {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-top: 15px solid #999;         
-        border-bottom: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        position: absolute;
-        bottom: -16px;
-        left: 59px;
-        z-index: 1;
-        margin-left: ;	
-}
-
-#chooser a.selected:before {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-top: 15px solid #fff;     
-        border-bottom: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        position: absolute;
-        bottom: -15px;
-        left: 60px;
-        z-index: 2;
-        margin-left: -1px;	
 }
 
