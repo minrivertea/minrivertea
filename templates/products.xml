@@ -422,6 +422,29 @@ It's grown in the Wuyi Mountains of Fujian, and is an Oolong tea with a natural 
 		</g:delivery>
 		<g:delivery_weight>60 grams</g:delivery_weight>
 	</item>
+
+	<item>
+		<title>Red Jasmine 100g</title>
+		<g:brand>Min River Tea Farm</g:brand>
+		<g:mpn>RedJasmine100</g:mpn>
+		<g:condition>new</g:condition>
+		<description>Red Jasmine is a tea taste revolution - the deep, earthy tones of red tea combined with a sweet Jasmine fragrance. Traditionally, only green tea leaves couuld hold the delicate Jasmine flower fragrance - until now. Red Jasmine Tea is made using a recently discovered method, and is one of the 'holy grails' of tea-tasting. We're proud to be the first UK company to sell this incredible tea, and it's our new favourite brew!</description>
+		<g:id>19UK</g:id>
+		<g:gtin>5060271120124</g:gtin>
+		<g:image_link>http://static.minrivertea.com/images/product-photos/red-jasmine.jpg</g:image_link>
+		<link>http://www.minrivertea.com/teas/jasmine-red-tea/</link>
+		<g:price>55.00 GBP</g:price>
+		<g:google_product_category>Food, Beverages &amp; Tobacco &gt; Beverages &gt; Tea &amp; Infusions</g:google_product_category>
+		<g:product_type>Tea &gt; Chinese tea &gt; Red tea </g:product_type>
+		<g:availability>in stock</g:availability>
+		<g:online_only>y</g:online_only>
+		<g:delivery>
+   			<g:country>GB</g:country>
+   			<g:service>Royal Mail</g:service>
+   			<g:price>3.00</g:price>
+		</g:delivery>
+		<g:delivery_weight>120 grams</g:delivery_weight>
+	</item>
 	
 
 </channel>
