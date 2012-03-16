@@ -1291,8 +1291,9 @@ ul#steps li.selected {
     float: left;
     height: 300px;
     margin-top: 80px;
-    padding: 0px 0 180px;
+    padding: 40px 0 180px;
     width: 100%;
+    border-top: 10px solid #E1ECF3 
 }
 
 #footer .super.thin {
