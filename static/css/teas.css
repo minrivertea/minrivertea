@@ -170,8 +170,8 @@ div.tea-promo {
 
 
 .tea-promo:hover {
-  box-shadow: 0 0px 8px #c1c1c1;
-  border: 1px solid #b1b1b1;	
+  box-shadow: 0 0px 8px #e1e1e1;
+  border: 1px solid #c1c1c1;	
   cursor: pointer;
 }
 

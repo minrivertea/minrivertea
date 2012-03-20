@@ -71,6 +71,7 @@ class Product(models.Model):
         help_text="A Hex reference with the preceding # hash")
     coming_soon = models.BooleanField(default=False)
     recommended = models.ManyToManyField('Product', blank=True, null=True)
+
         
     def __unicode__(self):
         return self.name

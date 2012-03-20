@@ -78,8 +78,10 @@ div#header {
 
 #adventure h2 {
   float: left;
-  width: 460px;	
+  width: 480px;	
   margin: 0px 0px 0 0;
+  font-size: 40px;
+  color: #FF6569;
 }
 
 #adventure p {
@@ -122,7 +124,7 @@ div#header {
 #benefits #teas {
   float: left;
   width: 960px;
-  margin-top: 20px;
+  margin-top: 0px;
   border-bottom: none;	
   height: auto;
 }
@@ -134,7 +136,7 @@ div#header {
 }
 
 #benefits .tea h4 {
-    margin: 15px 0 5px;
+    margin: 15px 0 5px 8px;
     padding: 0;
     font-weight: bold;
     font-family: Helvetica, Arial, sans-serif;
@@ -142,7 +144,7 @@ div#header {
 }
 
 #benefits .tea p {
-  margin: 0;
+  margin: 10px 0 0;
   color: #666;
   font-size: 14px;
   line-height: 1.3em;	
@@ -222,29 +224,30 @@ div#adventure #icons {
 		<div id="teas">
 			{% for r in reviews %}
 				<div class="tea">
+					<h4><a href="{{ r.product.get_absolute_url }}">{{ r.product.name }}</a></h4>
 				{% thumbnail r.product.image "200" crop="center" as im %}
 					<a alt="a picture of our {{ tea.name }} Chinese tea" title="{{ tea.name }} Chinese tea" href="{{ r.product.get_absolute_url }}">
 						<img alt="{{ r.product.description }}" src="{{ im.url }}"/>
 					</a>
 				{% endthumbnail %}
-				<h4><a href="{{ r.product.get_absolute_url }}">{{ r.product.name }}</a></h4>
+				
 				<p>{{ r.short_text|safe }} <br/><span class="red">{{ r.first_name }} {{ r.last_name }}</span></p>
 				</div>
 			{% endfor %}
 		</div>
 		
-		<a class="underline" id="more" href="{% url teas %}">We have lots more oolong, red, green and scented teas &raquo;</a>
+		<a class="underline" id="more" href="{% url teas %}">Take a look at our full range of teas &raquo;</a>
 	</div>	
 
 	<div id="adventure">
 		<img alt="Min River Tea Farm co-founder hugging a tea tree on Wuyi Mountain" src="{% staticfile '/images/home-mountain.jpg' %}"/>
-		<h2>Buy your tea from the experts</h2>
-		<p>We're the <strong>only</strong> boutique UK tea company actually based in China. It means <span class="underline">you can relax with your tea</span> because we're in China full-time, constantly seeking out the best quality teas for you. <br/><a href="">Read more about us &raquo;</a></p>
-		<div id="icons">
-			<div id="home-icon" class="icons"><a href="/where-do-we-deliver/">We deliver direct to your home</a></div>
-			<div id="fresh-icon" class="icons"><a href="/our-teas/">100% fresh and natural tea leaves</a></div>
-			<div id="recycle-icon" class="icons"><a href="/tea-and-the-environment/">Tea is great for the environment!</a></div>
-		</div>
+		<h2>A big <em>ni hao</em> from China!</h2>
+		
+		<p>We're the only independent UK tea company <span class="underline">in China full-time</span>. We speak Chinese, we learn about tea, we visit tea farms and <strong>we source tea directly from farmers</strong>.</p>
+		
+		<p>So when you buy from us, you get <strong>tasty, healthy and natural tea</strong> that comes direct from a farm in China, and not through a wholesaler or trading company. Just like it should. <br/><a href="/about/">Find out more &raquo;</a></p>
+		
+	
 	</div>
 
 
