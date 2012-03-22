@@ -279,11 +279,11 @@ input.button:hover {
 }
 
 div#logo {	 
- width: 440px;
- height: 62px;
- background: url("/images/logo13.png") no-repeat scroll bottom left transparent;
+ width: 480px;
+ height: 82px;
+ background: url("/images/logo14.jpg") no-repeat scroll bottom left transparent;
  float: left;
- margin: 20px 0 10px 0px;
+ margin: 10px 0 20px 0px;
  position: relative;
 }
 

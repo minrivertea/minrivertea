@@ -17,7 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Others', {
             'fields': ('category', 'is_featured', 'is_active', 'tag_text', 'tag_color',
-                'coming_soon', 'list_order', 'recommended', 'product_type')
+                'coming_soon', 'list_order', 'recommended')
         }),
     )
 
