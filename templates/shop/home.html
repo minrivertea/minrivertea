@@ -226,7 +226,7 @@ div#adventure #icons {
 				<div class="tea">
 					<h4><a href="{{ r.product.get_absolute_url }}">{{ r.product.name }}</a></h4>
 				{% thumbnail r.product.image "200" crop="center" as im %}
-					<a alt="a picture of our {{ tea.name }} Chinese tea" title="{{ tea.name }} Chinese tea" href="{{ r.product.get_absolute_url }}">
+					<a alt="a picture of our {{ r.product.name }} Chinese tea" title="{{ r.product.name }}" href="{{ r.product.get_absolute_url }}">
 						<img alt="{{ r.product.description }}" src="{{ im.url }}"/>
 					</a>
 				{% endthumbnail %}
