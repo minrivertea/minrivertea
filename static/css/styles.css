@@ -1036,7 +1036,7 @@ div.rss {
 ul.rss {
    float: right;
    list-style-type: none;
-   width: 200px;
+   width: 130px;
    overflow: hidden;
    position: relative;
    margin: 15px 0 0 0;
@@ -1187,13 +1187,13 @@ ul.rss.opaque {
 }
 
 ul.rss #google {
-  width: 70px;
+  width: 60px;
   float: left;
   margin-right: 10px;
 }
 
 ul.rss #facebook {
-  width: 70px;
+  width: 60px;
   float: left;	
   position: relative;
   top: -2px;
