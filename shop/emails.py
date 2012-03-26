@@ -266,6 +266,7 @@ def email_signup(request):
     else:
         form = EmailSignupForm()
     
+    url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
     
     

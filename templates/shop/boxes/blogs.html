@@ -1,0 +1,8 @@
+<div class="info blogs">
+			<h3>Other recent entries</h3>
+			<ul>
+				{% for e in other_entries %}
+				<li><a href="{% url blog_entry e.slug %}">{{ e.title }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>

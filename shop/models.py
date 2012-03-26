@@ -85,7 +85,11 @@ class Product(models.Model):
     
     def get_lowest_price(self):
         try:
-            prices = UniqueProduct.objects.filter(parent_product=self, is_sale_price=False).order_by('price')[0]
+            prices = UniqueProduct.objects.filter(
+                parent_product=self,
+                is_active=True, 
+                is_sale_price=False, 
+            ).order_by('price')[0]
         except:
             prices = None
         return prices

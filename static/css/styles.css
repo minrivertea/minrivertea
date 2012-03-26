@@ -89,13 +89,9 @@ div.left h4 {
     padding-bottom: 0;
 }
 
-div#right h3 {
-    font-size: 14px;
-    font-weight: bold;
-    font-family: Helvetica, Arial, sans-serif;
-}
 
-div#right h4 {
+
+#right h4 {
   color: #333;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
@@ -557,10 +553,10 @@ div#banner {
     width: 600px;
 }
 
-#main-text-wide div#right {
+#main-text-wide #right {
     float: right;
-    padding-left: 20px;
-    width: 240px;
+    padding: 0px;
+    width: 260px;
 }
 
 p.introduction {
@@ -570,19 +566,126 @@ p.introduction {
     padding-bottom: 10px;
 }
 
+/* right-side boxes */
+
+.info {
+    background-color: #FFFFFF;
+    border: 1px solid #E1E1E1;
+    float: left;
+    margin-bottom: 30px;
+    padding: 15px;
+    width: 230px;
+    position: relative;
+}
+
+.info h3 {
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	margin: 0 0 5px 0;
+}
+
+.info p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+
+.info.email-signup, .info.tea, .info.bio, .info.photo {
+  background-color: transparent;
+  border: none;
+  padding: 0 0px;
+  width: 260px;	
+}
+
+.info.photo {
+  margin-bottom: 30px;	
+}
+
+.info.email-signup input {
+  width: 230px;	
+  margin: 0;
+}
+
+.info.email-signup input.submit {
+  width: 100px;
+  height: auto;
+  padding: 6px 8px 2px;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 5px 0 0;
+  float: right;	
+}
+
+.info.email-signup p {
+  font-size: 14px;
+  margin: 0 0 5px 0;	
+}
+
+.info.email-signup span {
+  font-size: 12px;
+  float: left;
+  width: 150px;
+  margin: 8px 0 0 5px;
+  color: #666;	
+}
+
+.info.tea {
+  margin-bottom: 110px;
+}
+
+.info.tea .text {
+  position: absolute;
+  bottom: -80px;
+  left: 0px;
+  padding: 10px;
+  background-color: #fff;
+  width: 240px;
+  margin-bottom: 0px;	
+  border: 1px solid #e1e1e1;
+  border-width: 0 1px 1px 1px;
+}
+
+.info.tea .text h3 {
+  margin: 0;	
+}
+
+.info.bio img {
+  	float: left;
+  	margin-right: 10px;
+}
+
+.info.blogs ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;	
+}
+
+.info.blogs ul li {
+  margin: 5px 0 5px;
+  border-bottom: 2px dotted #e1e1e1;
+  padding: 0 0 5px 0;
+}
+
+.info.blogs ul li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;	
+}
+
+.info.follow h3 {
+  margin-bottom: 10px;	
+}
+
+
+
+/* END RIGHT SIDE BOXES */
+
+
 
 /* tea listing styles */
-
-div#right p {
-  margin: 0 0 10px 0;
-  padding: 0;
-  font-size: 15px;
-  line-height: 1.4em;	
-}
-
-div#right p.small {
-  font-size: 11px;
-}
 
 
 /* tea page styles */
@@ -764,7 +867,7 @@ div.about-box {
 }
 
 
-div#right div.about-box h3 {
+#right div.about-box h3 {
     font-weight: bold;
     text-align: left;
 }
@@ -918,7 +1021,7 @@ div.like div.text {
   width: 160px;
 }
 
-div#right div.like div.text p {
+#right div.like div.text p {
   line-height: 1.2em;
   font-size: 12px;
 }
@@ -939,72 +1042,10 @@ ul.rss {
    margin: 15px 0 0 0;
 }
 
-div.info {
-    background-color: #FFFFFF;
-    border: 1px solid #E1E1E1;
-    float: left;
-    margin-bottom: 20px;
-    padding: 10px 15px;
-    width: 210px;
-}
 
-div.info.last {
-  border-bottom: none;	
-}
-
-div.info.wide {
-  width: 600px;	
-}
-
-
-
-#main-text-wide #left div.info h3 {
-  margin: 5px 0 10px;
-  padding-bottom: 5px;	
-}
-
-
-div#right p.mail {
-    float: left;
-    font-size: 12px;
-    height: 55px;
-    line-height: 1.2em;
-    margin: 0px 0 10px 0;
-    width: 210px;
-    position: relative;
-}
-
-div#right p.mail.last {
-  margin-bottom: 0;	
-}
-
-div#right a.title {
+#right a.title {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: 900;	
-}
-
-div#right p.mail:hover img.mail-icon {
-  opacity: 0.8;	
-}
-
-div#right p.mail:hover a.title {
-  text-decoration: underline;	
-}
-
-div#right p.mail span.link {
-  position:absolute;
-  width:100%; 
-  height:100%; 
-  top:0; 
-  left: 0; 
-  z-index: 1;	
-}
-
-img.mail-icon {
-    border-radius: 5px 5px 5px 5px;
-    float: left;
-    margin-right: 10px;
-    position: relative;
 }
 
 span.red {
@@ -1041,13 +1082,13 @@ span.red {
    border-radius: 5px;
 }
 
-div#right .did-you-know {
+#right .did-you-know {
   width: 190px;
   margin-top: 0px;
   padding: 10px;  	
 }
 
-div#right .did-you-know p, .did-you-know-p {
+#right .did-you-know p, .did-you-know-p {
   font-size: 11px;
   margin: 0;	
 }

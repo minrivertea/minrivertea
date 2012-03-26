@@ -24,20 +24,14 @@ div#main-text-wide {
   margin-top: 30px;	
 }
 
+#right {
+  margin-top: 30px;	
+}
+
 ul.rss {
   top: 60px;
   right: 0px;
   width: 180px;	
-}
-
-p {
-  font-size: 18px;
-  line-height: 1.9em;
-}
-
-
-div#main-text-wide div#right {
-  margin-top: 0px;	
 }
 
 div#entry-content h3 {
@@ -158,38 +152,6 @@ div#right li.twitter {
   margin-right: 0;
 }
 
-div#right div.info.tea {
-  padding: 0;
-  width: 220px;	
-  border: none;
-  background: none;
-  position: relative;
-}
-
-div#right div.info.tea img {
-  border: 10px solid #fff;	
-}
-
-div#right div.info.tea p {
-  margin-top: 10px;
-  font-weight: normal;	
-  padding: 10px 20px;
-  font-size: 15px;
-  position: absolute;
-  bottom: 0px;
-  width: 200px;
-  display: none;
-  background-color: #fff;
-}
-
-div#right div.info.tea p:hover {
-  cursor: pointer;	
-}
-
-div#right div.info.tea:hover p {
-  display: block;	
-}
-
 div.info.wide input {
   float: left;
   width: 350px;	
@@ -277,7 +239,7 @@ div.info.wide input.button {
 	    	<li id="facebook">
 			    <div id="fb-root"></div>
 			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-			    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+			    <fb:like href="http://www.minrivertea.com/blog/{{ entry.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 			    </fb:like>
 			</li>
 		</ul>

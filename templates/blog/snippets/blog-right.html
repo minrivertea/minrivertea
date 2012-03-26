@@ -1,33 +1,14 @@
 {% load thumbnail %}
 {% load django_static %}
 
+{% include 'shop/boxes/bio.html' %}
 
-	<div class="info">
-		<img src="{% staticfile '/images/chris.jpg' %}" style="margin-bottom: 10px;"/>
-		<p>We don't just blog, we sell tea too! I'm Chris, the owner of the Min River Tea Farm, and I personally source all of our teas - <a href="/teas/"><strong>take a look and see if there's a tea you like</strong></a></p>
-	</div>
-	<div class="info">	
-	<h3 class="touch">Do you know where your tea comes from?</h3>
-	<p>All tea comes from the same plant, but there's a reason why some teas are just more equal than others… <a href="/learn/our-teas/where-our-tea-comes-from/"><strong>Find out more &raquo;</strong></a></p>
-	</div>
-	
-	<div class="info tea">
-	<a href="/teas/iron-buddha/"><img class="a-tea" src="{% staticfile '/images/blog-right.png' %}"/></a>
-	<p>Iron Buddha tea is a <strong>green oolong tea</strong>. It takes just 30 seconds to awaken its rich, vibrant aroma.<br/> <a href="/teas/iron-buddha/"><strong>Find out more &raquo;</strong></a></p>
-	</div>
-	
-	
-	{% if other_entries %}
-	<div class="info">
-		<h3 class="touch">Recent posts you might like</h3>		
-			{% for other in other_entries %}
-				<div class="other-entry">
-				<a href="{% url blog_entry other.slug %}"><span class="link"></span></a>
-		 		<a class="title" href="{% url blog_entry other.slug %}" title="{{ other.title }} - a blog entry">{{ other.title }}</a>
-	 			<p>{{ other.summary }}</p>
-	 			</div>
-			{% endfor %}	
-	</div>
-			{% endif %}
-	
+{% include 'shop/boxes/follow.html' %}
 
+{% include 'shop/boxes/email.html' %}
+
+{% include 'shop/boxes/tea.html' %}
+
+{% if other_entries %}
+{% include 'shop/boxes/blogs.html' %}
+{% endif %}

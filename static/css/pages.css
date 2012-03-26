@@ -147,13 +147,6 @@ div.learn-box:last-child div.inner:before {
   border: none;	
 }
 
-div.info {
-  width: 180px;	
-}
-
-div#right p.mail {
-  width: 180px;	
-}
 
 #promo {
     float: right;

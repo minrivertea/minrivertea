@@ -503,24 +503,24 @@ div.fb-recommend {
 }
 
 #extras div.info {
-  width: 200px;
+  width: 210px;
   height: 280px;
-  margin-right: 10px;
-  padding: 15px 25px;	
+  margin: 0 10px 0 0;
+  padding: 18px;	
 }
 
 #extras div.info.long {
   margin-right:0;
-  width: 380px;
-  padding: 15px 25px;	
+  width: 410px;
+  padding: 15px;	
 }
 
 #extras .info h4 {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
   color: #237A2A;
   font-family: Helvetica, Arial, sans-serif;
-  margin: 10px 0 0 0;	
+  margin: 0px 0 0 0;	
 }
 
 #extras .info h4.pink {
@@ -699,7 +699,7 @@ div.fb-recommend {
 			{% for o in tea.recommended.all %}
 			<div class="item">
 				<a href="{% url tea_view o.slug %}">
-					{% thumbnail o.image "100" crop="center" as im %}
+					{% thumbnail o.image "140" crop="center" as im %}
 						<img src="{{ im.url }}"/>
 					{% endthumbnail %}
 				</a>
@@ -712,7 +712,11 @@ div.fb-recommend {
 	</div>
 
 
+
 	{% if tea.long_description %}
+	<div id="right">
+		{% include 'shop/boxes/shipping-discount.html' %}
+	</div>
 	<div id="left">
 		<h2>More information</h2>
 		{{ tea.long_description|safe }}						 
