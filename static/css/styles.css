@@ -635,6 +635,18 @@ p.introduction {
   margin-bottom: 110px;
 }
 
+.info.tea span.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;	
+}
+
+.info.tea:hover .text h3 a {
+	color: #FF6569;
+}
+
 .info.tea .text {
   position: absolute;
   bottom: -80px;
