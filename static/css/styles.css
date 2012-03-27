@@ -599,6 +599,16 @@ p.introduction {
   width: 260px;	
 }
 
+.info.long {
+  width: 334px;
+  margin-right: 0;	
+}
+
+.info.long img {
+  float: left;
+  margin-right: 10px;	
+}
+
 .info.photo {
   margin-bottom: 30px;	
 }
