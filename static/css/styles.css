@@ -203,7 +203,7 @@ input.button:hover {
 #header {
   float: left;
   height: auto;
-  padding-top: 20px;
+  padding-top: 10px;
   width: 100%;
   background-color: #fff;
   border-bottom: 10px solid #e1ecf3;
@@ -274,16 +274,16 @@ input.button:hover {
   color: #439249;	
 }
 
-div#logo {	 
+#logo {	 
  width: 480px;
- height: 82px;
+ height: 85px;
  background: url("/images/logo14.jpg") no-repeat scroll bottom left transparent;
  float: left;
- margin: 10px 0 20px 0px;
+ margin: 0px 0 15px 0px;
  position: relative;
 }
 
-div#logo:hover {
+#logo:hover {
   opacity: 0.8;	
 }
 
@@ -294,14 +294,14 @@ div#logo:hover {
 
 
 
-div#logo a {
+#logo a {
   display: block;
   position: absolute;
   height: 100%;
   width: 100%;	
 }
 
-div#logo a span {
+#logo a span {
   display: none;	
 }
 
