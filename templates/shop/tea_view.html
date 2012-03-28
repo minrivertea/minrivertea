@@ -97,6 +97,10 @@ h1 span {
   margin-left: 10px;	
 }
 
+#main-text-wide #right {
+  margin-top: 30px;	
+}
+
 div.product-photos-small {
     float: left;
     margin: 15px 0 0px;
@@ -500,20 +504,26 @@ div.fb-recommend {
 #extras {
   width: 100%;
   float: left;
-  margin: 0 0 40px 0;	
+  margin: 25px 0 40px 0;
+  border-bottom: 3px dotted #E1ECF3;
+  padding: 0 0 10px 0;	
 }
 
 #extras div.info {
-  width: 210px;
-  height: 280px;
-  margin: 0 10px 0 0;
-  padding: 18px;	
+    margin: 0 30px 20px 0;
+    width: 431px;
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 #extras div.info.long {
-  margin-right:0;
-  width: 410px;
-  padding: 15px;	
+    background-color: transparent;
+    border: medium none;
+    height: auto;
+    margin: 0;
+    width: 470px;
+    float: right;
 }
 
 #extras .info h4 {
@@ -529,35 +539,43 @@ div.fb-recommend {
 }
 
 #extras .info p {
-  font-size: 16px;
+  font-size: 14px;
   margin: 0;
 }
 	
 #extras .info .item {
-  float: left;
-  width: 360px;
-  margin: 10px 15px 0 0;
-  border-bottom: 2px dotted #e1e1e1;	
-  padding-bottom: 20px;
+    float: left;
+    margin: 5px 0px 0;
+    position: relative;
+    width: 100%;
 }
 
-#extras .info .item:last-child {
-  border-bottom: none;
-  margin-top: 20px;	
+#extras .info .item span.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;	
 }
+
+#extras .info .item:hover {
+  background-color: #f6fbfd;	
+}
+	
+	
 
 #extras .info .item img {
   float: left;
-  margin-right: 15px;	
+  margin-right: 10px;	
 }
 
 #extras .info .item a {
   font-family: Helvetica, sans-serif;	
 }
 
-#extras .info .item p {
-  font-size: 14px;	
-  margin: 0;
+#extras .info .item p {	
+  margin: 6px 0 0;
   line-height: 1.4em;
 }
 
@@ -666,8 +684,8 @@ div.fb-recommend {
         	{% if tea.coming_soon %}
        			<a href="" class="not-in-stock">Pre-order and get this on {{ tea.get_preorder_date|date:"d M Y" }}</a><br/>We're restocking, so delivery will take longer than usual</a>
         	{% else %}
-				<a href="/where-do-we-deliver/">Wondering where we deliver?</a><br/>
-				UK, USA and Europe for just {{ currency.symbol }}{{ currency.postage_cost }} per order
+				<strong>Worldwide delivery for just {{ currency.symbol }}{{ currency.postage_cost }}</strong><br/>
+				 Simple pricing, fast delivery - <a href="/where-do-we-deliver/">find out more &raquo;</a>
 			{% endif %}
 		</div>
 		
@@ -675,13 +693,25 @@ div.fb-recommend {
 		
 
 	</div><!-- end top product info div -->
-
 	<div id="extras">
-		{% if tea.extra_info %}
-		<div class="info">
-			{{ tea.extra_info|safe }}
+		{% if tea.recommended.all %}
+		<div class="info long">
+			<h4>Other customers also bought...</h4>
+			{% for o in tea.recommended.all %}
+			{% if forloop.counter < 3 %}
+			<div class="item">
+				<a href="{% url tea_view o.slug %}"><span class="link"></span></a>
+					{% thumbnail o.image "140" crop="center" as im %}
+						<img src="{{ im.url }}"/>
+					{% endthumbnail %}
+				<p><strong><a href="{% url tea_view o.slug %}">{{ o.name }} &raquo;</a></strong><br/>{{ o.description|truncatewords:"15" }}<br/><strong>from {{ currency.symbol }}{{ o.get_lowest_price.price }}</strong></p>
+				
+			</div>
+			{% endif %}
+			{% endfor %}
 		</div>
 		{% endif %}
+		
 		{% if reviews %}
 		<div class="info">
 			{% for review in reviews %}
@@ -694,24 +724,13 @@ div.fb-recommend {
 			{% endfor %}
 		</div>
 		{% endif %}
-		{% if tea.recommended.all %}
-		<div class="info long">
-			<h4>Also highly recommended…</h4>
-			{% for o in tea.recommended.all %}
-			<div class="item">
-				<a href="{% url tea_view o.slug %}">
-					{% thumbnail o.image "140" crop="center" as im %}
-						<img src="{{ im.url }}"/>
-					{% endthumbnail %}
-				</a>
-				<p><strong><a href="{% url tea_view o.slug %}">{{ o.name }}</a></strong><br/>{{ o.description|truncatewords:10 }}</p>
-				
-			</div>
-			{% endfor %}
+		{% if tea.extra_info %}
+		<div class="info">
+			{{ tea.extra_info|safe }}
 		</div>
 		{% endif %}
+		
 	</div>
-
 
 
 	{% if tea.long_description %}
@@ -721,11 +740,11 @@ div.fb-recommend {
 		{% include 'shop/boxes/sourcing.html' %}
 	</div>
 	<div id="left">
-		<h2>More information</h2>
+		<h2>More information about this product</h2>
 		{{ tea.long_description|safe }}						 
 	</div>
 	{% endif %}
-
+	
 
   	{% if ga_is_on %}
     <ul class="rss">
