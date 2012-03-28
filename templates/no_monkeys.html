@@ -29,81 +29,26 @@ div#footer {
   float: none;	
 }
 
-div.social {
-  float: right;
-  width: 400px;	
-  text-align: right;
-  margin-top: 40px;
+.social {
+    float: left;
+    list-style-type: none;
+    margin: 20px 0 0;
+    padding-left: 350px;
+    width: 700px;
 }
 
-div.social div.twitter {
-  float: right;
-  width: 100px;	
-}
-
-div#top {
-  height: 180px;
-  padding: 10px 0 0px;
-  margin: 30px 0 10px;
+.social .twitter {
   float: left;
-  width: 860px;
+  width: 90px;	
 }
 
-div#top h3 {
-	margin-bottom: 0;	
+.gplus { 	
+	float: left;
 }
 
-div#top h3 a {
-  font-weight: bold;
-  font-size: 67px;
-  color: #439249;
-
-}
-
-div#top p {
-    font-size: 13px;
-    margin: 0;
-    width: 300px;
-}
-
-div#top div.left span.link, div#top div.right span.link {
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-}
-
-div#top div.left {
-  width: 410px;
+.facebook {
   float: left;
-  text-align: right;
-  margin-right: 30px;
-  padding-right: 20px;
-  border-right: 1px solid #53a172;	
-  position: relative;
-}
-
-div#top div.left:hover h3 a, div#top div.right:hover h3 a {
-  color: #ff8585;	
-  cursor: pointer;
-}
-
-div#top div.left p a, div#top div.right p a {
-  z-index: 4;
-  position: relative;	
-}
-
-div#top div.left p {
-  float: right;	
-}
-
-div#top div.right {
-  width: 380px;
-  float: left;
-  text-align: left;	
-  position: relative;
+  width: 90px;
 }
 
 div#feature {
@@ -111,22 +56,19 @@ div#feature {
     float: left;
     width: 100%;
     background: url("{% staticfile '/images/nomonkeys.jpg' %}") no-repeat #fff;
-    background-position: 150px 70px;
+    background-position: 150px 100px;
     margin: 0px 0 0;
     padding-bottom: 0px;
 }
 
 div#feature div.top {
-    float: right;
-    padding-bottom: 10px;
-    padding-right: 30px;
-    position: relative;
-    top: 30px;
+    float: left;
+    margin: 20px 0 0;
 }
 
 div#feature div.top h1 {
     color: #FF6569;
-    font-size: 60px;
+    font-size: 50px;
     font-weight: normal;
     margin: 20px 0 10px;
     text-align: right;
@@ -139,7 +81,7 @@ div#feature div.top h1 {
 
 div#feature div.top p {
   text-align: left;
-  margin: 50px 0 0;	
+  margin: 40px 0 0;	
   float: right;
   padding: 0 0 0 0px;
   color: #333;
@@ -152,18 +94,10 @@ div#feature div.top p strong {
   font-size: 22px;	
 }
 
-div#feature span.link {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index:2;	
-}
-
 #feature a.link {
   font-size: 45px;	
 }
+
 
 
 </style>
@@ -175,21 +109,37 @@ div#feature span.link {
 
 <div id="feature">
   <div class="super">
-	<div class="top">
-		<h1><span>Sorry.</span> Monkeys didn't pick your tea.</h1>
-		
-		<p><strong>But don't let that ruin your cuppa.</strong><br/>See, sometimes tea companies would have you believe that  Chinese tea is only good if it's picked by monkeys, costs more than gold, or is grown in panda dung (seriously, <a href="">check this out</a>). <br/><br/>We're not like that. We sell real tea, made by real people, for real people. Fresh, natural and traditionally-made Chinese teas with no added nonsense.<br/><br/>
-		<a class="link" href="">minrivertea.com &raquo;</a>
-		</p>
-		
-	</div>
-	
-	<div class="social">
+  
+  <div class="social">
 			<div class="twitter">
 				<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com/nomonkeys" data-count="horizontal" data-via="minrivertea">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 			</div>
-		<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=261736307186739&amp;xfbml=1"></script><fb:like href="http://www.facebook.com/minrivertea" send="false" layout="button_count" width="80" show_faces="false" font=""></fb:like>
-		</div>
+			
+			<div class="facebook">
+				<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=261736307186739&amp;xfbml=1"></script><fb:like href="http://www.facebook.com/minrivertea" send="false" layout="button_count" width="80" show_faces="false" font=""></fb:like>
+			</div>
+			<div class="gplus">				
+				<!-- Place this tag where you want the +1 button to render -->
+				<g:plusone size="medium"></g:plusone>
+				<!-- Place this render call where appropriate -->
+				<script type="text/javascript">
+				  (function() {
+				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				    po.src = 'https://apis.google.com/js/plusone.js';
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				  })();
+				</script>
+			</div>
+	</div>
+  
+	<div class="top">
+		<h1><span>No monkeys were used in the picking of your tea</h1>
+		
+		<p><strong>But don't let that ruin your cuppa.</strong><br/>See, sometimes tea companies would have you believe that  Chinese tea is only good if it's picked by monkeys, costs more than gold, or is grown in panda dung (seriously, <a href="">check this out</a>). <br/><br/>We're not like that. We sell real tea, made by real people, for real people. Natural and traditionally-made Chinese teas, direct from China, with no added nonsense.<br/><br/>
+		<a class="link" href="http://www.minrivertea.com">minrivertea.com &raquo;</a>
+		</p>
+		
+	</div>
 	
   </div>
 </div>
