@@ -484,12 +484,21 @@ def order_step_one(request):
             address = Address.objects.create(
                 owner = shopper,
                 house_name_number = form.cleaned_data['house_name_number'],
-                address_line_1 = form.cleaned_data['address_line_1'],
-                address_line_2 = form.cleaned_data['address_line_2'],
                 town_city = form.cleaned_data['town_city'],
                 postcode = form.cleaned_data['postcode'],
                 country = form.cleaned_data['country'],
             )
+            
+            try: 
+                address.address_line_1 = form.cleaned_data['address_line_1']
+            except:
+                pass
+            try:
+                address.address_line_2 = form.cleaned_data['address_line_2']
+            except:
+                pass
+            
+            address.save()
             
             # reset their basket object
             request.session['BASKET_ID'] = basket.id
