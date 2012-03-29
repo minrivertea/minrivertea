@@ -2,7 +2,7 @@
 
 <div id="currency">
 	Change your currency<br/>
-	<a class="uk {% if currency.code == 'GBP' %}strong{% endif %}" href="{% url change_currency %}?curr=GBP"><img src="{% staticfile '/images/eu-uk.png' %}"/>GBP</a>
-	<a class="us {% if currency.code == 'USD' %}strong{% endif %}" href="{% url change_currency %}?curr=USD"><img src="{% staticfile '/images/eu-uk.png' %}"/>USD</a>
-	<a class="eu {% if currency.code == 'EUR' %}strong{% endif %}" href="{% url change_currency %}?curr=EUR"><img src="{% staticfile '/images/eu-uk.png' %}"/>EUR</a>
+	<a class="uk {% if currency.code == 'GBP' %}strong{% endif %}" href="{% url change_currency %}?curr=GBP">GBP</a>
+	<a class="us {% if currency.code == 'USD' %}strong{% endif %}" href="{% url change_currency %}?curr=USD">USD</a>
+	<a class="eu {% if currency.code == 'EUR' %}strong{% endif %}" href="{% url change_currency %}?curr=EUR">EUR</a>
 </div>

@@ -277,7 +277,7 @@ input.button:hover {
 #logo {	 
  width: 480px;
  height: 85px;
- background: url("/images/logo14.jpg") no-repeat scroll bottom left transparent;
+ background: url("/images/logo15.jpg") no-repeat scroll top left transparent;
  float: left;
  margin: 10px 0 15px 0px;
  position: relative;
@@ -320,19 +320,21 @@ input.button:hover {
 }
 
 #currency a {
+	background: url('/images/logo15.jpg') no-repeat -168px -86px;
     color: #999999;
     float: left;
     height: 30px;
     margin-right: 5px;
+    padding-top:18px;
     overflow: hidden;
     width: 24px;
     opacity: 0.3;
     font-family: Helvetica, sans-serif;
 }
 
-#currency a.eu img {position: relative; right: 24px;}
+#currency a.eu {background-position: -192px -86px;}
 
-#currency a.us img {position: relative; right: 48px;}
+#currency a.us {background-position: -216px -86px;}
 
 #currency a.strong {
   font-weight: bold;
@@ -700,6 +702,36 @@ p.introduction {
 .info.follow h3 {
   margin-bottom: 10px;	
 }
+
+.info.follow a {
+  height: 32px;
+  width: 32px;
+  float: left;
+  margin: 0 5px 0 0;
+  display: block;
+  background: url('/images/logo15.jpg') no-repeat 0 -86px;;	
+}
+
+.info.follow a:hover {
+  opacity: 0.8;	
+}
+
+.info.follow a.tw {
+  background-position: -32px -86px;	
+}
+
+.info.follow a.rss {
+  background-position: -96px -86px;	
+}
+
+.info.follow a.fl {
+  background-position: -64px -86px;	
+}
+
+.info.follow a.gp {
+  background-position: -128px -86px;	
+}
+
 
 
 
@@ -1396,56 +1428,6 @@ ul#steps li.selected {
   margin-bottom: 5px;
   font-size: 15px;
   list-style-type: square;
-}
-
-#footer #email {
-  width: 100%;
-  background-color: #E1ECF3;
-  float: left;	
-  margin-bottom: 30px;
-  padding: 15px 0;
-}
-
-#footer #email h3 {
-  float: left;	
-  position: relative;
-  top: 4px;
-  margin-right: 20px;
-}
-
-
-#footer #email-signup {
-  float: left;	
-  position: relative;
-  width: auto;
-}
-
-#footer #email-signup input {
-  width: 250px;	
-  color: #999;
-  margin: 0;
-}
-
-#footer #email-signup input.button {
-    border-left: medium none;
-    border-radius: 0 4px 4px 0;
-    color: #237A2A;
-    font-size: 15px;
-    left: -3px;
-    position: relative;
-    top: 1px;
-    width: 120px;
-}
-
-#footer #email-signup p {
-    color: #999999;
-    float: left;
-    font-family: "Times New Roman", Georgia,serif;
-    font-size: 11px;
-    font-weight: normal;
-    line-height: 1.4em;
-    margin: 0 0 0 10px;
-    width: 130px;
 }
 
 #email-signup img.loading {
