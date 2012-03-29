@@ -201,23 +201,6 @@ if (15.00) {
 	{% block extrajs %}{% endblock %}
 	<script type="text/javascript">
 		
-		function emailSignupSubmit() {
-		    $('#email-signup').css('opacity', '0.5');
-		    $('#loading').toggle();
-		    $.ajax({  
-	    	    type: "POST",  
-	    	    data: $('#email-signup').serialize(), 
-	    	    url: "{% url email_signup %}",  
-	    	    cache: false,  
-	   		    dataType: "html",  
-	    	    success: function(data, textStatus) {
-	    	    	$('#footer #email .super').html(data);
-	    	    	$('#loading').toggle();
-	    	    }
-    		}); 
-			return false;	
-		}
-		
 
 		$(document).ready( function() {
 			$('#email-signup').bind('submit', emailSignupSubmit);

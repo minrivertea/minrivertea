@@ -218,8 +218,8 @@ span.country {
 						{% if forloop.first %}
 							<br/>
 							{{ address.house_name_number }}<br/>
-							{{ address.address_line_1 }}<br/>
-							{{ address.address_line_2 }}<br/>
+							{% if address_line_1 %}{{ address.address_line_1 }}<br/>{% endif %}
+							{% if address_line_2 %}{{ address.address_line_2 }}<br/>{% endif %}
 							{{ address.town_city }}<br/>
 		 					{{ address.postcode }}<br/>
 		 					{{ address.country|upper }}

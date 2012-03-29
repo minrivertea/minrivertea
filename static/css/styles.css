@@ -1448,7 +1448,7 @@ ul#steps li.selected {
     width: 130px;
 }
 
-#email-signup img#loading {
+#email-signup img.loading {
   position: absolute;
   top: 30%;
   left: 40%;
