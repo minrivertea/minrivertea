@@ -35,11 +35,10 @@
 {% block extracss %}
 <style type="text/css">
 
-
-div#main-text-wide div#right {
+#boxes {
   float: left;
-  padding-right: 30px;
-  padding-left: 0px;	
+  width: 100%;
+  margin-bottom: 30px;	
 }
 
 div.right-box label {
@@ -272,41 +271,43 @@ img#loading-contact {
 			<li>&laquo; we're on Facebook, Twitter and Flickr too!</li>
 			</ul>
 	 	</div>
+		<div id="boxes">
+		 	<div class="box"> 		
+			 	<h3>Returns</h3>
+			 	<p>If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked.</p>
+			</div>
+			<div class="box">
+				<h3>Personal shopping</h3>
+				<p>We're based here in China, so if you have specific tea needs that can't be fulfilled anywhere else, just get in touch.</p>
+			</div>
+			<div class="box">		 	
+			 	<h3>Wholesale/trade</h3>
+			 	<p>Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch.</p>
+			</div>
+		</div>
 	
-	 	<div class="box"> 		
-		 	<h3>Returns</h3>
-		 	<p>If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked.</p>
-		</div>
-		<div class="box">
-			<h3>Personal shopping</h3>
-			<p>We're based here in China, so if you have specific tea needs that can't be fulfilled anywhere else, just get in touch.</p>
-		</div>
-		<div class="box">		 	
-		 	<h3>Wholesale/trade</h3>
-		 	<p>Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch.</p>
-		</div>
 		
-			<div id="left">
-		<div id="form">	
-			{% if message %}
-				{% include 'shop/forms/contact_form_message_snippet.html' %}
-			{% else %}
-
-			<img id="loading-contact" src="{% staticfile '/images/loading.gif' %}"/>
-			<form action="{% url contact_us %}" method="post" id="contact-form">
-				<h3>Send us a message</h3>
-				<p>Use our online contact form to send us a message. We respond to all messages within 12 hours.</p>			
-				<input type="text" name="your_name" id="id_your_name" class="clearMeFocus" title="Your name" value=""/>
-				<input type="text" name="your_email" id="id_your_email" class="clearMeFocus" title="Your email address" value=""/>
-				<textarea id="id_your_message" name="your_message" title="Write your message here..." class="clearMeFocus" cols="40" rows="10"></textarea>
-				<input class="button" value="Submit" type="submit"/>
-				<p class="help-text">
-					<img src="{% staticfile '/images/lock.gif' %}"> 
-					We will never share, sell or spam your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)
-				</p>			
-			</form>
-			{% endif %}
-		</div>
+		<div id="left">
+			<div id="form">	
+				{% if message %}
+					{% include 'shop/forms/contact_form_message_snippet.html' %}
+				{% else %}
+	
+				<img id="loading-contact" src="{% staticfile '/images/loading.gif' %}"/>
+				<form action="{% url contact_us %}" method="post" id="contact-form">
+					<h3>Send us a message</h3>
+					<p>Use our online contact form to send us a message. We respond to all messages within 12 hours.</p>			
+					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus" title="Your name" value=""/>
+					<input type="text" name="your_email" id="id_your_email" class="clearMeFocus" title="Your email address" value=""/>
+					<textarea id="id_your_message" name="your_message" title="Write your message here..." class="clearMeFocus" cols="40" rows="10"></textarea>
+					<input class="button" value="Submit" type="submit"/>
+					<p class="help-text">
+						<img src="{% staticfile '/images/lock.gif' %}"> 
+						We will never share, sell or spam your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)
+					</p>			
+				</form>
+				{% endif %}
+			</div>
 	</div>
   </div>
 </div>
