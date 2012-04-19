@@ -1,35 +1,154 @@
-{% load thumbnail %}
-{% load django_static %}
+{% load thumbnail django_static %}
 
-{% for product, prices in products_and_prices %}
+<div class="section">
+	<div class="intro">
+		<h2>&laquo; Oolong teas</h2>
+		<p>Semi-oxidised teas from the mountains of the Fujian Province, offering a delicate range of tastes from crisp and clean green, right along to dark and sophisticated reds. Add some class to your brew.</p>
+	</div>
 
-      <div class="tea-promo{% cycle '' '' ' last' %}">
-      	  <a title="{{ product.name }} Chinese tea - click to view more details" href="{{ product.get_absolute_url }}"><span class="link"></span></a>	
+    <div class="tea-promo">
+   	  <a title="The Big Red Chinese tea - click to view more details" href="/teas/the-big-red/"><span class="link"></span></a>	
+   	  <div class="image">
+   	  	{% thumbnail 'http://static.minrivertea.com/images/product-photos/br1.jpg' "300x200" crop="center" as im %}
+		<img alt="a picture of The Big Red Chinese tea" title="The Big Red Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+		{% endthumbnail %}
+	  </div>
+	  <h3>
+		<a title="The Big Red Chinese tea - find out more or order some now!" href="/teas/the-big-red/">
+		The Big Red
+		</a>
+	  </h3> 
+	</div>      
+
+    <div class="tea-promo">
+      	 <a title="Iron Buddha Chinese tea - click to view more details" href="/teas/iron-buddha/"><span class="link"></span></a>	
       	  <div class="image">
-			{% thumbnail product.image "360x230" crop="center" as im %}
-			<img alt="a picture of {{ product.name }} Chinese tea" title="{{ product.name }} Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+      	  	{% thumbnail 'http://static.minrivertea.com/images/product-photos/ib1.jpg' "300x200" crop="center" as im %}
+			<img alt="a picture of Iron Buddha Chinese tea" title="Iron Buddha Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
 			{% endthumbnail %}
-			{% if product.tag_text %}
-				<span class="tag" style="background-color: {{ product.tag_color }};" >{{ product.tag_text }}</span>
-			{% endif %}
+		  </div>
+			<h3>
+			<a title="Iron Buddha Chinese tea - find out more or order some now!" href="/teas/iron-buddha/">
+			Iron Buddha
+			</a>
+
+			</h3> 
+	</div>
+
+
+
+      <div class="tea-promo">
+      	  <a title="Old Iron Chinese tea - click to view more details" href="/teas/old-iron-charcoal-roasted-chinese-tea/"><span class="link"></span></a>	
+      	  <div class="image">
+      	  	{% thumbnail 'http://static.minrivertea.com/images/product-photos/oi1.jpg' "300x200" crop="center" as im %}
+			<img alt="a picture of Old Iron Chinese tea" title="Old Iron Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>	
+			{% endthumbnail %}
+		  </div>
+			<h3>
+			<a title="Old Iron Chinese tea - find out more or order some now!" href="/teas/old-iron-charcoal-roasted-chinese-tea/">
+			Old Iron
+			</a>
+			</h3> 
+	  </div> 
+	  
+
+</div>     
+
+<div class="section">
+	<div class="intro">
+		<h2>&laquo; Red teas</h2>
+		<p>What the Brits like to call 'black' tea - a rich red brew, deeply relaxing and smokey undertones, and a natural sweet edge perfect in the mornings. Our red teas are from the Wuyi Mountain area of Fujian.</p>
+	</div>
+
+      <div class="tea-promo">
+      	  <a title="Lapsang Souchong Chinese tea - click to view more details" href="/teas/lapsang-souchong-chinese-tea/"><span class="link"></span></a>	
+      	  <div class="image">
+      	  	{% thumbnail 'http://static.minrivertea.com/images/product-photos/ls1.jpg' "300x200" crop="center" as im %}
+			<img alt="a picture of Lapsang Souchong Chinese tea" title="Lapsang Souchong Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+			{% endthumbnail %}
+		  </div>
+			<h3>
+			<a title="Lapsang Souchong Chinese tea - find out more or order some now!" href="/teas/lapsang-souchong-chinese-tea/">
+			Lapsang Souchong
+			</a>
+			</h3> 
+	  </div>      
+
+      <div class="tea-promo">
+      	  <a title="Jin Jun Mei Chinese tea - click to view more details" href="/teas/jin-jun-mei-chinese-tea/"><span class="link"></span></a>	
+      	  <div class="image">
+			{% thumbnail 'http://static.minrivertea.com/images/product-photos/jjm1.jpg' "300x200" crop="center" as im %}
+			<img alt="a picture of Jin Jun Mei Chinese tea" title="Jin Jun Mei Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+			{% endthumbnail %}
+			
 		  </div>
 		  
-		  <div class="text">
 			<h3>
-			<a title="{{ product.name }} Chinese tea - find out more or order some now!" href="{{ product.get_absolute_url }}">
-			{{ product.name }}
+			<a title="Jin Jun Mei Chinese tea - find out more or order some now!" href="/teas/jin-jun-mei-chinese-tea/">
+
+			Jin Jun Mei
 			</a>
-	      
-			
-			</h4> 
-			<p>{{ product.description }}</p>	
-			
-			<p class="price">
-				{% if product.get_reviews %}
-					<strong>{{ product.get_reviews.count }} review{{ product.get_reviews.count|pluralize }}</strong><br/>
-				{% endif %}
-				<a class="more" href="{{ product.get_absolute_url }}">Find out more &raquo;</a>
-			</p>
-		</div>     	
+			</h3> 
 	  </div>      
-{% endfor %}
+</div>
+
+<div class="section">
+	<div class="intro">
+		<h2>&laquo; Scented teas</h2>
+		<p>Unique to Fuzhou in the south of China, these Jasmine teas use top quality Chinese tea leaf tips, hand-rolled and slowly scented with Jasmine flowers in a time-honoured fashion.</p>
+	</div>
+
+      <div class="tea-promo">
+      	  <a title="Jasmine Pearls Chinese tea - click to view more details" href="/teas/jasmine-pearls/"><span class="link"></span></a>	
+      	  <div class="image">
+      	  	{% thumbnail 'http://static.minrivertea.com/images/product-photos/jp1.jpg' "300x200" crop="center" as im %}
+			<img alt="a picture of Jasmine Pearls Chinese tea" title="Jasmine Pearls Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+			{% endthumbnail %}
+		  </div>
+			<h3>
+			<a title="Jasmine Pearls Chinese tea - find out more or order some now!" href="/teas/jasmine-pearls/">
+			Jasmine Pearls
+			</a>
+			</h3> 
+	  </div>
+
+      <div class="tea-promo">
+      	  <a title="Red Jasmine Tea Chinese tea - click to view more details" href="/teas/red-jasmine-tea/"><span class="link"></span></a>	
+      	  <div class="image">
+      	  	{% thumbnail 'http://static.minrivertea.com/images/product-photos/red-jasmine.jpg' "300x200" crop="center" as im %}
+			<img alt="a picture of Red Jasmine Tea Chinese tea" title="Red Jasmine Tea Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+			{% endthumbnail %}
+		  </div>
+			<h3>
+			<a title="Red Jasmine Tea Chinese tea - find out more or order some now!" href="/teas/red-jasmine-tea/">
+			Red Jasmine Tea
+			</a>
+			</h3> 
+	  </div> 
+</div> 
+
+
+<div class="section">
+	<div class="intro">
+		<h2>&laquo; White tea</h2>
+		<p>So-called because their leaves and brew are the lightest in colour of all teas, white teas offer you the pinnacle of natural tea aromas - at the same time light and vegetal, like grass on a summers day.</p>
+	</div>
+      <div class="tea-promo">
+      	  <a title="Silver Needle Chinese tea - click to view more details" href="/teas/silver-needle-white-tea/"><span class="link"></span></a>	
+      	  <div class="image">
+      	  	{% thumbnail 'http://static.minrivertea.com/images/product-photos/yz1.jpg' "300x200" crop="center" as im %}
+			<img alt="a picture of Silver Needle Chinese tea" title="Silver Needle Chinese tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+			{% endthumbnail %}
+		  </div>
+			<h3>
+			<a title="Silver Needle Chinese tea - find out more or order some now!" href="/teas/silver-needle-white-tea/">
+			Silver Needle
+			</a>
+			</h3> 
+	  </div> 
+	  
+     
+
+
+</div>      
+
