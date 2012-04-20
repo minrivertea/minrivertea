@@ -84,10 +84,6 @@ div.info p {
   color: #333;
 }
 
-.tag {
-  display: none;	
-}
-
 a.more {
   display: none;	
 }
@@ -142,9 +138,9 @@ div.tea-promo {
 
 	<div id="teas">
 		{% if category.slug == 'teas' %}
-			{% include "shop/ab/products.html" %}
-		{% else %}
 			{% include "shop/snippets/products.html" %}
+		{% else %}
+			{% include "shop/snippets/products_normal.html" %}
 		{% endif %}
 	</div>
 	

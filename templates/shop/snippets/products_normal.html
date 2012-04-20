@@ -1,0 +1,26 @@
+{% load thumbnail django_static %}
+
+{% for p, price in products_and_prices %}
+
+    <div class="tea-promo">
+      	 <a title="" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
+      	  <div class="image">
+      	  	{% thumbnail p.image "360x250" crop="center" as im %}
+			<img alt="a picture of {{ p.name }}" title="{{ p.name }} - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+			{% endthumbnail %}
+		  </div>
+		  <div class="text">
+			<h3>
+				<a title="{{ p.name }} - find out more or order some now!" href="{{ p.get_absolute_url }}">
+				{{ p.name }}
+				</a>
+			</h3> 
+			<p>{{ p.description }}</p>
+		  </div>
+		    {% if p.tag_text %}
+			<span class="tag" style="background: {{ p.tag_color }};"><span class="tagtext">{{ p.tag_text }}</span></span>
+			
+			{% endif %}
+	</div>
+
+{% endfor %}

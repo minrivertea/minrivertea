@@ -85,55 +85,42 @@ span.message img {
 }
 
 .tag {
-	margin:0;
-	padding:0;
-	position:absolute;
-	left: -30px;
-	top: 30px;
-	list-style:none;
-	}
+    left: 0px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-decoration: none;
+    top: -3px;
+    z-index: 0;
+}
 
 .tag {
-	margin-left:20px;
-	padding:8px 18px 6px 20px;
-	background:#0089e0;
-	color:#fff;
-	font-size: 15px;
-	font-family: Helvetica, Arial, sans-serif;
-	font-weight: bold;
-	text-decoration:none;
-	border-radius: 0px 4px 4px 0px;
-	-webkit-border-radius: 0px 4px 4px 0px;	
+  width: 300px;
+  height: 13px; 
+  -webkit-transform: rotate(-45deg); 
+  -moz-transform: rotate(-45deg); 
+  -o-transform: rotate(-45deg); 
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  background: #e5121b;
+  display: block;
+  position: absolute;
+  top: 45px;
+  left: -110px;
+  padding: 10px;
 }
 
-.tag:after {
-    border-color: #666 transparent -moz-use-text-color;
-    border-style: solid solid none;
-    border-width: 20px 0 20px 20px;
-    bottom: -20px;
-    content: " ";
-    display: block;
-    height: 0;
-    left: 1px;
-    position: absolute;
-    width: 0;
-    z-index: -1;
+.tagtext {
+  position: absolute;
+  width: 100%;
+  display: block;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
-.tag:before {
-    border-color: #333 transparent -moz-use-text-color;
-    border-style: solid solid none;
-    border-width: 20px 0 20px 20px;
-    bottom: -20px;
-    content: " ";
-    display: block;
-    height: 0;
-    left: 0;
-    margin-left: -1px;
-    position: absolute;
-    width: 0;
-    z-index: -1;	
-}
+
 
 /* tea listing styles */
 
@@ -156,6 +143,7 @@ div.tea-promo {
     border-radius: 10px;
     -webkit-border-radius: 10px;
     border: 1px solid #e1e1e1;
+    overflow: hidden;
 }
 
 .tea-promo.last {
