@@ -16,26 +16,26 @@ div#header {
 
 #feature {
     float: left;
-    height: 410px;
+    height: 430px;
     margin: 0 0 0;
     padding-bottom: 0;
     width: 100%;
-    background: url('{% staticfile "/images/feature4.jpg" %}') no-repeat top left #fff;
-    background-position: 220px -40px;
+    background: url('{% staticfile "/images/feature6.jpg" %}') no-repeat top left #fff;
+    background-position: 220px 10px;
     border-bottom: 10px solid #E1ECF3;
     position: relative;
 }
 
 #feature div.top {
     float: right;
-    position: absolute;
-    width: 100%;
+    position: ;
+    width: 250px;
     top: 270px;
 }
 
 #feature div.top h1 {
-    font-size: 34px;
-    margin: 10px 0 00px 0;
+    font-size: 30px;
+    margin: 20px 0 10px 0;
     text-align: left;
 
 }
@@ -44,20 +44,21 @@ div#header {
   margin: 0;	
   float: left;
   padding: 0;
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
-  width: 600px;
+
 }
 
 #feature div.top a.button {
     float: right;
-    font-size: 28px;
+    font-size: 20px;
     padding: 11px 15px 9px;
     text-align: center;
-    width: 270px;
-    position: absolute;
+    width: 220px;
+    position: ;
     top: 22px;
     right: 0;
+    margin-top: 25px;
 }
 
 #feature span.link {
@@ -211,9 +212,11 @@ div#adventure #icons {
 <div id="feature">
   <div class="super">
 	<div class="top">
-		<h1>Great Chinese tea, direct from the source</h1>
+		<h1>Experience natural, clean and delicious Chinese teas, direct from the source</h1>
+		
+		<p>Treat yourself to a better cuppa, with green, red, oolong and other loose-leaf Chinese teas. Delivered straight from our home in China to your door.</p>
+		
 		<a class="button green" href="{% url teas %}">Browse our range of Chinese teas &raquo;</a>	
-		<p>We sell natural and fantastic tasting Chinese teas that will blow your teabag out of the water. Delivered direct to your door from our home in China.</p>
 	</div>
   </div>
 </div>
