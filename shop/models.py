@@ -98,6 +98,20 @@ class Product(models.Model):
         reviews = Review.objects.filter(product=self, is_published=True)
         return reviews    
     
+    def is_in_stock(self):
+        if self.coming_soon:
+            return False
+        
+        if not self.is_active:
+            return False
+        
+        ups = UniqueProduct.objects.filter(parent_product=self, is_active=True, currency__code='GBP')[0]
+        print ups
+        if ups.available_stock < 1:
+            return False
+        
+        return True
+    
     def save(self, force_insert=False, force_update=False):
          super(Product, self).save(force_insert, force_update)
          try:
