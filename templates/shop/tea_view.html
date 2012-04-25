@@ -683,7 +683,7 @@ div.fb-recommend {
        		  <strong>{{ currency.symbol }}{{ currency.postage_cost }} shipping per order, FREE over {{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong><br/>
 			  Simple pricing, fast delivery - <a href="/where-do-we-deliver/">find out more &raquo;</a>
         	{% else %}
-        	  <a href="" class="not-in-stock">Pre-order and get this on {{ tea.get_preorder_date|date:"d M Y" }}</a>
+        	  <a href="" class="not-in-stock">Pre-order now and get this on {{ tea.get_preorder_date|date:"d M Y" }}</a>
         	  <br/>We're restocking, so delivery will take longer than usual</a>
 			{% endif %}
 		  </div>
