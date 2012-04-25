@@ -108,7 +108,10 @@ class Product(models.Model):
         return date
     
     def get_absolute_url(self):
-        return "/%s/%s/" % (self.category.slug, self.slug)  #important, do not change
+        if self.category.parent_category:
+            return "/%s/%s/" % (self.category.parent_category.slug, self.slug)
+        else:    
+            return "/%s/%s/" % (self.category.slug, self.slug)  #important, do not change
     
     def get_lowest_price(self):
         try:
