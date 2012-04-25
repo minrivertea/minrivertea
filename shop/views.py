@@ -138,18 +138,12 @@ def _get_products(request, cat=None):
     else:        
         products = Product.objects.filter(is_active=True).order_by('-list_order')
     
-    prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=False, currency=_get_currency(request))
-    products_and_prices = []
-    for product in products:
-        products_and_prices.append((product, prices.filter(parent_product=product)))    
-    
-    return products_and_prices     
+    return products   
 
 # the homepage view
 def index(request):
     reviews_list = Review.objects.filter(is_published=True).order_by('?')
-    
-  
+      
     seen = {}
     reviews_one = []
     for item in reviews_list:
@@ -177,12 +171,16 @@ def page(request, slug, x=None, y=None, z=None):
 def category(request):
     category = get_object_or_404(Category, slug=request.path.strip('/'))
     categories = Category.objects.all()
-    products_and_prices = _get_products(request, category)
+    products = _get_products(request, category)
     return render(request, "shop/category.html", locals())
+
+
 
 def sale(request):
     prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=True)
     return render(request, "shop/sale.html", locals())
+
+
 
 # view for a single product
 def tea_view(request, slug):

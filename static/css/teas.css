@@ -101,12 +101,20 @@ span.message img {
   -moz-transform: rotate(-45deg); 
   -o-transform: rotate(-45deg); 
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-  background: #e5121b;
+  background: #1e70cb;
   display: block;
   position: absolute;
   top: 45px;
   left: -110px;
   padding: 10px;
+}
+
+.tag.pink {
+   background: #ff0054;   
+}
+
+.tag.red {
+   background: red;   
 }
 
 .tagtext {
@@ -140,8 +148,6 @@ div.tea-promo {
     position: relative;
     width: 780px;
     background-color: #fff;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
     border: 1px solid #e1e1e1;
     overflow: hidden;
 }
@@ -182,7 +188,7 @@ div#main-text-wide div#left .tea-promo div.text p {
 }
 
 .tea-promo h3 {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: normal;
     letter-spacing: -1px;
     margin-bottom: 0;

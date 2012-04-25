@@ -14,6 +14,10 @@ div#header {
   border-bottom: none;	
 }
 
+ul#nav li a.selected:before {
+  display: none;   
+}
+
 #feature {
     float: left;
     height: 430px;
@@ -28,13 +32,13 @@ div#header {
 
 #feature div.top {
     float: right;
-    position: ;
-    width: 250px;
-    top: 270px;
+    position: relative;
+    top: 0px;
+    width: 265px;
 }
 
 #feature div.top h1 {
-    font-size: 30px;
+    font-size: 36px;
     margin: 20px 0 10px 0;
     text-align: left;
 
@@ -52,13 +56,12 @@ div#header {
 #feature div.top a.button {
     float: right;
     font-size: 20px;
-    padding: 11px 15px 9px;
+    padding: 16px 15px 14px;
     text-align: center;
-    width: 220px;
-    position: ;
-    top: 22px;
+    width: 240px;
     right: 0;
-    margin-top: 25px;
+    margin-top: 15px;
+    text-shadow: 0 1px 1px #333;
 }
 
 #feature span.link {
@@ -201,6 +204,114 @@ div#adventure #icons {
   right: 20px;
 }
 
+#special {
+  float: left;	
+  width: 920px;
+  padding: 20px;
+  box-shadow: 0 1px 3px #e1e1e1;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0 30px 0;
+}
+
+#special h2 {
+  margin-bottom: 10px;	
+  font-size: 50px;
+}
+
+#special p {
+  margin: 0;   
+}
+
+#special p.tea-desc {
+  margin: 0 0 10px;	
+}
+
+#special img {
+  float: left;
+  margin-right: 10px;	
+}
+
+#special p.price {
+  float: left;
+  width: 410px;
+  margin: 30px 0 0px;	
+}
+
+#special p.more {
+  text-align: right;
+  font-size: 15px;
+  padding-right: 20px;	
+}
+
+#special .amount {
+    color: #237A2A;
+    float: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    letter-spacing: -5px;
+    margin-right: 10px;
+}
+
+#special .description {
+  font-size: 12px;
+  color: #666;
+  width: 80px;
+  position: relative;
+  top: -5px;	
+  float: left;
+  line-height: 1.3em;
+  margin: 0 20px 0 0;
+}
+
+#special .button {
+    float: right;
+    font-size: 22px;
+    padding: 10px 26px 5px;
+    position: relative;
+    right: 10px;
+    top: -12px;
+}
+
+.tag {
+    left: 0px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-decoration: none;
+    top: -3px;
+    z-index: 0;
+}
+
+.tag {
+  width: 300px;
+  height: 13px; 
+  -webkit-transform: rotate(-45deg); 
+  -moz-transform: rotate(-45deg); 
+  -o-transform: rotate(-45deg); 
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  background: #1e70cb;
+  display: block;
+  position: absolute;
+  top: 55px;
+  left: -100px;
+  padding: 10px;
+}
+
+.tagtext {
+  position: absolute;
+  width: 100%;
+  display: block;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+
 </style>
 {% endblock %}
 
@@ -214,14 +325,17 @@ div#adventure #icons {
 	<div class="top">
 		<h1>Experience natural, clean and delicious Chinese teas, direct from the source</h1>
 		
-		<p>Treat yourself to a better cuppa, with green, red, oolong and other loose-leaf Chinese teas. Delivered straight from our home in China to your door.</p>
+		<p>Try the best tea you'll ever taste - green, red, oolong and other loose-leaf teas delivered straight from our home in China to your door. </p>
 		
-		<a class="button green" href="{% url teas %}">Browse our range of Chinese teas &raquo;</a>	
+		<a class="button green" href="{% url teas %}">Pick your tea now &raquo;</a>	
 	</div>
   </div>
 </div>
 
 <div class="super">
+
+    {% include "shop/snippets/fo-shou-special.html" %}
+
 
 	<div id="benefits">
 		<div id="teas">
@@ -241,6 +355,9 @@ div#adventure #icons {
 		
 		<a class="underline" id="more" href="{% url teas %}">Take a look at our full range of teas &raquo;</a>
 	</div>	
+	
+	
+	
 
 	<div id="adventure">
 		<img alt="Min River Tea Farm co-founder hugging a tea tree on Wuyi Mountain" src="{% staticfile '/images/home-mountain.jpg' %}"/>

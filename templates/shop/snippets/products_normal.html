@@ -1,6 +1,6 @@
 {% load thumbnail django_static %}
 
-{% for p, price in products_and_prices %}
+{% for p in products %}
 
     <div class="tea-promo">
       	 <a title="" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	

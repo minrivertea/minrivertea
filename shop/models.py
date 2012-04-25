@@ -24,6 +24,33 @@ CURRENCY_CHOICES = (
     (EURO, u"&#128;"),
 )
 
+OOLONG = 'oolong'
+GREEN = 'green'
+WHITE = 'white'
+GREEN_AND_WHITE = 'green_and_white'
+RED = 'red'
+SCENTED = 'scented'
+TEA_CATEGORY_CHOICES = (
+    (OOLONG, u'Oolong'),
+    (GREEN, u'Green'),
+    (WHITE, u'White'),
+    (GREEN_AND_WHITE, u'Green and White'),
+    (RED, u'Red'),
+    (SCENTED, u'Scented'),
+)
+
+
+GREEN = 'green'
+BLUE = 'blue'
+PINK = 'pink'
+RED = 'red'
+TAG_COLORS = (
+    (GREEN, u'Green'),
+    (PINK, u'Pink'),
+    (BLUE, u'Blue'),
+    (RED, u'Red'),
+)
+
 
 class Currency(models.Model):
     code = models.CharField(max_length=5)
@@ -67,7 +94,7 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True)
     list_order = models.IntegerField(null=True, blank=True)
     tag_text = models.CharField(max_length="100", blank=True, null=True)
-    tag_color = models.CharField(max_length="60", blank=True, null=True,
+    tag_color = models.CharField(max_length="60", blank=True, null=True, choices=TAG_COLORS,
         help_text="A Hex reference with the preceding # hash")
     coming_soon = models.BooleanField(default=False)
     recommended = models.ManyToManyField('Product', blank=True, null=True)
@@ -127,12 +154,21 @@ class Category(models.Model):
     slug = models.SlugField(max_length=80)
     meta_description = models.TextField(help_text="No HTML please!")
     short_description = models.TextField(help_text="Goes under the title on the page, HTML is OK.")
+    parent_category = models.ForeignKey('self', blank=True, null=True)
     
     def __unicode__(self):
         return self.name
     
     def get_absolute_url(self):
         return "/%s/" % self.slug
+    
+    def get_sub_categories(self):
+        subs = Category.objects.filter(parent_category=self)
+        return subs
+    
+    def get_products(self):
+        prods = Product.objects.filter(category=self)
+        return prods
 
  
 class UniqueProduct(models.Model):

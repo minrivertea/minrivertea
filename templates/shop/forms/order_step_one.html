@@ -209,7 +209,7 @@ span.country {
 		
 		{% if shopper %}
 	  	  <div class="row">
-	  		<p class="intro">Are these the correct address and peresonal details?</p>
+	  		<p class="intro">Are these your details? Please check carefully!</p>
 			<div class="address-container">
 				<div class="address first">
 					{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
