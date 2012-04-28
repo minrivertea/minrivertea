@@ -1388,7 +1388,8 @@ ul#steps li.selected {
     margin-top: 80px;
     padding: 40px 0 180px;
     width: 100%;
-    border-top: 10px solid #E1ECF3 
+    border-top: 70px solid #E1ECF3;
+    position: relative;
 }
 
 #footer .super.thin {
@@ -1439,4 +1440,19 @@ ul#steps li.selected {
 
 /* END FOOTER STYLES */
 
+a#harvest {
+   position: absolute;
+   top: -95px;
+   font-size: 32px;
+   text-shadow: 0 1px 1px #fff;
+   letter-spacing: -1px;
+   text-align: right;
+   width: 100%;
+   text-align: center;
+   color: #59849f;   
+}
 
+a#harvest:hover {
+ text-decoration: underline;
+ color: #FF6569;   
+}
