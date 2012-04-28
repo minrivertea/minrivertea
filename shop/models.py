@@ -170,7 +170,7 @@ class Category(models.Model):
         return subs
     
     def get_products(self):
-        prods = Product.objects.filter(category=self)
+        prods = Product.objects.filter(category=self, is_active=True)
         return prods
 
  
