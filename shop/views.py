@@ -172,6 +172,7 @@ def index(request):
         reviews_one.append(item)
     
     reviews = reviews_one[:4]
+    special = Product.objects.get(slug='buddhas-hand-oolong-tea')
     
     return render(request, "shop/home.html", locals())
 
@@ -191,6 +192,7 @@ def category(request):
     category = get_object_or_404(Category, slug=request.path.strip('/'))
     categories = Category.objects.all()
     products = _get_products(request, category)
+    special = Product.objects.get(slug='buddhas-hand-oolong-tea')
     return render(request, "shop/category.html", locals())
 
 

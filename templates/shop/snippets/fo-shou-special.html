@@ -6,7 +6,7 @@
 		<p class="tea-desc">Grown in the birthplace of White Crane Kung Fu, you'll love the fresh green taste and butter-smooth texture of this Buddha's Hand oolong tea, but sadly it probably won't turn your hands into deadly weapons!</p>
 	
 		<p class="price">
-			<span class="amount">{{ currency.symbol }}15</span>
+			<span class="amount">{{ currency.symbol }}{{ special.get_lowest_price.price|floatformat }}</span>
 			<span class="description">100g loose-leaf<br/> - @50 cups</span>
 			<a href="/teas/buddhas-hand-oolong-tea/" class="button green">Order this tea &raquo;</a>
 		</p>
