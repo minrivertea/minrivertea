@@ -24,10 +24,14 @@ ul#nav li a.selected:before {
     margin: 0 0 0;
     padding-bottom: 0;
     width: 100%;
-    background: url('{% staticfile "/images/feature6.jpg" %}') no-repeat top left #fff;
-    background-position: 220px 10px;
+    background: #fff;
     border-bottom: 10px solid #E1ECF3;
     position: relative;
+}
+
+#feature img {
+ position: relative;
+ left: -10px;   
 }
 
 #feature div.top {
@@ -322,6 +326,7 @@ div#adventure #icons {
 
 <div id="feature">
   <div class="super">
+    <img src="{% staticfile '/images/feature6.jpg' %}"/>
 	<div class="top">
 		<h1>Experience natural, clean and delicious Chinese teas, direct from the source</h1>
 		

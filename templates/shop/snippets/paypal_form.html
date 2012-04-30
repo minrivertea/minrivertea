@@ -3,7 +3,7 @@
 <form id="paypal" method="post" action="{{ paypal_submit_url }}">
     
     	<div id="checkout-button">
-			<img src="{% staticfile '/images/002.gif' %}" class="paypal">
+			<img id="ppicon" src="{% staticfile '/images/002.gif' %}" class="paypal">
 			<input type="submit" value="Confirm and pay" next="" class="button"/>
 			<p class="checkout"><strong>Next step:</strong> <em>pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</em></p>
 			

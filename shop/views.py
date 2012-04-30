@@ -73,7 +73,6 @@ def _get_basket(request):
     
     return basket
 
-
 def twitter_post(tweet):   
     if not twitter or not hasattr(settings, 'TWITTER_USER') or \
         not hasattr(settings, 'TWITTER_PASS'):
@@ -101,6 +100,24 @@ def _get_currency(request):
         currency = get_object_or_404(Currency, code='GBP')
     return currency
 
+
+def _get_price(request, items):
+    
+    total_price = 0
+    for item in items:
+        price = item.quantity * item.item.price
+        total_price += price
+    
+    currency = _get_currency(request)
+    
+    if total_price > currency.postage_discount_threshold:
+        postage_discount = True
+    else:
+        total_price += currency.postage_cost
+    
+    return total_price
+    
+    
 
 def _change_currency(request):
     try:
@@ -360,16 +377,7 @@ def basket(request):
         basket = None        
                 
     basket_items = BasketItem.objects.filter(basket=basket)
-    total_price = 0
-    for item in basket_items:
-        price = item.quantity * item.item.price
-        total_price += price
-    
-    currency = _get_currency(request)
-    if total_price > currency.postage_discount_threshold:
-        postage_discount = True
-    else:
-        total_price += currency.postage_cost
+    total_price = _get_price(request, basket_items)
     
     if request.method == 'POST':
         form = UpdateDiscountForm(request.POST)
@@ -775,15 +783,8 @@ def order_confirm(request):
     order = Order.objects.get(id=request.session['ORDER_ID'])
     shopper = order.owner
     order_items = order.items.all() #BasketItem.objects.filter(basket=basket)
-    total_price = 0
-    for item in order_items:
-        price = item.quantity * item.item.price
-        total_price += price
     
-    if total_price > 50:
-        postage_discount = True
-    else: 
-        total_price += 3
+    total_price = _get_price(request, order_items)
     
     if order.discount:
         value = total_price * order.discount.discount_value
@@ -850,39 +851,6 @@ def order_complete(request):
     except:
         shopper = None
     
-    try:
-        order = get_object_or_404(Order, invoice_id=request.session['ORDER_ID'])
-    except:
-        pass
-        
-    # this line should reset the basket cookie. basically, if 
-    # the user ends up here, they need to have a new basket
-    request.session['BASKET_ID'] = None
-    
-    if request.method == 'POST':
-        form = SubmitTwitterForm(request.POST)
-        
-        if form.is_valid():
-            twitter_username = form.cleaned_data['twitter_username']
-
-            # save the shopper's twitter_username to their profile
-            shopper.twitter_username = twitter_username
-            shopper.save()
-            
-            if shopper.get_orders() is not None:
-                # create a tweet
-                tweet =  render_to_string('shop/emails/text/tweet.txt', {'twitter_username': twitter_username})
-            
-                # tweet a message to them to say thanks for ordering!
-                twitter_post(tweet)            
-            else:
-                pass      
-    
-            return render(request, 'shop/order_complete.html', locals())
-            
-     
-    else: 
-        form = SubmitTwitterForm()
 
     return render(request, "shop/order_complete.html", locals())
 
