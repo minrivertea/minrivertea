@@ -101,6 +101,8 @@ def _get_currency(request):
     return currency
 
 
+
+
 def _get_price(request, items):
     
     total_price = 0
@@ -377,7 +379,21 @@ def basket(request):
         basket = None        
                 
     basket_items = BasketItem.objects.filter(basket=basket)
-    total_price = _get_price(request, basket_items)
+    
+    # work out the price
+    total_price = 0
+    for item in basket_items:
+        price = item.quantity * item.item.price
+        total_price += price
+    
+    currency = _get_currency(request)
+    
+    if total_price > currency.postage_discount_threshold:
+        postage_discount = True
+    else:
+        total_price += currency.postage_cost
+        
+        
     
     if request.method == 'POST':
         form = UpdateDiscountForm(request.POST)
@@ -784,8 +800,20 @@ def order_confirm(request):
     shopper = order.owner
     order_items = order.items.all() #BasketItem.objects.filter(basket=basket)
     
-    total_price = _get_price(request, order_items)
+    # work out the price
+    total_price = 0
+    for item in order_items:
+        price = item.quantity * item.item.price
+        total_price += price
     
+    currency = _get_currency(request)
+    
+    if total_price > currency.postage_discount_threshold:
+        postage_discount = True
+    else:
+        total_price += currency.postage_cost
+        
+    # is there a discount?
     if order.discount:
         value = total_price * order.discount.discount_value
         percent = order.discount.discount_value * 100
