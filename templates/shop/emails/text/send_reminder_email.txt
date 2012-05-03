@@ -4,7 +4,7 @@ I just noticed that you started to order some tea recently on www.minrivertea.co
 
 If there was something not quite right, it would be great if you could let us know (just reply to this email). It helps improve things hugely, so that next time we can get it right for you and others.
 
-But if you still want to pick up the order where you left off, just click this URL and you'll jump straight back to where you left off:
+However, if you still want to order, just click this URL and you can continue from where you left off:
 
 http://www.minrivertea.com{{ url }}
 
