@@ -7,8 +7,8 @@
   	  #navigation {display: none }
   	  #footer {display:none;}
   	  .super {width: 1060px;}
-  	  #banner ul {position: absolute; left: 0; top: -70px;font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none; margin: 0; padding: 0;}
-  	  #banner ul li {float: left; margin-right: 50px;}
+  	  ul.nav {margin-top: -95px;font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none;  padding: 0; width: 100%;float: left;}
+  	  ul.nav li {float: left; margin-right: 50px;}
       table {font-family: helvetica,sans-serif;font-size: 12px;}
       tr.white td {background-color: #fff;}
       tr.new td {background-color: #DBF2DA;}
@@ -40,19 +40,18 @@
 
 {% block content %}
 
-<div id="banner">
+
+
+
+<div id="main-text-wide">
   <div class="super">
-    <ul>
+  
+      <ul class="nav">
     	<li><a href="/admin/">Login to admin interface</a></li>
     	<li><a href="/">Back to site</a></li>
     	<li><a href="{% url make_product_feed %}">Make Google Product Feed</a></li>
     	<li><a href="{% url create_email %}">Create and send email</a></li>
     </ul>
-  </div>
-</div>
-
-<div id="main-text-wide">
-  <div class="super">
 
 <h3>Recent orders ({{ orders.count }})</h3>
 	{% if orders %}

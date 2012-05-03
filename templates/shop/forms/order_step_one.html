@@ -217,20 +217,11 @@ span.country {
 					{% for address in shopper.get_addresses %}
 						{% if forloop.first %}
 							<br/>
-							{{ address.house_name_number }}<br/>
-							{% if address_line_1 %}{{ address.address_line_1 }}<br/>{% endif %}
-							{% if address_line_2 %}{{ address.address_line_2 }}<br/>{% endif %}
-							{{ address.town_city }}<br/>
-		 					{{ address.postcode }}<br/>
-		 					{{ address.country|upper }}
+							{% include "shop/snippets/address.html" %}
 		 					</div>
 		 				{% else %}
 		 					<div class="address other">
-		 					{{ address.house_name_number }}, 
-							{{ address.address_line_1 }}, 
-							{{ address.address_line_2 }}, 
-							{{ address.town_city }}, 
-		 					{{ address.postcode }}
+		 					{% include "shop/snippets.address.html" %}
 		 					</div>
 		 				{% endif %}
 					{% endfor %}

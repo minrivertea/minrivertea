@@ -96,7 +96,7 @@ class Product(models.Model):
     tag_text = models.CharField(max_length="100", blank=True, null=True)
     tag_color = models.CharField(max_length="60", blank=True, null=True, choices=TAG_COLORS,
         help_text="A Hex reference with the preceding # hash")
-    coming_soon = models.BooleanField(default=False)
+    coming_soon = models.BooleanField(default=False) # deprecated 1.5.2012
     recommended = models.ManyToManyField('Product', blank=True, null=True)
 
         
@@ -128,6 +128,7 @@ class Product(models.Model):
         reviews = Review.objects.filter(product=self, is_published=True)
         return reviews    
     
+
     def is_in_stock(self):
         if self.coming_soon:
             return False
@@ -136,7 +137,6 @@ class Product(models.Model):
             return False
         
         ups = UniqueProduct.objects.filter(parent_product=self, is_active=True, currency__code='GBP')[0]
-        print ups
         if ups.available_stock < 1:
             return False
         
@@ -200,7 +200,7 @@ class Shopper(models.Model):
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
     number_referred = models.IntegerField(null=True, blank=True)
-    subscribed = models.BooleanField(default=False)
+    subscribed = models.BooleanField(default=True)
     slug = models.SlugField(max_length=200)
     twitter_username = models.CharField(max_length=200, blank=True, null=True)
     reminder_email_sent = models.DateTimeField(blank=True, null=True, 

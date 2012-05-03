@@ -180,13 +180,9 @@ div.row {
 		</div>
 		
 		<div class="row-box">
-		    {{ order.owner.first_name }} {{ order.owner.last_name }}<br/>
-			{{ order.address.house_name_number }}<br/>
-			{{ order.address.address_line_1 }}<br/>
-			{{ order.address.address_line_2 }}<br/>
-			{{ order.address.town_city }}<br/>
-			{{ order.address.postcode }}<br/>
-			{{ order.address.get_country_display }}
+		  {% with order.address as address %}
+		      {% include "shop/snippets/address.html" %}
+		  {% endwith %}
 		</div>
 	</div>
 

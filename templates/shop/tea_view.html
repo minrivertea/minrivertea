@@ -489,7 +489,7 @@ div.fb-recommend {
   font-weight: bold;
 }
 
-#price-helper a.not-in-stock {
+#price-helper .not-in-stock {
   font-size: 16px;
   color: #F37679;	
 }
@@ -658,7 +658,6 @@ div.fb-recommend {
 		
 		<div id="prices">
 	 	{% if tea.is_active %}
-		  {% ifequal prices.count 1 %}
 			{% for price in prices %}
 		      <div id="price_{{ price.id }}" class="price large">
 		      	<div class="message"></div>
@@ -667,29 +666,20 @@ div.fb-recommend {
 				<a title="Add 1x {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button single" id="add_to_basket_{{ price.id }}">Add to basket +</a>
               </div>
            	{% endfor %}
-		  {% else %}
-		   	{% for price in prices %}
-		   	  <div id="price_{{ price.id }}" class="price{% if forloop.last %} last{% endif %}">
-		   	  	<div class="message"></div>
-		   		<p class="price">{{ currency.symbol }}{{ price.price|floatformat }}</p> 
-		   		<p class="price-description">{{ price.description }}</p>
-				<a title="Add 1 {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button" id="add_to_basket_{{ price.id }}">Add to basket +</a>
-           	  </div>
-        	{% endfor %}
-          {% endifequal %}
 
 		  <div id="price-helper">        
         	{% if tea.is_in_stock %}
-       		  <strong>{{ currency.symbol }}{{ currency.postage_cost }} shipping per order, FREE over {{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong><br/>
-			  Simple pricing, fast delivery - <a href="/where-do-we-deliver/">find out more &raquo;</a>
+           		 <strong>{{ currency.symbol }}{{ currency.postage_cost }} shipping per order, FREE over {{ currency.symbol }}     {{ currency.postage_discount_threshold }}</strong><br/>
+			     Simple pricing, fast delivery - <a href="/where-do-we-deliver/">find out more &raquo;</a>
         	{% else %}
-        	  <a href="" class="not-in-stock">Pre-order now and get this on {{ tea.get_preorder_date|date:"d M Y" }}</a>
-        	  <br/>We're restocking, so delivery will take longer than usual</a>
+        	     <span class="not-in-stock">Pre-order now and get this on {{ tea.get_preorder_date|date:"d M Y" }}</span>
+        	     <br/>We're restocking, so delivery will take longer than usual</a>
 			{% endif %}
 		  </div>
+		  
 		{% else %}
 		  <div id="price-helper">        
-        	<a href="" class="not-in-stock">This tea is not currently available for sale. Sorry!</a>
+        	<span class="not-in-stock">This tea is not currently available for sale. Sorry!</span>
 		  </div>	
 		{% endif %}
 		

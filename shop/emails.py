@@ -357,7 +357,7 @@ def send_email(request, id):
 def _get_subscriber_list():
     # get the subscribers for emails
     email_signups = EmailSignup.objects.exclude(date_unsubscribed__lte=datetime.now())
-    signed_up_shoppers = Shopper.objects.filter(subscribed=True)
+    signed_up_shoppers = Shopper.objects.exclude(subscribed=False)
     
     from itertools import chain
     

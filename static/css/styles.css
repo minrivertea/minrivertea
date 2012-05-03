@@ -536,13 +536,6 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
 
 /* content page styles */
 
-div#banner {
-    float: left;
-    margin: 10px 0 0;
-    padding: 20px 0 10px;
-    width: 100%;
-}
-
 #main-text-wide {
   width:100%;
   float:left;

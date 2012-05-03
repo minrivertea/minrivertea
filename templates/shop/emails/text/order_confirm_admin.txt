@@ -18,9 +18,6 @@ ORDER STATUS: {{ order.status }}
 
 ADDRESS:
 
-{{ order.address.house_name_number }}
-{{ order.address.address_line_1 }}
-{{ order.address.address_line_2 }}
-{{ order.address.town_city }}
-{{ order.address.postcode }}
-{{ order.address.city }}
+{% with order.address as address %}
+  {% include "shop/snippets.address.html" %}
+{% endwith %}
