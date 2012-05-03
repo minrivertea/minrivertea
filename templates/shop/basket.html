@@ -331,6 +331,25 @@ input#id_discount_code {
    z-index: 2;
 }
 
+#sub-basket {
+    width: 900px;
+    background-color: #f3f6f7;
+    border: 1px solid #d9ebde;
+    border-top: 1px solid #f1f1f1;
+    padding: 10px 30px;
+    float: left;
+    position: relative;
+    top: -40px;
+    border-radius: 0 0 5px 5px;
+}
+
+#sub-basket p {
+  margin: 0;
+  text-shadow: 1px 1px 1px #fff;
+  font-size: 20px;
+  color: #5d8ea6;   
+}
+
 </style>
 {% endblock %}
 
@@ -349,9 +368,7 @@ input#id_discount_code {
 {% if basket_items %}
 
   <div id="basket">
- 
-	<div id="basket-full">
-	 
+    <div id="basket-full"> 
 	{% for thing in basket_items %}
 	  <div class="basket-row">
 	    {% if thing.item.parent_product.coming_soon %}
@@ -376,6 +393,7 @@ input#id_discount_code {
 		
 	  </div>
 	{% endfor %}
+	
 	{% if postage_discount %}
 	  <div class="basket-row postage">
 		<div class="tea-name strikethrough"><em>Postage <span class="small">(Standard)</span></em></div>
@@ -393,15 +411,16 @@ input#id_discount_code {
 		<div class="tea-total">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>
 	  </div>
 	{% endif %}
-	  <div class="basket-row discount">
-	  	{% if code %}
+	
+	<div class="basket-row discount">
+	  {% if code %}
 	  	<div class="tea-name">&nbsp;</div>
 	  	<div class="tea-weight">You have entered a discount code worth {{ percent|floatformat }}% off!</div>
 	  	<div class="tea-price">&nbsp;</div>
 	  	<div class="tea-quantity">&nbsp;</div>
 	  	<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ value|floatformat:"2" }}</span></div>
-	  	{% else %}
-	  	{% if discount_message %}<span id="message" class="red">{{ discount_message }} - </span>{% endif %}
+	  {% else %}
+	    {% if discount_message %}<span id="message" class="red">{{ discount_message }} - </span>{% endif %}
 	  	<span id="link">Got a discount code?</span>
 	  	<div id="form">
 			  	<form action="." method="post">
@@ -409,20 +428,14 @@ input#id_discount_code {
 				<input type="submit" class="button" value="Apply discount" id="submit"/>
 				</form>
 		</div>
-		{% endif %}
-	  </div>
+	  {% endif %}
+	</div>
 
 	<div id="totals">
 		<div class="label">Total:</div><div class="total">{{ currency.symbol }}{{ total_price|floatformat:"2" }}</div>
 	</div>
+    </div> <!-- ENDS basket-full div -->
 
-	</div>
-
-	
-	
-	
-	
-	
 	<br clear="all"/>
 	  	<div id="checkout-button">		
 		
@@ -430,46 +443,44 @@ input#id_discount_code {
 			<strong>Next step</strong>: your details. 
 			<em>No login or registration required to purchase.</em>
 		</p>
-		<a class="button" href="{% url order_step_one %}">Start checkout now &raquo;</a>
+		<a class="button green" href="{% url order_step_one %}">Start checkout now &raquo;</a>
 	</div>
-
-			
+	
   </div>
   
-  	<div id="right">
-           	<div class="info">
-           		<h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
-           		<p>We accept all major credit and debit cards through Paypal</p>
-           		<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
-           	</div>  	
-  			<div class="info">
-  				<h3>
-  					<img style="float:right; margin-left: 5px; position:relative; top: -8px; left: 4px;" src="{% staticfile '/images/gift.png' %}"/>
-  					Create a wishlist from your basket
-  				</h3>
-  				<p>A wishlist saves your basket so that other people can buy it for you as a gift.</p>
-  				<p><a style="font-weight: bold; font-family: Helvetica, Arial, sans-serif" id="wishlist" href="#wishlist-full">How does it work?</a></p>
-  				<div id="wishlist-full" style="width: 800px; padding: 30px;">
-  					<h2>How to make a Wishlist</h2>
-  					<div class="block">
-  						<h3>1. Choose the teas you want</h3>
-  						<p>Choose the teas and other products that you want to have - add them to your basket as normal, and go through the checkout.</p>
-  					</div>
-  					<div class="block">
-  						<h3>2. We give you a unique URL</h3>
-  						<p>At the final stage of the order, click the 'Create Wishlist' link, and we'll give you a unique URL. Share it with friends and relatives.</p>
-  					</div>
-  					<div class="block last">
-  						<h3>3. Friends can buy items for you</h3>
-  						<p>Using your unique URL, friends and family can buy items from your wishlist for you. We'll deliver them direct to the address you provided.</p>
-  					</div>
-  					
-  					<img src="{% staticfile '/images/wishlist-screenshot.jpg' %}">
-  						  					
-  					
-  				</div>
-  			</div>
+  
+  <div id="right">
+   	<div class="info">
+      <h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
+      	<p>We accept all major credit and debit cards through Paypal</p>
+      	<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
+      </div>  	
+  	<div class="info">
+  		<h3>
+  	 	  <img style="float:right; margin-left: 5px; position:relative; top: -8px; left: 4px;" src="{% staticfile '/images/gift.png' %}"/>
+  				Create a wishlist from your basket
+  		</h3>
+  		<p>A wishlist saves your basket so that other people can buy it for you as a gift.</p>
+  		<p><a style="font-weight: bold; font-family: Helvetica, Arial, sans-serif" id="wishlist" href="#wishlist-full">How does it work?</a></p>
+  		<div id="wishlist-full" style="width: 800px; padding: 30px;">
+  			<h2>How to make a Wishlist</h2>
+  			   <div class="block">
+  				 <h3>1. Choose the teas you want</h3>
+  				 <p>Choose the teas and other products that you want to have - add them to your basket as normal, and go through the checkout.</p>
+  			   </div>
+  			   <div class="block">
+  				 <h3>2. We give you a unique URL</h3>
+  				 <p>At the final stage of the order, click the 'Create Wishlist' link, and we'll give you a unique URL. Share it with friends and relatives.</p>
+  			   </div>
+  			   <div class="block last">
+  				 <h3>3. Friends can buy items for you</h3>
+  				 <p>Using your unique URL, friends and family can buy items from your wishlist for you. We'll deliver them direct to the address you provided.</p>
+  			   </div>
+			   <img src="{% staticfile '/images/wishlist-screenshot.jpg' %}">
+		</div>
   	</div>
+ </div>
+  	
 
 	<div id="left">
 

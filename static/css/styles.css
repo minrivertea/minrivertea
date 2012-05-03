@@ -1339,7 +1339,7 @@ button.next:hover {
   	background: url("/images/next-arrow.png") no-repeat scroll bottom transparent;
 }
 
-div#basket {
+#basket {
     background-color: #fff;
     border-radius: 10px 10px 10px 10px;
     float: left;

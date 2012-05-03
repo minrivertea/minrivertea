@@ -191,7 +191,6 @@ def page(request, slug, x=None, y=None, z=None):
 # the product listing page
 def category(request):
     category = get_object_or_404(Category, slug=request.path.strip('/'))
-    categories = Category.objects.all()
     products = _get_products(request, category)
     curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)

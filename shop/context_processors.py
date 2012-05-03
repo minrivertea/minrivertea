@@ -25,7 +25,8 @@ def common(request):
     return context
 
 def get_teas(request):
-    teas = Product.objects.filter(is_active=True, coming_soon=False, category__slug='teas').order_by('?')[:2]
+    teas = Product.objects.filter(is_active=True).order_by('?')[:2]
+    print teas
     return {'teas': teas}
 
 def get_latest_blogs(request):
