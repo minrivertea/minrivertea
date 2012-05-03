@@ -41,7 +41,7 @@ def _send_email(receiver, subject_line, text, request=None, html=None, sender=No
 
 
 # sends a reminder to the owner of an INCOMPLETE order
-def _order_reminder_email(id):
+def _order_reminder_email(request, id):
     order = get_object_or_404(Order, pk=id)
     order.hashkey = uuid.uuid1().hex
     shopper = order.owner
@@ -49,7 +49,7 @@ def _order_reminder_email(id):
         return False
 
     receiver = order.owner.email
-    subject_line = "Was it something I said?"
+    subject_line = "Was it something we said?"
     text = render_to_string('shop/emails/text/send_reminder_email.txt', {
         'order': order, 
         'url': reverse('order_url', args=[order.hashkey])}
