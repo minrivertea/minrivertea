@@ -1,25 +1,5 @@
 {% load django_static %}
 
-<script type="text/javascript">
-		function emailSignupSubmit() {
-		    $('#email-signup').css('opacity', '0.5');
-		    $('img.loading').toggle();
-		    $.ajax({  
-	    	    type: "POST",  
-	    	    data: $('#email-signup form').serialize(), 
-	    	    url: "{% url email_signup %}",  
-	    	    cache: false,  
-	   		    dataType: "html",  
-	    	    success: function(data, textStatus) {
-	    	    	$('#email-signup').html(data);
-	    	    	$('.loading').toggle();
-	    	    	$('#email-signup').css('opacity', '1');
-	    	    }
-    		}); 
-			return false;	
-		}
-</script>
-
 
 		<div class="info email-signup" id="email-signup">	
 			<img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
@@ -32,3 +12,26 @@
 			</form>
 		</div>
 		
+		
+<script type="text/javascript">
+
+	   $('#email-signup form').submit(function() {
+	       $('#email-signup').css('opacity', '0.5');
+	       $('img.loading').toggle();
+	       $.ajax({  
+    	     type: "POST",  
+    	     data: $('#email-signup form').serialize(), 
+    	     url: "{% url email_signup %}",  
+    	     cache: false,  
+   		     dataType: "html",  
+    	     success: function(data, textStatus) {
+    	     	$('#email-signup').html(data);
+    	     	$('.loading').toggle();
+    	     	$('#email-signup').css('opacity', '1');
+    	     }
+   		   }); 
+		  return false;	
+	    });
+
+
+</script>
