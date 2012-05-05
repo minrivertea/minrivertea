@@ -6,7 +6,7 @@
 		<a href="{{ tea.get_absolute_url }}"><span class="link"></span></a>
 		<div class="text">
 			<h3><a href="{{ tea.get_absolute_url }}">{{ tea.name|safe }} &raquo;</a></h3>
-			<p>{{ tea.super_short_description }} <strong>from {{ currency.symbol }}{{ tea.get_lowest_price.price|floatformat }} for {{ tea.get_lowest_price.weight }}{{ tea.get_lowest_price.weight_unit }}</strong></p>
+			<p>{{ tea.super_short_description }} <strong>from {{ currency.symbol }}{{ tea.get_lowest_price.price|floatformat }}{% if tea.get_lowest_price.weight %} for {{ tea.get_lowest_price.weight }}{{ tea.get_lowest_price.weight_unit }}{% endif %}</strong></p>
 		</div>
 	</div>
 	{% endthumbnail %}
