@@ -231,8 +231,11 @@ def tea_view(request, slug):
         currency=_get_currency(request),
         ).order_by('price')
     
-    reviews = Review.objects.filter(product=tea)[:1]
-    
+    try:
+        review = Review.objects.filter(product=tea)[0]
+    except:
+        pass
+        
     # here we're handling the notify form, if the product is out of stock
     if request.method == 'POST':
         form = NotifyForm(request.POST)

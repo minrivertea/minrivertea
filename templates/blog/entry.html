@@ -20,7 +20,7 @@ $(".scroll").scrollable({ circular: true }).click(function() {
 {% block extracss %}
 <style type="text/css">
 
-div#main-text-wide {
+div#mtw {
   margin-top: 30px;	
 }
 
@@ -89,7 +89,7 @@ div.other-entry a {
   font-weight: bold;	
 }
 
-div#main-text-wide div#left div.other-entry p {
+div#mtw div#left div.other-entry p {
   margin-bottom: 0;	
 }
 
@@ -174,8 +174,8 @@ div.info.wide input.button {
 
 
 
-<div id="main-text-wide">
-  <div class="super">		
+<div id="mtw">
+  <div class="sp">		
 		<h1>{{ entry.title }}</h1>
 	<p class="subtitle"><a href="{% url blog_home %}">&laquo; back to blog home</a> | {{ entry.date_added|date:"D d M Y" }}</p>	
 

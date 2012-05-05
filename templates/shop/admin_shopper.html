@@ -17,16 +17,11 @@
 
 {% block content %}
 
-<div id="banner">
-  <div class="super">
+
+<div id="mtw">
+  <div class="sp">
   	<h1>{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }})</h1>
   	<p><a href="{% url admin_stuff %}">&laquo; back to admin stuff</a></p>
-  </div>
-</div>
-
-<div id="main-text-wide">
-  <div class="super">
-
 
 <p>{{ shopper.first_name }} has spent £{{ shopper.get_value }} in total. {% ifequal shopper.is_subscribed True %}They ARE subscribed to emails{% else %}They are NOT subscribed to emails.{% endifequal %}. They have referred {% ifequal shopper.number_referred None %}0{% else %}{{ shopper.number_referred }}{% endifequal %} people.</p>
 

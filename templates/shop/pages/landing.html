@@ -35,7 +35,7 @@ $(function() {
 {% block extracss %}
 <link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
 <style type="text/css">
-div#main-text-wide #left {
+div#mtw #left {
   border-left: none;	
 }
 
@@ -125,8 +125,8 @@ div.info.right {
 
 {% include 'shop/snippets/page_sub_nav.html' %}
 
-<div id="main-text-wide">
-  <div class="super">
+<div id="mtw">
+  <div class="sp">
   	{% if page.feature_image %}
 		{% thumbnail page.feature_image "960" crop="" as im %}
 		  <img src="{{ im.url }}" style="margin-bottom: 30px;"/>

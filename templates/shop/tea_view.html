@@ -98,10 +98,6 @@ h1 span {
   margin-left: 10px;	
 }
 
-#main-text-wide #right {
-  margin-top: 30px;	
-}
-
 div.product-photos-small {
     float: left;
     margin: 15px 0 0px;
@@ -146,7 +142,7 @@ div.product-photos-small p {
 
 .tea-top {
     float: left;
-    margin: 10px 0 10px;
+    margin: 10px 0 30px;
     padding-bottom: 10px;
 }
 
@@ -458,83 +454,6 @@ div.fb-recommend {
     z-index: -1;
 }
 
-#extras {
-  width: 100%;
-  float: left;
-  margin: 25px 0 40px 0;
-  border-bottom: 3px dotted #E1ECF3;
-  padding: 0 0 10px 0;	
-}
-
-#extras div.info {
-    margin: 0 30px 20px 0;
-    width: 431px;
-    background: none;
-    border: none;
-    padding: 0;
-}
-
-#extras div.info.long {
-    background-color: transparent;
-    border: medium none;
-    height: auto;
-    margin: 0;
-    width: 470px;
-    float: right;
-}
-
-#extras .info h4 {
-  font-weight: bold;
-  font-size: 20px;
-  color: #237A2A;
-  font-family: Helvetica, Arial, sans-serif;
-  margin: 0px 0 0 0;	
-}
-
-#extras .info h4.pink {
-  color: #F37679;	
-}
-
-#extras .info p {
-  font-size: 14px;
-  margin: 0;
-}
-	
-#extras .info .item {
-    float: left;
-    margin: 5px 0px 0;
-    position: relative;
-    width: 100%;
-}
-
-#extras .info .item span.link {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 1;	
-}
-
-#extras .info .item:hover {
-  background-color: #f6fbfd;	
-}
-	
-	
-
-#extras .info .item img {
-  float: left;
-  margin-right: 10px;	
-}
-
-#extras .info .item a {
-  font-family: Helvetica, sans-serif;	
-}
-
-#extras .info .item p {	
-  margin: 6px 0 0;
-  line-height: 1.4em;
-}
 
 </style>
 {% endblock %}
@@ -549,12 +468,11 @@ div.fb-recommend {
 
 
 
-<div id="main-text-wide">
-  <div class="super">
+<div id="mtw">
+  <div class="sp">
 	
 	<h1>{% if tea.long_name %}{{ tea.long_name|safe }}{% else %}{{ tea.name }}{% endif %}</h1>
 
-     	
 	<div class="tea-top">
 		<div class="left">
 		<div class="main-image">
@@ -644,54 +562,23 @@ div.fb-recommend {
 		
 
 	</div><!-- end top product info div -->
-	<div id="extras">
-		{% if tea.recommended.all %}
-		<div class="info long">
-			<h4>Other customers also bought...</h4>
-			{% for o in tea.recommended.all %}
-			{% if forloop.counter < 3 %}
-			<div class="item">
-				<a href="{% url tea_view o.slug %}"><span class="link"></span></a>
-					{% thumbnail o.image "140" crop="center" as im %}
-						<img src="{{ im.url }}"/>
-					{% endthumbnail %}
-				<p><strong><a href="{% url tea_view o.slug %}">{{ o.name }} &raquo;</a></strong><br/>{{ o.description|truncatewords:"15" }}<br/><strong>from {{ currency.symbol }}{{ o.get_lowest_price.price }}</strong></p>
-				
-			</div>
-			{% endif %}
-			{% endfor %}
-		</div>
-		{% endif %}
-		
-		{% if reviews %}
-		<div class="info">
-			{% for review in reviews %}
-			<h4 class="pink">{{ review.first_name }} says:</h4>
-			<p>&ldquo;<em>{{ review.short_text }}</em>&rdquo;</p>
-			<p><span class="red">{{ review.first_name }} {{ review.last_name }}</span></p>
-			{% if review.url %}
-				<a href="{{ review.url }}">{{ review.show_url }}</a>
-			{% endif %}
-			{% endfor %}
-		</div>
-		{% endif %}
-		{% if tea.extra_info %}
-		<div class="info">
-			{{ tea.extra_info|safe }}
-		</div>
-		{% endif %}
-		
-	</div>
-
 
 	{% if tea.long_description %}
 	<div id="right">
-		{% include 'shop/boxes/harvest.html' %}
-		{% include 'shop/boxes/samplers.html' %}
-		{% include 'shop/boxes/sourcing.html' %}
+		<div class="info">
+		  {{ tea.extra_info|safe }}
+		</div>
+		<div class="info">
+		  <h3>Customer reviews</h3>
+		  <p>"{{ review.short_text }}"<br/><strong>{{ review.first_name }} {{ review.last_name }}</strong><br/><a href="/reviews/">Read more customer reviews &raquo;</a></p>
+		  
+		</div>
+		{% with tea.recommended.all as teas %}
+		{% include 'shop/boxes/tea.html' %}
+	   {% endwith %}
 	</div>
 	<div id="left">
-		<h2>More information about this product</h2>
+		<h2>More information</h2>
 		{{ tea.long_description|safe }}						 
 	</div>
 	{% endif %}

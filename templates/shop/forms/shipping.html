@@ -43,12 +43,12 @@ div.message {
     padding: 20px 25px;
 }
 
-div#main-text-wide div#left div.message h3 {
+div#mtw div#left div.message h3 {
   margin: 0 0 10px 0;	
   color: #237A2A;
 }
 
-div#main-text-wide div#left div.message p {
+div#mtw div#left div.message p {
   margin: 0;	
 }
 
@@ -63,29 +63,20 @@ div#main-text-wide div#left div.message p {
 
 {% block content %}
 
-<div id="banner">
-  <div class="super">
-  <h1>I want to be notified!</h1>
-  </div>
-</div>
 
-<div id="main-text-wide">
-  <div class="super">		
+
+
+<div id="mtw">
+  <div class="sp">	
+  
+    <h1>I want to be notified!</h1>
+
 		<div id="right">
-
-			<div class="info">
-			<h3>Keep in touch!</h3>
-		 	<p>If you just want to keep in touch, we tweet a lot, and also post tea related photos on flickr regularly.</p>
-		 	<a href="http://www.facebook.com/minrivertea" title="Friend us on Facebook"><img src="{% staticfile '/images/facebook.png' %}"></a>
-		 	<a title="Checkout our tea photos on flickr" target="_blank" href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"></a>
-			<a title="Tweet about this blog to your friends" target="_blank" href="http://twitter.com/home?status=http%3A%2F%2Fwww.minrivertea.com%2Fblog%2F"><img src="{% staticfile '/images/twitter-small.png' %}"></a>
-			</div>
+            {% include 'shop/boxes/social.html' %}
 		</div>
 		
 		<div id="left">
-
 			<p class="introduction">Do you want us to notify you when you can order fantastic Chinese tea in your country?</p>
-			
 
 		{% if message %}
 		  <div class="message">

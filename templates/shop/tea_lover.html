@@ -25,25 +25,16 @@
 
 {% block pagetitle %}minrivertea.com: {{ tea_lover.first_name }} {{ tea_lover.last_name }} - Tea Lover{% endblock %}
 
-{% block banner %}
-	    	<div id="home-banner">
-	    	<h2 class="logo-assist">{{ tea_lover.first_name }} {{ tea_lover.last_name }}</h2>
-	    	<p class="normal">...is a bona fide tea lover!</p>
-			</div>
-{% endblock %}
 
 {% block content %}
 
-<div id="featured-small"></div>
-
-<div id="main-text-wide">
-	
+<div id="mtw">
+  <div class="sp">
 	<img class="leaves" src="{% staticfile '/images/leaves-large.png' %}">
-	<h2>Genuine Chinese Tea Lover</h2>
+	<h1>Genuine Chinese Tea Lover</h1>
 	<p>This certifies that {{ tea_lover.first_name }} {{ tea_lover.last_name }} is a bona fide tea lover.</p>
-			
-						 
 
 
+</div>
 </div>
 {% endblock %}

@@ -35,45 +35,11 @@
 {% block extracss %}
 <style type="text/css">
 
-#boxes {
-  float: left;
-  width: 100%;
-  margin-bottom: 30px;	
+h1 {
+ margin: 0 0 20px 0;   
 }
 
-div.right-box label {
-  margin-bottom: 5px;	
-}
-
-div.row {
-  margin-top: 0px;
-  padding-bottom: 20px;
-  margin-bottom: 10px;
-  background-color: #f1f1f1;
-  width: 600px;
-  padding: 20px;
-  border-top: 3px dotted #e1e1e1;	
-}
-
-div.row-box {
-  margin-left: 0;	
-}
-
-div#main-text-wide div#left div.row-box p {
-  margin: 0;
-  float: left;
-  	
-}
-
-form label {
-  text-align: left;
-  font-size: 14px;
-  width: 120px;
-  position: relative;
-  top: 4px;	
-}
-
-#main-text-wide div#left form p {
+#mtw div#left form p {
   margin: 0px 0 10px 0;	
 }
 
@@ -95,7 +61,7 @@ form input.button {
 }
 
 
-div#main-text-wide div#left p.help-text {
+div#mtw div#left p.help-text {
     float: left;
     margin-left: 80px;
     font-size: 15px;
@@ -109,12 +75,12 @@ div.message {
     padding: 20px 25px;
 }
 
-div#main-text-wide div#left div.message h3 {
+div#mtw div#left div.message h3 {
   margin: 0 0 10px 0;	
   color: #237A2A;
 }
 
-div#main-text-wide div#left div.message p {
+div#mtw div#left div.message p {
   margin: 0;	
 }
 
@@ -188,38 +154,6 @@ div.top {
         margin-left: -1px;
 }
 
-ul.follow {
-  float: left;
-  list-style-type: none;
-  margin: 10px 0 0 20px;
-  padding: 0;	
-}
-
-ul.follow li {
-  display: inline;	
-  margin-right: 5px;
-  font-size: 15px;
-  text-shadow: 1px 1px 0 #fff;
-}
-
-ul.follow li img {
-  position: relative;
-  top: 10px;	
-}
-
-div.box {
-  float: left;
-  width: 270px;
-  margin: 20px 50px 0 0;	
-}
-
-div.box h3 {
-  color: #f37679;	
-  border-bottom: 1px solid #e1e1e1;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
-}
-
 #form form {
   width: 470px;	
   float: left;
@@ -249,8 +183,9 @@ img#loading-contact {
 
 {% block content %}
 
-<div id="main-text-wide">
-  <div class="super">				
+<div id="mtw">
+  <div class="sp">	
+        <h1>Contact us</h1>			
 		<div class="top">
 		
 			<img src="{% staticfile '/images/chris.jpg' %}" style="float:left;margin-right: 30px;">
@@ -264,28 +199,23 @@ img#loading-contact {
 				</ul>
 				
 	 		</div>
-	 		<ul class="follow">
-	 		<li><a href="http://www.facebook.com/minrivertea/"><img src="{% staticfile '/images/facebook.png' %}"/></a></li>
-			<li><a href="https://twitter.com/minrivertea"><img src="{% staticfile '/images/twitter.png' %}"/></a></li>
-			<li><a href="http://www.flickr.com/photos/62180582@N04/"><img src="{% staticfile '/images/flickr.png' %}"/></a></li>
-			<li>&laquo; we're on Facebook, Twitter and Flickr too!</li>
-			</ul>
 	 	</div>
-		<div id="boxes">
-		 	<div class="box"> 		
+
+        <div id="right">
+            {% include 'shop/boxes/follow.html' %}
+		 	<div class="info"> 		
 			 	<h3>Returns</h3>
 			 	<p>If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked.</p>
 			</div>
-			<div class="box">
+			<div class="info">
 				<h3>Personal shopping</h3>
 				<p>We're based here in China, so if you have specific tea needs that can't be fulfilled anywhere else, just get in touch.</p>
 			</div>
-			<div class="box">		 	
+			<div class="info">		 	
 			 	<h3>Wholesale/trade</h3>
 			 	<p>Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch.</p>
-			</div>
-		</div>
-	
+			</div>        
+        </div>
 		
 		<div id="left">
 			<div id="form">	
@@ -295,7 +225,7 @@ img#loading-contact {
 	
 				<img id="loading-contact" src="{% staticfile '/images/loading.gif' %}"/>
 				<form action="{% url contact_us %}" method="post" id="contact-form">
-					<h3>Send us a message</h3>
+					<h2>Send us a message</h2>
 					<p>Use our online contact form to send us a message. We respond to all messages within 12 hours.</p>			
 					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus" title="Your name" value=""/>
 					<input type="text" name="your_email" id="id_your_email" class="clearMeFocus" title="Your email address" value=""/>

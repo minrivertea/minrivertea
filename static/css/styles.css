@@ -12,7 +12,7 @@ body {
   background-color: #EFF5F8;
 }
 
-.super {
+.sp {
   width: 960px;
   margin: 0 auto;	
   position: relative;
@@ -74,7 +74,7 @@ div.left p {
 
 
 
-#main-text-wide #left h3 {
+#mtw #left h3 {
     font-size: 20px;
     margin: 30px 0 5px;
     font-family: Helvetica, Arial, sans-serif;
@@ -536,19 +536,19 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
 
 /* content page styles */
 
-#main-text-wide {
+#mtw {
   width:100%;
   float:left;
   margin: 20px 0 0 0;
 }
 
-#main-text-wide #left {
+#mtw #left {
     float: left;
     margin: 0 10px 20px 0px;
     width: 600px;
 }
 
-#main-text-wide #right {
+#mtw #right {
     float: right;
     padding: 0px;
     width: 260px;
@@ -1099,7 +1099,7 @@ span.red {
   color: #BE373A;	
 }
 
-#main-text-wide #left div.caption {
+#mtw #left div.caption {
     font-size: 13px;
     font-style: italic;
     line-height: 1.6em;
@@ -1108,11 +1108,11 @@ span.red {
     width: 600px;
 }
 
-#main-text-wide #left div.caption.wide {
+#mtw #left div.caption.wide {
     width: 640px;
 }
 
-#main-text-wide #left img.about {
+#mtw #left img.about {
     float: right;
     margin-left: 20px;
 }
@@ -1193,7 +1193,7 @@ span.red {
         margin-left: -1px;
 }
 
-#main-text-wide #left div.did-you-know h3, div.did-you-know h3 {
+#mtw #left div.did-you-know h3, div.did-you-know h3 {
     color: #439249;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 18px;
@@ -1202,18 +1202,18 @@ span.red {
     letter-spacing: -1px;
 }
 
-#main-text-wide #left div.did-you-know h3 span.grey, div.did-you-know h3 span.grey {
+#mtw #left div.did-you-know h3 span.grey, div.did-you-know h3 span.grey {
   text-align: right;
   font-size: 14px;
   padding-left: 10px;	
 }
 
-#main-text-wide #left div.did-you-know p {
+#mtw #left div.did-you-know p {
     font-size: 16px;
     margin: 5px 0 0 0;
 }
 
-#main-text-wide #left div.did-you-know img {
+#mtw #left div.did-you-know img {
   float: left; 
   margin-right: 10px;
   position: relative;
@@ -1259,7 +1259,7 @@ div#comments div#comment-form input.submit-post {
   margin-top: 10px;	
 }
 
-#main-text-wide #left div#comments h3 {
+#mtw #left div#comments h3 {
     float: left;
     font-size: 24px;
     position: relative;
@@ -1301,7 +1301,7 @@ div#comments div#comment-form input.submit-preview {
   display: none;	
 }
 
-#main-text-wide #left div#comments div#comment-form p {
+#mtw #left div#comments div#comment-form p {
   margin: 0;	
 }
 
@@ -1385,7 +1385,7 @@ ul#steps li.selected {
     position: relative;
 }
 
-#footer .super.thin {
+#footer .sp.thin {
   width: 860px;	
 }
 

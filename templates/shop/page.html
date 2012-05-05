@@ -42,8 +42,8 @@ $(function() {
 	{% include 'shop/snippets/page_sub_nav.html' %}
 
 
-<div id="main-text-wide">
-  <div class="super">
+<div id="mtw">
+  <div class="sp">
   	{% if page.feature_image %}
 		{% thumbnail page.feature_image "960" crop="" as im %}
 		  <img src="{{ im.url }}" style="margin-bottom: 30px;"/>
