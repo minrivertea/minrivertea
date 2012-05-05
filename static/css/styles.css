@@ -178,10 +178,10 @@ input.button:hover {
     background: -webkit-linear-gradient(#399440, #237A2A); 
     /* Opera 11.10+ */ 
     background: -o-linear-gradient(#237A2A, #399440); 
-    border: 1px solid transparent;
+    border: 1px solid #1e6c21;
     text-shadow: none;
     box-shadow: none;
-    border-top: none;
+    border-top: ;
     color: #fff; 	
 }
 

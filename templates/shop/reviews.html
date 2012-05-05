@@ -1,17 +1,28 @@
 {% extends "base.html" %}
-{% load thumbnail %}
-{% load django_static %}
+{% load thumbnail django_static %}
 
 {% block metadescription %}Reviews and testimonials about our Chinese tea from our happy customers!{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
-div#main-text-wide div#left {
-  margin-top: 20px;	
+
+#main-text-wide #left {
+ margin-top: 20px;
+ width: 100%;   
 }
 
-div#main-text-wide div#right {
-  margin-top: 20px;	
+.review {
+ float: left;
+ width: 100%;
+ margin: 0 0 10px 0;    
+}
+
+.image {
+ float: left;
+ background: #fff;
+ padding: 10px;
+ margin: 0 20px 0 0;
+ box-shadow: 0 1px 3px #e1e1e1;   
 }
 
 
@@ -24,24 +35,26 @@ div#main-text-wide div#right {
 
 {% block content %}
 
-<div id="banner">
-  <div class="super">
-  	<h1>What our customers are saying</h1>
-  	<p class="introduction">Testimonials and reviews from happy customers who've bought our tea recently.</p>
-  </div>
-</div>
 
 <div id="main-text-wide">
   <div class="super">
-	
-	
+  
+  	<h1>What our customers are saying</h1>
 
 	<div id="left">
 		{% for review in reviews %}
-		<p>{{ review.short_text }}<br/>
-		<span class="red">{{ review.first_name }} {{ review.last_name }} is talking about <a href="{% url tea_view review.product.slug %}">{{ review.product }}</a></span>
-		{% if review.url %}<a href="{{ review.url }}">(read the full review here)</a>{% endif %}
-		</p>
+		  <div class="review">
+    		  <div class="image">
+	   	       {% thumbnail review.product.image "180x120" crop="center" as im %}
+	   	       <img src="{{ im.url }}">
+	   	       {% endthumbnail %}
+		      </div>
+		      <p>{{ review.short_text }}<br/>
+		          <span class="red">{{ review.first_name }} {{ review.last_name }} drinks 
+		          <a href="{% url tea_view review.product.slug %}">{{ review.product }}</a></span>
+		          {% if review.url %}<a href="{{ review.url }}">(read the full review here)</a>{% endif %}
+		      </p>
+		   </div>
 		{% endfor %}
 	<div class="did-you-know">
 	<a href="/teas/jasmine-pearls/"><span class="link"></span></a>

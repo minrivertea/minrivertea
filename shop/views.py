@@ -961,9 +961,7 @@ def shipping(request):
 
 # view for the photo wall
 def reviews(request):
-    reviews = Review.objects.filter(is_published=True)[:6]
-    photos = Photo.objects.filter(published=True).order_by('-id')[:10]
-    
+    reviews = Review.objects.filter(is_published=True).order_by('product')
     return render(request, 'shop/reviews.html', locals())
 
 

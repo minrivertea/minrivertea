@@ -63,6 +63,7 @@ function addToBasket(idx) {
    	      dataType: 'json',
    	      success: function(data){
     		$("#basket-number").replaceWith('<span id="basket-number">(' + data.quantity + ')</span>');
+    		$('.description').css('opacity', '0.4').delay(3900).queue(function() {$(this).css('opacity', '1')});
             $('#price_' + idx + ' .message').append(data.item).delay(3800).fadeOut(1200);
             $('#price_' + idx).css('opacity', '1');
   		  }
@@ -181,29 +182,8 @@ div.product-photos-small p {
 .tea-top div#prices div.price {
     float: left;
     margin: 0;
-    width: 170px;
     position: relative;
-}
-
-.tea-top div#prices div.price.large {
-  width: 100%;
-}
-
-
-.tea-top div#prices div.price.large p.price-description {
-  width: 90px;
-  float: left;
-  margin-left: 10px;
-  margin-bottom: 0px;	
-}
-
-.tea-top div#prices div.price.large div.message {
-  top: 60px;
-  width: 260px;
-}
-
-.tea-top div#prices div.price.last {
- margin-right: 0;
+    width: 430px;
 }
 
 .tea-top a.button {
@@ -212,31 +192,11 @@ div.product-photos-small p {
     margin: 0;
     position: relative;
     width: 190px;
-    background: #237A2A;
-    background: -moz-linear-gradient(100% 100% 90deg, #237A2A, #399440) repeat scroll 0 0 transparent;
-    /* Safari 4-5, Chrome 1-9 */ 
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#399440), to(#237A2A)); 
-    /* Safari 5.1+, Chrome 10+ */ 
-    background: -webkit-linear-gradient(#399440, #237A2A); 
-    /* Opera 11.10+ */ 
-    background: -o-linear-gradient(#237A2A, #399440); 
-    border: 1px solid transparent;
-    text-shadow: 0 -1px 1px #333333;
-    box-shadow: none;
-    color: #fff; 
+    top: -5px;
     padding: 11px 20px 9px;
 }
 
-.tea-top a.button:hover {
-  box-shadow: 0 1px 3px #999;
-  border: 1px solid #fff;
-}
 
-.tea-top a.button.single {
-    float: right;
-    top: -5px;
-    margin: 0;
-}
 
 .tea-top div.tea-description {
   float: left;
@@ -259,18 +219,17 @@ div.price-text {
 }
 
 div.message {
-   position: absolute;
-   top: 105px;
-   left: -10px;
-   width: 160px;
-   height: auto;
-   display: none;
-   z-index: 10;
-   border: none;
-   padding: 15px 15px;
-   background-color: #fff;
-   border: 1px solid #e1e1e1;
-   border-radius: 5px;
+    background-color: #FFFFFF;
+    border: 1px solid #C1C1C1;
+    border-radius: 5px 5px 5px 5px;
+    display: none;
+    height: auto;
+    padding: 15px;
+    position: absolute;
+    right: 0;
+    top: -135px;
+    width: 260px;
+    z-index: 10;
 }
 
 div.message:after {
@@ -278,13 +237,13 @@ div.message:after {
         display: block;
         width: 0;
         height: 0;
-        border-bottom: 15px solid #d1d1d1;         
-        border-top: 0;
+        border-top: 15px solid #d1d1d1;         
+        border-bottom: 0;
         border-left: 15px solid transparent;
         border-right: 15px solid transparent;
         position: absolute;
-        top: -15px;
-        left: 25px;
+        bottom: -15px;
+        right: 25px;
         z-index: 1;
         margin-left: ;
 }
@@ -294,13 +253,13 @@ div.message:after {
         display: block;
         width: 0;
         height: 0;
-        border-bottom: 15px solid #fff;     
-        border-top: 0;
+        border-top: 15px solid #fff;     
+        border-bottom: 0;
         border-left: 15px solid transparent;
         border-right: 15px solid transparent;
         position: absolute;
-        top: -14px;
-        left: 26px;
+        bottom: -14px;
+        right: 25px;
         z-index: 2;
         margin-left: -1px;
 }
@@ -393,8 +352,6 @@ p.price span.grey {
   font-size: 20px;
   text-shadow: none;
 }
-
-
 
 p.price-description {
     color: #333333;
@@ -659,11 +616,11 @@ div.fb-recommend {
 		<div id="prices">
 	 	{% if tea.is_active %}
 			{% for price in prices %}
-		      <div id="price_{{ price.id }}" class="price large">
+		      <div id="price_{{ price.id }}" class="price">
 		      	<div class="message"></div>
 		    	<p class="price">{{ currency.symbol }}{{ price.price|floatformat }}</p> 
 		    	<p class="price-description">{{ price.description }}</p>
-				<a title="Add 1x {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button single" id="add_to_basket_{{ price.id }}">Add to basket +</a>
+				<a title="Add 1x {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}">Add to basket +</a>
               </div>
            	{% endfor %}
 
