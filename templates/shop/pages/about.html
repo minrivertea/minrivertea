@@ -118,42 +118,10 @@ h1 {
 {% endif %}
 
 
-
-div#main-text-wide div#right div.social {
-  float: left;
-  margin-left: 0px;
-
-}
-
-div#main-text-wide div#right div.social p {
-	  font-size: 11px;
-}
-
-div.social img {
-  margin-right: 5px;	
-}
-
-div.flatpage div#right div.social p {
-  font-size: 11px;	
-  line-height: 14px;
-}
-
 span.review {
   color: #333;	
 }
 
-div.about-right {
-    float: left;
-    padding-bottom: 20px;
-    width: 241px;
-    margin: 40px 0 20px 0;
-    background-color: #38a267;
-    border-radius: 0 0 10px 10px;
-}
-
-div.about-right img {
-  border: 2px solid #fff;	
-}
 
 div.about-right img.top {
     margin-top: -100px;
@@ -192,36 +160,28 @@ div.about-right img.top {
 }
 
 
-div.learn-comment {
-  background: url('{% staticfile "/images/learn-comment.png" %}') no-repeat top left;
-  float: left;	
-  height: 195px;
-  width: 280px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  position: relative;
-  left: -35px;
+
+
+ul.rss {
+   width: 280px;   
 }
 
-div.learn-comment a.button {
-    display: block;
+ul.rss #facebook {
+  width: 270px;   
+  background-color: #e1ecf3;
+  padding: 10px 10px 3px 15px;
+  top: -4px;
+}
+
+ul.rss #facebook p {
+    color: #333;
     float: left;
-    font-size: 19px;
-    height: 31px;
-    left: 44px;
-    padding-bottom: 2px;
-    padding-top: 15px;
+    font-family: Helvetica,sans-serif;
+    font-size: 12px;
+    text-shadow: 1px 1px 1px #FFFFFF;
+    margin: 0 10px 0 0;
     position: relative;
-    top: 127px;
-    width: 192px;
-}
-
-div.learn-comment a.button:hover {
-  background-position: center left;	
-}
-
-div.learn-comment a.button:active {
-  background-position: bottom left;	
+    top: 5px;
 }
 
 
@@ -286,20 +246,10 @@ div.learn-comment a.button:active {
 	    
 		{{ page.content|safe }}
 	
-	
-		{% if ga_is_on %}
+  	    {% if ga_is_on %} 
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
-			<li id="google">
-				<g:plusone></g:plusone>
-				<script type="text/javascript">
-				  (function() {
-				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-				    po.src = 'https://apis.google.com/js/plusone.js';
-				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-				  })();
-				</script>
-			</li>
 	    	<li id="facebook">
+	    	    <p>If you like us, please 'Like' us &raquo;</p>
 			    <div id="fb-root"></div>
 			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
 			    <fb:like href="http://www.facebook.com/minrivertea" send="false" layout="button_count" width="80" show_faces="true" font="">
@@ -307,6 +257,7 @@ div.learn-comment a.button:active {
 			</li>
 		</ul>
 		{% endif %}
+
 	
 	
 	</div>

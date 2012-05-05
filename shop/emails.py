@@ -243,10 +243,8 @@ def _payment_flagged_email(request, order):
 
 def email_signup(request):
     if request.method == 'POST':
-        
         form = EmailSignupForm(request.POST)
         if form.is_valid():
-            
             try:
                 existing_signup = get_object_or_404(EmailSignup, email=form.cleaned_data['email'])
                 message = "<h3>Looks like you're already signed up! You don't need to do anything else, and you'll receive TEAMails as normal.</h3>"
@@ -260,7 +258,6 @@ def email_signup(request):
                 message = "<h3>Awesome! You're now signed up to receive TEAMails - they're roughly fortnightly, and you can unsubscribe at any time by clicking the link in the email.</h3>"
             
             if request.is_ajax():
-                
                 return HttpResponse(message)
             
             else:
