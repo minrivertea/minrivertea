@@ -1,10 +1,44 @@
 {% extends "base.html" %}
+{% load django_static %}
 
 {% block pagetitle %}Order Complete{% endblock %}
 
 
 {% block extracss %}
 <style type="text/css">
+#tweetit {
+  background: #fff;
+  float: right; 
+  width: 450px;
+  margin: 20px 0 30px 30px;
+  box-shadow: 0 1px 3px #e1e1e1;
+  padding: 20px; 
+}
+
+#tweetit h3 {
+ margin: 0px 0 0; 
+ font-weight: bold;
+ font-family: Helvetica, Arial, sans-serif;  
+}
+
+#tweetit p {
+ margin: 0 0 10px 0;   
+}
+
+#tweetit .image {
+ margin: 20px 0 0;   
+}
+
+#tweetit .image p {
+  float: left;
+  margin: 0 10px 0 0;
+  color: #FF6569;
+  font-family: Helvetica, Arial, sans-serif;  
+  font-weight: bold;   
+}
+
+#tweetit
+
 
 
 </style>
@@ -17,6 +51,21 @@
 
     <h1>Order complete!</h1>
     <p class="introduction">We've received your order and we'll send your tea immediately. We've also sent you an email confirming the details. Thank you and we really hope you enjoy your tea!</p>
+    
+    
+<div id="tweetit">
+	<div class="text">
+		<h3>Tweet your order!</h3>
+		<p>Please help spread the word about our great teas by tweeting:</p>			
+		<img id="example" src="{% staticfile '/images/complete-tweet.jpg' %}"/>
+	</div>
+	
+	<div class="image">
+	   <p>Click here to tweet &raquo;</p>
+		<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com" data-text="just ordered some great Chinese #tea from @minrivertea" data-via="minrivertea" data-size="large" data-related="minrivertea">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</div>
+</div>
 
 
 <p>Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience.</p>
