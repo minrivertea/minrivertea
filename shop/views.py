@@ -175,7 +175,8 @@ def index(request):
     curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
     
-    return render(request, "shop/home.html", locals())
+    return render(request, "shop/ab/home.html", locals())
+
 
 def page(request, slug, x=None, y=None, z=None):
     page = get_object_or_404(Page, slug=slug)
