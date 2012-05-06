@@ -151,7 +151,6 @@ def _change_currency(request):
     
 
 def _get_products(request, cat=None):
-    
     if cat:
         products = Product.objects.filter(category=cat, is_active=True).order_by('-list_order')
     else:        
@@ -161,21 +160,21 @@ def _get_products(request, cat=None):
 
 # the homepage view
 def index(request):
-    reviews_list = Review.objects.filter(is_published=True).order_by('?')
-      
+
     seen = {}
     reviews_one = []
-    for item in reviews_list:
+    for item in Review.objects.filter(is_published=True).order_by('?'):
         marker = item.product
         if marker in seen: continue
         seen[marker] = 1
         reviews_one.append(item)
     
-    reviews = reviews_one[:4]
+    reviews = reviews_one[:5]
+
     curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
     
-    return render(request, "shop/home.html", locals())
+    return render(request, "shop/ab/home.html", locals())
 
 
 def page(request, slug, x=None, y=None, z=None):

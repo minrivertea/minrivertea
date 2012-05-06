@@ -1,6 +1,7 @@
    {% load django_static %}
     
     <div id="special">
+        <a href="/teas/buddhas-hand-oolong-tea/"><span class="link"></span></a>
 		<img src="{% staticfile '/images/home2.jpg' %}"/>
 		<h2>Real Kung Fu Tea!</h2>
 		<p class="tea-desc">Grown in the birthplace of White Crane Kung Fu, you'll love the fresh green taste and butter-smooth texture of this Buddha's Hand oolong tea, but sadly it probably won't turn your hands into deadly weapons!</p>
@@ -8,7 +9,7 @@
 		<p class="price">
 			<span class="amount">{{ currency.symbol }}{{ special.price|floatformat }}</span>
 			<span class="description">100g loose-leaf<br/> - @50 cups</span>
-			<a href="/teas/buddhas-hand-oolong-tea/" class="button green">Order this tea &raquo;</a>
+			<a href="/teas/buddhas-hand-oolong-tea/" class="button green">Find out more &raquo;</a>
 		</p>
-		<span class="tag"><span class="tagtext">PRE-ORDER NOW!</span></span>
+		<span class="tag"><span class="tagtext">FEATURED MAY 2012</span></span>
 	</div>

@@ -568,11 +568,12 @@ div.fb-recommend {
 		<div class="info">
 		  {{ tea.extra_info|safe }}
 		</div>
+		{% if review %}
 		<div class="info">
 		  <h3>Customer reviews</h3>
 		  <p>"{{ review.short_text }}"<br/><strong>{{ review.first_name }} {{ review.last_name }}</strong><br/><a href="/reviews/">Read more customer reviews &raquo;</a></p>
-		  
 		</div>
+		{% endif %}
 		{% with tea.recommended.all as teas %}
 		{% include 'shop/boxes/tea.html' %}
 	   {% endwith %}

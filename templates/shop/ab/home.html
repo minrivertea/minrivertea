@@ -10,7 +10,6 @@
 {% block extracss %}
 <style type="text/css">
 
-
 #feature {
     float: left;
     height: 390px;
@@ -32,11 +31,11 @@
     float: right;
     position: relative;
     top: -10px;
-    width: 265px;
+    width: 300px;
 }
 
 #feature div.top h1 {
-    font-size: 30px;
+    font-size: 36px;
     margin: 20px 0 10px 0;
     text-align: left;
 
@@ -52,7 +51,7 @@
 }
 
 #feature div.top a.button {
-    float: right;
+    float: left;
     font-size: 20px;
     padding: 16px 15px 14px;
     text-align: center;
@@ -62,28 +61,17 @@
     text-shadow: 0 1px 1px #333;
 }
 
-#feature span.link {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index:2;	
-}
-
 #adventure {
     float: left;
     height: 320px;
-    padding: 40px 0 0px;
+    margin-top: 50px;
+    padding: 0px 0 0px;
     width: 100%;
 }
 
 #adventure h2 {
-  float: left;
-  width: 480px;	
-  margin: 0px 0px 0 0;
-  font-size: 40px;
-  color: #FF6569;
+  color: #;
+  font-size: 32px;   
 }
 
 #adventure p {
@@ -105,7 +93,7 @@
   float: left;	
   position: relative;
   width: 100%;
-  margin: 20px 0 40px;
+  margin: 20px 0 20px;
 }
 
 #benefits a#more {
@@ -115,12 +103,9 @@
   margin: 0px 30px 0 0;
 }
 
-#benefits img.first-time {
-  box-shadow: none;
-  position: absolute;
-  right: 160px;	
-  top: -30px;
-  border: none;
+#benefits h2 {
+ color: #738693;
+ margin: 10px 0 25px 10px;   
 }
 
 #benefits #teas {
@@ -133,74 +118,65 @@
 
 #benefits .tea {
     float: left;
-    margin: 0 30px 30px 0;
-    width: 210px;
+    margin: 0 15px 15px 0;
+    width: 278px;
+    border: 1px solid #e1e1e1;
+    background: #fff;
+    padding: 15px 15px 10px;
+    position: relative;
 }
 
-#benefits .tea h4 {
-    margin: 0px 0 5px 8px;
-    padding: 0;
-    font-weight: bold;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size:18px;
+#benefits .tea:hover {
+  box-shadow: 0 1px 4px #d1d1d1;  
+  border: 1px solid #c1c1c1; 
 }
 
 #benefits .tea p {
-  margin: 10px 0 0;
-  color: #666;
-  font-size: 14px;
-  line-height: 1.3em;	
+   margin: 0;
+   font-size: 16px; 
+   line-height: 1.3em;  
+}
+
+#benefits .tea.first {
+    background: none repeat scroll 0 0 transparent;
+    border: none;
+    float: right;
+    margin-right: 0;
+    padding: 20px 10px 0;
+    position: relative;
+    text-align: left;
+}
+
+#benefits .tea.first:hover {
+ border: none;
+ box-shadow: none;   
+}
+
+#benefits .tea.first p {
+  margin: 0 0 15px 0;
+}
+
+#benefits .tea.last {
+  margin-right: 0;   
+}
+
+#benefits .tea h4 {
+    margin: 5px 0 5px 0px;
+    letter-spacing: -0.5px;
+    padding: 0;
+    font-weight: normal;
+    font-size:22px;
+}
+
+#benefits .tea:hover h4 {
+  text-decoration: underline;
+  color: #237A2A;   
 }
 
 #benefits img {
-    border: 7px solid #FFFFFF;
-    border-radius: 0 0 0 0;
-    box-shadow: 0 2px 3px #999999;
-    margin-right: 0;
-    margin-top: 0;
+  margin: 0;
 }
 
-
-div#adventure #icons {
-  float: left;
-  margin-top: 15px;	
-}
-
-.icons {
- background: url('{% staticfile "/images/adventure-benefits.png" %}') no-repeat top left #f1f1f1;
- float: left;
- width:110px;
- height: 94px;	
- display: block;
- margin-right: 20px;
-}
-
-.icons a {
-  font-size: 12px;
-  font-weight: bold;
-  position: relative;
-  top: 105px;
-  left: 5px;
-  font-family: Helvetica, Arial, sans-serif;	
-}
-
-#home-icon {
-  background-position: 0 0;
-}
-
-#fresh-icon {
-  background-position: top center;
-}
-
-#recycle-icon {
-  background-position: top right;
-}
-
-#facebook {
-  position: absolute;
-  top: 85px;	
-  right: 20px;
-}
 
 #special {
   float: left;	
@@ -210,7 +186,7 @@ div#adventure #icons {
   background-color: #fff;
   position: relative;
   overflow: hidden;
-  margin: 30px 0 30px 0;
+  margin: 20px 0 0px 0;
 }
 
 #special h2 {
@@ -271,6 +247,7 @@ div#adventure #icons {
     position: relative;
     right: 10px;
     top: -12px;
+    z-index: 20;
 }
 
 .tag {
@@ -314,13 +291,15 @@ div#adventure #icons {
 {% endblock %}
 
 {% block content %}
+  </div>
+</div>
 
 
 <div id="feature">
   <div class="sp">
     <img src="{% staticfile '/images/feature7.jpg' %}"/>
 	<div class="top">
-		<h1>Try fresh and natural Chinese tea, direct from the source in China</h1>
+		<h1>We deliver amazing Chinese teas, from the farm to your door.</h1>
 		
 		<p>Enjoy a better brew every day with natural, traditionally made and ethically sourced loose-leaf Chinese teas you can brew at home or in the office.</p>
 		
@@ -331,26 +310,34 @@ div#adventure #icons {
 
 <div class="sp">
 
+    
+    
     {% include "shop/snippets/fo-shou-special.html" %}
 
 
 	<div id="benefits">
+	   <h2>Check out our bestsellers below, <a class="underline" href="/teas/">or see our full range of teas here &raquo;</a></h2>
 		<div id="teas">
+		    <div class="tea first">
+		      <p>The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.<br/><span class="red">Brad Robinson, London.</span></p>
+		      <p>Thanks for the starter pack, the Jasmine tea is the best I've ever had!<br/><span class="red">Ben Ford, UK.</span></p>
+		      <p><a href="/reviews/">See more customer reviews &raquo;</a></p>
+		    </div>
 			{% for r in reviews %}
-				<div class="tea">
-					<h4><a href="{{ r.product.get_absolute_url }}">{{ r.product.name }}</a></h4>
-				{% thumbnail r.product.image "200" crop="center" as im %}
+				<div class="tea {% if forloop.last %}last{% endif %}">
+				    <a href="{{ r.product.get_absolute_url }}"><span class="link"></span></a>
+				    {% thumbnail r.product.image "280" crop="center" as im %}
 					<a alt="a picture of our {{ r.product.name }} Chinese tea" title="{{ r.product.name }}" href="{{ r.product.get_absolute_url }}">
 						<img alt="{{ r.product.description }}" src="{{ im.url }}"/>
 					</a>
-				{% endthumbnail %}
-				
-				<p>{{ r.short_text|safe }} <br/><span class="red">{{ r.first_name }} {{ r.last_name }}</span></p>
+				    {% endthumbnail %}
+				    <h4>{{ r.product.name }}</h4>
+				    
+				    
+				    
 				</div>
 			{% endfor %}
 		</div>
-		
-		<a class="underline" id="more" href="{% url teas %}">Take a look at our full range of teas &raquo;</a>
 	</div>	
 	
 	
@@ -360,9 +347,10 @@ div#adventure #icons {
 		<img alt="Min River Tea Farm co-founder hugging a tea tree on Wuyi Mountain" src="{% staticfile '/images/home-mountain.jpg' %}"/>
 		<h2>A big <em>ni hao</em> from China!</h2>
 		
-		<p>We sell the <strong>tastiest, healthiest and most stunning tea</strong> you've ever tried, direct from the farmer in China. Why?</p>
 		
-		<p>Because we're the only independent UK tea company <span class="underline">in China full-time</span>. We speak Chinese, we learn about tea, we visit tea farms and <strong>we source tea directly from farmers</strong>.<br/><a href="/about/">Find out more about us &raquo;</a></p>
+		<p>We sell the <strong>tastiest, healthiest and most stunning Chinese teas</strong> you'll ever try, direct from the farm in China. How?</p>
+		
+		<p><span class="underline">Because we live in China full-time</span>. While most tea companies buy through a string of wholesalers, we speak Chinese fluently, we're fanatic about tea, we visit tea farms regularly and <strong>we source tea directly from farmers</strong>. </p><p><a href="/about/">Find out more about us &raquo;</a></p>
 		
 		
 		

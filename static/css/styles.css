@@ -640,12 +640,13 @@ p.introduction {
   margin-bottom: 110px;
 }
 
-.info.tea span.link {
+.info.tea span.link, span.link {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
-  width: 100%;	
+  width: 100%;
+  z-index: 10;	
 }
 
 .info.tea:hover .text h3 a {
