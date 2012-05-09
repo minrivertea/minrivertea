@@ -19,5 +19,5 @@ ORDER STATUS: {{ order.status }}
 ADDRESS:
 
 {% with order.address as address %}
-  {% include "shop/snippets.address.html" %}
+  {% include "shop/snippets/address.html" %}
 {% endwith %}
