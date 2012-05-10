@@ -655,7 +655,7 @@ p.introduction {
 
 .info.tea .text {
   position: absolute;
-  bottom: -80px;
+  top: 170px;
   left: 0px;
   padding: 10px;
   background-color: #fff;
