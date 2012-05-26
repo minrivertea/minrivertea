@@ -12,6 +12,7 @@ body {
   background-color: #EFF5F8;
 }
 
+/* sp is the 'super' div which keeps everything centered */
 .sp {
   width: 960px;
   margin: 0 auto;	
@@ -711,19 +712,19 @@ p.introduction {
 }
 
 .info.follow a.tw {
-  background-position: -32px -86px;	
+  background-position: -32px -85px;	
 }
 
 .info.follow a.rss {
-  background-position: -96px -86px;	
+  background-position: -96px -85px;	
 }
 
 .info.follow a.fl {
-  background-position: -64px -86px;	
+  background-position: -64px -85px;	
 }
 
 .info.follow a.gp {
-  background-position: -128px -86px;	
+  background-position: -128px -85px;	
 }
 
 
@@ -1449,4 +1450,18 @@ a#harvest {
 a#harvest:hover {
  text-decoration: underline;
  color: #FF6569;   
+}
+
+
+#alert {
+  width: 100%;
+  height: auto;
+  padding: 20px 0 30px;   
+  font-size: 20px;
+  text-align: center;
+  background: #fff;
+}
+
+#alert a {
+ text-decoration: underline;   
 }

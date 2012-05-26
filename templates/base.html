@@ -132,7 +132,15 @@ if (15.00) {
 
 <body>
 
- 	  	
+{% if '/shipping-news/' not in request.path %}
+<div id="alert">
+<div class="sp">
+Orders will take longer to deliver in May/June - <a href="/shipping-news/">find out why this is exciting news for you &raquo; </a>
+</div>
+</div>
+{% endif %}
+ 	 
+ 	 	
 <div id="header">
 	<div class="sp">
 	   	<div id="logo">
