@@ -686,6 +686,8 @@ div.fb-recommend {
 		{% endfor %}
 	</div>
 	
+	{% if region == 'China' %}
+	{% else %}
 	{% if ga_is_on %}
     <ul class="rss">
 		<li id="google">
@@ -705,6 +707,7 @@ div.fb-recommend {
 		    </fb:like>
 		</li>
 	</ul>
+	{% endif %}
 	{% endif %}
 
 
