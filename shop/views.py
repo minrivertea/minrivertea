@@ -267,11 +267,6 @@ def tea_view(request, slug):
         currency=_get_currency(request),
         ).order_by('price')
     
-    
-    other_products = tea.recommended.all()
-    for x in other_products:
-        x.lowest_price = UniqueProduct.objects.filter(parent_product=x, is_active=True, currency=_get_currency(request))
-    
     try:
         review = Review.objects.filter(product=tea)[0]
     except:
