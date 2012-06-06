@@ -104,7 +104,6 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.comments',
     'shop',
-    'china',
     'blog',
     'sorl.thumbnail',
     'paypal.standard.ipn',
