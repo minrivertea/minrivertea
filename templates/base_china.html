@@ -1,0 +1,227 @@
+{% load django_static nav_selected %}
+
+
+{% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+{% endblock %}
+
+<head>
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta content="en-gb" http-equiv="Content-Language" />
+	<meta content="{% block metadescription %}{% endblock %}" name="description" />
+	
+	<meta name="msvalidate.01" content="D72BD43A6F271B73C8F653A920B8C23C" />
+	<meta name="google-site-verification" content="obu9NY_4FNbUQMNlrvWOk59ABZ9gROs37zTql__Lglo" />
+	<META name="y_key" content="cfd80b8d388be931" />
+	
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="generator" content="Django - http://www.djangoproject.com" />
+	<meta name="DC.format" content="text/html" />
+	<meta name="DC.type" content="Django Site" />
+	<meta name="robots" content="ALL" />
+	
+	<title>{% block pagetitle %}{% endblock %} | minrivertea.com</title>
+	<link rel="shortcut icon" href="{% staticfile '/images/favicon.ico' %}" type="image/x-icon">
+	{% block canonical %}{% endblock %}
+	
+	{% block extra-head %}{% endblock %}
+
+	<link rel="stylesheet" href="{% staticfile '/css/styles.css' %}" />
+	<style type="text/css">
+	    #logo {background: url("/images/china_logo.jpg") no-repeat scroll top left transparent;}
+	    #location-switcher {width: 100%; font-size: 12px; float: left; text-align: left; position: relative; top: 40px;}
+
+	</style>
+	    
+	<script type="text/javascript" src="{% staticfile '/js/jquery-1.6.min.js' %}"></script>
+	{% if ga_is_on %}
+		<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
+	{% else %}
+		<script src="/js/jquery.tools.min.js"></script>
+	{% endif %}
+	    
+	<!--[if lte IE 6]>
+		<link rel="stylesheet" media="screen" type="text/css" href="{% staticfile '/css/ie6.css' %}" />
+	<![endif]-->
+
+
+	{% block extracss %}{% endblock %}
+	
+    {% block ga %}
+    {% if ga_is_on %}
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9041614-4']);
+  _gaq.push(['_trackPageview']);
+  
+  {% if "order/complete/" in request.path %}
+  {% if order %}
+
+  _gaq.push(['_addTrans',
+    '{{ order.invoice_id }}',           // order ID - required
+    'Min River Tea Farm',  // affiliation or store name
+    '{{ order.get_amount }}',          // total - required
+    '',           // tax
+    '',              // shipping
+    '',       // city
+    '',     // state or province
+    ''             // country
+  ]);
+
+   {% for item in order.items.all %}
+  _gaq.push(['_addItem',
+    '{{ order.invoice_id }}',           // order ID - required
+    '{{ item.item.parent_product.id }}',           // SKU/code - required
+    '{{ item.item.parent_product.name }}',        // product name
+    '{{ item.item.weight }}{{ item.item.weight_unit }}',   // category or variation
+    '{{ item.item.price }}',          // unit price - required
+    '1'               // quantity - required
+  ]);
+  {% endfor %}
+  
+  _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
+  
+  {% endif %}
+  {% endif %}
+
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+{% if "order/complete" in request.path %}
+{% if order %}
+<!-- Google Code for Bought Something Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 970474503;
+var google_conversion_language = "en";
+var google_conversion_format = "2";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "mTM9CJHq3AIQh4jhzgM";
+var google_conversion_value = 0;
+if (15.00) {
+  google_conversion_value = 15.00;
+}
+/* ]]> */
+</script>
+<script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/970474503/?value=15.00&amp;label=mTM9CJHq3AIQh4jhzgM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+{% endif %}
+{% endif %}
+
+
+
+    {% endif %}
+    
+    
+    
+    {% endblock %}
+</head>
+
+
+
+<body>	 
+ 	 	
+<div id="header">
+	<div class="sp">
+	   	<div id="logo">
+	   		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="{% url home %}"></a>
+	   	</div>
+	   	
+
+	   		
+    	<div id="navigation">
+    	  <ul id="nav">
+			<li>
+    	      <a class="grey {% nav_selected request '^/$' %}" href="{% url home %}" title="Min River Tea Homepage" alt="">Home</a>
+    	    </li>
+    	    <li>
+    	      <a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Chinese teas</a>
+    	    </li>
+    	    <li>
+    	      <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="Teacups and teapots" alt="">Teaware</a>
+    	    </li>
+    	    <li>
+    	      <a class="grey {% if page %}{% if page.get_root.slug == 'learn' %}selected{% endif %}{% else %}{% nav_selected request '^/learn/' %}{% endif %} learn" href="{% url page 'learn' %}" title="Learn about Chinese tea" alt="">Learn about tea</a>
+    	    </li>
+    	    <li>
+    	      <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about-china/' %}{% endif %} about" href="{% url page 'about' %}" title="About Min River Tea" alt="">About us</a>
+    	    </li>
+    	    <li>
+    	      <a class="grey {% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
+    	      Your basket <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
+    	      </a>
+    	    </li>
+  		  </ul>
+		</div>
+	{% block banner %}{% endblock %}
+	</div>
+</div>
+<!-- end header -->
+
+	{% block content %}{% endblock %}
+	
+	{% block footer %}
+		{% include "shop/snippets/footer-china.html" %} 
+	{% endblock %}
+
+</div>
+	{% block extrajs %}{% endblock %}
+	<script type="text/javascript">
+
+		$(document).ready( function() {
+
+			// clear input on focus
+			var clearMePrevious = '';
+			$('.clearMeFocus').each( function() {
+				if ($(this).val() == '') {
+				    var title = $(this).attr('title');
+				    $(this).val(title);
+				}
+			});
+			
+			$('.clearMeFocus').focus(function()
+			{
+				if($(this).val()==$(this).attr('title'))
+				{
+					clearMePrevious = $(this).val();
+					$(this).val('');
+					$(this).css('color', '#333');
+				}
+			});
+			
+			// if field is empty afterward, add text again
+			$('.clearMeFocus').blur(function()
+			{
+				if($(this).val()=='')
+				{
+					$(this).val(clearMePrevious);
+					$(this).css('color', '#999');
+				}
+			});
+		
+		 bindEmailSignupHandler();
+			
+		});
+		
+		
+	</script>
+
+</body>
+
+</html>
