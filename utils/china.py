@@ -19,7 +19,7 @@ class ChinaMiddleware:
                 # detect if they're in China or not!
                 countrycode = GetCountry(request)['countryCode']
                 print countrycode
-                if countrycode == "CN":
+                if countrycode == "-":
                     request.session['region'] = 'china'        
             
 
