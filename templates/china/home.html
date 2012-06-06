@@ -1,0 +1,357 @@
+{% extends base_template %}
+{% load thumbnail %}
+{% load django_static %}
+
+{% block pagetitle %}Great Chinese tea for people living in China{% endblock %}
+
+{% block metadescription %}We sell exceptional Chinese teas and deliver them to your home. Our teas are authentic, hand-picked and traditionally made in our home in China.{% endblock %}
+
+
+{% block extracss %}
+<link rel="stylesheet" href="{% staticfile '/css/teas.css' %}"/>
+<style type="text/css">
+
+p.introduction {
+  color: #333;   
+}
+
+#teas {
+ border: none;   
+}
+
+
+div.top {
+  float: left;
+  width: 100%;
+  margin: 30px 0 50px;	
+}
+
+div.top p#extra  {
+  font-size: 20px;
+  margin: 20px 0 0 30px;
+  float: left;  
+}
+
+.white {
+  background-color: #fff;
+  padding: 20px 25px;
+  float: left;	
+  width: 668px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  position: relative;
+}
+
+.white p {
+  font-size: 20px;	
+  margin: 0 0 10px 0;
+}
+
+.white p.nihao {
+  font-size: 30px;
+  letter-spacing: -1px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #FF6569;
+  margin: 0;
+}
+
+.white ul {
+  list-style-type: none;
+  display: inline;
+  font-size: 20px;
+  margin: 0;	
+  padding: 0;
+}
+
+/* this is the background of the arrow */
+.white:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid transparent;         
+        border-right: 0;
+        border-top: 20px solid transparent;
+        border-left: 20px solid #d1d1d1;
+        position: absolute;
+        top: 20px;
+        right: -20px;
+        z-index: 1;
+}
+
+/* this is the foreground of the arrow */
+.white:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-left: 20px solid #fff;     
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-right: 0;
+        position: absolute;
+        top: 20px;
+        right: -19px;
+        z-index: 2;
+}
+
+#special {
+  float: left;	
+  width: 920px;
+  padding: 20px;
+  box-shadow: 0 1px 3px #e1e1e1;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0 0px 0;
+}
+
+#special h2 {
+  margin-bottom: 10px;	
+  font-size: 50px;
+}
+
+#special p {
+  margin: 0;   
+}
+
+#special p.tea-desc {
+  margin: 0 0 10px;	
+}
+
+#special img {
+  float: left;
+  margin-right: 10px;	
+}
+
+#special p.price {
+  float: left;
+  width: 410px;
+  margin: 30px 0 0px;	
+}
+
+#special p.more {
+  text-align: right;
+  font-size: 15px;
+  padding-right: 20px;	
+}
+
+#special .amount {
+    color: #237A2A;
+    float: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    letter-spacing: -5px;
+    margin-right: 10px;
+}
+
+#special .description {
+  font-size: 12px;
+  color: #666;
+  width: 80px;
+  position: relative;
+  top: -5px;	
+  float: left;
+  line-height: 1.3em;
+  margin: 0 20px 0 0;
+}
+
+#special .button {
+    float: right;
+    font-size: 22px;
+    padding: 10px 26px 5px;
+    position: relative;
+    right: 10px;
+    top: -12px;
+    z-index: 20;
+}
+
+.tag {
+    left: 0px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-decoration: none;
+    top: -3px;
+    z-index: 0;
+}
+
+.tag {
+  width: 300px;
+  height: 13px; 
+  -webkit-transform: rotate(-45deg); 
+  -moz-transform: rotate(-45deg); 
+  -o-transform: rotate(-45deg); 
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  background: #1e70cb;
+  display: block;
+  position: absolute;
+  top: 55px;
+  left: -100px;
+  padding: 10px;
+}
+
+.tagtext {
+  position: absolute;
+  width: 100%;
+  display: block;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.explain {
+  float: left;
+  width: 100%;   
+}
+
+.explain div {
+  float: left;
+  margin: 0 20px 0 0;
+  color: #90b6ce; 
+  text-shadow: 0 1px 1px #fff;
+  text-align: left;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: Helvetica, Arial, sans-serif  
+}
+
+.explain div a {
+  color: #999;
+  text-decoration: underline;   
+}
+
+.explain div a:hover {
+  color: #90b6ce;   
+}
+
+div.tea-promo {
+ width: 285px;
+ padding: 10px;
+ margin: 0 10px 20px 0;   
+}
+
+div.tea-promo h3 {
+  font-size: 20px;   
+}
+
+div.tea-promo .image {
+  width: 295px;
+  margin: 0 0 5px;   
+}
+
+.image.review img {
+  opacity: 0.1;   
+}
+
+.tea-promo div.text {
+    font-size: 16px;
+    left: 0;
+    line-height: 1.5em;
+    padding: 25px;
+    position: absolute;
+    top: 0;
+    width: 255px;
+}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<div id="mtw">
+  <div class="sp">
+     
+     
+	 <div class="top">
+	
+		<img title="This is me, Chris West, owner of the Min River Tea Farm" src="{% staticfile '/images/chris.jpg' %}" style="float:right;margin-left: 30px;">
+		<div class="white">
+			<p class="nihao">Do you live in China, but never quite 'got into' tea?</p>
+			<p>Maybe you're not sure where to start, what to buy, or worst of all, whether the smiling, friendly salesman will rip you off? </p><p>I'm here to help you with that - I sell teas that are safe and clean, honestly priced, and delivered to your door anywhere in China. <a href="/china/about/">Find out more &raquo;</a></p>
+ 		</div>
+ 	</div>
+ 
+ 	
+ 	<div class="explain">
+ 	  <div>Choose from our bestselling teas below - <a href="{% url teas %}">or view all our teas &raquo;</a></div>
+ 	</div>
+ 	
+ 	<div id="teas">
+ 	      {% for tea in teas %}
+ 	          <div class="tea-promo">
+            	  <a title="{{ tea.name }} - click to view more details" href="{% url tea_view tea.slug %}"><span class="link"></span></a>	
+            	  <div class="image">
+            	    {% thumbnail tea.image "285x200" crop="center" as im %}
+        	   	    <img alt="a picture of {{ tea.name }} tea" title="{{ tea.name }} tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+        	   	    {% endthumbnail %}
+        	      </div>
+        	      <h3>
+        	   	   <a title="{{ tea.name }} - find out more or order some now!" href="{% url tea_view tea.slug %}">
+        	   	   {{ tea.name }}
+        	   	   </a>
+        	      </h3> 
+        	      {% if tea.tag_text %}<span class="tag {{ tea.tag_color }}"><span class="tagtext">{{ tea.tag_text }}</span></span>{% endif %}
+        	  </div> 
+ 	      {% endfor %}
+ 	</div>
+ 	
+ 	
+ 	<div class="explain">
+ 	  <div>Brew your tea the right way with our teaware - <a href="{% url teaware %}"> view all &raquo;</a></div>
+ 	</div>
+ 	
+ 	<div id="teas">
+ 	      {% for tea in cups %}
+ 	          <div class="tea-promo">
+            	  <a title="{{ tea.name }} - click to view more details" href="{% url tea_view tea.slug %}"><span class="link"></span></a>	
+            	  <div class="image">
+            	    {% thumbnail tea.image "285x200" crop="center" as im %}
+        	   	    <img alt="a picture of {{ tea.name }} tea" title="{{ tea.name }} tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+        	   	    {% endthumbnail %}
+        	      </div>
+        	      <h3>
+        	   	   <a title="{{ tea.name }} - find out more or order some now!" href="{% url tea_view tea.slug %}">
+        	   	   {{ tea.name }}
+        	   	   </a>
+        	      </h3> 
+        	      {% if tea.tag_text %}<span class="tag {{ tea.tag_color }}"><span class="tagtext">{{ tea.tag_text }}</span></span>{% endif %}
+        	  </div> 
+ 	      {% endfor %}
+ 	</div>
+ 	
+ 	<div class="explain">
+ 	  <div>Buy from a company that's been selling in the US/EU since 2010</div>
+ 	</div>
+ 	
+ 	<div id="teas">
+ 	  {% for r in reviews %}
+ 	      <div class="tea-promo">
+        	  <div class="image review">
+        	    {% thumbnail r.product.image "285x200" crop="center" as im %}
+    	   	    <img alt="a picture of {{ r.product.name }} tea" title="{{ r.product.name }} tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+    	   	    {% endthumbnail %}
+    	      </div>
+    	      <div class="text">
+    	           {{ r.short_text }}<br/>
+    	           <span class="red">{{ r.first_name }} {{ r.last_name }}</span>
+    	      </div> 
+    	  </div> 
+ 	  {% endfor %}
+ 	</div>
+ 	
+ 	
+ 	
+    
+    
+
+  </div>
+</div>
+{% endblock %}

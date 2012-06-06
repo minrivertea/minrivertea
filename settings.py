@@ -75,6 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'ab.middleware.ABMiddleware',
+    'utils.china.ChinaMiddleware',
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
@@ -90,7 +91,7 @@ AUTHENTICATION_BACKENDS = (
 ROOT_URLCONF = 'minriver.urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, "templates/")
+    os.path.join(PROJECT_PATH, "templates/"), 
 )
 
 INSTALLED_APPS = (
@@ -103,6 +104,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.comments',
     'shop',
+    'china',
     'blog',
     'sorl.thumbnail',
     'paypal.standard.ipn',
@@ -134,6 +136,12 @@ EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_PORT = ''
 SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
+
+
+CHINA_SUBDOMAIN = 'china'
+BASE_TEMPLATE = 'base.html'
+BASE_TEMPLATE_CHINA = 'base_china.html'
+CHINA_TEMPLATES_DIR = os.path.join(PROJECT_PATH, "templates/china/")
 
 # paypal info
 PAYPAL_IDENTITY_TOKEN = ""

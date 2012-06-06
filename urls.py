@@ -39,9 +39,9 @@ feeds = {
 # main URL patterns
 urlpatterns = patterns('',
     (r'^', include('minriver.shop.urls')),
+    (r'^accounts/', include('registration.backends.default.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^blog/', include('minriver.blog.urls')),
-    (r'^accounts/', include('registration.backends.default.urls')),
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),

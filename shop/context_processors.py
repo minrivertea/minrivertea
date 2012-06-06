@@ -13,15 +13,31 @@ def common(request):
     context['paypal_receiver_email'] = settings.PAYPAL_RECEIVER_EMAIL
     context['paypal_submit_url'] = settings.PAYPAL_SUBMIT_URL
     context['ga_is_on'] = settings.GA_IS_ON
+    
+    
     try:
-        code = request.session['CURRENCY']
-        context['currency'] = Currency.objects.get(code=code)
+        context['currency'] = Currency.objects.get(code=request.session['CURRENCY'])
     except:
         context['currency'] = Currency.objects.get(code='GBP')
+    
+    
+    context['base_template'] = settings.BASE_TEMPLATE
+    context['region'] = 'global' 
+    try:
+        region = request.session['region']
+        if region == 'china':
+            context['base_template'] = settings.BASE_TEMPLATE_CHINA
+            context['currency'] = Currency.objects.get(code='RMB') 
+            context['region'] = 'China'       
+    except:
+        pass    
+   
+    
+    
     #if settings.DEBUG == 'False':
     #    countrycode = GetCountry(request)['countryCode']
     #    context['country_snippet'] = "language-snippets/%s.html" % countrycode.lower()
-   
+            
     return context
 
 def get_teas(request):

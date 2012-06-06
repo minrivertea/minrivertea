@@ -114,11 +114,13 @@ class Product(models.Model):
             return "/%s/%s/" % (self.category.slug, self.slug)  #important, do not change
     
     def get_lowest_price(self):
+        from minriver.shop.views import _get_currency
         try:
             prices = UniqueProduct.objects.filter(
                 parent_product=self,
                 is_active=True, 
                 is_sale_price=False, 
+                currency=_get_currency(''),
             ).order_by('price')[0]
         except:
             prices = None

@@ -532,12 +532,6 @@ div.fb-recommend {
 </style>
 {% endblock %}
 
-
-{% block currency %}
-	{% include 'shop/snippets/currency.html' %}
-{% endblock %}
-
-
 {% block content %}
 
 
@@ -657,11 +651,11 @@ div.fb-recommend {
 		{% for t in tea.recommended.all %}
 		 {% if forloop.counter == 1 %}
 		  <div class="info trans">
-		      <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+		      <a href="{% url tea_view t.slug %}"><span class="link"></span></a>
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a> from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</h3>
+		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }}</a> from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}
@@ -676,11 +670,11 @@ div.fb-recommend {
 		{% for t in tea.recommended.all %}
 		 {% if forloop.counter == 2 %}
 		  <div class="info trans">
-		      <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+		      <a href="{% url tea_view t.slug %}"><span class="link"></span></a>
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a> from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</h3>
+		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }}</a> from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}

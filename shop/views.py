@@ -93,14 +93,37 @@ def twitter_post(tweet):
             raise(e)
 
 def _get_currency(request):
+    code = 'GBP'
+    
     try:
-        code = request.session['CURRENCY']
-        currency = get_object_or_404(Currency, code=code)
+        if request.session['region'] == 'china':
+            code = 'RMB'
     except:
-        currency = get_object_or_404(Currency, code='GBP')
+        try:
+            code = request.session['CURRENCY']
+        except:
+            pass
+            
+    
+    currency = get_object_or_404(Currency, code=code)
+    
     return currency
 
 
+def GetCountry(request):
+    # this is coming from http://ipinfodb.com JSON api
+    # the variables
+    apikey = settings.IPINFO_APIKEY 
+    ip = request.META.get('REMOTE_ADDR')
+    baseurl = "http://api.ipinfodb.com/v3/ip-country/?key=%s&ip=%s&format=json" % (apikey, ip)
+    urlobj = urllib2.urlopen(baseurl)
+    
+    # get the data
+    url = baseurl + "?" + apikey + "?"
+    data = urlobj.read()
+    urlobj.close()
+    datadict = simplejson.loads(data)
+    return datadict
 
 
 def _get_price(request, items):
@@ -158,9 +181,20 @@ def _get_products(request, cat=None):
     
     return products   
 
+
+
 # the homepage view
 def index(request):
-
+    
+    try:
+        if request.session['region'] == 'china':
+            teas = Product.objects.filter(category__parent_category__slug='teas', is_featured=True)
+            cups = Product.objects.filter(category__slug='teaware')[:3]
+            reviews = Review.objects.filter(is_published=True).order_by('?')[:3]
+            return render(request, 'china/home.html', locals())
+    except:
+        pass
+    
     seen = {}
     reviews_one = []
     for item in Review.objects.filter(is_published=True).order_by('?'):
@@ -170,11 +204,10 @@ def index(request):
         reviews_one.append(item)
     
     reviews = reviews_one[:5]
-
     curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
-    
     return render(request, "shop/home.html", locals())
+
 
 
 def page(request, slug, x=None, y=None, z=None):
@@ -190,7 +223,11 @@ def page(request, slug, x=None, y=None, z=None):
    
 # the product listing page
 def category(request):
-    category = get_object_or_404(Category, slug=request.path.strip('/'))
+    if request.path.startswith('/cn/'):
+        slug = request.path.strip('/cn/').strip('/')
+    else:
+        slug = request.path.strip('/')
+    category = get_object_or_404(Category, slug=slug)
     products = _get_products(request, category)
     curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
@@ -257,7 +294,9 @@ def tea_view(request, slug):
     else:
         form = NotifyForm()
 
-    return render(request, "shop/tea_view.html", locals())
+    template = "shop/tea_view.html"
+
+    return render(request, template, locals())
     
 def contact_us(request, xhr=None):
     try:
@@ -1094,6 +1133,11 @@ def postage_cost_update(request, id):
             return HttpResponseRedirect('/admin-stuff')
     return HttpResponseRedirect('/admin-stuff')
     
+
+def international(request):
+    request.session['region'] = 'global'
+    url = request.META.get('HTTP_REFERER','/')
+    return HttpResponseRedirect(url)
     
 
 def make_product_feed(request):
