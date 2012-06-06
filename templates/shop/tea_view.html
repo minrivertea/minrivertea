@@ -661,7 +661,7 @@ div.fb-recommend {
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a> from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</h3>
+		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }} &raquo;</a> </h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}
@@ -680,7 +680,7 @@ div.fb-recommend {
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a> from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</h3>
+		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }} &raquo;</a></h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}
