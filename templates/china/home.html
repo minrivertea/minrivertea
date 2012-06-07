@@ -33,14 +33,13 @@ div.top p#extra  {
 }
 
 .white {
-  background-color: #fff;
-  padding: 20px 25px;
-  float: left;	
-  width: 668px;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border: 1px solid #e1e1e1;
-  position: relative;
+    background-color: #FFFFFF;
+    border: 1px solid #E1E1E1;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    padding: 20px 25px;
+    position: relative;
+    width: 887px;
 }
 
 .white p {
@@ -49,52 +48,12 @@ div.top p#extra  {
 }
 
 .white p.nihao {
-  font-size: 30px;
-  letter-spacing: -1px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  color: #FF6569;
-  margin: 0;
-}
-
-.white ul {
-  list-style-type: none;
-  display: inline;
-  font-size: 20px;
-  margin: 0;	
-  padding: 0;
-}
-
-/* this is the background of the arrow */
-.white:after {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-bottom: 20px solid transparent;         
-        border-right: 0;
-        border-top: 20px solid transparent;
-        border-left: 20px solid #d1d1d1;
-        position: absolute;
-        top: 20px;
-        right: -20px;
-        z-index: 1;
-}
-
-/* this is the foreground of the arrow */
-.white:before {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-left: 20px solid #fff;     
-        border-top: 20px solid transparent;
-        border-bottom: 20px solid transparent;
-        border-right: 0;
-        position: absolute;
-        top: 20px;
-        right: -19px;
-        z-index: 2;
+    color: #FF6569;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    margin: 0;
 }
 
 #special {
@@ -271,11 +230,9 @@ div.tea-promo .image {
      
      
 	 <div class="top">
-	
-		<img title="This is me, Chris West, owner of the Min River Tea Farm" src="{% staticfile '/images/chris.jpg' %}" style="float:right;margin-left: 30px;">
 		<div class="white">
-			<p class="nihao">Live in China, but never quite 'got into' tea?</p>
-			<p>I'm here to help you with that - I sell Chinese teas that are safe and clean, honestly priced, and delivered to your door anywhere in China. <a href="/about-china/">Find out more &raquo;</a></p>
+			<p class="nihao">Live in China, but haven't quite 'got into' tea?</p>
+			<p>We're here to help you with that - we sell Chinese teas that are safe and clean, honestly priced, and delivered to your door anywhere in China. <a href="/about-china/">Find out more &raquo;</a></p>
  		</div>
  	</div>
  
