@@ -612,7 +612,7 @@ div.fb-recommend {
 
 		  <div id="price-helper">        
            		 <strong>{{ currency.symbol }}{{ currency.postage_cost }} shipping per order, FREE over {{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong><br/>
-			     Simple pricing, fast delivery - <a href="/where-do-we-deliver/">find out more &raquo;</a>
+			     <a href="/shipping-china/">Find out more about shipping &raquo;</a>
 		  </div>
 		  
 		{% else %}
@@ -650,7 +650,7 @@ div.fb-recommend {
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }}</a> from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</h3>
+		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }}</a> &raquo;</h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}
@@ -669,32 +669,11 @@ div.fb-recommend {
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }}</a> from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</h3>
+		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }}</a> &raquo;</h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}
 	</div>
-	
-	{% if ga_is_on %}
-    <ul class="rss">
-		<li id="google">
-			<g:plusone></g:plusone>
-			<script type="text/javascript">
-			  (function() {
-			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-			    po.src = 'https://apis.google.com/js/plusone.js';
-			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-			  })();
-			</script>
-		</li>
-    	<li id="facebook">
-		    <div id="fb-root"></div>
-		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
-		    </fb:like>
-		</li>
-	</ul>
-	{% endif %}
 
 
 </div>
