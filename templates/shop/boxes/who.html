@@ -1,5 +1,6 @@
 {% load django_static %}
 
 	<div class="info">
-		<h3>We sell fresh + natural Chinese tea direct from our home in China. <br/><a href="/about/">Find out more &raquo;</a></h3>	
+		<h3>We sell fresh + natural Chinese tea direct from our home in China. <br/>
+		{% if region == 'China' %}<a href="/about-china/">{% else %}<a href="/about/">{% endif %}Find out more &raquo;</a></h3>	
 	</div>
