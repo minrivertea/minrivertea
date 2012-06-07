@@ -186,9 +186,10 @@ input.button:hover {
     color: #fff; 	
 }
 
-.button.green:hover {
+.button.green:hover, input.button.green:hover {
   box-shadow: 0 0px 4px #666;
-  text-shadow: 0px 1px 1px #333;	
+  text-shadow: 0px 1px 1px #333;
+  color: #fff;	
 }
 
 .underline {

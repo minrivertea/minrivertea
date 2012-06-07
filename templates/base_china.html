@@ -157,6 +157,9 @@ if (15.00) {
     	      <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="Teacups and teapots" alt="">Teaware</a>
     	    </li>
     	    <li>
+    	      <a class="{% nav_selected request '^/tasters/' %}" href="{% url tasters %}" title="Taster Packs" alt="">Taster packs</a>
+    	    </li>
+    	    <li>
     	      <a class="grey {% if page %}{% if page.get_root.slug == 'learn' %}selected{% endif %}{% else %}{% nav_selected request '^/learn/' %}{% endif %} learn" href="{% url page 'learn' %}" title="Learn about Chinese tea" alt="">Learn about tea</a>
     	    </li>
     	    <li>

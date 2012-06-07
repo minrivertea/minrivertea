@@ -92,17 +92,20 @@ def twitter_post(tweet):
         if settings.DEBUG:
             raise(e)
 
-def _get_currency(request):
-    code = 'GBP'
+def _get_currency(request, code=None):
+    if code:
+        code = code
+    else:
+        code = 'GBP'
     
-    try:
-        if request.session['region'] == 'china':
-            code = 'RMB'
-    except:
         try:
-            code = request.session['CURRENCY']
+            if request.session['region'] == 'china':
+                code = 'RMB'
         except:
-            pass
+            try:
+                code = request.session['CURRENCY']
+            except:
+                pass
             
     
     currency = get_object_or_404(Currency, code=code)
@@ -1138,6 +1141,58 @@ def international(request):
     request.session['region'] = 'global'
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
+    
+def china_convert_prices(request, id):
+    order = get_object_or_404(Order, pk=id)
+    
+    # HACK!! we're going to fake the values just so we can let
+    # the customer pay in USD not RMB
+    
+    exchange_rate = 0.42
+    
+    old_price = 0
+    new_price = 0
+    items = []
+    for x in order.items.all():        
+        items.append(dict(
+            price = float(x.item.price)*float(exchange_rate),
+            parent_product = x.item.parent_product.name,
+            weight = '%s%s' % (x.item.weight, x.item.weight_unit),
+            quantity = x.quantity,
+        ))
+        old_price += x.item.price
+        new_price = float(x.item.price)*float(exchange_rate)
+    
+    currency = _get_currency(request)
+    if old_price > currency.postage_discount_threshold:
+        postage_discount = True
+    else:
+        postage_cost = currency.postage_cost * float(exchange_rate) 
+        postage_discount = None
+    
+          
+    paypal_form = render_to_string('shop/snippets/paypal_form_china.html', {
+            'order': order,
+            'order_items': items,
+            'new_price': new_price,
+            'old_price': old_price,
+            'exchange_rate': exchange_rate,
+            'postage_discount': postage_discount,
+            'postage_cost': postage_cost,
+            'currency': _get_currency(request, 'USD'),
+            'paypal_return_url': settings.PAYPAL_RETURN_URL,
+            'paypal_receiver_email': settings.PAYPAL_RECEIVER_EMAIL,
+            'paypal_notify_url': settings.PAYPAL_NOTIFY_URL, 
+            'paypal_submit_url': settings.PAYPAL_SUBMIT_URL,      
+        
+        })
+    
+    if request.is_ajax():
+        return HttpResponse(paypal_form)
+    
+   
+    return render(request, 'shop/forms/order_confirm.html', locals())
+    
     
 
 def make_product_feed(request):

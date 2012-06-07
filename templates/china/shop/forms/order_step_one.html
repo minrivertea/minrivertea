@@ -168,6 +168,16 @@ span.country {
   padding: 10px 15px;	
 }
 
+span.help {
+  width: 100%;
+  float: left;
+  font-size: 12px;
+  margin: 0;
+  position: relative;
+  top: -15px;
+  left: 20px;   
+}
+
 
 </style>
 
@@ -305,7 +315,8 @@ span.country {
       
       <p>
       	<label for="id_phont"><span class="red">*</span> Phone:</label>
-      	<input class="clearMeFocus" title="Phone number in China (essential for the Express Delivery!)" id="id_phone" type="text" name="phone" value="{{ phone }}" /> 
+      	<input class="clearMeFocus" title="Phone number in China (eg. 13593456789)" id="id_phone" type="text" name="phone" value="{{ phone }}" /> 
+      	<span class="help">* the Express Delivery company may contact you to schedule delivery.</span>
       </p>
       	
 	  <p>
@@ -313,7 +324,6 @@ span.country {
 	    <span class="country">
    	    <select name="country" id="id_country" class="hidden">
                <option value="CN">China</option>
-               <option value="UK">United Kingdom</option>
            </select>
       </span>
 	    
@@ -330,7 +340,7 @@ span.country {
 		<p class="checkout"><strong>Next step:</strong> 
 		Confirm your order. We'll let you check your order, and then you can pay using Paypal.
 		</p>
-		<input type="submit" value="Confirm your details &raquo;" next="" class="button"/>
+		<input type="submit" value="Confirm your details &raquo;" next="" class="button green"/>
 	</div>
 		
 	</form>

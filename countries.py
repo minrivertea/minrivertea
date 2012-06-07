@@ -256,6 +256,7 @@ INVALID = '--'
 AUSTRIA = 'AT'
 BELGIUM = 'BE'
 BULGARIA = 'BU'
+CHINA = 'CN'
 CYPRUS = 'CY'
 CZECH_REPUBLIC = 'CZ'
 DENMARK = 'DK'
@@ -289,6 +290,7 @@ COUNTRY_CHOICES = (
     (AUSTRIA, u"Austria"),
     (BELGIUM, u"Belgium"),
     (BULGARIA, u"Bulgaria"),
+    (CHINA, u"China"),
     (CYPRUS, u"Cyprus"),
     (CZECH_REPUBLIC, u"Czech Republic"),
     (DENMARK, u"Denmark"),

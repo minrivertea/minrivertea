@@ -1,11 +1,13 @@
 {% load django_static %}
 
+<h2 class="fancybox">We've converted your purchase into US Dollars ($)</h2>
+<p>This is so you can easily use your Visa/Mastercard/Amex to pay safely via Paypal. The current exchange rate is <strong>1 RMB</strong> : <strong>{{ exchange_rate }} USD</strong> and your order was <strong>{{ old_price|floatformat }} RMB</strong>, so:</p><br/>
+<p style="font-size: 25px; width:380px; float:left;position:relative;top:-20px"><strong>You will be paying <span class="underline">${{ new_price|floatformat:"2" }} USD</span></strong></p>
+
 <form id="paypal" method="post" action="{{ paypal_submit_url }}">
     
     	<div id="checkout-button">
-			<img id="ppicon" src="{% staticfile '/images/002.gif' %}" class="paypal">
-			<input type="submit" value="Confirm and pay" next="" class="button green"/>
-			<p class="checkout"><strong>Next step:</strong> <em>pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</em></p>
+			<input type="submit" value="Confirm and pay &raquo;" next="" class="button green"/>
 			
 		</div>	
     
@@ -39,22 +41,22 @@
 		
 		{% if postage_discount %}
 		{% else %}
-		<input type="hidden" name="item_name_1" value="Postage Standard Rate"> 
+		<input type="hidden" name="item_name_1" value="Express Delivery"> 
 		<input type="hidden" name="quantity_1" value="1">
-		<input type="hidden" name="amount_1" value="{{ currency.postage_cost|floatformat:'2' }}">
+		<input type="hidden" name="amount_1" value="{{ postage_cost|floatformat:'2' }}">
 		{% endif %}
 		 
 		 {% if postage_discount %}
-	 		 {% for thing in order.items.all %}
-				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
+	 		 {% for thing in order_items %}
+				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{{ thing.parent_product }} ({{ thing.weight }})"> 
 				<input type="hidden" name="quantity_{{ forloop.counter }}" value="{{ thing.quantity }}">
-				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.item.price }}"> 
+				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.price }}"> 
 			 {% endfor %}
 		{% else %}
-			 {% for thing in order.items.all %}
-				<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
+			 {% for thing in order_items %}
+				<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.parent_product }} -  ({{ thing.item.weight }})"> 
 				<input type="hidden" name="quantity_{{ forloop.counter|add:"1" }}" value="{{ thing.quantity }}">
-				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.item.price }}"> 
+				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.price|floatformat:"2" }}"> 
 			 {% endfor %}
 		{% endif %}
 

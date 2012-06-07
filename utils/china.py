@@ -25,7 +25,5 @@ class ChinaMiddleware:
                 if countrycode == "CN":
                     request.session['region'] = 'china' 
                     settings.TEMPLATE_DIRS = settings.CHINA_TEMPLATES_DIR
-            
-            print settings.TEMPLATE_DIRS
-            
+                        
 

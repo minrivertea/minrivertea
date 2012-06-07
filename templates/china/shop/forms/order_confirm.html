@@ -21,6 +21,24 @@ $(document).ready( function() {
 	$('a#wishlist-link').fancybox();
 });
 
+
+$('#go').click( function() {
+    // we want to convert the prices to dollars, make a popup asking the customer to confirm, and then continue submitting the form
+    $.ajax({
+        url: '{% url china_convert_prices order.id %}',
+        success: function(data) {
+            $.fancybox(data, {
+      		'autoDimensions'	: false,
+			'width'         	: 650,
+			'height'        		: 'auto',
+			'padding'    : 30,
+            });
+        }
+    });
+    return false;
+});
+
+
 </script>
 
 <script type="application/javascript" src="{% staticfile '/js/lightbox/jquery.fancybox-1.3.4.pack.js' %}"></script>
@@ -90,12 +108,33 @@ div.row {
   color: #333;	
 }
 
+#buttons {
+  position: absolute;
+  bottom: 30px;
+  right: 20px; 
+  width: 300px;
+  text-align: right;  
+}
+
+#go {
+  font-size: 30px;
+  float: right;
+  margin: 0 0 20px;  
+}
+
+#checkout-button {
+    float: right;
+    margin: 0 20px 0px 0;
+    width: 240px;
+    position: inherit;
+}
+
+h2.fancybox {
+    color: #FF6569;
+}
+
 </style>
 
-{% endblock %}
-
-{% block currency %}
-	{% include 'shop/snippets/currency.html' %}
 {% endblock %}
 
 {% block content %}
@@ -116,14 +155,14 @@ div.row {
 	</ul>
 	
 	<div id="basket">
-		
-    {% include "shop/snippets/paypal_form.html" %}
+	
+	   {% if paypal_form %}
+	       {{ paypal_form }}	   
+	   {% endif %}
 		
 		<div class="row">
-			<div class="row-label">
-				<h2>You're ordering...</h2>
-			</div>
-			
+			<h2>You're ordering...</h2>
+		
 			<div class="row-box">
 				<table>
 				{% for thing in order.items.all %}
@@ -175,9 +214,7 @@ div.row {
 
 
 	<div class="row">
-		<div class="row-label">
-			<h2>…and we'll send your order to:</h2>
-		</div>
+		<h2>…and we'll send your order to:</h2>
 		
 		<div class="row-box">
 		  {% with order.address as address %}
@@ -185,7 +222,13 @@ div.row {
 		  {% endwith %}
 		</div>
 	</div>
-
+	
+	{% if not paypal_form %}
+	  <div id="buttons">
+	      <img id="ppicon" src="{% staticfile '/images/002.gif' %}" class="paypal">
+    	   <a href="#" id="go" class="button green">Submit and pay &raquo;</a>
+        </div>
+    {% endif %}
 	 
 
 
