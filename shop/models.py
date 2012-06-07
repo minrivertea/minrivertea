@@ -252,6 +252,7 @@ class Address(models.Model):
     town_city = models.CharField(max_length=200)
     postcode = models.CharField(max_length=200)
     country = models.CharField(max_length=200, choices=COUNTRY_CHOICES, db_index=True)
+    phone = models.CharField(max_length=80, blank=True, null=True)
     
     def __unicode__(self):
         return "%s, %s, %s" % (self.house_name_number, self.postcode, self.country)

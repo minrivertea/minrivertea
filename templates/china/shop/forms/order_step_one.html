@@ -1,0 +1,344 @@
+{% extends base_template %}
+{% load django_static %}
+
+{% block pagetitle %}Order (Step 1 of 3) - Your details{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+
+div#mtw div#left {
+  margin-top: 20px;	
+}
+
+div#mtw div#right {
+  margin-top: 30px;	
+}
+
+div#mtw div#left h3 {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 0 -10px;
+}
+
+div#basket div.security {
+  float: right;
+  width: 240px;	
+  background-color: #f6f6f6;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  padding: 12px 12px;
+}
+
+div#basket div.security p {
+  font-size: 16px;	
+  text-align: right;
+  margin: 0;
+}
+
+#basket .security img {
+  float:right; 
+  margin: 0 0 20px 10px;
+}
+
+div.row {
+  float: left;
+  width: 580px;	
+}
+
+#checkout-button {
+  position: static;
+  margin-top: 0;
+  margin-right: 50px;
+  width: 800px;
+  	
+}
+
+
+input.checkbox {
+    float: left;
+    margin-bottom: 50px;
+    margin-right: 12px;
+    width: 20px;
+}
+
+p.checkbox {
+  font-size: 12px;
+  margin-bottom: 500px;	
+}
+
+p.help-text {
+    float: left;
+    font-size: 0.7em;
+    padding-left: 130px;
+    position: relative;
+    top: -8px;
+    width: 300px;
+}
+
+p.help-text img {
+  position: relative;
+  top: 3px;	
+}
+
+div.address-container {
+    float: left;
+    margin-left: 20px;
+    width: 500px;
+    margin-bottom: 40px;
+}
+
+div.address-container p {
+  font-size: 15px;
+  margin: 10px 0px 20px 0;	
+}
+
+div.address {
+    float: left;
+    margin: 0 10px 10px 0;
+    padding: 0px 0px;
+    width: 215px;
+    -moz-border-radius: 10px;
+    font-size: 12px;
+}
+
+div.address h3 {
+  font-size: 1.4em;	
+  margin-bottom: 15px;
+}
+
+div.address a {
+  font-size: 13px;	
+}
+
+div.address.first {
+    margin-right: 0;
+    width: 480px;
+    font-size: 16px;
+}
+
+div.address.other {
+  background: #fff;
+  width: 500px;
+  padding: 0;
+  display: none;
+}
+
+div.address label {
+  width: 500px;
+  font-size: 14px;	
+}
+
+p.hint {
+    color: #999;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 1em;
+    margin: 0;
+}	
+
+div#confirm-details-button {
+  {% if shopper %}
+    margin-top: 50px;
+  {% else %}
+    margin-top: 285px;
+  {% endif %}	
+}
+
+label {
+  display: none;	
+}
+
+label.red {
+  color: red;	
+}
+
+p.red {
+  color: red;
+  margin-top: 0;	
+}
+
+span.red {
+  color: #d11010;	
+}
+
+span.country {
+  float: left;
+  width: 280px;
+  padding: 10px 15px;	
+}
+
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="mtw">
+  <div class="sp">
+
+	<ul id="steps">
+		<li class="selected">
+			<a href="{% url order_step_one %}">1. Your details</a>
+		</li>
+		<li>
+			2. Confirm and pay
+		</li>
+		<li>
+			3. Get your tea!
+		</li>
+	</ul>
+	
+	<div id="basket">
+
+      <form method="post" action="."> 	 
+		<div class="security">
+		  {% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
+			<p class="red">&laquo; there were some errors - please check and provide all required information.</p>
+		  {% endif %}
+		  <img src="{% staticfile '/images/lock-large.png' %}">
+		  <p>Your details are safe - no spam, no sharing. <br/>
+		  <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy &raquo;</a>
+		  </p>
+		</div>
+		
+		{% if shopper %}
+	  	  <div class="row">
+	  		<p class="intro">Are these your details? Please check carefully!</p>
+			<div class="address-container">
+				<div class="address first">
+					{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
+		
+					{% for address in shopper.get_addresses %}
+						{% if forloop.first %}
+							<br/>
+							{% include "shop/snippets/address.html" %}
+		 					</div>
+		 				{% else %}
+		 					<div class="address other">
+		 					{% include "shop/snippets.address.html" %}
+		 					</div>
+		 				{% endif %}
+					{% endfor %}
+				</div>
+				<div style="display:none;">
+					<input type="text" name="first_name" id="id_first_name" value="{{ order.owner.first_name }}"/>
+	    			<input type="text" name="last_name" id="id_last_name" value="{{ order.owner.last_name }}"/>
+	    			<input type="text" name="email" id="id_email" value="{{ order.owner.email }}"/>
+	    			<input type="text" name="house_name_number" id="id_house_name_number" value="{{ order.address.house_name_number }}"/>
+	    			<input type="text" name="address_line_1" id="id_address_line_1" value="{{ order.address.address_line_1 }}"/>
+	    			<input type="text" name="address_line_2" id="id_address_line_2" value="{{ order.address.address_line_2 }}"/>
+	    			<input type="text" name="town_city" id="id_town_city" value="{{ order.address.town_city }}"/>
+	    			<input type="text" name="postcode" id="id_postcode" value="{{ order.address.postcode }}"/>
+	    			<input type="text" name="country" id="id_country" value="{{ order.address.country }}"/>
+	 			</div>
+	 		</div>
+		{% else %}
+
+	<div class="row">
+
+    	<div class="row-box">
+    		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
+    		<ul class="errorlist"><li>* you must provide all your details - thanks!</li></ul>
+    		{% endif %}
+    		<p class="intro">This step takes just 1 minute - your name and email first please! </p>
+
+    		<p>
+    			<label for="id_first_name"><span class="red">*</span> First name</label>
+    			<input  class="clearMeFocus" type="text" title="First name" name="first_name" id="id_first_name" value="{{ first_name }}"/>
+    		</p>
+    		<p>
+    			<label for="id_last_name"><span class="red">*</span> Surname</label>
+    			<input class="clearMeFocus" title="Last name" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
+    		</p>
+    		<p>
+    			<label for="id_email"><span class="red">*</span> Email address</label>
+    			<input class="clearMeFocus" title="Email address" type="text" name="email" id="id_email" value="{{ email }}"/>
+    		</p>	
+    	</div>
+    </div>
+    
+	
+	<div class="row">
+    	<div class="row-box">
+    	{{ form.non_field_errors }}
+    		<p class="intro">Where should we send your tea? Please provide your address <em>in Chinese</em> here:</p>
+    		
+
+      <p>
+      	<label for="id_house_name_number"><span class="red">*</span> House name number:</label>
+      	<input class="clearMeFocus" title="Your address..." id="id_house_name_number" type="text" name="house_name_number" value="{{ house_name_number }}"/>
+      	
+      	</p>
+	  	{{ form.address_line_1.error }}
+	  
+	  <p>
+	  	<label for="id_address_line_1">Address line 1:</label>
+	  	<input class="clearMeFocus" title=" ...address continued (optional)" id="id_address_line_1" type="text" name="address_line_1" value="{{ address_line_1 }}"/> 
+	 	    
+	  </p>
+      	{{ form.address_line_2.errors }}
+      	
+      <p>
+      	<label for="id_address_line_2">Address line 2:</label>
+      	<input class="clearMeFocus" title=" ...address continued (optional)" id="id_address_line_2" type="text" name="address_line_2"  value="{{ address_line_2 }}"/>
+      	
+      	</p>
+      	{{ form.town_city.errors }}
+      
+      <p>
+      	<label for="id_town_city">Town / City:</label>
+      	<input class="clearMeFocus" title="Town or city" id="id_town_city" type="text" name="town_city" value="{{ town_city }}"/> 
+      </p>
+      
+      <p>
+      	<label for="id_province_state">Province</label>
+      	<input class="clearMeFocus" title="Province" id="id_province_state" type="text" name="province_state" value="{{ province_state }}"/> 
+      </p>
+      	
+      {{ form.postcode.errors }}	
+      <p>
+      	<label for="id_postcode"><span class="red">*</span> Postcode:</label>
+      	<input class="clearMeFocus" title="Post/ZIP code" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
+      </p>
+      
+      <p>
+      	<label for="id_phont"><span class="red">*</span> Phone:</label>
+      	<input class="clearMeFocus" title="Phone number in China (essential for the Express Delivery!)" id="id_phone" type="text" name="phone" value="{{ phone }}" /> 
+      </p>
+      	
+	  <p>
+	    <label for="id_country"><span class="red">*</span> Country:</label>
+	    <span class="country">
+   	    <select name="country" id="id_country" class="hidden">
+               <option value="CN">China</option>
+               <option value="UK">United Kingdom</option>
+           </select>
+      </span>
+	    
+	  </p>
+ 	  <br clear="all">
+ 	  
+ 	</div> 
+	</div>
+
+	{% endif %}
+
+	<br clear="all"/>
+	<div id="checkout-button">
+		<p class="checkout"><strong>Next step:</strong> 
+		Confirm your order. We'll let you check your order, and then you can pay using Paypal.
+		</p>
+		<input type="submit" value="Confirm your details &raquo;" next="" class="button"/>
+	</div>
+		
+	</form>
+
+
+	</div>
+
+  </div>
+</div>
+
+{% endblock %}

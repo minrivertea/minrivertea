@@ -160,7 +160,7 @@ if (15.00) {
     	      <a class="grey {% if page %}{% if page.get_root.slug == 'learn' %}selected{% endif %}{% else %}{% nav_selected request '^/learn/' %}{% endif %} learn" href="{% url page 'learn' %}" title="Learn about Chinese tea" alt="">Learn about tea</a>
     	    </li>
     	    <li>
-    	      <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about-china/' %}{% endif %} about" href="{% url page 'about' %}" title="About Min River Tea" alt="">About us</a>
+    	      <a class="grey {% if page %}{% if page.get_root.slug == 'about-china' %}selected{% endif %}{% else %}{% nav_selected request '^/about-china/' %}{% endif %} about" href="{% url page 'about-china' %}" title="About Min River Tea" alt="">About us</a>
     	    </li>
     	    <li>
     	      <a class="grey {% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">

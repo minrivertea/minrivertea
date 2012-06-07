@@ -14,13 +14,18 @@ class ChinaMiddleware:
             # if they already have a session cookie, then leave it as it is 
             try:
                 region = request.session['region']
-                
-                pass       
+                if region == 'global':
+                    settings.TEMPLATE_DIRS = settings.TEMPLATE_DIRS
+                elif region == 'china':
+                    settings.TEMPLATE_DIRS = settings.CHINA_TEMPLATES_DIR
+                    
             except:
                 # detect if they're in China or not!
                 countrycode = GetCountry(request)['countryCode']
-                print countrycode
                 if countrycode == "CN":
-                    request.session['region'] = 'china'        
+                    request.session['region'] = 'china' 
+                    settings.TEMPLATE_DIRS = settings.CHINA_TEMPLATES_DIR
+            
+            print settings.TEMPLATE_DIRS
             
 

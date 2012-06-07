@@ -42,7 +42,7 @@ class BasketDoesNotExist(Exception):
     
 
 #render shortcut
-def render(request, template, context_dict=None, **kwargs):
+def render(request, template, context_dict=None, **kwargs):    
     return render_to_response(
         template, context_dict or {}, context_instance=RequestContext(request),
                               **kwargs
@@ -191,7 +191,7 @@ def index(request):
             teas = Product.objects.filter(category__parent_category__slug='teas', is_featured=True)
             cups = Product.objects.filter(category__slug='teaware')[:3]
             reviews = Review.objects.filter(is_published=True).order_by('?')[:3]
-            return render(request, 'china/home.html', locals())
+            return render(request, 'home.html', locals())
     except:
         pass
     

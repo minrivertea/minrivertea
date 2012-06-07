@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load django_static %}
+{% load thumbnail %}
+
+{% block extracss %}
+<style type="text/css">
+
+div.other-reviews {
+  margin-top: 0px;
+  float: left;	
+}
+
+textarea {
+    border-radius: 10px 10px 10px 10px;
+    padding: 15px;
+    width: 600px;
+    font-size: 16px;
+}
+
+#facebook {
+  float: left;
+  width: 80px;
+}
+
+#google {
+  margin-bottom: 10px;
+  float: left;
+  width: 80px;
+}
+
+div.rss {
+  width: 700px;
+}
+
+div.rss p {
+    color: #666666;
+    float: left;
+    font-size: 13px;
+    left: 20px;
+    position: relative;
+    top: -10px;
+}
+
+</style>
+{% endblock %}
+
+{% block metadescription %}Write a review for {{ tea }} tea{% endblock %}
+
+{% block pagetitle%}Write a review{% endblock %}
+
+
+
+{% block content %}
+
+
+<div id="mtw">
+  <div class="sp">
+  
+  <h1>Write a review for {{ tea }} tea</h1>
+  	<p class="introduction">Thanks for taking the time to write a review. Quality is extremely important to us, so feel free to write down any thoughts, positive or negative, about your tea.</p>
+      <div class="rss">
+    	<div id="facebook">
+		    <div id="fb-root"></div>
+		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
+		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+		    </fb:like>
+		</div>
+		<p>&laquo; If you liked your tea, please tell your friends about it!</p>
+	</div>		
+		
+	  <div id="basket">
+	  	<form action="." method="post">
+	  		<div id="checkout-button">
+			<p>* <em>we may publish this review on our website - by submitting your review, you give us permission to do so.</em></p>
+			<input class="button" value="Submit your review &raquo;" type="submit">
+			</div>
+		<div class="row">
+		
+			<div class="row-box">
+			<textarea id="id_text" rows="10" cols="40" name="text" class="clearMeFocus" title="Write your review here…"></textarea>
+			</div>
+			
+			<div class="row-box">
+			<input type="text" name="first_name" id="id_first_name" class="clearMeFocus" title="First name" />
+			
+			<input type="text" name="last_name" id="id_last_name" class="clearMeFocus" title="Last name" />
+			 
+			<input type="text" name="email" id="id_email" class="clearMeFocus" title="Your email address" />
+			</div>
+			
+
+			
+		</form>		
+		</div>
+		</div>
+		
+		<div id="left">
+		
+
+		
+		{% if other_reviews %}
+		<div class="other-reviews">
+			<h3>What have other people said about our  {{ tea }}?</h3>
+			{% for review in other_reviews %}
+				<div class="review">
+					<p><em>"{{ review.short_text }}"</em> <span class="red">{{ review.first_name }} {{ review.last_name }}</span></p>
+				</div>				
+			{% endfor %}
+		</div>
+		{% endif %}
+
+	</div>
+  </div>
+</div>
+	
+
+		
+
+    {% endblock %}

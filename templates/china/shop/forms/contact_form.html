@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+{% load django_static %}
+
+{% block extrajs %}
+<script type="text/javascript">
+
+	$('form#contact-form').submit(function() {
+		$(this).css('opacity', '0.5');
+		$('img#loading-contact').toggle();
+		$.ajax({  
+    	    type: "POST",  
+    	    data: $(this).serialize(), 
+    	    url: "{% url contact_us %}",  
+    	    cache: false,  
+   		    dataType: "html",  
+    	    success: function(data) {
+    	    	$('#loading-contact').toggle();
+    	    	$('form#contact-form').replaceWith(data);
+    	    },
+            error: function(data) {
+                $('form#contact-form').css('opacity', '1');
+                $('#loading-contact').toggle();
+                $('#form').prepend('<span style="color:red; font-size: 20px;">There was some technical problem submitting the form - please check your details, try again, or just email us!</span>');
+            } 
+    	}); 
+	return false;
+	});
+
+
+
+</script>
+{% endblock %}
+
+
+{% block extracss %}
+<style type="text/css">
+
+h1 {
+ margin: 0 0 20px 0;   
+}
+
+#mtw div#left form p {
+  margin: 0px 0 10px 0;	
+}
+
+form input {
+  width: 430px;	
+}
+
+form textarea {
+  float: left;	
+  width: 430px;
+}
+
+form input.button {
+  margin-left: 150px;
+  float: left; 
+    font-size: 16px;	
+  margin-top: 15px;
+  width: 300px;	
+}
+
+
+div#mtw div#left p.help-text {
+    float: left;
+    margin-left: 80px;
+    font-size: 15px;
+}
+
+div.message {
+    background-color: #FFFFFF;
+    border: 1px solid #E1E1E1;
+    border-radius: 10px 10px 10px 10px;
+    margin: 0 0 10px;
+    padding: 20px 25px;
+}
+
+div#mtw div#left div.message h3 {
+  margin: 0 0 10px 0;	
+  color: #237A2A;
+}
+
+div#mtw div#left div.message p {
+  margin: 0;	
+}
+
+div.top {
+  float: left;
+  width: 100%;
+  margin-bottom: 30px;	
+}
+
+.white {
+  background-color: #fff;
+  padding: 20px 25px;
+  float: left;	
+  width: 650px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  position: relative;
+}
+
+.white p {
+  font-size: 16px;	
+  margin: 0 0 10px 0;
+}
+
+.white p.nihao {
+  font-size: 30px;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;	
+}
+
+.white ul {
+  list-style-type: none;
+  display: inline;
+  font-size: 20px;
+  margin: 0;	
+  padding: 0;
+}
+
+/* this is the background of the arrow */
+.white:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid transparent;         
+        border-left: 0;
+        border-top: 20px solid transparent;
+        border-right: 20px solid #d1d1d1;
+        position: absolute;
+        top: 20px;
+        left: -21px;
+        z-index: 1;
+        margin-left: ;
+}
+
+/* this is the foreground of the arrow */
+.white:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-right: 20px solid #fff;     
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-left: 0;
+        position: absolute;
+        top: 20px;
+        left: -19px;
+        z-index: 2;
+        margin-left: -1px;
+}
+
+#form form {
+  width: 470px;	
+  float: left;
+}
+
+#form {
+  position: relative;
+  float: left;
+  width: 100%;	
+}
+
+img#loading-contact {
+  display: none;
+  position: absolute;
+  left: 295px;
+  top: 50px;	
+}
+
+</style>
+{% endblock %}
+
+{% block metadescription %}Contact the Min River Tea Farm - how you can get in touch with us.{% endblock %}
+
+{% block pagetitle%}Contact us{% endblock %}
+
+
+
+{% block content %}
+
+<div id="mtw">
+  <div class="sp">	
+        <h1>Contact us</h1>			
+		<div class="top">
+		
+			<img src="{% staticfile '/images/chris.jpg' %}" style="float:left;margin-right: 30px;">
+		
+			<div class="white">
+				<p class="nihao"><strong>Nǐ hǎo (that's <em>hello</em> in China!)</strong></p>
+				<p>I'm Chris, the owner of the Min River Tea Farm. If you have questions about tea or about us, I will do everything I can to help you out. The best way to get in touch is to drop me an email - you'll always get a quick response.</p>
+			
+				<ul>
+					<li><strong>Email:</strong> <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> </li>
+				</ul>
+				
+	 		</div>
+	 	</div>
+
+        <div id="right">
+            {% include 'shop/boxes/follow.html' %}
+		 	<div class="info"> 		
+			 	<h3>Returns</h3>
+			 	<p>If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked.</p>
+			</div>
+			<div class="info">
+				<h3>Personal shopping</h3>
+				<p>We're based here in China, so if you have specific tea needs that can't be fulfilled anywhere else, just get in touch.</p>
+			</div>
+			<div class="info">		 	
+			 	<h3>Wholesale/trade</h3>
+			 	<p>Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch.</p>
+			</div>        
+        </div>
+		
+		<div id="left">
+			<div id="form">	
+				{% if message %}
+					{% include 'shop/forms/contact_form_message_snippet.html' %}
+				{% else %}
+	
+				<img id="loading-contact" src="{% staticfile '/images/loading.gif' %}"/>
+				<form action="{% url contact_us %}" method="post" id="contact-form">
+					<h2>Send us a message</h2>
+					<p>Use our online contact form to send us a message. We respond to all messages within 12 hours.</p>			
+					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus" title="Your name" value=""/>
+					<input type="text" name="your_email" id="id_your_email" class="clearMeFocus" title="Your email address" value=""/>
+					<textarea id="id_your_message" name="your_message" title="Write your message here..." class="clearMeFocus" cols="40" rows="10"></textarea>
+					<input class="button" value="Submit" type="submit"/>
+					<p class="help-text">
+						<img src="{% staticfile '/images/lock.gif' %}"> 
+						We will never share, sell or spam your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)
+					</p>			
+				</form>
+				{% endif %}
+			</div>
+	</div>
+  </div>
+</div>
+
+
+
+		
+
+    {% endblock %}

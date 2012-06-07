@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load django_static %}
+
+{% block extracss %}
+<link rel="stylesheet" href="{% staticfile '/css/teas.css' %}"/>
+<style type="text/css">
+
+div.tea-promo.small {
+  width: 250px;	
+  margin-right: 15px;
+}
+
+div.tea-promo h3 {
+  font-size: 32px;
+  float: left;
+  font-family: Helvetica, sans-serif;
+  color: #237A2A;
+  font-weight: bold;	
+}
+
+div.tea-promo p.help {
+    float: left;
+    font-size: 0.7em;
+    position: relative;
+    width: 140px;
+}
+
+div.tea-promo div.image {
+  width: 250px;	
+  float: left;
+  display: block;
+}
+
+div.tea-promo div.text {
+  width: 250px;
+  margin-top: 15px;
+}
+
+div.text input {
+  width: 280px;	
+}
+
+div.text .button {
+  width: 150px;	
+  margin: 0 0 0 15px;
+  float: right;
+}
+
+
+</style>
+{% endblock %}
+
+{% block metadescription %}Tell your friends about www.minrivertea.com on facebook, twitter or by email and share the love about great Chinese teas.{% endblock %}
+
+{% block pagetitle%}Tell a friend{% endblock %}
+
+
+
+{% block content %}
+
+<div id="mtw">
+  <div class="sp">
+
+		{% if message %}
+				<h1 class="message">{{ message }}</h1>
+		{% else %}
+		<h1>Spread the word</h1>
+		<p class="introduction">We're a young business, and we need your help! If you like our teas and you think a friend might like them too, then please tell them about it - here's how:</p>
+		{% endif %}
+    			
+	
+		<div class="tea-promo small">
+			<div class="image">
+				<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+				<div class="fb-like" data-href="http://www.facebook.com/minrivertea" data-send="false" data-layout="box_count" data-width="45" data-show-faces="false"></div>
+				<h3 style="width:180px;">Like us on Facebook</h3>
+			</div>
+			<div class="text">
+			<p>You've put faith in us by ordering and enjoying our teas, so if you 'Like' us on Facebook, it helps your friends and relatives get introduced to Chinese tea through a company that <strong>you</strong> trust.</p>
+			</div>
+		</div>
+		
+		<div class="tea-promo small">
+			<div class="image">
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com" data-text="better #tea for your mug" data-via="minrivertea" data-size="large" data-related="minrivertea">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			</div>
+			<div class="text">
+				<h3>Tweet about us</h3>				
+				<p>Tweeting about us helps spread the word to a huge variety of people - many people are still unaware that buying good quality Chinese tea is actually quite easy and enjoyable. </p>
+			</div>
+		</div>
+		<div class="tea-promo small">
+			<div class="image">
+				<img style="box-shadow: 0 1px 2px #999 inner;" src="{% staticfile '/images/plusone.png' %}">
+			</div>
+			<div class="text">
+				<h3 style="float:none;">Give us a +1</h3>
+				<p>Google now customises search results for you and your social group, so if you like one of our teas or our website, <strong>click the +1 button wherever you see it!</strong></p>
+			</div>
+		</div>
+		
+		<div class="tea-promo">
+			<form method="post" action="/tell-a-friend/">
+			
+			<div class="image" style="width: 400px; padding-left: 10px;">
+				<h3 style="float:none;">Email a friend </h3>
+				<p>If you know someone who would be interested in seeing our site our trying our teas, we'll send them an email on your behalf. Fill in the form on the right to start.</p>
+			</div>
+			<div class="text" style="width: 315px;">
+			{% if shopper %}
+			<input type="text" name="sender" id="id_sender" value="{{ shopper.email }}" style="display:none;"/>
+			{% else %}
+			<input type="text" name="sender" id="id_sender" title="Your email address" class="clearMeFocus"/> <br/>
+			{% endif %}
+			<input type="text" name="recipient" id="id_recipient" title="Your friend's email" class="clearMeFocus" />
+			<p class="help"><img src="{% staticfile '/images/lock.gif' %}"> We will never share, sell or spam these email addresses (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)</p>	
+    		<input type="submit" value="Submit" class="button">
+    		    {{ form.sender.errors }}
+    		    {{ form.recipient.errors }}        
+				{{ form.message.errors }}
+			</form>
+			</div>
+		</div>
+
+  </div>
+</div>
+		
+
+    {% endblock %}

@@ -140,7 +140,10 @@ SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
 CHINA_SUBDOMAIN = 'china'
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'
-CHINA_TEMPLATES_DIR = os.path.join(PROJECT_PATH, "templates/china/")
+CHINA_TEMPLATES_DIR = (
+    os.path.join(PROJECT_PATH, "templates/china/"),
+    os.path.join(PROJECT_PATH, "templates/"), 
+)
 
 # paypal info
 PAYPAL_IDENTITY_TOKEN = ""

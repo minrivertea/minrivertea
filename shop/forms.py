@@ -21,8 +21,10 @@ class OrderStepOneForm(forms.Form):
     address_line_1 = forms.CharField(max_length=200, required=False)
     address_line_2 = forms.CharField(max_length=200, required=False)
     town_city = forms.CharField(max_length=200, required=False)
+    province_state = forms.CharField(max_length=200, required=False)
     postcode = forms.CharField(max_length=200, required=False)
     country = forms.ChoiceField(required=False, choices=COUNTRY_CHOICES)
+    phone = forms.CharField(max_length=80, required=False)
     subscribed = forms.BooleanField(required=False)
     
     def clean(self):
@@ -46,6 +48,16 @@ class OrderStepOneForm(forms.Form):
         
         if cleaned_data.get('town_city') == 'Town or city':
             del cleaned_data["town_city"]
+        
+        if cleaned_data.get('province_state'):
+            if cleaned_data["town_city"]:
+                sep = ', '
+            else:
+                sep = ''
+            
+            string = ''.join((sep, cleaned_data.get('province_state')))
+            cleaned_data["town_city"] =  ''.join((cleaned_data.get('town_city'), string))
+            del cleaned_data['province_state']
         
         
         
