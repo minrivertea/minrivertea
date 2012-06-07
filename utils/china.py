@@ -22,7 +22,7 @@ class ChinaMiddleware:
             except:
                 # detect if they're in China or not!
                 countrycode = GetCountry(request)['countryCode']
-                if countrycode == "-":
+                if countrycode == "CN":
                     request.session['region'] = 'china' 
                     settings.TEMPLATE_DIRS = settings.CHINA_TEMPLATES_DIR
             
