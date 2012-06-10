@@ -1457,8 +1457,8 @@ a#harvest:hover {
 #alert {
   width: 100%;
   height: auto;
-  padding: 20px 0 30px;   
-  font-size: 20px;
+  padding: 20px 0 0px;   
+  font-size: 14px;
   text-align: center;
   background: #fff;
 }
