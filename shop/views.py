@@ -46,7 +46,7 @@ def render(request, template, context_dict=None, **kwargs):
     print template
     if request.session['region'] == 'china':
         
-        new_template = template.replace('shop/', 'china/')
+        new_template = "china/%s" % template
         if os.path.exists(new_template):
             template = new_template
         
