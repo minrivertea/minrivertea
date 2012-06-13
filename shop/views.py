@@ -104,7 +104,6 @@ def _get_currency(request, code=None):
         code = code
     else:
         code = 'GBP'
-    
         try:
             if request.session['region'] == 'china':
                 code = 'RMB'
@@ -116,7 +115,6 @@ def _get_currency(request, code=None):
             
     
     currency = get_object_or_404(Currency, code=code)
-    
     return currency
 
 
@@ -201,18 +199,21 @@ def index(request):
             teas = Product.objects.filter(category__parent_category__slug='teas', is_featured=True)
             cups = Product.objects.filter(category__slug='teaware')[:3]
             reviews = Review.objects.filter(is_published=True).order_by('?')[:3]
-    except: 
-        seen = {}
-        reviews_one = []
-        for item in Review.objects.filter(is_published=True).order_by('?'):
-            marker = item.product
-            if marker in seen: continue
-            seen[marker] = 1
-            reviews_one.append(item)
-        
-        reviews = reviews_one[:5]
-        curr = _get_currency(request)
-        special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
+            return render(request, 'shop/home.html', locals())
+    except:
+        pass
+         
+    seen = {}
+    reviews_one = []
+    for item in Review.objects.filter(is_published=True).order_by('?'):
+        marker = item.product
+        if marker in seen: continue
+        seen[marker] = 1
+        reviews_one.append(item)
+    
+    reviews = reviews_one[:5]
+    curr = _get_currency(request)
+    special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
         
     return render(request, "shop/home.html", locals())
 
