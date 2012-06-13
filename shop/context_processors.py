@@ -23,6 +23,7 @@ def common(request):
     
     context['base_template'] = settings.BASE_TEMPLATE
     context['region'] = 'global' 
+    
     try:
         region = request.session['region']
         if region == 'china':

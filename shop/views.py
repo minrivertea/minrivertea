@@ -42,7 +42,14 @@ class BasketDoesNotExist(Exception):
     
 
 #render shortcut
-def render(request, template, context_dict=None, **kwargs):    
+def render(request, template, context_dict=None, **kwargs):
+    print template
+    if request.session['region'] == 'china':
+        
+        new_template = template.replace('shop/', 'china/')
+        if os.path.exists(new_template):
+            template = new_template
+        
     return render_to_response(
         template, context_dict or {}, context_instance=RequestContext(request),
                               **kwargs

@@ -1,0 +1,241 @@
+{% extends base_template %}
+{% load django_static thumbnail %}
+
+{% block aboutselected %}selected{% endblock %}
+
+{% block metadescription %}{{ page.meta_description }}{% endblock %}
+
+{% block pagetitle %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
+
+{% block canonical %}<link rel="canonical" href="http://www.minrivertea.com{{ page.get_absolute_url }}" />{% endblock %}
+
+{% block extrajs %}
+<script>
+$(function() {
+$(".scroll").scrollable({ circular: true }).click(function() {
+	$(this).data("scrollable").next();		
+});
+});
+
+$(function() { 
+	$('.hoverbox').hover(
+		function() {
+			$('div', this).animate({top: '100px',}, 200);
+		},
+		function() {
+			$('div', this).animate({top: '145px',}, 200);
+		}
+	);	  
+});
+
+</script>
+
+{% endblock %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+<style type="text/css">
+
+div.top {
+  float: left;
+  width: 100%;
+  margin-bottom: 30px;	
+}
+
+.white {
+  background-color: #fff;
+  padding: 20px 25px;
+  float: left;	
+  width: 668px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  position: relative;
+}
+
+.white p {
+  font-size: 18px;	
+  margin: 0 0 10px 0;
+}
+
+.white p.nihao {
+  font-size: 20px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
+.white ul {
+  list-style-type: none;
+  display: inline;
+  font-size: 20px;
+  margin: 0;	
+  padding: 0;
+}
+
+/* this is the background of the arrow */
+.white:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid transparent;         
+        border-left: 0;
+        border-top: 20px solid transparent;
+        border-right: 20px solid #d1d1d1;
+        position: absolute;
+        top: 20px;
+        left: -21px;
+        z-index: 1;
+        margin-left: ;
+}
+
+/* this is the foreground of the arrow */
+.white:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-right: 20px solid #fff;     
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-left: 0;
+        position: absolute;
+        top: 20px;
+        left: -19px;
+        z-index: 2;
+        margin-left: -1px;
+}
+
+{% if page.feature_image %}
+h1 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  margin-bottom: 0px;
+  background-color: #fff;
+  padding: 15px 25px 10px ;
+}
+{% endif %}
+
+
+span.review {
+  color: #333;	
+}
+
+
+div.about-right img.top {
+    margin-top: -100px;
+    position: relative;
+    border: none;
+}
+
+
+/* position and dimensions of the navigator */
+.navi {
+	margin-left:328px;
+	width:200px;
+	height:20px;
+}
+
+
+/* items inside navigator */
+.navi a {
+	width:8px;
+	height:8px;
+	float:left;
+	margin:3px;
+	background:url(../img/scrollable/arrow/navigator.png) 0 0 no-repeat;
+	display:block;
+	font-size:1px;
+}
+
+/* mouseover state */
+.navi a:hover {
+	background-position:0 -8px;      
+}
+
+/* active state (current page state) */
+.navi a.active {
+	background-position:0 -16px;     
+}
+
+
+
+
+ul.rss {
+   width: 280px;   
+}
+
+ul.rss #facebook {
+  width: 270px;   
+  background-color: #e1ecf3;
+  padding: 10px 10px 3px 15px;
+  top: -4px;
+}
+
+ul.rss #facebook p {
+    color: #333;
+    float: left;
+    font-family: Helvetica,sans-serif;
+    font-size: 12px;
+    text-shadow: 1px 1px 1px #FFFFFF;
+    margin: 0 10px 0 0;
+    position: relative;
+    top: 5px;
+}
+
+
+
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<div id="mtw">
+  <div class="sp">
+  	{% if page.feature_image %}
+		{% thumbnail page.feature_image "960" crop="" as im %}
+		  <img src="{{ im.url }}" style="margin-bottom: 30px;"/>
+		{% endthumbnail %}
+		<h1>{{ page.title }}</h1>
+  	{% else %}
+  		<h1>{{ page.title }}</h1>
+  	{% endif %}
+  	
+  			<div class="top">
+		
+			<img title="This is me, Chris West, owner of the Min River Tea Farm" src="{% staticfile '/images/chris.jpg' %}" style="float:left;margin-right: 30px;">
+			
+			<div class="white">
+				<p class="nihao">We sell exceptional quality Chinese teas with 'no-added-nonsense'.</p>
+				
+				<p>Tea in China is a way of life, a daily comfort and an exquisite treat, but sadly, lots of foreigners living here struggle to 'get into' tea. Maybe you're not sure where to start, how to brew it, or whether the salesman is trying to rip you off.</p>
+				<p>We're here to start your love-affair with tea - <a href="/teas/">check out our teas here</a> or read on below.
+				
+				<p><strong>Chris West, founder</strong> (<a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>)</p>
+				
+	 		</div>
+	 	</div>
+
+
+	<div id="right">
+		{% include 'shop/boxes/follow.html' %}
+		{% include 'shop/boxes/email.html' %}
+		{% include 'shop/boxes/tea.html' %}		
+	</div>
+
+	<div id="left">
+	    
+		{{ page.content|safe }}
+		
+	</div>
+
+		
+  </div>
+</div>
+
+
+{% endblock %}
