@@ -14,13 +14,11 @@ class ChinaMiddleware:
             # if they already have a session cookie, then leave it as it is 
             try:
                 region = request.session['region']
-                print region
                 pass
                                      
             except:
                 # detect if they're in China or not!
                 countrycode = GetCountry(request)['countryCode']
-                print countrycode
                 if countrycode == settings.CHINA_REGION_CODE:
                     request.session['region'] = 'china' 
                 else:
