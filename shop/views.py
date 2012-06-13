@@ -46,10 +46,10 @@ def render(request, template, context_dict=None, **kwargs):
     if request.session['region'] == 'china':
         
         new_template = "china/%s" % template
-        new_template_full = os.path.join(settings.PROJECT_PATH, new_template)
+        new_template_full = os.path.join(settings.PROJECT_PATH, "templates/", new_template)
         if os.path.exists(new_template_full):
             template = new_template
-    
+        
     return render_to_response(
         template, context_dict or {}, context_instance=RequestContext(request),
                               **kwargs
