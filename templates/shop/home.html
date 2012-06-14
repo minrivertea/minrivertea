@@ -38,29 +38,30 @@ ul#nav li a.selected:before {
 #feature div.top {
     float: right;
     position: relative;
-    top: -10px;
+    top: 80px;
     width: 300px;
 }
 
 #feature div.top h1 {
-    font-size: 36px;
-    margin: 20px 0 10px 0;
+    font-size: 30px;
+    margin: 0px 0 10px 0;
     text-align: left;
-
 }
 
 #feature div.top p {
-  margin: 0;	
+  margin: 0 0 15px;	
   float: left;
   padding: 0;
-  font-size: 16px;
+  font-size: 14px;
+  letter-spacing: -0.5px;
+  color: #666;
   text-align: left;
 
 }
 
 #feature div.top a.button {
     float: left;
-    font-size: 20px;
+    font-size: 24px;
     padding: 16px 15px 14px;
     text-align: center;
     width: 240px;
@@ -305,12 +306,10 @@ ul#nav li a.selected:before {
 
 <div id="feature">
   <div class="sp">
-    <img src="{% staticfile '/images/feature7.jpg' %}"/>
+    <img src="{% staticfile '/images/home5.jpg' %}"/>
 	<div class="top">
-		<h1>We deliver amazing Chinese teas, from the farm to your door.</h1>
-		
-		<p>Enjoy a better brew every day with natural, traditionally made and ethically sourced loose-leaf Chinese teas you can brew at home or in the office.</p>
-		
+		<h1>Fresh, authentic teas from China, direct to your door.</h1>
+		<p>* and when we say direct, we mean direct - we're the only UK tea company actually based in China! <a class="underline" href="/about/">Read more &raquo;</a></p>		
 		<a class="button green" href="{% url teas %}">Pick your tea now &raquo;</a>	
 	</div>
   </div>
