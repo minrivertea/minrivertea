@@ -166,12 +166,13 @@ ul#steps {
 			  	<td>{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>		  
 			  </tr>
 		  	  {% endif %}
-		  	  {% if order.discount %}
+		  	  
+		  	  {% if postage_discount %}
 			  <tr>
 			  	<td>&nbsp;</td>
 			  	<td>Discount</td>
 			  	<td>&nbsp;</td>
-			  	<td>-{{ currency.symbol }}{{ value|floatformat:"2" }}</td>
+			  	<td>-{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>
 			  </tr>
 			  {% endif %}
 			  <tr>
