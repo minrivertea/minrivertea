@@ -100,18 +100,25 @@ def twitter_post(tweet):
             raise(e)
 
 def _get_currency(request, code=None):
+    
     if code:
         code = code
-    else:
-        code = 'GBP'
+        
+    if not code:
+        try:
+            code = request.session['CURRENCY']
+        except:
+            code = None
+    
+    if not code:
         try:
             if request.session['region'] == 'china':
                 code = 'RMB'
         except:
-            try:
-                code = request.session['CURRENCY']
-            except:
-                pass
+            pass
+
+    if not code:
+        code = 'GBP'
             
     
     currency = get_object_or_404(Currency, code=code)
@@ -150,9 +157,9 @@ def _get_price(request, items):
     
     return total_price
     
-    
 
 def _change_currency(request):
+
     try:
         currency = get_object_or_404(Currency, code=request.GET.get('curr'))
         request.session['CURRENCY'] = currency.code
@@ -160,11 +167,11 @@ def _change_currency(request):
         currency = get_object_or_404(Currency, code='GBP')
         request.session['CURRENCY'] = currency.code
     
+    
     # if they have a basket already, we need to change the unique products around
     try:
         basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
         for item in BasketItem.objects.filter(basket=basket):
-            print "%s" % item
             newup = get_object_or_404(UniqueProduct,
                 is_active=True, 
                 parent_product=item.item.parent_product,
@@ -172,7 +179,6 @@ def _change_currency(request):
                 weight=item.item.weight)
             item.item = newup
             item.save()
-            
     except:
         pass  
     
@@ -1145,9 +1151,12 @@ def postage_cost_update(request, id):
 
 def international(request):
     request.session['region'] = 'global'
+    request.session['BASKET_ID'] = None
+        
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
     
+        
 def china_convert_prices(request, id):
     order = get_object_or_404(Order, pk=id)
     

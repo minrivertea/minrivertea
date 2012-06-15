@@ -383,13 +383,13 @@ input#id_discount_code {
 		<div class="tea-weight">
 			<a title="{{ thing.item.parent_product.description }}" href="{{ thing.item.parent_product.get_absolute_url }}"><strong>{{ thing.item.parent_product.name }}</strong></a>
 			{% if not thing.item.weight %}{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
-			{{ thing.item.currency.symbol }}{{ thing.item.price }}<br/>
+			{{ currency.symbol }}{{ thing.item.price }}<br/>
 			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">Remove from basket</span></a>
 		</div>
 		<div class="tea-price">&nbsp;</div>
 		<div class="tea-quantity">x {{ thing.quantity }} 
 			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}"></a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}"></a>{% endifequal %}</div> </div>
-		<div class="tea-total">{{ thing.item.currency.symbol }}{{ thing.get_price }}</div>
+		<div class="tea-total">{{ currency.symbol }}{{ thing.get_price }}</div>
 		
 	  </div>
 	{% endfor %}
