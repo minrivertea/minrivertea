@@ -11,23 +11,32 @@
 <style type="text/css">
 
 #header {
- border-bottom: none;   
+ border-bottom: ;   
 }
 
 ul#nav li a.selected:before {
  display: none;   
 }
 
+h1 {
+  font-size: 38px;
+  margin: 20px 0 0 0;
+  float: left;
+  width: 100%;
+  color: #738693;   
+}
+
 
 #feature {
     float: left;
-    height: 390px;
+    height: 360px;
     margin: 0 0 0;
     padding-bottom: 0;
     width: 100%;
     background: #fff;
     border-bottom: 10px solid #E1ECF3;
     position: relative;
+    display: none;
 }
 
 #feature img {
@@ -317,7 +326,7 @@ ul#nav li a.selected:before {
 
 <div class="sp">
 
-    
+    <h1>We sell exceptional Chinese teas, direct from the farm to your door</h1>
     
     {% include "shop/snippets/fo-shou-special.html" %}
 
