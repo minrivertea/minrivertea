@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends base_template %}
 {% load django_static thumbnail %}
 
 {% block pagetitle %}Order (Step 2 of 3) - Confirm Order{% endblock %}
@@ -192,14 +192,11 @@ ul#steps {
 		</div>
 		
 		<div class="row-box">
-		    {{ order.owner.first_name }} {{ order.owner.last_name }}<br/>
-			{{ order.address.house_name_number }}<br/>
-			{{ order.address.address_line_1 }}<br/>
-			{{ order.address.address_line_2 }}<br/>
-			{{ order.address.town_city }}<br/>
-			{{ order.address.postcode }}<br/>
-			{{ order.address.country|upper }}<br/><br/>
-			<a href="{% url order_step_one %}">Change your address</a>
+ 		  {{ order.owner.first_name }} {{ order.owner.last_name }}<br/>
+		  {% with order.address as address %}
+		      {% include "shop/snippets/address.html" %}
+		  {% endwith %}
+		  <a href="{% url order_step_one %}">Change your address</a>
 		</div>
 	</div>
 
