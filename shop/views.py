@@ -689,7 +689,7 @@ def order_repeat(request, hash):
     )
     
     # now we'll check for replacements/substitutions
-    currency = _get_currency(request)
+    currency = _get_currency(request, code=old_order.items.all()[0].item.currency.code)
     for item in old_order.items.all():
         if item.item.is_active == False or item.item.parent_product.coming_soon == True:
             # if it's not available, replace it with the closest matching UniqueProduct
