@@ -112,10 +112,16 @@ def _get_currency(request, code=None):
     
     if not code:
         try:
-            if request.session['region'] == 'china':
+            region = request.session['region']
+            if region == 'china':
                 code = 'RMB'
+                request.session['CURRENCY'] = code
+            if region == 'usa':
+                code = 'USD'
+                request.session['CURRENCY'] = code
         except:
             pass
+    
 
     if not code:
         code = 'GBP'

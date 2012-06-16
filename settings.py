@@ -139,6 +139,7 @@ SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
 
 CHINA_SUBDOMAIN = 'china'
 CHINA_REGION_CODE = 'CN'
+USA_REGION_CODE = 'US'
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'
 CHINA_TEMPLATES_DIR = (
