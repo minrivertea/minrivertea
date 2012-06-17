@@ -493,7 +493,7 @@ div.fb-recommend {
   overflow: hidden;  
 }
 
-#extras .info.trans {
+#extras .info.trans, #extras .info.map {
   margin: 0 0px 19px 0;
   padding: 0px;   
   width: auto;
@@ -501,33 +501,42 @@ div.fb-recommend {
   border-color: #fff;
 }
 
-#extras .info.trans:hover {
+#extras .info.trans:hover, #extras .info.map:hover {
   box-shadow: 0 1px 3px #e1e1e1;   
 }
 
-#extras .info.trans:hover h3 a {
+#extras .info.trans:hover h3 a, #extras .info.map:hover h3 a {
   text-decoration: underline;
   color: #FF6569;   
+}
+
+#extras .info.map {
+  margin: 0 15px 20px 0; 
+  width: 255px;  
 }
 
 #extras .info h3 {
   position: absolute;
   bottom: -5px;
   left: 0px;  
-  width: 215px;
-  padding: 10px 20px 0px 20px;
+  width: 235px;
+  padding: 10px 10px 0px 20px;
   background: #E1ECF3; 
   text-align: right;
   color: #6a9bba;
 }
 
 #extras .info.trans h3 {
-   width: 320px; 
+   width: 340px; 
    background: #fff;  
 }
 
+#extras .info.map h3 {
+  background-color: #fff;   
+}
+
 #extras .info.long h3 {
-   width: 510px;   
+   width: 520px;   
 }
 
 #image_wrap {
@@ -638,21 +647,26 @@ div.fb-recommend {
 	
 	<div id="extras">
 	   {% if tea.extra_info %}
+	      <div class="info">
+		      {{ tea.extra_info|safe }}
+		  </div>
+	   {% endif %}
+		
+	   {% if tea.map_image %}
+	   <div class="info map">  
+	      <a href="{{ tea.map_page.get_absolute_url }}"><span class="link"></span></a>
+	      {% thumbnail tea.map_image "255x237" crop="center" as im %}
+	          <img src="{{ im.url }}"/>
+	      {% endthumbnail %}
+	      <h3><a href="{{ tea.map_page.get_absolute_url }}">Where is {{ tea.name }} grown?</a></h3>
+	   </div>
+	   {% else %}
 	   <div class="info">
-		  {{ tea.extra_info|safe }}
-		</div>
-		{% endif %}
-		
-		<div class="info">
-		  {% if review %}
-		  <h3>Our customers say…</h3>
-		  <p>"{{ review.short_text }}"<br/><strong>{{ review.first_name }} {{ review.last_name }}</strong><br/><a href="/reviews/">Read more customer reviews &raquo;</a></p>
-		  {% else %}
-		  <h3>Shipping in China</h3>
+	       <h3>Shipping in China</h3>
 		  <p><strong>We ship everywhere in China.</strong> All orders are shipped using Express Delivery services for a flat fee of {{ currency.symbol }}{{ currency.postage_cost }} regardless of how many items you order. If you order more than {{ currency.symbol }}{{ currency.postage_discount_threshold }} then it's free!</p>
-		  {% endif %}
-		</div>
-		
+	   </div>
+	   {% endif %}
+		  		
 		{% for t in tea.recommended.all %}
 		 {% if forloop.counter == 1 %}
 		  <div class="info trans">
@@ -660,15 +674,15 @@ div.fb-recommend {
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }}</a> &raquo;</h3>
+		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }} &raquo;</a></h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}
 
-        {% if tea.long_description %}
+        {% if review %}
     	   <div class="info long">
-	   	   {{ tea.long_description|safe }}
-	   	   <h3>More information</h3>
+		  <p>"{{ review.short_text }}"<br/><strong>{{ review.first_name }} {{ review.last_name }}</strong><br/><a href="/reviews/">Read more customer reviews &raquo;</a></p>
+	   	   <h3>Our customers say...</h3>
 		   </div>
         {% endif %}
 
@@ -679,11 +693,14 @@ div.fb-recommend {
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }}</a> &raquo;</h3>
+		      <h3><a href="{% url tea_view t.slug %}">{{ t.name }} &raquo;</a></h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}
 	</div>
+		   	   {{ tea.long_description|safe }}
+	
+			  
 
 
 </div>

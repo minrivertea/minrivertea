@@ -52,6 +52,14 @@ TAG_COLORS = (
 )
 
 
+GLOBAL = 'global'
+CHINA = 'china'
+SITES = (
+    (GLOBAL, u'Global'),
+    (CHINA, u'China'),
+)
+
+
 class Currency(models.Model):
     code = models.CharField(max_length=5)
     symbol = models.CharField(max_length=5)
@@ -98,6 +106,10 @@ class Product(models.Model):
         help_text="A Hex reference with the preceding # hash")
     coming_soon = models.BooleanField(default=False) # deprecated 1.5.2012
     recommended = models.ManyToManyField('Product', blank=True, null=True)
+    site = models.CharField(max_length=20, choices=SITES, blank=True, null=True)
+    map_image = models.ImageField(upload_to='images/maps', blank=True, null=True)
+    map_page = models.ForeignKey('Page', blank=True, null=True)
+    map_location = models.CharField(max_length=200, blank=True, null=True)
 
         
     def __unicode__(self):
