@@ -56,10 +56,21 @@ div.top {
 }
 
 .white p.nihao {
-  font-size: 22px;
+  font-size: 24px;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
+
+{% if page.feature_image %}
+h1 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  margin-bottom: 0px;
+  background-color: #fff;
+  padding: 15px 25px 10px ;
+}
+{% endif %}
 
 
 span.review {
@@ -127,6 +138,7 @@ ul.rss #facebook p {
     position: relative;
     top: 5px;
 }
+
 
 
 
