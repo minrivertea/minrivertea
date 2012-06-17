@@ -120,20 +120,21 @@ h1 span {
 
 div.product-photos-small {
     float: left;
-    margin: 15px 0 0px;
+    margin: 0px 0 0px 15px;
     text-align: right;
+    width: 60px;
 }
 
 .tea-top .left {
   float: left;
   width: 500px;
   margin-right: 30px;	
-  height: 410px;
+  height: auto;
 }
 
 .tea-top div.main-image div.product-photos-small img {
     float: left;
-    margin: 0 10px 0 0;
+    margin: 0 0px 10px 0;
     opacity: 0.6;
 }
 
@@ -167,31 +168,31 @@ div.product-photos-small p {
 }
 
 .tea-top .description {
-  width: 430px;
-  float: left;	
+  width: 360px;
+  float: right;	
 }
 
 .tea-top div.description p {
-  font-size: 25px;
+  font-size: 20px;
   color: #333;	
   margin: 0 0 10px 0;
   text-shadow: 2px 2px 0 #fff;
 }
 
 .tea-top div.description p.small {
-  font-size: 18px;	
+  font-size: 16px;	
 }
 
 .tea-top div.main-image {
     float: left;
     margin-right: 20px;
     padding: 0px 10px 10px 0;
-    width: 500px;
+    width: 600px;
 }
 
 .tea-top div#prices {
-    float: left;
-    width: 430px;
+    float: right;
+    width: 360px;
     margin: 15px 0 0;
 }
 
@@ -199,15 +200,14 @@ div.product-photos-small p {
     float: left;
     margin: 0;
     position: relative;
-    width: 430px;
 }
 
 .tea-top a.button {
     float: right;
-    font-size: 22px;
+    font-size: 18px;
     margin: 0;
     position: relative;
-    width: 190px;
+    width: 140px;
     top: -5px;
     padding: 11px 20px 9px;
 }
@@ -353,11 +353,11 @@ p.price {
     color: #237A2A;
     float: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 45px;
+    font-size: 35px;
     font-weight: bold;
     letter-spacing: -2px;
     line-height: 1em;
-    margin: 0;
+    margin: 0 0 10px 0;
     position: relative;
     text-shadow: 1px 1px 0 #FFFFFF;
 }
@@ -464,7 +464,7 @@ div.fb-recommend {
 
 #price-helper .not-in-stock {
   font-size: 16px;
-  color: #F37679;	
+  color: #FF6569;	
 }
 
 .loading {
@@ -518,6 +518,7 @@ div.fb-recommend {
   padding: 10px 20px 0px 20px;
   background: #E1ECF3; 
   text-align: right;
+  color: #6a9bba;
 }
 
 #extras .info.trans h3 {
@@ -528,6 +529,15 @@ div.fb-recommend {
 #extras .info.long h3 {
    width: 510px;   
 }
+
+#image_wrap {
+    display: block;
+    height: 331px;
+    width: 500px;
+    float: left;
+}   
+
+
 
 </style>
 {% endblock %}
