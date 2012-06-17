@@ -183,11 +183,11 @@ div#main-text-wide div#left .tea-promo div.text p {
 }
 
 .tea-promo h3 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     font-family: Helvetica, Arial, sans-serif;
     float: right;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
     margin: 0;
 }
 

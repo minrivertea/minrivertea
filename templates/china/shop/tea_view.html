@@ -375,7 +375,7 @@ p.price-description {
     font-size: 12px;
     line-height: 1.2em;
     margin: 0 0 0 5px;
-    width: 90px;
+    width: 80px;
     position: relative;
 }
 
@@ -658,7 +658,7 @@ div.fb-recommend {
 	      {% thumbnail tea.map_image "255x237" crop="center" as im %}
 	          <img src="{{ im.url }}"/>
 	      {% endthumbnail %}
-	      <h3><a href="{{ tea.map_page.get_absolute_url }}">Where is {{ tea.name }} grown?</a></h3>
+	      <h3><a href="{{ tea.map_page.get_absolute_url }}">{{ tea.name }} tea is grown in {{ tea.map_location }}</a></h3>
 	   </div>
 	   {% else %}
 	   <div class="info">
