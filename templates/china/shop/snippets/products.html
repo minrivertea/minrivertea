@@ -13,7 +13,7 @@
     	  <a title="{{ p.name }} - click to view more details" href="{% url tea_view p.slug %}"><span class="link"></span></a>	
     	  <div class="image">
     	    {% thumbnail p.image "295x200" crop="center" as im %}
-	   	    <img alt="a picture of {{ p.name }} tea" title="{{ p.name }} tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+	   	    <img alt="a picture of {{ p.name }} tea" title="{{ p.name }} tea - click to view more details" class="" src="{{ im.url }}"/>
 	   	    {% endthumbnail %}
 	      </div>
 	      <h3>

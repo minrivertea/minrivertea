@@ -15,15 +15,25 @@ p.introduction {
   color: #333;   
 }
 
-#teas {
- border: none;   
+h1 {
+    color: #738693;
+    float: left;
+    font-size: 30px;
+    margin: 30px 0 0;
+    width: 100%;
 }
 
+h2 {
+    color: #738693;
+    margin: 20px 0 15px 10px;
+    float: left;
+    width: 100%; 
+}
 
 div.top {
   float: left;
   width: 100%;
-  margin: 30px 0 50px;	
+  margin: 30px 0 20px;	
 }
 
 div.top p#extra  {
@@ -54,78 +64,6 @@ div.top p#extra  {
     font-weight: bold;
     letter-spacing: -2px;
     margin: 0;
-}
-
-#special {
-  float: left;	
-  width: 920px;
-  padding: 20px;
-  box-shadow: 0 1px 3px #e1e1e1;
-  background-color: #fff;
-  position: relative;
-  overflow: hidden;
-  margin: 20px 0 0px 0;
-}
-
-#special h2 {
-  margin-bottom: 10px;	
-  font-size: 50px;
-}
-
-#special p {
-  margin: 0;   
-}
-
-#special p.tea-desc {
-  margin: 0 0 10px;	
-}
-
-#special img {
-  float: left;
-  margin-right: 10px;	
-}
-
-#special p.price {
-  float: left;
-  width: 410px;
-  margin: 30px 0 0px;	
-}
-
-#special p.more {
-  text-align: right;
-  font-size: 15px;
-  padding-right: 20px;	
-}
-
-#special .amount {
-    color: #237A2A;
-    float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 50px;
-    font-weight: bold;
-    letter-spacing: -5px;
-    margin-right: 10px;
-}
-
-#special .description {
-  font-size: 12px;
-  color: #666;
-  width: 80px;
-  position: relative;
-  top: -5px;	
-  float: left;
-  line-height: 1.3em;
-  margin: 0 20px 0 0;
-}
-
-#special .button {
-    float: right;
-    font-size: 22px;
-    padding: 10px 26px 5px;
-    position: relative;
-    right: 10px;
-    top: -12px;
-    z-index: 20;
 }
 
 .tag {
@@ -164,31 +102,6 @@ div.top p#extra  {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.explain {
-  float: left;
-  width: 100%;   
-}
-
-.explain div {
-  float: left;
-  margin: 0 20px 0 0;
-  color: #90b6ce; 
-  text-shadow: 0 1px 1px #fff;
-  text-align: left;
-  font-weight: bold;
-  font-size: 30px;
-  font-family: Helvetica, Arial, sans-serif  
-}
-
-.explain div a {
-  color: #999;
-  text-decoration: underline;   
-}
-
-.explain div a:hover {
-  color: #90b6ce;   
-}
-
 div.tea-promo {
  width: 285px;
  padding: 10px;
@@ -196,7 +109,10 @@ div.tea-promo {
 }
 
 div.tea-promo h3 {
-  font-size: 20px;   
+  font-size: 16px;
+  margin: 5px 0 0 0;
+  float: right;
+  letter-spacing: -0.5px;   
 }
 
 div.tea-promo .image {
@@ -237,22 +153,19 @@ div.tea-promo .image {
  	</div>
  
  	
- 	<div class="explain">
- 	  <div>Choose from our bestselling teas below - <a href="{% url teas %}">or view all our teas &raquo;</a></div>
- 	</div>
- 	
- 	<div id="teas">
+ 	<h2>Choose from our bestselling teas below - <a href="{% url teas %}">or view all our teas &raquo;</a></h2> 	
+ 	<div class="box">
  	      {% for tea in teas %}
  	          <div class="tea-promo">
             	  <a title="{{ tea.name }} - click to view more details" href="{% url tea_view tea.slug %}"><span class="link"></span></a>	
             	  <div class="image">
             	    {% thumbnail tea.image "285x200" crop="center" as im %}
-        	   	    <img alt="a picture of {{ tea.name }} tea" title="{{ tea.name }} tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+        	   	    <img alt="a picture of {{ tea.name }} tea" title="{{ tea.name }} tea - click to view more details" class="" src="{{ im.url }}"/>
         	   	    {% endthumbnail %}
         	      </div>
         	      <h3>
         	   	   <a title="{{ tea.name }} - find out more or order some now!" href="{% url tea_view tea.slug %}">
-        	   	   {{ tea.name }}
+        	   	   {{ tea.name }} &raquo;
         	   	   </a>
         	      </h3> 
         	      {% if tea.tag_text %}<span class="tag {{ tea.tag_color }}"><span class="tagtext">{{ tea.tag_text }}</span></span>{% endif %}
@@ -261,22 +174,20 @@ div.tea-promo .image {
  	</div>
  	
  	
- 	<div class="explain">
- 	  <div>Brew your tea the right way with our teaware - <a href="{% url teaware %}"> view all &raquo;</a></div>
- 	</div>
- 	
- 	<div id="teas">
+ 	<h2>Brew your tea the right way with our teaware - <a href="{% url teaware %}"> view all &raquo;</a></h2>
+ 	 	
+ 	<div id="box">
  	      {% for tea in cups %}
  	          <div class="tea-promo">
             	  <a title="{{ tea.name }} - click to view more details" href="{% url tea_view tea.slug %}"><span class="link"></span></a>	
             	  <div class="image">
-            	    {% thumbnail tea.image "285x200" crop="center" as im %}
-        	   	    <img alt="a picture of {{ tea.name }} tea" title="{{ tea.name }} tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+            	    {% thumbnail tea.image "285x185" crop="center" as im %}
+        	   	    <img alt="a picture of {{ tea.name }} tea" title="{{ tea.name }} tea - click to view more details" class="" src="{{ im.url }}"/>
         	   	    {% endthumbnail %}
         	      </div>
         	      <h3>
         	   	   <a title="{{ tea.name }} - find out more or order some now!" href="{% url tea_view tea.slug %}">
-        	   	   {{ tea.name }}
+        	   	   {{ tea.name }} &raquo;
         	   	   </a>
         	      </h3> 
         	      {% if tea.tag_text %}<span class="tag {{ tea.tag_color }}"><span class="tagtext">{{ tea.tag_text }}</span></span>{% endif %}
@@ -284,16 +195,14 @@ div.tea-promo .image {
  	      {% endfor %}
  	</div>
  	
- 	<div class="explain">
- 	  <div>Buy from a company that's been selling in the US/EU since 2010</div>
- 	</div>
+ 	<h2>Buy from a company that's been selling in the US/EU since 2010</h2>
  	
- 	<div id="teas">
+ 	<div id="box">
  	  {% for r in reviews %}
  	      <div class="tea-promo">
         	  <div class="image review">
         	    {% thumbnail r.product.image "285x200" crop="center" as im %}
-    	   	    <img alt="a picture of {{ r.product.name }} tea" title="{{ r.product.name }} tea - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+    	   	    <img alt="a picture of {{ r.product.name }} tea" title="{{ r.product.name }} tea - click to view more details" class="" src="{{ im.url }}"/>
     	   	    {% endthumbnail %}
     	      </div>
     	      <div class="text">
