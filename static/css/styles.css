@@ -578,7 +578,7 @@ p.introduction {
 .info h3 {
     font-weight: bold;
     font-family: Helvetica, Arial, sans-serif;
-	font-size: 20px;
+	font-size: 16px;
 	margin: 0 0 5px 0;
 }
 
@@ -593,7 +593,7 @@ p.introduction {
   background-color: transparent;
   border: none;
   padding: 0 0px;
-  width: 260px;	
+  width: 240px;	
 }
 
 .info.long {
@@ -639,7 +639,9 @@ p.introduction {
 }
 
 .info.tea {
-  margin-bottom: 110px;
+  margin-bottom: 40px;
+  padding: 10px;
+  background: #fff;
 }
 
 .info.tea span.link, span.link {
@@ -663,12 +665,11 @@ p.introduction {
   background-color: #fff;
   width: 240px;
   margin-bottom: 0px;	
-  border: 1px solid #e1e1e1;
-  border-width: 0 1px 1px 1px;
 }
 
 .info.tea .text h3 {
-  margin: 0;	
+  margin: 0;
+  float: right;	
 }
 
 .info.bio img {

@@ -37,20 +37,17 @@ $(function() {
 <style type="text/css">
 
 div.top {
-  float: left;
-  width: 100%;
-  margin-bottom: 30px;	
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    margin-bottom: 30px;
+    padding: 10px;
+    width: 100%;
 }
 
 .white {
-  background-color: #fff;
-  padding: 20px 25px;
-  float: left;	
-  width: 668px;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border: 1px solid #e1e1e1;
-  position: relative;
+    float: left;
+    padding: 10px 0 0;
+    width: 670px;
 }
 
 .white p {
@@ -59,51 +56,9 @@ div.top {
 }
 
 .white p.nihao {
-  font-size: 20px;
+  font-size: 24px;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
-}
-
-.white ul {
-  list-style-type: none;
-  display: inline;
-  font-size: 20px;
-  margin: 0;	
-  padding: 0;
-}
-
-/* this is the background of the arrow */
-.white:after {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-bottom: 20px solid transparent;         
-        border-left: 0;
-        border-top: 20px solid transparent;
-        border-right: 20px solid #d1d1d1;
-        position: absolute;
-        top: 20px;
-        left: -21px;
-        z-index: 1;
-        margin-left: ;
-}
-
-/* this is the foreground of the arrow */
-.white:before {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-right: 20px solid #fff;     
-        border-top: 20px solid transparent;
-        border-bottom: 20px solid transparent;
-        border-left: 0;
-        position: absolute;
-        top: 20px;
-        left: -19px;
-        z-index: 2;
-        margin-left: -1px;
 }
 
 {% if page.feature_image %}
@@ -199,14 +154,7 @@ ul.rss #facebook p {
 
 <div id="mtw">
   <div class="sp">
-  	{% if page.feature_image %}
-		{% thumbnail page.feature_image "960" crop="" as im %}
-		  <img src="{{ im.url }}" style="margin-bottom: 30px;"/>
-		{% endthumbnail %}
-		<h1>{{ page.title }}</h1>
-  	{% else %}
-  		<h1>{{ page.title }}</h1>
-  	{% endif %}
+	<h1>{{ page.title }}</h1>
   	
   			<div class="top">
 		

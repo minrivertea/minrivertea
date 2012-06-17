@@ -6,7 +6,7 @@
       	 <a title="" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
       	  <div class="image">
       	  	{% thumbnail p.image "360x250" crop="center" as im %}
-			<img alt="a picture of {{ p.name }}" title="{{ p.name }} - click to view more details" class="tea-promo" src="{{ im.url }}"/>
+			<img alt="a picture of {{ p.name }}" title="{{ p.name }} - click to view more details" class="" src="{{ im.url }}"/>
 			{% endthumbnail %}
 		  </div>
 		  <div class="text">

@@ -382,7 +382,7 @@ input#id_discount_code {
 		<div class="tea-weight">
 			<a title="{{ thing.item.parent_product.description }}" href="{{ thing.item.parent_product.get_absolute_url }}"><strong>{{ thing.item.parent_product.name }}</strong></a>
 			{% if not thing.item.weight %}{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
-			{{ currency.symbol }}{{ thing.item.price }}<br/>
+			{{ currency.symbol }}{{ thing.item.price }} each<br/>
 			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">Remove from basket</span></a>
 		</div>
 		<div class="tea-price">&nbsp;</div>

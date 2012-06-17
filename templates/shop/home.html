@@ -19,8 +19,8 @@ ul#nav li a.selected:before {
 }
 
 h1 {
-  font-size: 38px;
-  margin: 20px 0 0 0;
+  font-size: 30px;
+  margin: 30px 0 0 0;
   float: left;
   width: 100%;
   color: #738693;   
@@ -123,7 +123,7 @@ h1 {
 
 #benefits h2 {
  color: #738693;
- margin: 10px 0 25px 10px;   
+ margin: 20px 0 15px 10px;   
 }
 
 #benefits #teas {
@@ -134,28 +134,27 @@ h1 {
   height: auto;
 }
 
-#benefits .tea {
+#benefits .info {
     float: left;
     margin: 0 15px 15px 0;
-    width: 278px;
-    border: 1px solid #e1e1e1;
+    border: none;
+    width: 288px;
     background: #fff;
-    padding: 15px 15px 10px;
+    padding: 10px 10px 10px;
     position: relative;
 }
 
-#benefits .tea:hover {
+#benefits .info:hover {
   box-shadow: 0 1px 4px #d1d1d1;  
-  border: 1px solid #c1c1c1; 
 }
 
-#benefits .tea p {
+#benefits .info p {
    margin: 0;
    font-size: 16px; 
    line-height: 1.3em;  
 }
 
-#benefits .tea.first {
+#benefits .info.first {
     background: none repeat scroll 0 0 transparent;
     border: none;
     float: right;
@@ -165,28 +164,28 @@ h1 {
     text-align: left;
 }
 
-#benefits .tea.first:hover {
+#benefits .info.first:hover {
  border: none;
  box-shadow: none;   
 }
 
-#benefits .tea.first p {
+#benefits .info.first p {
   margin: 0 0 15px 0;
 }
 
-#benefits .tea.last {
+#benefits .info.last {
   margin-right: 0;   
 }
 
-#benefits .tea h4 {
-    margin: 5px 0 5px 0px;
+#benefits .info h3 {
+    margin: 10px 10px 0px 0px;
     letter-spacing: -0.5px;
     padding: 0;
-    font-weight: normal;
-    font-size:22px;
+    float: right;
+    font-size: 16px;
 }
 
-#benefits .tea:hover h4 {
+#benefits .info:hover h4 {
   text-decoration: underline;
   color: #237A2A;   
 }
@@ -208,8 +207,12 @@ h1 {
 }
 
 #special h2 {
-  margin-bottom: 10px;	
-  font-size: 50px;
+    font-family: Helvetica,sans-serif;
+    font-size: 45px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    margin: 10px 0 0;
+    color: #237A2A;
 }
 
 #special p {
@@ -330,7 +333,7 @@ h1 {
 
 <div class="sp">
 
-    <h1>We sell exceptional Chinese teas, direct from the farm to your door</h1>
+    <h1>Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!</h1>
     
     {% include "shop/snippets/fo-shou-special.html" %}
 
@@ -338,20 +341,20 @@ h1 {
 	<div id="benefits">
 	   <h2>Check out our bestsellers below, <a class="underline" href="/teas/">or see our full range of teas here &raquo;</a></h2>
 		<div id="teas">
-		    <div class="tea first">
+		    <div class="info first">
 		      <p>The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.<br/><span class="red">Brad Robinson, London.</span></p>
 		      <p>Thanks for the starter pack, the Jasmine tea is the best I've ever had!<br/><span class="red">Ben Ford, UK.</span></p>
 		      <p><a href="/reviews/">See more customer reviews &raquo;</a></p>
 		    </div>
 			{% for r in reviews %}
-				<div class="tea {% if forloop.last %}last{% endif %}">
+				<div class="info {% if forloop.last %}last{% endif %}">
 				    <a href="{{ r.product.get_absolute_url }}"><span class="link"></span></a>
-				    {% thumbnail r.product.image "280" crop="center" as im %}
+				    {% thumbnail r.product.image "290x185" crop="center" as im %}
 					<a alt="a picture of our {{ r.product.name }} Chinese tea" title="{{ r.product.name }}" href="{{ r.product.get_absolute_url }}">
 						<img alt="{{ r.product.description }}" src="{{ im.url }}"/>
 					</a>
 				    {% endthumbnail %}
-				    <h4>{{ r.product.name }}</h4>
+				    <h3><a href="{{ r.product.get_absolute_url }}">{{ r.product.name }}</a> &raquo;</h3>
 				    
 				    
 				    

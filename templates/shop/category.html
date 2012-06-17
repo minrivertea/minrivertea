@@ -71,7 +71,7 @@ div.info p {
 
 {% if category.slug == 'teas' %}
 .tea-promo div.image {
-  width: 300px;	
+  width: 275px;	
   margin: 0 0 10px 0;
 }
 
@@ -79,18 +79,12 @@ div.info p {
   border-bottom: none;	
 }
 
-.tea-promo h3 a {	
-  color: #333;
-}
-
-a.more {
-  display: none;	
-}
-
-div.tea-promo {
-  width: 275px;	
-  padding: 15px;
-  margin-right: 10px;
+.tea-promo {
+  margin: 0 15px 20px 0;   
+  width: 275px;
+  background: #fff;
+  border: none;
+  padding: 10px;
 }
 
 .section {
@@ -105,7 +99,7 @@ div.tea-promo {
     float: right;
     height: 285px;
     padding: 0 0 0;
-    width: 300px;
+    width: 320px;
 }
 
 .intro h2 {
@@ -132,8 +126,12 @@ div.tea-promo {
 }
 
 #special h2 {
-  margin-bottom: 10px;	
-  font-size: 50px;
+    font-family: Helvetica,sans-serif;
+    font-size: 45px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    margin: 10px 0 0;
+    color: #237A2A;
 }
 
 #special p {
@@ -189,6 +187,12 @@ div.tea-promo {
     position: relative;
     right: 10px;
     top: -10px;
+}
+
+{% else %}
+.tea-promo h3 {
+  float: none;
+  font-size: 24px;   
 }
 
 {% endif %}

@@ -1,12 +1,13 @@
 {% load thumbnail %}
 
 {% for tea in teas %}
-	{% thumbnail tea.image "260" crop="center" as im %}
-	<div class="info tea" style="background-image: url('{{ im.url }}'); height: {{ im.height }}px;">
+	{% thumbnail tea.image "240" crop="center" as im %}
+	<div class="info tea">
+	   <img src="{{ im.url }}"/>
 		<a href="{{ tea.get_absolute_url }}"><span class="link"></span></a>
 		<div class="text">
-			<h3><a href="{{ tea.get_absolute_url }}">{{ tea.name|safe }} &raquo;</a></h3>
-			<p>{{ tea.super_short_description }} <strong>from {{ tea.get_lowest_price.currency.symbol }}{{ tea.get_lowest_price.price|floatformat }}{% if tea.get_lowest_price.weight %} for {{ tea.get_lowest_price.weight }}{{ tea.get_lowest_price.weight_unit }}{% endif %}</strong></p>
+			<h3><a href="{{ tea.get_absolute_url }}">{{ tea.name|safe }}</a>
+	from {{ tea.get_lowest_price.currency.symbol }}{{ tea.get_lowest_price.price|floatformat }} &raquo;</h3>
 		</div>
 	</div>
 	{% endthumbnail %}

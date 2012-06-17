@@ -117,9 +117,6 @@ INSTALLED_APPS = (
 )
 
 # Random app information for different things
-EMAIL_HOST = ''
-EMAIL_HOST_USER = ''
-EMAIL_PORT = ''
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 GA_IS_ON = True
 SITE_URL = "http://www.minrivertea.com"
@@ -142,10 +139,7 @@ CHINA_REGION_CODE = 'CN'
 USA_REGION_CODE = 'US'
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'
-CHINA_TEMPLATES_DIR = (
-    os.path.join(PROJECT_PATH, "templates/china/"),
-    os.path.join(PROJECT_PATH, "templates/"), 
-)
+
 
 # paypal info
 PAYPAL_IDENTITY_TOKEN = ""
