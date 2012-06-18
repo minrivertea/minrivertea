@@ -19,7 +19,7 @@ h1 {
     color: #738693;
     float: left;
     font-size: 30px;
-    margin: 30px 0 0;
+    margin: 10px 0 0;
     width: 100%;
 }
 
@@ -135,6 +135,46 @@ div.tea-promo .image {
 }
 
 
+#special {
+  float: left;	
+  width: 920px;
+  padding: 10px;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  margin: 10px 0 20px 0;
+}
+
+#special:hover {
+   box-shadow: 0 1px 3px #e1e1e1;   
+}
+
+#special h2 {
+    font-family: Helvetica,sans-serif;
+    font-size: 22px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    margin: 5px 0 10px;
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    color: #a1a1a1;
+    width: 400px;
+    float: none;
+    line-height: 1.5em;
+}
+
+#special h2 span {
+    color: #237A2A;
+    font-weight: ;    
+}
+
+#special img {
+  float: left;
+  margin-right: 20px;	
+}
+
+
 </style>
 {% endblock %}
 
@@ -145,12 +185,8 @@ div.tea-promo .image {
   <div class="sp">
      
      
-	 <div class="top">
-		<div class="white">
-			<p class="nihao">Live in China, but haven't quite 'got into' tea?</p>
-			<p>We're here to help you with that - we sell Chinese teas that are safe and clean, honestly priced, and delivered to your door anywhere in China. <a href="/about-china/">Find out more &raquo;</a></p>
- 		</div>
- 	</div>
+	<h1>Do you live in China, but haven't quite 'got into' tea yet? Now you can…</h1>
+	{% include 'china/shop/snippets/long-jing-special-china.html' %}
  
  	
  	<h2>Choose from our bestselling teas below - <a href="{% url teas %}">or view all our teas &raquo;</a></h2> 	

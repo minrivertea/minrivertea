@@ -279,7 +279,7 @@ def tea_view(request, slug):
         thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
         message = "1 x %s%s added to your basket!" % (thing.item.weight, thing.item.weight_unit)
         request.session['ADDED'] = None
-    
+        
     tea = get_object_or_404(Product, slug=slug)
     prices = UniqueProduct.objects.filter(
         parent_product=tea, 
@@ -287,11 +287,13 @@ def tea_view(request, slug):
         is_sale_price=False, 
         currency=_get_currency(request),
         ).order_by('price')
-    
+        
     try:
         review = Review.objects.filter(product=tea)[0]
     except:
         pass
+    
+    
         
     # here we're handling the notify form, if the product is out of stock
     if request.method == 'POST':

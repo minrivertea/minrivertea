@@ -672,7 +672,7 @@ div.fb-recommend {
     	      {% thumbnail tea.map_image "255x237" crop="center" as im %}
     	          <img src="{{ im.url }}"/>
     	      {% endthumbnail %}
-    	      <h3><a href="{{ tea.map_page.get_absolute_url }}">{{ tea.name }} tea is grown in {{ tea.map_location }}</a></h3>
+    	      <h3><a href="{{ tea.map_page.get_absolute_url }}">Our {{ tea.name }} tea is grown in {{ tea.map_location }}</a></h3>
     	   </div>
 	   {% else %}
 		  <div class="info">

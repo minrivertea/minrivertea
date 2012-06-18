@@ -198,78 +198,39 @@ h1 {
 #special {
   float: left;	
   width: 920px;
-  padding: 20px;
-  box-shadow: 0 1px 3px #e1e1e1;
+  padding: 10px;
   background-color: #fff;
   position: relative;
   overflow: hidden;
   margin: 20px 0 0px 0;
 }
 
+#special:hover {
+   box-shadow: 0 1px 3px #e1e1e1;   
+}
+
 #special h2 {
     font-family: Helvetica,sans-serif;
-    font-size: 45px;
-    font-weight: bold;
-    letter-spacing: -2px;
-    margin: 10px 0 0;
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    margin: 5px 0 10px;
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    color: #a1a1a1;
+}
+
+#special h2 span {
     color: #237A2A;
-}
-
-#special p {
-  margin: 0;   
-}
-
-#special p.tea-desc {
-  margin: 0 0 10px;	
+    font-weight: ;    
 }
 
 #special img {
   float: left;
-  margin-right: 10px;	
+  margin-right: 20px;	
 }
 
-#special p.price {
-  float: left;
-  width: 410px;
-  margin: 30px 0 0px;	
-}
-
-#special p.more {
-  text-align: right;
-  font-size: 15px;
-  padding-right: 20px;	
-}
-
-#special .amount {
-    color: #237A2A;
-    float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 50px;
-    font-weight: bold;
-    letter-spacing: -5px;
-    margin-right: 10px;
-}
-
-#special .description {
-  font-size: 12px;
-  color: #666;
-  width: 80px;
-  position: relative;
-  top: -5px;	
-  float: left;
-  line-height: 1.3em;
-  margin: 0 20px 0 0;
-}
-
-#special .button {
-    float: right;
-    font-size: 22px;
-    padding: 10px 26px 5px;
-    position: relative;
-    right: 10px;
-    top: -12px;
-    z-index: 20;
-}
 
 .tag {
     left: 0px;
@@ -307,13 +268,14 @@ h1 {
   font-family: Helvetica, Arial, sans-serif;
 }
 
+ul.rss {
+    top: 83px;
+    width: 80px;
+}
 
 </style>
 {% endblock %}
 
-{% block currency %}
-	{% include 'shop/snippets/currency.html' %}
-{% endblock %}
 
 {% block content %}
   </div>
@@ -335,7 +297,7 @@ h1 {
 
     <h1>Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!</h1>
     
-    {% include "shop/snippets/fo-shou-special.html" %}
+    {% include "shop/snippets/long-jing-special.html" %}
 
 
 	<div id="benefits">
@@ -379,7 +341,17 @@ h1 {
 		
 	
 	</div>
-
+	
+	    {% if ga_is_on %}
+		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
+	    	<li id="facebook">
+			    <div id="fb-root"></div>
+			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
+			    <fb:like href="http://www.facebook.com/minrivertea" send="false" layout="button_count" width="80" show_faces="false" font="">
+			    </fb:like>
+			</li>
+		</ul>
+        {% endif %}
 
 </div>
 	
