@@ -214,6 +214,9 @@ div.info.wide input.button {
 					{% endfor %}
 				</div>
 				{% endif %}
+				{% if entry.comments_closed %}
+				    <p><strong><em>Comments are closed for this entry.</em></strong></p>
+				{% else %}
 				<div id="comment-form">
 				<h3>Add your comment</h3>
 				<br clear="all"/>
@@ -221,6 +224,7 @@ div.info.wide input.button {
 					{% render_comment_form for entry %}
 					</div>
 				</div>
+				{% endif %}
 			</div>
 				
 	</div>

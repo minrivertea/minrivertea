@@ -11,6 +11,8 @@ class BlogEntry(models.Model):
     title = models.CharField(max_length=200)
     summary = models.CharField(max_length=200)
     content = models.TextField()
+    comments_require_captcha = models.BooleanField(default=False, help_text="If ticked, visitors will need to fill in captchas before commenting")
+    comments_closed = models.BooleanField(default=False, help_text="If ticked, visitors will not be able to comment on this entry")
     
     def __unicode__(self):
         return self.slug
