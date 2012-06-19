@@ -111,7 +111,14 @@ div.info p {
   margin: 0;	
 }
 
+{% else %}
 
+.tea-promo h3 {
+  float: none;
+  font-size: 24px;   
+}
+
+{% endif %}
 
 
 #special {
@@ -133,6 +140,25 @@ div.info p {
     letter-spacing: -2px;
     margin: 10px 0;
 }
+
+{% if category.slug == 'teaware' %}
+
+#special h2 span {
+  color: #999;   
+}
+
+#special h2 {
+    color: #237A2A;
+    font-family: Helvetica,sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    margin: 10px 0;
+    position: relative;
+    top: 60px;
+}
+
+{% endif %}
 
 #special p {
   margin: 0;   
@@ -190,13 +216,10 @@ div.info p {
     top: -10px;
 }
 
-{% else %}
-.tea-promo h3 {
-  float: none;
-  font-size: 24px;   
-}
 
-{% endif %}
+
+
+
 
 </style>
 {% endblock %}
@@ -219,6 +242,9 @@ div.info p {
 		{% if category.slug == 'teas' %}
 			{% include "shop/snippets/products.html" %}
 		{% else %}
+			{% if category.slug == 'teaware' %}
+			     {% include 'shop/snippets/brewer-special.html' %}
+			{% endif %}
 			{% include "shop/snippets/products_normal.html" %}
 		{% endif %}
 	</div>
