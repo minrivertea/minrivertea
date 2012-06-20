@@ -1454,16 +1454,3 @@ a#harvest:hover {
  color: #FF6569;   
 }
 
-
-#alert {
-  width: 100%;
-  height: auto;
-  padding: 20px 0 0px;   
-  font-size: 14px;
-  text-align: center;
-  background: #fff;
-}
-
-#alert a {
- text-decoration: underline;   
-}
