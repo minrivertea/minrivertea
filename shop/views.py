@@ -1159,8 +1159,10 @@ def postage_cost_update(request, id):
 
 def international(request):
     request.session['region'] = 'global'
-    request.session['BASKET_ID'] = None
-        
+    currency = _change_currency(request)
+    request.session['CURRENCY'] = 'GBP'
+    
+            
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
     
