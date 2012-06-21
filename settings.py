@@ -131,7 +131,9 @@ DJANGO_STATIC_MEDIA_URL = 'http://static.minrivertea.com'
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_PORT = ''
+SERVER_EMAIL = 'chris@minrivertea.com'
 SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
+SEND_BROKEN_LINK_EMAILS = True
 
 
 CHINA_SUBDOMAIN = 'china'
