@@ -135,7 +135,7 @@ ol {
   font-size: 12px;
 }
 
-.button, div#comments div#comment-form input.submit-post {
+.button, #comments div#comment-form input.submit-post {
 	background-color: #f1f1f1; /* backup for older browsers */
     background: -moz-linear-gradient(100% 100% 90deg, #e6e6e6, #f1f1f1);  /* Firefox 3.6+ */ 
     /* Safari 4-5, Chrome 1-9 */ /* -webkit-gradient(<type>, <point> [, <radius>]?, <point> [, <radius>]? [, <stop>]*) */ 
@@ -158,7 +158,7 @@ ol {
   box-shadow: 0 1px 4px #999;	
 }
 
-input.button, div#comments div#comment-form input.submit-post {
+input.button, #comments div#comment-form input.submit-post {
   color: #237A2A;
   height: auto;	
   font-family: Helvetica, sans-serif;
@@ -227,53 +227,6 @@ input.button:hover {
     padding: 5px 20px 7px 20px;
     text-align: right;
     margin-right: 10px;
-}
-
-
-#language {
-    display: block;
-    float: right;
-    margin-left: 6px;
-    padding: 5px 10px 5px 0;
-    position: relative;
-    top: -7px;
-    width: auto;
-    border-radius: 5px 5px 0 0;
-}
-
-#language:hover {
-  cursor: pointer;	
-}
-
-#language-block {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 43px;
-  width: 400px;
-  z-index: 20;
-  background-color: #333;
-  border-radius: 5px;
-  padding: 10px 25px;	
-  height: 300px;
-}
-
-#language-block p {
-  font-size: 12px;	
-  color: #f1f1f1;
-}
-
-#language-block h4 {
-  color: #fff;	
-}
-
-#language-block a:link {
-  color: #FFAEAE;
-  font-size: 12px;
-}
-
-#language-block a:hover {
-  color: #439249;	
 }
 
 #logo {	 
@@ -428,38 +381,6 @@ ul#nav li a.selected:before {
 ul#nav li a.selected.learn:before, ul#nav li a.selected.about:before {
   bottom: -30px;	
 }
-
-
-
-/* homepage styles */
-
-
-
-
-div#add-a-photo {
-  float: right;
-  text-align: center;
-}
-
-
-div#add-a-photo a:link, div#add-a-photo a:visited {
-  background: url('/images/button-add-a-photo.png') no-repeat top left;
-  width: 227px;
-  height: 55px;
-  float: right;
-  border: none;
-}
-
-div#add-a-photo:hover a {
-  background: url('/images/button-add-a-photo.png') no-repeat bottom left;
-}
-
-div#box {
-  width: 100%;
-  margin: 0 auto;
-  margin-top: 0px;
-}
-
 
 
 /* right navigation styles */
@@ -906,6 +827,17 @@ div.row-box label {
     width: 100%;
 }
 
+input.error, div.row-box input.error {
+  border: 1px solid #c06b6b;
+  box-shadow: inset 0 1px 9px #f2d4d4; 
+  background-color: #faf5f5; 
+  color: red; 
+}
+
+input.error:focus, div.row-box input.error:focus {
+  box-shadow: none;
+}
+
 
 
 /* About styles */
@@ -1250,7 +1182,7 @@ ul.rss #facebook {
   top: -2px;
 }
 
-div#comments {
+#comments {
   border-bottom: 3px dotted #e1e1e1;
   margin-bottom: 20px;
   float: left;	
@@ -1258,24 +1190,24 @@ div#comments {
   padding-bottom: 20px;
 }
 
-div#comments div#comment-form input.submit-post {
+#comments div#comment-form input.submit-post {
   float: right;
   margin-top: 10px;	
 }
 
-#mtw #left div#comments h3 {
+#mtw #left #comments h3 {
     float: left;
     font-size: 24px;
     position: relative;
 }
 
-div#comments div#comments-list {
+#comments #comments-list {
     float: left;
     margin-top: 20px;
     width: 100%;
 }
 
-div#comments div#comments-list div.comment {
+#comments #comments-list div.comment {
   border-bottom: 1px solid #e1e1e1;
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -1283,29 +1215,29 @@ div#comments div#comments-list div.comment {
   width: 100%;
 }
 
-div#comments div#comments-list div.comment p {
+#comments #comments-list div.comment p {
   	margin: 0;
   	padding: 0;
 }
 
-div#comments div#comment-form #form {
+#comments div#comment-form #form {
   	float: left;
   	margin-top: 30px;
 }
 
-div#comments div#comment-form label {
+#comments div#comment-form label {
   width: 100px;	
 }
 
-div#comments div#comment-form input, div#comments div#comment-form textarea {
+#comments div#comment-form input, #comments div#comment-form textarea {
   width: 400px;	
 }
 
-div#comments div#comment-form input.submit-preview {
+#comments div#comment-form input.submit-preview {
   display: none;	
 }
 
-#mtw #left div#comments div#comment-form p {
+#mtw #left #comments div#comment-form p {
   margin: 0;	
 }
 
@@ -1455,14 +1387,5 @@ a#harvest:hover {
 }
 
 
-input.error, div.row-box input.error {
-  border: 1px solid #c06b6b;
-  box-shadow: inset 0 1px 9px #f2d4d4; 
-  background-color: #faf5f5; 
-  color: red; 
-}
 
-input.error:focus, div.row-box input.error:focus {
-  box-shadow: none;
-}
 

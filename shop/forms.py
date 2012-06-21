@@ -39,7 +39,7 @@ class OrderStepOneForm(forms.Form):
                 sep = ''
             
             string = ''.join((sep, cleaned_data.get('province_state')))
-            cleaned_data["town_city"] =  ''.join(cleaned_data.get('town_city'), string)
+            cleaned_data["town_city"] =  ''.join((cleaned_data.get('town_city'), string))
             del cleaned_data['province_state']
            
         

@@ -526,7 +526,7 @@ def order_step_one(request):
         initial_values = (
             'First name', 'Last name', 'Email address',
             'Your address...', ' ...address continued (optional)',
-            'Town or city', 'Post/ZIP code', 'Province or state',
+            'Town or city', 'Post/ZIP code', 'Province',
             )
             
         for k, v in post_values.iteritems():
