@@ -261,6 +261,7 @@ def email_signup(request):
                 return HttpResponse(message)
             
             else:
+                from minriver.shop.views import render
                 return render(request, 'shop/emails/signup_confirmed.html', locals())
                     
     else:
@@ -281,7 +282,7 @@ def email_unsubscribe(request, key):
         subscriber.subscribed = False
         subscriber.save()
     
-    from shop.views import render
+    from minriver.shop.views import render
     return render(request, 'shop/emails/unsubscribe_confirmed.html', locals())
 
 
@@ -308,7 +309,7 @@ def create_email(request, id=None):
             email_object.save()
             recipients_list = _get_subscriber_list()
             recipients_count = len(recipients_list)
-            
+            from minriver.shop.views import render
             return render(request, 'shop/emails/create_send_email.html', locals())
     else:
         if id:
@@ -320,7 +321,7 @@ def create_email(request, id=None):
         
         form = CreateSendEmailForm(initial=data)
     
-    
+    from minriver.shop.views import render
     return render(request, 'shop/emails/create_send_email.html', locals())
 
 
