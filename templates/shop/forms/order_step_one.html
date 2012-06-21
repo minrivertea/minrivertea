@@ -168,17 +168,6 @@ span.country {
   padding: 10px 15px;	
 }
 
-input.error, div.row-box input.error {
-  border: 1px solid #c06b6b;
-  box-shadow: inset 0 1px 9px #f2d4d4; 
-  background-color: #faf5f5; 
-  color: red; 
-}
-
-input.error:focus, div.row-box input.error:focus {
-  box-shadow: none;
-}
-
 
 </style>
 
@@ -304,7 +293,6 @@ input.error:focus, div.row-box input.error:focus {
       <p>
       	<label for="id_postcode"><span class="red">*</span> Postcode:</label>
       	<input class="clearMeFocus {% if form.postcode.errors %}error{% endif %}" title="Post/ZIP code" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
-      	
       	</p>
       	
 	  <p>

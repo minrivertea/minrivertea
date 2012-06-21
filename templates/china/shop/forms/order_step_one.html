@@ -204,9 +204,6 @@ span.help {
 
       <form method="post" action="."> 	 
 		<div class="security">
-		  {% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors %}
-			<p class="red">&laquo; there were some errors - please check and provide all required information.</p>
-		  {% endif %}
 		  <img src="{% staticfile '/images/lock-large.png' %}">
 		  <p>Your details are safe - no spam, no sharing. <br/>
 		  <a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy &raquo;</a>
@@ -246,76 +243,76 @@ span.help {
 	 		</div>
 		{% else %}
 
-	<div class="row">
+<div class="row">
 
     	<div class="row-box">
+
     		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
-    		<ul class="errorlist"><li>* you must provide all your details - thanks!</li></ul>
+    		<ul class="errorlist"><li>* Please enter all the information in the mandatory fields (highlighted red) below:</li></ul>
     		{% endif %}
     		<p class="intro">This step takes just 1 minute - your name and email first please! </p>
 
     		<p>
     			<label for="id_first_name"><span class="red">*</span> First name</label>
-    			<input  class="clearMeFocus" type="text" title="First name" name="first_name" id="id_first_name" value="{{ first_name }}"/>
+    			<input  class="clearMeFocus {% if form.first_name.errors %}error{% endif %}" type="text" title="First name" name="first_name" id="id_first_name" value="{{ first_name }}"/>
     		</p>
+    		
     		<p>
     			<label for="id_last_name"><span class="red">*</span> Surname</label>
-    			<input class="clearMeFocus" title="Last name" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
+    			<input class="clearMeFocus {% if form.last_name.errors %}error{% endif %}" title="Last name" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
     		</p>
+    		
     		<p>
     			<label for="id_email"><span class="red">*</span> Email address</label>
-    			<input class="clearMeFocus" title="Email address" type="text" name="email" id="id_email" value="{{ email }}"/>
+    			<input class="clearMeFocus {% if form.email.errors %}error{% endif %}" title="Email address" type="text" name="email" id="id_email" value="{{ email }}"/>
     		</p>	
     	</div>
     </div>
+
     
 	
 	<div class="row">
     	<div class="row-box">
-    	{{ form.non_field_errors }}
     		<p class="intro">Where should we send your tea? Please provide your address <em>in Chinese</em> here:</p>
     		
 
-      <p>
+<p>
       	<label for="id_house_name_number"><span class="red">*</span> House name number:</label>
-      	<input class="clearMeFocus" title="Your address..." id="id_house_name_number" type="text" name="house_name_number" value="{{ house_name_number }}"/>
+      	<input class="clearMeFocus {% if form.house_name_number.errors %}error{% endif %}" title="Your address..." id="id_house_name_number" type="text" name="house_name_number" value="{{ house_name_number }}"/>
       	
       	</p>
-	  	{{ form.address_line_1.error }}
 	  
 	  <p>
 	  	<label for="id_address_line_1">Address line 1:</label>
-	  	<input class="clearMeFocus" title=" ...address continued (optional)" id="id_address_line_1" type="text" name="address_line_1" value="{{ address_line_1 }}"/> 
+	  	<input class="clearMeFocus {% if form.address_line_1.errors %}error{% endif %}" title=" ...address continued (optional)" id="id_address_line_1" type="text" name="address_line_1" value="{{ address_line_1 }}"/> 
 	 	    
 	  </p>
-      	{{ form.address_line_2.errors }}
       	
       <p>
       	<label for="id_address_line_2">Address line 2:</label>
-      	<input class="clearMeFocus" title=" ...address continued (optional)" id="id_address_line_2" type="text" name="address_line_2"  value="{{ address_line_2 }}"/>
+      	<input class="clearMeFocus {% if form.address_line_2.errors %}error{% endif %}" title=" ...address continued (optional)" id="id_address_line_2" type="text" name="address_line_2"  value="{{ address_line_2 }}"/>
       	
       	</p>
-      	{{ form.town_city.errors }}
       
       <p>
       	<label for="id_town_city">Town / City:</label>
-      	<input class="clearMeFocus" title="Town or city" id="id_town_city" type="text" name="town_city" value="{{ town_city }}"/> 
+      	<input class="clearMeFocus {% if form.town_city.errors %}error{% endif %}" title="Town or city" id="id_town_city" type="text" name="town_city" value="{{ town_city }}"/> 
       </p>
+
       
       <p>
       	<label for="id_province_state">Province</label>
-      	<input class="clearMeFocus" title="Province" id="id_province_state" type="text" name="province_state" value="{{ province_state }}"/> 
+      	<input class="clearMeFocus {% if form.province_state.errors %}error{% endif %}" title="Province" id="id_province_state" type="text" name="province_state" value="{{ province_state }}"/> 
       </p>
       	
-      {{ form.postcode.errors }}	
       <p>
       	<label for="id_postcode"><span class="red">*</span> Postcode:</label>
-      	<input class="clearMeFocus" title="Post/ZIP code" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
-      </p>
+      	<input class="clearMeFocus {% if form.postcode.errors %}error{% endif %}" title="Post/ZIP code" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
+      	</p>
       
       <p>
-      	<label for="id_phont"><span class="red">*</span> Phone:</label>
-      	<input class="clearMeFocus" title="Phone number in China (eg. 13593456789)" id="id_phone" type="text" name="phone" value="{{ phone }}" /> 
+      	<label for="id_phone"><span class="red">*</span> Phone:</label>
+      	<input class="clearMeFocus {% if form.phone.errors %}error{% endif %}" title="Phone number in China (eg. 13593456789)" id="id_phone" type="text" name="phone" value="{{ phone }}" /> 
       	<span class="help">* the Express Delivery company may contact you to schedule delivery.</span>
       </p>
       	
@@ -328,7 +325,6 @@ span.help {
       </span>
 	    
 	  </p>
- 	  <br clear="all">
  	  
  	</div> 
 	</div>

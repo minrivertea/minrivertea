@@ -1454,3 +1454,15 @@ a#harvest:hover {
  color: #FF6569;   
 }
 
+
+input.error, div.row-box input.error {
+  border: 1px solid #c06b6b;
+  box-shadow: inset 0 1px 9px #f2d4d4; 
+  background-color: #faf5f5; 
+  color: red; 
+}
+
+input.error:focus, div.row-box input.error:focus {
+  box-shadow: none;
+}
+
