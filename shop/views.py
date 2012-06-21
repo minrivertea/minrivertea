@@ -522,7 +522,19 @@ def order_step_one(request):
 
     # if it's a POST request
     if request.method == 'POST': 
-        form = OrderStepOneForm(request.POST)
+        post_values = request.POST.copy()
+        initial_values = (
+            'First name', 'Last name', 'Email address',
+            'Your address...', ' ...address continued (optional)',
+            'Town or city', 'Post/ZIP code', 'Province or state',
+            )
+            
+        for k, v in post_values.iteritems():
+            if v in initial_values:
+                del post_values[k]
+                
+        form = OrderStepOneForm(post_values)
+                
         if form.is_valid(): 
             
             # first, if there's a shopper, we don't need new User and Shopper objects
@@ -628,6 +640,7 @@ def order_step_one(request):
         
         # if the form has errors...
         else:
+                         
              # load their data if they already tried to submit the form and failed.
              email = request.POST['email']
              house_name_number = request.POST['house_name_number']
@@ -638,8 +651,12 @@ def order_step_one(request):
              country = request.POST['country']
              first_name = request.POST['first_name']
              last_name = request.POST['last_name']
+             
+             form = OrderStepOneForm(post_values)
 
-    confirm_form = OrderStepOneForm() 
+        
+    else:
+        form = OrderStepOneForm()
     return render(request, 'shop/forms/order_step_one.html', locals())
 
 def order_url(request, hash):
