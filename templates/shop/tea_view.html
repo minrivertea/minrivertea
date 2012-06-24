@@ -32,25 +32,6 @@ $(".items img").click(function() {
 }).filter(":first").click();
 });
 
-
-function notifyFormSubmit() {
-	$('#notify-form').submit( function() {
-		$('#coming-soon').css('opacity', '0.5');
-    	$.ajax({  
-        	type: "POST",  
-        	data: $('#notify-form').serialize(),  
-        	url: "{% url tea_view tea.slug %}",  
-        	cache: false,  
-        	dataType: "html",  
-        	success: function(html, textStatus) {  
-        	    $('#coming-soon').html(html);
-        	    $('#coming-soon').css('opacity', '1'); 
-        	},   
-        });  
-        return false;
-	});
-}
-
 function addToBasket(idx) {
    $('a#add_to_basket_' + idx).click( function() {
    	  $('#price_' + idx).css('opacity', '0.5');
@@ -73,10 +54,8 @@ function addToBasket(idx) {
 }
 
 $(document).ready( function() {
-    {% for price in prices %}
     addToBasket({{ price.id }});
-    {% endfor %}
-    notifyFormSubmit();
+    addToBasket({{ big_price.id }});
 });
 
 
@@ -196,13 +175,20 @@ div.product-photos-small p {
     margin: 15px 0 0;
 }
 
-.tea-top div#prices div.price {
+.price {
     float: left;
     margin: 0;
     position: relative;
+    width: 360px;
 }
 
-.tea-top a.button {
+.price.big {
+  float: left;
+  margin: 10px 0 0 0; 
+  width: 225px;  
+}
+
+a.button {
     float: right;
     font-size: 18px;
     margin: 0;
@@ -210,6 +196,10 @@ div.product-photos-small p {
     width: 140px;
     top: -5px;
     padding: 11px 20px 9px;
+}
+
+.price.big a.button {
+   float: left;
 }
 
 
@@ -345,11 +335,7 @@ ul.reviews li span {
   color: #BE373A;	
 }
 
-h3.small {
-  font-size: 15px;	
-}
-
-p.price {
+.amount {
     color: #237A2A;
     float: left;
     font-family: Helvetica,Arial,sans-serif;
@@ -362,80 +348,34 @@ p.price {
     text-shadow: 1px 1px 0 #FFFFFF;
 }
 
-p.price span.grey {
-  color: #555;
-  font-weight: bold;
-  font-size: 20px;
-  text-shadow: none;
+.price.big .amount {
+   font-size: 35px;
+   margin: 5px 0 15px;   
 }
 
-p.price-description {
+.price-description {
     color: #333333;
     float: left;
     font-size: 12px;
     line-height: 1.2em;
     margin: 0 0 0 5px;
-    width: 80px;
+    width: 115px;
     position: relative;
+}
+
+.price-description span {
+  color: #666;
+}
+
+.price.big .price-description {
+  margin: 5px 0 15px 10px;
+     
 }
 
 
 div.fb-recommend {
   margin-top: 20px;
   float: left;	
-}
-
-#coming-soon {
-    float: left;
-    height: 85px;
-    width: 400px;
-}
-
-#coming-soon p {
-  font-size: 12px;
-  margin: 0 0 10px 0;
-}
-
-#coming-soon p.message {
-    color: #333;
-    font-size: 20px;
-}
-
-#coming-soon p.message strong {
-  color: #F37679;	
-}
-
-#coming-soon span {
-  font-size: 22px;
-  color: #EE6464;
-}
-
-#coming-soon span.green {
-  color: #1C7600;
-  line-height: 1.6em;
-  font-size: 20px;
-}
-
-#coming-soon input {
-  float: left;
-  width: 250px;	
-}
-
-#coming-soon input.button {
-    font-weight: bold;
-    font-size: 15px;
-    height: 41px;
-    padding: 7px;
-    width: 110px;
-    position: relative;
-    left: -3px;
-    border-left: none;
-    border-radius: 0 4px 4px 0;
-}
-
-#coming-soon input.button:hover {
-  cursor: pointer;	
-  background-color: #359318; 
 }
 
 #facebook, #google {
@@ -626,29 +566,28 @@ div.fb-recommend {
 		
 		<div id="prices">
 	 	{% if tea.is_active %}
-			{% for price in prices %}
 		      <div id="price_{{ price.id }}" class="price">
 		      	<div class="message"></div>
-		    	<p class="price">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</p> 
-		    	<p class="price-description">{{ price.description }}</p>
+		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
+		    	<span class="price-description">/{{ price.weight }}{{ price.weight_unit }}<br/>
+		    	<span>{{ price.description }}</span></span>
 				<a title="Add 1x {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}">Add to basket +</a>
               </div>
-           	{% endfor %}
 
-		  <div id="price-helper">        
-        	{% if tea.is_in_stock %}
+		      <div id="price-helper">        
+        	   {% if tea.is_in_stock %}
            		 <strong>{{ currency.symbol }}{{ currency.postage_cost }} shipping per order, FREE over {{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong><br/>
 			     Simple pricing, fast delivery - <a href="/where-do-we-deliver/">find out more &raquo;</a>
-        	{% else %}
+        	   {% else %}
         	     <span class="not-in-stock">Pre-order now and get this on {{ tea.get_preorder_date|date:"d M Y" }}</span>
         	     <br/>We're restocking, so delivery will take longer than usual</a>
-			{% endif %}
-		  </div>
+			   {% endif %}
+		      </div>
 		  
 		{% else %}
-		  <div id="price-helper">        
-        	<span class="not-in-stock">This tea is not currently available for sale. Sorry!</span>
-		  </div>	
+    		  <div id="price-helper">        
+            	<span class="not-in-stock">This tea is not currently available for sale. Sorry!</span>
+    		  </div>	
 		{% endif %}
 		
 		</div>
@@ -661,7 +600,19 @@ div.fb-recommend {
 	<div id="extras">
 	   {% if tea.extra_info %}
 	   <div class="info">
-		  {{ tea.extra_info|safe }}
+	       {% if big_price %}
+	           <h2>Prefer to buy big?</h2>
+	           <p>If you’re fanatical about tea, save some cash and buy 500g of <strong>{{ tea.name }}</strong> with free postage + 10% saving.</p>
+	           <div id="price_{{ big_price.id }}" class="price big">
+	               <div class="message"></div>
+	               <span class="amount">{{ big_price.currency.symbol }}{{ big_price.price|floatformat:"-2" }}</span>
+	               <span class="price-description">/ {{ big_price.weight }}{{ big_price.weight_unit }}</span><br clear="all"/>
+	               <a href="{% url add_to_basket big_price.id %}" class="button green big" id="add_to_basket_{{ big_price.id }}">Add to basket</a>
+	           </div>
+	           
+	       {% else %}
+                {{ tea.extra_info|safe }}
+           {% endif %}
 		</div>
 		{% endif %}
 		
@@ -698,10 +649,15 @@ div.fb-recommend {
         {% if review %}
     	   <div class="info long">
     		  <h3>Our customers say…</h3>
-		      <p>"{{ review.short_text }}"<br/>
-    		      <strong>{{ review.first_name }} {{ review.last_name }}</strong><br/>
+		      <p>"{{ review.short_text }}" - <strong>{{ review.first_name }} {{ review.last_name }}</strong><br/>
     		      <a href="/reviews/">Read more customer reviews &raquo;</a>
 		      </p>
+		      {% if big_price %}
+		      <br/>
+		      <p> 
+		          {{ tea.extra_info|safe }}
+		      </p>
+		      {% endif %}
             </div>    
         {% endif %}
 

@@ -268,12 +268,6 @@ def tea_view(request, slug):
         added = request.session['ADDED']
     except:
         added = None
-    
-    try:
-        notify_message = request.session['NOTIFY']
-        request.session['NOTIFY'] = None
-    except:
-        notify_message = None
        
     if added:
         thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
@@ -281,41 +275,31 @@ def tea_view(request, slug):
         request.session['ADDED'] = None
         
     tea = get_object_or_404(Product, slug=slug)
-    prices = UniqueProduct.objects.filter(
-        parent_product=tea, 
-        is_active=True, 
-        is_sale_price=False, 
-        currency=_get_currency(request),
-        ).order_by('price')
+    try:
+        price = UniqueProduct.objects.filter(
+            parent_product=tea, 
+            is_active=True, 
+            is_sale_price=False, 
+            currency=_get_currency(request),
+            ).order_by('price')[0]
+    except:
+        price = None
+    
+    try:
+        big_price = UniqueProduct.objects.filter(
+            parent_product=tea, 
+            is_active=True, 
+            is_sale_price=False, 
+            currency=_get_currency(request),
+            weight=500,
+        )[0]
+    except:
+        big_price = None
         
     try:
         review = Review.objects.filter(product=tea)[0]
     except:
         pass
-    
-    
-        
-    # here we're handling the notify form, if the product is out of stock
-    if request.method == 'POST':
-        form = NotifyForm(request.POST)
-        if form.is_valid():
-            Notify.objects.create(
-                name="",
-                email=form.cleaned_data['email'],
-                product=tea,
-            )
-            
-            if request.is_ajax():
-                message = "<p class='message'><strong>Thanks!</strong> As soon as this product is available again, we'll notify you by email!</p>"
-                return HttpResponse(message)
-            
-            else:
-                request.session['NOTIFY'] = "1"
-                url = request.META.get('HTTP_REFERER','/')
-                return HttpResponseRedirect(url)
-    
-    else:
-        form = NotifyForm()
 
     template = "shop/tea_view.html"
 
