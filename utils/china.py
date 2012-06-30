@@ -18,7 +18,10 @@ class ChinaMiddleware:
                                      
             except:
                 # detect the country!
-                countrycode = GetCountry(request)['countryCode']
+                try:
+                    countrycode = GetCountry(request)['countryCode']
+                except:
+                    countrycode = 'GB'
                 
                 if countrycode == settings.CHINA_REGION_CODE:
                     request.session['region'] = 'china' 
