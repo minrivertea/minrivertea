@@ -40,10 +40,10 @@ TEA_CATEGORY_CHOICES = (
 )
 
 
-GREEN = 'green'
-BLUE = 'blue'
-PINK = 'pink'
-RED = 'red'
+GREEN = '#177117'
+BLUE = '#1f7dc5'
+PINK = '#eb68a0'
+RED = '#d51515'
 TAG_COLORS = (
     (GREEN, u'Green'),
     (PINK, u'Pink'),
