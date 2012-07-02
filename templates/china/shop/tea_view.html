@@ -569,7 +569,7 @@ div.fb-recommend {
 		      <div id="price_{{ price.id }}" class="price">
 		      	<div class="message"></div>
 		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
-		    	<span class="price-description">/{{ price.weight }}{{ price.weight_unit }}<br/>
+		    	<span class="price-description">/{{ price.weight }}{{ price.price.weight_unit }}<br/>
 		    	<span>{{ price.description }}</span></span>
 				<a title="Add 1x {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}">Add to basket +</a>
               </div>
@@ -604,7 +604,6 @@ div.fb-recommend {
 	               <span class="price-description">/ {{ big_price.weight }}{{ big_price.weight_unit }}</span><br clear="all"/>
 	               <a href="{% url add_to_basket big_price.id %}" class="button green big" id="add_to_basket_{{ big_price.id }}">Add to basket</a>
 	           </div>
-	           
 	       {% else %}
                 {{ tea.extra_info|safe }}
            {% endif %}

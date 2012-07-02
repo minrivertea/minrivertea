@@ -250,10 +250,7 @@ def category(request):
         slug = request.path.strip('/')
     category = get_object_or_404(Category, slug=slug)
     products = _get_products(request, category)
-    
-    for p in products:
-        print "%s :  %s" % (p.tag_text, p.tag_color)
-    
+
     curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
     return render(request, "shop/category.html", locals())
@@ -305,9 +302,7 @@ def tea_view(request, slug):
     except:
         pass
 
-    template = "shop/tea_view.html"
-
-    return render(request, template, locals())
+    return render(request, "shop/tea_view.html", locals())
     
 def contact_us(request, xhr=None):
     try:
@@ -1229,6 +1224,5 @@ def make_product_feed(request):
     products = UniqueProduct.objects.filter(currency__code='GBP', is_active=True)
     
     content = render_to_string('product_feed_template.xml', {'products': products}) 
-    print content
     return HttpResponse(content, mimetype="application/xml") 
        
