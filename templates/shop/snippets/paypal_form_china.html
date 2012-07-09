@@ -1,8 +1,8 @@
 {% load django_static %}
 
 <h2 class="fancybox">We've converted your purchase into US Dollars ($)</h2>
-<p>This is so you can easily use your Visa/Mastercard/Amex to pay safely via Paypal. The current exchange rate is <strong>1 RMB</strong> : <strong>{{ exchange_rate }} USD</strong> and your order was <strong>{{ old_price|floatformat }} RMB</strong>, so:</p><br/>
-<p style="font-size: 25px; width:380px; float:left;position:relative;top:-20px"><strong>You will be paying <span class="underline">${{ new_price|floatformat:"2" }} USD</span></strong></p>
+<p>This is so you can easily use your Visa/Mastercard/Amex to pay safely via Paypal. The current exchange rate is <strong>1 RMB</strong> : <strong>{{ exchange_rate }} USD</strong> and your order was <strong>{{ old_total|floatformat }} RMB</strong>, so:</p><br/>
+<p style="font-size: 25px; width:380px; float:left;position:relative;top:-20px"><strong>You will be paying <span class="underline">${{ new_total|floatformat:"2" }} USD</span></strong></p>
 
 <form id="paypal" method="post" action="{{ paypal_submit_url }}">
     

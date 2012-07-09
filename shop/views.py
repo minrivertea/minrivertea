@@ -1177,6 +1177,7 @@ def china_convert_prices(request, id):
     
     old_price = 0
     new_price = 0
+        
     items = []
     for x in order.items.all():        
         items.append(dict(
@@ -1188,6 +1189,8 @@ def china_convert_prices(request, id):
         old_price += x.item.price
         new_price = float(x.item.price)*float(exchange_rate)
     
+    
+    
     currency = _get_currency(request)
     if old_price > currency.postage_discount_threshold:
         postage_discount = True
@@ -1195,12 +1198,16 @@ def china_convert_prices(request, id):
         postage_cost = currency.postage_cost * float(exchange_rate) 
         postage_discount = None
     
+    old_total = old_price + currency.postage_cost
+    new_total = new_price + postage_cost 
           
     paypal_form = render_to_string('shop/snippets/paypal_form_china.html', {
             'order': order,
             'order_items': items,
             'new_price': new_price,
             'old_price': old_price,
+            'old_total': old_total,
+            'new_total': new_total,
             'exchange_rate': exchange_rate,
             'postage_discount': postage_discount,
             'postage_cost': postage_cost,
