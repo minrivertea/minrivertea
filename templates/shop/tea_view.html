@@ -319,20 +319,10 @@ table.details td.left {
   font-size: 14px;
 }
 
-ul.reviews {
-    list-style-type: none;
-    padding-left: 20px;
-    margin-bottom: 0;
-    margin-bottom: 20px;
-}
-
-ul.reviews li {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-}
-
-ul.reviews li span {
-  color: #BE373A;	
+span.name {
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 14px;   
 }
 
 .amount {
@@ -646,11 +636,12 @@ div.fb-recommend {
 		  {% endif %}
 		{% endfor %}
 
+
+
         {% if review %}
     	   <div class="info long">
     		  <h3>Our customers say…</h3>
-		      <p>"{{ review.short_text }}" - <strong>{{ review.first_name }} {{ review.last_name }}</strong><br/>
-    		      <a href="/reviews/">Read more customer reviews &raquo;</a>
+		      <p>&ldquo;{{ review.short_text }}&rdquo;<br/> <span class="name">{{ review.first_name }} {% if review.url %}from <a href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} - <a href="{% url reviews %}">read more reviews &raquo;</a></span><br/>
 		      </p>
 		      {% if big_price %}
 		      <br/>

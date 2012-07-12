@@ -242,8 +242,8 @@ class Shopper(models.Model):
 class Review(models.Model):
     product = models.ForeignKey(Product)
     first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
-    email = models.EmailField()
+    last_name = models.CharField(max_length=200, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
     text = models.TextField()
     short_text = models.TextField(blank=True, null=True)
     url = models.URLField(blank=True, null=True)

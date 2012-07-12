@@ -25,6 +25,12 @@
  box-shadow: 0 1px 3px #e1e1e1;   
 }
 
+.name {
+ font-family: Helvetica, sans-serif;
+ font-weight: bold;
+ font-size: 16px;   
+}
+
 
 </style>
 
@@ -50,9 +56,8 @@
 	   	       {% endthumbnail %}
 		      </div>
 		      <p>{{ review.short_text }}<br/>
-		          <span class="red">{{ review.first_name }} {{ review.last_name }} drinks 
+		          <span class="name">{{ review.first_name }} {% if review.url %}from <a title="Read the full review here" href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} talking about our  
 		          <a href="{% url tea_view review.product.slug %}">{{ review.product }}</a></span>
-		          {% if review.url %}<a href="{{ review.url }}">(read the full review here)</a>{% endif %}
 		      </p>
 		   </div>
 		{% endfor %}
