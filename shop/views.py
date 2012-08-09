@@ -1173,7 +1173,7 @@ def china_convert_prices(request, id):
     # HACK!! we're going to fake the values just so we can let
     # the customer pay in USD not RMB
     
-    exchange_rate = 0.42
+    exchange_rate = 0.1571 # this is the RMB:USD exchange rate
     
     old_price = 0
     new_price = 0
