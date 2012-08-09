@@ -361,6 +361,11 @@ class Order(models.Model):
             amount += 3
         return amount
     
+    def get_currency(self):
+        item = self.items.all()[0]
+        curr = item.item.currency
+        return curr
+    
     def get_items(self):
         return self.items.all()
 
