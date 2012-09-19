@@ -362,8 +362,11 @@ class Order(models.Model):
         return amount
     
     def get_currency(self):
-        item = self.items.all()[0]
-        curr = item.item.currency
+        try:
+            item = self.items.all()[0]
+            curr = item.item.currency
+        except:
+            curr = None
         return curr
     
     def get_items(self):

@@ -69,6 +69,7 @@ def GetCountry(request):
     datadict = simplejson.loads(data)
     return datadict
 
+
 def _get_basket(request):
     # this returns a basket if there is one, or creates it if there isn't one.
     try:
