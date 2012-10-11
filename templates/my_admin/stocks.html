@@ -15,7 +15,12 @@
             <h3>Stocks</h3>
 <ul id="stocks">
 {% for i in stocks %}
-	<li class="{% if i.available_stock < 3 %}red{% endif %}"><strong>{{ i.available_stock }}</strong> x <a href="{% url admin_product i.parent_product.id %}">{{ i }}</a> </li>
+	<li class="{% if i.available_stock < 3 %}red{% endif %}">
+	   {% thumbnail i.parent_product.image "120x120" crop="center" as im %}
+	   <img src="{{ im.url }}"/>
+	   {% endthumbnail %}
+	   <p><strong>{{ i.available_stock }}</strong> x <a href="{% url admin_product i.parent_product.id %}">{{ i }}</a></p>
+	</li>
 {% endfor %}
 </ul>
 

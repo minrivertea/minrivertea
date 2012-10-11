@@ -784,9 +784,11 @@ input.error:focus, div.row-box input.error:focus {
       div.small-box {background-color: #F1F1F1; float: left; margin: 20px 10px 0 0; padding: 15px 20px; width: 200px; -moz-border-radius: 10px;}
       div.small-box h3 {margin-top: 0px;}
       ul#stocks {padding: 0; margin: 0 0 30px 0; float: left; width: 100%; font-family: Helvetica, sans-serif;}
-      ul#stocks li {float: left; width: 200px; background-color: #f1f1f1; padding: 10px 15px; list-style-type: none; font-size: 12px; border: 1px solid #fff;}
-      ul#stocks li.red {background-color: #ffeded; font-weight: bold; color: red;}
-      ul#stocks li.red a:link, ul#stocks li.red a:visited {color: red;}
+      ul#stocks li {float: left; position: relative; width: 120px; height: 120px; background-color: #fff; padding: 5px; list-style-type: none; font-size: 12px; line-height:1em; margin: 0 10px 10px 0;}
+      ul#stocks li.red a {color: #fff;}
+      ul#stocks li p {font-size: 11px;line-height: 1em; position: absolute; bottom: 0; left:0; background: #fff; width: 90%; padding: 5%; margin: 0; font-weight: bold;}
+      ul#stocks li.red {background-color: red; font-weight: bold; color: red;}
+      ul#stocks li.red p {background-color: red; color: #fff;}
         
       table input {width: 120px;}
       input.button {width: auto; float: left; padding:5px 15px 3px;}
