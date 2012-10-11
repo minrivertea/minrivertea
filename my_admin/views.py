@@ -69,6 +69,7 @@ def admin_stuff(request):
 
     return render(request, "my_admin/home.html", locals())
 
+@login_required
 def orders(request, **kwargs):
     orders = Order.objects.filter(**kwargs).order_by('-date_shipped')
     return render(request, 'my_admin/orders.html', locals())
@@ -81,22 +82,29 @@ def admin_shopper(request, id):
     shopper = get_object_or_404(Shopper, pk=id)
     return render(request, 'my_admin/shopper.html', locals())
 
+
+@login_required
 def stocks(request):
     stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
     return render(request, 'my_admin/stocks.html', locals())
+
 
 @login_required
 def admin_product(request, id):
     product = get_object_or_404(Product, pk=id)
     sales = Order.objects.filter(is_paid=True)
-    obj_list = []
+    order_count = 0
+    total_weight = 0
+    total_items = 0
     for x in sales:
         for i in x.items.all():
             if product == i.item.parent_product:
-                obj_list.append(x)
+                try: total_weight += (i.item.weight * i.quantity)
+                except: pass
+                total_items += i.quantity
+                order_count += 1
     return render(request, 'my_admin/product.html', locals())
 
-# specific order view in admin-stuff
 @login_required
 def admin_order(request, id):
     if not request.user.is_superuser:
@@ -104,7 +112,7 @@ def admin_order(request, id):
     order = get_object_or_404(Order, pk=id)
     return render(request, 'my_admin/order.html', locals())
 
-# function for changing order status from admin-stuff
+
 @login_required
 def ship_it(request, id):
     if not request.user.is_superuser:

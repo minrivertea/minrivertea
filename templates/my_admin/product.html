@@ -11,14 +11,11 @@
 
 <div id="mtw">
   <div class="sp">
-  	<h1>{{ product.name }}</h1>
-    
-        <h3>Orders</h3>
-        <ul>
-            {% for o in obj_list %}
-                <li><a href="{% url admin_order o.id %}">{{ o }}</a></li>
-            {% endfor %}
-        </ul>
+  	<h2>{{ product.name }}</h2>
+
+    <p><strong>{{ total_items }}</strong> sold to date ({{ order_count }} orders)</p>
+    {% if total_weight > 0 %}<p><strong>{{ total_weight }}g</strong> sold</p>{% endif %}
+
 
   </div>
 </div>
