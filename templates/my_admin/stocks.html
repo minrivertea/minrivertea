@@ -15,7 +15,7 @@
             <h3>Stocks</h3>
 <ul id="stocks">
 {% for i in stocks %}
-	<li class="{% if i.available_stock < 3 %}red{% endif %}"><strong>{{ i.available_stock }}</strong> x {{ i }} </li>
+	<li class="{% if i.available_stock < 3 %}red{% endif %}"><strong>{{ i.available_stock }}</strong> x <a href="{% url admin_product i.parent_product.id %}">{{ i }}</a> </li>
 {% endfor %}
 </ul>
 

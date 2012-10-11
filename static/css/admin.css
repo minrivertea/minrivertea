@@ -785,7 +785,9 @@ input.error:focus, div.row-box input.error:focus {
       div.small-box h3 {margin-top: 0px;}
       ul#stocks {padding: 0; margin: 0 0 30px 0; float: left; width: 100%; font-family: Helvetica, sans-serif;}
       ul#stocks li {float: left; width: 200px; background-color: #f1f1f1; padding: 10px 15px; list-style-type: none; font-size: 12px; border: 1px solid #fff;}
-      ul#stocks li.red {color: red;}
+      ul#stocks li.red {background-color: #ffeded; font-weight: bold; color: red;}
+      ul#stocks li.red a:link, ul#stocks li.red a:visited {color: red;}
+        
       table input {width: 120px;}
       input.button {width: auto; float: left; padding:5px 15px 3px;}
       
