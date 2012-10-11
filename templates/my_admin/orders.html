@@ -1,0 +1,26 @@
+{% extends base_template %}
+{% load thumbnail %}
+
+{% block extracss %}
+  <style type="text/css">
+  </style>
+{% endblock %}
+
+{% block pagetitle %}Admin Stuff{% endblock %}
+
+{% block content %}
+
+<h2>Orders ({{ orders.count }})</h2>
+         	
+         	 <div id="filters">
+                <a href="/admin-stuff/?w=4">This Month</a> / 
+                <a href="/admin-stuff/?w=12">3 Months</a> / 
+                <a href="/admin-stuff/?w=24">6 Months</a> / 
+                <a href="/admin-stuff/?w=52">12 Months</a> / 
+                <a href="/admin-stuff/?w=1096">Forever</a>
+            </div>
+         	
+         	{% include 'my_admin/snippets/order_table.html' %}
+         	
+         	
+{% endblock %}
