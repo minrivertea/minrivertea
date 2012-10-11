@@ -25,6 +25,7 @@ def common(request):
     
 
    
+    base_template = settings.BASE_TEMPLATE
     
     if '/admin-stuff/' in request.path:
         base_template = settings.BASE_TEMPLATE_ADMIN
@@ -36,7 +37,7 @@ def common(request):
                 context['currency'] = Currency.objects.get(code='RMB') 
                 context['region'] = 'China'       
         except:
-            base_template = settings.BASE_TEMPLATE
+            pass
         
     context['base_template'] = base_template     
     
