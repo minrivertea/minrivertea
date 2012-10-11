@@ -69,6 +69,10 @@ def admin_stuff(request):
 
     return render(request, "my_admin/home.html", locals())
 
+def orders(request, **kwargs):
+    orders = Order.objects.filter(**kwargs).order_by('-date_shipped')
+    return render(request, 'my_admin/orders.html', locals())
+
 #specific shopper view in admin-stuff
 @login_required
 def admin_shopper(request, id):
