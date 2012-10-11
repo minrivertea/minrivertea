@@ -58,7 +58,8 @@ def admin_stuff(request):
         
     # make the nice lists for paid/unpaid orders
     orders = Order.objects.filter(
-        is_giveaway=False, 
+        is_giveaway=False,
+        date_shipped=None, 
         date_paid__range=(start_date, end_date)).exclude(
             status=Order.STATUS_CREATED_NOT_PAID
         ).order_by(

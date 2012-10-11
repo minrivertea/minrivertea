@@ -22,9 +22,7 @@ def common(request):
     
     
     context['region'] = 'global' 
-    
 
-   
     base_template = settings.BASE_TEMPLATE
     
     if '/admin-stuff/' in request.path:
@@ -39,13 +37,9 @@ def common(request):
         except:
             pass
         
-    context['base_template'] = base_template     
-    
-    #if settings.DEBUG == 'False':
-    #    countrycode = GetCountry(request)['countryCode']
-    #    context['country_snippet'] = "language-snippets/%s.html" % countrycode.lower()
-            
+    context['base_template'] = base_template        
     return context
+
 
 def get_teas(request):
     teas = Product.objects.filter(is_active=True).order_by('?')[:2]
