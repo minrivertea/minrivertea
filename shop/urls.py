@@ -8,14 +8,7 @@ import emails
 urlpatterns = patterns('',
 
     url(r'^$', views.index, name="home"),
-    url(r'^admin-stuff/$', views.admin_stuff, name="admin_stuff"),
-    url(r'^admin-stuff/send-review-email/(\w+)$', emails._product_review_email, name="send_review_email"),
-    url(r'^admin-stuff/send-reminder-email/(\w+)$', emails._order_reminder_email, name="send_reminder_email"),
-    url(r'^admin-stuff/ship-it/(\w+)$', views.ship_it, name="ship_it"),
-    url(r'^admin-stuff/postage-cost/(\w+)$', views.postage_cost_update, name="postage_cost_update"),
-    url(r'^admin-stuff/shopper/(\w+)$', views.admin_shopper, name="admin_shopper"),
-    url(r'^admin-stuff/order/(\w+)$', views.admin_order, name="admin_order"),
-    url(r'^admin-stuff/send-sampler-email/(\w+)/$', emails._free_sampler_email, name="send_sampler_email"),
+    
     url(r'^sale/$', views.sale, name="sale"),
     url(r'^basket/$', views.basket, name="basket"),
     url(r'^basket/add/(\w+)$', views.add_to_basket, name="add_to_basket"),
@@ -46,8 +39,6 @@ urlpatterns = patterns('',
     
     # email signup specific URLs
     url(r'^email_signup/$', emails.email_signup, name="email_signup"),
-    url(r'^create_email/(\w+)$', emails.create_email, name="create_email_wid"),
-    url(r'^create_email/$', emails.create_email, name="create_email"),
     url(r'^send_email/(\w+)$', emails.send_email, name="send_email"),
     url(r'^email_unsubscribe/(?P<key>[\w-]+)/$', emails.email_unsubscribe, name="email_unsubscribe"),
 )

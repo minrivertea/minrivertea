@@ -1,0 +1,35 @@
+{% extends base_template %}
+
+
+{% block extracss %}
+  <style type="text/css">
+
+  </style>
+{% endblock %}
+
+{% block pagetitle %}{{ shopper }}{% endblock %}
+
+{% block content %}
+
+  	<h2>{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }})</h2>
+
+    <p>{{ shopper.first_name }} has spent £{{ shopper.get_value }} in total. {% ifequal shopper.is_subscribed True %}They ARE subscribed to emails{% else %}They are NOT subscribed to emails.{% endifequal %}. They have referred {% ifequal shopper.number_referred None %}0{% else %}{{ shopper.number_referred }}{% endifequal %} people.</p>
+
+<h3>Orders</h3>
+<ul>
+{% for order in shopper.get_orders %}
+<li><a href="{% url admin_order order.id %}">{{ order }}</a> - {{ order.status }}<//li>
+{% endfor %}
+</ul>
+
+<h3>Linked addresses</h3>
+<ul>
+{% for address in shopper.get_addresses %}
+	<li>
+	{{ address.house_name_number }}, {{ address.address_line_1 }}, {{ address.address_line_2 }}, {{ address.town_city }}, {{ address.postcode }}, 
+	</li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends base_template %}
+
+{% block pagetitle %}{{ order }}{% endblock %}
+
+{% block content %}
+
+    <h2>{{ order }}</h2>
+    <p><strong>[Owner]</strong> <a href="{% url admin_shopper order.owner.id %}">{{ order.owner.first_name }} {{ order.owner.last_name }} - ({{ order.owner }})</a></p>
+    <p><strong>[Sent to:]</strong> {{ order.address.house_name_number }}, {{ order.address.address_line_1 }}, {{ order.address.address_line_2 }}, {{ order.address.town_city }}, {{ order.address.postcode }},
+    <p><strong>[Items:]</strong></p>
+    <ul>
+{% for item in order.items.all %}
+	<li><a href="{% url admin_product item.item.parent_product.id %}">{{ item }}</a></li>
+{% endfor %}
+    </ul>
+
+{% endblock %}

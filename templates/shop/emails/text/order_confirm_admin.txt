@@ -9,7 +9,7 @@
 {% endif %}
 
 {% for item in order.items.all %}
-	{{ item }}
+	{{ item }} ({% if item.item.weight %}{{ item.item.weight }}{{ item.item.weight_unit }}{% else %}{{ item.item.description }}{% endif %})
 {% endfor %}
 
 INVOICE ID: {{ order.invoice_id }}

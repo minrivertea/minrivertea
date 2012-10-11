@@ -21,19 +21,24 @@ def common(request):
         context['currency'] = Currency.objects.get(code='GBP')
     
     
-    context['base_template'] = settings.BASE_TEMPLATE
     context['region'] = 'global' 
     
-    try:
-        region = request.session['region']
-        if region == 'china':
-            context['base_template'] = settings.BASE_TEMPLATE_CHINA
-            context['currency'] = Currency.objects.get(code='RMB') 
-            context['region'] = 'China'       
-    except:
-        pass    
+
    
     
+    if '/admin-stuff/' in request.path:
+        base_template = settings.BASE_TEMPLATE_ADMIN
+    else:
+        try:
+            region = request.session['region']
+            if region == 'china':
+                base_template = settings.BASE_TEMPLATE_CHINA
+                context['currency'] = Currency.objects.get(code='RMB') 
+                context['region'] = 'China'       
+        except:
+            base_template = settings.BASE_TEMPLATE
+        
+    context['base_template'] = base_template     
     
     #if settings.DEBUG == 'False':
     #    countrycode = GetCountry(request)['countryCode']

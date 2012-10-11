@@ -1,0 +1,25 @@
+{% extends base_template %}
+
+{% block extracss %}
+  <style type="text/css">
+  </style>
+{% endblock %}
+
+{% block pagetitle %}Admin Stuff{% endblock %}
+
+{% block content %}
+
+<div id="mtw">
+  <div class="sp">
+  	<h1>{{ product.name }}</h1>
+    
+        <h3>Orders</h3>
+        <ul>
+            {% for o in obj_list %}
+                <li><a href="{% url admin_order o.id %}">{{ o }}</a></li>
+            {% endfor %}
+        </ul>
+
+  </div>
+</div>
+{% endblock %}

@@ -113,6 +113,7 @@ INSTALLED_APPS = (
     'django_mobile',
     'south',
     'django.contrib.redirects',
+    'my_admin',
 #    'debug_toolbar',
 )
 
@@ -141,6 +142,7 @@ CHINA_REGION_CODE = 'CN'
 USA_REGION_CODE = 'US'
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'
+BASE_TEMPLATE_ADMIN = 'base_admin.html'
 
 
 # paypal info

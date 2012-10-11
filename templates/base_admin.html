@@ -1,0 +1,58 @@
+{% load django_static nav_selected %}
+
+<html>
+<head>
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta content="en-gb" http-equiv="Content-Language" />
+	<meta content="{% block metadescription %}{% endblock %}" name="description" />
+
+	
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	
+	<title>{% block pagetitle %}{% endblock %} | minrivertea.com </title>
+	<link rel="shortcut icon" href="{% staticfile '/images/favicon.ico' %}" type="image/x-icon">
+	
+	<link rel="stylesheet" href="{% staticfile '/css/admin.css' %}" />
+	    
+	<script type="text/javascript" src="{% staticfile '/js/jquery-1.6.min.js' %}"></script>
+	{% if ga_is_on %}
+		<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
+	{% else %}
+		<script src="/js/jquery.tools.min.js"></script>
+	{% endif %}
+	    
+
+	{% block extracss %}{% endblock %}
+	
+
+</head>
+
+
+
+<body>	 
+ 	 	
+<div id="header">
+	<div class="sp">
+        <div id="logo"></div>
+        <div id="navigation">
+            <ul id="nav">
+                <li><a href="{% url admin_stuff %}">Admin Home</a></li>
+                <li><a href="{% url stocks %}">Stocks</a></li>
+                <li><a href="{% url create_email %}">Create Email</a></li>
+
+            </ul>
+        </div>
+	</div>
+</div>
+<!-- end header -->
+
+<div id="mtw">
+  <div class="sp">
+	{% block content %}{% endblock %}
+  </div>
+</div>
+
+</body>
+
+</html>
