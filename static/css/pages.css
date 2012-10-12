@@ -1,57 +1,5 @@
 
 
-#subnav {
-  width: 100%;
-  background-color: #E1ECF3;
-  height: 45px;
-  float: left;	
-}
-
-#subnav ul {
-  list-style-type: none;
-  margin: 0px 0 0 20px;
-  padding: 0;	
-}
-
-#subnav li {
-  float: left;
-  margin-right: 40px;
-  position: relative;	
-}
-
-#subnav li a:link, #subnav li a:visited   {
-  font-size: 11px;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 1px #fff;	
-  color: #666;
-    font-family: Helvetica, sans-serif;
-}
-
-#subnav li a:hover {
-  color: #F37679;	
-}
-
-#subnav li a.selected   {
-  color: #000;
-  font-weight: bold;
-}
-
-#subnav li a.selected:before {
-   content: " ";
-   display: block;
-   width: 0;
-   height: 0;
-   border-top: 25px solid #E1ECF3;     
-   border-bottom: 0;
-   border-left: 25px solid transparent;
-   border-right: 25px solid transparent;
-   position: absolute;
-   bottom: -30px;
-   left: 40%;
-   margin-left: -13px;
-   z-index: 2;
-}
-
 #main-text-wide #left {
     float: left;
     margin: 0 0px 20px 0;

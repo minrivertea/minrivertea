@@ -230,12 +230,15 @@ div.info p {
 
 {% block content %}
 
-	
+{% if category.slug == 'teas' %}
+    {% include 'shop/snippets/teas_sub_nav.html' %}
+{% endif %}
 		
 <div id="mtw">
   <div class="sp">
   
-  	<h1>{{ category.long_title }}</h1>
+    <h1>{{ category.name }}</h1>
+  
 	<div class="category-desc">{{ category.short_description|safe }}</div>
 
 	<div id="teas">
