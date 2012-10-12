@@ -372,14 +372,10 @@ ul#nav li a.selected:before {
    border-left: 25px solid transparent;
    border-right: 25px solid transparent;
    position: absolute;
-   bottom: -35px;
+   bottom: -25px;
    left: 40%;
    margin-left: -13px;
    z-index: 2;
-}
-
-ul#nav li a.selected.learn:before, ul#nav li a.selected.about:before {
-  bottom: -30px;	
 }
 
 /* SUBNAVIGATION STYLES */
@@ -524,6 +520,7 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
     float: left;
     margin: 0 10px 20px 0px;
     width: 600px;
+    position: relative;
 }
 
 #mtw #right {
@@ -545,7 +542,7 @@ p.introduction {
     background-color: #FFFFFF;
     border: 1px solid #E1E1E1;
     float: left;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     padding: 15px;
     width: 230px;
     position: relative;
@@ -565,11 +562,11 @@ p.introduction {
 }
 
 
-.info.email-signup, .info.tea, .info.bio, .info.photo {
+.info.email-signup, .info.tea, .info.photo {
   background-color: transparent;
   border: none;
   padding: 0 0px;
-  width: 240px;	
+  width: 240px;
 }
 
 .info.long {
@@ -1241,8 +1238,7 @@ ul.rss #facebook {
   border-bottom: 3px dotted #e1e1e1;
   margin-bottom: 20px;
   float: left;	
-  width: 660px;
-  padding-bottom: 20px;
+  width: 100%;
 }
 
 #comments div#comment-form input.submit-post {
@@ -1260,19 +1256,27 @@ ul.rss #facebook {
     float: left;
     margin-top: 20px;
     width: 100%;
+  background: #E1ECF3;
 }
 
 #comments #comments-list div.comment {
-  border-bottom: 1px solid #e1e1e1;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  border-bottom: 2px solid #EFF5F8;
+  padding: 2%;
   float: left;	
-  width: 100%;
+  width: 96%;
 }
 
+
 #comments #comments-list div.comment p {
-  	margin: 0;
-  	padding: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+}
+
+#comments #comments-list div.comment p.top {
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;   
 }
 
 #comments div#comment-form #form {

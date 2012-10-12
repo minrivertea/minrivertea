@@ -19,19 +19,36 @@ $(".scroll").scrollable({ circular: true }).click(function() {
 
 {% block extracss %}
 <style type="text/css">
+h1 {
+  font-size: 36px;   
+}
 
 div#mtw {
   margin-top: 30px;	
 }
 
 #right {
-  margin-top: 30px;	
+  margin-top: 10px;	
 }
 
 ul.rss {
-  top: 60px;
-  right: 0px;
-  width: 180px;	
+  left: -150px;
+  width: 75px;
+}
+
+ul.rss li#facebook, ul.rss li#google {
+  width: 75px;
+  float: right;
+  margin: 0;
+}
+
+ul.rss li#google {
+  width: 65px;   
+}
+
+p.meta {
+  color: #666;
+  font-size: 14px;
 }
 
 div#entry-content h3 {
@@ -180,62 +197,57 @@ p.quote {
 {% block content %}
 
 
+{% include 'blog/snippets/sub_nav.html' %}
+
 
 <div id="mtw">
   <div class="sp">		
-		<h1>{{ entry.title }}</h1>
-	<p class="subtitle"><a href="{% url blog_home %}">&laquo; back to blog home</a> | {{ entry.date_added|date:"D d M Y" }}</p>	
-
+		
 	<div id="right">
 		{% include "blog/snippets/blog-right.html" %}
 	</div>
 
 	<div id="left">
-
-			
-			{{ entry.content|safe }}
-
-					
-			<div class="next-previous">
-			
-		
-			
-			<div id="comments">
-			{% get_comment_list for entry as comment_list %}
-				{% if comment_list %}
-				{% get_comment_count for entry as comment_count %}
-				<h3>Comments on this post ({{ comment_count }})</h3>
-				<br clear="all"/>
-				<div id="comments-list">
-					{% for comment in comment_list %}
-						<div class="comment">
-							<p>
-								<strong>
-									{% if comment.user_url %}<a href="{{ comment.user_url }}">{{ comment.user_name }}</a>
-									{% else %}{{ comment.user_name }}{% endif %}
-									 said...
-								</strong> 
-								<span class="small">({{ comment.submit_date|date:"D d M Y" }})</span></p>
-							<p>{{ comment.comment }}</p>
-						</div>
-					{% endfor %}
-				</div>
-				{% endif %}
-				{% if entry.comments_closed %}
-				    <p><strong><em>Comments are closed for this entry.</em></strong></p>
-				{% else %}
-				<div id="comment-form">
-				<h3>Add your comment</h3>
-				<br clear="all"/>
-					<div id="form">
-					{% render_comment_form for entry %}
-					</div>
-				</div>
-				{% endif %}
-			</div>
-				
-	</div>
-		
+    	{% get_comment_count for entry as comment_count %}
+    	<h1>{{ entry.title }}</h1>
+    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | {{ comment_count }} comment{{ comment_count|pluralize }}</p>	
+    
+    	{{ entry.content|safe }}
+    			
+    			
+    	<div id="comments">
+    	{% get_comment_list for entry as comment_list %}
+    		{% if comment_list %}
+    		
+    		<h3>Comments on this post ({{ comment_count }})</h3>
+    		<br clear="all"/>
+    		<div id="comments-list">
+    			{% for comment in comment_list %}
+    				<div class="comment">
+    					<p class="top">
+   							{% if comment.user_url %}<a href="{{ comment.user_url }}">{{ comment.user_name }}</a>
+   							{% else %}{{ comment.user_name }}{% endif %}
+   							 said...
+    						<span class="small">({{ comment.submit_date|date:"D d M Y" }})</span>
+    				    </p>
+    					<p>{{ comment.comment }}</p>
+    				</div>
+    			{% endfor %}
+    		</div>
+    		{% endif %}
+    		{% if entry.comments_closed %}
+    		    <p><strong><em>Comments are closed for this entry.</em></strong></p>
+    		{% else %}
+    		<div id="comment-form">
+    		<h3>Add your comment</h3>
+    		<br clear="all"/>
+    			<div id="form">
+    			{% render_comment_form for entry %}
+    			</div>
+    		</div>
+    		{% endif %}
+    	</div>
+						
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
 			<li id="google">
 				<g:plusone></g:plusone>
