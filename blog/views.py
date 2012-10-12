@@ -15,18 +15,19 @@ def index(request):
     objects = BlogEntry.objects.filter(is_draft=False, is_gallery=False).order_by('-date_added')
       
     try:
-        page = int(request.GET.get('page', '1'))
+        p = int(request.GET.get('page', '1'))
     except ValueError:
-        page = 1
+        p = 1
     
     paginator = Paginator(objects, 10) 
     # If page request (9999) is out of range, deliver last page of results.
     try:
-        entries = paginator.page(page)
+        entries = paginator.page(p)
     except (EmptyPage, InvalidPage):
         entries = paginator.page(paginator.num_pages)
                             
     return render(request, "blog/home.html", locals())
+    
     
 def more(request):
     entries = BlogEntry.objects.filter(is_draft=False, is_gallery=False).order_by('-date_added')  
