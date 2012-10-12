@@ -103,6 +103,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.sitemaps',
     'django.contrib.comments',
+    'django.contrib.redirects',
     'shop',
     'blog',
     'sorl.thumbnail',
@@ -112,7 +113,6 @@ INSTALLED_APPS = (
     'ab',
     'django_mobile',
     'south',
-    'django.contrib.redirects',
     'my_admin',
 #    'debug_toolbar',
 )

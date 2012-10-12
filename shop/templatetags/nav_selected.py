@@ -5,6 +5,7 @@ register = template.Library()
 
 def nav_selected(request, pattern):
     import re
+    print pattern
     if re.search(pattern, request.path):
         return 'selected'
     return ''

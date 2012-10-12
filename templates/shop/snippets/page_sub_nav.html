@@ -6,6 +6,9 @@
 		{% for x in page.get_root.get_children %}
 			<li><a class="{% if x.slug == page.parent.slug %}selected{% else %}{% if x.slug == page.slug %}selected{% endif %}{% endif %}" href="{% url page x.slug %}">{{ x.title }}</a></li>
 		{% endfor %}
+		{% if page.get_root.slug == 'learn' %}
+		    <li><a href="{% url blog_home %}">Blog</a></li>
+		{% endif %}
 	</ul>
   </div>
 </div>

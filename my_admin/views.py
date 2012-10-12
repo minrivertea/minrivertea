@@ -120,6 +120,6 @@ def postage_cost_update(request, id):
         if form.is_valid():
             order.postage_cost = form.cleaned_data['cost']
             order.save()
-            return HttpResponseRedirect('/admin-stuff')
+            return HttpResponseRedirect(reverse('admin_orders'))
     return HttpResponseRedirect('/admin-stuff')
     

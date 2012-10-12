@@ -1,0 +1,30 @@
+{% load nav_selected %}
+
+<div id="navigation">
+  <ul id="nav">
+	<li>
+      <a class="grey {% nav_selected request '^/$' %}" href="{% url home %}" title="Min River Tea Homepage" alt="">Home</a>
+    </li>
+    <li>
+      <a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Chinese teas</a>
+    </li>
+    <li>
+      <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="Teacups and teapots" alt="">Teaware</a>
+    </li>
+    <li>
+      <a class="{% nav_selected request '^/tasters/' %}" href="{% url tasters %}" title="Buy authentic Chinese tea" alt="">Taster Packs</a>
+    </li>
+    <li>
+      <a class="grey {% if page %}{% if page.get_root.slug == 'learn' %}selected{% endif %}{% endif %}{% nav_selected request '^/(learn|blog)/' %} learn" href="/learn/" title="Learn about Chinese tea" alt="">Learn about tea</a>
+    </li>
+    <li>
+      <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% endif %}{% nav_selected request '^/about/' %} about" href="/about/" title="About Min River Tea" alt="">About us</a>
+    </li>
+    <li>
+      <a class="grey {% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
+      Your basket <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
+      </a>
+    </li>
+  </ul>
+  		  {% block currency %}{% endblock %}
+</div>

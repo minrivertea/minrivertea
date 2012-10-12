@@ -1,13 +1,6 @@
 {% load django_static nav_selected %}
 
-
-{% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-{% endblock %}
-
+<html>
 <head>
 
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -139,53 +132,8 @@ if (15.00) {
 	   	</div>
 	   	
 
-        
-	    <!--
-	    <p class="shipping">
-	        <span class="euuk" id="eu"></span>
-	        <span class="euuk" id="uk"></span>
-    		<span>EU/UK delivery in 3-5 days</span>
-    		- <a class="{% nav_selected request '^/contact-us/$' %}" href="{% url contact_us %}">Contact us</a>
-    		- <a class="{% nav_selected request '^/about/wholesale/$' %}" href="/about/wholesale/">Wholesale</a>
-    		- <a class="{% nav_selected request '^/about/$' %}" href="/about/" title="About the Min River Tea Farm">About Us</a>
-    		{% if user.is_superuser %}
-	    		- <a href="{% url admin_stuff %}"><strong>Admin stuff</strong></a>
-	    		- <a href="/admin/logout/"><strong>Logout</strong></a>
-			{% endif %}
-    		{% if country_snippet %}
-    			{% include country_snippet %}
-    		{% endif %}
-    	</p>
-    	-->
-	    	
-    	<div id="navigation">
-    	  <ul id="nav">
-			<li>
-    	      <a class="grey {% nav_selected request '^/$' %}" href="{% url home %}" title="Min River Tea Homepage" alt="">Home</a>
-    	    </li>
-    	    <li>
-    	      <a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Chinese teas</a>
-    	    </li>
-    	    <li>
-    	      <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="Teacups and teapots" alt="">Teaware</a>
-    	    </li>
-    	    <li>
-    	      <a class="{% nav_selected request '^/tasters/' %}" href="{% url tasters %}" title="Buy authentic Chinese tea" alt="">Taster Packs</a>
-    	    </li>
-    	    <li>
-    	      <a class="grey {% if page %}{% if page.get_root.slug == 'learn' %}selected{% endif %}{% else %}{% nav_selected request '^/learn/' %}{% endif %} learn" href="/learn/" title="Learn about Chinese tea" alt="">Learn about tea</a>
-    	    </li>
-    	    <li>
-    	      <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about/' %}{% endif %} about" href="/about/" title="About Min River Tea" alt="">About us</a>
-    	    </li>
-    	    <li>
-    	      <a class="grey {% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
-    	      Your basket <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
-    	      </a>
-    	    </li>
-  		  </ul>
-  		  {% block currency %}{% endblock %}
-		</div>
+
+    	{% include 'shop/snippets/main_navigation.html' %}
 	{% block banner %}{% endblock %}
 	</div>
 </div>

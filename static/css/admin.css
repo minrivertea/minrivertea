@@ -490,7 +490,7 @@ h2 {
       ul#stocks li.red {background-color: red; font-weight: bold; color: red;}
       ul#stocks li.red p {background-color: red; color: #fff;}
         
-      table input {width: 120px;}
+      table input {width: 180px; height: auto;}
       input.button {width: auto; float: left; padding:5px 15px 3px;}
       
       #create_send input, textarea {width: 600px;float:left;}
