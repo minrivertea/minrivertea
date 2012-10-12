@@ -19,7 +19,9 @@ $('#types').click(function() {
 <style type="text/css">
 
 h1 {
-  margin-bottom: 0px;	
+  margin-bottom: 0px;
+  font-size: 22px;
+  color: #333;	
 }
 
 div.info {
@@ -237,10 +239,8 @@ div.info p {
 <div id="mtw">
   <div class="sp">
   
-    <h1>{{ category.name }}</h1>
+    <h1><strong>{{ category.name }}</strong> - {{ category.short_description|striptags }}</h1>
   
-	<div class="category-desc">{{ category.short_description|safe }}</div>
-
 	<div id="teas">
 		{% if category.slug == 'teas' %}
 			{% include "shop/snippets/products.html" %}
