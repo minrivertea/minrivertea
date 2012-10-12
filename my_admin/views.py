@@ -36,42 +36,26 @@ from shop.emails import _admin_notify_new_review, _admin_notify_contact, _get_su
 # view for my private admin pages
 @login_required
 def admin_stuff(request):
-    if not request.user.is_superuser:
-        raise Http404
     
-    # get the stats
-    unconfirmed_orders = Order.objects.filter(
-        is_confirmed_by_user=True, 
-        is_paid=False, 
-        is_giveaway=False, 
-        reminder_email_sent=False).order_by('-date_confirmed')
-    
-    if request.GET.get('w'):
-        start_date = (datetime.now() - timedelta(weeks=int(request.GET['w'])))
-    else:
-        start_date = (datetime.now() - timedelta(weeks=4)) 
-    
-    end_date = datetime.now() 
-        
     subscribers = _get_subscriber_list()
     subscriber_count = len(subscribers)
         
     # make the nice lists for paid/unpaid orders
     orders = Order.objects.filter(
         is_giveaway=False,
-        date_shipped=None, 
-        date_paid__range=(start_date, end_date)).exclude(
-            status=Order.STATUS_CREATED_NOT_PAID
-        ).order_by(
-        '-date_paid')
-    
-    giveaways = Order.objects.filter(is_giveaway=True).order_by('-date_paid')
-
+        status=Order.STATUS_PAID).exclude(status=Order.STATUS_CREATED_NOT_PAID).order_by('-date_paid')
+        
     return render(request, "my_admin/home.html", locals())
 
 @login_required
 def orders(request, **kwargs):
-    orders = Order.objects.filter(**kwargs).order_by('-date_shipped')
+    
+    start_date = (datetime.now() - timedelta(weeks=4))
+    if request.GET.get('w'):
+        start_date = (datetime.now() - timedelta(weeks=int(request.GET['w'])))
+    
+    end_date = datetime.now()     
+    orders = Order.objects.filter(date_paid__range=(start_date, end_date), **kwargs).order_by('-date_shipped')
     return render(request, 'my_admin/orders.html', locals())
 
 #specific shopper view in admin-stuff

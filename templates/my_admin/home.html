@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail django_static %}
+{% load thumbnail %}
 
 {% block pagetitle %}Admin Home{% endblock %}
 
@@ -23,7 +23,7 @@
     <div class="section">
 
         {% if orders %}
-            <h3>Unshipped orders ({{ orders.count }})</h3>
+            <h2>Unshipped orders ({{ orders.count }})</h2>
             {% include 'my_admin/snippets/order_table.html' %}
       	{% else %}
            	<p><strong>No unfulfilled orders</strong> - well done my minions!</p>
