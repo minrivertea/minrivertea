@@ -489,7 +489,8 @@ div.fb-recommend {
 
 {% block content %}
 
-{% if tea.category.slug == 'teas' %}
+
+{% if tea.category.parent_category.slug == 'teas' %}
     {% include 'shop/snippets/teas_sub_nav.html' %}
 {% endif %}
 
