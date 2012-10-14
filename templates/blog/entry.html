@@ -210,12 +210,13 @@ p.quote {
 	<div id="left">
     	{% get_comment_count for entry as comment_count %}
     	<h1>{{ entry.title }}</h1>
-    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | {{ comment_count }} comment{{ comment_count|pluralize }}</p>	
+    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="#commentsa">{{ comment_count }} comment{{ comment_count|pluralize }}</a></p>	
     
     	{{ entry.content|safe }}
     			
     			
     	<div id="comments">
+    	<a id="commentsa"></a>
     	{% get_comment_list for entry as comment_list %}
     		{% if comment_list %}
     		

@@ -5,7 +5,7 @@
     <a href="{% url blog_entry thing.slug %}"><span class="link"></span></a>
   	{% if thing.promo_image %}
 	<div class="image">
-		{% thumbnail thing.promo_image "180x180" crop="center" as im %}
+		{% thumbnail thing.promo_image "120x120" crop="center" as im %}
 		<img src="{{ im.url }}"/>
 		{% endthumbnail %}
   	</div>
