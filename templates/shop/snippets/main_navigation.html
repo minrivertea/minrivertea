@@ -21,7 +21,7 @@
       <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about/' %}{% endif %} about" href="/about/" title="About Min River Tea" alt="">About us</a>
     </li>
     <li>
-      <a class="grey {% nav_selected request '^/basket/' %}" href="{% url basket %}" title="View your basket" alt="">
+      <a class="grey {% nav_selected request '^/(basket|order)/' %}" href="{% url basket %}" title="View your basket" alt="">
       Your basket <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
       </a>
     </li>

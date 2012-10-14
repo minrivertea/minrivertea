@@ -25,31 +25,32 @@ $(document).ready( function() {
 <link rel="stylesheet" href="{% staticfile '/css/fancybox/jquery.fancybox-1.3.4.css' %}" />
 <style type="text/css">
 
-h1 {
-  margin-bottom: 20px;	
-}
-
-div.row-box p.intro {
-    margin: -10px 0 5px;
-}
 
 div#basket-full {
-  width: 520px;
+  width: 100%;
   float: left;	
+}
+
+div#basket-full div {
+  height: 80px;   
 }
 
 div#basket-full img {
     box-shadow: 0 1px 2px #999999;
 }
 
-div.basket-row {
+.basket-row {
     border-bottom: 2px dotted #e1e1e1;
     float: left;
     height: auto;
     margin-bottom: 0px;
-    padding: 15px 0 15px 10px;
+    padding: 15px 0;
     width: 100%;
     position: relative;
+}
+
+#basket-full .basket-row.postage, #basket-full .basket-row.discount {
+  height: 40px;   
 }
 
 div.basket-row:first-child {
@@ -64,167 +65,89 @@ div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
   text-decoration: line-through;	
 }
 
-div.basket-head-row {
-  height: 15px;
-  float: left;
-  margin: 20px 0 10px 0;
-  padding: 0px 0px 5px 13px;
-  font-size: 0.9em;
-  color: #BE373A;
-}
-
-div.tea-name {
+.tea-name {
   float: left;
   width: 140px;	
 }
 
-div.tea-weight {
+.tea-weight {
   float: left;
-  width: 200px;	
+  width: 380px;	
   padding-top: 6px;
 }
 
-div.tea-price {
+.tea-price {
   float: left;
   width: 10px;
 }
 
-div.tea-quantity {
-  float: left;
-  width: 60px;	
-  text-align: center;
-  padding-top: 8px;
-  font-size: 1.3em;
-  font-weight: bold;  
-}
-
-
-
-div.tea-total {
-  float: left;
-  width: 110px;	
-  text-align: center;
-  font-size: 1.2em;
-  padding-top: 8px;
-  font-weight: bold;
-}
-
-div.tea-remove {
+.tea-quantity {
     float: left;
-    padding-top: 18px;
-    text-align: left;
-    width: 30px;
+    font-size: 1.6em;
+    padding-top: 16px;
+    text-align: center;
+    width: 160px;
 }
 
-div.tea-remove a {
-    background: url("/images/delete.png") no-repeat scroll left top transparent;
-    display: block;
-    height: 14px;
-    margin-top: 4px;
-    width: 11px;
-}
 
-div.tea-remove a:hover {
-  background: url({% staticfile '/images/delete.png' %}) no-repeat bottom left;
-}
-
-div#totals {
-    color: #666666;
-    float: right;
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: -1px;
-    margin: 20px;
+.tea-total {
+    float: left;
+    font-size: 1.6em;
+    padding-top: 20px;
     text-align: right;
     width: 250px;
 }
 
-div.label {
+#totals {
+    color: #666666;
+    float: right;
+    font-size: 35px;
+    letter-spacing: -1px;
+    padding-top: 15px;
+    text-align: right;
+}
+
+.label {
   float: left;
   width: 100px;
   margin-top: 10px;	
 }
 
-div.total {
+.total {
   color: #1A6D18;
   text-align: right;
   margin-top: 10px;
   float: right;
-
+  width: 200px;
+  padding-right: 20px;
 }
 
-div#extra-info {
-  width: 500px;
-  margin-top: 60px;	
-}
 
-div#extra-info div.box {
-    border-bottom: 1px solid #E1E1E1;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    padding-left: 20px;
-}
 
-div#extra-info p {
-  margin-top: 0;
-  font-size: 13px;	
-}
-
-div#extra-info h3 {
-  margin-bottom: 0px;
-}
 
 div.plus-minus {
-  float: right;
-  width: 35px;
+    display: block;
+    float: right;
+    font-size: 18px;
+    height: 40px;
+    position: relative;
+    top: 4px;
+    width: 50px;
+}
+
+a.plus, a.minus {
   display: block;
-  height: 15px;
-}
-
-div.plus-minus a {
- display: none	
-}
-
-div.basket-row:hover div.plus-minus a {
-  display: block;	
-}
-
-
-a.plus {
-  display: block;
-  background: url('{% staticfile "/images/plus.png" %}') no-repeat top left;
-  height: 14px;
-  width: 15px;
-  float: right;
+  float: left;
   position: relative;
-  top: 4px;	
+  top: 4px;
+  color: #cbdde8;	
 }
 
-a.plus:hover {
-  background-position: bottom left;
+a.plus:hover, a.minus:hover {
+  color: #FF6569;   
 }
 
-a.minus {
-  display: block;
-  background: url('{% staticfile "/images/minus.png" %}') no-repeat top left;
-  height: 14px;
-  width: 15px;
-  float: left;	
-  position: relative;
-  top: 4px;	
-}
-
-a.minus:hover {
-  background-position: bottom left;
-}
-
-div.basket-row.discount {
-   height: auto;
-   width: 520px;
-   padding-bottom: 15px; 	
-}
-
-div.basket-row.discount span#link {
+.basket-row.discount span#link {
   font-weight: bold;
   color: #439249;
   font-family: Helvetica, Arial, sans-serif;	
@@ -289,15 +212,16 @@ input#id_discount_code {
   width: 325px;	
 }
 
-.coming-soon {
-  position: absolute;
-  right: -240px;
-  float: left;
-  width: 200px;
-  font-size: 13px;
-  background-color: #F3F9F2;
-  padding: 7px 12px;
-  border: 1px solid #7CBA80;
+#basket-full .coming-soon {
+    background-color: #FFFFFF;
+    float: left;
+    font-size: 13px;
+    height: auto;
+    padding: 7px 12px;
+    position: absolute;
+    right: -140px;
+    top: 15px;
+    width: 120px;
 }
 
 .coming-soon:after {
@@ -308,27 +232,14 @@ input#id_discount_code {
    border-top: 12px solid transparent;     
    border-left: 0;
    border-bottom: 12px solid transparent;
-   border-right: 12px solid #F3F9F2;
+   border-right: 12px solid #fff;
    position: absolute;
-   top: 15px;
+   top: 5px;
    left: -12px;
    z-index: 2;
 }
 
-.coming-soon:before {
-   content: " ";
-   display: block;
-   width: 0;
-   height: 0;
-   border-top: 12px solid transparent;     
-   border-left: 0;
-   border-bottom: 12px solid transparent;
-   border-right: 12px solid #7CBA80;
-   position: absolute;
-   top: 15px;
-   left: -13px;
-   z-index: 2;
-}
+
 
 #sub-basket {
     width: 900px;
@@ -360,6 +271,25 @@ input#id_discount_code {
 
 {% block content %}
 
+<div id="subnav">
+   <div class="sp">
+       <ul>
+    		<li>
+    			<a class="selected" href="{% url basket %}">1. Your basket &raquo;</a>
+    		</li>
+    		<li>
+    			<a class="" href="{% url order_step_one %}">2. Your details &raquo;</a>
+    		</li>
+    		<li>
+    			<a href="">3. Confirm and pay &raquo;</a>
+    		</li>
+    		<li>
+    			<a href="">4. Get your tea!</a>
+    		</li>
+    	</ul>
+    </div>
+</div>
+
 <div id="mtw">
   <div class="sp">
   	<h1>Your basket ({{ basket_quantity }} item{{ basket_quantity|pluralize }})</h1>
@@ -371,7 +301,7 @@ input#id_discount_code {
 	{% for thing in basket_items %}
 	  <div class="basket-row">
 	    {% if thing.item.parent_product.coming_soon %}
-	    	<div class="coming-soon"><strong>Note:</strong> this product ({{ thing.item.parent_product }}) has been pre-ordered and will be delivered on <strong>{{ thing.item.parent_product.get_preorder_date|date:"d M Y" }}</strong></div>
+	    	<div class="coming-soon"><strong>NOTE:</strong> this item has been pre-ordered and will be delivered on <strong>{{ thing.item.parent_product.get_preorder_date|date:"d M Y" }}</strong></div>
 	    {% endif %}
 		<div class="tea-name">
 			{% thumbnail thing.item.parent_product.image "120" crop="center" as im %}
@@ -385,9 +315,8 @@ input#id_discount_code {
 			{{ currency.symbol }}{{ thing.item.price }} each<br/>
 			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">Remove from basket</span></a>
 		</div>
-		<div class="tea-price">&nbsp;</div>
 		<div class="tea-quantity">x {{ thing.quantity }} 
-			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}"></a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}"></a>{% endifequal %}</div> </div>
+			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}">&#x25B2;</a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}">&#x25BC;</a>{% endifequal %}</div> </div>
 		<div class="tea-total">{{ currency.symbol }}{{ thing.get_price }}</div>
 		
 	  </div>
@@ -397,7 +326,6 @@ input#id_discount_code {
 	  <div class="basket-row postage">
 		<div class="tea-name strikethrough"><em>Postage <span class="small">(Standard)</span></em></div>
 		<div class="tea-weight"><span class="small"><em>* Your order is over {{ currency.symbol }}{{ currency.postage_discount_threshold }}, so there's no postage charge!</em></span></div>
-		<div class="tea-price">&nbsp;</div>
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total strikethrough">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>
 	  </div>
@@ -405,7 +333,6 @@ input#id_discount_code {
 	  <div class="basket-row postage">
 		<div class="tea-name"><em>Postage <span class="small"><br/>(First Class)</span></em></div>
 		<div class="tea-weight"><em>Delivered in 1-3 days<br/><span class="small">Shipped from the UK</span></em></div>
-		<div class="tea-price">&nbsp;</div>
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>
 	  </div>
@@ -415,7 +342,6 @@ input#id_discount_code {
 	  {% if code %}
 	  	<div class="tea-name">&nbsp;</div>
 	  	<div class="tea-weight">You have entered a discount code worth {{ percent|floatformat }}% off!</div>
-	  	<div class="tea-price">&nbsp;</div>
 	  	<div class="tea-quantity">&nbsp;</div>
 	  	<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ value|floatformat:"2" }}</span></div>
 	  {% else %}
@@ -437,12 +363,10 @@ input#id_discount_code {
 
 	<br clear="all"/>
 	  	<div id="checkout-button">		
-		
-		<p class="checkout">
-			<strong>Next step</strong>: your details. 
-			<em>No login or registration required to purchase.</em>
-		</p>
-		<a class="button green" href="{% url order_step_one %}">Start checkout now &raquo;</a>
+		<a class="button green" href="{% url order_step_one %}">
+		  Start checkout now &raquo;
+		  <span><strong>Next step:</strong> Your details (no login or registration required)</span>
+		</a>
 	</div>
 	
   </div>

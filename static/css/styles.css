@@ -417,6 +417,10 @@ ul#nav li a.selected:before {
   font-weight: bold;
 }
 
+#subnav li a.completed {
+  color: #237A2A;   
+}
+
 #subnav li a.selected:before {
    content: " ";
    display: block;
@@ -725,29 +729,32 @@ p.introduction {
 /* SHOPPING BASKET PAGE STYLES */
 
 #checkout-button {
-  position: absolute;
-  bottom: 40px;
-  right: 20px;
-  float: right;
-  width: 240px;
-  margin: -100px 20px 0 0;	
+    bottom: 40px;
+    float: right;
 }
 
 #checkout-button a.button, #checkout-button input.button {
-  font-size: 20px;	
-  margin-top: 0px;
-  float: right;
-  padding-top: 13px;
-  width: 240px;
-  height: auto;
-  font-family: Helvetica, sans-serif;
+    float: right;
+    font-family: Helvetica,sans-serif;
+    font-size: 30px;
+    height: auto;
+    padding: 15px;
+    width: 400px;
 }
 
-#checkout-button p {
-  font-size: 16px;
-  text-align: right;
-  padding-right: 0px;	
+#checkout-button a.button span, #checkout-button input.button span {
+  float: left;
+  width: 100%;
+  font-size: 13px;
+  color: #fff;
+  font-weight:normal;
+  margin: 3px 0 0;   
 }
+
+#checkout-button a.button span strong, #checkout-button input.button span strong {
+  color: #ffe400;
+}
+
 
 /* these are styles for the 'submit button' like on the review form  */
 
@@ -857,10 +864,9 @@ input, div.row-box input {
     color: #999;
     float: left;
     font: 16px arial,helvetica,clean,sans-serif;
-    height: 20px;
-    margin: 0 0 20px 0;
+    margin: 0 0 15px 0;
     padding: 10px 15px;
-    width: 380px;
+    width: 460px;
 }
 
 input:focus, div.row-box input:focus, textarea:focus {
@@ -1084,7 +1090,7 @@ ul.rss {
 }
 
 span.red {
-  color: #BE373A;	
+  color: red;	
 }
 
 #mtw #left div.caption {
@@ -1335,15 +1341,13 @@ button.next:hover {
 }
 
 #basket {
-    background-color: #fff;
-    border-radius: 10px 10px 10px 10px;
     float: left;
-    padding: 30px;
-    border: 1px solid #d9ebde;
-    width: 900px;
+    width: 960px;
     position: relative;
     min-height: 300px;
-    margin: 0 0 30px 0;
+    margin: 30px 0 30px 0;
+    padding-bottom: 30px;
+    border-bottom: 2px dotted #e1e1e1;
 }	
 
 ul#steps {
