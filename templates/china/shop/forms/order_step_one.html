@@ -6,6 +6,37 @@
 {% block extracss %}
 <style type="text/css">
 
+fieldset {
+ border: none;
+ width: 500px;  
+ position: relative;
+ border-left: 3px solid #E1ECF3;
+ margin-bottom: 30px; 
+ float: right;
+ margin-right: 40px;
+ padding-left: 30px;
+}
+
+fieldset p {
+  margin: 0;   
+}
+
+fieldset p:last-child input {
+  margin-bottom: 0;   
+}
+
+legend {
+    display: block;
+    float: right;
+    position: absolute;
+    left: -280px;
+    width: 250px;
+    text-align: right;
+    font-weight: normal;
+    color: #444;
+    font-size: 16px;
+}
+
 div#mtw div#left {
   margin-top: 20px;	
 }
@@ -219,24 +250,19 @@ span.help {
 		</div>
 		
 		{% if shopper %}
-	  	  <div class="row">
-	  		<p class="intro">Are these your details? Please check carefully!</p>
-			<div class="address-container">
-				<div class="address first">
+	  		<h2>Are these your details? Please check carefully!</h2>
 					{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
 		
 					{% for address in shopper.get_addresses %}
 						{% if forloop.first %}
 							<br/>
 							{% include "shop/snippets/address.html" %}
-		 					</div>
 		 				{% else %}
 		 					<div class="address other">
 		 					{% include "shop/snippets.address.html" %}
 		 					</div>
 		 				{% endif %}
 					{% endfor %}
-				</div>
 				<div style="display:none;">
 					<input type="text" name="first_name" id="id_first_name" value="{{ order.owner.first_name }}"/>
 	    			<input type="text" name="last_name" id="id_last_name" value="{{ order.owner.last_name }}"/>
@@ -251,14 +277,11 @@ span.help {
 	 		</div>
 		{% else %}
 
-<div class="row">
-
-    	<div class="row-box">
-
     		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
     		<ul class="errorlist"><li>* Please enter all the information in the mandatory fields (highlighted red) below:</li></ul>
     		{% endif %}
-    		<p class="intro">This step takes just 1 minute - your name and email first please! </p>
+        <fieldset>
+            <legend>This just takes 1 minute - your name and email please!</legend>
 
     		<p>
     			<label for="id_first_name"><span class="red">*</span> First name</label>
@@ -274,15 +297,12 @@ span.help {
     			<label for="id_email"><span class="red">*</span> Email address</label>
     			<input class="clearMeFocus {% if form.email.errors %}error{% endif %}" title="Email address" type="text" name="email" id="id_email" value="{{ email }}"/>
     		</p>	
-    	</div>
-    </div>
+        </fieldset>
 
     
 	
-	<div class="row">
-    	<div class="row-box">
-    		<p class="intro">Where should we send your tea? Please provide your address <em>in Chinese</em> here:</p>
-    		
+    	<fieldset>
+    	   <legend>Where should we send your tea? Please provide your address <em>in Chinese</em> here:</legend>	
 
 <p>
       	<label for="id_house_name_number"><span class="red">*</span> House name number:</label>
@@ -334,8 +354,7 @@ span.help {
 	    
 	  </p>
  	  
- 	</div> 
-	</div>
+</fieldset>
 
 	{% endif %}
 
