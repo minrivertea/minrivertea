@@ -235,6 +235,9 @@ def index(request):
 def page(request, slug, x=None, y=None, z=None):
     page = get_object_or_404(Page, slug=slug)
     
+    if request.path == '/contact-us/':
+        form = ContactForm()
+    
     if x or y or z:
         return HttpResponseRedirect(page.get_absolute_url())
         
@@ -305,34 +308,20 @@ def tea_view(request, slug):
 
     return render(request, "shop/tea_view.html", locals())
     
-def contact_us(request, xhr=None):
-    try:
-        if request.session['MESSAGE'] == "1":
-            message = True
-            request.session['MESSAGE'] = ""
-    except:
-        pass 
+def contact_form_submit(request, xhr=None):
     
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
             _admin_notify_contact(form.cleaned_data)
-            
-            if request.is_ajax():
-                data = render_to_string('shop/forms/contact_form_message_snippet.html')
-                return HttpResponse(data)
-
-            else:
-                url = request.META.get('HTTP_REFERER','/')
-                request.session['MESSAGE'] = "1"
-                return HttpResponseRedirect(url) 
+            message = "Thanks! Your message has been sent and we'll get back to you as soon as we can."
+            return render(request, 'shop/forms/contact_form.html', locals())
         else:
-            if request.is_ajax():
-                raise Http404   
-    else:
-        form = ContactForm() 
+            page = get_object_or_404(Page, slug='contact-us')
+            return render(request, 'shop/forms/contact_form.html', locals())            
     
-    return render(request, "shop/forms/contact_form.html", locals())        
+    url = reverse('page', args=['contact-us'])
+    return HttpResponseRedirect(url)       
    
 # function for adding stuff to your basket
 def add_to_basket(request, productID):

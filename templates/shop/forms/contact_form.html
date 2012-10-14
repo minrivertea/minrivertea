@@ -1,42 +1,11 @@
 {% extends base_template %}
 {% load django_static %}
 
-{% block extrajs %}
-<script type="text/javascript">
-
-	$('form#contact-form').submit(function() {
-		$(this).css('opacity', '0.5');
-		$('img#loading-contact').toggle();
-		$.ajax({  
-    	    type: "POST",  
-    	    data: $(this).serialize(), 
-    	    url: "{% url contact_us %}",  
-    	    cache: false,  
-   		    dataType: "html",  
-    	    success: function(data) {
-    	    	$('#loading-contact').toggle();
-    	    	$('form#contact-form').replaceWith(data);
-    	    },
-            error: function(data) {
-                $('form#contact-form').css('opacity', '1');
-                $('#loading-contact').toggle();
-                $('#form').prepend('<span style="color:red; font-size: 20px;">There was some technical problem submitting the form - please check your details, try again, or just email us!</span>');
-            } 
-    	}); 
-	return false;
-	});
-
-
-
-</script>
-{% endblock %}
-
-
 {% block extracss %}
 <style type="text/css">
 
 h1 {
- margin: 0 0 20px 0;   
+  margin: 0 0 20px 0;   
 }
 
 #mtw div#left form p {
@@ -66,6 +35,10 @@ div#mtw div#left p.help-text {
   margin-left: 0px;
   font-size: 15px;
   width: 100%;
+}
+
+div#mtw div#left p.help-text.red {
+  color: red;   
 }
 
 div.message {
@@ -184,6 +157,8 @@ img#loading-contact {
 
 {% block content %}
 
+{% include 'shop/snippets/page_sub_nav.html' %}
+
 <div id="mtw">
   <div class="sp">	
         <h1>Contact us</h1>			
@@ -225,13 +200,14 @@ img#loading-contact {
 				{% else %}
 	
 				<img id="loading-contact" src="{% staticfile '/images/loading.gif' %}"/>
-				<form action="{% url contact_us %}" method="post" id="contact-form">
+				<form action="{% url contact_form_submit %}" method="post" id="contact-form">
 					<h2>Send us a message</h2>
 					<p>Use our online contact form to send us a message. We respond to all messages within 12 hours.</p>			
-					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus" title="Your name" value=""/>
-					<input type="text" name="your_email" id="id_your_email" class="clearMeFocus" title="Your email address" value=""/>
-					<textarea id="id_your_message" name="your_message" title="Write your message here..." class="clearMeFocus" cols="40" rows="10"></textarea>
-					<p class="help-text">Sorry, please fill in the captcha - it stops spam.</p>
+					
+					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus{% if form.your_name.errors %} error{% endif %}" title="Your name" value=""/>
+					<input type="text" name="your_email" id="id_your_email" class="clearMeFocus{% if form.your_email.errors %} error{% endif %}" title="Your email address" value=""/>
+					<textarea id="id_your_message" name="your_message" title="Write your message here..." class="clearMeFocus{% if form.your_message.errors %} error{% endif %}" cols="40" rows="10"></textarea>
+					<p class="help-text {% if form.captcha.errors %} red{% endif %}">Sorry, please fill in the captcha - it stops spam.</p>
 					{{ form.captcha }}
 					<input class="button" value="Submit" type="submit"/>
 					<p class="help-text">
