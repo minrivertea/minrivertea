@@ -62,9 +62,10 @@ form input.button {
 
 
 div#mtw div#left p.help-text {
-    float: left;
-    margin-left: 80px;
-    font-size: 15px;
+  float: left;
+  margin-left: 0px;
+  font-size: 15px;
+  width: 100%;
 }
 
 div.message {
@@ -230,6 +231,8 @@ img#loading-contact {
 					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus" title="Your name" value=""/>
 					<input type="text" name="your_email" id="id_your_email" class="clearMeFocus" title="Your email address" value=""/>
 					<textarea id="id_your_message" name="your_message" title="Write your message here..." class="clearMeFocus" cols="40" rows="10"></textarea>
+					<p class="help-text">Sorry, please fill in the captcha - it stops spam.</p>
+					{{ form.captcha }}
 					<input class="button" value="Submit" type="submit"/>
 					<p class="help-text">
 						<img src="{% staticfile '/images/lock.gif' %}"> 

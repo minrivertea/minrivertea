@@ -114,6 +114,8 @@ INSTALLED_APPS = (
     'django_mobile',
     'south',
     'my_admin',
+    'my_comments',
+    'captcha',
 #    'debug_toolbar',
 )
 
@@ -143,6 +145,11 @@ USA_REGION_CODE = 'US'
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'
 BASE_TEMPLATE_ADMIN = 'base_admin.html'
+
+# DJANGO-CAPTCHA
+COMMENTS_APP = 'my_comments'
+CAPTCHA_FONT_SIZE = 35
+CAPTCHA_LETTER_ROTATION = None
 
 
 # paypal info

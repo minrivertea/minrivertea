@@ -2,6 +2,8 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
+from captcha.fields import CaptchaField
+
 from minriver.shop.models import Address, Order, Discount, Shopper, Product, Notify, BasketItem
 from minriver.countries import all_countries, COUNTRY_CHOICES
 
@@ -53,6 +55,7 @@ class ContactForm(forms.Form):
     your_name = forms.CharField(required=True)
     your_email = forms.EmailField(required=True, error_messages={'required': 'Please enter a valid email address'})
     your_message = forms.CharField(widget=forms.Textarea, required=False)
+    captcha = CaptchaField()
 
 class UpdateProfileForm(forms.Form):
     first_name = forms.CharField(required=False)
@@ -100,7 +103,9 @@ class EmailSignupForm(forms.Form):
 class CreateSendEmailForm(forms.Form):
     subject_line = forms.CharField(required=True)
     content = forms.CharField(required=True, widget=forms.Textarea)
-    
+
+
+
 
 class ValentinesForm(forms.Form):
     email = forms.EmailField(error_messages={'required': '* Please give an email address', 'invalid': '* Please enter a valid e-mail address.'})

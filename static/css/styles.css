@@ -869,10 +869,19 @@ input, div.row-box input {
     width: 460px;
 }
 
+textarea {
+  width: 460px;   
+}
+
 input:focus, div.row-box input:focus, textarea:focus {
   border: 1px solid #6acc75;
   margin-bottom: 20px;
   box-shadow: 0 1px 3px #C1C1C1 inset;
+}
+
+input#id_captcha_1 {
+  width: 200px;
+  margin-right: 15px;   
 }
 
 div.row-box label {
@@ -1292,10 +1301,6 @@ ul.rss #facebook {
 
 #comments div#comment-form label {
   width: 100px;	
-}
-
-#comments div#comment-form input, #comments div#comment-form textarea {
-  width: 400px;	
 }
 
 #comments div#comment-form input.submit-preview {
