@@ -1,6 +1,5 @@
 {% extends base_template %}
-{% load thumbnail %}
-{% load django_static %}
+{% load thumbnail django_static %}
 
 {% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
 {% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
@@ -499,11 +498,13 @@ div.fb-recommend {
 
 {% block content %}
 
+{% if tea.category.parent_category.slug == 'teas' %}
+    {% include 'shop/snippets/teas_sub_nav.html' %}
+{% endif %}
 
 
 <div id="mtw">
   <div class="sp">
-	
 	<h1>{% if tea.long_name %}{{ tea.long_name|safe }}{% else %}{{ tea.name }}{% endif %}</h1>
 
 	<div class="tea-top">
