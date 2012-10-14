@@ -139,20 +139,28 @@ h2.fancybox {
 
 {% block content %}
 
+<div id="subnav">
+   <div class="sp">
+       <ul>
+    		<li>
+    			<a class="completed" href="{% url basket %}">1. Your basket &#10003;</a>
+    		</li>
+    		<li>
+    			<a class="completed" href="{% url order_step_one %}">2. Your details &#10003;</a>
+    		</li>
+    		<li>
+    			<a href="" class="selected">3. Confirm and pay &raquo;</a>
+    		</li>
+    		<li>
+    			<a href="">4. Get your tea!</a>
+    		</li>
+    	</ul>
+    </div>
+</div>
+
 
 <div id="mtw">
   <div class="sp">
-	<ul id="steps">
-		<li class="selected">
-			<a href="{% url order_step_one %}">1. Your details</a>
-		</li>
-		<li class="selected">
-			<a href="{% url order_confirm %}">2. Confirm and pay</a>
-		</li>
-		<li>
-			3. Get your tea!
-		</li>
-	</ul>
 	
 	<div id="basket">
 	
