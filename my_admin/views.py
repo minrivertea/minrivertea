@@ -70,6 +70,14 @@ def admin_shopper(request, id):
 @login_required
 def stocks(request):
     stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
+    orders = Order.objects.filter(status=Order.STATUS_SHIPPED)
+    
+    total_weight_sold = 0
+    for x in orders:
+        for i in x.items.all():
+            if i.item.weight:
+                total_weight_sold += i.item.weight
+    
     return render(request, 'my_admin/stocks.html', locals())
 
 
