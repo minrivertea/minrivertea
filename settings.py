@@ -136,7 +136,7 @@ EMAIL_HOST_USER = ''
 EMAIL_PORT = ''
 SERVER_EMAIL = 'chris@minrivertea.com'
 SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
-SEND_BROKEN_LINK_EMAILS = True
+SEND_BROKEN_LINK_EMAILS = False
 
 
 CHINA_SUBDOMAIN = 'china'
