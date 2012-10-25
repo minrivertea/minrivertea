@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static thumbnail %}
+{% load django_static thumbnail i18n %}
 
 {% block aboutselected %}selected{% endblock %}
 
@@ -161,11 +161,11 @@ ul.rss #facebook p {
 			<img title="This is me, Chris West, owner of the Min River Tea Farm" src="{% staticfile '/images/chris.jpg' %}" style="float:left;margin-right: 30px;">
 			
 			<div class="white">
-				<p class="nihao">We sell exceptional quality Chinese teas with 'no-added-nonsense'.</p>
+				<p class="nihao">{% trans "We sell exceptional quality Chinese teas with 'no-added-nonsense'." %}</p>
 				
-				<p>I moved to China in 2007 and instantly fell in love with tea. Tea in China is a way of life, a daily comfort and an exquisite treat - I want to share that with friends and family and with you as well. <strong>Because we're based in China full time,</strong> we can be immensely selective about the teas we sell - it's why <a class="underline" href="/teas/">our teas</a> simply taste better. </p>
+				<p>{% blocktrans %}I moved to China in 2007 and instantly fell in love with tea. Tea in China is a way of life, a daily comfort and an exquisite treat - I want to share that with friends and family and with you as well. <strong>Because we're based in China full time,</strong> we can be immensely selective about the teas we sell - it's why <a class="underline" href="/teas/">our teas</a> simply taste better. {% endblocktrans %}</p>
 				
-				<p><strong>Chris West, founder</strong> (<a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>)</p>
+				<p>{% blocktrans %}<strong>Chris West, founder</strong> (<a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>){% endblocktrans %}</p>
 				
 	 		</div>
 	 	</div>
@@ -178,9 +178,9 @@ ul.rss #facebook p {
 	</div>
 
 	<div id="left">
-	    
 		{{ page.content|safe }}
-	
+	</div>
+
   	    {% if ga_is_on %} 
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
 	    	<li id="facebook">
@@ -191,13 +191,7 @@ ul.rss #facebook p {
 			    </fb:like>
 			</li>
 		</ul>
-		{% endif %}
-
-	
-	
-	</div>
-
-		
+		{% endif %}		
   </div>
 </div>
 
