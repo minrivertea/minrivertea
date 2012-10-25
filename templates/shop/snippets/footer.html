@@ -1,19 +1,18 @@
-{% load django_static %}
-
+{% load i18n %}
 
 
 <div id="footer">	
 
   <div class="sp">
-    <a id="harvest" href="/blog/how-iron-buddha-tea-is-made-photos/">Check out step-by-step photos of how Iron Buddha tea is made in Anxi &raquo;</a>
+    <a id="harvest" href="/blog/how-iron-buddha-tea-is-made-photos/">{% trans 'Check out step-by-step photos of how Iron Buddha tea is made in Anxi' %} &raquo;</a>
   </div>
     
   <div class="sp thin">
     
 
 	<div class="footer-box">
-	    <h4><a href="{% url blog_home %}">Read our Chinese tea blog &raquo;</a></h4>
-	    <p>News, information and ideas about Chinese tea from the Min River Tea Farm</p>
+	    <h4><a href="{% url blog_home %}">{% trans 'Read our Chinese tea blog' %} &raquo;</a></h4>
+	    <p>{% trans 'News, information and ideas about Chinese tea from the Min River Tea Farm' %}</p>
 	    <ul>
 	    {% for blog in latestblogs %}
 	      <li>
@@ -24,23 +23,27 @@
 	</div>
 		
 	<div class="footer-box">
-	    <h4><a href="/learn/">Learn more about Chinese tea &raquo;</a></h4>
-	    <p>Get the most out of your Chinese teas with our guides and information.</p>
+	    <h4><a href="/learn/">{% trans 'Learn more about Chinese tea' %} &raquo;</a></h4>
+	    <p>{% trans 'Get the most out of your Chinese teas with our guides and information.' %}</p>
 		<ul>
-		  {% include 'shop/snippets/learn_pages_list.html' %}
+    		<li><a href="/how-to-brew-chinese-tea/">{% trans 'How to brew Chinese tea' %}</a></li>
+            <li><a href="/tea-and-the-environment/">{% trans 'Tea and the environment' %}</a></li>
+            <li><a href="/about-chinese-tea/">{% trans 'Tea culture in China' %}</a></li>
+            <li><a href="/about-fujian-province/">{% trans 'Where does our tea come from?' %}</a></li>
+            <li><a href="/harvesting-tea/">{% trans 'How is Chinese tea made?' %}</a></li>
 		</ul>
 	</div>
 	
 	<div class="footer-box about">
-	  <h4>About the Min River Tea Farm</h4>
-	  <p>We're a UK tea company selling fine quality Chinese teas.</p>
+	  <h4>{% trans 'About the Min River Tea Farm' %}</h4>
+	  <p>{% trans "We're a UK tea company selling fine quality Chinese teas." %}</p>
 	  
 	  
 	  
 	  <ul>
-	    <li><a href="/about/">About us</a></li>
-	  	<li><a href="/contact-us/">Contact Us</a></li>
-	  	<li><a href="/where-do-we-deliver/">Where do we deliver?</a></li>
+	    <li><a href="/about/">{% trans 'About us' %}</a></li>
+	  	<li><a href="/contact-us/">{% trans 'Contact Us' %}</a></li>
+	  	<li><a href="/where-do-we-deliver/">{% trans 'Where do we deliver?' %}</a></li>
 	  </ul>
 	  
 	</div>

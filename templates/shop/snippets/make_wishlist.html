@@ -1,13 +1,13 @@
-{% load django_static %}
+{% load django_static i18n %}
 
-<h2>Your amazing Chinese tea wishlist!</h2>
+<h2>{% trans 'Your amazing Chinese tea wishlist!' %}</h2>
 
-<p><img style="float: left; margin-right: 15px; position: relative; top: -10px;" src="{% staticfile '/images/gift.png' %}"/>Cool, you've made a wishlist! Below is a unique wishlist URL - you can send this URL to your family and friends, and they can purchase this basket on your behalf.</p>
+<p><img style="float: left; margin-right: 15px; position: relative; top: -10px;" src="{% staticfile '/images/gift.png' %}"/>{% trans "Cool, you've made a wishlist! Below is a unique wishlist URL - you can send this URL to your family and friends, and they can purchase this basket on your behalf." %}</p>
 
-<p>Here's your unique wishlist URL:</p>
+<p>{% trans "Here's your unique wishlist URL:" %}</p>
 
 <p class="url"><a href="http://www.minrivertea.com{% url wishlist_url order.hashkey %}">http://www.minrivertea.com{% url wishlist_url order.hashkey %}</a></p>
 
-<p>If somebody purchases this wishlist for you, then we'll notify you first to confirm your address, and then send you your tea!</p>
+<p>{% trans "If somebody purchases this wishlist for you, then we'll notify you first to confirm your address, and then send you your tea!" %}</p>
 
 	

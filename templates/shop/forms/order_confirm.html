@@ -1,7 +1,7 @@
 {% extends base_template %}
-{% load django_static thumbnail %}
+{% load django_static thumbnail i18n %}
 
-{% block pagetitle %}Order (Step 2 of 3) - Confirm Order{% endblock %}
+{% block pagetitle %}{% trans 'Order (Step 2 of 3) - Confirm Order' %}{% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript">
@@ -98,16 +98,16 @@ p.checkout {
    <div class="sp">
        <ul>
     		<li>
-    			<a class="completed" href="{% url basket %}">1. Your basket &#10003;</a>
+    			<a class="completed" href="{% url basket %}">{% trans '1. Your basket' %} &#10003;</a>
     		</li>
     		<li>
-    			<a class="completed" href="{% url order_step_one %}">2. Your details &#10003;</a>
+    			<a class="completed" href="{% url order_step_one %}">{% trans '2. Your details' %} &#10003;</a>
     		</li>
     		<li>
-    			<a href="" class="selected">3. Confirm and pay &raquo;</a>
+    			<a href="" class="selected">{% trans '3. Confirm and pay' %} &raquo;</a>
     		</li>
     		<li>
-    			<a href="">4. Get your tea!</a>
+    			<a href="">{% trans '4. Get your tea!' %}</a>
     		</li>
     	</ul>
     </div>
@@ -117,7 +117,7 @@ p.checkout {
   <div class="sp">
 	<div id="basket">
 				
-	<h2>You're ordering...</h2>
+	<h2>{% trans "You're ordering..." %}</h2>
 			
 	<table>
 		{% for thing in order.items.all %}
@@ -133,30 +133,30 @@ p.checkout {
         {% endfor %}
     	{% if postage_discount %}
     	  <tr>
-    	    <td colspan="2"><span class="small"><em>There is no postage charge, because your order is over {{ currency.symbol }}{{ currency.postage_discount_threshold }}</em></span></td>
+    	    <td colspan="2"><span class="small"><em>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}There is no postage charge, because your order is over {{ symbol }}{{ ptd }}{% endblocktrans %}</em></span></td>
     	  </tr>
     	  {% else %}
     	  <tr>
-    	  	<td>Postage</td>
+    	  	<td>{% trans 'Postage' %}</td>
     	  	<td>&nbsp;</td>
     	  	<td>{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>		  
     	  </tr>
         {% endif %}
         {% if order.discount %}
       	  <tr>
-      	  	<td>Discount</td>
+      	  	<td>{% trans 'Discount' %}</td>
       	  	<td>&nbsp;</td>
       	  	<td>-{{ currency.symbol }}{{ value|floatformat:"2" }}</td>
       	  </tr>
       	{% endif %}
 		  <tr>
-		  	<td><strong>TOTAL</strong></td>
+		  	<td><strong>{% trans 'TOTAL' %}</strong></td>
 		  	<td>&nbsp;</td>
 		  	<td><strong>{{ currency.symbol }}{{ total_price|floatformat:"2" }}</strong></td>		  
 		  </tr>
 	   </table>
 
-	   <h2>…and we'll send your order to:</h2>
+	   <h2>{% trans "…and we'll send your order to:" %}</h2>
 
   	   {% with order.address as address %}
   	      {% include "shop/snippets/address.html" %}
@@ -167,15 +167,15 @@ p.checkout {
 
 
 <div id="wishlist">
-	<a id="wishlist-link" href="#wishlist-full">Turn this basket into a wishlist! <img src="{% staticfile '/images/gift_small.png' %}"></a>
+	<a id="wishlist-link" href="#wishlist-full">{% trans 'Turn this basket into a wishlist!' %} <img src="{% staticfile '/images/gift_small.png' %}"></a>
 	<div id="wishlist-full" style="width: 650px; height: 400px; padding: 30px;">
 		<img id="loading-wishlist" src="{% staticfile '/images/loading.gif' %}"/>
 	</div>
 </div>
 	
 <div id="left">
-	<h2>Problems or questions?</h2>
-    <p>We aim to offer first class customer service - if you have ANY problems or questions, contact Chris West, the owner, directly on email at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> - I'll respond normally within a few hours to every email.</p>
+	<h2>{% trans 'Problems or questions?' %}</h2>
+    <p>{% blocktrans %}We aim to offer first class customer service - if you have ANY problems or questions, contact Chris West, the owner, directly on email at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> - I'll respond normally within a few hours to every email.{% endblocktrans %}</p>
 
 </div>
 

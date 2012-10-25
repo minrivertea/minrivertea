@@ -1,6 +1,5 @@
 {% extends base_template %}
-{% load thumbnail %}
-{% load django_static nav_selected %}
+{% load thumbnail django_static nav_selected i18n %}
 
 {% block metadescription %}{{ category.meta_description }}{% endblock %}
 
@@ -256,21 +255,21 @@ div.info p {
 
 		<div class="info">
 			<a href="/tell-a-friend/" class="link"></a>
-			<h3>Be a tea hero &raquo;</h3>
-			<p>Are your friends still drinking from cheap teabags? Save them today! <br/><a href="/tell-a-friend/">Recommend us to a friend &raquo;</a></p>
+			<h3>{% trans 'Be a tea hero' %} &raquo;</h3>
+			<p>{% trans 'Are your friends still drinking from cheap teabags? Save them today!' %} <br/><a href="/tell-a-friend/">{% trans 'Recommend us to a friend' %} &raquo;</a></p>
 		</div>
 		<div class="info">
 			<a href="/postage-and-packaging/" class="link"></a>
-			<h3>Free delivery</h3>
-			<p>All orders over {{ currency.symbol }}{{ currency.postage_discount_threshold }} get delivered completely free of charge. <br/><a href="/postage-and-packaging/">More info on P&P &raquo;</a></p>
+			<h3>{% trans 'Free delivery' %}</h3>
+			<p>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}All orders over {{ symbol }}{{ pdt }} get delivered completely free of charge. {% endblocktrans %}<br/><a href="/postage-and-packaging/">{% trans 'More info on P&P' %} &raquo;</a></p>
 		</div>
 		
 		<div class="info long">
 			<img src="{% staticfile '/images/packaging-square.jpg' %}">
 			<a href="/packaging/" class="link"></a>
-			<h3>Our packaging</h3>
-			<p>It's simple, good for the environment, and protects your tea. <br/>
-			<a href="/packaging/">Find out why &raquo;</a></p>
+			<h3>{% trans 'Our packaging' %}</h3>
+			<p>{% trans "It's simple, good for the environment, and protects your tea." %} <br/>
+			<a href="/packaging/">{% trans 'Find out why' %} &raquo;</a></p>
 		</div>
 
 	</div>	

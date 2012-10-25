@@ -1,4 +1,5 @@
 {% extends base_template %}
+{% load i18n %}
 
 {% block content %}
 
@@ -6,13 +7,13 @@
   <div class="sp">
 
 	<h1>Your order</h2>
-	<p class="introduction">This is the order you made on {{ order.date_confirmed }}</p>
+	<p class="introduction">{% trans 'This is the order you made on' %} {{ order.date_confirmed }}</p>
 
 
 	<div class="left">
 
-	<p>Confirmed: {{ order.date_confirmed }}</p>
-	<p>Payment received: {{ order.date_paid }}</p>
+	<p>{% trans 'Confirmed' %}: {{ order.date_confirmed }}</p>
+	<p>{% trans 'Payment received' %}: {{ order.date_paid }}</p>
 	<p>{{ order.status }}</p>
 	<p>{{ order. }}</p>
 	<p>{{ order. }}</p>

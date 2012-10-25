@@ -1,8 +1,8 @@
 {% extends base_template %}
-{% load thumbnail django_static %}
+{% load thumbnail django_static i18n %}
 
-{% block pagetitle %}Your basket ({{ basket_quantity }}){% endblock %}
-{% block metadescription %}Your basket - shop on www.minrivertea.com and get the best prices and great tasting authentic Chinese teas delivered direct to your door.{% endblock %}
+{% block pagetitle %}{% trans 'Your basket' %} ({{ basket_quantity }}){% endblock %}
+{% block metadescription %}{% trans 'Your basket - shop on www.minrivertea.com and get the best prices and great tasting authentic Chinese teas delivered direct to your door.' %}{% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript">
@@ -275,16 +275,16 @@ input#id_discount_code {
    <div class="sp">
        <ul>
     		<li>
-    			<a class="selected" href="{% url basket %}">1. Your basket &raquo;</a>
+    			<a class="selected" href="{% url basket %}">1. {% trans 'Your basket' %} &raquo;</a>
     		</li>
     		<li>
-    			<a class="" href="{% url order_step_one %}">2. Your details &raquo;</a>
+    			<a class="" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
     		</li>
     		<li>
-    			<a href="">3. Confirm and pay &raquo;</a>
+    			<a href="">3. {% trans 'Confirm and pay' %} &raquo;</a>
     		</li>
     		<li>
-    			<a href="">4. Get your tea!</a>
+    			<a href="">4. {% trans 'Get your tea!' %}</a>
     		</li>
     	</ul>
     </div>
@@ -292,7 +292,7 @@ input#id_discount_code {
 
 <div id="mtw">
   <div class="sp">
-  	<h1>Your basket ({{ basket_quantity }} item{{ basket_quantity|pluralize }})</h1>
+  	<h1>{% blocktrans with basket_quantity|pluralize as plural %}Your basket ({{ basket_quantity }} item{{ plural }}){% endblocktrans %}</h1>
 
 {% if basket_items %}
 
@@ -301,7 +301,7 @@ input#id_discount_code {
 	{% for thing in basket_items %}
 	  <div class="basket-row">
 	    {% if thing.item.parent_product.coming_soon %}
-	    	<div class="coming-soon"><strong>NOTE:</strong> this item has been pre-ordered and will be delivered on <strong>{{ thing.item.parent_product.get_preorder_date|date:"d M Y" }}</strong></div>
+	    	<div class="coming-soon">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}<strong>NOTE:</strong> this item has been pre-ordered and will be delivered on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
 	    {% endif %}
 		<div class="tea-name">
 			{% thumbnail thing.item.parent_product.image "120" crop="center" as im %}
@@ -312,8 +312,8 @@ input#id_discount_code {
 		<div class="tea-weight">
 			<a title="{{ thing.item.parent_product.description }}" href="{{ thing.item.parent_product.get_absolute_url }}"><strong>{{ thing.item.parent_product.name }}</strong></a>
 			{% if not thing.item.weight %}{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
-			{{ currency.symbol }}{{ thing.item.price }} each<br/>
-			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">Remove from basket</span></a>
+			{{ currency.symbol }}{{ thing.item.price }} {% trans 'each' %}<br/>
+			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">{% trans 'Remove from basket' %}</span></a>
 		</div>
 		<div class="tea-quantity">x {{ thing.quantity }} 
 			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}">&#x25B2;</a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}">&#x25BC;</a>{% endifequal %}</div> </div>
@@ -324,15 +324,15 @@ input#id_discount_code {
 	
 	{% if postage_discount %}
 	  <div class="basket-row postage">
-		<div class="tea-name strikethrough"><em>Postage <span class="small">(Standard)</span></em></div>
-		<div class="tea-weight"><span class="small"><em>* Your order is over {{ currency.symbol }}{{ currency.postage_discount_threshold }}, so there's no postage charge!</em></span></div>
+		<div class="tea-name strikethrough"><em>{% trans 'Postage' %} <span class="small">({% trans 'Standard' %})</span></em></div>
+		<div class="tea-weight"><span class="small"><em>{% blocktrans %}* Your order is over {{ currency.symbol }}{{ currency.postage_discount_threshold }}, so there's no postage charge!{% endblocktrans %}</em></span></div>
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total strikethrough">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>
 	  </div>
 	{% else %}
 	  <div class="basket-row postage">
-		<div class="tea-name"><em>Postage <span class="small"><br/>(First Class)</span></em></div>
-		<div class="tea-weight"><em>Delivered in 1-3 days<br/><span class="small">Shipped from the UK</span></em></div>
+		<div class="tea-name"><em>{% trans 'Postage' %} <span class="small"><br/>({% trans 'First Class' %})</span></em></div>
+		<div class="tea-weight"><em>{% trans 'Delivered in 1-3 days' %}<br/><span class="small">{% trans 'Shipped from the UK' %}</span></em></div>
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>
 	  </div>
@@ -341,12 +341,12 @@ input#id_discount_code {
 	<div class="basket-row discount">
 	  {% if code %}
 	  	<div class="tea-name">&nbsp;</div>
-	  	<div class="tea-weight">You have entered a discount code worth {{ percent|floatformat }}% off!</div>
+	  	<div class="tea-weight">{% blocktrans %}You have entered a discount code worth {{ percent|floatformat }}% off!{% endblocktrans %}</div>
 	  	<div class="tea-quantity">&nbsp;</div>
 	  	<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ value|floatformat:"2" }}</span></div>
 	  {% else %}
 	    {% if discount_message %}<span id="message" class="red">{{ discount_message }} - </span>{% endif %}
-	  	<span id="link">Got a discount code?</span>
+	  	<span id="link">{% trans 'Got a discount code?' %}</span>
 	  	<div id="form">
 			  	<form action="." method="post">
 				<input type="text" name="discount_code" id="id_discount_code" class="clearMeFocus" title="Enter discount code here"/>
@@ -357,15 +357,15 @@ input#id_discount_code {
 	</div>
 
 	<div id="totals">
-		<div class="label">Total:</div><div class="total">{{ currency.symbol }}{{ total_price|floatformat:"2" }}</div>
+		<div class="label">{% trans 'Total' %}:</div><div class="total">{{ currency.symbol }}{{ total_price|floatformat:"2" }}</div>
 	</div>
     </div> <!-- ENDS basket-full div -->
 
 	<br clear="all"/>
 	  	<div id="checkout-button">		
 		<a class="button green" href="{% url order_step_one %}">
-		  Start checkout now &raquo;
-		  <span><strong>Next step:</strong> Your details (no login or registration required)</span>
+		  {% trans 'Start checkout now' %} &raquo;
+		  <span><strong>{% trans 'Next step' %}:</strong> {% trans 'Your details (no login or registration required)' %}</span>
 		</a>
 	</div>
 	
@@ -374,30 +374,30 @@ input#id_discount_code {
   
   <div id="right">
    	<div class="info">
-      <h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> Safe and secure payment</h3>
-      	<p>We accept all major credit and debit cards through Paypal</p>
+      <h3 class="small"><img src="{% staticfile '/images/lock.gif' %}"> {% trans 'Safe and secure payment' %}</h3>
+      	<p>{% trans 'We accept all major credit and debit cards through Paypal' %}</p>
       	<img src="{% staticfile '/images/cards.png' %}" style="margin: 0px 0;">
       </div>  	
   	<div class="info">
   		<h3>
   	 	  <img style="float:right; margin-left: 5px; position:relative; top: -8px; left: 4px;" src="{% staticfile '/images/gift.png' %}"/>
-  				Create a wishlist from your basket
+  				{% trans 'Create a wishlist from your basket' %}
   		</h3>
-  		<p>A wishlist saves your basket so that other people can buy it for you as a gift.</p>
-  		<p><a style="font-weight: bold; font-family: Helvetica, Arial, sans-serif" id="wishlist" href="#wishlist-full">How does it work?</a></p>
+  		<p>{% trans 'A wishlist saves your basket so that other people can buy it for you as a gift.' %}</p>
+  		<p><a style="font-weight: bold; font-family: Helvetica, Arial, sans-serif" id="wishlist" href="#wishlist-full">{% trans 'How does it work?' %}</a></p>
   		<div id="wishlist-full" style="width: 800px; padding: 30px;">
-  			<h2>How to make a Wishlist</h2>
+  			<h2>{% trans 'How to make a Wishlist' %}</h2>
   			   <div class="block">
-  				 <h3>1. Choose the teas you want</h3>
-  				 <p>Choose the teas and other products that you want to have - add them to your basket as normal, and go through the checkout.</p>
+  				 <h3>1. {% trans 'Choose the teas you want' %}</h3>
+  				 <p>{% trans 'Choose the teas and other products that you want to have - add them to your basket as normal, and go through the checkout.' %}</p>
   			   </div>
   			   <div class="block">
-  				 <h3>2. We give you a unique URL</h3>
-  				 <p>At the final stage of the order, click the 'Create Wishlist' link, and we'll give you a unique URL. Share it with friends and relatives.</p>
+  				 <h3>2. {% trans 'We give you a unique URL' %}</h3>
+  				 <p>{% trans "At the final stage of the order, click the 'Create Wishlist' link, and we'll give you a unique URL. Share it with friends and relatives." %}</p>
   			   </div>
   			   <div class="block last">
-  				 <h3>3. Friends can buy items for you</h3>
-  				 <p>Using your unique URL, friends and family can buy items from your wishlist for you. We'll deliver them direct to the address you provided.</p>
+  				 <h3>3. {% trans 'Friends can buy items for you' %}</h3>
+  				 <p>{% trans "Using your unique URL, friends and family can buy items from your wishlist for you. We'll deliver them direct to the address you provided." %}</p>
   			   </div>
 			   <img src="{% staticfile '/images/wishlist-screenshot.jpg' %}">
 		</div>
@@ -407,12 +407,12 @@ input#id_discount_code {
 
 	<div id="left">
 
-		<h2>Buyer protection</h2>
-		<p>Your online safety is extremely important to us too. Your purchase has these guarantees:</p>
+		<h2>{% trans 'Buyer protection' %}</h2>
+		<p>{% trans 'Your online safety is extremely important to us too. Your purchase has these guarantees:' %}</p>
 		<ul>
-		  <li><strong>Returns policy:</strong> we operate a 'no questions asked' returns policy. If you're not happy with your order, just get in touch.</li>
-		  <li><strong>Safe payments:</strong> payments are taken via Paypal. We never see your credit card details, and your online payment is secured by the highest standard industry technology.</li>
-		  <li><strong>Customer services:</strong> if you need to contact us about anything, you can email us directly at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>. </li>
+		  <li><strong>{% trans "Returns policy" %}</strong> {% trans "we operate a 'no questions asked' returns policy. If you're not happy with your order, just get in touch." %}</li>
+		  <li><strong>{% trans 'Safe payments' %}:</strong> {% trans 'payments are taken via Paypal. We never see your credit card details, and your online payment is secured by the highest standard industry technology.' %}</li>
+		  <li><strong>{% trans 'Customer services' %}:</strong> {% trans 'if you need to contact us about anything, you can email us directly at' %} <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>. </li>
 		</ul>
 
 	</div>
@@ -421,11 +421,11 @@ input#id_discount_code {
 
 {% else %}
   <div id="basket">
-	<p>There's nothing in your basket - add something, quick! <br/><a href="{% url teas %}">&raquo; Browse our selection of Chinese teas here.</a></p>
+	<p>{% trans "There's nothing in your basket - add something, quick! " %}<br/><a href="{% url teas %}">&raquo; {% trans 'Browse our selection of Chinese teas here.' %}</a></p>
   </div>
 	<div class="did-you-know">
 	<a href="/suggestions/"><span class="link"></span></a>
-	<h3>Need some help choosing a tea? <span class="grey">Let us help you &raquo;</span></h3>
+	<h3>{% trans 'Need some help choosing a tea?' %} <span class="grey">{% trans 'Let us help you' %} &raquo;</span></h3>
 	</div>
 
 {% endif %}

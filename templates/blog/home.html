@@ -1,8 +1,8 @@
 {% extends base_template %}
-{% load thumbnail django_static %}
+{% load thumbnail django_static i18n  %}
 
-{% block pagetitle %}Our Chinese tea blog{% endblock %}
-{% block metadescription %}A blog about Chinese tea - news, tea photos, tea reviews, articles and updates from tea farms in China, from the best tea retailer in the UK.{% endblock %}
+{% block pagetitle %}{% trans 'Our Chinese tea blog' %}{% endblock %}
+{% block metadescription %}{% trans 'A blog about Chinese tea - news, tea photos, tea reviews, articles and updates from tea farms in China, from the best tea retailer in the UK.' %}{% endblock %}
 
 
 {% block extracss %}
@@ -142,7 +142,7 @@ img.tweets {
 <div id="mtw">
   <div class="sp">
 	
-    <h1>The Min River Farm Chinese tea blog</h1>	
+    <h1>{% trans 'The Min River Tea Chinese tea blog' %}</h1>	
 
 	<div id="right">
 		
@@ -154,13 +154,13 @@ img.tweets {
 			<div id="next-previous">
 			<div class="next">
 			{% if entries.has_previous %}
-	            <a href="?page={{ entries.previous_page_number }}">Get newer entries &raquo;</a>
+	            <a href="?page={{ entries.previous_page_number }}">{% trans 'Get newer entries' %} &raquo;</a>
 	        {% endif %}
 	        </div>
-	Showing entries {{ entries.start_index }} - {{ entries.end_index }}
+	{% trans 'Showing entries' %} {{ entries.start_index }} - {{ entries.end_index }}
 			<div class="previous">
 	        {% if entries.has_next %}
-	            <a href="?page={{ entries.next_page_number }}">&laquo; Get older entries</a>
+	            <a href="?page={{ entries.next_page_number }}">&laquo; {% trans 'Get older entries' %}</a>
 	        {% endif %}
 	        </div>
 		</div>
@@ -173,13 +173,13 @@ img.tweets {
 		<div id="next-previous">
 			<div class="next">
 			{% if entries.has_previous %}
-	            <a href="?page={{ entries.previous_page_number }}">Get newer entries &raquo;</a>
+	            <a href="?page={{ entries.previous_page_number }}">{% trans 'Get newer entries' %} &raquo;</a>
 	        {% endif %}
 	        </div>
 	
 			<div class="previous">
 	        {% if entries.has_next %}
-	            <a href="?page={{ entries.next_page_number }}">&laquo; Get older entries</a>
+	            <a href="?page={{ entries.next_page_number }}">&laquo; {% trans 'Get older entries' %}</a>
 	        {% endif %}
 	        </div>
 		</div>

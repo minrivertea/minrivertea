@@ -1,10 +1,9 @@
 {% extends base_template %}
-{% load thumbnail %}
-{% load django_static %}
+{% load thumbnail django_static i18n %}
 
-{% block pagetitle %}Exceptional Chinese tea delivered to your door{% endblock %}
+{% block pagetitle %}{% trans 'Exceptional Chinese tea delivered to your door' %}{% endblock %}
 
-{% block metadescription %}We sell exceptional Chinese teas and deliver them to your home. Our teas are authentic, hand-picked and traditionally made in our home in China.{% endblock %}
+{% block metadescription %}{% trans 'We sell exceptional Chinese teas and deliver them to your home. Our teas are authentic, hand-picked and traditionally made in our home in China.' %}{% endblock %}
 
 
 {% block extracss %}
@@ -286,22 +285,22 @@ ul.rss {
   <div class="sp">
     <img src="{% staticfile '/images/home5.jpg' %}"/>
 	<div class="top">
-		<h1>Fresh, authentic teas from China, direct to your door.</h1>
-		<p>* and when we say direct, we mean direct - we're the only UK tea company actually based in China! <a class="underline" href="/about/">Read more &raquo;</a></p>		
-		<a class="button green" href="{% url teas %}">Pick your tea now &raquo;</a>	
+		<h1>{% trans 'Fresh, authentic teas from China, direct to your door.' %}</h1>
+		<p>{% trans "* and when we say direct, we mean direct - we're the only UK tea company actually based in China!" %} <a class="underline" href="/about/">{% trans 'Read more' %} &raquo;</a></p>		
+		<a class="button green" href="{% url teas %}">{% trans 'Pick your tea now' %} &raquo;</a>	
 	</div>
   </div>
 </div>
 
 <div class="sp">
 
-    <h1>Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!</h1>
+    <h1>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h1>
     
     {% include "shop/snippets/long-jing-special.html" %}
 
 
 	<div id="benefits">
-	   <h2>Check out our bestsellers below, <a class="underline" href="/teas/">or see our full range of teas here &raquo;</a></h2>
+	   <h2>{% trans 'Check out our bestsellers below' %}, <a class="underline" href="/teas/">{% trans 'or see our full range of teas here' %} &raquo;</a></h2>
 		<div id="teas">
 		    <div class="info first">
 		      <p>The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.<br/><span class="red">Brad Robinson, London.</span></p>
@@ -312,14 +311,12 @@ ul.rss {
 				<div class="info {% if forloop.last %}last{% endif %}">
 				    <a href="{{ r.product.get_absolute_url }}"><span class="link"></span></a>
 				    {% thumbnail r.product.image "290x185" crop="center" as im %}
-					<a alt="a picture of our {{ r.product.name }} Chinese tea" title="{{ r.product.name }}" href="{{ r.product.get_absolute_url }}">
+					<a alt="{% blocktrans with r.product.name as name %}a picture of our {{ name }} Chinese tea{% endblocktrans %}" title="{{ r.product.name }}" href="{{ r.product.get_absolute_url }}">
 						<img alt="{{ r.product.description }}" src="{{ im.url }}"/>
 					</a>
 				    {% endthumbnail %}
 				    <h3><a href="{{ r.product.get_absolute_url }}">{{ r.product.name }}</a> &raquo;</h3>
-				    
-				    
-				    
+
 				</div>
 			{% endfor %}
 		</div>
@@ -330,12 +327,12 @@ ul.rss {
 
 	<div id="adventure">
 		<img alt="Min River Tea Farm co-founder hugging a tea tree on Wuyi Mountain" src="{% staticfile '/images/home-mountain.jpg' %}"/>
-		<h2>A big <em>ni hao</em> from China!</h2>
+		<h2>{% blocktrans %}A big <em>ni hao</em> from China!{% endblocktrans %}</h2>
 		
 		
-		<p>We sell the <strong>tastiest, healthiest and most stunning Chinese teas</strong> you'll ever try, direct from the farm in China. How?</p>
+		<p>{% blocktrans %}We sell the <strong>tastiest, healthiest and most stunning Chinese teas</strong> you'll ever try, direct from the farm in China. How?{% endblocktrans %}</p>
 		
-		<p><span class="underline">Because we live in China full-time</span>. While most tea companies buy through a string of wholesalers, we speak Chinese fluently, we're fanatic about tea, we visit tea farms regularly and <strong>we source tea directly from farmers</strong>. </p><p><a href="/about/">Find out more about us &raquo;</a></p>
+		<p>{% blocktrans %}<span class="underline">Because we live in China full-time</span>. While most tea companies buy through a string of wholesalers, we speak Chinese fluently, we're fanatic about tea, we visit tea farms regularly and <strong>we source tea directly from farmers</strong>. {% endblocktrans %}</p><p><a href="/about/">{% trans 'Find out more about us' %} &raquo;</a></p>
 		
 		
 		

@@ -11,6 +11,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.translation import ugettext as _
 
 
 import urllib
@@ -26,6 +27,8 @@ from datetime import timedelta
 import uuid
 import twitter
 import re
+
+
 
 from minriver.shop.models import *
 from minriver.shop.forms import *
@@ -314,7 +317,7 @@ def contact_form_submit(request, xhr=None):
         form = ContactForm(request.POST)
         if form.is_valid():
             _admin_notify_contact(form.cleaned_data)
-            message = "Thanks! Your message has been sent and we'll get back to you as soon as we can."
+            message = _("Thanks! Your message has been sent and we'll get back to you as soon as we can.")
             return render(request, 'shop/forms/contact_form.html', locals())
         else:
             page = get_object_or_404(Page, slug='contact-us')
@@ -341,7 +344,7 @@ def add_to_basket(request, productID):
         for x in BasketItem.objects.filter(basket=basket):
             basket_quantity += x.quantity
         
-        message = '<p><img src="/static/images/tick.png"/><strong>1 x %s</strong> added to your basket!<br/><br/> <a href="/basket/"><strong>Checkout now &raquo;</strong></a></p>' % item.item 
+        message = _('<p><img src="/static/images/tick.png"/><strong>1 x %s</strong> added to your basket!<br/><br/> <a href="/basket/"><strong>Checkout now &raquo;</strong></a></p>') % item.item 
         data = {'quantity': basket_quantity, 'item': message}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
@@ -450,7 +453,7 @@ def basket(request):
                total_price -= value
                request.session['DISCOUNT_ID'] = code.id
             else:
-                discount_message = "Sorry, that's not a valid discount code!"
+                discount_message = _("Sorry, that's not a valid discount code!")
             return render(request, "shop/basket.html", locals())
     
     form = UpdateDiscountForm()
@@ -466,7 +469,7 @@ def order_step_one(request):
     try:
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
-        problem = "You don't have any items in your basket, so you can't process an order!"
+        problem = _("You don't have any items in your basket, so you can't process an order!")
         return render(request, 'shop/order-problem.html', locals())   
 
     # next, if they already have an order, try loading the information
@@ -497,9 +500,9 @@ def order_step_one(request):
     if request.method == 'POST': 
         post_values = request.POST.copy()
         initial_values = (
-            'First name', 'Last name', 'Email address',
-            'Your address...', ' ...address continued (optional)',
-            'Town or city', 'Post/ZIP code', 'Province',
+            _('First name'), _('Last name'), _('Email address'),
+            _('Your address...'), _(' ...address continued (optional)'),
+            _('Town or city'), _('Post/ZIP code'), _('Province'),
             )
             
         for k, v in post_values.iteritems():
@@ -851,7 +854,7 @@ def order_confirm(request):
     try:
         basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
     except:
-        problem = "You don't have any items in your basket, so you can't process an order!"
+        problem = _("You don't have any items in your basket, so you can't process an order!")
         return render(request, 'shop/order-problem.html', locals())
         
     order = Order.objects.get(id=request.session['ORDER_ID'])
@@ -981,36 +984,7 @@ def review_tea(request, slug):
         form = ReviewForm()
     return render(request, "shop/forms/review_form.html", locals())
 
- 
 
-
-# view for the shipping page
-def shipping(request):
-    try:
-        if request.session['MESSAGE'] == "1":
-            message = True
-            request.session['MESSAGE'] = ""
-    except:
-        pass 
-        
-    if request.method == 'POST':
-        form = NotifyForm(request.POST)
-        if form.is_valid():
-            
-            creation_args = {
-                'email': form.cleaned_data['email'],          
-            }
-            
-            Notify.objects.create(**creation_args)
-            
-            url = reverse('shipping')
-            request.session['MESSAGE'] = "1"
-            return HttpResponseRedirect(url)
-        
-    else:
-        form = NotifyForm()
-        
-    return render(request, "shop/forms/shipping.html", locals())
             
 
 # view for the photo wall
@@ -1055,7 +1029,7 @@ def tell_a_friend(request):
                     )
             referee.save()
 
-            message = "We've sent an email to %s letting them know about minrivertea.com - thanks for your help!" % referee.email
+            message = _("We've sent an email to %s letting them know about minrivertea.com - thanks for your help!") % referee.email
             # then send them back to the tell a friend page
             return render(request, "shop/forms/tell_a_friend.html", locals())
 
@@ -1074,7 +1048,6 @@ def international(request):
     request.session['region'] = 'global'
     currency = _change_currency(request)
     request.session['CURRENCY'] = 'GBP'
-    
             
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)

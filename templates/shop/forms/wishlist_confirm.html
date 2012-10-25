@@ -1,7 +1,7 @@
 {% extends base_template %}
-{% load django_static thumbnail %}
+{% load django_static thumbnail i18n %}
 
-{% block pagetitle %}{{ wishlist.owner.first_name }}'s Chinese tea wishlist - Confirm Order{% endblock %}
+{% block pagetitle %}{% blocktrans with wishlist.owner.first_name as owner %}{{ owner }}'s Chinese tea wishlist - Confirm Order{% endblocktrans %}{% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript">
@@ -9,7 +9,7 @@
 function bindSubmitEmailHandler() {    
     $('#submit_email_form').submit(function() { 
     	if ($('#submit_email_form input#id_email').val() == "") {
-    		$('#submit_email_form .error').prepend('<p style="color:red;">* You must provide an email address</p>');
+    		$('#submit_email_form .error').prepend('<p style="color:red;">* {% trans "You must provide an email address" %}</p>');
     		return false;
     	}
     	else {
@@ -26,7 +26,7 @@ function bindSubmitEmailHandler() {
         	        $('#loading').toggle();   
         	    },  
         	    error: function (XMLHttpRequest, textStatus, errorThrown) {  
-        	        $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');  
+        	        $('#comment_form form').replaceWith('{% trans "Your comment was unable to be posted at this time.  We apologise for the inconvenience." %}');  
         	    }  
         	});  
         return false;
@@ -38,7 +38,7 @@ function bindSelectItemsHandler() {
     $('#select-items-form').submit(function() {
     	
     	if ($('#select-items-form :checkbox:not(:checked)').length > 0) {
-    		$('.error').prepend('<p style="color:red;">* You must select at least one item (click to select an item)!</p>');
+    		$('.error').prepend('<p style="color:red;">* {% trans "You must select at least one item (click to select an item)!" %}</p>');
     		return false;
     	}
     	else { 	 
@@ -55,7 +55,7 @@ function bindSelectItemsHandler() {
         	        $('#loading').toggle();   
         	    },  
         	    error: function (XMLHttpRequest, textStatus, errorThrown) {  
-        	        $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');  
+        	        $('#comment_form form').replaceWith('{% trans "Your comment was unable to be posted at this time.  We apologise for the inconvenience." %}');  
         	    }  
         	});  
         	return false; 
@@ -251,13 +251,10 @@ div#loading img {
 
 <div id="mtw">
   <div class="sp">
-	<ul id="steps">
-		<li class="selected">
-			<img src="{% staticfile '/images/gift.png' %}" style="float: left;margin-right:15px;position:relative;top:-20px;"/>
-			You're looking at <span class="name">{{ wishlist.owner.first_name }} {{ wishlist.owner.last_name }}'s</span> Chinese tea wishlist<br/>
-			<span class="grey">Are you ready to give the gift of tea?</span>
-		</li>
-	</ul>
+      <div>
+		<img src="{% staticfile '/images/gift.png' %}" style="float: left;margin-right:15px;position:relative;top:-20px;"/>
+		{% blocktrans with wishlist.owner.first_name as fn and wishlist.owner.last_name as ln %}<strong>You're looking at <span class="name">{{ fn }} {{ ln }}'s</span> Chinese tea wishlist</strong><br/><span class="grey">Which items would you like to buy for {{ fn }}?</span>{% endblocktrans %}
+	  </div>
 	
 	<div id="basket">
 		<div id="loading">
@@ -265,8 +262,7 @@ div#loading img {
 		</div>
 		
 	<form id="select-items-form" method="post" action="{% url wishlist_select_items %}">
-	<h2>Which items would you like to buy for {{ wishlist.owner.first_name }}?</h2>
-	<p><strong>Click an item to select it:</strong></p>
+	<p><strong>{% trans 'Click an item to select it' %}:</strong></p>
 	<div class="error"></div>
 		<ul id="items">
 			{% for item in wishlist.wishlist_items.all %}
@@ -293,7 +289,7 @@ div#loading img {
 		</ul>
 		<input type="text" id="id_hashkey" name="hashkey" value="{{ wishlist.hashkey }}" style="display:none;"/>
 		<div id="select-items">
-			<input type="submit" class="button" value="Select these items"/>
+			<input type="submit" class="button" value="{% trans 'Select these items' %}"/>
 		</div>	
 	</form>
 	
@@ -304,15 +300,17 @@ div#loading img {
 
 	
 <div id="left">
+    {% blocktrans with wishlist.owner.first_name as fn %}
 	<h2>How does this work?</h2>
-	<p>It's simple - {{ wishlist.owner.first_name }} has created a wishlist of Chinese tea items, and you can buy those items for them. We'll send the items you purchase to {{ wishlist.owner.first_name }} and you'll get a big warm fuzzy feeling.</p>
+	<p>It's simple - {{ fn }} has created a wishlist of Chinese tea items, and you can buy those items for them. We'll send the items you purchase to {{ fn }} and you'll get a big warm fuzzy feeling.</p>
 	<h2>Where will we send the order?</h2>
-    <p>{{ wishlist.owner.first_name }} has already provided a shipping address to us - we'll send the teas there. However, just to be sure, we will contact {{ wishlist.owner.first_name }} to confirm before we send the teas. For privacy reasons, we can't show you the address they provided.</p>
+    <p>{{ fn }} has already provided a shipping address to us - we'll send the teas there. However, just to be sure, we will contact {{ fn }} to confirm before we send the teas. For privacy reasons, we can't show you the address they provided.</p>
     
     <h2>Is it safe to order?</h2>
-    <p>Yes! You and {{ wishlist.owner.first_name }} are protected by our standard <strong>no questions asked</strong> refund policy, fast and friendly customer services, and privacy of your data. If you ever have any questions about this order, you can contact us directly at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>.</p>
+    <p>Yes! You and {{ fn }} are protected by our standard <strong>no questions asked</strong> refund policy, fast and friendly customer services, and privacy of your data. If you ever have any questions about this order, you can contact us directly at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>.</p>
     
     <p>Similarly, because you pay via Paypal, your online payment is secured with industry standard technology and <strong>we never see or store your credit card details.</strong>. We take your data extremely seriously.</p>
+    {% endblocktrans %}
 
 </div>
 

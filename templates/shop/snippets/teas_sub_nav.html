@@ -1,12 +1,12 @@
-{% load nav_selected %}
+{% load nav_selected i18n %}
 
 <div id="subnav">
   <div class="sp">
 	<ul>
-		<li><a class="{% if tea.category.slug == 'oolong-teas' %}selected{% endif %}" href="{% url teas %}#oolong-teas">Oolong teas</a></li>
-		<li><a class="{% if tea.category.slug == 'green-and-white-teas' %}selected{% endif %}" href="{% url teas %}#green-and-white-teas">Green and white teas</a></li>
-		<li><a class="{% if tea.category.slug == 'red-teas' %}selected{% endif %}" href="{% url teas %}#red-teas">Red / Black teas</a></li>
-		<li><a class="{% if tea.category.slug == 'scented-teas' %}selected{% endif %}" href="{% url teas %}#scented-teas">Scented teas</a></li>
+		<li><a class="{% if tea.category.slug == 'oolong-teas' %}selected{% endif %}" href="{% url teas %}#oolong-teas">{% trans "Oolong teas" %}</a></li>
+		<li><a class="{% if tea.category.slug == 'green-and-white-teas' %}selected{% endif %}" href="{% url teas %}#green-and-white-teas">{% trans "Green and white teas" %}</a></li>
+		<li><a class="{% if tea.category.slug == 'red-teas' %}selected{% endif %}" href="{% url teas %}#red-teas">{% trans "Red / Black teas" %}</a></li>
+		<li><a class="{% if tea.category.slug == 'scented-teas' %}selected{% endif %}" href="{% url teas %}#scented-teas">{% trans "Scented teas" %}</a></li>
 	</ul>
   </div>
 </div>

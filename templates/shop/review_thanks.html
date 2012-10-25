@@ -1,14 +1,13 @@
-{% extends "base.html" %}
-{% load django_static %}
+{% extends base_template %}
+{% load django_static i18n %}
 
 {% block extracss %}
 <style type="text/css">
 </style>
 {% endblock %}
 
-{% block metadescription %}Contact the Min River Tea Farm - how you can get in touch with us.{% endblock %}
 
-{% block pagetitle%}Give a review{% endblock %}
+{% block pagetitle%}{% trans 'Thanks for your review!' %}{% endblock %}
 
 
 
@@ -16,9 +15,9 @@
 
 <div id="mtw">
   <div class="super">	
-    <h1>Thanks for submitting your review!</h1>
-    <p class="introduction">It means a lot to us, and we read every single one.</p>
-	<p>We may decide to publish your review on our website, to help others choose their tea with confidence.</p>
+    <h1>{% trans 'Thanks for submitting your review!' %}</h1>
+    <p class="introduction">{% trans 'It means a lot to us, and we read every single one.' %}</p>
+	<p>{% trans 'We may decide to publish your review on our website, to help others choose their tea with confidence.' %}</p>
 	
   </div>
 </div>

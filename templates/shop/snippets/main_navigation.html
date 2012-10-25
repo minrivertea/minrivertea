@@ -1,28 +1,28 @@
-{% load nav_selected %}
+{% load nav_selected i18n %}
 
 <div id="navigation">
   <ul id="nav">
 	<li>
-      <a class="grey {% nav_selected request '^/$' %}" href="{% url home %}" title="Min River Tea Homepage" alt="">Home</a>
+      <a class="grey {% nav_selected request '^/$' %}" href="{% url home %}" title="{% trans 'Fine quality Chinese teas direct from the farm' %}" alt="{% trans 'Fine quality Chinese teas direct from the farm' %}">{% trans 'Home' %}</a>
     </li>
     <li>
-      <a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="Buy authentic Chinese tea" alt="">Chinese teas</a>
+      <a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}" alt="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}">{% trans 'Chinese teas' %}</a>
     </li>
     <li>
-      <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="Teacups and teapots" alt="">Teaware</a>
+      <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="{% trans 'Teacups, teapots and accessories for your Chinese tea experience' %}" alt="{% trans 'Teacups, teapots and accessories for your Chinese tea experience' %}">{% trans 'Teaware' %}</a>
     </li>
     <li>
-      <a class="{% nav_selected request '^/tasters/' %}" href="{% url tasters %}" title="Buy authentic Chinese tea" alt="">Taster Packs</a>
+      <a class="{% nav_selected request '^/tasters/' %}" href="{% url tasters %}" title="{% trans 'Try before your buy with our Chinese tea taster packs' %}" alt="{% trans 'Try before your buy with our Chinese tea taster packs' %}">{% trans 'Taster Packs' %}</a>
     </li>
     <li>
-      <a class="grey{% if page %}{% if page.get_root.slug == 'learn' %} selected{% endif %}{% else %} {% nav_selected request '^/(learn|blog)/' %}{% endif %}       learn" href="/learn/" title="Learn about Chinese tea" alt="">Learn about tea</a>
+      <a class="grey{% if page %}{% if page.get_root.slug == 'learn' %} selected{% endif %}{% else %} {% nav_selected request '^/(learn|blog)/' %}{% endif %} learn" href="/learn/" title="{% trans 'Learn about Chinese tea' %}" alt="{% trans 'Learn about Chinese tea' %}">{% trans 'Learn about tea' %}</a>
     </li>
     <li>
-      <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about/' %}{% endif %} about" href="/about/" title="About Min River Tea" alt="">About us</a>
+      <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about/' %}{% endif %} about" href="/about/" title="{% trans 'About Min River Tea' %}" alt="{% trans 'About Min River Tea' %}">{% trans 'About us' %}</a>
     </li>
     <li>
-      <a class="grey {% nav_selected request '^/(basket|order)/' %}" href="{% url basket %}" title="View your basket" alt="">
-      Your basket <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
+      <a class="grey {% nav_selected request '^/(basket|order)/' %}" href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">
+      {% trans 'Your basket' %} <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
       </a>
     </li>
   </ul>

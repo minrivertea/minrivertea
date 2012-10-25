@@ -1,9 +1,9 @@
 {% extends base_template %}
 
-{% load django_static %}
+{% load django_static i18n %}
 
 
-{% block pagetitle %}404 - Page Not Found{% endblock %}
+{% block pagetitle %}404 - {% trans 'Page Not Found' %}{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
@@ -38,7 +38,7 @@ p a:link {
 <div id="mtw">
 	<div class="sp">
 		<img class="image" src="{% staticfile '/images/404.jpg' %}"/>
-		<p class="introduction">We can't find the page you're looking for! Perhaps it was mistyped, has moved, or doesn't exist anymore. <a href="http://www.minrivertea.com">Go back to the homepage</a> or perhaps <a href="{% url page 'contact-us' %}">contact us</a> if you need some information.</p>
+		<p class="introduction">{% blocktrans %}We can't find the page you're looking for! Perhaps it was mistyped, has moved, or doesn't exist anymore. <a href="http://www.minrivertea.com">Go back to the homepage</a> or perhaps <a href="/contact-us/">contact us</a> if you need some information.{% endblocktrans %}</p>
 	</div>
 </div>
 

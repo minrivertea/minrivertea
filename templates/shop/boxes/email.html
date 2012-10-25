@@ -1,16 +1,16 @@
-{% load django_static %}
+{% load django_static i18n %}
 
 
-		<div class="info email-signup" id="email-signup">	
-			<img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
-			<h3>Want email updates?</h3>
-			<p>We send news, information and offers to your inbox about twice a month - signup below.</p>
-			<form action="{% url email_signup %}" type="post">
-				<input type="text" id="id_email" name="email" title="Your email address" value="" class="clearMeFocus"/>
-				<span>Read our <a href="/privacy/">Privacy</a> policy</span>
-				<input type="submit" value="Submit" class="submit button"/>
-			</form>
-		</div>
+<div class="info email-signup" id="email-signup">	
+	<img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
+	<h3>{% trans 'Want email updates?' %}</h3>
+	<p>{% trans 'We send news, information and offers to your inbox about twice a month - signup below.' %}</p>
+	<form action="{% url email_signup %}" type="post">
+		<input type="text" id="id_email" name="email" title="Your email address" value="" class="clearMeFocus"/>
+		<span>{% blocktrans %}Read our <a href="/privacy/">Privacy</a> policy{% endblocktrans %}</span>
+		<input type="submit" value="{% trans 'Submit' %}" class="submit button"/>
+	</form>
+</div>
 		
 		
 <script type="text/javascript">

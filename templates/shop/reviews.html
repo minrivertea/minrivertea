@@ -1,7 +1,7 @@
-{% extends "base.html" %}
-{% load thumbnail django_static %}
+{% extends base_template %}
+{% load thumbnail django_static i18n %}
 
-{% block metadescription %}Reviews and testimonials about our Chinese tea from our happy customers!{% endblock %}
+{% block metadescription %}{% trans 'Reviews and testimonials about our Chinese tea from our happy customers!' %}{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
@@ -37,7 +37,7 @@
 {% endblock %}
 
 
-{% block pagetitle %}What our customers say about the Min River Tea Farm{% endblock %}
+{% block pagetitle %}{% trans 'What customers say about minrivertea.com' %}{% endblock %}
 
 {% block content %}
 
@@ -45,7 +45,7 @@
 <div id="mtw">
   <div class="sp">
   
-  	<h1>What our customers are saying</h1>
+  	<h1>{% trans 'What our customers are saying' %}</h1>
 
 	<div id="left">
 		{% for review in reviews %}
@@ -56,15 +56,15 @@
 	   	       {% endthumbnail %}
 		      </div>
 		      <p>{{ review.short_text }}<br/>
-		          <span class="name">{{ review.first_name }} {% if review.url %}from <a title="Read the full review here" href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} talking about our  
+		          <span class="name">{{ review.first_name }} {% if review.url %}from <a title="{% trans 'Read the full review here' %}" href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} {% trans 'talking about our' %}
 		          <a href="{% url tea_view review.product.slug %}">{{ review.product }}</a></span>
 		      </p>
 		   </div>
 		{% endfor %}
 	<div class="did-you-know">
 	<a href="/teas/jasmine-pearls/"><span class="link"></span></a>
-	<h3>Looking for a birthday gift?</h3>
-	<p>Our Jasmine Pearls tea makes a great present for friends and relatives. It has a beautiful and memorable fragrance, and the distinct flavour agrees with all different tastes.</p>
+	<h3>{% trans 'Looking for a birthday gift?' %}</h3>
+	<p>{% trans 'Our Jasmine Pearls tea makes a great present for friends and relatives. It has a beautiful and memorable fragrance, and the distinct flavour agrees with all different tastes.' %}</p>
 	</div>
 	
 	</div>
@@ -75,13 +75,11 @@
 				<div class="a-user-photo">
 					<div class="photo">
 						{% thumbnail p.photo "90x90" crop="center" as im %}
-						<img title="{{ p.shopper.first_name }} drinks {{ p.related_product.name }} tea" src="{{ im.url }}">
+						<img title="{{ p.shopper.first_name }} {% trans 'drinks' %} {{ p.related_product.name }} tea" src="{{ im.url }}">
 						{% endthumbnail %}
 					</div>
 				</div>
 			{% endfor %}
-			<br clear="all"/>
-			<p>* <em>Want to see your photo here? <a href="mailto:chris@minrivertea.com">Send us a picture</a> of you drinking tea, and we'll donate £1 to <a href="http://www.mind.org.uk">Mind UK</a> for every photo we receive.</em></p>
 		</div>
 	</div>
   </div>

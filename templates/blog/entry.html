@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail django_static comments %}
+{% load thumbnail django_static comments i18n %}
 
 {% block metadescription %}{{ entry.summary|safe }}{% endblock %}
 {% block pagetitle %}{{ entry.title }}{% endblock %}
@@ -210,7 +210,7 @@ p.quote {
 	<div id="left">
     	{% get_comment_count for entry as comment_count %}
     	<h1>{{ entry.title }}</h1>
-    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="#commentsa">{{ comment_count }} comment{{ comment_count|pluralize }}</a></p>	
+    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="#commentsa">{% blocktrans with comment_count|pluralize as plural %}{{ comment_count }} comment{{ plural }}{% endblocktrans %}</a></p>	
     
     	{{ entry.content|safe }}
     			
@@ -220,7 +220,7 @@ p.quote {
     	{% get_comment_list for entry as comment_list %}
     		{% if comment_list %}
     		
-    		<h3>Comments on this post ({{ comment_count }})</h3>
+    		<h3>{% trans 'Comments on this post' %} ({{ comment_count }})</h3>
     		<br clear="all"/>
     		<div id="comments-list">
     			{% for comment in comment_list %}
@@ -228,7 +228,7 @@ p.quote {
     					<p class="top">
    							{% if comment.user_url %}<a href="{{ comment.user_url }}">{{ comment.user_name }}</a>
    							{% else %}{{ comment.user_name }}{% endif %}
-   							 said...
+   							 {% trans 'said…' %}
     						<span class="small">({{ comment.submit_date|date:"D d M Y" }})</span>
     				    </p>
     					<p>{{ comment.comment }}</p>
@@ -237,10 +237,10 @@ p.quote {
     		</div>
     		{% endif %}
     		{% if entry.comments_closed %}
-    		    <p><strong><em>Comments are closed for this entry.</em></strong></p>
+    		    <p><strong><em>{% trans 'Comments are closed for this entry.' %}</em></strong></p>
     		{% else %}
     		<div id="comment-form">
-    		<h3>Add your comment</h3>
+    		<h3>{% trans 'Add your comment' %}</h3>
     			<div id="form">
     			 {% render_comment_form for entry %}
     			</div>

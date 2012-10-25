@@ -1,10 +1,10 @@
-{% load django_static %}
+{% load django_static i18n %}
 
 <form id="paypal" method="post" action="{{ paypal_submit_url }}">
     
     	<div id="checkout-button">
 			<input type="submit" value="Confirm and pay" next="" class="button green"/>
-			<p class="checkout"><strong>Next step:</strong> <em>pay securely via PayPal, using all major credit and debit cards or your linked Paypal account.</em></p>
+			<p class="checkout"><strong>{% trans "Next step" %}:</strong> <em>{% trans "pay securely via PayPal, using all major credit and debit cards or your linked Paypal account." %}</em></p>
 			<img id="ppicon" src="{% staticfile '/images/002.gif' %}" class="paypal">
 			
 		</div>	
@@ -39,7 +39,7 @@
 		
 		{% if postage_discount %}
 		{% else %}
-		<input type="hidden" name="item_name_1" value="Postage Standard Rate"> 
+		<input type="hidden" name="item_name_1" value="{% trans 'Postage Standard Rate' %}"> 
 		<input type="hidden" name="quantity_1" value="1">
 		<input type="hidden" name="amount_1" value="{{ currency.postage_cost|floatformat:'2' }}">
 		{% endif %}

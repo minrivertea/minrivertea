@@ -1,7 +1,4 @@
-{% load django_static %}
-
-
-
+{% load i18n %}
 <div id="footer">	
 
 
@@ -28,7 +25,11 @@
 	    <h4><a href="/learn/">Learn more about Chinese tea &raquo;</a></h4>
 	    <p>Get the most out of your Chinese teas with our guides and information.</p>
 		<ul>
-		  {% include 'shop/snippets/learn_pages_list.html' %}
+    		<li><a href="/how-to-brew-chinese-tea/">{% trans 'How to brew Chinese tea'%}</a></li>
+            <li><a href="/tea-and-the-environment/">{% trans 'Tea and the environment'%}</a></li>
+            <li><a href="/about-chinese-tea/">{% trans 'Tea culture in China'%}</a></li>
+            <li><a href="/about-fujian-province/">{% trans 'Where does our tea come from?'%}</a></li>
+            <li><a href="/harvesting-tea/">{% trans 'How is Chinese tea made?'%}</a></li>
 		</ul>
 	</div>
 	

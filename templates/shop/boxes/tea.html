@@ -1,4 +1,4 @@
-{% load thumbnail %}
+{% load thumbnail i18n %}
 
 {% for tea in teas %}
 	{% thumbnail tea.image "240" crop="center" as im %}
@@ -7,7 +7,7 @@
 		<a href="{{ tea.get_absolute_url }}"><span class="link"></span></a>
 		<div class="text">
 			<h3><a href="{{ tea.get_absolute_url }}">{{ tea.name|safe }}</a>
-	from {{ tea.get_lowest_price.currency.symbol }}{{ tea.get_lowest_price.price|floatformat }} &raquo;</h3>
+	{% trans 'from' %} {{ tea.get_lowest_price.currency.symbol }}{{ tea.get_lowest_price.price|floatformat }} &raquo;</h3>
 		</div>
 	</div>
 	{% endthumbnail %}

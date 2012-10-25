@@ -1,4 +1,4 @@
-{% load django_static nav_selected %}
+{% load django_static nav_selected i18n %}
 
 <html>
 <head>
@@ -129,7 +129,7 @@ if (15.00) {
 <div id="header">
 	<div class="sp">
 	   	<div id="logo">
-	   		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/"></a>
+	   		<a title="{% trans 'Chinese tea delivered to your door - The Min River Tea Farm' %}" alt="{% trans 'the Min River Tea Farm logo - UK Chinese tea merchant '%}" href="/"></a>
 	   	</div>
 	   	
     	{% include 'shop/snippets/main_navigation.html' %}

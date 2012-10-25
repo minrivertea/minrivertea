@@ -1,6 +1,5 @@
 {% extends base_template %}
-{% load thumbnail %}
-{% load django_static %}
+{% load thumbnail django_static i18n %}
 
 {% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
 {% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
@@ -565,22 +564,22 @@ div.fb-recommend {
 		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
 		    	<span class="price-description">/{{ price.weight }}{{ price.weight_unit }}<br/>
 		    	<span>{{ price.description }}</span></span>
-				<a title="Add 1x {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}">Add to basket +</a>
+				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}">{% trans 'Add to basket' %} +</a>
               </div>
 
 		      <div id="price-helper">        
         	   {% if tea.is_in_stock %}
-           		 <strong>{{ currency.symbol }}{{ currency.postage_cost }} shipping per order, FREE over {{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong><br/>
-			     Simple pricing, fast delivery - <a href="/where-do-we-deliver/">find out more &raquo;</a>
+           		 <strong>{{ currency.symbol }}{{ currency.postage_cost }} {% trans 'shipping per order, FREE over' %} {{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong><br/>
+			     {% trans 'Simple pricing, fast delivery' %} - <a href="/where-do-we-deliver/">{% trans 'find out more' %} &raquo;</a>
         	   {% else %}
-        	     <span class="not-in-stock">Pre-order now and get this on {{ tea.get_preorder_date|date:"d M Y" }}</span>
-        	     <br/>We're restocking, so delivery will take longer than usual</a>
+        	     <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} {{ tea.get_preorder_date|date:"d M Y" }}</span>
+        	     <br/>{% trans "We're restocking, so delivery will take longer than usual" %}</a>
 			   {% endif %}
 		      </div>
 		  
 		{% else %}
     		  <div id="price-helper">        
-            	<span class="not-in-stock">This tea is not currently available for sale. Sorry!</span>
+            	<span class="not-in-stock">{% trans 'This tea is not currently available for sale. Sorry!' %}</span>
     		  </div>	
 		{% endif %}
 		
@@ -595,13 +594,13 @@ div.fb-recommend {
 	   {% if tea.extra_info %}
 	   <div class="info">
 	       {% if big_price %}
-	           <h2>Prefer to buy big?</h2>
-	           <p>If you’re fanatical about tea, save some cash and buy 500g of <strong>{{ tea.name }}</strong> with free postage + 10% saving.</p>
+	           <h2>{% trans 'Prefer to buy big?' %}</h2>
+	           <p>{% blocktrans with tea.name as name %}If you’re fanatical about tea, save some cash and buy 500g of <strong>{{ name }}</strong> with free postage + 10% saving.{% endblocktrans %}</p>
 	           <div id="price_{{ big_price.id }}" class="price big">
 	               <div class="message"></div>
 	               <span class="amount">{{ big_price.currency.symbol }}{{ big_price.price|floatformat:"-2" }}</span>
 	               <span class="price-description">/ {{ big_price.weight }}{{ big_price.weight_unit }}</span><br clear="all"/>
-	               <a href="{% url add_to_basket big_price.id %}" class="button green big" id="add_to_basket_{{ big_price.id }}">Add to basket</a>
+	               <a href="{% url add_to_basket big_price.id %}" class="button green big" id="add_to_basket_{{ big_price.id }}">{% trans 'Add to basket' %}</a>
 	           </div>
 	           
 	       {% else %}
@@ -617,12 +616,12 @@ div.fb-recommend {
     	      {% thumbnail tea.map_image "255x237" crop="center" as im %}
     	          <img src="{{ im.url }}"/>
     	      {% endthumbnail %}
-    	      <h3><a href="{{ tea.map_page.get_absolute_url }}">Our {{ tea.name }} tea is grown in {{ tea.map_location }}</a></h3>
+    	      <h3><a href="{{ tea.map_page.get_absolute_url }}">{% blocktrans with tea.map_location as map and tea.name as name %}Our {{ name }} tea is grown in {{ map }}{% endblocktrans %}</a></h3>
     	   </div>
 	   {% else %}
 		  <div class="info">
-                <h3>Worldwide shipping</h3>
-                <p>We ship anywhere in the world. Orders are shipped from our storage facility in the UK for a flat fee of {{ currency.symbol }}{{ currency.postage_cost }} regardless of how many items you order. If you order more than {{ currency.symbol }}{{ currency.postage_discount_threshold }} then it's free!</p>		  
+                <h3>{% trans 'Worldwide shipping' %}</h3>
+                <p>{% blocktrans with currency.symbol as symbol and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}We ship anywhere in the world. Orders are shipped from our storage facility in the UK for a flat fee of {{ symbol }}{{ pc }} regardless of how many items you order. If you order more than {{ symbol }}{{ pdt }} then it's free!{% endblocktrans %}</p>		  
 		  </div>
 	   {% endif %}
 		
@@ -635,7 +634,7 @@ div.fb-recommend {
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }} from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</a></h3>
+		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }} {% trans 'from' %} {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</a></h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}
@@ -644,8 +643,8 @@ div.fb-recommend {
 
         {% if review %}
     	   <div class="info long">
-    		  <h3>Our customers say…</h3>
-		      <p>&ldquo;{{ review.short_text }}&rdquo;<br/> <span class="name">{{ review.first_name }} {% if review.url %}from <a href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} - <a href="{% url reviews %}">read more reviews &raquo;</a></span><br/>
+    		  <h3>{% trans 'Our customers say…' %}</h3>
+		      <p>&ldquo;{{ review.short_text }}&rdquo;<br/> <span class="name">{{ review.first_name }} {% if review.url %}from <a href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} - <a href="{% url reviews %}">{% trans 'read more reviews' %} &raquo;</a></span><br/>
 		      </p>
 		      {% if big_price %}
 		      <br/>
@@ -663,7 +662,7 @@ div.fb-recommend {
 		      {% thumbnail t.image "360x260" crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }} from {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</a></h3>
+		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }} {% trans 'from' %} {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</a></h3>
 		  </div>
 		  {% endif %}
 		{% endfor %}

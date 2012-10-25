@@ -1,4 +1,6 @@
-<h2>You're purchasing these items for {{ order.owner.first_name }} {{ order.owner.last_name }}:</h2>
+{% load i18n %}
+
+<h2>{% blocktrans with order.owner.first_name as fn and order.owner.last_name as ln %}You're purchasing these items for {{ fn }} {{ ln }}:{% endblocktrans %}</h2>
 
 <ul>
 {% for item in order.items.all %}
@@ -7,22 +9,22 @@
 	<li>
 		<strong>
 		{% if postage_discount %}
-			There is no postage charge, because the order is over £50
+			{% blocktrans %}There is no postage charge, because the order is over £50{% endblocktrans %}
 		{% else %}
-			Postage - <span class="price">£3.00
+			{% blocktrans %}Postage - <span class="price">£3.00{% endblocktrans %}
 		{% endif %}
 		 </strong>
 	</li>
 </ul>
 
-<p style="font-size: 18px; text-transform: uppercase;"><strong>Total order amount: <span class="price">£{{ total_price|floatformat:"2" }}</span></strong></p>
+<p style="font-size: 18px; text-transform: uppercase;"><strong>{% trans "Total order amount:" %}<span class="price">£{{ total_price|floatformat:"2" }}</span></strong></p>
 
 <br/><br/>
 
 <form action="{% url wishlist_submit_email %}" method="post" id="submit_email_form">
-<h2>Next step - your email address</h2>
+<h2>{% trans "Next step - your email address" %}</h2>
 
-<p>We'd like to send you a confirmation email and have your email address<br/> on record, in case there are any problems with the order. <strong>We will never send you spam email.</strong></p>
+<p>{% blocktrans %}We'd like to send you a confirmation email and have your email address<br/> on record, in case there are any problems with the order. <strong>We will never send you spam email.</strong>{% endblocktrans %}</p>
 
 
 	<div style="float: left; width: 100%;margin-bottom: 20px;">

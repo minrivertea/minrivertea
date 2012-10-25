@@ -1,7 +1,7 @@
 {% extends base_template %}
-{% load django_static %}
+{% load django_static i18n %}
 
-{% block pagetitle %}Order (Step 1 of 3) - Your details{% endblock %}
+{% block pagetitle %}{% trans 'Order (Step 1 of 3) - Your details' %}{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
@@ -210,16 +210,16 @@ span.country {
    <div class="sp">
        <ul>
     		<li>
-    			<a class="completed" href="{% url basket %}">1. Your basket &#10003;</a>
+    			<a class="completed" href="{% url basket %}">1. {% trans 'Your basket' %} &#10003;</a>
     		</li>
     		<li>
-    			<a class="selected" href="{% url order_step_one %}">2. Your details &raquo;</a>
+    			<a class="selected" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
     		</li>
     		<li>
-    			<a href="">3. Confirm and pay &raquo;</a>
+    			<a href="">3. {% trans 'Confirm and pay ' %} &raquo;</a>
     		</li>
     		<li>
-    			<a href="">4. Get your tea!</a>
+    			<a href="">4. {% trans 'Get your tea!' %}</a>
     		</li>
     	</ul>
     </div>
@@ -232,8 +232,8 @@ span.country {
       <form method="post" action="."> 	 
 
 		{% if shopper %}
-	  		<h2>Are these your details? Please check carefully!</h2>
-			{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">not you?</a>
+	  		<h2>{% trans 'Are these your details? Please check carefully!' %}</h2>
+			{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">{% trans 'not you?' %}</a>
 		
 			{% for address in shopper.get_addresses %}
 				{% if forloop.first %}
@@ -259,55 +259,55 @@ span.country {
 		{% else %}
 
     		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
-    		<ul class="errorlist"><li>* Please enter all the information in the mandatory fields (highlighted red) below:</li></ul>
+    		<ul class="errorlist"><li>* {% trans 'Please enter all the information in the mandatory fields (highlighted red) below' %}:</li></ul>
     		{% endif %}
         <fieldset>
-            <legend>This just takes 1 minute - your name and email please!</legend>
+            <legend>{% trans 'This just takes 1 minute - your name and email please!' %}</legend>
     		<p>
-    			<label for="id_first_name"><span class="red">*</span> First name</label>
-    			<input  class="clearMeFocus {% if form.first_name.errors %}error{% endif %}" type="text" title="First name" name="first_name" id="id_first_name" value="{{ first_name }}"/>
+    			<label for="id_first_name"><span class="red">*</span> {% trans 'First name' %}</label>
+    			<input  class="clearMeFocus {% if form.first_name.errors %}error{% endif %}" type="text" title="{% trans 'First name' %}" name="first_name" id="id_first_name" value="{{ first_name }}"/>
     		</p>
     		<p>
-    			<label for="id_last_name"><span class="red">*</span> Surname</label>
-    			<input class="clearMeFocus {% if form.last_name.errors %}error{% endif %}" title="Last name" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
+    			<label for="id_last_name"><span class="red">*</span> {% trans 'Surname' %}</label>
+    			<input class="clearMeFocus {% if form.last_name.errors %}error{% endif %}" title="{% trans 'Last name' %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
     		</p>
     		<p>
-    			<label for="id_email"><span class="red">*</span> Email address</label>
-    			<input class="clearMeFocus {% if form.email.errors %}error{% endif %}" title="Email address" type="text" name="email" id="id_email" value="{{ email }}"/>
+    			<label for="id_email"><span class="red">*</span> {% trans 'Email address' %}</label>
+    			<input class="clearMeFocus {% if form.email.errors %}error{% endif %}" title="{% trans 'Email address' %}" type="text" name="email" id="id_email" value="{{ email }}"/>
     		</p>	
         </fieldset>
 
     	
     	<fieldset>
-    	   <legend>Where should we send your tea? Please provide your address here:</legend>	
+    	   <legend>{% trans 'Where should we send your tea? Please provide your address here' %}:</legend>	
 
           <p>
-          	<label for="id_house_name_number"><span class="red">*</span> House name number:</label>
-          	<input class="clearMeFocus {% if form.house_name_number.errors %}error{% endif %}" title="Your address..." id="id_house_name_number" type="text" name="house_name_number" value="{{ house_name_number }}"/>
+          	<label for="id_house_name_number"><span class="red">*</span> {% trans 'House name number' %}:</label>
+          	<input class="clearMeFocus {% if form.house_name_number.errors %}error{% endif %}" title="{% trans 'Your address...' %}" id="id_house_name_number" type="text" name="house_name_number" value="{{ house_name_number }}"/>
           </p>
 	  
     	  <p>
-    	  	<label for="id_address_line_1">Address line 1:</label>
-    	  	<input class="clearMeFocus {% if form.address_line_1.errors %}error{% endif %}" title=" ...address continued (optional)" id="id_address_line_1" type="text" name="address_line_1" value="{{ address_line_1 }}"/> 
+    	  	<label for="id_address_line_1">{% trans 'Address line 1' %}:</label>
+    	  	<input class="clearMeFocus {% if form.address_line_1.errors %}error{% endif %}" title="{% trans ' ...address continued (optional)' %}" id="id_address_line_1" type="text" name="address_line_1" value="{{ address_line_1 }}"/> 
     	  </p>
       	
           <p>
-          	<label for="id_address_line_2">Address line 2:</label>
-          	<input class="clearMeFocus {% if form.address_line_2.errors %}error{% endif %}" title=" ...address continued (optional)" id="id_address_line_2" type="text" name="address_line_2"  value="{{ address_line_2 }}"/>
+          	<label for="id_address_line_2">{% trans 'Address line 2' %}:</label>
+          	<input class="clearMeFocus {% if form.address_line_2.errors %}error{% endif %}" title="{% trans ' ...address continued (optional)' %}" id="id_address_line_2" type="text" name="address_line_2"  value="{{ address_line_2 }}"/>
           	</p>
       
           <p>
-          	<label for="id_town_city">Town / City:</label>
-          	<input class="clearMeFocus {% if form.town_city.errors %}error{% endif %}" title="Town or city" id="id_town_city" type="text" name="town_city" value="{{ town_city }}"/> 
+          	<label for="id_town_city">{% trans 'Town / City' %}:</label>
+          	<input class="clearMeFocus {% if form.town_city.errors %}error{% endif %}" title="{% trans 'Town or city' %}" id="id_town_city" type="text" name="town_city" value="{{ town_city }}"/> 
           </p>
       	
           <p>
-          	<label for="id_postcode"><span class="red">*</span> Postcode:</label>
-          	<input class="clearMeFocus {% if form.postcode.errors %}error{% endif %}" title="Post/ZIP code" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
+          	<label for="id_postcode"><span class="red">*</span> {% trans 'Postcode' %}:</label>
+          	<input class="clearMeFocus {% if form.postcode.errors %}error{% endif %}" title="{% trans 'Postcode' %}" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
           	</p>
       	
     	  <p>
-    	    <label for="id_country"><span class="red">*</span> Country:</label>
+    	    <label for="id_country"><span class="red">*</span> {% trans 'Country' %}:</label>
     	    <span class="country">
     	    {{ form.country }}
     	    </span>
@@ -317,7 +317,7 @@ span.country {
 	{% endif %}
 
 	<div id="checkout-button">
-		<input type="submit" value="Confirm your details &raquo;" next="" class="button green"/>
+		<input type="submit" value="{% trans 'Confirm your details' %} &raquo;" next="" class="button green"/>
 	</div>
 		
 	</form>

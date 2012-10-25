@@ -1,9 +1,9 @@
-{% load django_static %}
+{% load django_static i18n %}
 
 	<div class="info tea" style="background-image: url('{% staticfile '/images/samplers.jpg' %}'); height: 114px;">
 		<a href="/tasters/"><span class="link"></span></a>
 		<div class="text">
-			<h3><a href="/tasters/">Try a taster pack &raquo;</a></h3>
-			<p>Taster packs are perfect for discovering your favourite brew. 3 teas per pack.</p>
+			<h3><a href="/tasters/">{% trans 'Try a taster pack' %} &raquo;</a></h3>
+			<p>{% trans "Taster packs are perfect for discovering your favourite brew. 3 teas per pack." %}</p>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static %}
+{% load django_static i18n %}
 
 {% block extracss %}
 <style type="text/css">
@@ -149,9 +149,9 @@ img#loading-contact {
 </style>
 {% endblock %}
 
-{% block metadescription %}Contact the Min River Tea Farm - how you can get in touch with us.{% endblock %}
+{% block metadescription %}{% trans 'Contact the Min River Tea Farm - how you can get in touch with us.' %}{% endblock %}
 
-{% block pagetitle%}Contact us{% endblock %}
+{% block pagetitle%}{% trans 'Contact us' %}{% endblock %}
 
 
 
@@ -167,11 +167,11 @@ img#loading-contact {
 			<img src="{% staticfile '/images/chris.jpg' %}" style="float:left;margin-right: 30px;">
 		
 			<div class="white">
-				<p class="nihao"><strong>Nǐ hǎo (that's <em>hello</em> in China!)</strong></p>
-				<p>I'm Chris, the owner of the Min River Tea Farm. If you have questions about tea or about us, I will do everything I can to help you out. The best way to get in touch is to drop me an email - you'll always get a quick response.</p>
+				<p class="nihao"><strong>Nǐ hǎo {% blocktrans %}(that's <em>hello</em> in China!){% endblocktrans %}</strong></p>
+				<p>{% trans "I'm Chris, the owner of the Min River Tea Farm. If you have questions about tea or about us, I will do everything I can to help you out. The best way to get in touch is to drop me an email - you'll always get a quick response." %}</p>
 			
 				<ul>
-					<li><strong>Email:</strong> <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> </li>
+					<li><strong>{% trans 'Email' %}:</strong> <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> </li>
 				</ul>
 				
 	 		</div>
@@ -180,16 +180,16 @@ img#loading-contact {
         <div id="right">
             {% include 'shop/boxes/follow.html' %}
 		 	<div class="info"> 		
-			 	<h3>Returns</h3>
-			 	<p>If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked.</p>
+			 	<h3>{% trans 'Returns' %}</h3>
+			 	<p>{% trans "If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked." %}</p>
 			</div>
 			<div class="info">
-				<h3>Personal shopping</h3>
-				<p>We're based here in China, so if you have specific tea needs that can't be fulfilled anywhere else, just get in touch.</p>
+				<h3>{% trans "Personal shopping" %}</h3>
+				<p>{% trans "We're based here in China, so if you have specific tea needs that can't be fulfilled anywhere else, just get in touch." %}</p>
 			</div>
 			<div class="info">		 	
-			 	<h3>Wholesale/trade</h3>
-			 	<p>Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch.</p>
+			 	<h3>{% trans "Wholesale/trade" %}</h3>
+			 	<p>{% trans "Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch." %}</p>
 			</div>        
         </div>
 		
@@ -201,18 +201,18 @@ img#loading-contact {
 	
 				<img id="loading-contact" src="{% staticfile '/images/loading.gif' %}"/>
 				<form action="{% url contact_form_submit %}" method="post" id="contact-form">
-					<h2>Send us a message</h2>
-					<p>Use our online contact form to send us a message. We respond to all messages within 12 hours.</p>			
+					<h2>{% trans "Send us a message</h2>
+					<p>{% trans "Use our online contact form to send us a message. We respond to all messages within 12 hours." %}</p>			
 					
-					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus{% if form.your_name.errors %} error{% endif %}" title="Your name" value=""/>
-					<input type="text" name="your_email" id="id_your_email" class="clearMeFocus{% if form.your_email.errors %} error{% endif %}" title="Your email address" value=""/>
-					<textarea id="id_your_message" name="your_message" title="Write your message here..." class="clearMeFocus{% if form.your_message.errors %} error{% endif %}" cols="40" rows="10"></textarea>
-					<p class="help-text {% if form.captcha.errors %} red{% endif %}">Sorry, please fill in the captcha - it stops spam.</p>
+					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus{% if form.your_name.errors %} error{% endif %}" title="{% trans 'Your name' %}" value=""/>
+					<input type="text" name="your_email" id="id_your_email" class="clearMeFocus{% if form.your_email.errors %} error{% endif %}" title="{% trans 'Your email address' %}" value=""/>
+					<textarea id="id_your_message" name="your_message" title="{% trans 'Write your message here...' %}" class="clearMeFocus{% if form.your_message.errors %} error{% endif %}" cols="40" rows="10"></textarea>
+					<p class="help-text {% if form.captcha.errors %} red{% endif %}">{% trans "Sorry, please fill in the captcha - it stops spam." %}</p>
 					{{ form.captcha }}
 					<input class="button" value="Submit" type="submit"/>
 					<p class="help-text">
 						<img src="{% staticfile '/images/lock.gif' %}"> 
-						We will never share, sell or spam your email address (<a target="_blank" title="Read our privacy policy (opens in a new window)" href="/privacy/">Privacy</a>)
+						{% trans "We will never share, sell or spam your email address" %} (<a target="_blank" title="{% trans 'Read our privacy policy (opens in a new window)' %}" href="/privacy/">{% trans 'Privacy' %}</a>)
 					</p>			
 				</form>
 				{% endif %}

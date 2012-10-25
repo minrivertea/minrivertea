@@ -1,6 +1,5 @@
-{% extends "base.html" %}
-{% load django_static %}
-{% load thumbnail %}
+{% extends base_template %}
+{% load django_static thumbnail i18n %}
 
 {% block extracss %}
 <style type="text/css">
@@ -44,9 +43,9 @@ div.rss p {
 </style>
 {% endblock %}
 
-{% block metadescription %}Write a review for {{ tea }} tea{% endblock %}
+{% block metadescription %}{% blocktrans with tea as t %}Write a review for {{ t }} tea{% endblocktrans %}{% endblock %}
 
-{% block pagetitle%}Write a review{% endblock %}
+{% block pagetitle%}{% trans 'Write a review' %}{% endblock %}
 
 
 
@@ -56,8 +55,8 @@ div.rss p {
 <div id="mtw">
   <div class="sp">
   
-  <h1>Write a review for {{ tea }} tea</h1>
-  	<p class="introduction">Thanks for taking the time to write a review. Quality is extremely important to us, so feel free to write down any thoughts, positive or negative, about your tea.</p>
+  <h1>{% blocktrans with tea as t %}Write a review for {{ t }} tea{% endblocktrans %}</h1>
+  	<p class="introduction">{% trans "Thanks for taking the time to write a review. Quality is extremely important to us, so feel free to write down any thoughts, positive or negative, about your tea." %}</p>
       <div class="rss">
     	<div id="facebook">
 		    <div id="fb-root"></div>
@@ -65,27 +64,27 @@ div.rss p {
 		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 		    </fb:like>
 		</div>
-		<p>&laquo; If you liked your tea, please tell your friends about it!</p>
+		<p>&laquo; {% trans 'If you liked your tea, please tell your friends about it!' %}</p>
 	</div>		
 		
 	  <div id="basket">
 	  	<form action="." method="post">
 	  		<div id="checkout-button">
-			<p>* <em>we may publish this review on our website - by submitting your review, you give us permission to do so.</em></p>
+			<p>* <em>{% trans "we may publish this review on our website - by submitting your review, you give us permission to do so." %}</em></p>
 			<input class="button" value="Submit your review &raquo;" type="submit">
 			</div>
 		<div class="row">
 		
 			<div class="row-box">
-			<textarea id="id_text" rows="10" cols="40" name="text" class="clearMeFocus" title="Write your review here…"></textarea>
+			<textarea id="id_text" rows="10" cols="40" name="text" class="clearMeFocus" title="{% trans 'Write your review here…' %}"></textarea>
 			</div>
 			
 			<div class="row-box">
-			<input type="text" name="first_name" id="id_first_name" class="clearMeFocus" title="First name" />
+			<input type="text" name="first_name" id="id_first_name" class="clearMeFocus" title="{% trans 'First name' %}" />
 			
-			<input type="text" name="last_name" id="id_last_name" class="clearMeFocus" title="Last name" />
+			<input type="text" name="last_name" id="id_last_name" class="clearMeFocus" title="{% trans 'Last name' %}" />
 			 
-			<input type="text" name="email" id="id_email" class="clearMeFocus" title="Your email address" />
+			<input type="text" name="email" id="id_email" class="clearMeFocus" title="{% trans 'Your email address' %}" />
 			</div>
 			
 
@@ -100,7 +99,7 @@ div.rss p {
 		
 		{% if other_reviews %}
 		<div class="other-reviews">
-			<h3>What have other people said about our  {{ tea }}?</h3>
+			<h3>{% blocktrans %}What have other people said about our  {{ tea }}?{% endblocktrans %}</h3>
 			{% for review in other_reviews %}
 				<div class="review">
 					<p><em>"{{ review.short_text }}"</em> <span class="red">{{ review.first_name }} {{ review.last_name }}</span></p>

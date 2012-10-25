@@ -1,5 +1,5 @@
-{% load django_static %}
+{% load django_static i18n %}
 
-<h2 style="text-decoration:underline;color:#19761C;">Awesome! You're ready to give {{ order.owner.first_name }} a great tea gift &raquo;</h2>
+<h2 style="text-decoration:underline;color:#19761C;">{% blocktrans with order.owner.first_name as fn %}Awesome! You're ready to give {{ fn }} a great tea gift{% endblocktrans %} &raquo;</h2>
 
 {% include "shop/snippets/paypal_form.html" %}
