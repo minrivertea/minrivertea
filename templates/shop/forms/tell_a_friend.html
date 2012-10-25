@@ -52,7 +52,7 @@ div.text .button {
 
 {% block metadescription %}{% trans 'Tell your friends about www.minrivertea.com on facebook, twitter or by email and share the love about great Chinese teas.' %}{% endblock %}
 
-{% block pagetitle%}{% trans 'Tell a friend' %}{% endblock %}
+{% block pagetitle %}{% trans 'Tell a friend' %}{% endblock %}
 
 
 
@@ -64,7 +64,7 @@ div.text .button {
 		{% if message %}
 				<h1 class="message">{{ message }}</h1>
 		{% else %}
-		<h1>Spread the word</h1>
+		<h1>{% trans 'Spread the word' %}</h1>
 		<p class="introduction">{% trans "We're a young business, and we need your help! If you like our teas and you think a friend might like them too, then please tell them about it - here's how:" %}</p>
 		{% endif %}
     			
@@ -83,7 +83,7 @@ div.text .button {
 				<h3 style="width:180px;">{% trans 'Like us on Facebook' %}</h3>
 			</div>
 			<div class="text">
-			<p>{% trans "You've put faith in us by ordering and enjoying our teas, so if you 'Like' us on Facebook, it helps your friends and relatives get introduced to Chinese tea through a company that <strong>you</strong> trust." %}</p>
+			<p>{% blocktrans %}You've put faith in us by ordering and enjoying our teas, so if you 'Like' us on Facebook, it helps your friends and relatives get introduced to Chinese tea through a company that <strong>you</strong> trust.{% endblocktrans %}</p>
 			</div>
 		</div>
 		
@@ -103,7 +103,7 @@ div.text .button {
 			</div>
 			<div class="text">
 				<h3 style="float:none;">{% trans "Give us a +1" %}</h3>
-				<p>{% trans "Google now customises search results for you and your social group, so if you like one of our teas or our website, <strong>click the +1 button wherever you see it!</strong>" %}</p>
+				<p>{% blocktrans %}Google now customises search results for you and your social group, so if you like one of our teas or our website, <strong>click the +1 button wherever you see it!</strong>{% endblocktrans %}</p>
 			</div>
 		</div>
 		
@@ -120,7 +120,7 @@ div.text .button {
 			{% else %}
 			<input type="text" name="sender" id="id_sender" title="{% trans 'Your email address' %}" class="clearMeFocus"/> <br/>
 			{% endif %}
-			<input type="text" name="recipient" id="id_recipient" title="{% trans 'Your friend's email' %}" class="clearMeFocus" />
+			<input type="text" name="recipient" id="id_recipient" title="{% trans "Your friend's email" %}" class="clearMeFocus" />
 			<p class="help"><img src="{% staticfile '/images/lock.gif' %}">{% trans "We will never share, sell or spam these email addresses" %} (<a target="_blank" title="{% trans 'Read our privacy policy (opens in a new window)' %}" href="/privacy/">{% trans 'Privacy' %}</a>)</p>	
     		<input type="submit" value="{% trans 'Submit' %}" class="button">
     		    {{ form.sender.errors }}
