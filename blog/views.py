@@ -1,4 +1,5 @@
 from minriver.blog.models import BlogEntry
+from minriver.shop.models import Product
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
@@ -25,32 +26,16 @@ def index(request):
         entries = paginator.page(p)
     except (EmptyPage, InvalidPage):
         entries = paginator.page(paginator.num_pages)
-                            
+    
+    teas = Product.objects.filter(is_active=True).order_by('?')[:2]
+                       
     return render(request, "blog/home.html", locals())
     
-    
-def more(request):
-    entries = BlogEntry.objects.filter(is_draft=False, is_gallery=False).order_by('-date_added')  
-    return render(request, "blog/more.html", locals())
-    
-def even_more(request):
-    entries = BlogEntry.objects.all().filter(is_draft=False, is_gallery=False).order_by('-date_added')
-    cool_shit = CoolShit.objects.all().order_by('-date_added')
-    latest = []         
-    for entry in entries:
-        latest.append(dict(
-                           date=entry.date_added,
-                           type=entry.get_type(),
-                           summary=entry.summary,
-                           slug=entry.slug,
-                           title=unicode(entry.title))
-                           ) 
-    latest_things = sorted(latest, reverse=True, key=lambda k: k['date']) 
-    return render(request, "blog/even_more.html", locals())
     
 @csrf_protect   
 def blog_entry(request, slug):
     entry = get_object_or_404(BlogEntry, slug=slug)
     other_entries = BlogEntry.objects.exclude(id=entry.id).order_by('?')[:2]
+    teas = Product.objects.filter(is_active=True).order_by('?')[:2]
     return render(request, "blog/entry.html", locals())
   

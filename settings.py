@@ -56,12 +56,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
-    'minriver.shop.context_processors.get_basket',
-    'minriver.shop.context_processors.get_basket_quantity',
     'minriver.shop.context_processors.get_shopper',
     'minriver.shop.context_processors.common',
-    'minriver.shop.context_processors.get_latest_blogs',
-    'minriver.shop.context_processors.get_teas',
     'django_mobile.context_processors.flavour',
 )
 
@@ -72,8 +68,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'ab.middleware.ABMiddleware',
-    'utils.china.ChinaMiddleware',
+#    'ab.middleware.ABMiddleware',
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
@@ -108,7 +103,7 @@ INSTALLED_APPS = (
     'paypal.standard.ipn',
     'django_static',
     'registration',
-    'ab',
+#    'ab',
     'django_mobile',
     'south',
     'my_admin',
@@ -165,8 +160,6 @@ LANGUAGE_COOKIE_NAME = 'django_language'
 # MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"
 
 
-
-
 # paypal info
 PAYPAL_IDENTITY_TOKEN = ''
 PAYPAL_RECEIVER_EMAIL = ''
@@ -174,18 +167,6 @@ PAYPAL_RETURN_URL = ''
 PAYPAL_NOTIFY_URL = ''
 PAYPAL_BUSINESS_NAME = ''
 PAYPAL_SUBMIT_URL = 'https://www.paypal.com/cgi-bin/webscr'
-
-#INTERNAL_IPS = ('127.0.0.1')
-#DEBUG_TOOLBAR_PANELS = (
-#    'debug_toolbar.panels.version.VersionDebugPanel',
-#    'debug_toolbar.panels.timer.TimerDebugPanel',
-#    'debug_toolbar.panels.headers.HeaderDebugPanel',
-#    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-#    'debug_toolbar.panels.sql.SQLDebugPanel',
-#    'debug_toolbar.panels.cache.CacheDebugPanel',
-#    'debug_toolbar.panels.logger.LoggingPanel',
-#)
-
 
 
 LOG_FILENAME = ""

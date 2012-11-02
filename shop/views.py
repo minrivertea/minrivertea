@@ -46,7 +46,7 @@ class BasketDoesNotExist(Exception):
 
 #render shortcut
 def render(request, template, context_dict=None, **kwargs):
-    if request.session['region'] == 'china':
+    if request.session['region'] == 'CN':
         
         new_template = "china/%s" % template
         new_template_full = os.path.join(settings.PROJECT_PATH, "templates/", new_template)
@@ -157,7 +157,6 @@ def _get_currency(request, code=None):
 
 def GetCountry(request):
     # this is coming from http://ipinfodb.com JSON api
-    # the variables
     apikey = settings.IPINFO_APIKEY 
     ip = request.META.get('REMOTE_ADDR')
     baseurl = "http://api.ipinfodb.com/v3/ip-country/?key=%s&ip=%s&format=json" % (apikey, ip)
@@ -267,6 +266,7 @@ def page(request, slug, x=None, y=None, z=None):
     template = "shop/page.html"
     if page.template:
         template = page.template
+    teas = Product.objects.filter(is_active=True).order_by('?')[:2]
     return render(request, template, locals())
    
 # the product listing page

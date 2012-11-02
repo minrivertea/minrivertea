@@ -12,65 +12,57 @@ def common(request):
     context['paypal_business_name'] = settings.PAYPAL_BUSINESS_NAME
     context['paypal_receiver_email'] = settings.PAYPAL_RECEIVER_EMAIL
     context['paypal_submit_url'] = settings.PAYPAL_SUBMIT_URL
-    context['ga_is_on'] = settings.GA_IS_ON    
+    context['ga_is_on'] = settings.GA_IS_ON
+    context['latestblogs'] = BlogEntry.objects.filter(is_draft=False).order_by('-date_added')[:3]
     
+        
+    # REGIONAL STUFF
     try:
-        context['currency'] = Currency.objects.get(code=request.session['CURRENCY'])
+        region = request.session['region']
     except:
-        context['currency'] = Currency.objects.get(code='GBP')
-    
-    
-    context['region'] = 'global' 
+        region = GetCountry(request)['countryCode']
+        # http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+        request.session['region'] = region
 
     base_template = settings.BASE_TEMPLATE
-    
+    currencycode = 'GBP'
     if '/admin-stuff/' in request.path:
         base_template = settings.BASE_TEMPLATE_ADMIN
     else:
-        try:
-            region = request.session['region']
-            if region == 'china':
-                base_template = settings.BASE_TEMPLATE_CHINA
-                context['currency'] = Currency.objects.get(code='RMB') 
-                context['region'] = 'China'       
-        except:
-            pass
+        if region == 'CN':
+            base_template = settings.BASE_TEMPLATE_CHINA
+            currencycode = 'RMB'
+             
+        if region == 'US':
+            currencycode = 'USD'
+                    
+        currency = Currency.objects.get(code=currencycode)
+
         
-    context['base_template'] = base_template        
-    return context
-
-
-def get_teas(request):
-    teas = Product.objects.filter(is_active=True).order_by('?')[:2]
-    return {'teas': teas}
-
-def get_latest_blogs(request):
-    blogs = BlogEntry.objects.filter(is_draft=False).order_by('-date_added')[:3]
-    return {'latestblogs': blogs}
-
-def get_basket(request):
+    context['region'] = region
+    context['base_template'] = base_template
+    context['currency'] = currency  
+    
+    
+    # BASKET STUFF
     try:
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
-        basket_items = BasketItem.objects.filter(basket=basket)
     except:
-        basket_items = None
-    return {'basket_items': basket_items}
+        basket = None
     
-    
-def get_basket_quantity(request):
-    try:
-        basket = Basket.objects.get(id=request.session['BASKET_ID'])
+    basket_quantity = 0
+    basket_amount = 0
+    if basket:
         basket_items = BasketItem.objects.filter(basket=basket)
-        basket_quantity = 0
-        basket_amount = 0
         for item in basket_items:
             basket_quantity += item.quantity
             basket_amount += item.get_price()
-    except:
-        basket_quantity = "0"
-        basket_amount = 0
     
-    return {'basket_quantity': basket_quantity, 'basket_amount': basket_amount}
+    context['basket_quantity'] = basket_quantity
+    context['basket_amount'] = basket_amount    
+              
+    return context
+    
     
 def get_shopper(request):
     # find out if the user is logged in
