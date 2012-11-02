@@ -46,12 +46,15 @@ class BasketDoesNotExist(Exception):
 
 #render shortcut
 def render(request, template, context_dict=None, **kwargs):
-    if request.session['region'] == 'CN':
-        
-        new_template = "china/%s" % template
-        new_template_full = os.path.join(settings.PROJECT_PATH, "templates/", new_template)
-        if os.path.exists(new_template_full):
-            template = new_template
+    try:
+        if request.session['region'] == 'CN':
+            
+            new_template = "china/%s" % template
+            new_template_full = os.path.join(settings.PROJECT_PATH, "templates/", new_template)
+            if os.path.exists(new_template_full):
+                template = new_template
+    except:
+        pass
         
     return render_to_response(
         template, context_dict or {}, context_instance=RequestContext(request),
@@ -230,7 +233,7 @@ def _get_products(request, cat=None):
 def index(request):
     
     try:
-        if request.session['region'] == 'china':
+        if request.session['region'] == 'CN':
             teas = Product.objects.filter(category__parent_category__slug='teas', is_featured=True)
             cups = Product.objects.filter(category__slug='teaware')[:3]
             reviews = Review.objects.filter(is_published=True).order_by('?')[:3]
