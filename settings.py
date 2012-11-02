@@ -67,8 +67,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', 
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'ab.middleware.ABMiddleware',
@@ -150,7 +151,7 @@ CAPTCHA_LETTER_ROTATION = None
 
 # LANGUAGE SETTINGS
 LANGUAGE_CODE = 'en'
-USE_I18N = False
+USE_I18N = True
 gettext = lambda s: s
 LANGUAGE_CODE = 'en'
 LANGUAGES = (
@@ -158,8 +159,9 @@ LANGUAGES = (
     ('de', gettext('German')),
 )
 LOCALE_PATHS = (
-    os.path.join(PROJECT_PATH, "locale")
+    os.path.join(PROJECT_PATH, "locale"),
 )
+LANGUAGE_COOKIE_NAME = 'django_language'
 # MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"
 
 

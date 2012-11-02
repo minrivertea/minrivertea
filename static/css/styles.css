@@ -242,13 +242,6 @@ input.button:hover {
   opacity: 0.8;	
 }
 
-
-#logo:hover span.birthday {
-  display: block;	
-}
-
-
-
 #logo a {
   display: block;
   position: absolute;
@@ -260,7 +253,24 @@ input.button:hover {
   display: none;	
 }
 
+#language {
+  float: right;
+  width: auto;
+  padding: 2px 10px 5px 10px;   
+  background: #f1f1f1;
+  border-radius: 0 0 4px 4px;
+  color: #c1c1c1;
+}
 
+#language a {
+  font-size: 11px;
+  font-family: Helvetica, Arial, sans-serif;   
+}
+
+#language a.selected {
+  font-weight: bold;
+  color: #333;   
+}
 
 #currency {
     color: #999999;

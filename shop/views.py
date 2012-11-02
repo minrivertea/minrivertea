@@ -84,6 +84,26 @@ def _get_basket(request):
     
     return basket
 
+
+def changelang(request, code):
+    from django.utils.translation import check_for_language, activate, to_locale, get_language
+    next = request.REQUEST.get('next', None)
+    if not next:
+        next = request.META.get('HTTP_REFERER', None)
+    if not next:
+        next = '/'
+    response = HttpResponseRedirect(next)
+    lang_code = code
+        
+    if lang_code and check_for_language(lang_code):
+        if hasattr(request, 'session'):
+            request.session[settings.LANGUAGE_COOKIE_NAME] = lang_code
+        else:
+            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
+    return response
+
+
+
 def twitter_post(tweet):   
     if not twitter or not hasattr(settings, 'TWITTER_USER') or \
         not hasattr(settings, 'TWITTER_PASS'):

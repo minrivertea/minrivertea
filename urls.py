@@ -4,7 +4,7 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, category, review_tea, tea_view, make_product_feed
+from shop.views import page, category, review_tea, tea_view, make_product_feed, changelang
 from blog.models import BlogEntry
 from minriver.blog.feeds import LatestEntries
 
@@ -55,6 +55,7 @@ urlpatterns = patterns('',
     (r'^noteaheroics/$', direct_to_template, {'template': 'no_heroics.html'}),
     (r'^noteanazis/$', direct_to_template, {'template': 'no_tea_nazis.html'}),
     
+    url(r'^changelang/(?P<code>[\w-]+)/$', changelang, name="changelang"),
     (r'^400/$', direct_to_template, {'template': '404.html'}),  
     (r'^comments/', include('django.contrib.comments.urls')), 
     
