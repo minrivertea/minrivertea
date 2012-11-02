@@ -1,13 +1,7 @@
 {% load django_static nav_selected %}
 
 
-{% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-{% endblock %}
-
+<html>
 <head>
 
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -32,8 +26,8 @@
 
 	<link rel="stylesheet" href="{% staticfile '/css/styles.css' %}" />
 	<style type="text/css">
-	    #header {padding-top: 20px;}
-	    #logo {background: url("{% staticfile '/images/china_logo.jpg' %}") no-repeat scroll top left transparent;}
+	    #header {padding-top: 0px;}
+	    #logo {background: url("{% staticfile '/images/china_logo.jpg' %}") no-repeat scroll top left transparent; height: 85px; width: 480px;}
 	    #location-switcher {width: 100%; font-size: 12px; float: left; text-align: left; position: relative; top: 40px;}
 	</style>
 	    
