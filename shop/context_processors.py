@@ -2,6 +2,8 @@ from django.conf import settings
 from minriver.shop.models import *
 from minriver.blog.models import BlogEntry
 from minriver.shop.views import GetCountry, CURRENCY_CHOICES
+from django.utils import translation
+
 
 
 def common(request):
@@ -23,27 +25,38 @@ def common(request):
         region = GetCountry(request)['countryCode']
         # http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
         request.session['region'] = region
+    context['region'] = region
 
+
+    # CHANGE THE BASE TEMPLATE FOR CHINA
     base_template = settings.BASE_TEMPLATE
-    currencycode = 'GBP'
     if '/admin-stuff/' in request.path:
         base_template = settings.BASE_TEMPLATE_ADMIN
     else:
         if region == 'CN':
             base_template = settings.BASE_TEMPLATE_CHINA
+    context['base_template'] = base_template
+
+    
+    # CURRENCIES
+    currencycode = 'GBP'    
+    try:
+        if request.session['CURRENCY']:
+            currencycode = request.session['CURRENCY']
+    except:
+        if region == 'CN':
             currencycode = 'RMB'
-             
+                
         if region == 'US':
             currencycode = 'USD'
-                    
-        currency = Currency.objects.get(code=currencycode)
-
         
-    context['region'] = region
-    context['base_template'] = base_template
-    context['currency'] = currency  
-    
-    
+        if region == 'DE':
+            currencycode = 'EUR'
+            
+    currency = Currency.objects.get(code=currencycode)
+    context['currency'] = currency 
+
+
     # BASKET STUFF
     try:
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
