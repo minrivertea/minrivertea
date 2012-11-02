@@ -132,6 +132,10 @@ if (15.00) {
 	   		<a title="{% trans 'Chinese tea delivered to your door - The Min River Tea Farm' %}" alt="{% trans 'the Min River Tea Farm logo - UK Chinese tea merchant '%}" href="/"></a>
 	   	</div>
 	   	
+	   	<div id="userbasket">
+		  {{ basket_quantity }} item{{ basket_quantity|pluralize }} / {{ currency.symbol }}{{ basket_amount }} - <a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">checkout now &raquo;</a>
+		</div>
+	   	
 	   	{% if request.user.is_superuser %}
    		<div id="language">
 			{% get_current_language as LANGUAGE_CODE %}
@@ -139,9 +143,11 @@ if (15.00) {
 			<a href="{% url changelang 'en' %}" class="{% if LANGUAGE_CODE == 'en' %}selected{% endif %}">{% trans 'English' %}</a>
 		</div>	
 		{% endif %}
-	   	
+	
+    	{% include 'shop/snippets/currency.html' %}
+
     	{% include 'shop/snippets/main_navigation.html' %}
-    	{% block currency %}{% endblock %}
+
 	{% block banner %}{% endblock %}
 	</div>
 </div>
@@ -188,6 +194,13 @@ if (15.00) {
 				}
 			});
 		
+		 $('#currency').hover(function() {
+		    $(this).animate({top: '0px',}, 150);
+		 }, function() {
+		    $(this).animate({top: '-40px',}, 100);
+		 });
+		 
+		 
 		 bindEmailSignupHandler();
 			
 		});

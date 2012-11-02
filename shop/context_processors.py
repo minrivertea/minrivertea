@@ -12,8 +12,7 @@ def common(request):
     context['paypal_business_name'] = settings.PAYPAL_BUSINESS_NAME
     context['paypal_receiver_email'] = settings.PAYPAL_RECEIVER_EMAIL
     context['paypal_submit_url'] = settings.PAYPAL_SUBMIT_URL
-    context['ga_is_on'] = settings.GA_IS_ON
-    
+    context['ga_is_on'] = settings.GA_IS_ON    
     
     try:
         context['currency'] = Currency.objects.get(code=request.session['CURRENCY'])
@@ -63,12 +62,15 @@ def get_basket_quantity(request):
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
         basket_items = BasketItem.objects.filter(basket=basket)
         basket_quantity = 0
+        basket_amount = 0
         for item in basket_items:
             basket_quantity += item.quantity
+            basket_amount += item.get_price()
     except:
         basket_quantity = "0"
+        basket_amount = 0
     
-    return {'basket_quantity': basket_quantity}
+    return {'basket_quantity': basket_quantity, 'basket_amount': basket_amount}
     
 def get_shopper(request):
     # find out if the user is logged in

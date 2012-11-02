@@ -20,10 +20,5 @@
     <li>
       <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about/' %}{% endif %} about" href="/about/" title="{% trans 'About Min River Tea' %}" alt="{% trans 'About Min River Tea' %}">{% trans 'About us' %}</a>
     </li>
-    <li>
-      <a class="grey {% nav_selected request '^/(basket|order)/' %}" href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">
-      {% trans 'Your basket' %} <span id="basket-number">{% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</span>
-      </a>
-    </li>
   </ul>
 </div>
