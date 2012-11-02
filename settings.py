@@ -130,10 +130,7 @@ SERVER_EMAIL = 'chris@minrivertea.com'
 SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
 SEND_BROKEN_LINK_EMAILS = False
 
-
-CHINA_SUBDOMAIN = 'china'
-CHINA_REGION_CODE = 'CN'
-USA_REGION_CODE = 'US'
+# REGIONAL TEMPLATES
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'
 BASE_TEMPLATE_ADMIN = 'base_admin.html'
