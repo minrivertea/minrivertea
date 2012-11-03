@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'captcha',
     'rosetta',
     'modeltranslation',
+    'modeltranslation_wrapper',
 #    'debug_toolbar',
 )
 
