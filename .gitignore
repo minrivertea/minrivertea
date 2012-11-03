@@ -15,7 +15,7 @@ TODOLIST
 sorl/
 *.DS_Store
 static/js/jquery.tools.min.js
-
+modeltranslation/
 
 
 

@@ -114,4 +114,7 @@ urlpatterns += patterns('',
     (r'^js/(?P<path>.*)$', django.views.static.serve,
         {'document_root': settings.MEDIA_ROOT + '/js',
         'show_indexes': settings.DEBUG}),
+    (r'^modeltranslation/(?P<path>.*)$', django.views.static.serve,
+        {'document_root': settings.MEDIA_ROOT + '/modeltranslation',
+        'show_indexes': settings.DEBUG}),
 )

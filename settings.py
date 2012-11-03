@@ -110,6 +110,7 @@ INSTALLED_APPS = (
     'my_comments',
     'captcha',
     'rosetta',
+    'modeltranslation',
 #    'debug_toolbar',
 )
 
@@ -154,7 +155,7 @@ LOCALE_PATHS = (
     os.path.join(PROJECT_PATH, "locale"),
 )
 LANGUAGE_COOKIE_NAME = 'django_language'
-# MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"
+MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"
 
 
 # paypal info
