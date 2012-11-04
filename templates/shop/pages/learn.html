@@ -1,0 +1,343 @@
+{% extends base_template %}
+{% load django_static thumbnail %}
+
+{% block metadescription %}{{ page.meta_description }}{% endblock %}
+
+{% block pagetitle %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
+
+{% block canonical %}<link rel="canonical" href="http://www.minrivertea.com{{ page.get_absolute_url }}" />{% endblock %}
+
+{% block extrajs %}
+<script>
+$(function() {
+$(".scroll").scrollable({ circular: true }).click(function() {
+	$(this).data("scrollable").next();		
+});
+});
+
+$(function() { 
+	$('.hoverbox').hover(
+		function() {
+			$('div', this).animate({top: '100px',}, 200);
+		},
+		function() {
+			$('div', this).animate({top: '145px',}, 200);
+		}
+	);	  
+});
+</script>
+
+{% endblock %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+<style type="text/css">
+
+#mtw {
+  margin-top: 40px;   
+}
+
+h1 {
+  margin: 0px 0 20px;	
+}
+
+h2 {
+  font-size: 25px;
+}
+
+.box {
+  float: left;
+  margin: 0 0 30px 0;
+  background: #E1ECF3;
+  padding: 10px;
+  position: relative;
+}
+
+.box.white {
+  background: #fff;   
+}
+
+.box.small {
+  width: 28%;   
+}
+
+.box.large {
+  width: 65%;
+  margin-right: 2%;   
+}
+
+.box.full {
+  width: 98%;   
+}
+
+.box.full.trans {
+  width: 100%;   
+}
+
+.box.trans {
+  background: none;  
+  padding: 0; 
+}
+
+.box.triple div {
+  height: 240px;
+  width: 280px;
+  background: #fff;
+  margin: 0 20px 0 0; 
+  float: left; 
+  border: 10px solid #fff;
+  position: relative; 
+}
+
+.box.triple div h4 {
+  position: absolute;
+  bottom: 0px;
+  background: #fff;
+  margin: 0;
+  padding: 10px 5px 0;
+  width: 270px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #237A2A;
+}
+
+.box.triple div:hover h4 {
+  color: #FF6569;   
+}
+
+.box.triple div:hover img {
+  opacity: 0.8;   
+}
+
+.box .head {
+    float: left;
+    padding: 5px 0 10px 5px;
+    position: relative;
+    width: 98%;
+}
+
+.box.white .head {
+  padding: 10px 0 0px 5px;  
+  text-align: right; 
+}
+
+.box .head a.more {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  font-size: 16px;   
+}
+
+.box .content {
+  float: left;
+  width: 96%;
+  padding: 2% 2% 1%; 
+  background: #fff;  
+  position: relative;
+}
+
+.box .head:before {
+    border-color: #E1ECF3 transparent -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 15px 15px 0;
+    bottom: -15px;
+    content: " ";
+    display: block;
+    height: 0;
+    left: 8%;
+    position: absolute;
+    width: 0;
+    z-index: 2;
+}
+
+.box.white .head:before {
+    border-color: -moz-use-text-color transparent #fff;
+    border-style: none solid solid;
+    border-width: 0 15px 15px;
+    top: -15px;
+    content: " ";
+    display: block;
+    height: 0;
+    left: 90%;
+    position: absolute;
+    width: 0;
+    z-index: 2;
+}
+
+.box .content ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;   
+}
+
+.box .content ul li {
+  width: 100%;
+  float: left;
+  margin: 0; 
+  border-bottom: 1px dotted #e1e1e1;
+  padding: 10px 0; 
+}
+
+.box .content ul li:last-child {
+  border-bottom: none;
+}
+
+.box .content.twocol ul li {
+  width: 45%;
+  float: left;
+  margin: 0 40px 0 0;
+  border-bottom: none;
+}
+
+#mtw .box h3 {
+  margin: 0;
+  color: #FF6569;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#mtw .box.trans h3 {
+  padding: 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.box .content a {
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;   
+}
+
+.box .content img {
+  float: left;
+  margin: 0 15px 0 0;   
+}
+
+#mtw .box p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4em;
+}
+
+#mtw .box p.hasimage {
+  float: left;
+  width: 460px;   
+}
+
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+{% include 'shop/snippets/page_sub_nav.html' %}
+
+
+
+<div id="mtw">
+  <div class="sp">
+  	
+        <div class="box large">
+          <div class="head">
+            <h3>Latest blog entries</h3>
+            <a class="more" href="{% url blog_home %}">See all blog entries &raquo;</a>
+          </div>
+          <div class="content">
+            <ul>
+                {% for x in latestblogs %}
+                <li>
+                  {% if x.promo_image %}
+                    {% thumbnail x.promo_image "120" crop="center" as im %}
+                        <img src="{{ im.url }}" />
+                    {% endthumbnail %}
+                  {% endif %}
+                  <p {% if x.promo_image %}class="hasimage"{% endif %}>
+                    <a href="{{ x.get_absolute_url }}">{{ x.title }} &raquo;</a><br/>
+                    {{ x.summary }}
+                  </p>
+
+                </li>
+                {% endfor %}
+            </ul>
+          
+          </div>
+        </div>
+        <!-- END BOX -->
+        
+        <div class="box small trans">
+           <h3>&laquo; Learn about Chinese tea!</h3>
+           <p><em>Appreciate your fine Chinese tea more with our guides to <a href="/how-to-brew-chinese-tea/">brewing</a> and tasting your tea, as well as information about the <a href="/about-chinese-tea/">growing, history and culture of tea</a> drinking in China.</em></p>
+           <p>
+                <br/>
+                <strong>Brew Your Tea:</strong>
+                <br/>
+                <a href="http://www.minrivertea.com/how-to-brew-iron-buddha-tea/">Iron Buddha</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-jin-jun-mei/">Jin Jun Mei</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-da-hong-pao/">The Big Red</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-jasmine-pearls-tea/">Jasmine Pearls</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-old-iron-tea/">Old Iron</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-silver-needle/">Silver Needle</a> |
+                <a href="http://www.minrivertea.com/how-to-brew-lapsang-souchong/">Lapsang Souchong</a>
+           </p>
+        
+        </div>
+        
+        <div class="box trans full triple">
+         <div>
+            <a href="/blog/how-iron-buddha-tea-is-made-photos/"><span class="link"></span></a>
+            <img src="{% staticfile '/images/learn/home1.jpg' %}" />
+            <h4>Find out how Iron Buddha tea is made.</h4>
+         </div>
+         <div>
+            <a href="/blog/step-by-step-to-making-jasmine-tea/"><span class="link"></span></a>
+            <img src="{% staticfile '/images/learn/home2.jpg' %}" />
+            <h4>The secrets of Jasmine tea revealed</h4>
+         </div>
+         <div>
+            <a href=""><span class="link"></span></a>
+            <img src="{% staticfile '/images/learn/home3.jpg' %}" />
+            <h4>Tea and the environment.</h4>
+         </div>
+        </div>
+        
+        <div class="box white">
+            <a href="/about-fujian-province/"><span class="link"></span></a>
+            <img src="{% staticfile '/images/maps/full-map-wide.jpg' %}" />
+            <div class="head">
+                <h3>Where are our teas grown?</h3>
+            </div>
+        </div>
+        
+        <div class="box full">
+          <div class="head">
+            <h3>Popular articles</h3>
+          </div>
+          <div class="content twocol">
+            <ul>
+                <li>
+                    <p>
+                        <a href="/varieties-of-chinese-tea/">Varieties of Chinese tea</a><br/>
+                        There are thousands of varieties of Chinese tea - learn the basics
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <a href="/what-are-green-teas/">What is green tea?</a><br/>
+                        A quick introduction to the ubiquitous 'green tea'
+                    </p>
+                </li>
+            </ul>
+          
+          </div>
+        </div>
+        <!-- END BOX -->
+	
+
+		
+  </div>
+</div>
+
+
+{% endblock %}
