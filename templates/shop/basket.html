@@ -325,7 +325,7 @@ input#id_discount_code {
 	{% if postage_discount %}
 	  <div class="basket-row postage">
 		<div class="tea-name strikethrough"><em>{% trans 'Postage' %} <span class="small">({% trans 'Standard' %})</span></em></div>
-		<div class="tea-weight"><span class="small"><em>{% blocktrans %}* Your order is over {{ currency.symbol }}{{ currency.postage_discount_threshold }}, so there's no postage charge!{% endblocktrans %}</em></span></div>
+		<div class="tea-weight"><span class="small"><em>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}* Your order is over {{ symbol }}{{ pdt }}, so there's no postage charge!{% endblocktrans %}</em></span></div>
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total strikethrough">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>
 	  </div>

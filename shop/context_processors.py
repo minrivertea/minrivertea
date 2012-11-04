@@ -53,8 +53,7 @@ def common(request):
         if region == 'DE':
             currencycode = 'EUR'
             
-    currency = Currency.objects.get(code=currencycode)
-    context['currency'] = currency 
+    context['currency'] = Currency.objects.get(code=currencycode) 
 
 
     # BASKET STUFF
