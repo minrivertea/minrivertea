@@ -6,6 +6,7 @@ class ProductTranslationOptions(TranslationOptions):
         'name', 
         'long_name',
         'slug', 
+        'description',
         'meta_title', 
         'meta_description', 
         'super_short_description', 
