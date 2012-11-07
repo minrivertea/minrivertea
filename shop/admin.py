@@ -38,7 +38,7 @@ class EmailInstanceAdmin(admin.ModelAdmin):
     list_display = ('subject_line', 'date_sent')
 
 class UniqueProductAdmin(admin.ModelAdmin):
-    list_display = ('parent_product', 'available_stock', 'weight', 'price', 'is_sale_price', 'is_active', 'currency')
+    list_display = ('parent_product', 'weight', 'price', 'is_sale_price', 'is_active', 'currency')
     list_filter = ('is_active', 'currency')
     
 
