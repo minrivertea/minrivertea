@@ -112,6 +112,7 @@ INSTALLED_APPS = (
     'rosetta',
     'modeltranslation',
     'modeltranslation_wrapper',
+    'logistics',
 #    'debug_toolbar',
 )
 

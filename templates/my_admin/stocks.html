@@ -1,8 +1,8 @@
 {% extends base_template %}
-{% load thumbnail %}
 
 {% block extracss %}
   <style type="text/css">
+  p.filter {font-size: 13px;}
   </style>
 {% endblock %}
 
@@ -11,19 +11,36 @@
 {% block content %}
 
 
+<h3>Stocks ({{ stocks.count }} items listed)</h3>
 
-            <h3>Stocks</h3>
-<ul id="stocks">
+<p class="filter"><strong>FILTER BY:</strong> 
+Location
+Status
+Product
+Sold / Giveaway / Destroyed / Lost
+
+<br/>
+<a href="{% url stocks %}">Clear All</a></p>
+
+<table id="stocks">
+    <thead>
+        <td>Product</td>
+        <td>Weight</td>
+        <td>Price</td>
+        <td>Batch</td>
+        <td>Created</td>
+        <td>ID</td>
+    </thead>
 {% for i in stocks %}
-	<li class="{% if i.available_stock < 3 %}red{% endif %}">
-	   {% thumbnail i.parent_product.image "120x120" crop="center" as im %}
-	   <img src="{{ im.url }}"/>
-	   {% endthumbnail %}
-	   <p><strong>{{ i.available_stock }}</strong> x <a href="{% url admin_product i.parent_product.id %}">{{ i }}</a></p>
-	</li>
+    <tr>
+	   <td><a href="?product={{ i.unique_product.parent_product.name }}">{{ i.unique_product.parent_product.name }}</a></td>
+	   <td><a href="?weight={{ i.unique_product.weight }}">{{ i.unique_product.weight }}{{ i.unique_product.weight_unit }}</a></td>
+	   <td>{{ i.unique_product.currency.symbol }}{{ i.unique_product.price }}</td>
+	   <td>{{ i.batch }}</td>
+       <td>{{ i.created|date:"d M Y" }}</td>
+	   <td>{{ i.hashkey }}</td>
+	</tr>
 {% endfor %}
-</ul>
-
-<p>{{ total_weight_sold }}g of tea sold so far</p>
+</table>
 
 {% endblock %}

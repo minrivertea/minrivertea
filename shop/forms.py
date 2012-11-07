@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from captcha.fields import CaptchaField
 
-from minriver.shop.models import Address, Order, Discount, Shopper, Product, Notify, BasketItem
+from minriver.shop.models import Address, Order, Discount, Shopper, Product, Notify, BasketItem, Currency
 from minriver.countries import all_countries, COUNTRY_CHOICES
 
  
@@ -93,7 +93,8 @@ class WishlistSubmitEmailForm(forms.Form):
     order = forms.CharField()    
     
 class PostageCostForm(forms.Form):
-    cost = forms.DecimalField(required=True) 
+    cost = forms.DecimalField(required=True)
+    currency = forms.ChoiceField(required=True, choices=Currency.objects.all())
     order = forms.CharField(required=True)
     
     

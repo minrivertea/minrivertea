@@ -15,6 +15,7 @@ from minriver import settings
 from minriver.countries import COUNTRY_CHOICES
 
 
+
 POUND = 'gbp'
 DOLLAR = 'usd'
 EURO = 'euro'
@@ -150,11 +151,12 @@ class Product(models.Model):
         if not self.is_active:
             return False
         
-        ups = UniqueProduct.objects.filter(parent_product=self, is_active=True, currency__code='GBP')[0]
-        if ups.available_stock < 1:
-            return False
+        from logistics.models import WarehouseItem
+        stocks = WarehouseItem.objects.filter(unique_product__parent_product=self, sold=None)
+        if len(stocks) > 0:
+            return True
         
-        return True
+        return False
     
     def save(self, force_insert=False, force_update=False):
          super(Product, self).save(force_insert, force_update)
@@ -192,11 +194,10 @@ class UniqueProduct(models.Model):
     weight = models.IntegerField(null=True, blank=True)
     weight_unit = models.CharField(help_text="Weight units", max_length=3, null=True, blank=True)
     price = models.DecimalField(help_text="Price", max_digits=8, decimal_places=2, null=True, blank=True)
-    price_unit = models.CharField(help_text="Currency", max_length=3, null=True, blank=True)
     currency = models.ForeignKey(Currency)
     parent_product = models.ForeignKey(Product)
     description = models.TextField()
-    available_stock = models.IntegerField(null=True, blank=True)
+    available_stock = models.IntegerField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_sale_price = models.BooleanField(default=False)
     old_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
@@ -322,6 +323,7 @@ class Order(models.Model):
     wishlist_payee = models.CharField(max_length=200, blank=True, null=True)
     notes = models.TextField(null=True, blank=True)
     postage_cost = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    postage_currency = models.ForeignKey(Currency, null=True, blank=True)
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
     STATUS_PAID = 'paid'
@@ -529,18 +531,10 @@ def show_me_the_money(sender, **kwargs):
     order.is_paid = True
     order.save()
     
-    # here we'll adjust the quantities of the stock:
-    try:
-        for item in order.items.all():
-            uniqueproduct = get_object_or_404(UniqueProduct, 
-                parent_product=item.item.parent_product,
-                currency__code='GBP',
-                is_active=True)
-            uniqueproduct.available_stock -= item.quantity
-            uniqueproduct.save()
     
-    except:
-        pass
+    from logistics.views import _create_customer_package
+    _create_customer_package(order)
+
     
     
     # if it was a WISHLIST payment...

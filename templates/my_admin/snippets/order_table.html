@@ -8,6 +8,7 @@
          			<td>Items</td>
          			<td>Value</td>
          			<td>Status</td>
+         			<td>Postage</td>
          			</tr>
          		</thead>
             	{% for order in orders %}
@@ -65,12 +66,18 @@
             				{% if not order.postage_cost %}
             					<form id="postage_{{ order.id }}" action="{% url postage_cost_update order.id %}" method="post">
             						<label>What was the postage cost?</label><input type="text" name="cost" id="id_cost"/>
+                                    <select name="currency" id="id_currency">
+                                        <option>GBP</option>
+                                        <option>USD</option>
+                                        <option>EUR</option>
+                                        <option>RMB</option>
+                                    </select>
             						<input type="hidden" name="order" id="id_order" value="{{ order.id }}"/>
             						<input type="submit" value="Save" class="button"/>
             					</form>
             				{% endif %}
             				{% if order.postage_cost %}
-            				{{ order.postage_cost }}
+            				{{ order.postage_cost }} {{ order.postage_currency.code }}
             				{% endif %}
             			</td>
             		</tr>

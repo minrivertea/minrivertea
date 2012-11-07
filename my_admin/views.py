@@ -29,6 +29,7 @@ from shop.models import *
 from shop.forms import *
 from slugify import smart_slugify
 from shop.emails import _admin_notify_new_review, _admin_notify_contact, _get_subscriber_list
+from logistics.models import WarehouseItem, CustomerPackage
 
 
 
@@ -41,8 +42,7 @@ def admin_stuff(request):
     subscriber_count = len(subscribers)
         
     # make the nice lists for paid/unpaid orders
-    orders = Order.objects.filter(
-        is_giveaway=False, postage_cost=None).exclude(status=Order.STATUS_CREATED_NOT_PAID).order_by('-date_paid')
+    packages = CustomerPackage.objects.filter(posted=None)
         
     return render(request, "my_admin/home.html", locals())
 
@@ -68,14 +68,10 @@ def admin_shopper(request, id):
 
 @login_required
 def stocks(request):
-    stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
-    orders = Order.objects.filter(status=Order.STATUS_SHIPPED)
     
-    total_weight_sold = 0
-    for x in orders:
-        for i in x.items.all():
-            if i.item.weight:
-                total_weight_sold += i.item.weight
+
+    
+    stocks = WarehouseItem.objects.filter().order_by('-created')
     
     return render(request, 'my_admin/stocks.html', locals())
 

@@ -22,9 +22,13 @@
 
     <div class="section">
 
-        {% if orders %}
-            <h2>Unshipped orders ({{ orders.count }})</h2>
-            {% include 'my_admin/snippets/order_table.html' %}
+        {% if packages %}
+            <h2>Unshipped orders ({{ packages.count }})</h2>
+            <ul>
+            {% for x in packages %}
+                <li>{{ x }}</li>
+            {% endfor %}
+            </ul>
       	{% else %}
            	<p><strong>No unfulfilled orders</strong> - well done my minions!</p>
       	{% endif %}
