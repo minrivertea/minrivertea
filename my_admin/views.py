@@ -37,7 +37,7 @@ from logistics.models import WarehouseItem, CustomerPackage
 # view for my private admin pages
 @login_required
 def index(request):
-    packages = CustomerPackage.objects.filter(postage_cost=None)        
+    packages = CustomerPackage.objects.filter(postage_cost=None).order_by('-created')        
     return render(request, "my_admin/home.html", locals())
 
 
