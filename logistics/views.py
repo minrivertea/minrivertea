@@ -84,3 +84,15 @@ def add_stocks(request):
             return HttpResponseRedirect(url)
     
     return HttpResponse()
+
+def mark_stock_as_arrived(request, id):
+    up = UniqueProduct.objects.get(pk=id)
+    stock_in_transit = WarehouseItem.objects.filter(unique_product=up, available=None, sold=None)
+    for x in stock_in_transit:
+        x.available = datetime.datetime.now()
+        x.save()
+    
+    url = request.META.get('HTTP_REFERER')
+    return HttpResponseRedirect(url)
+    
+    

@@ -170,7 +170,7 @@ a.accept {
                 {% if u.transit.count > 0 %}
                     <li>
                         <span class="transit">{{ u.transit.count }} {% if u.weight %}x {{ u.weight }}{{ u.weight_unit }}{% endif %}</span>
-                        <a class="accept" href="">&#10003; Arrived?</a>
+                        <a class="accept" href="{% url mark_stock_as_arrived u.id %}">&#10003; Arrived?</a>
                 
                     </li>
                 {% endif %}
