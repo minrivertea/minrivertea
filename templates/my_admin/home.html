@@ -1,7 +1,31 @@
 {% extends base_template %}
-{% load thumbnail %}
+{% load django_static %}
 
 {% block pagetitle %}Admin Home{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+$(document).ready( function() {
+    $('.trans form').bind('submit', function() {
+       
+       var id = $(this).attr('id');
+       $('form#'+id).replaceWith('<img id="'+id+'" src="{% staticfile "/images/loading.gif" %}" />');
+       
+       $.ajax({
+           url: $(this).attr('action'),
+           data: $(this).serialize(),
+           type: 'POST',
+           dataType: 'html',
+           success: function(data) {
+                $('#'+id).replaceWith(data)
+           },
+       }); 
+       return false;
+    });
+});
+
+</script>
+{% endblock %}
 
 {% block extracss %}
 <style type="text/css">

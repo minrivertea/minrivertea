@@ -1,5 +1,7 @@
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
+
 
 import datetime
 
@@ -45,8 +47,12 @@ def update_package(request, id):
             package.posted = datetime.datetime.now()
             package.save()
             
+            if request.is_ajax():
+                html = '%s%s' % (package.currency.symbol, package.postage_cost)
+                return HttpResponse(html)
+            
             url = request.META.get('HTTP_REFERER')
             return HttpResponseRedirect(url)
     
     
-    return
+    return HttpResponseRedirect(reverse('admin_home'))
