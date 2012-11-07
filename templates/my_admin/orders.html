@@ -1,5 +1,4 @@
 {% extends base_template %}
-{% load thumbnail %}
 
 {% block extracss %}
   <style type="text/css">
@@ -10,7 +9,7 @@
 
 {% block content %}
 
-<h2>Orders ({{ orders.count }})</h2>
+<h2>Orders ({{ packages.count }})</h2>
          	
          	 <div id="filters">
                 <a href="/admin-stuff/orders/?w=4">This Month</a> / 
@@ -20,7 +19,23 @@
                 <a href="/admin-stuff/orders/?w=1096">Forever</a>
             </div>
          	
-         	{% include 'my_admin/snippets/order_table.html' %}
+            <table id="orders-table">
+         		<thead>
+         			<tr>
+         			<td>Order ID</td>
+         			<td>Owner</td>
+         			<td>Items</td>
+         			<td>Value</td>
+         			<td>Status</td>
+         			<td>Postage</td>
+         			</tr>
+         		</thead>
+            	{% for x in packages %}
+            	   {% with x.order as order %}
+            	   {% include 'my_admin/snippets/table_row.html' %}
+            	   {% endwith %}
+            	{% endfor %}
+            </table>
          	
          	
 {% endblock %}

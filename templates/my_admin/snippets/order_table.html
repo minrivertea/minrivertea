@@ -11,75 +11,9 @@
          			<td>Postage</td>
          			</tr>
          		</thead>
-            	{% for order in orders %}
-            		<tr id="{{ order.id }}" class="{% cycle '' 'white' %} {% ifequal order.status 'paid' %}new{% endifequal %}">
-            			<td class="id" valign="top">
-            				<a href="{% url admin_order order.id %}">{{ order }}</a><br/>
-            				<span style="font-weight: normal">{{ order.date_paid|date:"d M y" }}</span>
-            				{% if order.wishlist_payee %}
-            				<br/><br/>
-            				<span style="text-transform: uppercase;font-size: 10px; color: red;">WISHLIST PAID BY:</span><br/>
-            				<span style="font-weight:normal;color:red; font-size: 10px;">{{ order.wishlist_payee }}</span>
-            				{% endif %}
-            			</td>
-            			<td class="owner" valign="top">
-            				<a href="{% url admin_shopper order.owner.id %}">{{ order.owner }}</a><br/>
-            				{% with order.address as address %}
-            				{% include 'shop/snippets/address.html' %}
-            				{% endwith %}
-            			</td>
-            			<td class="items" valign="top">
-            				<ul>
-            				{% for item in order.get_items %}
-            					<li><a href="{% url admin_product item.item.parent_product.id %}">{{ item }}</a></li>
-            				{% endfor %}
-            				</ul>
-            			</td>
-            			<td class="value" valign="top">
-             				{{ order.get_amount }} {{ order.get_currency.code }}
-            			</td>
-            			<td class="status" valign="top">
-            				<strong>{{ order.status }}</strong><br/>
-            				{% if order.status == 'shipped' %}
-            				  {% if order.review_email_sent %}
-            				     review email sent
-            				  {% else %}
-            				    {% if order.ready_to_send_review %}
-               				     <a href="{% url send_review_email order.id %}">Send review email</a>
-               				    {% endif %}
-            				  {% endif %}
-            				{% endif %}
-            				<br/>
-            				{% if order.sampler_email_sent %}
-            					{% if order.sampler_sent %}
-            					sampler sent
-            					{% else %}
-            					sampler email sent
-            					{% endif %}
-            				{% else %}
-            				  {% if order.ready_to_send_sampler_email %}
-            					<a href="{% url send_sampler_email order.id %}">Send sampler email</a>
-            				  {% endif %}
-            				{% endif %}
-            			</td>
-            			<td class="trans" width="180px">
-            				{% if not order.postage_cost %}
-            					<form id="postage_{{ order.id }}" action="{% url postage_cost_update order.id %}" method="post">
-            						<label>What was the postage cost?</label><input type="text" name="cost" id="id_cost"/>
-                                    <select name="currency" id="id_currency">
-                                        <option>GBP</option>
-                                        <option>USD</option>
-                                        <option>EUR</option>
-                                        <option>RMB</option>
-                                    </select>
-            						<input type="hidden" name="order" id="id_order" value="{{ order.id }}"/>
-            						<input type="submit" value="Save" class="button"/>
-            					</form>
-            				{% endif %}
-            				{% if order.postage_cost %}
-            				{{ order.postage_cost }} {{ order.postage_currency.code }}
-            				{% endif %}
-            			</td>
-            		</tr>
+            	{% for x in orders %}
+            	   {% with x.order as order %}
+            	   {% include 'my_admin/snippets/table_row.html' %}
+            	   {% endwith %}
             	{% endfor %}
             	</table>

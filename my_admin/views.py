@@ -36,15 +36,12 @@ from logistics.models import WarehouseItem, CustomerPackage
 
 # view for my private admin pages
 @login_required
-def admin_stuff(request):
-    
-    subscribers = _get_subscriber_list()
-    subscriber_count = len(subscribers)
-        
-    # make the nice lists for paid/unpaid orders
-    packages = CustomerPackage.objects.filter(posted=None)
-        
+def index(request):
+    packages = CustomerPackage.objects.filter(postage_cost=None)        
     return render(request, "my_admin/home.html", locals())
+
+
+
 
 @login_required
 def orders(request, **kwargs):
@@ -54,7 +51,8 @@ def orders(request, **kwargs):
         start_date = (datetime.now() - timedelta(weeks=int(request.GET['w'])))
     
     end_date = datetime.now()     
-    orders = Order.objects.filter(date_paid__range=(start_date, end_date), **kwargs).order_by('-date_shipped')
+    packages = CustomerPackage.objects.filter(created__range=(start_date, end_date), **kwargs).order_by('-posted')        
+
     return render(request, 'my_admin/orders.html', locals())
 
 #specific shopper view in admin-stuff

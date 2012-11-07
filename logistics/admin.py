@@ -8,7 +8,8 @@ class WarehouseItemAdmin(admin.ModelAdmin):
 
 class CustomerPackageAdmin(admin.ModelAdmin):
     list_filter = ('posted',)
-    list_display = ('order', 'posted', 'postage_cost')    
+    list_display = ('order', 'posted', 'postage_cost')
+    ordering = ('-order',)    
 
 
 admin.site.register(WarehouseItem, WarehouseItemAdmin)    
