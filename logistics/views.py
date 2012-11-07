@@ -4,10 +4,11 @@ from django.core.urlresolvers import reverse
 
 
 import datetime
+import uuid
 
 from logistics.models import CustomerPackage, WarehouseItem
-from logistics.forms import UpdateCustomerPackageForm
-from shop.models import Currency
+from logistics.forms import UpdateCustomerPackageForm, AddStocksForm
+from shop.models import Currency, UniqueProduct
 
 
 
@@ -55,3 +56,31 @@ def update_package(request, id):
     
     
     return HttpResponseRedirect(reverse('admin_home'))
+
+
+def add_stocks(request):
+    if request.method == 'POST':
+        form = AddStocksForm(request.POST)
+        if form.is_valid():
+            print "got here"
+            quantity = form.cleaned_data['quantity']
+            up = form.cleaned_data['unique_product']
+            batch = form.cleaned_data['batch']
+            
+            
+            while quantity > 0:
+                new_item = WarehouseItem.objects.create(
+                    unique_product = UniqueProduct.objects.get(id=up),
+                    hashkey=uuid.uuid1().hex,
+                    batch=batch, 
+                    created=datetime.datetime.now(),
+                    location=WarehouseItem.CHINA,
+                )
+                
+                new_item.save()
+                quantity -= 1
+            
+            url = request.META.get('HTTP_REFERER')
+            return HttpResponseRedirect(url)
+    
+    return HttpResponse()

@@ -1,8 +1,151 @@
 {% extends base_template %}
+{% load thumbnail %}
+
+{% block extrajs %}
+<script type="text/javascript">
+$(document).ready( function() {
+    $('a.add').click( function(e) {
+       if ($(this).text() == '+') {
+            $(this).text('x');
+       } else {
+            $(this).text('+');
+       }
+       var id = $(this).attr('id');
+       $('li#'+id+' .stock-list').toggle();
+       $('li#'+id+' .add-form').toggle();
+       
+       if ($('li#'+id).hasClass('selected')) {
+           $('li#'+id).removeClass('selected');
+       } else {
+           $('li#'+id).addClass('selected');
+       }
+       e.preventDefault();
+    });
+});
+</script>
+{% endblock %}
 
 {% block extracss %}
   <style type="text/css">
   p.filter {font-size: 13px;}
+  ul#stocks {
+    list-style-type: none;
+    margin: 30px 0 0; 
+    padding: 0;
+  }
+  
+  ul#stocks li {
+    width: 400px;
+    height: 120px;
+    background: #fff;
+    padding: 10px;
+    float:left;
+    margin: 0px 30px 20px 0;
+    position: relative;
+  }
+  
+  ul#stocks li.selected {
+    background: #DBF2DA; 
+  }
+  
+  ul#stocks li img {
+    float: left;
+    margin: 0 10px 0 0; 
+  }
+  
+  ul#stocks li h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold; 
+    float: left;
+    width: 270px;
+  }
+
+  ul#stocks li ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  ul#stocks li ul li {
+    font-size: 13px;
+    float: left;
+    width: 220px;
+    padding: 0;
+    margin: 0;
+    height: auto;
+  }
+  
+  ul#stocks li ul li span {
+    color: #fff;
+    background: green; 
+    width: auto;
+    padding: 5px 8px;
+    line-height: 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  ul#stocks li ul li {
+
+  }
+  
+  ul#stocks li ul li span.low {
+    background: red; 
+  }
+  
+  ul#stocks li ul li span.transit {
+    background: orange; 
+  }
+  
+  a.add {
+    position: absolute;
+    bottom: 0px;
+    right: 0px; 
+    float: left;
+    font-weight: bold;
+    padding: 0px 5px;
+    background: #f1f1f1;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  
+  ul#stocks .add-form {
+    display: none;
+    float: left; 
+  }
+  
+  ul#stocks li .add-form h3 {
+    width: 100%;
+  }
+  
+    .add-form .submit {
+        bottom: 0;
+        position: absolute;
+        right: 33px;
+        width: 122px;
+    }
+  
+  .add-form p {
+    width: 130px;
+    float: left;
+    margin: 0;
+    line-height: 1.2em; 
+  }
+  
+  .add-form input {
+    width: 100px;
+  }
+  
+a.accept {
+    background: none repeat scroll 0 0 #F1F1F1;
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    padding: 5px;
+}
+  
+  
+  
   </style>
 {% endblock %}
 
@@ -13,34 +156,48 @@
 
 <h3>Stocks ({{ stocks.count }} items listed)</h3>
 
-<p class="filter"><strong>FILTER BY:</strong> 
-Location
-Status
-Product
-Sold / Giveaway / Destroyed / Lost
+<ul id="stocks">
+    {% for x in products %}
+        <li id="{{ x.slug }}">
+            <div class="stock-list">
+            {% thumbnail x.image "120x120" crop="center" as im %}
+            <img src="{{ im.url }}" />
+            {% endthumbnail %}
+            <h3>{{ x.name }}</h3>   
+            <ul>
+            {% for u in x.get_ups %}
+                <li><span class="{% if u.available.count < 3 %}low {% endif %}">{{ u.available.count }} {% if u.weight %}x {{ u.weight }}{{ u.weight_unit }}{% endif %}</span></li>
+                {% if u.transit.count > 0 %}
+                    <li>
+                        <span class="transit">{{ u.transit.count }} {% if u.weight %}x {{ u.weight }}{{ u.weight_unit }}{% endif %}</span>
+                        <a class="accept" href="">&#10003; Arrived?</a>
+                
+                    </li>
+                {% endif %}
 
-<br/>
-<a href="{% url stocks %}">Clear All</a></p>
-
-<table id="stocks">
-    <thead>
-        <td>Product</td>
-        <td>Weight</td>
-        <td>Price</td>
-        <td>Batch</td>
-        <td>Created</td>
-        <td>ID</td>
-    </thead>
-{% for i in stocks %}
-    <tr>
-	   <td><a href="?product={{ i.unique_product.parent_product.name }}">{{ i.unique_product.parent_product.name }}</a></td>
-	   <td><a href="?weight={{ i.unique_product.weight }}">{{ i.unique_product.weight }}{{ i.unique_product.weight_unit }}</a></td>
-	   <td>{{ i.unique_product.currency.symbol }}{{ i.unique_product.price }}</td>
-	   <td>{{ i.batch }}</td>
-       <td>{{ i.created|date:"d M Y" }}</td>
-	   <td>{{ i.hashkey }}</td>
-	</tr>
-{% endfor %}
-</table>
+            {% endfor %} 
+            </ul> 
+            </div>
+            
+            <div class="add-form">
+                <form method="post" action="{% url add_stocks %}">
+                    <h3>Add stocks</h3>
+                    <p><label for="quantity">How many items?</label><br/><input type="text" id="id_quantity" name="quantity" class="clearMeFocus" title="How many items?" /></p>
+                    <p><label for="batch">Batch Ref:</label><input type="text" name="batch" id="id_batch"/></p>
+                    <p>
+                        <label for="">Which product</label>
+                        <select id="id_unique_product" name="unique_product">
+                        {% for u in x.get_ups %}
+                            <option value="{{ u.id }}">{{ u }}</option>
+                        {% endfor %}
+                        </select>
+                     </p>
+                    <input type="submit" class="submit button" value="Add stocks" />
+                </form>
+            </div>
+            <a href="" id="{{ x.slug }}" class="add">+</a>         
+        </li>
+    {% endfor %}
+</ul>
 
 {% endblock %}

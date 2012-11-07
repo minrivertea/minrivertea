@@ -66,11 +66,18 @@ def admin_shopper(request, id):
 
 @login_required
 def stocks(request):
-    
-
-    
-    stocks = WarehouseItem.objects.filter().order_by('-created')
-    
+       
+    products = Product.objects.filter(is_active=True).order_by('category')
+    for x in products:
+        
+        x.get_ups = UniqueProduct.objects.filter(parent_product=x, currency__code='GBP', is_active=True)
+        
+        # how many of each UP are available/in-transit?
+        
+        for u in x.get_ups: # now we have all the unique products for this product...
+            u.available = WarehouseItem.objects.filter(sold=None, unique_product=u).exclude(available=None)
+            u.transit = WarehouseItem.objects.filter(sold=None, unique_product=u, available=None)
+        
     return render(request, 'my_admin/stocks.html', locals())
 
 
