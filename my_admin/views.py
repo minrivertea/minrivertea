@@ -42,8 +42,7 @@ def admin_stuff(request):
         
     # make the nice lists for paid/unpaid orders
     orders = Order.objects.filter(
-        is_giveaway=False,
-        status=Order.STATUS_PAID).exclude(status=Order.STATUS_CREATED_NOT_PAID).order_by('-date_paid')
+        is_giveaway=False, postage_cost=None).exclude(status=Order.STATUS_CREATED_NOT_PAID).order_by('-date_paid')
         
     return render(request, "my_admin/home.html", locals())
 
@@ -104,19 +103,6 @@ def admin_order(request, id):
     order = get_object_or_404(Order, pk=id)
     return render(request, 'my_admin/order.html', locals())
 
-
-@login_required
-def ship_it(request, id):
-    if not request.user.is_superuser:
-        return HttpResponseRedirect("/")
-    
-    order = get_object_or_404(Order, pk=id)    
-    order.status = Order.STATUS_SHIPPED
-    order.date_shipped = datetime.now()
-    order.save()
-    
-    return HttpResponseRedirect('/admin-stuff')
-
 # form for updating the postage cost of an order
 @login_required
 def postage_cost_update(request, id):
@@ -127,7 +113,9 @@ def postage_cost_update(request, id):
         form = PostageCostForm(request.POST)
         if form.is_valid():
             order.postage_cost = form.cleaned_data['cost']
+            order.status = Order.STATUS_SHIPPED
             order.save()
-            return HttpResponseRedirect(reverse('admin_orders'))
+            url = request.META.get('HTTP_REFERER')
+            return HttpResponseRedirect(url)
     return HttpResponseRedirect('/admin-stuff')
     

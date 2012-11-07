@@ -8,7 +8,6 @@ urlpatterns = patterns('',
     
     # custom admin URLs
     url(r'^$', views.admin_stuff, name="admin_stuff"),
-    url(r'^ship-it/(\w+)$', views.ship_it, name="ship_it"),
     url(r'^postage-cost/(\w+)$', views.postage_cost_update, name="postage_cost_update"),
     url(r'^shopper/(\w+)$', views.admin_shopper, name="admin_shopper"),
     url(r'^stocks/$', views.stocks, name="stocks"),

@@ -21,7 +21,7 @@ from django.utils import simplejson
 
 from PIL import Image
 from cStringIO import StringIO
-import os, md5
+import os
 import datetime
 from datetime import timedelta
 import uuid
@@ -143,12 +143,14 @@ def _get_currency(request, code=None):
     if not code:
         try:
             region = request.session['region']
-            if region == 'china':
+            if region == 'CN':
                 code = 'RMB'
-                request.session['CURRENCY'] = code
-            if region == 'usa':
+            if region == 'US':
                 code = 'USD'
-                request.session['CURRENCY'] = code
+            if region == 'DE':
+                code = 'EUR'
+            
+            request.session['CURRENCY'] = code
         except:
             pass
     

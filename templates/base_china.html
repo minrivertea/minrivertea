@@ -138,6 +138,13 @@ if (15.00) {
 	   		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="{% url home %}"></a>
 	   	</div>
 	   	
+	   	<div id="tools">
+      	   	<div id="userbasket">
+      		  {{ basket_quantity }} item{{ basket_quantity|pluralize }} / {{ currency.symbol }}{{ basket_amount }} - <a href="{% url basket %}" title="View your basket" alt="View your basket">checkout now &raquo;</a>
+      		</div>
+	
+        </div>
+	   	
 
 	   	{% include 'shop/snippets/main_navigation.html' %}
 	{% block banner %}{% endblock %}

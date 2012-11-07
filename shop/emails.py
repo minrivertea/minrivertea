@@ -9,7 +9,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
-import os, md5
+import os
 import datetime
 import uuid
 import re

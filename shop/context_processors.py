@@ -26,6 +26,7 @@ def common(request):
         # http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
         request.session['region'] = region
     context['region'] = region
+    
 
 
     # CHANGE THE BASE TEMPLATE FOR CHINA
@@ -38,12 +39,14 @@ def common(request):
     context['base_template'] = base_template
 
     
+    
     # CURRENCIES
     currencycode = 'GBP'    
     try:
         if request.session['CURRENCY']:
             currencycode = request.session['CURRENCY']
     except:
+        print region
         if region == 'CN':
             currencycode = 'RMB'
                 

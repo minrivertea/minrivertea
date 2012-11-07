@@ -62,10 +62,7 @@
             				{% endif %}
             			</td>
             			<td class="trans" width="180px">
-            				{% if order.status == 'paid' %}
-            					<a title="Click to confirm this order has been sent (doesn't trigger any emails or anything sinister)" class="button" href="{% url ship_it order.id %}">Ship it!</a>		
-            				{% endif %}
-            				{% if order.status == 'shipped' and not order.postage_cost %}
+            				{% if not order.postage_cost %}
             					<form id="postage_{{ order.id }}" action="{% url postage_cost_update order.id %}" method="post">
             						<label>What was the postage cost?</label><input type="text" name="cost" id="id_cost"/>
             						<input type="hidden" name="order" id="id_order" value="{{ order.id }}"/>
