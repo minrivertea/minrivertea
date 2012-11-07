@@ -51,7 +51,7 @@
             				{% endif %}
             			</td>
             			<td class="trans" width="180px" valign="top">
-            				{% if not x.postage_cost %}
+            				{% if x.postage_cost == None %}
             					<form id="postage_{{ order.id }}" action="{% url update_package x.id %}" method="post">
             						<label>Postage cost?</label><input type="text" name="postage_cost" id="id_postage_cost"/>
                                     <select type="hidden" name="currency" id="id_currency">

@@ -51,7 +51,7 @@ def orders(request, **kwargs):
         start_date = (datetime.now() - timedelta(weeks=int(request.GET['w'])))
     
     end_date = datetime.now()     
-    packages = CustomerPackage.objects.filter(created__range=(start_date, end_date), **kwargs).order_by('-posted')        
+    packages = CustomerPackage.objects.filter(created__range=(start_date, end_date), **kwargs).order_by('-created')        
 
     return render(request, 'my_admin/orders.html', locals())
 

@@ -43,7 +43,6 @@ def update_package(request, id):
             package = CustomerPackage.objects.get(pk=id)
             package.postage_cost = request.POST['postage_cost']
             package.currency = Currency.objects.get(code=request.POST['currency'])
-            
             package.posted = datetime.datetime.now()
             package.save()
             
