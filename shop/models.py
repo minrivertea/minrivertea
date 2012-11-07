@@ -321,8 +321,6 @@ class Order(models.Model):
         help_text="Has a friendly review email been sent (around 1 week after order is shipped)?")
     wishlist_payee = models.CharField(max_length=200, blank=True, null=True)
     notes = models.TextField(null=True, blank=True)
-    postage_cost = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
-    postage_currency = models.ForeignKey(Currency, null=True, blank=True)
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
     STATUS_PAID = 'paid'
