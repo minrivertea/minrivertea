@@ -16,7 +16,8 @@ import re
 
 from shop.models import *
 from emailer.models import Subscriber
-from shop.forms import EmailSignupForm, CreateSendEmailForm
+from emailer.forms import EmailSignupForm
+from shop.forms import CreateSendEmailForm
 
 
 def _send_email(receiver, subject_line, text, request=None, html=None, sender=None):
@@ -246,6 +247,9 @@ def email_signup(request):
     if request.method == 'POST':
         form = EmailSignupForm(request.POST)
         if form.is_valid():
+            
+            from django.utils.translation import get_language
+            
             try:
                 existing_signup = get_object_or_404(Subscriber, email=form.cleaned_data['email'])
                 message = "<h3>Looks like you're already signed up! You don't need to do anything else, and you'll receive TEAMails as normal.</h3>"
@@ -253,7 +257,7 @@ def email_signup(request):
                 new_signup = Subscriber.objects.create(
                     email = form.cleaned_data['email'],
                     date_signed_up = datetime.now(),
-                    language=request.session[settings.LANGUAGE_COOKIE_NAME],
+                    language=get_language(),
                     confirmed=True, # TODO - change this so that an email gets sent off immediately asking them to confirm
                 )
                 new_signup.save()
@@ -276,7 +280,7 @@ def email_signup(request):
 
 def email_unsubscribe(request, key):
     try:
-        subscriber = get_object_or_404(EmailSignup, hashkey=key)
+        subscriber = get_object_or_404(Subscriber, hashkey=key)
         subscriber.date_unsubscribed = datetime.now()
         subscriber.save()
     except:

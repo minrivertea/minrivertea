@@ -40,6 +40,7 @@ class Subscriber(models.Model):
     language = models.CharField(max_length=200, choices=settings.LANGUAGES)
     confirmed = models.BooleanField(default=False)
     date_unsubscribed = models.DateField(blank=True, null=True)
+    hashkey = models.CharField(max_length=100)
     
     def __unicode__(self):
         return self.email

@@ -97,10 +97,6 @@ class PostageCostForm(forms.Form):
     currency = forms.ChoiceField(required=True, choices=Currency.objects.all())
     order = forms.CharField(required=True)
     
-    
-class EmailSignupForm(forms.Form):
-    email = forms.CharField(required=True)
-    
 class CreateSendEmailForm(forms.Form):
     subject_line = forms.CharField(required=True)
     content = forms.CharField(required=True, widget=forms.Textarea)

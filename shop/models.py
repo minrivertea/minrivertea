@@ -214,7 +214,6 @@ class Shopper(models.Model):
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
     number_referred = models.IntegerField(null=True, blank=True)
-    subscribed = models.BooleanField(default=True)
     slug = models.SlugField(max_length=200)
     twitter_username = models.CharField(max_length=200, blank=True, null=True)
     reminder_email_sent = models.DateTimeField(blank=True, null=True, 
@@ -236,7 +235,6 @@ class Shopper(models.Model):
         for order in self.get_orders():
             amount = order.get_amount()
             value += amount
-        
         return value
             
 class Review(models.Model):
@@ -426,16 +424,6 @@ class Referee(models.Model):
 
 
 
-
-class EmailSignup(models.Model):
-    email = models.EmailField()
-    date_signed_up = models.DateField()
-    date_unsubscribed = models.DateField(blank=True, null=True)
-    hashkey = models.CharField(max_length=256, blank=True, null=True)
-    
-    def __unicode__(self):
-        return self.email
-    
  
 class EmailInstance(models.Model):
     subject_line = models.CharField(max_length=256)
