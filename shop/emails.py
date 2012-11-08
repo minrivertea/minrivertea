@@ -14,7 +14,8 @@ import datetime
 import uuid
 import re
 
-from minriver.shop.models import *
+from shop.models import *
+from emailer.models import Subscriber
 from shop.forms import EmailSignupForm, CreateSendEmailForm
 
 
@@ -246,13 +247,14 @@ def email_signup(request):
         form = EmailSignupForm(request.POST)
         if form.is_valid():
             try:
-                existing_signup = get_object_or_404(EmailSignup, email=form.cleaned_data['email'])
+                existing_signup = get_object_or_404(Subscriber, email=form.cleaned_data['email'])
                 message = "<h3>Looks like you're already signed up! You don't need to do anything else, and you'll receive TEAMails as normal.</h3>"
             except:
-                new_signup = EmailSignup.objects.create(
+                new_signup = Subscriber.objects.create(
                     email = form.cleaned_data['email'],
                     date_signed_up = datetime.now(),
-                    hashkey = uuid.uuid1().hex,
+                    language=request.session[settings.LANGUAGE_COOKIE_NAME],
+                    confirmed=True, # TODO - change this so that an email gets sent off immediately asking them to confirm
                 )
                 new_signup.save()
                 message = "<h3>Awesome! You're now signed up to receive TEAMails - they're roughly fortnightly, and you can unsubscribe at any time by clicking the link in the email.</h3>"
