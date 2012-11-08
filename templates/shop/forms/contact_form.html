@@ -201,7 +201,7 @@ img#loading-contact {
 	
 				<img id="loading-contact" src="{% staticfile '/images/loading.gif' %}"/>
 				<form action="{% url contact_form_submit %}" method="post" id="contact-form">
-					<h2>{% trans "Send us a message</h2>
+					<h2>{% trans "Send us a message" %}</h2>
 					<p>{% trans "Use our online contact form to send us a message. We respond to all messages within 12 hours." %}</p>			
 					
 					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus{% if form.your_name.errors %} error{% endif %}" title="{% trans 'Your name' %}" value=""/>

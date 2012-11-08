@@ -1409,7 +1409,7 @@ button.next:hover {
 }
 
 #footer .sp.thin {
-  width: 860px;	
+  width: 960px;	
 }
 
 #footer p {
@@ -1424,8 +1424,24 @@ button.next:hover {
   width: 260px;
 }
 
+.footer-box.learn input {
+  width: 280px;   
+}
+
+.footer-box.learn input[type=submit] {
+  width: 100px;
+  margin-left: 5px;
+  position: relative;
+  top: -1px;   
+}
+
 .footer-box.about {
   margin-right: 0;
+}
+
+.footer-box.learn {
+  width: 400px;
+  margin-right: 0;   
 }
 
 #footer h4 {

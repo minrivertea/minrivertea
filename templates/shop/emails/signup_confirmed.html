@@ -1,26 +1,22 @@
-{% extends "base.html" %}
+{% extends base_template %}
 {% load django_static  %}
 
 
-{% block pagetitle %}Successfully signed up to TEAMails{% endblock %}
-
-
-{% block extracss %}
-<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
-{% endblock %}
+{% block pagetitle %}You've successfully signed up to TEAMails{% endblock %}
 
 {% block content %}
 
 
 
 
-<div id="main-text-wide">
-  <div class="super">
+<div id="mtw">
+  <div class="sp">
   	<h1>You're now signed up to receive TEAMails!</h1>
-  	<div id="left">
   		<p class="introduction">TEAMails from Minrivertea are (roughly) monthly emails keeping you up to date with our company and the Chinese tea world.</p>
   		
-  		<p>We're pleased you've decided to signup - if you have any questions or suggestions, please get in touch.</p>
+  		<p>We're pleased you've decided to signup - if you have any questions or suggestions, please <a href="{% url page 'contact-us' %}">get in touch</a>. </p>
+  		
+  		<p>If for any reason you wish to unsubscribe from the emails, you can click the 'Unsubscribe' link in the email footer to cancel your subscription completely, at any time.</p>
   		
   	</div>
   
