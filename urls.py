@@ -45,7 +45,7 @@ urlpatterns = patterns('',
     (r'^blog/', include('minriver.blog.urls')),
     (r'^captcha/', include('captcha.urls')),
     (r'^logistics/', include('logistics.urls')),
-
+    (r'^emailer/', include('emailer.urls')),
     (r'^rosetta/', include('rosetta.urls')),
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),

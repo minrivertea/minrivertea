@@ -538,7 +538,7 @@ def show_me_the_money(sender, **kwargs):
         
         wishlist.save()     
     
-    from minriver.shop.emails import _payment_success_email 
+    from emailer.views import _payment_success_email 
     _payment_success_email(order)
     
     
@@ -556,7 +556,7 @@ def payment_flagged(sender, **kwargs):
     order.status = Order.STATUS_PAYMENT_FLAGGED
     order.save()
 
-    from minriver.shop.emails import _payment_flagged_email
+    from emailer.views import _payment_flagged_email
     _payment_flagged_email(request, order)
 
 payment_was_flagged.connect(payment_flagged)

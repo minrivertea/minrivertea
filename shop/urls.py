@@ -2,9 +2,6 @@ from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 import views
 
-import emails
-
-
 urlpatterns = patterns('',
 
     url(r'^$', views.index, name="home"),
@@ -36,9 +33,5 @@ urlpatterns = patterns('',
     url(r'^not-me/$', views.not_you, name="not_you"),
     url(r'^currency/$', views._change_currency, name="change_currency"),
     
-    # email signup specific URLs
-    url(r'^email_signup/$', emails.email_signup, name="email_signup"),
-    url(r'^send_email/(\w+)$', emails.send_email, name="send_email"),
-    url(r'^email_unsubscribe/(?P<key>[\w-]+)/$', emails.email_unsubscribe, name="email_unsubscribe"),
 )
 

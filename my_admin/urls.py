@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 import views
 
-from shop import emails
+from emailer.views import *
 
 urlpatterns = patterns('',
     
@@ -17,12 +17,5 @@ urlpatterns = patterns('',
     url(r'^orders/$', views.orders, name="orders"),
     url(r'^orders/(\w+)$', views.admin_order, name="admin_order"),
     
-
-    # email specific ones
-    url(r'^create_email/(\w+)$', emails.create_email, name="create_email_wid"),
-    url(r'^create_email/$', emails.create_email, name="create_email"),
-    url(r'^send-review-email/(\w+)$', emails._product_review_email, name="send_review_email"),
-    url(r'^send-reminder-email/(\w+)$', emails._order_reminder_email, name="send_reminder_email"),
-    url(r'^send-sampler-email/(\w+)/$', emails._free_sampler_email, name="send_sampler_email"),
 )
 

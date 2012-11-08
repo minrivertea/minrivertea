@@ -28,7 +28,6 @@ class OrderStepOneForm(forms.Form):
     postcode = forms.CharField(max_length=200, required=True)
     country = forms.ChoiceField(required=True, choices=COUNTRY_CHOICES)
     phone = forms.CharField(max_length=80, required=False)
-    subscribed = forms.BooleanField(required=False)
     
     def clean(self):
         

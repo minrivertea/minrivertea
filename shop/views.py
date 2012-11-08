@@ -33,7 +33,7 @@ import re
 from minriver.shop.models import *
 from minriver.shop.forms import *
 from minriver.slugify import smart_slugify
-from minriver.shop.emails import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email, _get_subscriber_list, _tell_a_friend_email
+from emailer.views import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email, _get_subscriber_list, _tell_a_friend_email
 
 
 
@@ -572,7 +572,6 @@ def order_step_one(request):
                         email = form.cleaned_data['email'],
                         first_name = form.cleaned_data['first_name'],
                         last_name = form.cleaned_data['last_name'],
-                        subscribed = form.cleaned_data['subscribed'],
                         slug = slugger,     
                     )
                     
@@ -961,13 +960,11 @@ def order_makewishlist(request):
     
     
 def order_complete(request):
-    # the user should be logged in here, so we'll find their Shopper object
-    # or redirect them to home if they're not logged in
+
     try:
         shopper = get_object_or_404(Shopper, user=request.user)
     except:
         shopper = None
-    
 
     return render(request, "shop/order_complete.html", locals())
 

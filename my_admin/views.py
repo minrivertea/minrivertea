@@ -28,7 +28,7 @@ from shop.views import render
 from shop.models import *
 from shop.forms import *
 from slugify import smart_slugify
-from shop.emails import _admin_notify_new_review, _admin_notify_contact, _get_subscriber_list
+from emailer.views import _admin_notify_new_review, _admin_notify_contact, _get_subscriber_list
 from logistics.models import WarehouseItem, CustomerPackage
 
 
