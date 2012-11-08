@@ -113,6 +113,7 @@ INSTALLED_APPS = (
     'modeltranslation',
     'modeltranslation_wrapper',
     'logistics',
+    'emailer',
 #    'debug_toolbar',
 )
 
@@ -143,6 +144,9 @@ COMMENTS_APP = 'my_comments'
 CAPTCHA_FONT_SIZE = 35
 CAPTCHA_LETTER_ROTATION = None
 
+EMAIL_TEMPLATES = (
+
+)
 
 # LANGUAGE SETTINGS
 LANGUAGE_CODE = 'en'
