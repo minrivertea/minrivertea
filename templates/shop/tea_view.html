@@ -42,6 +42,7 @@ function addToBasket(idx) {
    	      data: "xhr=true&id=" + idx,
    	      dataType: 'json',
    	      success: function(data){
+
     		$("#basket-number").replaceWith('<span id="basket-number">(' + data.quantity + ')</span>');
     		$('.description').css('opacity', '0.4').delay(3900).queue(function() {$(this).css('opacity', '1')});
             $('#price_' + idx + ' .message').append(data.item).delay(3800).fadeOut(1200);
@@ -192,7 +193,7 @@ a.button {
     font-size: 18px;
     margin: 0;
     position: relative;
-    width: 140px;
+    width: 150px;
     top: -5px;
     padding: 11px 20px 9px;
 }
@@ -328,11 +329,11 @@ span.name {
     color: #237A2A;
     float: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 35px;
+    font-size: 41px;
     font-weight: bold;
-    letter-spacing: -2px;
+    letter-spacing: -4px;
     line-height: 1em;
-    margin: 0 0 10px 0;
+    margin: 0 0 10px;
     position: relative;
     text-shadow: 1px 1px 0 #FFFFFF;
 }
@@ -343,13 +344,15 @@ span.name {
 }
 
 .price-description {
-    color: #333333;
+    color: #555555;
     float: left;
+    font-family: Helvetica,Arial,sans-serif;
     font-size: 12px;
-    line-height: 1.2em;
+    left: 5px;
+    line-height: 1em;
     margin: 0 0 0 5px;
-    width: 115px;
     position: relative;
+    width: 100px;
 }
 
 .price-description span {
@@ -377,23 +380,61 @@ div.fb-recommend {
 }
 
 #price-helper {
+    background: none repeat scroll 0 0 transparent;
+    border-top: 1px solid #E1ECF3;
+    color: #555555;
     float: right;
-    height: 25px;
-    margin: 15px 0px 0 0px;
-    text-align: right;
     font-family: Helvetica,Arial,sans-serif;
-    color: #333;
-    font-size: 13px;
+    font-size: 12px;
+    margin: 5px 0 0;
+    padding: 15px 5px 5px;
+    text-align: right;
 }
+
+#price-helper div {
+   float: left;
+   width: auto;
+   height: 30px;
+   border-right: 1px solid #E1ECF3; 
+   padding: 5px;
+   text-align: center;  
+}
+
+#price-helper div:last-child {
+   border-right: none;  
+   width: 135px; 
+}
+
+#price-helper div.stocks {
+  width: 70px;   
+}
+
+#price-helper div.postage-cost {
+  width: 110px;   
+}
+
+#price-helper div span {
+    color: #59849F;
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    left: -2px;
+    position: relative;
+    text-align: center;
+    top: 0;
+    width: auto;
+}
+
 
 #price-helper a {
   font-size: 13px;	
   font-weight: bold;
 }
 
-#price-helper .not-in-stock {
+#price-helper span.not-in-stock {
   font-size: 16px;
   color: #FF6569;	
+  text-align: left;
 }
 
 .loading {
@@ -562,24 +603,29 @@ div.fb-recommend {
 		      <div id="price_{{ price.id }}" class="price">
 		      	<div class="message"></div>
 		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
-		    	<span class="price-description">/{{ price.weight }}{{ price.weight_unit }}<br/>
-		    	<span>{{ price.description }}</span></span>
-				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}">{% trans 'Add to basket' %} +</a>
+		    	     <span class="price-description">/ {% if price.weight %}{{ price.weight }}{{ price.weight_unit }}{% else %}{{ price.description }}{% endif %}<br/>
+		    	</span>
+				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}">{% trans 'Add 1 to basket' %} +</a>
               </div>
 
-		      <div id="price-helper">        
-        	   {% if tea.is_in_stock %}
-           		 <strong>{{ currency.symbol }}{{ currency.postage_cost }} {% trans 'shipping per order, FREE over' %} {{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong><br/>
-			     {% trans 'Simple pricing, fast delivery' %} - <a href="/where-do-we-deliver/">{% trans 'find out more' %} &raquo;</a>
-        	   {% else %}
-        	     <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} {{ tea.get_preorder_date|date:"d M Y" }}</span>
-        	     <br/>{% trans "We're restocking, so delivery will take longer than usual" %}</a>
+		      <div id="price-helper"> 
+		        {% if tea.stocks.count > 0 %}
+		          <div class="stocks"><span>{{ tea.stocks.count }}</span> left in stock!</div>
+		          <div class="postage-cost"><strong>{{ currency.symbol }}{{ currency.postage_cost }}</strong> shipping per order - <a href="">more info</a></div>
+		          <div class="free">Free postage if you order over <strong>{{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong></div>       
+        	    {% else %}
+       	          <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong></span>
+        	      <br/>{% trans "We're restocking, so delivery will take longer than usual." %}</a>
 			   {% endif %}
 		      </div>
-		  
+
+		      
+		      
+		      
+		      
 		{% else %}
     		  <div id="price-helper">        
-            	<span class="not-in-stock">{% trans 'This tea is not currently available for sale. Sorry!' %}</span>
+            	<span class="not-in-stock">{% trans 'This tea is not currently available for sale.' %}</span>
     		  </div>	
 		{% endif %}
 		

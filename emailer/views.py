@@ -20,26 +20,19 @@ from emailer.forms import EmailSignupForm
 from shop.forms import CreateSendEmailForm
 
 
-def _send_email(receiver, subject_line, text, request=None, html=None, sender=None):
+def _send_email(receiver, subject_line, text, request=None, sender=None):
     
     if not sender:
         sender = settings.SITE_EMAIL
     
-    # if there is an HTML version, do a multi email
-    if html and text:
-        msg = EmailMultiAlternatives(subject_line, text, sender, [receiver])
-        msg.attach_alternative(html, "text/html")
-        msg.send() 
     
-    # otherwise just send a text version
-    else:
-        send_mail(
-              subject_line, 
-              text, 
-              sender,
-              [receiver], 
-              fail_silently=False
-        )
+    send_mail(
+            subject_line, 
+            text, 
+            sender,
+            [receiver], 
+            fail_silently=False
+    )
 
 
 # sends a reminder to the owner of an INCOMPLETE order
@@ -87,12 +80,8 @@ def free_sampler_email(request, id):
             
     # create email
     text = render_to_string('shop/emails/text/send_sample_to_friend_email.txt', {'shopper': shopper})
-    html = render_to_string('shop/emails/html/send_sample_to_friend.html', {
-    	'shopper': shopper,
-    	'subject': subject_line,
-    })
     
-    _send_email(request, receiver, subject_line, text, html)
+    _send_email(request, receiver, subject_line, text)
         
     order.sampler_email_sent = True
     order.save()
@@ -113,13 +102,7 @@ def product_review_email(request, orderid):
         }
     )
     
-    html = render_to_string('shop/emails/html/html_review_email.html', {
-        'shopper': order.owner,
-        'subject': subject_line,
-        'order': order,
-    })
-    
-    _send_email(receiver, subject_line, text, html)
+    _send_email(receiver, subject_line, text)
     
     order.review_email_sent = True
     order.save()
@@ -134,12 +117,8 @@ def _wishlist_confirmation_email(wishlist):
             
     # create email
     text = render_to_string('shop/emails/text/wishlist_confirmation_email.txt', {'wishlist': wishlist})
-    html = render_to_string('shop/emails/html/wishlist_confirmation_email.html', {
-    	'wishlist': wishlist,
-    	'subject': subject_line,
-    })
     
-    _send_email(receiver, subject_line, text, html)
+    _send_email(receiver, subject_line, text)
     
     return
 
@@ -173,7 +152,6 @@ def _admin_notify_contact(data):
 def _send_two_month_reminder_email(order):
 
     text_template = "shop/emails/text/two_month_reminder.txt"
-    html_template = 'shop/emails/html/two_month_reminder.html'
 
     receiver = order.owner.email
     subject_line = "Have you finished your tea yet?"
@@ -190,13 +168,7 @@ def _send_two_month_reminder_email(order):
         'order': order,	
     })
     
-    html = render_to_string(html_template, {
-        'url': url,
-        'order': order,
-        'subject': subject_line,
-    })
-    
-    _send_email(receiver, subject_line, text, html)
+    _send_email(receiver, subject_line, text)
     order.owner.reminder_email_sent = datetime.now()
     order.owner.save()
     
@@ -219,9 +191,8 @@ def _payment_success_email(order):
     receiver = order.owner.email
     subject_line = "Order confirmed - Min River Tea Farm" 
     text = render_to_string('shop/emails/text/order_confirm_customer.txt', {'order': order})
-    html = render_to_string('shop/emails/html/html_order_confirm.html', {'order': order, 'subject': subject_line})
     
-    _send_email(receiver, subject_line, text, html)
+    _send_email(receiver, subject_line, text)
     
      
     # ADMIN EMAIL (reset some of the values!!)

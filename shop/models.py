@@ -144,19 +144,17 @@ class Product(models.Model):
         return reviews    
     
 
-    def is_in_stock(self):
+    def stocks(self):
         if self.coming_soon:
-            return False
+            return None
         
         if not self.is_active:
-            return False
+            return None
         
         from logistics.models import WarehouseItem
         stocks = WarehouseItem.objects.filter(unique_product__parent_product=self, sold=None)
-        if len(stocks) > 0:
-            return True
         
-        return False
+        return stocks
     
     def save(self, force_insert=False, force_update=False):
          super(Product, self).save(force_insert, force_update)
