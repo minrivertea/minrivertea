@@ -19,7 +19,7 @@
 			
 			<div id="price-helper"> 
 		        {% if p.stocks.count > 0 %}
-		          <div class="stocks"><span>{{ currency.symbol }}{{ p.get_lowest_price.price|floatformat }}</span> /{{ p.get_lowest_price.weight }}{{ p.get_lowest_price.weight_unit }}</div>
+		          <div class="stocks"><strong>{{ currency.symbol }}{{ p.get_lowest_price.price|floatformat }}</strong> /{{ p.get_lowest_price.weight }}{{ p.get_lowest_price.weight_unit }}</div>
 		          <div class="price">
 		              <a title="{% trans 'Add 1 x ' %} {{ p.name }} ({{ p.get_lowest_price.weight|floatformat }}{{ p.get_lowest_price.weight_unit }}) to your basket" href="{% url add_to_basket p.get_lowest_price.id %}" class="" id="add_to_basket_{{ p.get_lowest_price.id }}">{% trans 'Add 1 to basket' %} +</a><br/>
 		              {% if p.basket_quantity %}{{ p.basket_quantity }} already in basket{% endif %}
