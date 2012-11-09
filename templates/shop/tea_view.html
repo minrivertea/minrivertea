@@ -63,6 +63,7 @@ $(document).ready( function() {
 {% endblock %}
 
 {% block extracss %}
+<link rel="stylesheet" href="{% staticfile '/css/teas.css' %}"/>
 <style type="text/css">
 
 #mtw #left {
@@ -379,64 +380,6 @@ div.fb-recommend {
   margin-bottom: 10px;
 }
 
-#price-helper {
-    background: none repeat scroll 0 0 transparent;
-    border-top: 1px solid #E1ECF3;
-    color: #555555;
-    float: right;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 12px;
-    margin: 5px 0 0;
-    padding: 15px 5px 5px;
-    text-align: right;
-}
-
-#price-helper div {
-   float: left;
-   width: auto;
-   height: 30px;
-   border-right: 1px solid #E1ECF3; 
-   padding: 5px;
-   text-align: center;  
-}
-
-#price-helper div:last-child {
-   border-right: none;  
-   width: 135px; 
-}
-
-#price-helper div.stocks {
-  width: 70px;   
-}
-
-#price-helper div.postage-cost {
-  width: 110px;   
-}
-
-#price-helper div span {
-    color: #59849F;
-    float: left;
-    font-size: 30px;
-    font-weight: bold;
-    left: -2px;
-    position: relative;
-    text-align: center;
-    top: 0;
-    width: auto;
-}
-
-
-#price-helper a {
-  font-size: 13px;	
-  font-weight: bold;
-}
-
-#price-helper span.not-in-stock {
-  font-size: 16px;
-  color: #FF6569;	
-  text-align: left;
-}
-
 .loading {
     left: 240px;
     position: absolute;
@@ -552,39 +495,39 @@ div.fb-recommend {
 			<div class="scrollable">   
 			   <div class="items">
   			    <div>
-  			        {% thumbnail tea.image "50x50" crop="center" as im %}
-  			    		{% thumbnail tea.image "500x331" crop="center" as im_large %}
+  			        {% thumbnail tea.image thumb_small crop="center" as im %}
+  			    		{% thumbnail tea.image thumb_large crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.description }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					
 					{% if tea.image_2 %}
-  			    	{% thumbnail tea.image_2 "50x50" crop="center" as im %}
-  			    		{% thumbnail tea.image_2 "500x331" crop="center" as im_large %}
+  			    	{% thumbnail tea.image_2 thumb_small crop="center" as im %}
+  			    		{% thumbnail tea.image_2 thumb_large crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_2_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					{% endif %}
 					
 					{% if tea.image_3 %}
-					{% thumbnail tea.image_3 "50x50" crop="center" as im %}
-  			    		{% thumbnail tea.image_3 "500x331" crop="center" as im_large %}
+					{% thumbnail tea.image_3 thumb_small crop="center" as im %}
+  			    		{% thumbnail tea.image_3 thumb_large crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_3_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					{% endif %}
 					
 					{% if tea.image_4 %}
-					{% thumbnail tea.image_4 "50x50" crop="center" as im %}
-  			    		{% thumbnail tea.image_4 "500x331" crop="center" as im_large %}
+					{% thumbnail tea.image_4 thumb_small crop="center" as im %}
+  			    		{% thumbnail tea.image_4 thumb_large crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_4_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
 					{% endif %}
 					
 					{% if tea.image_5 %}
-					{% thumbnail tea.image_5 "50x50" crop="center" as im %}
-  			    		{% thumbnail tea.image_5 "500x331" crop="center" as im_large %}
+					{% thumbnail tea.image_5 thumb_small crop="center" as im %}
+  			    		{% thumbnail tea.image_5 thumb_large crop="center" as im_large %}
 						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_5_caption }}" src="{{ im.url }}"/></a>
 						{% endthumbnail %}
 					{% endthumbnail %}
@@ -611,7 +554,7 @@ div.fb-recommend {
 		      <div id="price-helper"> 
 		        {% if tea.stocks.count > 0 %}
 		          <div class="stocks"><span>{{ tea.stocks.count }}</span> left in stock!</div>
-		          <div class="postage-cost"><strong>{{ currency.symbol }}{{ currency.postage_cost }}</strong> shipping per order - <a href="">more info</a></div>
+		          <div class="postage-cost"><strong>{{ currency.symbol }}{{ currency.postage_cost }}</strong> shipping per order - <a href="/where-do-we-deliver/">more info</a></div>
 		          <div class="free">Free postage if you order over <strong>{{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong></div>       
         	    {% else %}
        	          <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong></span>

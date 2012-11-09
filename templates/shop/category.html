@@ -19,8 +19,58 @@ $('#types').click(function() {
 
 h1 {
   margin-bottom: 0px;
-  font-size: 22px;
-  color: #333;	
+  color: #59849F;
+  font-size: 30px;	
+}
+
+p.introduction {
+  font-size: 18px;
+  margin: 0;   
+}
+
+#price-helper {
+  float: left; 
+  padding: 10px 0;
+  margin-top: 10px; 
+  border-top: none; 
+  position: absolute;
+  bottom: 10px;
+}
+
+#price-helper div {
+  padding: 0 10px;   
+}
+
+#price-helper div:last-child a {
+  position: relative;
+  top: 9px;   
+  z-index: 20;
+}
+
+#price-helper div.stocks {
+  width: auto; 
+  padding: 8px 15px 0 0; 
+}
+
+#price-helper .stocks span {
+  letter-spacing: -2px;
+  font-size: 20px;
+}
+
+#price-helper div.price {
+  width: 120px;
+  padding-top: 8px; 
+  font-style: italic;  
+}
+
+#price-helper div.price a {
+   z-index: 20;
+   position: relative;  
+   font-style: normal; 
+}
+
+#price-helper div:last-child {
+  width: auto;   
 }
 
 div.info {
@@ -116,7 +166,6 @@ div.info p {
 
 .tea-promo h3 {
   float: none;
-  font-size: 24px;   
 }
 
 {% endif %}
@@ -238,7 +287,8 @@ div.info p {
 <div id="mtw">
   <div class="sp">
   
-    <h1><strong>{{ category.name }}</strong> - {{ category.short_description|striptags }}</h1>
+    <h1>{{ category.name }}</h1>
+    <p class="introduction">{{ category.short_description|striptags }}</p>
   
 	<div id="teas">
 		{% if category.slug == 'teas' %}

@@ -134,6 +134,12 @@ SERVER_EMAIL = 'chris@minrivertea.com'
 SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
 SEND_BROKEN_LINK_EMAILS = False
 
+#THUMBNAIL SIZES
+THUMB_LARGE = "500x331"
+THUMB_MEDIUM = "240x160"
+THUMB_SMALL = "50x50"
+
+
 # REGIONAL TEMPLATES
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'

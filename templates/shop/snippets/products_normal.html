@@ -5,7 +5,7 @@
     <div class="tea-promo">
       	 <a title="" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
       	  <div class="image">
-      	  	{% thumbnail p.image "360x250" crop="center" as im %}
+      	  	{% thumbnail p.image thumb_medium crop="center" as im %}
 			<img alt="a picture of {{ p.name }}" title="{{ p.name }} - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
 			{% endthumbnail %}
 		  </div>
@@ -16,6 +16,21 @@
 				</a>
 			</h3> 
 			<p>{{ p.description }}</p>
+			
+			<div id="price-helper"> 
+		        {% if p.stocks.count > 0 %}
+		          <div class="stocks"><span>{{ currency.symbol }}{{ p.get_lowest_price.price|floatformat }}</span> /{{ p.get_lowest_price.weight }}{{ p.get_lowest_price.weight_unit }}</div>
+		          <div class="price">
+		              <a title="{% trans 'Add 1 x ' %} {{ p.name }} ({{ p.get_lowest_price.weight|floatformat }}{{ p.get_lowest_price.weight_unit }}) to your basket" href="{% url add_to_basket p.get_lowest_price.id %}" class="" id="add_to_basket_{{ p.get_lowest_price.id }}">{% trans 'Add 1 to basket' %} +</a><br/>
+		              {% if p.basket_quantity %}{{ p.basket_quantity }} already in basket{% endif %}
+		          </div> 
+		          <div><a href="{% url tea_view p.slug %}">Read more &raquo;</a></div>      
+        	    {% else %}
+       	          <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} <strong>{{ p.get_preorder_date|date:"d M Y" }}</strong></span>
+        	      <br/>{% trans "We're restocking, so delivery will take longer than usual." %}</a>
+			   {% endif %}
+		      </div>
+			
 		  </div>
 		    {% if p.tag_text %}
     			<span class="tag" style="background: {% if p.tag_color %}{{ p.get_tag_color_display }}{% else %}#1f7dc5{% endif %};">

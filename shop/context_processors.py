@@ -17,6 +17,11 @@ def common(request):
     context['ga_is_on'] = settings.GA_IS_ON
     context['latestblogs'] = BlogEntry.objects.filter(is_draft=False).order_by('-date_added')[:3]
     
+    context['thumb_large'] = settings.THUMB_LARGE
+    context['thumb_medium'] = settings.THUMB_MEDIUM
+    context['thumb_small'] = settings.THUMB_SMALL
+
+
         
     # REGIONAL STUFF
     try:

@@ -142,7 +142,7 @@ class Product(models.Model):
     def get_reviews(self):
         reviews = Review.objects.filter(product=self, is_published=True)
         return reviews    
-    
+
 
     def stocks(self):
         if self.coming_soon:

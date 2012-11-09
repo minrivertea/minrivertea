@@ -285,6 +285,19 @@ def category(request):
         slug = request.path.strip('/')
     category = get_object_or_404(Category, slug=slug)
     products = _get_products(request, category)
+    
+    try:
+        basket = Basket.objects.get(id=request.session['BASKET_ID'])
+    except:
+        basket = None
+      
+    if basket:
+        for x in products: 
+            basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price())
+            if basket_item.count() > 0:
+               x.basket_quantity = basket_item[0].quantity
+            
+
 
     curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)

@@ -141,9 +141,9 @@ span.message img {
 .tea-promo {
     float: left;
     margin: 0 30px 20px 0px;
-    padding: 20px;
+    padding: 15px;
     position: relative;
-    width: 780px;
+    width: 680px;
     background-color: #fff;
     overflow: hidden;
 }
@@ -155,7 +155,7 @@ span.message img {
 .tea-promo div.image {
     float: left;
     margin-right: 30px;
-    width: 360px;
+    width: 240px;
 }
 
 
@@ -165,7 +165,7 @@ span.message img {
 }
 
 .tea-promo div.text {
-  width: 380px;
+  width: 400px;
   float: left;	
 }
 
@@ -183,7 +183,7 @@ div#main-text-wide div#left .tea-promo div.text p {
 }
 
 .tea-promo h3 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     font-family: Helvetica, Arial, sans-serif;
     float: right;
@@ -192,7 +192,6 @@ div#main-text-wide div#left .tea-promo div.text p {
 }
 
 .tea-promo p {
-    font-size: 18px;
     margin: 0;
 }
 
@@ -260,3 +259,61 @@ a.more {
   margin: 5px 0 0;
 }
 
+
+#price-helper {
+    background: none repeat scroll 0 0 transparent;
+    border-top: 1px solid #E1ECF3;
+    color: #555555;
+    float: right;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    margin: 5px 0 0;
+    padding: 15px 5px 5px;
+    text-align: right;
+}
+
+#price-helper div {
+   float: left;
+   width: auto;
+   height: 30px;
+   border-right: 1px solid #E1ECF3; 
+   padding: 5px;
+   text-align: center;  
+}
+
+#price-helper div:last-child {
+   border-right: none;  
+   width: 135px; 
+}
+
+#price-helper div.stocks {
+  width: 70px;   
+}
+
+#price-helper div.postage-cost {
+  width: 110px;   
+}
+
+#price-helper div span {
+    color: #59849F;
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    left: -2px;
+    position: relative;
+    text-align: center;
+    top: 0;
+    width: auto;
+}
+
+
+#price-helper a {
+  font-size: 13px;	
+  font-weight: bold;
+}
+
+#price-helper span.not-in-stock {
+  font-size: 16px;
+  color: #FF6569;	
+  text-align: left;
+}

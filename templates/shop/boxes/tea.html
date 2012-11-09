@@ -1,7 +1,7 @@
 {% load thumbnail i18n %}
 
 {% for tea in teas %}
-	{% thumbnail tea.image "240" crop="center" as im %}
+	{% thumbnail tea.image thumb_medium crop="center" as im %}
 	<div class="info tea">
 	   <img src="{{ im.url }}"/>
 		<a href="{{ tea.get_absolute_url }}"><span class="link"></span></a>

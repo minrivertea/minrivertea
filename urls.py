@@ -68,14 +68,17 @@ urlpatterns = patterns('',
     url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     url(r'^teaware/$', category, name="teaware"),
     url(r'^teaware/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    
     url(r'^teas/$', category, name="teas"),
     url(r'^teas/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
     url(r'^teas/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     
-    # URLs for the Google Product Feeds
-    (r'^products\.xml$', direct_to_template, {'template': 'products.xml', 'mimetype': 'text/xml'}),
-    (r'^products_us\.xml$', direct_to_template, {'template': 'products_us.xml', 'mimetype': 'text/xml'}),
-    url(r'^make_product_feed/$', make_product_feed, name="make_product_feed"),
+    
+    url(r'^oolong-tea/$', category, name="oolong_tea"),
+    url(r'^red-tea/$', category, name="red_tea"),
+    url(r'^green-tea/$', category, name="green_tea"),
+    url(r'^white_tea/$', category, name="white_tea"),
+    url(r'^scented_tea/$', category, name="scented_tea"),
     
     # urls for the pages
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_sub_page"),

@@ -2,18 +2,46 @@
 
 <div id="navigation">
   <ul id="nav">
+<!--
 	<li>
       <a class="grey {% nav_selected request '^/$' %}" href="{% url home %}" title="{% trans 'Fine quality Chinese teas direct from the farm' %}" alt="{% trans 'Fine quality Chinese teas direct from the farm' %}">{% trans 'Home' %}</a>
     </li>
+-->
+<!--
     <li>
-      <a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}" alt="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}">{% trans 'Chinese teas' %}</a>
+      <a class="{% nav_selected request '^/teas/' %}" href="{% url teas %}" title="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}" alt="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}">{% trans 'Chinese teas' %}</a> 
     </li>
+-->
+    
+    <li>
+      <a class="{% nav_selected request '^/oolong-tea/' %}" href="{% url oolong_tea %}" title="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}" alt="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}">{% trans 'Oolong tea' %}</a> 
+    </li>
+    
+    <li>
+      <a class="{% nav_selected request '^/red-tea/' %}" href="{% url red_tea %}" title="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}" alt="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}">{% trans 'Red tea' %}</a> 
+    </li>
+
+    <li>
+      <a class="{% nav_selected request '^/green-tea/' %}" href="{% url green_tea %}" title="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}" alt="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}">{% trans 'Green tea' %}</a> 
+    </li>
+
+    <li>
+      <a class="{% nav_selected request '^/white-tea/' %}" href="{% url white_tea %}" title="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}" alt="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}">{% trans 'White tea' %}</a> 
+    </li>
+
+    <li>
+      <a class="{% nav_selected request '^/scented-tea/' %}" href="{% url scented_tea %}" title="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}" alt="{% trans 'Buy authentic Chinese teas - oolong, green, white, red and scented' %}">{% trans 'Scented tea' %}</a> 
+    </li>
+    
     <li>
       <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="{% trans 'Teacups, teapots and accessories for your Chinese tea experience' %}" alt="{% trans 'Teacups, teapots and accessories for your Chinese tea experience' %}">{% trans 'Teaware' %}</a>
     </li>
+    
+<!--
     <li>
       <a class="{% nav_selected request '^/tasters/' %}" href="{% url tasters %}" title="{% trans 'Try before your buy with our Chinese tea taster packs' %}" alt="{% trans 'Try before your buy with our Chinese tea taster packs' %}">{% trans 'Taster Packs' %}</a>
     </li>
+-->
     <li>
       <a class="grey{% if page %}{% if page.get_root.slug == 'learn' %} selected{% endif %}{% else %} {% nav_selected request '^/(learn|blog)/' %}{% endif %} learn" href="/learn/" title="{% trans 'Learn about Chinese tea' %}" alt="{% trans 'Learn about Chinese tea' %}">{% trans 'Learn about tea' %}</a>
     </li>
