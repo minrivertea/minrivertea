@@ -553,9 +553,8 @@ div.fb-recommend {
 
 		      <div id="price-helper"> 
 		        {% if tea.stocks.count > 0 %}
-		          <div class="stocks"><span>{{ tea.stocks.count }}</span> left in stock!</div>
-		          <div class="postage-cost"><strong>{{ currency.symbol }}{{ currency.postage_cost }}</strong> shipping per order - <a href="/where-do-we-deliver/">more info</a></div>
-		          <div class="free">Free postage if you order over <strong>{{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong></div>       
+		          <div class="stocks"><strong>{{ tea.stocks.count }}</strong> in stock</div>
+		          <div class="postage-cost"><strong>{{ currency.symbol }}{{ currency.postage_cost }}</strong> shipping, free over <strong>{{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong></div>       
         	    {% else %}
        	          <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong></span>
         	      <br/>{% trans "We're restocking, so delivery will take longer than usual." %}</a>

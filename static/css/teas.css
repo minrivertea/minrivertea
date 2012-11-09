@@ -270,15 +270,16 @@ a.more {
     margin: 5px 0 0;
     padding: 15px 5px 5px;
     text-align: right;
+    width: 100%;
 }
 
 #price-helper div {
-   float: left;
-   width: auto;
-   height: 30px;
-   border-right: 1px solid #E1ECF3; 
-   padding: 5px;
-   text-align: center;  
+    border-right: 1px solid #E1ECF3;
+    float: left;
+    height: auto;
+    padding: 0 10px;
+    text-align: center;
+    width: auto;
 }
 
 #price-helper div:last-child {
@@ -287,11 +288,11 @@ a.more {
 }
 
 #price-helper div.stocks {
-  width: 70px;   
+  width: auto;   
 }
 
 #price-helper div.postage-cost {
-  width: 110px;   
+  width: auto;   
 }
 
 #price-helper div span {

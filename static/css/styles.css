@@ -280,15 +280,13 @@ input.button:hover {
     font-weight: bold;
     height: 12px;
     position: relative;
-    width: 180px;
+    width: auto;
 }
 
 #userbasket #quantity {
-  position: absolute;
-  bottom: 5px;
-  width: 180px;
-  float: left; 
-  text-align: center;  
+    bottom: 5px;
+    text-align: center;
+    width: auto;
 }
 
 #userbasket a {
