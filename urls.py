@@ -69,16 +69,24 @@ urlpatterns = patterns('',
     url(r'^teaware/$', category, name="teaware"),
     url(r'^teaware/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     
+    url(r'^oolong-tea/$', category, name="oolong_tea"),
+    url(r'^oolong-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+
+    url(r'^red-tea/$', category, name="red_tea"),
+    url(r'^red-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+
+    url(r'^green-tea/$', category, name="green_tea"),
+    url(r'^green-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+
+    url(r'^white_tea/$', category, name="white_tea"),
+    url(r'^white-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+
+    url(r'^scented_tea/$', category, name="scented_tea"),
+    url(r'^scented-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+
     url(r'^teas/$', category, name="teas"),
     url(r'^teas/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
     url(r'^teas/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    
-    
-    url(r'^oolong-tea/$', category, name="oolong_tea"),
-    url(r'^red-tea/$', category, name="red_tea"),
-    url(r'^green-tea/$', category, name="green_tea"),
-    url(r'^white_tea/$', category, name="white_tea"),
-    url(r'^scented_tea/$', category, name="scented_tea"),
     
     # urls for the pages
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_sub_page"),

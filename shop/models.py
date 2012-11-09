@@ -121,10 +121,13 @@ class Product(models.Model):
         return date
     
     def get_absolute_url(self):
-        if self.category.parent_category:
-            return "/%s/%s/" % (self.category.parent_category.slug, self.slug)
-        else:    
-            return "/%s/%s/" % (self.category.slug, self.slug)  #important, do not change
+        
+        return "/%s/%s/" % (self.category.slug, self.slug)
+        
+        #if self.category.parent_category:
+        #    return "/%s/%s/" % (self.category.parent_category.slug, self.slug)
+        #else:    
+        #    return "/%s/%s/" % (self.category.slug, self.slug)  #important, do not change
     
     def get_lowest_price(self):
         from minriver.shop.views import _get_currency
