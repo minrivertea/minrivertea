@@ -39,6 +39,11 @@
 
 
 	{% block extracss %}{% endblock %}
+
+    {% if request.user.is_superuser %}
+	<link rel="stylesheet" href="{% staticfile '/css/christmas.css' %}" />
+	{% endif %}
+
 	
     {% block ga %}
     {% if ga_is_on %}

@@ -1,0 +1,78 @@
+body {
+  background: #f9e9ea;   
+}
+
+#header {
+  background: url('/images/christmas.jpg') no-repeat top left; 
+  border-bottom: 10px solid #efb1b3;  
+}
+
+#footer {
+  border-color: #efb1b3 transparent transparent;   
+}
+
+#logo {
+  background: url('/images/logo-trans-white.png') no-repeat scroll top left transparent;   
+}
+
+#language, #userbasket, #currency {
+   background: #F9E9EA;   
+}
+
+ul#nav li a, ul#nav li a:link, ul#nav li a:visited  {
+  color: #fff;
+}
+
+#subnav {
+  background: #efb1b3;   
+}
+
+h1, h2, #benefits h2, a#harvest {
+  color: #a14444;   
+}
+
+#extras .info {
+  border: 10px solid #efb1b3;  
+}
+
+#extras .info h3 {
+  background: #efb1b3;
+  color: #a14444; 
+}
+
+#subnav li a.selected:before {
+  border-color: #efb1b3 transparent -moz-use-text-color;    
+}
+
+ul#nav li a.selected:before {
+  border-color: #a30a0a transparent -moz-use-text-color;    
+}
+
+a.plus, a.minus {
+   color: #a14444;   
+}
+    
+
+.basket-row, #basket {
+  border-bottom: 2px dotted #efb1b3;   
+}
+
+p.introduction {
+  color:   #a14444; 
+}
+
+.box {
+  background: #efb1b3; 
+}
+
+.box .head:before {
+  border-color: #efb1b3 transparent -moz-use-text-color;    
+}
+
+#mtw .box h3 {
+  color: #a14444;  
+}
+
+ul#nav li a.grey {
+  color: #efb1b3; 
+}
