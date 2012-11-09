@@ -78,11 +78,14 @@ urlpatterns = patterns('',
     url(r'^green-tea/$', category, name="green_tea"),
     url(r'^green-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
 
-    url(r'^white_tea/$', category, name="white_tea"),
+    url(r'^white-tea/$', category, name="white_tea"),
     url(r'^white-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
 
-    url(r'^scented_tea/$', category, name="scented_tea"),
+    url(r'^scented-tea/$', category, name="scented_tea"),
     url(r'^scented-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+
+    url(r'^tea-gifts/$', category, name="tea_gifts"),
+    url(r'^tea-gifts/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
 
     url(r'^teas/$', category, name="teas"),
     url(r'^teas/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),

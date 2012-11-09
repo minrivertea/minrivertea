@@ -32,7 +32,7 @@ div#basket-full {
 }
 
 div#basket-full div {
-  height: 80px;   
+  height: 60px;   
 }
 
 div#basket-full img {
@@ -67,13 +67,12 @@ div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
 
 .tea-name {
   float: left;
-  width: 140px;	
+  width: 80px;	
 }
 
 .tea-weight {
   float: left;
   width: 380px;	
-  padding-top: 6px;
 }
 
 .tea-price {
@@ -83,8 +82,7 @@ div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
 
 .tea-quantity {
     float: left;
-    font-size: 1.6em;
-    padding-top: 16px;
+    font-size: 20px;
     text-align: center;
     width: 160px;
 }
@@ -92,8 +90,7 @@ div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
 
 .tea-total {
     float: left;
-    font-size: 1.6em;
-    padding-top: 20px;
+    font-size: 20px;
     text-align: right;
     width: 250px;
 }
@@ -304,7 +301,7 @@ input#id_discount_code {
 	    	<div class="coming-soon">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}<strong>NOTE:</strong> this item has been pre-ordered and will be delivered on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
 	    {% endif %}
 		<div class="tea-name">
-			{% thumbnail thing.item.parent_product.image "120" crop="center" as im %}
+			{% thumbnail thing.item.parent_product.image thumb_small crop="center" as im %}
 			<img src="{{ im.url }}"/>
 			{% endthumbnail %}
 			<br/>
