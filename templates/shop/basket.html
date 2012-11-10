@@ -307,13 +307,26 @@ input#id_discount_code {
 			<br/>
 		</div>
 		<div class="tea-weight">
-			<a title="{{ thing.item.parent_product.description }}" href="{{ thing.item.parent_product.get_absolute_url }}"><strong>{{ thing.item.parent_product.name }}</strong></a>
-			{% if not thing.item.weight %}{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
-			{{ currency.symbol }}{{ thing.item.price }} {% trans 'each' %}<br/>
-			<a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.item.id %}"><span class="small">{% trans 'Remove from basket' %}</span></a>
+		  <a title="{{ thing.item.parent_product.description }}" href="{{ thing.item.parent_product.get_absolute_url }}">
+		      <strong>{% if thing.monthly_order %}Monthly TeaBox{% else %}{{ thing.item.parent_product.name }}{% endif %}</strong>
+		  </a>
+		  {% if thing.monthly_order %}
+		      <br/>
+		      {{ thing.item.parent_product.name }} {% if thing.item.weight %}({{ thing.get_weight_display }}){% endif %}<br/>
+		  {% else %}
+		      {% if thing.item.weight %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
+		      {{ currency.symbol }}{{ thing.item.price }} {% trans 'each' %}<br/>
+		  {% endif %}
+		  
+		  <a title="Remove" alt="remove item from your basket" href="{% url remove_from_basket thing.id %}">
+		      <span class="small">{% trans 'Remove from basket' %}</span>
+		  </a>
+	   </div>
+		
+	   <div class="tea-quantity">
+		  x {% if thing.monthly_order %}{{ thing.months }} months{% else %}{{ thing.quantity }} {% endif %}
+			{% if not thing.monthly_order %}<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}">&#x25B2;</a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}">&#x25BC;</a>{% endifequal %}</div> {% endif %}
 		</div>
-		<div class="tea-quantity">x {{ thing.quantity }} 
-			<div class="plus-minus"><a class="plus" href="{% url increase_quantity thing.item.id %}">&#x25B2;</a>{% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}">&#x25BC;</a>{% endifequal %}</div> </div>
 		<div class="tea-total">{{ currency.symbol }}{{ thing.get_price }}</div>
 		
 	  </div>

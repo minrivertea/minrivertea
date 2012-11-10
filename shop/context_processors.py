@@ -1,7 +1,7 @@
 from django.conf import settings
 from minriver.shop.models import *
 from minriver.blog.models import BlogEntry
-from minriver.shop.views import GetCountry, CURRENCY_CHOICES
+from minriver.shop.views import GetCountry
 from django.utils import translation
 
 
@@ -75,7 +75,10 @@ def common(request):
     if basket:
         basket_items = BasketItem.objects.filter(basket=basket)
         for item in basket_items:
-            basket_quantity += item.quantity
+            if item.monthly_order:
+                basket_quantity += 1
+            else:
+                basket_quantity += item.quantity
             basket_amount += item.get_price()
     
     context['basket_quantity'] = basket_quantity

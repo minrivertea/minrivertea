@@ -318,3 +318,80 @@ a.more {
   color: #FF6569;	
   text-align: left;
 }
+
+/* TEA BOXES STYLES */
+
+#teaboxes {
+    
+}
+
+#teaboxes .box {
+  width: 270px;
+  float: left;
+  background: #E1ECF3;
+  margin: 0 15px 0 0;
+  padding: 15px;
+  height: 80px;
+  position: relative;
+}
+
+#teaboxes .box.frequency {
+  width: 160px;   
+}
+
+#teaboxes .box.teas {
+  width: 530px;
+}
+
+#teaboxes .box:last-child {
+  margin-right: 0;
+  background: none;
+  width: 180px; 
+  padding: 15px 0;  
+}
+
+#teaboxes .box h3 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #59849F;
+  text-shadow: 1px 1px 0 #fff;
+  font-size: 16px;
+  margin: 0 0 20px 0;   
+}
+
+#teaboxes #price {
+
+}
+
+#teaboxes #price input.button {
+  float: right;
+  margin: 15px 0 0 30px;
+  width: 180px;
+  position: absolute;
+  bottom: 0;
+  right: 0;   
+}
+
+#teaboxes #price #amount {
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: helvetica, arial, sans-serif;
+  margin: 20px 0 0; 
+  width: auto;   
+  
+}
+
+#teaboxes .teas ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;   
+}
+
+#teaboxes input[type=checkbox], #teaboxes input[type=radio] {
+  width: 30px;   
+}
+
+#teaboxes label {
+  width: 80%;   
+}

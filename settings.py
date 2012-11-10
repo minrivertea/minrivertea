@@ -168,6 +168,20 @@ LANGUAGE_COOKIE_NAME = 'django_language'
 MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"
 
 
+REPEAT_FREQUENCIES = (
+    ('12', gettext('12 Months')),
+    ('6', gettext('6 Months')),
+    ('3', gettext('3 Months')),
+)
+
+MONTHLY_ORDER_AMOUNTS = (
+    ('1', gettext('100g')),
+    ('2', gettext('200g')),
+    ('3', gettext('300g')),
+    ('5', gettext('500g')),
+    ('10', gettext('1kg')),
+)
+
 # paypal info
 PAYPAL_IDENTITY_TOKEN = ''
 PAYPAL_RECEIVER_EMAIL = ''
@@ -185,7 +199,7 @@ except ImportError:
     pass
 
 import logging 
-                    
+       
 logging.basicConfig(filename=LOG_FILENAME,
                    level=logging.DEBUG,
                    datefmt="%Y-%m-%d %H:%M:%S",

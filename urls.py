@@ -87,6 +87,9 @@ urlpatterns = patterns('',
     url(r'^tea-gifts/$', category, name="tea_gifts"),
     url(r'^tea-gifts/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
 
+    url(r'^tea-boxes/$', category, name="tea_boxes"),
+    url(r'^tea-boxes/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+
     url(r'^teas/$', category, name="teas"),
     url(r'^teas/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
     url(r'^teas/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
@@ -97,11 +100,14 @@ urlpatterns = patterns('',
     url(r'^(?P<y>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_page"),
     url(r'^(?P<slug>[\w-]+)/$', page, name="page"),
     
-    
-    
-    
-      
 )
+
+# logging for SORL - have to put it here because in settings it causes import errors
+import logging
+from sorl.thumbnail.log import ThumbnailLogHandler
+handler = ThumbnailLogHandler()
+handler.setLevel(logging.ERROR)
+logging.getLogger('sorl.thumbnail').addHandler(handler)
 
 
 # for the development server static files

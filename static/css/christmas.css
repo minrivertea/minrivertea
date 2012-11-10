@@ -73,6 +73,10 @@ p.introduction {
   color: #a14444;  
 }
 
-ul#nav li a.grey {
+ul#nav li a.grey, h1 span {
   color: #efb1b3; 
+}
+
+#price-helper {
+   border-top:1px solid #efb1b3; 
 }

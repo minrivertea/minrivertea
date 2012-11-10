@@ -1,0 +1,26 @@
+{% load i18n %}
+
+<div id="teaboxes">
+<form method="post" action="{% url monthly_order_save %}">
+
+
+<div class="box frequency">
+    <h3>Choose duration</h3>
+    {{ form.frequency }}
+
+</div>
+
+<div class="box teas">
+    <h3>Choose your teas</h3>
+    {{ form.tea }}
+    {{ form.quantity }}
+</div>
+
+<div class="box" id="price">
+    <div id="amount">{{ currency.symbol }}32</div>
+    <input type="submit" value="Add to basket" href="" class="button green" />
+</div>
+
+
+</form>
+</div>

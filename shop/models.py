@@ -15,32 +15,6 @@ from minriver import settings
 from minriver.countries import COUNTRY_CHOICES
 
 
-
-POUND = 'gbp'
-DOLLAR = 'usd'
-EURO = 'euro'
-CURRENCY_CHOICES = (
-    (POUND, u"&#163;"),
-    (DOLLAR, u"&#36;"),
-    (EURO, u"&#128;"),
-)
-
-OOLONG = 'oolong'
-GREEN = 'green'
-WHITE = 'white'
-GREEN_AND_WHITE = 'green_and_white'
-RED = 'red'
-SCENTED = 'scented'
-TEA_CATEGORY_CHOICES = (
-    (OOLONG, u'Oolong'),
-    (GREEN, u'Green'),
-    (WHITE, u'White'),
-    (GREEN_AND_WHITE, u'Green and White'),
-    (RED, u'Red'),
-    (SCENTED, u'Scented'),
-)
-
-
 GREEN = '#177117'
 BLUE = '#1f7dc5'
 PINK = '#eb68a0'
@@ -283,6 +257,11 @@ class BasketItem(models.Model):
     quantity = models.PositiveIntegerField()
     basket = models.ForeignKey(Basket)
     
+    # specific for monthly ordering
+    monthly_order = models.BooleanField()
+    months = models.IntegerField(blank=True, null=True)
+    weight = models.CharField(blank=True, null=True, choices=settings.MONTHLY_ORDER_AMOUNTS, max_length=5)
+    
     def get_price(self):
         price = self.quantity * self.item.price
         return price
@@ -336,6 +315,9 @@ class Order(models.Model):
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
     date_shipped = models.DateTimeField(blank=True, null=True)
+    
+    # these are specific for repeat/monthly ordering
+    monthly_order = models.BooleanField(default=False)
     
     
     def get_discount(self):

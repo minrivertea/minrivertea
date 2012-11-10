@@ -13,6 +13,9 @@ urlpatterns = patterns('',
     url(r'^basket/increase/(\w+)$', views.increase_quantity, name="increase_quantity"),
     url(r'^basket/remove/(\w+)$', views.remove_from_basket, name="remove_from_basket"),
     url(r'^china_convert_prices/(\w+)$', views.china_convert_prices, name="china_convert_prices"),
+    
+    url(r'^monthly-order-save/$', views.monthly_order_save, name="monthly_order_save"),
+
 
     url(r'^contact-form-submit/$', views.contact_form_submit, name="contact_form_submit"),
     url(r'^international/$', views.international, name="international"),

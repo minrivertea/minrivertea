@@ -297,7 +297,8 @@ def category(request):
             if basket_item.count() > 0:
                x.basket_quantity = basket_item[0].quantity
             
-
+    if category.slug == 'tea-boxes':
+        form = MonthlyBoxForm()
 
     curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
@@ -397,24 +398,39 @@ def add_to_basket(request, productID):
 
 
 # function for removing stuff from your basket
-def remove_from_basket(request, productID):
-    product = get_object_or_404(UniqueProduct, id=productID)
-    if request.user.is_anonymous:
-        #try to find out if they alread have a session cookie open with a basket
-        try:
-            basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-        # if not, we'll return an error because nobody can remove an item 
-        # from a basket that doesn't exist
-        except BasketDoesNotExist:
-            pass
-    
-    item = BasketItem.objects.get(
-        basket=basket,
-        item=product,
-    )
-    item.delete()
-    
+def remove_from_basket(request, id):
+    basket_item = get_object_or_404(BasketItem, pk=id)
+    basket_item.delete()
+        
     return HttpResponseRedirect('/basket/') # Redirect after POST
+
+
+def monthly_order_save(request):
+
+    if request.method == 'POST':
+        form = MonthlyBoxForm(request.POST)
+        if form.is_valid():
+            
+            # 1. add a monthly box thing to their basket
+            total_quantity = int(form.cleaned_data['frequency']) * int(form.cleaned_data['quantity'])            
+            uproduct = form.cleaned_data['tea']
+            basket = _get_basket(request)
+     
+            item = BasketItem.objects.create(
+                item=uproduct, 
+                quantity=total_quantity, 
+                basket=basket, 
+                monthly_order=True, 
+                months=int(form.cleaned_data['frequency']),
+                weight=form.cleaned_data['quantity'],
+            )           
+            item.save()
+                        
+            return HttpResponseRedirect(reverse('basket'))
+        else:
+            pass
+        
+    return HttpResponseRedirect(reverse('tea_boxes'))
     
 # function for reducing the quantity of an item in your basket    
 def reduce_quantity(request, productID):
@@ -510,32 +526,34 @@ def order_step_one(request):
     try:
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
-        problem = _("You don't have any items in your basket, so you can't process an order!")
-        return render(request, 'shop/order-problem.html', locals())   
+        pass
+  
 
     # next, if they already have an order, try loading the information
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
-        
-        # load their data from cookie
-        if not order == None:    
-            email = order.owner.email
-            house_name_number = order.address.house_name_number
-            address_line_1 = order.address.address_line_1
-            address_line_2 = order.address.address_line_2
-            town_city = order.address.town_city
-            postcode = order.address.postcode
-            country = order.address.country
-            first_name = order.owner.first_name
-            last_name = order.owner.last_name
+        email = order.owner.email
+        house_name_number = order.address.house_name_number
+        address_line_1 = order.address.address_line_1
+        address_line_2 = order.address.address_line_2
+        town_city = order.address.town_city
+        postcode = order.address.postcode
+        country = order.address.country
+        first_name = order.owner.first_name
+        last_name = order.owner.last_name
     except:
         pass
     
+    
+    if not basket and not order:
+        problem = _("You don't have any items in your basket, so you can't process an order!")
+        return render(request, 'shop/order-problem.html', locals()) 
+    
     # check if they're secretly logged in
+    shopper = None
     if request.user.is_authenticated():
         shopper = get_object_or_404(Shopper, user=request.user.id)
-    else:
-        shopper = None
+        
 
     # if it's a POST request
     if request.method == 'POST': 
@@ -602,22 +620,14 @@ def order_step_one(request):
             address = Address.objects.create(
                 owner = shopper,
                 house_name_number = form.cleaned_data['house_name_number'],
+                address_line_1 = form.cleaned_data['address_line_1'],
+                address_line_2 = form.cleaned_data['address_line_2'],
                 town_city = form.cleaned_data['town_city'],
                 postcode = form.cleaned_data['postcode'],
                 country = form.cleaned_data['country'],
             )
             
-            try: 
-                address.address_line_1 = form.cleaned_data['address_line_1']
-            except:
-                pass
-            try:
-                address.address_line_2 = form.cleaned_data['address_line_2']
-            except:
-                pass
-            
-            address.save()
-            
+                      
             # reset their basket object
             request.session['BASKET_ID'] = basket.id
             
@@ -648,6 +658,8 @@ def order_step_one(request):
             basket_items = BasketItem.objects.filter(basket=basket)
             for item in basket_items:
                 order.items.add(item)
+                if item.monthly_order:
+                    order.monthly_order = True
                 
             order.save()
             request.session['ORDER_ID'] = order.id  

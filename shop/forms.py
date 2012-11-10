@@ -1,10 +1,11 @@
 from django import forms
+from django.conf import settings
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
 from captcha.fields import CaptchaField
 
-from minriver.shop.models import Address, Order, Discount, Shopper, Product, Notify, BasketItem, Currency
+from minriver.shop.models import Address, Order, Discount, Shopper, Product, Notify, BasketItem, Currency, UniqueProduct
 from minriver.countries import all_countries, COUNTRY_CHOICES
 
  
@@ -49,6 +50,17 @@ class OrderStepOneForm(forms.Form):
 class UpdateDiscountForm(forms.Form):
     discount_code = forms.CharField(required=True)
 
+
+class MonthlyBoxForm(forms.Form):
+    frequency = forms.ChoiceField(required=False, choices=settings.REPEAT_FREQUENCIES)
+    tea = forms.ModelChoiceField(required=False, queryset=UniqueProduct.objects.filter(is_active=True, weight="100", 
+        currency__code='GBP'), empty_label=None)
+    quantity = forms.ChoiceField(required=False, choices=settings.MONTHLY_ORDER_AMOUNTS)
+    
+    # perhaps if it's a custom package, these fields should be required=True??
+    
+    
+
 # handles the contact us form
 class ContactForm(forms.Form):
     your_name = forms.CharField(required=True)
@@ -90,11 +102,7 @@ class SelectWishlistItemsForm(forms.Form):
 class WishlistSubmitEmailForm(forms.Form):
     email = forms.CharField()
     order = forms.CharField()    
-    
-class PostageCostForm(forms.Form):
-    cost = forms.DecimalField(required=True)
-    currency = forms.ChoiceField(required=True, choices=Currency.objects.all())
-    order = forms.CharField(required=True)
+   
     
 class CreateSendEmailForm(forms.Form):
     subject_line = forms.CharField(required=True)

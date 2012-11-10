@@ -29,12 +29,13 @@ p.introduction {
 }
 
 #price-helper {
-  float: left; 
-  padding: 10px 0;
-  margin-top: 10px; 
-  border-top: none; 
-  position: absolute;
-  bottom: 10px;
+    border-top: medium none;
+    bottom: 10px;
+    float: left;
+    margin-top: 10px;
+    padding: 10px 0;
+    position: absolute;
+    width: 380px;
 }
 
 #price-helper div {
@@ -290,14 +291,24 @@ div.info p {
     <p class="introduction">{{ category.short_description|striptags }}</p>
   
 	<div id="teas">
-		{% if category.slug == 'teas' %}
-			{% include "shop/snippets/products.html" %}
+		
+		{% if category.slug == 'tea-boxes' %}
+		  {% include 'shop/snippets/box-ordering.html' %}
 		{% else %}
+			
 			{% if category.slug == 'teaware' %}
-			     {% include 'shop/snippets/brewer-special.html' %}
+    		     {% include 'shop/snippets/brewer-special.html' %}
+    		{% endif %}
+			
+			{% if category.slug == 'teas' %}
+			    {% include "shop/snippets/products.html" %}
+			{% else %}
+    	        {% include "shop/snippets/products_normal.html" %}
 			{% endif %}
-			{% include "shop/snippets/products_normal.html" %}
-		{% endif %}
+	     {% endif %}
+		
+    		
+
 	</div>
 	
 	<div id="extras">
