@@ -51,7 +51,6 @@ def common(request):
         if request.session['CURRENCY']:
             currencycode = request.session['CURRENCY']
     except:
-        print region
         if region == 'CN':
             currencycode = 'RMB'
                 

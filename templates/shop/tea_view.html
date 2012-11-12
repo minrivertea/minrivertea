@@ -397,16 +397,46 @@ div.fb-recommend {
 #extras {
   width: 100%;
   float:left;
-  margin-bottom: 30px;   
+  margin-bottom: 30px; 
+  display:none;  
 }
 
 #extras .info {
+  margin: 0 15px 20px 0;   
+  height: 160px;
+  width: 240px;
+  background: #fff;
+  border: 10px solid #E1ECF3;
+}
+
+#recommended .info {
   margin: 0 15px 20px 0;   
   height: 235px;
   width: 225px;
   background: #fff;
   border: 10px solid #E1ECF3;
 }
+
+#recommended .info.trans {
+  margin: 0 15px 19px 0;
+  padding: 0px;   
+  width: auto;
+  height: 160px;
+  border-color: #fff;
+}
+
+#recommended .info h3 {
+  position: absolute;
+  bottom: -5px;
+  left: 0px;  
+  width: 210px;
+  padding: 10px 10px 0px 20px;
+  background: #fff; 
+  text-align: right;
+  color: #6a9bba;
+  font-size: 13px;
+}
+
 
 #extras .info.long {
   width: 515px; 
@@ -664,6 +694,18 @@ div.fb-recommend {
 	</div>
 	
 	{{ tea.long_description|safe }}
+	
+	<div id="recommended">
+	   {% for x in tea.recommended.all %}
+		  <div class="info trans">
+		      <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
+		      {% thumbnail x.image thumb_medium crop="center" as im %}
+		      <img src="{{ im.url }}"/>
+		      {% endthumbnail %}
+		      <h3><a href="{{ x.get_absolute_url }}">{{ x.name }} {% trans 'from' %} {{ currency.symbol }}{{ x.get_lowest_price.price|floatformat }} &raquo;</a></h3>
+		  </div>
+	   {% endfor %}
+	</div>
 
 	
 	{% if region == 'China' %}
