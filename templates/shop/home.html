@@ -137,7 +137,7 @@ h1 {
     float: left;
     margin: 0 15px 15px 0;
     border: none;
-    width: 288px;
+    width: 240px;
     background: #fff;
     padding: 10px 10px 10px;
     position: relative;
@@ -153,40 +153,99 @@ h1 {
    line-height: 1.3em;  
 }
 
-#benefits .info.first {
-    background: none repeat scroll 0 0 transparent;
-    border: none;
-    float: right;
-    margin-right: 0;
-    padding: 20px 10px 0;
-    position: relative;
-    text-align: left;
-}
-
-#benefits .info.first:hover {
- border: none;
- box-shadow: none;   
-}
-
-#benefits .info.first p {
-  margin: 0 0 15px 0;
-}
-
-#benefits .info.last {
-  margin-right: 0;   
-}
-
 #benefits .info h3 {
-    margin: 10px 10px 0px 0px;
+    margin: 5px 3px 0px 0px;
     letter-spacing: -0.5px;
     padding: 0;
     float: right;
-    font-size: 16px;
+    font-size: 15px;
 }
 
-#benefits .info:hover h4 {
-  text-decoration: underline;
-  color: #237A2A;   
+#benefits span.price {
+    color: #777777;
+    float: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    margin: 6px 0 0 5px;
+}
+
+#benefits span.price .amount {
+  color: #333;
+  font-weight: bold;   
+}
+
+#benefits .info.first {
+  width: 375px;
+  height: 405px;
+  position: relative;
+}
+
+#benefits .info.first p {
+  color: #777;
+  line-height: 1.6em;
+  font-size: 15px;
+  padding: 0 5px;
+}
+
+#benefits .info.first h3 {
+  float: none;
+  margin: 10px 0 0 5px;
+  font-size: 20px;
+}
+
+#price-helper {
+    background: none repeat scroll 0 0 transparent;
+    color: #555555;
+    float: right;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    margin: 5px 0 0;
+    padding: 15px 5px 5px;
+    text-align: right;
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+}
+
+#price-helper div {
+    border-right: 1px solid #E1ECF3;
+    float: left;
+    height: auto;
+    padding: 0 10px;
+    text-align: center;
+    width: auto;
+}
+
+#price-helper div:last-child {
+   border-right: none;  
+   width: 135px; 
+}
+
+#price-helper div.stocks {
+  width: auto;   
+}
+
+#price-helper div.postage-cost {
+  width: auto;   
+}
+
+#price-helper div span {
+    color: #59849F;
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    left: -2px;
+    position: relative;
+    text-align: center;
+    top: 0;
+    width: auto;
+}
+
+
+#price-helper a {
+  font-size: 13px;	
+  font-weight: bold;
 }
 
 #benefits img {
@@ -302,22 +361,44 @@ ul.rss {
 	<div id="benefits">
 	   <h2>{% trans 'Check out our bestsellers below' %}, <a class="underline" href="/teas/">{% trans 'or see our full range of teas here' %} &raquo;</a></h2>
 		<div id="teas">
-		    <div class="info first">
-		      <p>The Iron Buddha tea you've sent me is something quite different from Chinese teas I've drunk in the past.<br/><span class="red">Brad Robinson, London.</span></p>
-		      <p>Thanks for the starter pack, the Jasmine tea is the best I've ever had!<br/><span class="red">Ben Ford, UK.</span></p>
-		      <p><a href="/reviews/">See more customer reviews &raquo;</a></p>
-		    </div>
 			{% for r in reviews %}
-				<div class="info {% if forloop.last %}last{% endif %}">
+			    {% if forloop.first %}
+			         <div class="info first">
+    				    <a href="{{ r.product.get_absolute_url }}"><span class="link"></span></a>
+    				    {% thumbnail r.product.image thumb_home_large crop="center" as im %}
+    					<a alt="{% blocktrans with r.product.name as name %}a picture of our {{ name }} Chinese tea{% endblocktrans %}" title="{{ r.product.name }}" href="{{ r.product.get_absolute_url }}">
+    						<img alt="{{ r.product.description }}" src="{{ im.url }}"/>
+    					</a>
+    				    {% endthumbnail %}
+    				           				    <h3><a href="{{ r.product.get_absolute_url }}">{{ r.product.name }}</a> &raquo;</h3>
+
+    				    <p>{{ r.product.description }}</p>
+ 				       
+
+ 				        
+ 				        <div id="price-helper">
+ 				           <div class="stocks"><strong>{{ currency.symbol }}{{ r.product.get_lowest_price.price|floatformat }}</strong> {% if r.product.get_lowest_price.weight %}/ {{ r.product.get_lowest_price.weight }}{{ r.product.get_lowest_price.weight_unit }}{% endif %}</div>
+ 				           <div class="stocks"><strong>{{ r.product.stocks.count }}</strong> in stock now!</div>
+		                   <div><a href="{% url tea_view r.product.slug %}">Click for more info &raquo;</a></div>      
+ 				        </div>
+                        
+
+    				    
+    				</div>
+			    
+			    {% else %}
+				<div class="info">
 				    <a href="{{ r.product.get_absolute_url }}"><span class="link"></span></a>
-				    {% thumbnail r.product.image "290x185" crop="center" as im %}
+				    {% thumbnail r.product.image thumb_medium crop="center" as im %}
 					<a alt="{% blocktrans with r.product.name as name %}a picture of our {{ name }} Chinese tea{% endblocktrans %}" title="{{ r.product.name }}" href="{{ r.product.get_absolute_url }}">
 						<img alt="{{ r.product.description }}" src="{{ im.url }}"/>
 					</a>
 				    {% endthumbnail %}
+				    <span class="price"><span class="amount">{{ currency.symbol }}{{ r.product.get_lowest_price.price }}</span> {% if r.product.get_lowest_price.weight %}/ {{ r.product.get_lowest_price.weight }}{{ r.product.get_lowest_price.weight_unit }}{% endif %}
+				    </span>
 				    <h3><a href="{{ r.product.get_absolute_url }}">{{ r.product.name }}</a> &raquo;</h3>
-
 				</div>
+				{% endif %}
 			{% endfor %}
 		</div>
 	</div>	

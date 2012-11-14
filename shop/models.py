@@ -82,10 +82,13 @@ class Product(models.Model):
     coming_soon = models.BooleanField(default=False) # deprecated 1.5.2012
     recommended = models.ManyToManyField('Product', blank=True, null=True)
     site = models.CharField(max_length=20, choices=SITES, blank=True, null=True)
+    
     map_image = models.ImageField(upload_to='images/maps', blank=True, null=True)
-    map_page = models.ForeignKey('Page', blank=True, null=True)
-    map_location = models.CharField(max_length=200, blank=True, null=True)
-
+    map_caption = models.CharField(max_length=200, blank=True, null=True)
+    
+    farm_image = models.ImageField(upload_to='images/product-photos', blank=True, null=True)
+    farm_caption = models.CharField(max_length=200, blank=True, null=True)
+    
         
     def __unicode__(self):
         return self.name
@@ -540,7 +543,7 @@ def payment_flagged(sender, **kwargs):
     order.save()
 
     from emailer.views import _payment_flagged_email
-    _payment_flagged_email(request, order)
+    _payment_flagged_email(order)
 
 payment_was_flagged.connect(payment_flagged)
 

@@ -138,7 +138,7 @@ if (15.00) {
 	   	</div>
 	   	
 	   	<div id="tools">
-      	   	<div id="userbasket">
+      	   	<div id="userbasket" {% if basket_quantity > 0 %}class="selected"{% endif %}>
       		  <div id="item"></div>
       		  <div id="quantity">{{ basket_quantity }} item{{ basket_quantity|pluralize }} / {{ currency.symbol }}{{ basket_amount }} - <a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a></div>
       		</div>

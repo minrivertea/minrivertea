@@ -409,6 +409,20 @@ div.fb-recommend {
   border: 10px solid #E1ECF3;
 }
 
+#recommended {
+  float: left;
+  width: 100%;
+  margin: 30px 0 0 0;   
+}
+
+#recommended h3 {
+  font-size: 24px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight:bold;  
+  margin: 0 0 20px 0; 
+  color: #FF6569;
+}
+
 #recommended .info {
   margin: 0 15px 20px 0;   
   height: 235px;
@@ -430,11 +444,12 @@ div.fb-recommend {
   bottom: -5px;
   left: 0px;  
   width: 210px;
-  padding: 10px 10px 0px 20px;
+  padding: 10px 10px 5px 20px;
   background: #fff; 
   text-align: right;
   color: #6a9bba;
   font-size: 13px;
+  margin: 0;
 }
 
 
@@ -496,6 +511,71 @@ div.fb-recommend {
     float: left;
 }   
 
+#recommended {
+  float: left;
+  width: 100%;   
+}
+
+
+#long-description, #brew {
+  float: left;
+  width: 300px;  
+  margin: 0 30px 0 0; 
+}
+
+#long-description p, #brew p, #map p {
+  font-size: 13px; 
+  margin: 0 0 20px 0;  
+}
+
+#long-description h3, #brew h3 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;   
+}
+
+#map {
+  float: left;
+  width: 255px;
+  margin: 0 30px 0 0;
+  position: relative;  
+} 
+
+#map img {
+  float: left;
+  margin: 0 0 15px 0;   
+}
+
+#map h3 {
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;   
+}
+
+#shipping {
+  width: 300px; 
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 10px 0 0 0;  
+}
+
+#shipping img {
+  float: left; 
+  margin: 0 0 25px 0;  
+}
+
+#shipping #shipping-amount {
+    color: #999999;
+    float: left;
+    font-size: 40px;
+    left: 12px;
+    line-height: 1em;
+    padding: 0;
+    position: relative;
+    text-shadow: 1px 1px 0 #FFFFFF;
+    top: -2px;
+}
 
 
 </style>
@@ -693,10 +773,43 @@ div.fb-recommend {
 		{% endfor %}
 	</div>
 	
-	{{ tea.long_description|safe }}
+	
+	{% if tea.map_image %}
+    <div id="map">  
+          {% thumbnail tea.map_image "255x120" crop="center" as im %}
+              <img src="{{ im.url }}"/>
+          {% endthumbnail %}
+          <p>{{ tea.map_caption }}</p>
+          
+          {% thumbnail tea.farm_image "255x120" crop="center" as im %}
+              <img src="{{ im.url }}"/>
+          {% endthumbnail %}
+          <p>{{ tea.farm_caption }}</p>
+    </div>
+	{% endif  %}
+	
+	<div id="long-description">
+	   <h3>More about this tea</h3>
+	   {{ tea.long_description|safe }}
+	</div>
+	
+	<div id="brew">
+	   {{ tea.extra_info|safe }}
+	</div>
+	
+	<div id="shipping" class="info">
+	   <img src="{% staticfile '/images/free-delivery.png' %}"/>
+	   <span id="shipping-amount">{{ currency.symbol }}{{ currency.postage_discount_threshold }}</span>
+	</div>
+	
+	
+	<br clear="all"/>
+	
+	
 	
 	<div id="recommended">
-	   {% for x in tea.recommended.all %}
+	   <h3>Also recommended...</h3>
+	   {% for x in recommended %}
 		  <div class="info trans">
 		      <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
 		      {% thumbnail x.image thumb_medium crop="center" as im %}

@@ -203,7 +203,7 @@ def _payment_success_email(order):
 
     return HttpResponse()
 
-def _payment_flagged_email(request, order):
+def _payment_flagged_email(order):
 
     receiver = settings.SITE_EMAIL
     text = render_to_string('shop/emails/text/order_confirm_admin.txt', {'order': order})

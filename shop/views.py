@@ -325,6 +325,8 @@ def tea_view(request, slug):
         request.session['ADDED'] = None
         
     tea = get_object_or_404(Product, slug=slug)
+    recommended = _get_products(request)[:3]
+    
     try:
         price = UniqueProduct.objects.filter(
             parent_product=tea, 
@@ -523,10 +525,11 @@ def basket(request):
 def order_step_one(request):
     
     # first off, check that they have a basket
+    basket = None
     try:
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
-        basket = None
+        pass
   
 
     # next, if they already have an order, try loading the information

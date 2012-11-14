@@ -10,11 +10,11 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Descriptions', {
             'fields': ('description', 'description_de', 'meta_description', 'meta_description_de', 'super_short_description', 'super_short_description_de', 'body_text', 'body_text_de', 'long_description', 'long_description_de', 'extra_info', 'extra_info_de',
-            'map_location', 'map_location_de', 'map_page')
+            'map_image', 'map_caption', 'farm_image', 'farm_caption')
         }),
         ('Images', {
             'fields': ('image', 'image_2', 'image_2_caption', 'image_3', 'image_3_caption',
-                'image_4', 'image_4_caption', 'image_5', 'image_5_caption', 'map_image')
+                'image_4', 'image_4_caption', 'image_5', 'image_5_caption',)
         }),
         ('Others', {
             'fields': ('category', 'is_featured', 'is_active', 'tag_text', 'tag_color',

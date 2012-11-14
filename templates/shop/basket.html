@@ -25,6 +25,9 @@ $(document).ready( function() {
 <link rel="stylesheet" href="{% staticfile '/css/fancybox/jquery.fancybox-1.3.4.css' %}" />
 <style type="text/css">
 
+#basket {
+  margin-bottom: 60px;   
+}
 
 div#basket-full {
   width: 100%;
@@ -50,7 +53,7 @@ div#basket-full img {
 }
 
 #basket-full .basket-row.postage, #basket-full .basket-row.discount {
-  height: 40px;   
+  height: 20px;   
 }
 
 div.basket-row:first-child {
@@ -116,7 +119,11 @@ div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
   margin-top: 10px;
   float: right;
   width: 200px;
-  padding-right: 20px;
+  padding-right: 80px;
+}
+
+#checkout-button {
+  margin-right: 50px;   
 }
 
 
@@ -334,7 +341,7 @@ input#id_discount_code {
 	
 	{% if postage_discount %}
 	  <div class="basket-row postage">
-		<div class="tea-name strikethrough"><em>{% trans 'Postage' %} <span class="small">({% trans 'Standard' %})</span></em></div>
+		<div class="tea-name strikethrough"><em>{% trans 'Postage' %}</em></div>
 		<div class="tea-weight"><span class="small"><em>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}* Your order is over {{ symbol }}{{ pdt }}, so there's no postage charge!{% endblocktrans %}</em></span></div>
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total strikethrough">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>

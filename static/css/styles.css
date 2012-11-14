@@ -126,13 +126,12 @@ ul {
 }
 
 ul, ol {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.6em;	
 }
 
 ol {
   font-weight: italic;	
-  font-size: 12px;
 }
 
 .button, #comments div#comment-form input.submit-post {
@@ -1425,6 +1424,13 @@ button.next:hover {
 #footer p {
   font-size: 15px;
   margin-top: 0;
+}
+
+#footer p.copyright {
+ float: left;
+ width: 100%;
+ margin: 30px 0 0 0;
+ font-size: 13px;   
 }
 
 .footer-box {

@@ -17,7 +17,7 @@ def _create_customer_package(order):
     
     package = CustomerPackage.objects.create(
         order=order,
-        created=datetime.now(),
+        created=datetime.datetime.now(),
     )
 
     for x in order.items.all():
@@ -46,6 +46,9 @@ def update_package(request, id):
             package.currency = Currency.objects.get(code=request.POST['currency'])
             package.posted = datetime.datetime.now()
             package.save()
+            
+            package.order.status = Order.STATUS_SHIPPED
+            package.order.save()
             
             if request.is_ajax():
                 html = '%s%s' % (package.currency.symbol, package.postage_cost)
