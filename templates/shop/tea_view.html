@@ -645,13 +645,13 @@ div.fb-recommend {
               {% thumbnail tea.map_image "255x120" crop="center" as im %}
                 <img src="{{ im.url }}"/>
               {% endthumbnail %}
-              {% if tea.map_caption %}<p>{{ tea.map_caption }}</p>{% endif %}
+              {% if tea.map_caption %}<p>{{ tea.map_caption|safe }}</p>{% endif %}
                     
           {% if tea.farm_image %}
               {% thumbnail tea.farm_image "255x120" crop="center" as im %}
                   <img src="{{ im.url }}"/>
               {% endthumbnail %}
-              {% if tea.farm_caption %}<p>{{ tea.farm_caption }}</p>{% endif %}
+              {% if tea.farm_caption %}<p>{{ tea.farm_caption|safe }}</p>{% endif %}
           {% endif %}
     </div>
 	{% endif  %}
