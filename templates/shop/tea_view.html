@@ -394,21 +394,6 @@ div.fb-recommend {
     z-index: -1;
 }
 
-#extras {
-  width: 100%;
-  float:left;
-  margin-bottom: 30px; 
-  display:none;  
-}
-
-#extras .info {
-  margin: 0 15px 20px 0;   
-  height: 160px;
-  width: 240px;
-  background: #fff;
-  border: 10px solid #E1ECF3;
-}
-
 #recommended {
   float: left;
   width: 100%;
@@ -421,6 +406,16 @@ div.fb-recommend {
   font-weight:bold;  
   margin: 0 0 20px 0; 
   color: #FF6569;
+}
+
+#recommended h3 .price {
+  width: auto;
+  color: #777;
+  font-weight: normal;   
+}
+
+#recommended h3 .price strong {
+  color: #333;   
 }
 
 #recommended .info {
@@ -443,8 +438,8 @@ div.fb-recommend {
   position: absolute;
   bottom: -5px;
   left: 0px;  
-  width: 210px;
-  padding: 10px 10px 5px 20px;
+  width: 220px;
+  padding: 10px 10px 5px 10px;
   background: #fff; 
   text-align: right;
   color: #6a9bba;
@@ -453,56 +448,7 @@ div.fb-recommend {
 }
 
 
-#extras .info.long {
-  width: 515px; 
-  overflow: hidden;  
-}
 
-#extras .info.trans, #extras .info.map {
-  margin: 0 0px 19px 0;
-  padding: 0px;   
-  width: auto;
-  height: 265px;
-  border-color: #fff;
-}
-
-#extras .info.trans:hover, #extras .info.map:hover {
-  box-shadow: 0 1px 3px #e1e1e1;   
-}
-
-#extras .info.trans:hover h3 a, #extras .info.map:hover h3 a {
-  text-decoration: underline;
-  color: #FF6569;   
-}
-
-#extras .info.map {
-  margin: 0 15px 20px 0; 
-  width: 255px;  
-}
-
-#extras .info h3 {
-  position: absolute;
-  bottom: -5px;
-  left: 0px;  
-  width: 235px;
-  padding: 10px 10px 0px 20px;
-  background: #E1ECF3; 
-  text-align: right;
-  color: #6a9bba;
-}
-
-#extras .info.trans h3 {
-   width: 340px; 
-   background: #fff;  
-}
-
-#extras .info.map h3 {
-  background-color: #fff;   
-}
-
-#extras .info.long h3 {
-   width: 520px;   
-}
 
 #image_wrap {
     display: block;
@@ -692,99 +638,21 @@ div.fb-recommend {
 		
 
 	</div><!-- end top product info div -->
-	
-	
-	
-	<div id="extras">
-	   {% if tea.extra_info %}
-	   <div class="info">
-	       {% if big_price %}
-	           <h2>{% trans 'Prefer to buy big?' %}</h2>
-	           <p>{% blocktrans with tea.name as name %}If you’re fanatical about tea, save some cash and buy 500g of <strong>{{ name }}</strong> with free postage + 10% saving.{% endblocktrans %}</p>
-	           <div id="price_{{ big_price.id }}" class="price big">
-	               <div class="message"></div>
-	               <span class="amount">{{ big_price.currency.symbol }}{{ big_price.price|floatformat:"-2" }}</span>
-	               <span class="price-description">/ {{ big_price.weight }}{{ big_price.weight_unit }}</span><br clear="all"/>
-	               <a href="{% url add_to_basket big_price.id %}" class="button green big" id="add_to_basket_{{ big_price.id }}">{% trans 'Add to basket' %}</a>
-	           </div>
-	           
-	       {% else %}
-                {{ tea.extra_info|safe }}
-           {% endif %}
-		</div>
-		{% endif %}
 		
-		
-		{% if tea.map_image %}
-    	   <div class="info map">  
-    	      <a href="{{ tea.map_page.get_absolute_url }}"><span class="link"></span></a>
-    	      {% thumbnail tea.map_image "255x237" crop="center" as im %}
-    	          <img src="{{ im.url }}"/>
-    	      {% endthumbnail %}
-    	      <h3><a href="{{ tea.map_page.get_absolute_url }}">{% blocktrans with tea.map_location as map and tea.name as name %}Our {{ name }} tea is grown in {{ map }}{% endblocktrans %}</a></h3>
-    	   </div>
-	   {% else %}
-		  <div class="info">
-                <h3>{% trans 'Worldwide shipping' %}</h3>
-                <p>{% blocktrans with currency.symbol as symbol and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}We ship anywhere in the world. Orders are shipped from our storage facility in the UK for a flat fee of {{ symbol }}{{ pc }} regardless of how many items you order. If you order more than {{ symbol }}{{ pdt }} then it's free!{% endblocktrans %}</p>		  
-		  </div>
-	   {% endif %}
-		
-		
-		
-		{% for t in tea.recommended.all %}
-		 {% if forloop.counter == 1 %}
-		  <div class="info trans">
-		      <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
-		      {% thumbnail t.image "360x260" crop="center" as im %}
-		      <img src="{{ im.url }}"/>
-		      {% endthumbnail %}
-		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }} {% trans 'from' %} {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</a></h3>
-		  </div>
-		  {% endif %}
-		{% endfor %}
-
-
-
-        {% if review %}
-    	   <div class="info long">
-    		  <h3>{% trans 'Our customers say…' %}</h3>
-		      <p>&ldquo;{{ review.short_text }}&rdquo;<br/> <span class="name">{{ review.first_name }} {% if review.url %}from <a href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} - <a href="{% url reviews %}">{% trans 'read more reviews' %} &raquo;</a></span><br/>
-		      </p>
-		      {% if big_price %}
-		      <br/>
-		      <p> 
-		          {{ tea.extra_info|safe }}
-		      </p>
-		      {% endif %}
-            </div>    
-        {% endif %}
-
-		{% for t in tea.recommended.all %}
-		 {% if forloop.counter == 2 %}
-		  <div class="info trans">
-		      <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
-		      {% thumbnail t.image "360x260" crop="center" as im %}
-		      <img src="{{ im.url }}"/>
-		      {% endthumbnail %}
-		      <h3><a href="{{ t.get_absolute_url }}">{{ t.name }} {% trans 'from' %} {{ currency.symbol }}{{ t.get_lowest_price.price|floatformat }} &raquo;</a></h3>
-		  </div>
-		  {% endif %}
-		{% endfor %}
-	</div>
-	
 	
 	{% if tea.map_image %}
     <div id="map">  
-          {% thumbnail tea.map_image "255x120" crop="center" as im %}
-              <img src="{{ im.url }}"/>
-          {% endthumbnail %}
-          <p>{{ tea.map_caption }}</p>
-          
-          {% thumbnail tea.farm_image "255x120" crop="center" as im %}
-              <img src="{{ im.url }}"/>
-          {% endthumbnail %}
-          <p>{{ tea.farm_caption }}</p>
+              {% thumbnail tea.map_image "255x120" crop="center" as im %}
+                <img src="{{ im.url }}"/>
+              {% endthumbnail %}
+              {% if tea.map_caption %}<p>{{ tea.map_caption }}</p>{% endif %}
+                    
+          {% if tea.farm_image %}
+              {% thumbnail tea.farm_image "255x120" crop="center" as im %}
+                  <img src="{{ im.url }}"/>
+              {% endthumbnail %}
+              {% if tea.farm_caption %}<p>{{ tea.farm_caption }}</p>{% endif %}
+          {% endif %}
     </div>
 	{% endif  %}
 	
@@ -815,7 +683,12 @@ div.fb-recommend {
 		      {% thumbnail x.image thumb_medium crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3><a href="{{ x.get_absolute_url }}">{{ x.name }} {% trans 'from' %} {{ currency.symbol }}{{ x.get_lowest_price.price|floatformat }} &raquo;</a></h3>
+		      <h3>
+		          <span class="price">
+		              <strong>{{ currency.symbol }}{{ x.get_lowest_price.price|floatformat }}</strong>
+		              {% if x.get_lowest_price.weight %} / {{ x.get_lowest_price.weight }}{{ x.get_lowest_price.weight_unit }}{% endif %}
+		          </span> 
+		          <a href="{{ x.get_absolute_url }}">{{ x.name }} &raquo;</a></h3>
 		  </div>
 	   {% endfor %}
 	</div>
