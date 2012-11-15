@@ -1,12 +1,13 @@
 {% load i18n %}
 
-{% blocktrans with wishlist.owner.first_name as fn and wishlist.hashkey as hk %}
+{% url wishlist_url wishlist.hashkey as url %}
+{% blocktrans with wishlist.owner.first_name as fn %}
 
 Hi {{ fn }}!
 
 Here's your unique wishlist URL:
 
-http://www.minrivertea.com{% url wishlist_url hk %}
+http://www.minrivertea.com{{ url }}
 
 Other people can use this URL to buy items from your wishlist, and we'll deliver them direct to you. 
 

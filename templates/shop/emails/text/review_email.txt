@@ -10,14 +10,16 @@ I hope you've received your tea safe and sound! There's two things you might wan
 
 2. Post a review of your tea - it really helps us get feedback on what you did and didn't like about the tea, and helps other customers make better decisions too:
 
+{% endblocktrans %}
+
 {% for item in items %}
-    * Review your {{ item.item.parent_product }} - http://www.minrivertea.com{% url review_tea item.item.parent_product.slug %}
+    * {% trans 'Review your' %} {{ item.item.parent_product }} - http://www.minrivertea.com{% url review_tea item.item.parent_product.slug %}
 {% endfor %}
 
+{% blocktrans %}
 Thanks again, and enjoy your tea!
 
 All the best
-
 {% endblocktrans %}
 
 {% include 'emails/signature.txt' %}

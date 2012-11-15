@@ -8,12 +8,12 @@ Your tea cup is about get a whole lot more awesome!
 
 We've received your tea order at www.minrivertea.com, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote this order ID: {{ id }}.
 
+{% endblocktrans %}
+
 {% for item in items %}
 	- {{ item }}
 {% endfor %}
 
-We hope you enjoy drinking your tea!
-
-{% endblocktrans %}
+{% trans 'We hope you enjoy drinking your tea!' %}
 
 {% include 'emails/signature.txt' %}

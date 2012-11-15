@@ -6,10 +6,11 @@ Hi {{ fn }}!
 
 Have you finished your tea yet?
 
-A few months ago you ordered some {% for item in items %}{% ifequal items.count 1 %}{{ item.parent_product }}{% endifequal %}{% ifequal items.count 2 %}{% if forloop.last %} and {% endif %}{{ item.parent_product }}{% else %}{% if forloop.first %}{% else %}{% if forloop.last %} and {% else %}, {% endif %}{% endif %}{{ item.parent_product }}{% endifequal %}{% endfor %} tea from us at www.minrivertea.com. If you've finished it and want to order more, just click this link:
+A few months ago you ordered some {% endblocktrans %}{% for item in items %}{% ifequal items.count 1 %}{{ item.parent_product }}{% endifequal %}{% ifequal items.count 2 %}{% if forloop.last %} {% trans 'and' %} {% endif %}{{ item.parent_product }}{% else %}{% if forloop.first %}{% else %}{% if forloop.last %} {% trans 'and' %} {% else %}, {% endif %}{% endif %}{{ item.parent_product }}{% endifequal %}{% endfor %} {% trans 'tea from us at www.minrivertea.com. If you've finished it and want to order more, just click this link' %}:
 
 {{ url }}
 
+{% blocktrans %}
 You'll be taken straight to the confirmation page, and can skip all the hassle of filling in your details again.
 
 Of course, you might want to try something different - check out our other amazing teas and see if you find something you like.

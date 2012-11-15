@@ -163,19 +163,6 @@ def _get_currency(request, code=None):
     return currency
 
 
-def GetCountry(request):
-    # this is coming from http://ipinfodb.com JSON api
-    apikey = settings.IPINFO_APIKEY 
-    ip = request.META.get('REMOTE_ADDR')
-    baseurl = "http://api.ipinfodb.com/v3/ip-country/?key=%s&ip=%s&format=json" % (apikey, ip)
-    urlobj = urllib2.urlopen(baseurl)
-    
-    # get the data
-    url = baseurl + "?" + apikey + "?"
-    data = urlobj.read()
-    urlobj.close()
-    datadict = simplejson.loads(data)
-    return datadict
 
 
 def _get_price(request, items):
@@ -886,17 +873,20 @@ def not_you(request):
     this_user = request.user
     basket = Basket.objects.get(id=request.session['BASKET_ID'])
     currency = _get_currency(request)
+
     
     # log the user out
-    from django.contrib.auth import load_backend, logout
-    for backend in settings.AUTHENTICATION_BACKENDS:
-        if this_user == load_backend(backend).get_user(this_user.pk):
-            this_user.backend = backend
-    if hasattr(this_user, 'backend'):
-        logout(request)
-        # re-add the basket cookie so they don't lose their items
-        request.session['BASKET_ID'] = basket.id
-        request.session['CURRENCY'] = currency
+    if request.user.is_authenticated():
+        from django.contrib.auth import load_backend, logout
+        for backend in settings.AUTHENTICATION_BACKENDS:
+            if this_user == load_backend(backend).get_user(this_user.pk):
+                this_user.backend = backend
+        if hasattr(this_user, 'backend'):
+            logout(request)
+            # re-add the basket cookie so they don't lose their items
+            
+            request.session['BASKET_ID'] = basket.id
+            request.session['CURRENCY'] = currency
     
     # now they can return to the usual Step 1 of the form    
     return HttpResponseRedirect('/order/step-one/')    
