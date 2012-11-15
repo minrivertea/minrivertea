@@ -530,7 +530,6 @@ def order_step_one(request):
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
         pass
-  
 
     # next, if they already have an order, try loading the information
     order = None
@@ -549,7 +548,7 @@ def order_step_one(request):
         pass
     
     
-    if not basket or not order:
+    if not basket and not order:
         problem = _("You don't have any items in your basket, so you can't process an order!")
         return render(request, 'shop/order-problem.html', locals()) 
     
