@@ -533,6 +533,7 @@ def order_step_one(request):
   
 
     # next, if they already have an order, try loading the information
+    order = None
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
         email = order.owner.email

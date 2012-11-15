@@ -1,4 +1,8 @@
-Hi {{ wishlist.owner.first_name }},
+{% load i18n %}
+
+{% blocktrans with wishlist.owner.first_name as fn %}
+
+Hi {{ fn }},
 
 
 Just in case you forget, here's your unique Chinese tea wishlist URL:
@@ -9,6 +13,6 @@ You can send the URL round to your friends and family (eg. before a birthday or 
 
 All the best
 
+{% endblocktrans %}
 
-Chris West
-www.minrivertea.com
+{% include 'emails/signature.txt' %}

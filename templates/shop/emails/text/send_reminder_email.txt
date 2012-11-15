@@ -1,4 +1,8 @@
-Hey {{ order.owner.first_name }}!
+{% load i18n %}
+
+{% blocktrans with order.owner.first_name as fn %}
+
+Hey {{ fn }}!
 
 I just noticed that you started to order some tea recently on www.minrivertea.com, but then didn't complete the order - was there something wrong?
 
@@ -8,6 +12,9 @@ However, if you still want to order, just click this URL and you can continue fr
 
 http://www.minrivertea.com{{ url }}
 
+{% endblocktrans %}
+
+{% include 'emails/signature.txt' %}
 
 Chris West
 www.minrivertea.com

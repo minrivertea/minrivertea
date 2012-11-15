@@ -34,11 +34,11 @@
 	</div>
 	
     <div class="footer-box learn">
-		<h4>Receive TEAMails direct to your inbox</h4>
-		<p>Signup to get news and information about Chinese tea, tea culture and special offers from minrivertea.com</p>
+		<h4>{% trans 'Receive TEAMails direct to your inbox' %}</h4>
+		<p>{% trans 'Signup to get news and information about Chinese tea, tea culture and special offers from minrivertea.com' %}</p>
 		<form action="{% url email_signup %}" method="post">
-	        <input type="text" name="email" id="id_email" title="Your email address" class="clearMeFocus"/>
-	        <input type="submit" class="submit button" value="Signup" />
+	        <input type="text" name="email" id="id_email" title="{% trans 'Your email address' %}" class="clearMeFocus"/>
+	        <input type="submit" class="submit button" value="{% trans 'Signup' %}" />
         </form>
     </div>
 

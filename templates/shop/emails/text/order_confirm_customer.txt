@@ -1,15 +1,19 @@
-Hey {{ order.owner.first_name }},
+{% load i18n %}
+
+{% blocktrans with order.owner.first_name as fn and order.invoice_id as id and order.items.all as items %}
+
+Hey {{ fn }},
 
 Your tea cup is about get a whole lot more awesome!
 
-We've received your tea order at www.minrivertea.com, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote this order ID: {{ order.invoice_id }}.
+We've received your tea order at www.minrivertea.com, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote this order ID: {{ id }}.
 
-{% for item in order.items.all %}
+{% for item in items %}
 	- {{ item }}
 {% endfor %}
 
 We hope you enjoy drinking your tea!
 
-Chris West, 
-Founder - Min River Tea Farm
-http://www.minrivertea.com
+{% endblocktrans %}
+
+{% include 'emails/signature.txt' %}

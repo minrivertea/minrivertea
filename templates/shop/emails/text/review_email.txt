@@ -1,4 +1,8 @@
-Hi {{ shopper.first_name }},
+{% load i18n %}
+
+{% blocktrans with shopper.first_name as fn and order.items.all as items %}
+
+Hi {{ fn }},
 
 I hope you've received your tea safe and sound! There's two things you might want to do now:
 
@@ -6,7 +10,7 @@ I hope you've received your tea safe and sound! There's two things you might wan
 
 2. Post a review of your tea - it really helps us get feedback on what you did and didn't like about the tea, and helps other customers make better decisions too:
 
-{% for item in order.items.all %}
+{% for item in items %}
     * Review your {{ item.item.parent_product }} - http://www.minrivertea.com{% url review_tea item.item.parent_product.slug %}
 {% endfor %}
 
@@ -14,6 +18,6 @@ Thanks again, and enjoy your tea!
 
 All the best
 
-Chris West 
-(Founder, the Min River Tea Farm)
+{% endblocktrans %}
 
+{% include 'emails/signature.txt' %}

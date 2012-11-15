@@ -18,11 +18,12 @@ ORDER STATUS: {{ order.status }}
 
 ADDRESS:
 
+{{ order.owner.first_name }} {{ order.owner.last_name }}<br/>
 {% with order.address as address %}
-{% if address.house_name_number %}{{ address.house_name_number }}{% endif %}
-{% if address.address_line_1 %}{{ address.address_line_1 }}{% endif %}
-{% if address.address_line_2 %}{{ address.address_line_2 }}{% endif %}
-{% if address.town_city %}{{ address.town_city }}{% endif %}
-{% if address.postcode %}{{ address.postcode }}{% endif %}
-{% if address.country %}{{ address.get_country_display }}{% endif %}
+{% if address.house_name_number %}{{ address.house_name_number|capfirst }}{% endif %}
+{% if address.address_line_1 %}{{ address.address_line_1|capfirst }}{% endif %}
+{% if address.address_line_2 %}{{ address.address_line_2|capfirst }}{% endif %}
+{% if address.town_city %}{{ address.town_city|capfirst }}{% endif %}
+{% if address.postcode %}{{ address.postcode|upper }}{% endif %}
+{% if address.country %}{{ address.get_country_display|capfirst }}{% endif %}
 {% endwith %}

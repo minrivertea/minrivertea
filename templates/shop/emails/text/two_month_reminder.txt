@@ -1,4 +1,8 @@
-Hi {{ order.owner.first_name }}!
+{% load i18n %}
+
+{% blocktrans with order.owner.first_name as fn %}
+
+Hi {{ fn }}!
 
 Have you finished your tea yet?
 
@@ -12,5 +16,7 @@ Of course, you might want to try something different - check out our other amazi
 
 All the best,
 
-Chris West, Founder
-www.minrivertea.com
+{% endblocktrans %}
+
+
+{% include 'emails/signature.txt' %}

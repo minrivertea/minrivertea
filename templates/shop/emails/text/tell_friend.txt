@@ -1,4 +1,8 @@
-Hey there,
+{% load i18n %}
+
+{% blocktrans %}
+
+Hey!
 
 I wanted to let you know about this company:
 
@@ -6,5 +10,6 @@ http://www.minrivertea.com/
 
 They're called Min River Tea, and they sell fresh Chinese teas direct from their base in China. Check out the website.
 
-
 ps. this email was send by www.minrivertea.com on behalf of {{ sender }}, with their explicit permission.
+
+{% endblocktrans %}
