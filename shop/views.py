@@ -132,37 +132,31 @@ def twitter_post(tweet):
 def _get_currency(request, code=None):
     
     if code:
-        code = code
+        return get_object_or_404(Currency, code=code)
+    
+    try:
+        code = request.session['CURRENCY']
+    except:
+        pass
         
-    if not code:
-        try:
-            code = request.session['CURRENCY']
-        except:
-            code = None
-    
-    if not code:
-        try:
-            region = request.session['region']
-            if region == 'CN':
-                code = 'RMB'
-            if region == 'US':
-                code = 'USD'
-            if region == 'DE':
-                code = 'EUR'
+    try:
+        region = request.session['region']
+        if region == 'US':
+            code = 'USD'
+        if region == 'DE':
+            code = 'EUR'
+        if region == 'CN':
+            code = 'RMB'
             
-            request.session['CURRENCY'] = code
-        except:
-            pass
+    except:
+        pass
     
-
+    # last attempt - if there still isn't a code, do this
     if not code:
         code = 'GBP'
-            
-    
+       
     currency = get_object_or_404(Currency, code=code)
     return currency
-
-
 
 
 def _get_price(request, items):
@@ -211,11 +205,15 @@ def _change_currency(request):
     
     
 
-def _get_products(request, cat=None):
+def _get_products(request, cat=None, **kwargs):
     if cat:
-        products = Product.objects.filter(category=cat, is_active=True).order_by('-list_order')
+        products = Product.objects.filter(category__slug=cat, is_active=True, **kwargs).order_by('-list_order')
     else:        
-        products = Product.objects.filter(is_active=True).order_by('-list_order')
+        products = Product.objects.filter(is_active=True, **kwargs).order_by('-list_order')
+    
+    currency = _get_currency(request)
+    for x in products:
+        x.price = x.get_lowest_price(currency)
     
     return products   
 
@@ -233,16 +231,11 @@ def index(request):
     except:
         pass
          
-    seen = {}
-    reviews_one = []
-    for item in Review.objects.filter(is_published=True).order_by('?'):
-        marker = item.product
-        if marker in seen: continue
-        seen[marker] = 1
-        reviews_one.append(item)
-    
-    reviews = reviews_one[:5]
+        
     curr = _get_currency(request)
+    teas = _get_products(request)[:5]
+    teaware = _get_products(request, 'teaware')[:3]
+    
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
         
     return render(request, "shop/home.html", locals())
@@ -261,31 +254,30 @@ def page(request, slug, x=None, y=None, z=None):
     template = "shop/page.html"
     if page.template:
         template = page.template
-    teas = Product.objects.filter(is_active=True).order_by('?')[:2]
+    teas = _get_products(request)[:2]
     return render(request, template, locals())
    
 # the product listing page
 def category(request):
-    if request.path.startswith('/cn/'):
-        slug = request.path.strip('/cn/').strip('/')
-    else:
-        slug = request.path.strip('/')
+    slug = request.path.strip('/')
     category = get_object_or_404(Category, slug=slug)
-    products = _get_products(request, category)
+    products = _get_products(request, category.slug)
     
     try:
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
         basket = None
       
+    
     if basket:
         for x in products: 
             basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price())
             if basket_item.count() > 0:
-               x.basket_quantity = basket_item[0].quantity
+                x.basket_quantity = basket_item[0].quantity
             
     if category.slug == 'tea-boxes':
         form = MonthlyBoxForm()
+
 
     curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)

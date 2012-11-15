@@ -6,8 +6,8 @@
 	   <img src="{{ im.url }}"/>
 		<a href="{{ tea.get_absolute_url }}"><span class="link"></span></a>
 		<div class="text">
-			<h3><a href="{{ tea.get_absolute_url }}">{{ tea.name|safe }}</a>
-	{% trans 'from' %} {{ tea.get_lowest_price.currency.symbol }}{{ tea.get_lowest_price.price|floatformat }} &raquo;</h3>
+		    <span class="price"><strong>{{ tea.price.currency.symbol }}{{ tea.price.price|floatformat }}</strong> / {% if tea.price.weight %}{{ tea.price.weight }}{{ tea.price.weight_unit }}{% endif %}</span>
+		    <h3><a href="{{ tea.get_absolute_url }}">{{ tea.name|safe }} &raquo;</a></h3>
 		</div>
 	</div>
 	{% endthumbnail %}

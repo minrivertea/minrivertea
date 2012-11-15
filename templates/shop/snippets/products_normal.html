@@ -19,9 +19,9 @@
 			
 			<div id="price-helper"> 
 		        {% if p.stocks.count > 0 %}
-		          <div class="stocks"><strong>{{ currency.symbol }}{{ p.get_lowest_price.price|floatformat }}</strong> / {% if p.get_lowest_price.weight %}{{ p.get_lowest_price.weight }}{{ p.get_lowest_price.weight_unit }}{% else %}{{ p.get_lowest_price.description }}{% endif %}</div>
+		          <div class="stocks"><strong>{{ currency.symbol }}{{ p.price.price|floatformat }}</strong> / {% if p.price.weight %}{{ p.price.weight }}{{ p.price.weight_unit }}{% else %}{{ p.price.description }}{% endif %}</div>
 		          <div class="price">
-		              <a title="{% trans 'Add 1 x ' %} {{ p.name }} ({{ p.get_lowest_price.weight|floatformat }}{{ p.get_lowest_price.weight_unit }}) to your basket" href="{% url add_to_basket p.get_lowest_price.id %}" class="" id="add_to_basket_{{ p.get_lowest_price.id }}">{% trans 'Add 1 to basket' %} +</a><br/>
+		              <a title="{% trans 'Add 1 x ' %} {{ p.name }} ({{ p.price.weight|floatformat }}{{ p.price.weight_unit }}) to your basket" href="{% url add_to_basket p.price.id %}" class="" id="add_to_basket_{{ p.price.id }}">{% trans 'Add 1 to basket' %} +</a><br/>
 		              {% if p.basket_quantity %}{{ p.basket_quantity }} already in basket{% endif %}
 		          </div> 
 		          <div><a href="{% url tea_view p.slug %}">Read more &raquo;</a></div>      

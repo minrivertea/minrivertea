@@ -179,7 +179,7 @@ div.product-photos-small p {
     margin: 15px 0 0;
 }
 
-.price {
+.tea-top .price {
     float: left;
     margin: 0;
     position: relative;
@@ -408,13 +408,14 @@ div.fb-recommend {
   color: #FF6569;
 }
 
-#recommended h3 .price {
+#recommended .text .price {
   width: auto;
   color: #777;
-  font-weight: normal;   
+  font-weight: normal;
+  margin-left: 0;   
 }
 
-#recommended h3 .price strong {
+#recommended .price strong {
   color: #333;   
 }
 
@@ -434,21 +435,21 @@ div.fb-recommend {
   border-color: #fff;
 }
 
-#recommended .info h3 {
-  position: absolute;
-  bottom: -5px;
-  left: 0px;  
-  width: 220px;
-  padding: 10px 10px 5px 10px;
-  background: #fff; 
+#recommended .info .text {
+   width: 230px;
+   background: #fff;
+   padding: 3px 5px 0;
+   float: left;
+   position: absolute;
+   bottom: 0;
+}
+
+#recommended .info .text h3 {
   text-align: right;
   color: #6a9bba;
   font-size: 13px;
-  margin: 0;
+  margin: 6px 0 0 0;
 }
-
-
-
 
 #image_wrap {
     display: block;
@@ -683,12 +684,13 @@ div.fb-recommend {
 		      {% thumbnail x.image thumb_medium crop="center" as im %}
 		      <img src="{{ im.url }}"/>
 		      {% endthumbnail %}
-		      <h3>
+		      <div class="text">
 		          <span class="price">
-		              <strong>{{ currency.symbol }}{{ x.get_lowest_price.price|floatformat }}</strong>
-		              {% if x.get_lowest_price.weight %} / {{ x.get_lowest_price.weight }}{{ x.get_lowest_price.weight_unit }}{% endif %}
+		              <strong>{{ currency.symbol }}{{ x.price.price|floatformat }}</strong>
+		              {% if x.price.weight %} / {{ x.price.weight }}{{ x.price.weight_unit }}{% endif %}
 		          </span> 
-		          <a href="{{ x.get_absolute_url }}">{{ x.name }} &raquo;</a></h3>
+    		      <h3><a href="{{ x.get_absolute_url }}">{{ x.name }} &raquo;</a></h3>
+		      </div>
 		  </div>
 	   {% endfor %}
 	</div>

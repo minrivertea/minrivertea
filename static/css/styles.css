@@ -609,8 +609,20 @@ p.introduction {
 .info h3 {
     font-weight: bold;
     font-family: Helvetica, Arial, sans-serif;
-	font-size: 16px;
+	font-size: 14px;
 	margin: 0 0 5px 0;
+}
+
+.info span.price {
+    color: #777777;
+    float: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    margin: 6px 0 0 5px;
+}
+
+.info span.price strong {
+  color: #333;   
 }
 
 .info p {
@@ -692,14 +704,14 @@ p.introduction {
   position: absolute;
   top: 170px;
   left: 0px;
-  padding: 10px;
+  padding: 5px 10px;
   background-color: #fff;
   width: 240px;
   margin-bottom: 0px;	
 }
 
 .info.tea .text h3 {
-  margin: 0;
+  margin: 6px 0 3px;
   float: right;	
 }
 

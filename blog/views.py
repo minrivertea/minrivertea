@@ -1,5 +1,6 @@
 from minriver.blog.models import BlogEntry
 from minriver.shop.models import Product
+from shop.views import _get_products
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
@@ -27,7 +28,7 @@ def index(request):
     except (EmptyPage, InvalidPage):
         entries = paginator.page(paginator.num_pages)
     
-    teas = Product.objects.filter(is_active=True).order_by('?')[:2]
+    teas = _get_products(request)[:2]
                        
     return render(request, "blog/home.html", locals())
     
@@ -36,6 +37,6 @@ def index(request):
 def blog_entry(request, slug):
     entry = get_object_or_404(BlogEntry, slug=slug)
     other_entries = BlogEntry.objects.exclude(id=entry.id).order_by('?')[:2]
-    teas = Product.objects.filter(is_active=True).order_by('?')[:2]
+    teas = _get_products(request)[:2]
     return render(request, "blog/entry.html", locals())
   
