@@ -47,10 +47,10 @@ class BasketDoesNotExist(Exception):
 #render shortcut
 def render(request, template, context_dict=None, **kwargs):
     try:
-        region = request.session['region']
+        region = request.session['REGION']
     except:
         region = GetCountry(request)['countryCode']
-        request.session['region'] = region
+        request.session['REGION'] = region
       
     if region == 'CN':      
         new_template = "china/%s" % template
@@ -138,18 +138,19 @@ def _get_currency(request, code=None):
         code = request.session['CURRENCY']
     except:
         pass
-        
-    try:
-        region = request.session['region']
-        if region == 'US':
-            code = 'USD'
-        if region == 'DE':
-            code = 'EUR'
-        if region == 'CN':
-            code = 'RMB'
-            
-    except:
-        pass
+    
+    if not code:   
+        try:
+            region = request.session['REGION']
+            if region == 'US':
+                code = 'USD'
+            if region == 'DE':
+                code = 'EUR'
+            if region == 'CN':
+                code = 'RMB'
+                
+        except:
+            pass
     
     # last attempt - if there still isn't a code, do this
     if not code:
@@ -206,6 +207,7 @@ def _change_currency(request):
     
 
 def _get_products(request, cat=None, **kwargs):
+    
     if cat:
         products = Product.objects.filter(category__slug=cat, is_active=True, **kwargs).order_by('-list_order')
     else:        
@@ -223,7 +225,7 @@ def _get_products(request, cat=None, **kwargs):
 def index(request):
     
     try:
-        if request.session['region'] == 'CN':
+        if request.session['REGION'] == 'CN':
             teas = Product.objects.filter(category__parent_category__slug='teas', is_featured=True)
             cups = Product.objects.filter(category__slug='teaware')[:3]
             reviews = Review.objects.filter(is_published=True).order_by('?')[:3]
@@ -267,11 +269,11 @@ def category(request):
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
         basket = None
-      
-    
+
+    curr = _get_currency(request)      
     if basket:
         for x in products: 
-            basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price())
+            basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price(currency))
             if basket_item.count() > 0:
                 x.basket_quantity = basket_item[0].quantity
             
@@ -279,7 +281,6 @@ def category(request):
         form = MonthlyBoxForm()
 
 
-    curr = _get_currency(request)
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
     return render(request, "shop/category.html", locals())
 
@@ -1080,7 +1081,7 @@ def tell_a_friend(request):
 
 
 def international(request):
-    request.session['region'] = 'global'
+    request.session['REGION'] = 'global'
     currency = _change_currency(request)
     request.session['CURRENCY'] = 'GBP'
             

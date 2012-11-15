@@ -26,13 +26,16 @@ def common(request):
         
     # REGIONAL STUFF
     try:
-        region = request.session['region']
+        region = request.session['REGION']
     except:
         region = GetCountry(request)['countryCode']
         # http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-        request.session['region'] = region
+        request.session['REGION'] = region
     
     context['region'] = region
+
+
+
 
 
     # CHANGE THE BASE TEMPLATE FOR CHINA
@@ -46,9 +49,12 @@ def common(request):
 
     
     
+    
+    
     # CURRENCIES
     currency = _get_currency(request)
     context['currency'] = currency
+
 
 
     # BASKET STUFF
