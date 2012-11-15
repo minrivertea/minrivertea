@@ -282,6 +282,11 @@ input.button:hover {
     width: auto;
 }
 
+#userbasket.selected {
+  height: 35px;
+  font-size: 16px;   
+}
+
 #userbasket #quantity {
     bottom: 5px;
     text-align: center;

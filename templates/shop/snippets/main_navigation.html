@@ -30,7 +30,7 @@
 
     {% if request.user.is_superuser %}
     <li>
-      <a class="{% nav_selected request '^/tea-boxes/' %}" href="{% url tea_boxes %}" title="{% trans 'Get your tea delivered to your door regularly, with our TEABoxes schemes.' %}" alt="{% trans 'Get your tea delivered to your door regularly, with our TEABoxes schemes.' %}">{% trans 'TeaBoxes' %}</a>
+      <a class="{% nav_selected request '^/tea-boxes/' %}" href="{% url tea_boxes %}" title="{% trans 'Get your tea delivered to your door regularly, with our TEABoxes packages.' %}" alt="{% trans 'Get your tea delivered to your door regularly, with our TeaBoxes packages.' %}">{% trans 'TeaBoxes' %}</a>
     </li>
     {% endif %}
 
