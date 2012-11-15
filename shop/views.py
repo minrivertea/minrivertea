@@ -270,10 +270,11 @@ def category(request):
     except:
         basket = None
 
-    curr = _get_currency(request)      
+    curr = _get_currency(request) 
+         
     if basket:
         for x in products: 
-            basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price(currency))
+            basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price(curr))
             if basket_item.count() > 0:
                 x.basket_quantity = basket_item[0].quantity
             
