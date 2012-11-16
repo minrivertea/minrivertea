@@ -21,10 +21,10 @@ def _create_customer_package(order):
     )
 
     for x in order.items.all():
-        package.items.add(x.item)
         quantity = x.quantity
         wh_items = WarehouseItem.objects.filter(unique_product=x.item)[:(quantity-1)]
         for i in wh_items:
+            package.items.add(i)
             i.sold = datetime.datetime.now()
             i.reason = WarehouseItem.SOLD
             i.save()
@@ -65,7 +65,6 @@ def add_stocks(request):
     if request.method == 'POST':
         form = AddStocksForm(request.POST)
         if form.is_valid():
-            print "got here"
             quantity = form.cleaned_data['quantity']
             up = form.cleaned_data['unique_product']
             batch = form.cleaned_data['batch']

@@ -207,7 +207,7 @@ def _payment_flagged_email(order):
 
     receiver = settings.SITE_EMAIL
     text = render_to_string('shop/emails/text/order_confirm_admin.txt', {'order': order})
-    subject_line = "FLAGGED ORDER - %s" % invoice_id 
+    subject_line = "FLAGGED ORDER - %s" % order.invoice_id 
       
     _send_email(receiver, subject_line, text)
     
