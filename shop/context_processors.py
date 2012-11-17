@@ -1,7 +1,7 @@
 from django.conf import settings
 from minriver.shop.models import *
 from minriver.blog.models import BlogEntry
-from minriver.shop.views import GetCountry, _get_currency
+from minriver.shop.views import GetCountry, _get_currency, _set_currency, _get_region
 from django.utils import translation
 
 
@@ -25,17 +25,11 @@ def common(request):
 
         
     # REGIONAL STUFF
-    try:
-        region = request.session['REGION']
-    except:
-        region = GetCountry(request)['countryCode']
-        # http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-        request.session['REGION'] = region
+    context['region'] = _get_region(request)    
     
-    context['region'] = region
-
-
-
+    # currency stuff
+    context['currency'] = _get_currency(request) 
+    
 
 
     # CHANGE THE BASE TEMPLATE FOR CHINA
@@ -43,17 +37,10 @@ def common(request):
     if '/admin-stuff/' in request.path:
         base_template = settings.BASE_TEMPLATE_ADMIN
     else:
-        if region == 'CN':
+        if _get_region(request) == 'CN':
             base_template = settings.BASE_TEMPLATE_CHINA
+    
     context['base_template'] = base_template
-
-    
-    
-    
-    
-    # CURRENCIES
-    currency = _get_currency(request)
-    context['currency'] = currency
 
 
 
@@ -76,7 +63,7 @@ def common(request):
     
     context['basket_quantity'] = basket_quantity
     context['basket_amount'] = basket_amount    
-              
+            
     return context
     
     

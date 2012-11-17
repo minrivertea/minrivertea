@@ -46,13 +46,8 @@ class BasketDoesNotExist(Exception):
 
 #render shortcut
 def render(request, template, context_dict=None, **kwargs):
-    try:
-        region = request.session['REGION']
-    except:
-        region = GetCountry(request)['countryCode']
-        request.session['REGION'] = region
       
-    if region == 'CN':      
+    if _get_region(request) == 'CN':      
         new_template = "china/%s" % template
         new_template_full = os.path.join(settings.PROJECT_PATH, "templates/", new_template)
         if os.path.exists(new_template_full):
@@ -129,63 +124,49 @@ def twitter_post(tweet):
         if settings.DEBUG:
             raise(e)
 
-def _get_currency(request, code=None):
-    
-    if code:
-        return get_object_or_404(Currency, code=code)
-    
+
+def _get_region(request):
     try:
-        code = request.session['CURRENCY']
+        region = request.session['REGION']
     except:
-        pass
+        # http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+        region = GetCountry(request)['countryCode']
+        request.session['REGION'] = region
+    return region
+
+# IMPORTANT - get_currency is only for retrieving the current currency. It shouldn't do any calculations.
+def _get_currency(request, currency_code=None):
     
-    if not code:   
+    if not currency_code:    
         try:
-            region = request.session['REGION']
-            if region == 'US':
-                code = 'USD'
-            if region == 'DE':
-                code = 'EUR'
-            if region == 'CN':
-                code = 'RMB'
-                
+            currency_code = request.session['CURRENCY']
         except:
-            pass
+            currency_code = 'GBP'
+            region = _get_region(request)
+                
+            if region == 'US':
+                currency_code = 'USD'
+            if region == 'DE':
+                currency_code = 'EUR'
+            if region == 'CN':
+                currency_code = 'RMB'
+        
+    return get_object_or_404(Currency, code=currency_code)
     
-    # last attempt - if there still isn't a code, do this
-    if not code:
-        code = 'GBP'
-       
-    currency = get_object_or_404(Currency, code=code)
-    return currency
 
+# IMPORTANT - this should not return a currency, just set it.
+def _set_currency(request, code=None):
 
-def _get_price(request, items):
+    if code:
+        request.session['CURRENCY'] = code
     
-    total_price = 0
-    for item in items:
-        price = item.quantity * item.item.price
-        total_price += price
-    
-    currency = _get_currency(request)
-    
-    if total_price > currency.postage_discount_threshold:
-        postage_discount = True
     else:
-        total_price += currency.postage_cost
-    
-    return total_price
-    
-
-def _change_currency(request):
-
-    try:
-        currency = get_object_or_404(Currency, code=request.GET.get('curr'))
-        request.session['CURRENCY'] = currency.code
-    except:
-        currency = get_object_or_404(Currency, code='GBP')
-        request.session['CURRENCY'] = currency.code
-    
+        try:
+            currency = get_object_or_404(Currency, code=request.GET.get('curr'))
+            request.session['CURRENCY'] = currency.code
+        except:
+            currency = get_object_or_404(Currency, code='GBP')
+            request.session['CURRENCY'] = currency.code
     
     # if they have a basket already, we need to change the unique products around
     try:
@@ -204,6 +185,23 @@ def _change_currency(request):
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
     
+    
+
+def _get_price(request, items):
+    
+    total_price = 0
+    for item in items:
+        price = item.quantity * item.item.price
+        total_price += price
+    
+    currency = _get_currency(request)
+    
+    if total_price > currency.postage_discount_threshold:
+        postage_discount = True
+    else:
+        total_price += currency.postage_cost
+    
+    return total_price
     
 
 def _get_products(request, cat=None, **kwargs):
@@ -1083,7 +1081,7 @@ def tell_a_friend(request):
 
 def international(request):
     request.session['REGION'] = 'global'
-    currency = _change_currency(request)
+    currency = _set_currency(request)
     request.session['CURRENCY'] = 'GBP'
             
     url = request.META.get('HTTP_REFERER','/')
