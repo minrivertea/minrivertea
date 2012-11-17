@@ -8,7 +8,7 @@ import uuid
 
 from logistics.models import CustomerPackage, WarehouseItem
 from logistics.forms import UpdateCustomerPackageForm, AddStocksForm
-from shop.models import Currency, UniqueProduct
+from shop.models import Currency, UniqueProduct, Order
 
 
 
