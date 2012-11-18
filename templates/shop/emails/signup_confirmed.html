@@ -2,22 +2,22 @@
 {% load django_static  %}
 
 
-{% block pagetitle %}You've successfully signed up to TEAMails{% endblock %}
+{% block pagetitle %}{% trans "You've successfully signed up to TEAMails" %}{% endblock %}
 
 {% block content %}
 
 
-
-
 <div id="mtw">
   <div class="sp">
+  	{% url page 'contact-us' as contact_url %}
+  	{% blocktrans %}
   	<h1>You're now signed up to receive TEAMails!</h1>
   		<p class="introduction">TEAMails from Minrivertea are (roughly) monthly emails keeping you up to date with our company and the Chinese tea world.</p>
   		
-  		<p>We're pleased you've decided to signup - if you have any questions or suggestions, please <a href="{% url page 'contact-us' %}">get in touch</a>. </p>
+  		<p>We're pleased you've decided to signup - if you have any questions or suggestions, please <a href="{{ contact_url }}">get in touch</a>. </p>
   		
   		<p>If for any reason you wish to unsubscribe from the emails, you can click the 'Unsubscribe' link in the email footer to cancel your subscription completely, at any time.</p>
-  		
+    {% endblocktrans %}		
   	</div>
   
   </div>

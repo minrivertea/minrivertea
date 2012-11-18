@@ -617,8 +617,8 @@ div.fb-recommend {
 
 		      <div id="price-helper"> 
 		        {% if tea.stocks.count > 0 %}
-		          <div class="stocks"><strong>{{ tea.stocks.count }}</strong> in stock</div>
-		          <div class="postage-cost"><strong>{{ currency.symbol }}{{ currency.postage_cost }}</strong> shipping, free over <strong>{{ currency.symbol }}{{ currency.postage_discount_threshold }}</strong></div>       
+		          <div class="stocks">{% blocktrans with tea.stocks.count as tsc %}<strong>{{ tsc }}</strong> in stock{% endblocktrans %}</div>
+		          <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
         	    {% else %}
        	          <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong></span>
         	      <br/>{% trans "We're restocking, so delivery will take longer than usual." %}</a>
@@ -658,7 +658,7 @@ div.fb-recommend {
 	{% endif  %}
 	
 	<div id="long-description">
-	   <h3>More about this tea</h3>
+	   <h3>{% trans 'More about this product' %}</h3>
 	   {{ tea.long_description|safe }}
 	</div>
 	
@@ -677,7 +677,7 @@ div.fb-recommend {
 	
 	
 	<div id="recommended">
-	   <h3>Also recommended...</h3>
+	   <h3>{% trans 'Also recommended...' %}</h3>
 	   {% for x in recommended %}
 		  <div class="info trans">
 		      <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
@@ -696,7 +696,7 @@ div.fb-recommend {
 	</div>
 
 	
-	{% if region == 'China' %}
+	{% if region == 'CN' %}
 	{% else %}
 	{% if ga_is_on %}
     <ul class="rss">

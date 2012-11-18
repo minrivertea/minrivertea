@@ -1,17 +1,12 @@
-from minriver.blog.models import BlogEntry
-from minriver.shop.models import Product
-from shop.views import _get_products
+from blog.models import BlogEntry
+from shop.models import Product
+from shop.views import _get_products, render
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-#render shortcut
-def render(request, template, context_dict=None, **kwargs):
-    return render_to_response(
-        template, context_dict or {}, context_instance=RequestContext(request),
-                              **kwargs
-    )
+
 
 def index(request):
     objects = BlogEntry.objects.filter(is_draft=False, is_gallery=False).order_by('-date_added')

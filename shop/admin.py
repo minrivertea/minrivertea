@@ -1,4 +1,4 @@
-from minriver.shop.models import *
+from shop.models import *
 from django.contrib import admin
 
 class ProductAdmin(admin.ModelAdmin):

@@ -1,13 +1,12 @@
 from django.conf import settings
-from minriver.shop.models import *
-from minriver.blog.models import BlogEntry
-from minriver.shop.views import GetCountry, _get_currency, _set_currency, _get_region
+from shop.models import *
+from blog.models import BlogEntry
+from shop.views import GetCountry, _get_currency, _set_currency, _get_region
 from django.utils import translation
 
 
 
 def common(request):
-    from minriver import settings
     context = {}
     context['paypal_return_url'] = settings.PAYPAL_RETURN_URL
     context['paypal_notify_url'] = settings.PAYPAL_NOTIFY_URL

@@ -11,8 +11,7 @@ from slugify import smart_slugify
 from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
-from minriver import settings
-from minriver.countries import COUNTRY_CHOICES
+from countries import COUNTRY_CHOICES
 
 
 GREEN = '#177117'

@@ -209,7 +209,7 @@ img#loading-contact {
 					<textarea id="id_your_message" name="your_message" title="{% trans 'Write your message here...' %}" class="clearMeFocus{% if form.your_message.errors %} error{% endif %}" cols="40" rows="10"></textarea>
 					<p class="help-text {% if form.captcha.errors %} red{% endif %}">{% trans "Sorry, please fill in the captcha - it stops spam." %}</p>
 					{{ form.captcha }}
-					<input class="button" value="Submit" type="submit"/>
+					<input class="button" value="{% trans 'Submit' %}" type="submit"/>
 					<p class="help-text">
 						<img src="{% staticfile '/images/lock.gif' %}"> 
 						{% trans "We will never share, sell or spam your email address" %} (<a target="_blank" title="{% trans 'Read our privacy policy (opens in a new window)' %}" href="/privacy/">{% trans 'Privacy' %}</a>)

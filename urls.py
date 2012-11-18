@@ -4,9 +4,11 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, category, review_tea, tea_view, make_product_feed, changelang
+from shop.views import page, category, review_tea, tea_view, make_product_feed, _changelang, germany
 from blog.models import BlogEntry
-from minriver.blog.feeds import LatestEntries
+from blog.feeds import LatestEntries
+
+from registration.views import register
 
 # admin urls
 from django.contrib import admin
@@ -38,11 +40,12 @@ feeds = {
 
 # main URL patterns
 urlpatterns = patterns('',
-    (r'^', include('minriver.shop.urls')),
+    (r'^', include('shop.urls')),
+    url(r'^accounts/register/$', register, {'backend': 'shop.regbackend.SimpleBackend',}, name='registration_register'),
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^admin-stuff/', include('my_admin.urls')),
-    (r'^blog/', include('minriver.blog.urls')),
+    (r'^blog/', include('blog.urls')),
     (r'^captcha/', include('captcha.urls')),
     (r'^logistics/', include('logistics.urls')),
     (r'^emailer/', include('emailer.urls')),
@@ -57,9 +60,11 @@ urlpatterns = patterns('',
     (r'^noteaheroics/$', direct_to_template, {'template': 'no_heroics.html'}),
     (r'^noteanazis/$', direct_to_template, {'template': 'no_tea_nazis.html'}),
     
-    url(r'^changelang/(?P<code>[\w-]+)/$', changelang, name="changelang"),
+    url(r'^changelang/(?P<code>[\w-]+)/$', _changelang, name="changelang"),
     (r'^400/$', direct_to_template, {'template': '404.html'}),  
     (r'^comments/', include('django.contrib.comments.urls')), 
+    
+    url(r'^de/$', germany, name="germany"),
     
     # urls for the products/categories
     url(r'^packages/$', category, name="packages"),

@@ -1,5 +1,5 @@
 from django.contrib.syndication.feeds import Feed
-from minriver.blog.models import BlogEntry
+from blog.models import BlogEntry
 
 class LatestEntries(Feed):
     title = "Chinese tea blog from the Min River Tea Farm"

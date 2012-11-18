@@ -25,14 +25,13 @@ import os
 import datetime
 from datetime import timedelta
 import uuid
-import twitter
 import re
 
 
 
-from minriver.shop.models import *
-from minriver.shop.forms import *
-from minriver.slugify import smart_slugify
+from shop.models import *
+from shop.forms import *
+from slugify import smart_slugify
 from emailer.views import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email, _get_subscriber_list, _tell_a_friend_email
 
 
@@ -86,13 +85,15 @@ def _get_basket(request):
     return basket
 
 
-def changelang(request, code):
+def _changelang(request, code):
+    
     from django.utils.translation import check_for_language, activate, to_locale, get_language
     next = request.REQUEST.get('next', None)
     if not next:
         next = request.META.get('HTTP_REFERER', None)
     if not next:
         next = '/'
+
     response = HttpResponseRedirect(next)
     lang_code = code
         
@@ -102,27 +103,6 @@ def changelang(request, code):
         else:
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
     return response
-
-
-
-def twitter_post(tweet):   
-    if not twitter or not hasattr(settings, 'TWITTER_USER') or \
-        not hasattr(settings, 'TWITTER_PASS'):
-        return
-
-    try:
-        api = twitter.Api(
-                consumer_key=settings.CONSUMER_KEY,
-                consumer_secret=settings.CONSUMER_SECRET, 
-                access_token_key=settings.ACCESS_TOKEN, 
-                access_token_secret=settings.ACCESS_SECRET,
-                )
-         
-        update = api.PostUpdate(tweet)
-        
-    except Exception, e:
-        if settings.DEBUG:
-            raise(e)
 
 
 def _get_region(request):
@@ -283,6 +263,11 @@ def category(request):
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
     return render(request, "shop/category.html", locals())
 
+
+def germany(request):
+    _set_currency(request, code='EUR')
+    response = _changelang(request, code='de')
+    return response
 
 
 def sale(request):

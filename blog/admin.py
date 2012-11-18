@@ -1,4 +1,4 @@
-from minriver.blog.models import BlogEntry
+from blog.models import BlogEntry
 from django.contrib import admin
 
 class BlogEntryAdmin(admin.ModelAdmin):

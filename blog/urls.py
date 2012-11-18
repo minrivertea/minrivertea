@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from minriver.blog import views
+from blog import views
 
 
 urlpatterns = patterns('',

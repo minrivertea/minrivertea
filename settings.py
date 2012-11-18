@@ -44,8 +44,8 @@ SECRET_KEY = ''
 
 
 TEMPLATE_LOADERS = (
-    'django_mobile.loader.Loader',
-    'ab.loaders.load_template_source',
+#    'django_mobile.loader.Loader',
+#    'ab.loaders.load_template_source',
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.load_template_source',
@@ -56,9 +56,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
-    'minriver.shop.context_processors.get_shopper',
-    'minriver.shop.context_processors.common',
-    'django_mobile.context_processors.flavour',
+    'shop.context_processors.get_shopper',
+    'shop.context_processors.common',
+#    'django_mobile.context_processors.flavour',
 )
 
 
@@ -80,7 +80,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-ROOT_URLCONF = 'minriver.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, "templates/"), 
@@ -108,8 +108,8 @@ INSTALLED_APPS = (
     'my_comments',
     'captcha',
     'rosetta',
-    'modeltranslation',
     'modeltranslation_wrapper',
+    'modeltranslation',
     'logistics',
     'emailer',
 #    'debug_toolbar',
@@ -148,6 +148,8 @@ BASE_TEMPLATE_ADMIN = 'base_admin.html'
 COMMENTS_APP = 'my_comments'
 CAPTCHA_FONT_SIZE = 35
 CAPTCHA_LETTER_ROTATION = None
+
+SOUTH_TESTS_MIGRATE = False
 
 EMAIL_TEMPLATES = (
 

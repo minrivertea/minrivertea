@@ -1,5 +1,5 @@
 from django.db import models
-from minriver.slugify import smart_slugify
+from slugify import smart_slugify
 
 
 class BlogEntry(models.Model):
