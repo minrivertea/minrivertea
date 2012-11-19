@@ -1,8 +1,11 @@
 {% load nav_selected i18n %}
 
 <div id="navigation">
+  
   <ul id="nav">
-    
+    <li>
+      <a class="grey {% nav_selected request '^/$' %}" href="{% url home %}">{% trans 'Home' %}</a>
+    </li>
     <li>
       <a class="{% nav_selected request '^/oolong-tea/' %}" href="{% url oolong_tea %}" title="{% trans 'Buy oolong teas direct from farms in China' %}" alt="{% trans 'Buy oolong teas direct from farms in China' %}">{% trans 'Oolong tea' %}</a> 
     </li>

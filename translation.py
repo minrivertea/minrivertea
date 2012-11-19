@@ -1,5 +1,5 @@
 from modeltranslation.translator import translator, TranslationOptions
-from shop.models import Product, Page, Category
+from shop.models import Product, Page, Category, UniqueProduct
 
 class ProductTranslationOptions(TranslationOptions):
     fields = (
@@ -36,8 +36,14 @@ class CategoryTranslationOptions(TranslationOptions):
         'short_description',
     )
 
+class UniqueProductTranslationOptions(TranslationOptions):
+    fields = (
+        'description',   
+    )
+
 translator.register(Product, ProductTranslationOptions)
 translator.register(Page, PageTranslationOptions)
 translator.register(Category, CategoryTranslationOptions)
+translator.register(UniqueProduct, UniqueProductTranslationOptions)
 
 
