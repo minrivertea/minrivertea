@@ -9,7 +9,6 @@ class OrderTestCase(TestCase):
     
     fixtures = ['shop_testdata.json']
 
-    
     def test_add_to_basket(self):
         """try to add something to a basket """
         print "Testing add_to_basket"

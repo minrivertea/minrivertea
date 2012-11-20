@@ -265,7 +265,7 @@ def category(request):
 
 
 def germany(request):
-    _set_currency(request, code='EUR')
+    _set_currency(request, 'EUR')
     response = _changelang(request, code='de')
     return response
 
