@@ -8,6 +8,8 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext as _
+from django.utils.translation import activate, get_language, get_language_from_request
 
 import os
 import datetime
@@ -20,11 +22,11 @@ from emailer.forms import EmailSignupForm
 from shop.forms import CreateSendEmailForm
 
 
+
 def _send_email(receiver, subject_line, text, request=None, sender=None):
     
     if not sender:
         sender = settings.SITE_EMAIL
-    
     
     send_mail(
             subject_line, 
@@ -43,12 +45,12 @@ def order_reminder_email(request, id):
     if order.reminder_email_sent:
         return False
 
+    activate(shopper.language)
+   
     receiver = order.owner.email
-    subject_line = "Was it something we said?"
-    text = render_to_string('shop/emails/text/send_reminder_email.txt', {
-        'order': order, 
-        'url': reverse('order_url', args=[order.hashkey])}
-    )
+    subject_line = _("Was it something we said?")
+    url = reverse('order_url', args=[order.hashkey])
+    text = render_to_string('shop/emails/text/send_reminder_email.txt', locals())
     
     _send_email(receiver, subject_line, text)
                     
@@ -62,7 +64,7 @@ def order_reminder_email(request, id):
 def _tell_a_friend_email(sender, receiver):
     
     text = render_to_string('shop/emails/text/tell_friend.txt', {'sender': sender})
-    subject_line = "Check out minrivertea.com"
+    subject_line = _("Check out minrivertea.com")
     
     _send_email(receiver, subject_line, text, sender=sender)    
         
@@ -75,8 +77,9 @@ def free_sampler_email(request, id):
     if order.sampler_email_sent:
         return False
 
+    activate(shopper.language)
     receiver = shopper.email
-    subject_line = "Give a tea gift to a friend, courtesy of the Min River Tea Farm"
+    subject_line = _("Give a tea gift to a friend, courtesy of the Min River Tea Farm")
             
     # create email
     text = render_to_string('shop/emails/text/send_sample_to_friend_email.txt', {'shopper': shopper})
@@ -93,7 +96,8 @@ def free_sampler_email(request, id):
 def product_review_email(request, orderid):
     order = get_object_or_404(Order, id=orderid)
     
-    subject_line = "Two things you can do right now"
+    activate(order.owner.language)
+    subject_line = _("Two things you can do right now")
     receiver = order.owner.email
     
     text = render_to_string('shop/emails/text/review_email.txt', {
@@ -112,8 +116,9 @@ def product_review_email(request, orderid):
 
 def _wishlist_confirmation_email(wishlist):
     
+    activate(wishlist.owner.language)
     receiver = wishlist.owner.email
-    subject_line = "Your Min River Tea Wishlist!"
+    subject_line = _("Your Min River Tea Wishlist!")
             
     # create email
     text = render_to_string('shop/emails/text/wishlist_confirmation_email.txt', {'wishlist': wishlist})
@@ -151,10 +156,11 @@ def _admin_notify_contact(data):
 
 def _send_two_month_reminder_email(order):
 
+    activate(order.owner.language)
     text_template = "shop/emails/text/two_month_reminder.txt"
 
     receiver = order.owner.email
-    subject_line = "Have you finished your tea yet?"
+    subject_line = _("Have you finished your tea yet?")
     
     if not order.hashkey:
         order.hashkey = uuid.uuid1().hex
@@ -162,7 +168,6 @@ def _send_two_month_reminder_email(order):
             
     
     url = "http://www.minrivertea.com/order/repeat/%s" % order.hashkey
-    
     text = render_to_string(text_template, {
         'url': url,
         'order': order,	
@@ -189,7 +194,8 @@ def _payment_success_email(order):
     
     # CUSTOMER EMAIL
     receiver = order.owner.email
-    subject_line = "Order confirmed - Min River Tea Farm" 
+    lang = activate(order.owner.language)
+    subject_line = _("Order confirmed - minrivertea.com")
     text = render_to_string('shop/emails/text/order_confirm_customer.txt', {'order': order})
     
     _send_email(receiver, subject_line, text)
@@ -197,11 +203,12 @@ def _payment_success_email(order):
      
     # ADMIN EMAIL (reset some of the values!!)
     receiver = settings.SITE_EMAIL
+    lang = activate('en')
     subject_line = "NEW ORDER - %s" % order.invoice_id 
     text = render_to_string('shop/emails/text/order_confirm_admin.txt', {'order': order})
     _send_email(receiver, subject_line, text)
 
-    return HttpResponse()
+    return True
 
 def _payment_flagged_email(order):
 
@@ -218,12 +225,10 @@ def email_signup(request):
     if request.method == 'POST':
         form = EmailSignupForm(request.POST)
         if form.is_valid():
-            
-            from django.utils.translation import get_language
-            
+                        
             try:
                 existing_signup = get_object_or_404(Subscriber, email=form.cleaned_data['email'])
-                message = "<h3>Looks like you're already signed up! You don't need to do anything else, and you'll receive TEAMails as normal.</h3>"
+                message = _("<h3>Looks like you're already signed up! You don't need to do anything else, and you'll receive TEAMails as normal.</h3>")
             except:
                 new_signup = Subscriber.objects.create(
                     email = form.cleaned_data['email'],
@@ -232,13 +237,13 @@ def email_signup(request):
                     confirmed=True, # TODO - change this so that an email gets sent off immediately asking them to confirm
                 )
                 new_signup.save()
-                message = "<h3>Awesome! You're now signed up to receive TEAMails - they're roughly fortnightly, and you can unsubscribe at any time by clicking the link in the email.</h3>"
+                message = _("<h3>Awesome! You're now signed up to receive TEAMails - they're roughly fortnightly, and you can unsubscribe at any time by clicking the link in the email.</h3>")
             
             if request.is_ajax():
                 return HttpResponse(message)
             
             else:
-                from minriver.shop.views import render
+                from shop.views import render
                 return render(request, 'shop/emails/signup_confirmed.html', locals())
                     
     else:

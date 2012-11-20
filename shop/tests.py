@@ -1,34 +1,45 @@
 
-
 from django.test import TestCase
+from django.core.urlresolvers import reverse
+from django.test.client import Client
 
 from shop.models import UniqueProduct
 
 
 class OrderTestCase(TestCase):
     
-    fixtures = ['shop_testdata.json']
+    fixtures = ['testdata.xml']    
 
-    
-    def test_add_to_basket(self):
-        """try to add something to a basket """
-        print "Testing add_to_basket"
+    def test_add_basket_items(self):
+        """Try to add something to a basket """
+
         up = UniqueProduct.objects.filter(is_active=True).order_by('?')[0]
         
-        url = reverse('add_to_basket', args[up.id])
+        # try add something to the basket
+        url = reverse('add_to_basket', args=[up.id])
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-        print "   works!"
+        self.assertEqual(response.status_code, 302)
+
+        response = self.client.get('/')
+        self.assertEqual(response.context['basket_quantity'], 1)
     
-    def test_remove_from_basket(self):
-        """try to remove something from basket"""
-        up = UniqueProduct.objects.filter(is_active=True).order_by('?')[0]
-        url = reverse('remove_from_basket', args=[up.id])
+    def test_view_basket(self):
+        """Try to view the basket page"""
+        # first viewing it without any items in basket
+        url = reverse('basket')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         
+        # now add something to basket and view again
+        up = UniqueProduct.objects.filter(is_active=True).order_by('?')[0]
+        url = reverse('add_to_basket', args=[up.id])
+        response = self.client.get(url)
         
-        
+        url = reverse('basket')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+    
+
       
         
         

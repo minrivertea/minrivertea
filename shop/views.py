@@ -28,7 +28,6 @@ import uuid
 import re
 
 
-
 from shop.models import *
 from shop.forms import *
 from slugify import smart_slugify
@@ -357,10 +356,10 @@ def add_to_basket(request, productID):
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
-    else:
-        url = request.META.get('HTTP_REFERER','/')
-        request.session['ADDED'] = item.id
-        return HttpResponseRedirect(url)
+    
+    url = request.META.get('HTTP_REFERER','/')
+    request.session['ADDED'] = item.id
+    return HttpResponseRedirect(url)
 
 
 # function for removing stuff from your basket
