@@ -172,7 +172,7 @@ class UniqueProduct(models.Model):
     price = models.DecimalField(help_text="Price", max_digits=8, decimal_places=2, null=True, blank=True)
     currency = models.ForeignKey(Currency)
     parent_product = models.ForeignKey(Product)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_sale_price = models.BooleanField(default=False)
     old_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
@@ -189,6 +189,7 @@ class Shopper(models.Model):
     email = models.EmailField(blank=True, null=True)
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
+    language = models.CharField(max_length=20, choices=settings.LANGUAGES, default='en')
     number_referred = models.IntegerField(null=True, blank=True)
     slug = models.SlugField(max_length=200)
     twitter_username = models.CharField(max_length=200, blank=True, null=True)

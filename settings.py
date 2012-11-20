@@ -39,7 +39,7 @@ SITE_URL = "http://www.minrivertea.com"
 # STATIC / MEDIA FILES
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'static')
 MEDIA_URL = ''
-STATIC_URL = '/'
+STATIC_URL = '/static/'
 
 
 # Make this unique, and don't share it with anybody.

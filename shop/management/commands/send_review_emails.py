@@ -2,8 +2,8 @@ from django.core.management.base import NoArgsCommand, CommandError
 from datetime import datetime, timedelta
 
 # import various bits and pieces
-from minriver.shop.models import Order, Review
-from minriver.shop.emails import _product_review_email, _admin_cron_update
+from shop.models import Order, Review
+from emailer.views import _product_review_email, _admin_cron_update
 
 
 # this sends out the first 'review' email after the order was shipped.

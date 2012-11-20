@@ -2,7 +2,7 @@ from django.core.management.base import NoArgsCommand, CommandError
 from datetime import datetime, timedelta
 
 # import various bits and pieces
-from minriver.shop.models import Order, BasketItem, Basket
+from shop.models import Order, BasketItem, Basket
 
 # this is the function for deleting all basketitems not needed, and all baskets over 2 months old.
 class Command(NoArgsCommand):

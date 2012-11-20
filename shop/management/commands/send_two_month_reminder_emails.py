@@ -1,8 +1,8 @@
 from django.core.management.base import NoArgsCommand, CommandError
 from datetime import datetime, timedelta
 
-from minriver.shop.models import Order, Shopper, Product, UniqueProduct
-from minriver.shop.emails import _send_two_month_reminder_email, _admin_cron_update
+from shop.models import Order, Shopper, Product, UniqueProduct
+from emailer.views import _send_two_month_reminder_email, _admin_cron_update
 
 
 class Command(NoArgsCommand):
