@@ -4,24 +4,25 @@
     {% include "shop/snippets/fo-shou-special.html" %}
 
 
-{% for s in category.get_sub_categories %}
-
+{% for c in categories %}
 <div class="section">
 
 	<div class="intro">
 		<a id="{{ s.slug }}"></a>
-		<h2>&laquo; {{ s.name }}</h2>
-		<p>{{ s.short_description }}</p>
+		<h2>&laquo; {{ c.name }}</h2>
+		<p>{{ c.short_description }}</p>
 	</div>
 	
-	   {% for p in s.get_products %}
+	   {% for p in c.products %}
         <div class="tea-promo">
     	  <a title="{{ p.name }} - {% trans 'click to view more details' %}" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
     	  <div class="image">
-    	    {% thumbnail p.image "275x190" crop="center" as im %}
+    	    {% thumbnail p.image thumb_medium crop="center" as im %}
 	   	    <img alt="a picture of {{ p.name }} tea" title="{{ p.name }} tea - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
 	   	    {% endthumbnail %}
 	      </div>
+	      <span class="price"><span class="amount">{{ currency.symbol }}{{ p.price.price|floatformat }}</span> / {{ p.price.weight }}{{ p.price.weight_unit }}</span>
+	      
 	      <h3>
 	   	   <a title="{{ p.name }} - {% trans 'find out more or order some now!' %}" href="{{ p.get_absolute_url }}">
 	   	   {{ p.name }} &raquo;

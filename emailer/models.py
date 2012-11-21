@@ -1,18 +1,11 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 from datetime import datetime, timedelta
-from urlparse import urlparse
 
-from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
-from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
 
 from shop.models import Shopper
-
-
-
 
 
 class EmailInstance(models.Model):

@@ -1,0 +1,8 @@
+django_static
+PIL
+sorl-thumbnail
+south
+django-simple-captcha
+django-rosetta
+mysql-python
+django-registration

@@ -713,6 +713,7 @@ p.introduction {
 .info.tea .text h3 {
   margin: 6px 0 3px;
   float: right;	
+  font-size: 14px;
 }
 
 .info.bio img {

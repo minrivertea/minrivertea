@@ -183,12 +183,11 @@ def _get_price(request, items):
     return total_price
     
 
-def _get_products(request, cat=None, **kwargs):
-    
+def _get_products(request, cat=None):
     if cat:
-        products = Product.objects.filter(category__slug=cat, is_active=True, **kwargs).order_by('-list_order')
+        products = Product.objects.filter(category__slug=cat, is_active=True).order_by('-list_order')
     else:        
-        products = Product.objects.filter(is_active=True, **kwargs).order_by('-list_order')
+        products = Product.objects.filter(is_active=True).order_by('-list_order')
     
     currency = _get_currency(request)
     for x in products:
@@ -238,25 +237,32 @@ def page(request, slug, x=None, y=None, z=None):
    
 # the product listing page
 def category(request):
-    slug = request.path.strip('/')
-    category = get_object_or_404(Category, slug=slug)
-    products = _get_products(request, category.slug)
     
-    try:
-        basket = Basket.objects.get(id=request.session['BASKET_ID'])
-    except:
-        basket = None
-
-    curr = _get_currency(request) 
+    curr = _get_currency(request)
+    slug = request.path.strip('/')
+    if slug == 'teas':
+        products = None
+        category = None
+        categories = Category.objects.filter(parent_category__slug=slug)
+        for c in categories:
+            c.products = _get_products(request, c.slug)
+                
+    else:
+        category = get_object_or_404(Category, slug=slug)
+        products = _get_products(request, category.slug)
+    
+    basket = _get_basket(request)
          
-    if basket:
+    if basket and products:
         for x in products: 
             basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price(curr))
             if basket_item.count() > 0:
                 x.basket_quantity = basket_item[0].quantity
             
-    if category.slug == 'tea-boxes':
-        form = MonthlyBoxForm()
+    
+    if category:         
+        if category.slug == 'tea-boxes':
+            form = MonthlyBoxForm()
 
 
     special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)

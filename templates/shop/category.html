@@ -124,22 +124,26 @@ div.info p {
   font-size: 14px;	
 }
 
-{% if category.slug == 'teas' %}
-.tea-promo div.image {
-  width: 275px;	
-  margin: 0 0 10px 0;
-}
+{% if categories %}
 
 #teas {
   border-bottom: none;	
 }
 
+.tea-promo div.image {
+  margin: 0 0 10px 0;   
+}
+
+.tea-promo h3 {
+  font-size: 14px;   
+}
+
 .tea-promo {
-  margin: 0 15px 20px 0;   
-  width: 275px;
+  margin: 0 15px 15px 0;   
   background: #fff;
   border: none;
   padding: 10px;
+  width: 240px;
 }
 
 .section {
@@ -152,9 +156,9 @@ div.info p {
 
 .section .intro {
     float: right;
-    height: 261px;
+    height: 225px;
     padding: 0 0 0;
-    width: 320px;
+    width: 390px;
 }
 
 .intro h2 {
@@ -166,6 +170,19 @@ div.info p {
   margin: 0;	
 }
 
+span.price {
+    color: #777777;
+    float: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    margin: 0px 0 0 5px;
+}
+
+span.price .amount {
+  color: #333;
+  font-weight: bold;   
+}
+
 {% else %}
 
 .tea-promo h3 {
@@ -173,6 +190,7 @@ div.info p {
 }
 
 {% endif %}
+
 
 
 #special {
@@ -300,12 +318,13 @@ div.info p {
     		     {% include 'shop/snippets/brewer-special.html' %}
     		{% endif %}
 			
-			{% if category.slug == 'teas' %}
-			    {% include "shop/snippets/products.html" %}
-			{% else %}
-    	        {% include "shop/snippets/products_normal.html" %}
-			{% endif %}
+
+    	     {% include "shop/snippets/products_normal.html" %}
 	     {% endif %}
+	    
+	     {% if categories %}
+		    {% include "shop/snippets/products.html" %}
+		 {% endif %}
 		
     		
 

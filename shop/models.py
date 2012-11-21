@@ -162,8 +162,8 @@ class Category(models.Model):
         return subs
     
     def get_products(self):
-        prods = Product.objects.filter(category=self, is_active=True)
-        return prods
+        from shop.views import _get_products
+        return _get_products(cat=self.slug)
 
  
 class UniqueProduct(models.Model):

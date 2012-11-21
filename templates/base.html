@@ -40,6 +40,10 @@
 
 	{% block extracss %}{% endblock %}
 
+    {% if request.LANGUAGE_CODE == 'de' %}
+    <link rel="stylesheet" href="{% staticfile '/css/germany.css' %}"/>
+    {% endif %}
+
     {% if request.user.is_superuser %}
 	<!--<link rel="stylesheet" href="{% staticfile '/css/christmas.css' %}" />-->
 	{% endif %}

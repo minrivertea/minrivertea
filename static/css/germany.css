@@ -1,0 +1,38 @@
+
+
+ul#nav li a, ul#nav li a:link, ul#nav li a:visited {
+  font-size: 12px;   
+}
+
+h1 {
+  font-size: 28px;   
+}
+
+h2 {
+   font-size: 24px;   
+}
+
+a#harvest {
+   font-size: 28px;   
+}
+
+div.info h3 {
+  font-size: 18px;   
+}
+
+a.button {
+  font-size: 16px;   
+}
+
+#checkout-button a.button, #checkout-button input.button {
+  font-size: 26px;   
+}
+
+.info.email-signup span {
+  width: 135px;   
+}
+
+#price-helper span.not-in-stock {
+  font-size: 12px;
+  font-weight: bold;   
+}

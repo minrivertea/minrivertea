@@ -56,6 +56,12 @@ div#basket-full img {
   height: 20px;   
 }
 
+#basket-full .basket-row.postage div.long {
+  width: 460px;
+  float: left;
+  height: 20px;   
+}
+
 div.basket-row:first-child {
   padding-top: 0px;	
 }
@@ -296,7 +302,7 @@ input#id_discount_code {
 
 <div id="mtw">
   <div class="sp">
-  	<h1>{% blocktrans with basket_quantity|pluralize as plural %}Your basket ({{ basket_quantity }} item{{ plural }}){% endblocktrans %}</h1>
+  	<h1>{% blocktrans count basket_quantity as counter %}Your basket ({{ basket_quantity }} item){% plural %}Your basket ({{ basket_quantity }} items){% endblocktrans %}</h1>
 
 {% if basket_items %}
 
@@ -348,8 +354,11 @@ input#id_discount_code {
 	  </div>
 	{% else %}
 	  <div class="basket-row postage">
-		<div class="tea-name"><em>{% trans 'Postage' %}</em></div>
-		<div class="tea-weight"><em>{% trans 'Delivered in 1-3 days' %} | {% trans 'Shipped from the UK' %}</em></div>
+		<div class="long">
+		  <em>
+		      {% trans 'Postage' %}
+		      {% trans 'Delivered in 1-3 days' %} | {% trans 'Shipped from the UK' %}</em>
+		</div>
 		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>
 	  </div>
