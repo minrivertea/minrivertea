@@ -70,6 +70,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 #    'ab.middleware.ABMiddleware',
 #    'django_mobile.middleware.MobileDetectionMiddleware',
 #    'django_mobile.middleware.SetFlavourMiddleware',

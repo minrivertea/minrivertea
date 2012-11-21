@@ -12,6 +12,7 @@ from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.translation import ugettext as _
+from django.utils.translation import get_language
 
 
 import urllib
@@ -575,7 +576,8 @@ def order_step_one(request):
                         email = form.cleaned_data['email'],
                         first_name = form.cleaned_data['first_name'],
                         last_name = form.cleaned_data['last_name'],
-                        slug = slugger,     
+                        slug = slugger, 
+                        language=get_language(),    
                     )
                     
                 # we'll secretly log the user in now
