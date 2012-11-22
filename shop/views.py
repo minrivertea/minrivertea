@@ -492,17 +492,14 @@ def basket(request):
 
 
 # the view for order process step 1 - adding your details
-def order_step_one(request):
+def order_step_one(request, basket=None):
     
-    # first off, check that they have a basket
-    basket = None
     try:
         basket = Basket.objects.get(id=request.session['BASKET_ID'])
     except:
         pass
 
     # next, if they already have an order, try loading the information
-    order = None
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
         email = order.owner.email
@@ -515,23 +512,13 @@ def order_step_one(request):
         first_name = order.owner.first_name
         last_name = order.owner.last_name
     except:
-        pass
-    
+        order = None
     
     if not basket and not order:
         problem = _("You don't have any items in your basket, so you can't process an order!")
         return render(request, 'shop/order-problem.html', locals()) 
-    
-    # check if they're secretly logged in
-    shopper = None
-    if request.user.is_authenticated():
-        try:
-            shopper = get_object_or_404(Shopper, user=request.user.id)
-        except:
-            pass
-        
+            
 
-    # if it's a POST request
     if request.method == 'POST': 
         post_values = request.POST.copy()
         initial_values = (
@@ -545,55 +532,53 @@ def order_step_one(request):
                 del post_values[k]
                 
         form = OrderStepOneForm(post_values)
-                
         if form.is_valid(): 
             
-            # first, if there's a shopper, we don't need new User and Shopper objects
-            if not shopper:
-                # is there already a shopper with this email?
+            # FIRST, GET THE USER
+            if request.user.is_authenticated():
+                user = request.user
+            else:
                 try:
-                    shopper = get_object_or_404(Shopper, email=form.cleaned_data['email'])
-                    this_user = shopper.user
+                    user = User.objects.get(email=form.cleaned_data['email'])
+                    
                 except:
-                    try:
-                        # just double check if there's a user object
-                        this_user = get_object_or_404(User, email=form.cleaned_data['email'])
-                    except:
-                        # if there's no user with this email, we create a user and new shopper object
-                        creation_args = {
+                    creation_args = {
                             'username': form.cleaned_data['email'],
                             'email': form.cleaned_data['email'],
                             'password': uuid.uuid1().hex,
-                        }
-                     
-                        this_user = User.objects.create(**creation_args)
-                        this_user.first_name = form.cleaned_data['first_name']
-                        this_user.last_name = form.cleaned_data['last_name']
-                        this_user.save()
+                    }
+                    user = User.objects.create(**creation_args)
+                    user.first_name = form.cleaned_data['first_name']
+                    user.last_name = form.cleaned_data['last_name']
+                    user.save()
                 
-                    # now we create a new 'shopper' object too
-                    full_name = "%s %s" % (form.cleaned_data['first_name'], form.cleaned_data['last_name'])
-                    slugger = smart_slugify(full_name, lower_case=True)
-                    shopper = Shopper.objects.create(
-                        user = this_user,
-                        email = form.cleaned_data['email'],
-                        first_name = form.cleaned_data['first_name'],
-                        last_name = form.cleaned_data['last_name'],
-                        slug = slugger, 
-                        language=get_language(),    
-                    )
-                    
-                # we'll secretly log the user in now
+                # SECRETLY LOG THE USER IN
                 from django.contrib.auth import load_backend, login
                 for backend in settings.AUTHENTICATION_BACKENDS:
-                    if this_user == load_backend(backend).get_user(this_user.pk):
-                        this_user.backend = backend
-                if hasattr(this_user, 'backend'):
-                    login(request, this_user)
-                    
-                
+                    if user == load_backend(backend).get_user(user.pk):
+                        user.backend = backend
+                if hasattr(user, 'backend'):
+                    login(request, user)
             
-            # everyone gets an address object created based on the form info         
+            
+            # NOW WE HAVE A USER, GET A SHOPPER
+            try:
+                shopper = get_object_or_404(Shopper, user=user)
+                print "we have a shopper"
+            except:
+                creation_args = {
+                    'user': user,
+                    'email': form.cleaned_data['email'],
+                    'first_name': form.cleaned_data['first_name'],
+                    'last_name': form.cleaned_data['last_name'],
+                    'slug': smart_slugify("".join((form.cleaned_data['first_name'], form.cleaned_data['last_name'])), lower_case=True),
+                    'language': get_language(),
+                }
+                shopper = Shopper.objects.create(**creation_args)
+            
+                    
+
+            # CREATE AN ADDRESS OBJECT        
             address = Address.objects.create(
                 owner = shopper,
                 house_name_number = form.cleaned_data['house_name_number'],
@@ -604,34 +589,30 @@ def order_step_one(request):
                 country = form.cleaned_data['country'],
             )
             
-                      
-            # reset their basket object
-            request.session['BASKET_ID'] = basket.id
-            
-            # now need to find an existing order object, or create a new one:
-            
+            # CREATE OR FIND THE ORDER
             try:
                 order = get_object_or_404(Order, id=request.session['ORDER_ID'])
             except:
-                order = Order.objects.create(
-                    is_confirmed_by_user = True,
-                    date_confirmed = datetime.now(),
-                    address = address,
-                    owner = shopper,
-                    status = Order.STATUS_CREATED_NOT_PAID,
-                    invoice_id = "TEMP"
-                )
+                creation_args = {
+                    'is_confirmed_by_user': True,
+                    'date_confirmed': datetime.now(),
+                    'address': address,
+                    'owner': shopper,
+                    'status': Order.STATUS_CREATED_NOT_PAID,
+                    'invoice_id': "TEMP"   
+                }
+                order = Order.objects.create(**creation_args)
                 order.save() # need to save it first, then give it an ID
                 order.invoice_id = "TEA-00%s" % (order.id)
             
-            # check if the person has inputted a valid discount code?
+            # DO THEY HAVE A VALID DISCOUNT CODE?
             try: 
                 discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
                 order.discount = discount
             except:
                 pass
             
-            # add the items to the order (we put this here not above just in case they added more items)
+            # UPDATE ORDER WITH THE BASKET ITEMS
             basket_items = BasketItem.objects.filter(basket=basket)
             for item in basket_items:
                 order.items.add(item)
@@ -641,12 +622,13 @@ def order_step_one(request):
             order.save()
             request.session['ORDER_ID'] = order.id  
  
+            # FINALLY! WE'RE DONE
             return HttpResponseRedirect('/order/confirm') 
         
-        # if the form has errors...
+        # IF THE FORM HAS ERRORS:
         else:
                          
-             # load their data if they already tried to submit the form and failed.
+             # LOAD EXISTING DATA
              email = request.POST['email']
              house_name_number = request.POST['house_name_number']
              address_line_1 = request.POST['address_line_1']
@@ -663,6 +645,8 @@ def order_step_one(request):
     else:
         form = OrderStepOneForm()
     return render(request, 'shop/forms/order_step_one.html', locals())
+
+
 
 def order_url(request, hash):
     order = get_object_or_404(Order, hashkey=hash)
