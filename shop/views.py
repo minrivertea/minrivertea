@@ -525,7 +525,10 @@ def order_step_one(request):
     # check if they're secretly logged in
     shopper = None
     if request.user.is_authenticated():
-        shopper = get_object_or_404(Shopper, user=request.user.id)
+        try:
+            shopper = get_object_or_404(Shopper, user=request.user.id)
+        except:
+            pass
         
 
     # if it's a POST request
