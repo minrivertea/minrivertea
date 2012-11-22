@@ -13,6 +13,7 @@ from django.utils import simplejson
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.translation import ugettext as _
 from django.utils.translation import get_language
+from django.core.exceptions import MultipleObjectsReturned
 
 
 import urllib
@@ -358,7 +359,7 @@ def add_to_basket(request, productID):
         for x in BasketItem.objects.filter(basket=basket):
             basket_quantity += x.quantity
         
-        message = _('<p><span class="tick">&#10003;</span><strong>1 x %s</strong> added to your basket!<br/><br/> <a href="/basket/"><strong>Checkout now &raquo;</strong></a></p>') % item.item 
+        message = _('<p><span class="tick">&#10003;</span><strong>1 x %(quantity)s</strong> added to your basket!<br/><br/> <a href="/basket/"><strong>Checkout now &raquo;</strong></a></p>') % {'quantity':item.item}
         data = {'quantity': basket_quantity, 'item': message}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
@@ -373,8 +374,7 @@ def add_to_basket(request, productID):
 def remove_from_basket(request, id):
     basket_item = get_object_or_404(BasketItem, pk=id)
     basket_item.delete()
-        
-    return HttpResponseRedirect('/basket/') # Redirect after POST
+    return HttpResponseRedirect('/basket/')
 
 
 def monthly_order_save(request):
@@ -403,19 +403,12 @@ def monthly_order_save(request):
             pass
         
     return HttpResponseRedirect(reverse('tea_boxes'))
-    
-# function for reducing the quantity of an item in your basket    
+
+
 def reduce_quantity(request, productID):
     product = get_object_or_404(UniqueProduct, id=productID)
-    
-    # GET THE USER'S BASKET
-    if request.user.is_anonymous:
-        try:
-            basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-        except BasketDoesNotExist:
-            pass
-    
-    basket_item = BasketItem.objects.get(basket=basket, item=product)
+        
+    basket_item = BasketItem.objects.get(basket=_get_basket(request), item=product)
     if basket_item.quantity > 1:
         basket_item.quantity -= 1
         basket_item.save()
@@ -428,16 +421,8 @@ def reduce_quantity(request, productID):
 # function for increasing the quantity of an item in your basket
 def increase_quantity(request, productID):
     product = get_object_or_404(UniqueProduct, id=productID)
-    
-    # GET THE USER'S BASKET
-    if request.user.is_anonymous:
-        try:
-            basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-        except BasketDoesNotExist:
-            pass
-
-    
-    basket_item = BasketItem.objects.get(basket=basket, item=product)
+        
+    basket_item = BasketItem.objects.get(basket=_get_basket(request), item=product)
     basket_item.quantity += 1
     basket_item.save()
     
@@ -446,12 +431,9 @@ def increase_quantity(request, productID):
 
 # the view for your basket
 def basket(request):
-    try:
-        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-    except:
-        basket = None        
+           
                 
-    basket_items = BasketItem.objects.filter(basket=basket)
+    basket_items = BasketItem.objects.filter(basket=_get_basket(request))
     
     # work out the price
     total_price = 0
@@ -465,7 +447,6 @@ def basket(request):
         postage_discount = True
     else:
         total_price += currency.postage_cost
-        
         
     
     if request.method == 'POST':
@@ -491,7 +472,6 @@ def basket(request):
 
 
 
-# the view for order process step 1 - adding your details
 def order_step_one(request, basket=None):
     
     try:
@@ -499,7 +479,6 @@ def order_step_one(request, basket=None):
     except:
         pass
 
-    # next, if they already have an order, try loading the information
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
         email = order.owner.email
@@ -561,16 +540,16 @@ def order_step_one(request, basket=None):
                     login(request, user)
             
             
-            # NOW WE HAVE A USER, GET A SHOPPER
             try:
                 shopper = get_object_or_404(Shopper, user=user)
-                print "we have a shopper"
+            except MultipleObjectsReturned:
+                shopper = Shopper.objects.filter(user=user)[0]
             except:
                 creation_args = {
                     'user': user,
-                    'email': form.cleaned_data['email'],
-                    'first_name': form.cleaned_data['first_name'],
-                    'last_name': form.cleaned_data['last_name'],
+                    'email': user.email,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
                     'slug': smart_slugify("".join((form.cleaned_data['first_name'], form.cleaned_data['last_name'])), lower_case=True),
                     'language': get_language(),
                 }

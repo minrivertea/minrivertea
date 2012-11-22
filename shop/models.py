@@ -186,6 +186,7 @@ class UniqueProduct(models.Model):
 
 class Shopper(models.Model):
     user = models.ForeignKey(User)
+    # TODO - get rid of this duplication of Shopper/User email, lastname and firstname
     email = models.EmailField(blank=True, null=True)
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
