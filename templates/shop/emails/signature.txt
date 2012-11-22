@@ -1,0 +1,7 @@
+{% load i18n %}
+
+{% blocktrans %}
+Chris West, 
+Founder - Min River Tea Farm
+http://www.minrivertea.com
+{% endblocktrans %}
