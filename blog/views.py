@@ -1,6 +1,6 @@
 from blog.models import BlogEntry
 from shop.models import Product
-from shop.views import _get_products, render
+from shop.utils import _get_products, _render
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
@@ -25,7 +25,7 @@ def index(request):
     
     teas = _get_products(request)[:2]
                        
-    return render(request, "blog/home.html", locals())
+    return _render(request, "blog/home.html", locals())
     
     
 @csrf_protect   
@@ -33,5 +33,5 @@ def blog_entry(request, slug):
     entry = get_object_or_404(BlogEntry, slug=slug)
     other_entries = BlogEntry.objects.exclude(id=entry.id).order_by('?')[:2]
     teas = _get_products(request)[:2]
-    return render(request, "blog/entry.html", locals())
+    return _render(request, "blog/entry.html", locals())
   

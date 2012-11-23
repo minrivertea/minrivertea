@@ -3,7 +3,7 @@
 <form id="paypal" method="post" action="{{ paypal_submit_url }}">
     
     	<div id="checkout-button">
-			<input type="submit" value="Confirm and pay" next="" class="button green"/>
+			<input type="submit" value="{% trans 'Confirm and pay' %}" next="" class="button green"/>
 			<p class="checkout"><strong>{% trans "Next step" %}:</strong> <em>{% trans "pay securely via PayPal, using all major credit and debit cards or your linked Paypal account." %}</em></p>
 			<img id="ppicon" src="{% staticfile '/images/002.gif' %}" class="paypal">
 			
@@ -33,6 +33,12 @@
 		<input TYPE="hidden" NAME="notify_url" value="{{ paypal_notify_url }}">
 		<input type="hidden" id="id_no_shipping" value="1" name="no_shipping">
 		<input type="hidden" id="id_charset" value="utf-8" name="charset">
+
+        {% if LANGUAGE_CODE == 'de' %}
+        <input type="hidden" id="id_lc" value="DE" name="lc"/>
+        {% else %}
+		<input type="hidden" id="id_lc" value="GB" name="lc"/>
+        {% endif %}
 
 		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
 		

@@ -6,7 +6,7 @@
 	<h3>{% trans 'Want email updates?' %}</h3>
 	<p>{% trans 'We send news, information and offers to your inbox about twice a month - signup below.' %}</p>
 	<form action="{% url email_signup %}" type="post">
-		<input type="text" id="id_email" name="email" title="Your email address" value="" class="clearMeFocus"/>
+		<input type="text" id="id_email" name="email" title="{% trans 'Your email address' %}" value="" class="clearMeFocus"/>
 		<span>{% blocktrans %}Read our <a href="/privacy/">Privacy</a> policy{% endblocktrans %}</span>
 		<input type="submit" value="{% trans 'Submit' %}" class="submit button"/>
 	</form>

@@ -1,7 +1,7 @@
 from django.conf import settings
 from shop.models import *
 from blog.models import BlogEntry
-from shop.views import GetCountry, _get_currency, _set_currency, _get_region
+from shop.utils import _get_country, _get_currency, _set_currency, _get_region
 from django.utils import translation
 
 

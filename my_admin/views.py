@@ -23,7 +23,7 @@ from datetime import timedelta
 import uuid
 import re
 
-from shop.views import render
+from shop.utils import _render
 from shop.models import *
 from shop.forms import *
 from slugify import smart_slugify
@@ -37,7 +37,7 @@ from logistics.models import WarehouseItem, CustomerPackage
 @login_required
 def index(request):
     packages = CustomerPackage.objects.filter(postage_cost=None).order_by('-created')        
-    return render(request, "my_admin/home.html", locals())
+    return _render(request, "my_admin/home.html", locals())
 
 
 
@@ -52,7 +52,7 @@ def orders(request, **kwargs):
     end_date = datetime.now()     
     packages = CustomerPackage.objects.filter(created__range=(start_date, end_date), **kwargs).order_by('-created')        
 
-    return render(request, 'my_admin/orders.html', locals())
+    return _render(request, 'my_admin/orders.html', locals())
 
 #specific shopper view in admin-stuff
 @login_required
@@ -60,7 +60,7 @@ def admin_shopper(request, id):
     if not request.user.is_superuser:
         return HttpResponseRedirect("/")
     shopper = get_object_or_404(Shopper, pk=id)
-    return render(request, 'my_admin/shopper.html', locals())
+    return _render(request, 'my_admin/shopper.html', locals())
 
 
 @login_required
@@ -77,7 +77,7 @@ def stocks(request):
             u.available = WarehouseItem.objects.filter(sold=None, unique_product=u).exclude(available=None)
             u.transit = WarehouseItem.objects.filter(sold=None, unique_product=u, available=None)
         
-    return render(request, 'my_admin/stocks.html', locals())
+    return _render(request, 'my_admin/stocks.html', locals())
 
 
 @login_required
@@ -94,14 +94,14 @@ def admin_product(request, id):
                 except: pass
                 total_items += i.quantity
                 order_count += 1
-    return render(request, 'my_admin/product.html', locals())
+    return _render(request, 'my_admin/product.html', locals())
 
 @login_required
 def admin_order(request, id):
     if not request.user.is_superuser:
         return HttpResponseRedirect("/")
     order = get_object_or_404(Order, pk=id)
-    return render(request, 'my_admin/order.html', locals())
+    return _render(request, 'my_admin/order.html', locals())
 
 # form for updating the postage cost of an order
 @login_required

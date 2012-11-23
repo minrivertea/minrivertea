@@ -3,19 +3,6 @@
 import os
 PROJECT_PATH = os.path.normpath(os.path.dirname(__file__))
 
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-THUMBNAIL_DEBUG = False
-GA_IS_ON = True
-
-
-
-ADMINS = (
-    ('Chris West', 'chris@minrivertea.com'),
-)
-
-MANAGERS = ADMINS
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
@@ -28,22 +15,25 @@ DATABASES = {
 }
 
 
-
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+THUMBNAIL_DEBUG = False
+GA_IS_ON = True
+ADMINS = (('Chris West', 'chris@minrivertea.com'),)
+MANAGERS = ADMINS
 TIME_ZONE = 'Europe/London'
 SITE_ID = 1
 SITE_URL = "http://www.minrivertea.com"
-
+SECRET_KEY = ''
 
 
 
 # STATIC / MEDIA FILES
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'static')
-MEDIA_URL = ''
-STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'static') # the place where user-uploaded files should sit in the filesystem
+MEDIA_URL = '/' # the public URL for user uploaded files
+STATIC_URL = '/static/' # the public URL for static files
 
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = ''
 
 
 TEMPLATE_LOADERS = (
