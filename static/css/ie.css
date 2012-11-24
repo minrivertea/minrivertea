@@ -50,10 +50,11 @@
 }
 
 .tea-promo div.text h3, .tea-promo div.text p {
-  float: left;
+  float: none;
   width: 350px;   
 }
 
 #teas .tea-promo #price-helper {
-  width: 350px;   
+  width: 350px;  
+  float: none; 
 }
