@@ -107,6 +107,10 @@ a.button.green {
 
 /* BASKET PAGE */
 
+.basket-row {
+  padding: 10px 0 5px 0;   
+}
+
 #basket-full .basket-row.postage div, #basket-full .basket-row.discount div {
   height: 20px;   
 }
