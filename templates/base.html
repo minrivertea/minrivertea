@@ -32,12 +32,7 @@
 		<script src="{% staticfile '/js/jquery-1.8.2.min.js' %}"></script>
 		<script src="{% staticfile '/js/jquery.tools.min.js' %}"></script>
 	{% endif %}
-	    
-	<!--[if lte IE 8]>
-		<link rel="stylesheet" media="screen" type="text/css" href="{% staticfile '/css/ie.css' %}" />
-	<![endif]-->
-
-
+	   
 	{% block extracss %}{% endblock %}
 
     {% if request.LANGUAGE_CODE == 'de' %}
@@ -47,6 +42,10 @@
     {% if request.user.is_superuser %}
 	<!--<link rel="stylesheet" href="{% staticfile '/css/christmas.css' %}" />-->
 	{% endif %}
+	
+	<!--[if lte IE 8]>
+		<link rel="stylesheet" media="screen" type="text/css" href="{% staticfile '/css/ie.css' %}" />
+	<![endif]-->
 
 	
     {% block ga %}
