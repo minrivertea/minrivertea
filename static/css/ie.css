@@ -1,6 +1,7 @@
 
 
 
+/* GLOBAL */
 
 .sp {
   margin-left: 10%;   
@@ -11,6 +12,10 @@
   right: 0;
   top: 0;  
   width: 400px; 
+}
+
+#currency {
+  top: -20px;   
 }
 
 #about p {
