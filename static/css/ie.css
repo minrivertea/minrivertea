@@ -60,3 +60,17 @@
   width: 300px;
   padding: 0;   
 }
+
+.tea-promo #price-helper div {
+  width: 135px;   
+}
+
+.tea-promo #price-helper div.price {
+  width: 120px;   
+}
+
+.tea-promo #price-helper div.stocks {
+  width: 100px;   
+}
+
+
