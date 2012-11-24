@@ -44,6 +44,11 @@
   width: 300px;   
 }
 
+.tea-promo div.text p {
+  float: left;   
+}
+
+
 #teas .tea-promo #price-helper {
   width: 300px;   
 }
