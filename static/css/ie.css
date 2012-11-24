@@ -24,3 +24,7 @@
 #teas #price-helper div {
   width: 135px;   
 }
+
+#teas #price-helper div.stocks {
+  width: 90px;   
+}
