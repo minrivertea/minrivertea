@@ -43,3 +43,7 @@
 .tea-promo div.text {
   width: 300px;   
 }
+
+#teas .tea-promo #price-helper {
+  width: 300px;   
+}
