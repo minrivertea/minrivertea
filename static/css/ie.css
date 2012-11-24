@@ -18,8 +18,8 @@
 }
 
 #teas #price-helper {
-  width: 98%; 
-  font-size: 12px;  
+  width: 100%; 
+  font-size: 11px;  
 }
 
 #teas #price-helper div {
@@ -27,5 +27,5 @@
 }
 
 #teas #price-helper div.stocks {
-  width: 100px;   
+  width: 95px;   
 }
