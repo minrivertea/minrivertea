@@ -33,7 +33,8 @@
 
 /* THE CATEGORY PAGE */
 .tea-promo {
-  width: 700px;   
+  width: 700px; 
+  float: left;  
 }
 
 .tea-promo div.image {
@@ -48,7 +49,7 @@
 }
 
 .tea-promo div.text {
-  width: 350px;
+  width: 300px;
   float: left; 
   display: block;
   margin: 0;  
@@ -56,7 +57,7 @@
 
 .tea-promo div.text h3, .tea-promo div.text p {
   float: none;
-  width: 350px;   
+  width: 300px;   
 }
 
 #teas .tea-promo #price-helper {
