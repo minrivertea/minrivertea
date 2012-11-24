@@ -105,5 +105,11 @@ a.button.green {
 }
 
 
+/* BASKET PAGE */
+
+#basket-full .basket-row.postage div, #basket-full .basket-row.discount div {
+  height: 20px;   
+}
+
 
 
