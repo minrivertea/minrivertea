@@ -55,12 +55,8 @@
   margin: 0;  
 }
 
-.tea-promo div.text h3, .tea-promo div.text p {
+.tea-promo div.text h3, .tea-promo div.text p, #teas .tea-promo #price-helper {
   float: none;
-  width: 300px;   
-}
-
-#teas .tea-promo #price-helper {
-  width: 350px;  
-  float: none; 
+  width: 300px;
+  padding: 0;   
 }
