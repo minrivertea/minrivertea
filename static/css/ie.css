@@ -37,7 +37,10 @@
 }
 
 .tea-promo div.image {
-  margin-right: 20px;   
+  margin-right: 20px; 
+  float: left;
+  width: 240px;
+  display:block;  
 }
 
 .tea-promo div.image img {
@@ -46,7 +49,9 @@
 
 .tea-promo div.text {
   width: 350px;
-  float: left;   
+  float: left; 
+  display: block;
+  margin: 0;  
 }
 
 .tea-promo div.text h3, .tea-promo div.text p {
