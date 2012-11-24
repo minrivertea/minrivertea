@@ -82,7 +82,7 @@
 
 /* TEA VIEW PAGE */
 
-a.button.green {
+a.button.green, input.button.green {
   background-color: #237A2A;   
   color: #fff;
   width: 200px;
@@ -117,6 +117,12 @@ div#basket-full div.plus-minus {
 
 #basket-full .basket-row.postage div, #basket-full .basket-row.discount div {
   height: 20px;   
+}
+
+/* ORDERE STEP ONE */
+
+form legend {
+  left: -400px;   
 }
 
 
