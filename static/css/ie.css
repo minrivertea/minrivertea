@@ -32,6 +32,14 @@
 
 
 /* THE CATEGORY PAGE */
+.tea-promo {
+  width: 700px;   
+}
+
+.tea-promo div.image {
+  margin-right: 20px;   
+}
+
 .tea-promo div.text {
   width: 380px;   
 }
