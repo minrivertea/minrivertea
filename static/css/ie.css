@@ -80,6 +80,8 @@
 a.button.green {
   background-color: #237A2A;   
   color: #fff;
+  width: 200px;
+  font-size: 16px;
 }
 
 
