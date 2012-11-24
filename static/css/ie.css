@@ -61,16 +61,16 @@
   padding: 0;   
 }
 
-.tea-promo #price-helper div {
+#teas .tea-promo #price-helper div {
   width: 135px;
   font-size: 13px;   
 }
 
-.tea-promo #price-helper div.price {
+#teas .tea-promo #price-helper div.price {
   width: 100px;   
 }
 
-.tea-promo #price-helper div.stocks {
+#teas .tea-promo #price-helper div.stocks {
   width: 90px;   
 }
 
