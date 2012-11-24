@@ -12,3 +12,7 @@
   top: 0;  
   width: 400px; 
 }
+
+#about p {
+  width: 100%;   
+}
