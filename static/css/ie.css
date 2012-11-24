@@ -62,12 +62,12 @@
 }
 
 #teas .tea-promo #price-helper div {
-  width: 135px;
+  width: 120px;
   font-size: 13px;   
 }
 
 #teas .tea-promo #price-helper div.price {
-  width: 120px;   
+  width: 130px;   
 }
 
 #teas .tea-promo #price-helper div.stocks {
