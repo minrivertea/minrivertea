@@ -63,7 +63,8 @@
 
 #teas .tea-promo #price-helper div {
   width: 120px;
-  font-size: 13px;   
+  font-size: 13px;
+  padding-top: 8px;    
 }
 
 #teas .tea-promo #price-helper div.price {
