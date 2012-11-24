@@ -40,6 +40,10 @@
   margin-right: 20px;   
 }
 
+.tea-promo div.image img {
+  float: left;   
+}
+
 .tea-promo div.text {
   width: 350px;
   float: left;   
