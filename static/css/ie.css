@@ -138,4 +138,8 @@ form legend {
   width: 280px;   
 }
 
+.box.small {
+  width: 26%;   
+}
+
 
