@@ -87,7 +87,8 @@ a.button.green {
 #recommended .info .text {
   position: absolute;
   bottom: 0;
-  left: 0;   
+  left: 0;
+  width: 240px;   
 }
 
 
