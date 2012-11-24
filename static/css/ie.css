@@ -49,7 +49,7 @@
 }
 
 .tea-promo div.text {
-  width: 350px;
+  width: 380px;
   float: left; 
   display: block;
   margin: 0;  
@@ -57,12 +57,12 @@
 
 .tea-promo div.text h3, .tea-promo div.text p, #teas .tea-promo #price-helper {
   float: none;
-  width: 350px;
+  width: 380px;
   padding: 0;   
 }
 
 .tea-promo #price-helper div {
-  width: 145px;
+  width: 135px;
   font-size: 13px;   
 }
 
