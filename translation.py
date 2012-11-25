@@ -1,5 +1,6 @@
 from modeltranslation.translator import translator, TranslationOptions
 from shop.models import Product, Page, Category, UniqueProduct
+from blog.models import BlogEntry
 
 class ProductTranslationOptions(TranslationOptions):
     fields = (
@@ -41,9 +42,19 @@ class UniqueProductTranslationOptions(TranslationOptions):
         'description',   
     )
 
+class BlogEntryTranslationOptions(TranslationOptions):
+    fields = (
+        'title',
+        'content',
+        'summary',   
+    )
+
+
 translator.register(Product, ProductTranslationOptions)
 translator.register(Page, PageTranslationOptions)
 translator.register(Category, CategoryTranslationOptions)
 translator.register(UniqueProduct, UniqueProductTranslationOptions)
+translator.register(BlogEntry, BlogEntryTranslationOptions)
+
 
 

@@ -17,6 +17,7 @@ import uuid
 import re
 
 from shop.models import *
+from shop.utils import _render
 from emailer.models import Subscriber
 from emailer.forms import EmailSignupForm
 from shop.forms import CreateSendEmailForm
@@ -243,8 +244,7 @@ def email_signup(request):
                 return HttpResponse(message)
             
             else:
-                from shop.views import render
-                return render(request, 'shop/emails/signup_confirmed.html', locals())
+                return _render(request, 'shop/emails/signup_confirmed.html', locals())
                     
     else:
         form = EmailSignupForm()
@@ -265,7 +265,6 @@ def email_unsubscribe(request, key):
 
 @login_required
 def create_email(request, id=None):
-    from shop.views import render
     if not request.user.is_superuser:
         return Http404
     
@@ -287,7 +286,7 @@ def create_email(request, id=None):
             recipients_list = _get_subscriber_list()
             recipients_count = len(recipients_list)
             from minriver.shop.views import render
-            return render(request, 'shop/emails/create_send_email.html', locals())
+            return _render(request, 'shop/emails/create_send_email.html', locals())
     else:
         if id:
             email_object = get_object_or_404(EmailInstance, pk=id)
@@ -298,8 +297,7 @@ def create_email(request, id=None):
         
         form = CreateSendEmailForm(initial=data)
     
-    from minriver.shop.views import render
-    return render(request, 'shop/emails/create_send_email.html', locals())
+    return _render(request, 'shop/emails/create_send_email.html', locals())
 
 
 @login_required
@@ -327,8 +325,7 @@ def send_email(request, id):
         text = render_to_string('shop/emails/newsletter_template.txt', {'content': email_object.content, 'link':link})
         _send_email(receiver, subject_line, text)
     
-    from shop.views import render
-    return render(request, 'shop/emails/email_sent_confirmation.html', locals()) 
+    return _render(request, 'shop/emails/email_sent_confirmation.html', locals()) 
 
 
 
