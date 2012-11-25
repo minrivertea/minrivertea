@@ -35,16 +35,16 @@
 		<input type="hidden" id="id_charset" value="utf-8" name="charset">
 
         {% if LANGUAGE_CODE == 'de' %}
-        <input type="hidden" id="id_lc" value="DE" name="lc"/>
+        <input type="hidden" id="id_lc" value="DE" name="lc">
         {% else %}
-		<input type="hidden" id="id_lc" value="GB" name="lc"/>
+		<input type="hidden" id="id_lc" value="GB" name="lc">
         {% endif %}
 
         {% if discount %}
-        <input type="hidden" name="discount_amount" value="{{ discount|floatformat:"2" }}" id="id_discount_amount" />
+        <input type="hidden" name=" discount_amount_cart" value="{{ discount|floatformat:"2" }}" id="id_discount_amount" >
         {% endif %}
 
-		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
+		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" >
 		
 		
 		{% if postage_discount %}
