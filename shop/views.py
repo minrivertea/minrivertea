@@ -81,7 +81,7 @@ def page(request, slug, x=None, y=None, z=None):
     template = "shop/page.html"
     if page.template:
         template = page.template
-    teas = _get_products(request)[:2]
+    teas = _get_products(request, random=True)[:2]
     return _render(request, template, locals())
    
 # the product listing page

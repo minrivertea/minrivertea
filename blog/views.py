@@ -31,7 +31,7 @@ def index(request):
 @csrf_protect   
 def blog_entry(request, slug):
     entry = get_object_or_404(BlogEntry, slug=slug)
-    other_entries = BlogEntry.objects.exclude(id=entry.id, title__exact="None").order_by('?')[:2]
+    other_entries = BlogEntry.objects.filter(title__isnull=False).exclude(id=entry.id, title__exact="None").order_by('?')[:2]
     teas = _get_products(request, random=True)[:2]
     return _render(request, "blog/entry.html", locals())
   
