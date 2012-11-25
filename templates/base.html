@@ -146,13 +146,11 @@ if (15.00) {
       		  <div id="quantity">{% blocktrans count basket_quantity as bq %}{{ bq }} item{% plural %}{{ bq }} items{% endblocktrans %} / {{ currency.symbol }}{{ basket_amount }} - {% if basket_quantity > 0 %}<br/>{% endif %}<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a></div>
       		</div>
 	   	
-      	   	{% if request.user.is_superuser %}
          	<div id="language">
       			{% get_current_language as LANGUAGE_CODE %}
       			<a href="{% url changelang 'de' %}" class="{% if LANGUAGE_CODE == 'de' %}selected{% endif %}">{% trans 'German' %}</a> | 
       			<a href="{% url changelang 'en' %}" class="{% if LANGUAGE_CODE == 'en' %}selected{% endif %}">{% trans 'English' %}</a>
       		</div>	
-      		{% endif %}
 	
         	{% include 'shop/snippets/currency.html' %}
         </div>
