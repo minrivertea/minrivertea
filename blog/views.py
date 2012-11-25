@@ -9,7 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def index(request):
-    objects = BlogEntry.objects.filter(is_draft=False).exclude(title__exact="None").order_by('-date_added')
+    objects = BlogEntry.objects.filter(is_draft=False, title__isnull=False).exclude(title__exact="None").order_by('-date_added')
       
     try:
         p = int(request.GET.get('page', '1'))
