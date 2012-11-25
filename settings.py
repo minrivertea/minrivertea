@@ -102,8 +102,8 @@ INSTALLED_APPS = (
     'my_comments',
     'captcha',
     'rosetta',
-    'modeltranslation',
     'modeltranslation_wrapper',
+    'modeltranslation',
     'logistics',
     'emailer',
 #    'debug_toolbar',
@@ -163,6 +163,7 @@ LOCALE_PATHS = (
 )
 LANGUAGE_COOKIE_NAME = 'django_language'
 MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 
 REPEAT_FREQUENCIES = (

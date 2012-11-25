@@ -58,12 +58,12 @@ def index(request):
     except:
         pass
          
-        
+    
     curr = _get_currency(request)
     teas = _get_products(request)[:5]
     teaware = _get_products(request, 'teaware')[:3]
     
-    special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
+    #special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
         
     return _render(request, "shop/home.html", locals())
 
@@ -692,11 +692,17 @@ def order_confirm(request):
     
     try:
         basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-    except:
+    except KeyError:
         problem = _("You don't have any items in your basket, so you can't process an order!")
         return _render(request, 'shop/order-problem.html', locals())
         
-    order = Order.objects.get(id=request.session['ORDER_ID'])
+    try:
+        order = Order.objects.get(id=request.session['ORDER_ID'])
+    except KeyError:
+        problem = _("You don't have any items in your basket, so you can't process an order!")
+        return _render(request, 'shop/order-problem.html', locals())
+        
+        
     shopper = order.owner
     order_items = order.items.all() #BasketItem.objects.filter(basket=basket)
     
@@ -715,9 +721,9 @@ def order_confirm(request):
         
     # is there a discount?
     if order.discount:
-        value = total_price * order.discount.discount_value
+        discount = total_price * order.discount.discount_value
         percent = order.discount.discount_value * 100
-        total_price -= value
+        total_price -= discount
         
     if request.method == 'POST': 
         form = OrderCheckDetailsForm(request.POST)

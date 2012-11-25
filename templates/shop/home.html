@@ -453,16 +453,16 @@ ul.rss {
 	
 	<div id="teaware">
 	   <h2>{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %}</h2>
-	  {% for x in teaware %}
+	       {% for x in teaware %}
 	       <div class="info">
 	           <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
 	           {% thumbnail x.image thumb_medium crop="center" as im %}
 	               <img src="{{ im.url }}"/>
 	           {% endthumbnail %}
 	           <span class="price"><strong>{{ currency.symbol }}{{ x.price.price|floatformat }}</strong></span>
-	           <h3><a href="">{{ x.name }}</a></h3>
+	           <h3><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></h3>
 	       </div>	  
-	  {% endfor %}
+	       {% endfor %}
 	</div>
 
 	<div id="adventure">

@@ -40,6 +40,10 @@
 		<input type="hidden" id="id_lc" value="GB" name="lc"/>
         {% endif %}
 
+        {% if discount %}
+        <input type="hidden" name="discount_amount" value="{{ discount }}" id="id_discount_amount" />
+        {% endif %}
+
 		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
 		
 		

@@ -182,7 +182,7 @@ def _get_products(request, cat=None):
     if cat:
         products = Product.objects.filter(category__slug=cat, is_active=True).order_by('-list_order')
     else:        
-        products = Product.objects.filter(is_active=True).order_by('-list_order')
+        products = Product.objects.filter(is_active=True, name__isnull=False).order_by('-list_order')
     
     currency = _get_currency(request)
     for x in products:
