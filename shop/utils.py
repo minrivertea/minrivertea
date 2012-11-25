@@ -33,9 +33,6 @@ import re
 from shop.models import *
 from shop.forms import *
 from slugify import smart_slugify
-from emailer.views import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email, _get_subscriber_list, _tell_a_friend_email
-
-
     
 
 #render shortcut
