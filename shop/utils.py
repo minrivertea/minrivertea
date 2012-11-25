@@ -130,6 +130,8 @@ def _set_currency(request, code=None):
 
     if code:
         request.session['CURRENCY'] = code
+        
+    
     
     else:
         try:

@@ -60,6 +60,7 @@ urlpatterns = patterns('',
     (r'^comments/', include('django.contrib.comments.urls')), 
     
     url(r'^de/$', germany, name="germany"),
+    url(r'^DE/$', germany, name="germany"),
     
     # urls for the products/categories
     url(r'^packages/$', category, name="packages"),
