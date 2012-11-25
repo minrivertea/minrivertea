@@ -41,7 +41,7 @@
         {% endif %}
 
         {% if discount %}
-        <input type="hidden" name="discount_amount" value="{{ discount }}" id="id_discount_amount" />
+        <input type="hidden" name="discount_amount" value="{{ discount|floatformat:"2" }}" id="id_discount_amount" />
         {% endif %}
 
 		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
