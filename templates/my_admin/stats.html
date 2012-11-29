@@ -1,0 +1,100 @@
+{% extends base_template %}
+{% load thumbnail %}
+
+{% block extrajs %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}
+
+{% block extracss %}
+
+<style type="text/css">
+
+</style>
+{% endblock %}
+
+{% block pagetitle %}Admin Stats{% endblock %}
+
+{% block content %}
+
+<h1>Stats</h1>
+
+
+         	 <div id="filters">
+                {% if not w %}<strong>Total</strong>{% else %}<a href="{% url admin_stats %}">Total</a>{% endif %} / 
+                {% if w == '4' %}<strong>1 month</strong>{% else %}<a href="{% url admin_stats %}?w=4">1 Month</a>{% endif %} /
+                {% if w == '12' %}<strong>3 months</strong>{% else %}<a href="{% url admin_stats %}?w=12">3 Months</a>{% endif %} / 
+                {% if w == '24' %}<strong>6 months</strong>{% else %}<a href="{% url admin_stats %}?w=24">6 Months</a>{% endif %} / 
+                {% if w == '52' %}<strong>12 months</strong>{% else %}<a href="{% url admin_stats %}?w=52">12 Months</a>{% endif %}
+            </div>
+
+<table>
+    <tr>
+        <td width="200px" valign="top"><strong>Total sales</strong><br/>(Online only)</td>
+        <td width="300px" valign="top">
+            £{{ tvgbp|floatformat:"2" }}<br/>
+            ${{ tvusd|floatformat:"2" }}<br/>
+            €{{ tveur|floatformat:"2" }}
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200px" valign="top"><strong>Total number of orders</strong></td>
+        <td width="300px" valign="top">
+            {{ orders.count }}
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200px" valign="top"><strong>Customers</strong></td>
+        <td width="300px" valign="top">
+            {{ shoppers }}
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200px" valign="top"><strong>Average Order Value</strong></td>
+        <td width="300px" valign="top">
+            £{{ av_order_value|floatformat:"2" }}
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200px" valign="top"><strong>Average PayPal Cost</strong></td>
+        <td width="300px" valign="top">
+            £{{ av_paypal|floatformat:"2" }}
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200px" valign="top"><strong>Average Postage Cost</strong></td>
+        <td width="300px" valign="top">
+            £{{ av_postage|floatformat:"2" }}
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200px" valign="top"><strong>Total extras (post/paypal)</strong></td>
+        <td width="300px" valign="top">
+            £{{ total_extra_costs|floatformat:"2" }}
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200px" valign="top"><strong>Total PayPal</strong></td>
+        <td width="300px" valign="top">
+            £{{ pp_cost|floatformat:"2" }}
+        </td>
+    </tr>
+
+    <tr>
+        <td width="200px" valign="top"><strong>Total Postage</strong></td>
+        <td width="300px" valign="top">
+            £{{ postage_cost|floatformat:"2" }}
+        </td>
+    </tr>
+
+</table>
+
+{% endblock %}

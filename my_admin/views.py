@@ -124,27 +124,70 @@ def stats(request):
     if not request.user.is_superuser:
         return HttpResponseRedirect("/")
     
-    orders = Order.objects.filter(is_paid=True, is_giveaway=False)
+    start_date = (datetime.now() - timedelta(weeks=260))
+    w = None
+    if request.GET.get('w'):
+        w = request.GET.get('w')
+        start_date = (datetime.now() - timedelta(weeks=int(w)))    
+    end_date = datetime.now()
     
-    total_value_gbp = 0
-    total_value_usd = 0
-    total_value_eur = 0
+    orders = CustomerPackage.objects.filter(order__is_paid=True, order__is_giveaway=False, 
+        order__date_paid__range=(start_date, end_date))
+    
+    tvgbp = 0
+    tvusd = 0
+    tveur = 0
+    av_extra_costs = 0
+    pp_cost = 0
+    postage_cost = 0
+    shoppers = {}
     
     for o in orders:
+        
+        shoppers[o.order.owner] = 1
+        
         try:
-            code = o.get_currency().code
+            code = o.order.get_currency().code
         except AttributeError:
             code = 'GBP'
 
         # we need to separate currencies
-        if o.get_currency().code == 'GBP':
-            total_value_gbp += o.get_amount()
-        if o.get_currency().code == 'USD':
-            total_value_usd += o.get_amount()
-        if o.get_currency().code == 'EUR':
-            total_value_eur += o.get_amount()
+        if code == 'GBP':
+            tvgbp += o.order.get_amount()
+            try:
+                pp_cost += o.order.get_paypal_ipn().mc_fee
+            except:
+                pass
+        if code == 'USD':
+            tvusd += o.order.get_amount()
+            try:
+                pp_cost += (o.order.get_paypal_ipn().mc_fee * 0.66)
+            except:
+                pass
+        if code == 'EUR':
+            tveur += o.order.get_amount()
+            try:
+                pp_cost += (o.order.get_paypal_ipn().mc_fee * 0.808)
+            except:
+                pass
         
+        p = o.postage_cost
+        if o.postage_currency != None:
+            if o.postage_currency.code == 'EUR':
+                p = p * 0.808
+            if o.postage_currency.code == 'RMB':
+                p = p * 0.1
+            if o.postage_currency.code == 'USD':
+                p = p * 0.66
+        
+            postage_cost += p
+        
+        
+    total_extra_costs = pp_cost + postage_cost
+    shoppers = len(shoppers)
     
-    
+    av_paypal = pp_cost / orders.count()
+    av_postage = postage_cost / orders.count()
+    av_order_value = (float(tvgbp) + (float(tvusd)*float(0.66)) + (float(tveur)*float(0.808))) / float(orders.count())
     
     return _render(request, 'my_admin/stats.html', locals())    
