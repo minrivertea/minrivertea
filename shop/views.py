@@ -143,7 +143,7 @@ def tea_view(request, slug):
         request.session['ADDED'] = None
         
     tea = get_object_or_404(Product, slug=slug)
-    recommended = _get_products(request, random=True)[:3]
+    recommended = _get_products(request, random=True, exclude=tea.id)[:3]
     
     try:
         price = UniqueProduct.objects.filter(
