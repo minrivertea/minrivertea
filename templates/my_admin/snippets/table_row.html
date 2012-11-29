@@ -24,7 +24,28 @@
             				</ul>
             			</td>
             			<td class="value" valign="top">
-             				{{ order.get_amount }} {{ order.get_currency.code }}
+             				{{ order.get_amount|floatformat:"2" }} {{ order.get_currency.code }}
+            			</td>
+            			<td class="trans" width="180px" valign="top">
+            				{% if x.postage_cost == None %}
+            					<form id="postage_{{ order.id }}" action="{% url update_package x.id %}" method="post">
+            						<label>Postage cost?</label><input type="text" name="postage_cost" id="id_postage_cost"/>
+                                    <select type="hidden" name="currency" id="id_currency">
+                                        <option>GBP</option>
+                                        <option>USD</option>
+                                        <option>EUR</option>
+                                        <option>RMB</option>
+                                    </select>
+            						<input type="submit" style="float: right; margin-right: 20px;" value="Save" class="button"/>
+            					</form>
+            				{% else %}
+            				    {{ x.postage_cost }} {{ x.postage_currency.code }}
+            				{% endif %}
+            			</td>
+            			<td valign="top">
+            			     {% if order.get_paypal_ipn %}
+            			     {{ order.get_paypal_ipn.mc_fee }} {{ order.get_currency.code }}
+            			     {% endif %}
             			</td>
             			<td class="status" valign="top">
             				<strong>{{ order.status }}</strong><br/>
@@ -48,22 +69,6 @@
             				  {% if order.ready_to_send_sampler_email %}
             					<a href="{% url send_sampler_email order.id %}">Send sampler email</a>
             				  {% endif %}
-            				{% endif %}
-            			</td>
-            			<td class="trans" width="180px" valign="top">
-            				{% if x.postage_cost == None %}
-            					<form id="postage_{{ order.id }}" action="{% url update_package x.id %}" method="post">
-            						<label>Postage cost?</label><input type="text" name="postage_cost" id="id_postage_cost"/>
-                                    <select type="hidden" name="currency" id="id_currency">
-                                        <option>GBP</option>
-                                        <option>USD</option>
-                                        <option>EUR</option>
-                                        <option>RMB</option>
-                                    </select>
-            						<input type="submit" style="float: right; margin-right: 20px;" value="Save" class="button"/>
-            					</form>
-            				{% else %}
-            				    {{ x.postage_currency.symbol }}{{ x.postage_cost }} 
             				{% endif %}
             			</td>
             		</tr>

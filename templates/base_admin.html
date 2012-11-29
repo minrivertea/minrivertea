@@ -40,8 +40,9 @@
         <div id="navigation">
             <ul id="nav">
                 <li><a class="{% nav_selected request '^/admin-stuff/$' %}" href="{% url admin_home %}">Admin Home</a></li>
-                <li><a class="{% nav_selected request '^/admin-stuff/orders/' %}" href="{% url orders %}">Orders</a></li>
-                <li><a class="{% nav_selected request '^/admin-stuff/stocks/' %}" href="{% url stocks %}">Stocks</a></li>
+                <li><a class="{% nav_selected request '^/admin-stuff/orders/' %}" href="{% url admin_orders %}">Orders</a></li>
+                <li><a class="{% nav_selected request '^/admin-stuff/stats/' %}" href="{% url admin_stats %}">Stats</a></li>
+                <li><a class="{% nav_selected request '^/admin-stuff/stocks/' %}" href="{% url admin_stocks %}">Stocks</a></li>
                 <li><a class="{% nav_selected request '^/admin-stuff/create_email/' %}" href="{% url create_email %}">Create Email</a></li>
             </ul>
         </div>

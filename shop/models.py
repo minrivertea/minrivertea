@@ -322,7 +322,6 @@ class Order(models.Model):
     # these are specific for repeat/monthly ordering
     monthly_order = models.BooleanField(default=False)
     
-    
     def get_discount(self):
         total_price = 0
         for item in self.items:
@@ -334,14 +333,33 @@ class Order(models.Model):
     def __unicode__(self):
         return self.invoice_id
     
+    
+    def get_paypal_ipn(self):
+        from paypal.standard.ipn.models import PayPalIPN
+        try:
+            ipn = PayPalIPN.objects.filter(invoice=self.invoice_id)[0]
+        except:
+            ipn = None
+        return ipn
+    
     def get_amount(self):
+        
+        currency = self.get_currency()
+        if currency == None:
+            currency = get_object_or_404(Currency, code='GBP')
+        
         amount = 0
         for item in self.items.all():
             amount += item.get_price()
-        if amount > 50:
+            
+        if amount > currency.postage_discount_threshold:
             pass
         else:
-            amount += 3
+            amount += currency.postage_cost
+        
+        if self.discount:
+            discount_amount = amount * self.discount.discount_value
+            amount -= discount_amount
         return amount
     
     def get_currency(self):

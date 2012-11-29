@@ -119,3 +119,32 @@ def postage_cost_update(request, id):
             return HttpResponseRedirect(url)
     return HttpResponseRedirect('/admin-stuff')
     
+@login_required
+def stats(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect("/")
+    
+    orders = Order.objects.filter(is_paid=True, is_giveaway=False)
+    
+    total_value_gbp = 0
+    total_value_usd = 0
+    total_value_eur = 0
+    
+    for o in orders:
+        try:
+            code = o.get_currency().code
+        except AttributeError:
+            code = 'GBP'
+
+        # we need to separate currencies
+        if o.get_currency().code == 'GBP':
+            total_value_gbp += o.get_amount()
+        if o.get_currency().code == 'USD':
+            total_value_usd += o.get_amount()
+        if o.get_currency().code == 'EUR':
+            total_value_eur += o.get_amount()
+        
+    
+    
+    
+    return _render(request, 'my_admin/stats.html', locals())    

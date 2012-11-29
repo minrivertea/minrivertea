@@ -1,4 +1,7 @@
 
+.sp {
+  width: 1060px;   
+}
 
 #logo {	 
  width: 450px;
@@ -22,7 +25,30 @@ h2 {
       tr.white td {background-color: #fff;}
       tr.new td {background-color: #DBF2DA;}
       td { padding:10px 10px; background-color: #f1f1f1;}
-      td.id {font-weight: bold;}
+td.id {
+  font-weight: bold;
+  width: 50px;
+}
+
+td.owner {
+  width: 150px;   
+}
+
+td.items {
+  width: 150px;   
+}
+
+td.value {
+  width: 50px;   
+}
+
+td.status {
+  width: 50px;   
+}
+
+td.trans {
+  width: 50px;   
+}
       td ul {padding:0; margin:0;}
       td ul li {list-style-type:none; font-size: 12px; line-height: 1em;}
       thead td {font-weight: bold; background-color: #666; color: #fff;}

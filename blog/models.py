@@ -7,7 +7,7 @@ class BlogEntry(models.Model):
     promo_image = models.ImageField(upload_to='images/blog-photos', blank=True, null=True)
     date_added = models.DateField()
     is_draft = models.BooleanField(default=True)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, help_text="To make an entry German language only, enter 'None' into the English title field.")
     summary = models.CharField(max_length=200)
     content = models.TextField()
     comments_require_captcha = models.BooleanField(default=False, help_text="If ticked, visitors will need to fill in captchas before commenting")
