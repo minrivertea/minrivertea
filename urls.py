@@ -7,6 +7,7 @@ from shop.models import Product, Page
 from shop.views import page, category, review_tea, tea_view, make_product_feed, _changelang, germany
 from blog.models import BlogEntry
 from blog.feeds import LatestEntriesFeed
+from django.utils.translation import ugettext_lazy as _
 
 from registration.views import register
 
@@ -40,7 +41,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^admin-stuff/', include('my_admin.urls')),
-    (r'^blog/', include('blog.urls')),
+    (_(r'^blog/'), include('blog.urls')),
     (r'^captcha/', include('captcha.urls')),
     (r'^logistics/', include('logistics.urls')),
     (r'^emailer/', include('emailer.urls')),
@@ -67,33 +68,33 @@ urlpatterns = patterns('',
     url(r'^packages/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     url(r'^tasters/$', category, name="tasters"),
     url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    url(r'^teaware/$', category, name="teaware"),
-    url(r'^teaware/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(_(r'^teaware/$'), category, name="teaware"),
+    url(_(r'^teaware/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
     
-    url(r'^oolong-tea/$', category, name="oolong_tea"),
-    url(r'^oolong-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(_(r'^oolong-tea/$'), category, name="oolong_tea"),
+    url(_(r'^oolong-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(r'^red-tea/$', category, name="red_tea"),
-    url(r'^red-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(_(r'^red-tea/$'), category, name="red_tea"),
+    url(_(r'^red-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(r'^green-tea/$', category, name="green_tea"),
-    url(r'^green-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(_(r'^green-tea/$'), category, name="green_tea"),
+    url(_(r'^green-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(r'^white-tea/$', category, name="white_tea"),
-    url(r'^white-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(_(r'^white-tea/$'), category, name="white_tea"),
+    url(_(r'^white-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(r'^scented-tea/$', category, name="scented_tea"),
-    url(r'^scented-tea/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(_(r'^scented-tea/$'), category, name="scented_tea"),
+    url(_(r'^scented-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(r'^tea-gifts/$', category, name="tea_gifts"),
-    url(r'^tea-gifts/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(_(r'^tea-gifts/$'), category, name="tea_gifts"),
+    url(_(r'^tea-gifts/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(r'^tea-boxes/$', category, name="tea_boxes"),
-    url(r'^tea-boxes/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(_(r'^tea-boxes/$'), category, name="tea_boxes"),
+    url(_(r'^tea-boxes/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(r'^teas/$', category, name="teas"),
-    url(r'^teas/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
-    url(r'^teas/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    url(_(r'^teas/$'), category, name="teas"),
+    url(_(r'^teas/(?P<slug>[\w-]+)/review/$'), review_tea, name="review_tea"),
+    url(_(r'^teas/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
     
     # urls for the pages
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_sub_page"),
