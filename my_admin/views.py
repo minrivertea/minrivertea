@@ -37,10 +37,6 @@ from logistics.models import WarehouseItem, CustomerPackage
 @login_required
 def index(request):
     packages = CustomerPackage.objects.filter(postage_cost=None).order_by('-created')
-    for x in packages:
-        for y in x.items.all():
-            if y.is_preorder == True:
-                x.preorder = True
     return _render(request, "my_admin/home.html", locals())
 
 

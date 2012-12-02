@@ -32,7 +32,6 @@ class PageTranslationOptions(TranslationOptions):
 class CategoryTranslationOptions(TranslationOptions):
     fields = (
         'name',
-        'slug',
         'long_title',
         'meta_description',
         'short_description',
