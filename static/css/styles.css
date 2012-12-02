@@ -289,8 +289,25 @@ input.button:hover {
 
 #userbasket #quantity {
     bottom: 5px;
+    float: left;
     text-align: center;
     width: auto;
+}
+
+#userbasket span.basket {
+    background: url("/images/logo15.jpg") no-repeat scroll -273px -65px transparent;
+    display: block;
+    float: left;
+    height: 18px;
+    margin: 0 5px 0 0;
+    position: relative;
+    top: -4px;
+    width: 23px;
+}
+
+#userbasket.selected span.basket {
+    background: url("/images/logo15.jpg") no-repeat scroll -250px -65px transparent;
+    top:-1px;
 }
 
 #userbasket a {
@@ -773,6 +790,64 @@ p.introduction {
   background-position: -128px -61px;	
 }
 
+
+/* ADD TO BASKET HELPER */
+
+
+a.atb {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 30;
+  overflow: hidden;
+  height: 20px;
+  font-family: Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  padding-top: 9px;
+  color: #888;
+  display: none;   
+}
+
+a.atb strong {
+  color: #555;
+     
+}
+
+a.atb:hover {
+  color: #237A2A;   
+}
+
+a.atb.large {
+  width: auto;
+  padding-right: 42px;   
+}
+
+a.atb.large:hover {
+  width: auto; 
+  padding-right: 42px;  
+}
+
+a.atb span {
+  background: url('/images/logo15.jpg') top left no-repeat; 
+  display: block;
+  height: 35px;
+  width: 30px; 
+  position: absolute;
+  top: 0;
+  right: 0; 
+}
+
+a.atb.large span {
+    background: url("/images/logo15.jpg") no-repeat scroll -354px -62px transparent;
+    display: block;
+    height: 29px;
+    width: 32px;
+}
+
+a.atb.large:hover span {
+   background-position: -389px -62px;   
+}
 
 
 

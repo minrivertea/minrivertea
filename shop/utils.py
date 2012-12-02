@@ -182,11 +182,11 @@ def _get_products(request, cat=None, random=False, exclude=None):
         products = Product.objects.filter(category__slug=cat, is_active=True).order_by('-list_order')
     else:        
         products = Product.objects.filter(is_active=True, name__isnull=False).order_by('-list_order')
-    
+   
     if exclude:
         products = products.exclude(pk=exclude)
-    
-    if random==True:
+        
+    if random == True:
         products = products.order_by('?')
         
     

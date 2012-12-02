@@ -10,10 +10,10 @@ class WarehouseItem(models.Model):
     unique_product = models.ForeignKey(UniqueProduct)
     batch = models.CharField(max_length=10) 
     
-    created = models.DateTimeField(default=datetime.now())
-    available = models.DateTimeField(blank=True, null=True)
+    created = models.DateTimeField(default=datetime.now(), help_text="The date the item entered the stock system")
+    available = models.DateTimeField(blank=True, null=True, help_text="The date the item was made available to ship")
     sold = models.DateTimeField(blank=True, null=True)
-    
+        
     SOLD = 'sold'
     DESTROYED = 'destroyed'
     GIVEAWAY = 'giveaway'
@@ -45,11 +45,10 @@ class CustomerPackage(models.Model):
     order = models.ForeignKey(Order)
     items = models.ManyToManyField(WarehouseItem, blank=True, null=True)
     created = models.DateTimeField(default=datetime.now())
+    is_preorder = models.BooleanField(default=False)
     posted = models.DateTimeField(blank=True, null=True)
     postage_cost = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     postage_currency = models.ForeignKey(Currency, null=True, blank=True)
     
     def __unicode__(self):
-        return "%s : %s" % (self.order, self.order.owner)
-    
-    
+        return "%s : %s" % (self.order, self.order.owner)    

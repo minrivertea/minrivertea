@@ -18,9 +18,14 @@
             			</td>
             			<td class="items" valign="top">
             				<ul>
-            				{% for item in order.get_items %}
-            					<li><a href="{% url admin_product item.item.parent_product.id %}">{{ item }}</a></li>
+            				{% for item in x.items.all %}
+            					<li>   
+            					   <a href="{% url admin_product item.unique_product.parent_product.id %}">{{ item.unique_product }}</a>
+            					 </li>
             				{% endfor %}
+                            {% if x.is_preorder %}
+                                <strong>This is a preorder - not enough stocks</strong>
+                            {% endif %}
             				</ul>
             			</td>
             			<td class="value" valign="top">

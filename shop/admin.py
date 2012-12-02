@@ -6,7 +6,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('category',)
     fieldsets = (
         ('Name', {
-            'fields': ('name', 'name_de', 'long_name', 'long_name_de', 'slug', 'meta_title', 'meta_title_de')
+            'fields': ('name', 'name_de', 'long_name', 'long_name_de', 'slug', 'slug_en', 'slug_de', 'meta_title', 'meta_title_de')
         }),
         ('Descriptions', {
             'fields': ('description', 'description_de', 'meta_description', 'meta_description_de', 'super_short_description', 'super_short_description_de', 'body_text', 'body_text_de', 'long_description', 'long_description_de', 'extra_info', 'extra_info_de',

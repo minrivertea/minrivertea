@@ -131,7 +131,6 @@ class Product(models.Model):
         
         from logistics.models import WarehouseItem
         stocks = WarehouseItem.objects.filter(unique_product__parent_product=self, sold=None)
-        
         return stocks
     
     def save(self, force_insert=False, force_update=False):

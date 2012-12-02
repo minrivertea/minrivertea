@@ -25,88 +25,6 @@ h1 {
   color: #738693;   
 }
 
-
-#feature {
-    float: left;
-    height: 360px;
-    margin: 0 0 0;
-    padding-bottom: 0;
-    width: 100%;
-    background: #fff;
-    border-bottom: 10px solid #E1ECF3;
-    position: relative;
-    display: none;
-}
-
-#feature img {
- position: relative;
- left: -10px;  
-}
-
-#feature div.top {
-    float: right;
-    position: relative;
-    top: 80px;
-    width: 300px;
-}
-
-#feature div.top h1 {
-    font-size: 30px;
-    margin: 0px 0 10px 0;
-    text-align: left;
-}
-
-#feature div.top p {
-  margin: 0 0 15px;	
-  float: left;
-  padding: 0;
-  font-size: 14px;
-  letter-spacing: -0.5px;
-  color: #666;
-  text-align: left;
-
-}
-
-#feature div.top a.button {
-    float: left;
-    font-size: 24px;
-    padding: 16px 15px 14px;
-    text-align: center;
-    width: 240px;
-    right: 0;
-    margin-top: 15px;
-    text-shadow: 0 1px 1px #333;
-}
-
-#adventure {
-    float: left;
-    height: 320px;
-    margin-top: 50px;
-    padding: 0px 0 0px;
-    width: 100%;
-    display: none;
-}
-
-#adventure h2 {
-  color: #;
-  font-size: 32px;   
-}
-
-#adventure p {
-  font-size: 18px;
-  float: left;
-  margin: 10px 0 0;	
-  width: 480px;
-}
-
-#adventure img {
-  border-radius: 5px;
-  border: 15px solid #fff;
-  box-shadow: 0 3px 9px #c1c1c1;
-  margin: 0px 0px 0 0;
-  float: right;
-}
-
 #benefits {
   float: left;	
   position: relative;
@@ -375,18 +293,6 @@ ul.rss {
   </div>
 </div>
 
-
-<div id="feature">
-  <div class="sp">
-    <img src="{% staticfile '/images/home5.jpg' %}"/>
-	<div class="top">
-		<h1>{% trans 'Fresh, authentic teas from China, direct to your door.' %}</h1>
-		<p>{% trans "* and when we say direct, we mean direct - we're the only UK tea company actually based in China!" %} <a class="underline" href="/about/">{% trans 'Read more' %} &raquo;</a></p>		
-		<a class="button green" href="{% url teas %}">{% trans 'Pick your tea now' %} &raquo;</a>	
-	</div>
-  </div>
-</div>
-
 <div class="sp">
 
     <h1>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h1>
@@ -465,19 +371,6 @@ ul.rss {
 	       {% endfor %}
 	</div>
 
-	<div id="adventure">
-		<img alt="Min River Tea Farm co-founder hugging a tea tree on Wuyi Mountain" src="{% staticfile '/images/home-mountain.jpg' %}"/>
-		<h2>{% blocktrans %}A big <em>ni hao</em> from China!{% endblocktrans %}</h2>
-		
-		
-		<p>{% blocktrans %}We sell the <strong>tastiest, healthiest and most stunning Chinese teas</strong> you'll ever try, direct from the farm in China. How?{% endblocktrans %}</p>
-		
-		<p>{% blocktrans %}<span class="underline">Because we live in China full-time</span>. While most tea companies buy through a string of wholesalers, we speak Chinese fluently, we're fanatic about tea, we visit tea farms regularly and <strong>we source tea directly from farmers</strong>. {% endblocktrans %}</p><p><a href="/about/">{% trans 'Find out more about us' %} &raquo;</a></p>
-		
-		
-		
-	
-	</div>
 	
 	    {% if ga_is_on %}
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">

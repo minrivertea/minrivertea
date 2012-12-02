@@ -143,7 +143,12 @@ if (15.00) {
 	   	<div id="tools">
       	   	<div id="userbasket" {% if basket_quantity > 0 %}class="selected"{% endif %}>
       		  <div id="item"></div>
-      		  <div id="quantity">{% blocktrans count basket_quantity as bq %}{{ bq }} item{% plural %}{{ bq }} items{% endblocktrans %} / {{ currency.symbol }}{{ basket_amount }} - {% if basket_quantity > 0 %}<br/>{% endif %}<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a></div>
+      		  <span class="basket"></span>
+      		  <div id="quantity">
+      		    
+      		    {% blocktrans count basket_quantity as bq %}{{ bq }} item{% plural %}{{ bq }} items{% endblocktrans %} / {{ currency.symbol }}{{ basket_amount }}{% if basket_quantity > 0 %}<br/>{% endif %}
+      		    {% if basket_quantity %}<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>{% endif %}
+      		  </div>
       		</div>
 	   	
          	<div id="language">

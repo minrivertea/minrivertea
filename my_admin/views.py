@@ -36,7 +36,11 @@ from logistics.models import WarehouseItem, CustomerPackage
 # view for my private admin pages
 @login_required
 def index(request):
-    packages = CustomerPackage.objects.filter(postage_cost=None).order_by('-created')        
+    packages = CustomerPackage.objects.filter(postage_cost=None).order_by('-created')
+    for x in packages:
+        for y in x.items.all():
+            if y.is_preorder == True:
+                x.preorder = True
     return _render(request, "my_admin/home.html", locals())
 
 
@@ -67,15 +71,15 @@ def admin_shopper(request, id):
 def stocks(request):
        
     products = Product.objects.filter(is_active=True).order_by('category')
-    for x in products:
-        
-        x.get_ups = UniqueProduct.objects.filter(parent_product=x, currency__code='GBP', is_active=True)
-        
-        # how many of each UP are available/in-transit?
-        
-        for u in x.get_ups: # now we have all the unique products for this product...
-            u.available = WarehouseItem.objects.filter(sold=None, unique_product=u).exclude(available=None)
-            u.transit = WarehouseItem.objects.filter(sold=None, unique_product=u, available=None)
+    #for x in products:
+    #    
+    #    x.get_ups = UniqueProduct.objects.filter(parent_product=x, currency__code='GBP', is_active=True)
+    #    
+    #    # how many of each UP are available/in-transit?
+    #    
+    #    for u in x.get_ups: # now we have all the unique products for this product...
+    #        u.available = WarehouseItem.objects.filter(sold=None, unique_product=u).exclude(available=None)
+    #        u.transit = WarehouseItem.objects.filter(sold=None, unique_product=u, available=None)
         
     return _render(request, 'my_admin/stocks.html', locals())
 

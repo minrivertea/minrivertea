@@ -15,21 +15,53 @@ from shop.models import Currency, UniqueProduct, Order
 
 def _create_customer_package(order):
     
+    # create a CustomerPackage
     package = CustomerPackage.objects.create(
         order=order,
         created=datetime.datetime.now(),
     )
-
+    
+    preorder_package = None
+    
+    # iterate through the items the customer has ordered
     for x in order.items.all():
-        quantity = x.quantity
-        wh_items = WarehouseItem.objects.filter(unique_product=x.item)[:(quantity-1)]
-        for i in wh_items:
-            package.items.add(i)
-            i.sold = datetime.datetime.now()
-            i.reason = WarehouseItem.SOLD
-            i.save()
         
-    package.save()
+        # remember they might have ordered 2+ of the same
+        loop = x.quantity
+        while loop >= 1:
+            try:
+                
+                # if we have a WHItem available, then add it to the main package
+                wh_item = WarehouseItem.objects.filter(unique_product=x.item, sold__isnull=True, available__lte=datetime.datetime.now())[0]
+                package.items.add(wh_item)
+                package.save()
+                wh_item.sold = datetime.datetime.now()
+                wh_item.reason = WarehouseItem.SOLD
+                wh_item.save()
+            
+            except:
+                
+                # if there isn't a WHItem available, create a new one...
+                wh_item = WarehouseItem.objects.create(
+                    unique_product=x.item,
+                    hashkey=uuid.uuid1().hex,
+                    created=datetime.datetime.now(),
+                    batch='TEMP',
+                )
+                
+                # ...and then add it to a preorder package. 
+                if preorder_package == None:
+                    preorder_package = CustomerPackage.objects.create(
+                        order=order,
+                        created=datetime.datetime.now(),
+                        is_preorder=True,
+                    )
+
+                preorder_package.items.add(wh_item)
+                preorder_package.save()
+            
+            loop -= 1
+
     return
     
     
