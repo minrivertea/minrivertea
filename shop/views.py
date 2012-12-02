@@ -923,12 +923,13 @@ def china_convert_prices(request, id):
     
     currency = _get_currency(request)
     if old_price > currency.postage_discount_threshold:
+        postage_cost = 0
         postage_discount = True
     else:
         postage_cost = currency.postage_cost * float(exchange_rate) 
         postage_discount = None
     
-    old_total = old_price + currency.postage_cost
+    old_total = old_price + postage_cost
     new_total = new_price + postage_cost 
           
     paypal_form = render_to_string('shop/snippets/paypal_form_china.html', {
