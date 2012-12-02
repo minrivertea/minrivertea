@@ -198,8 +198,8 @@ except ImportError:
 
 import logging 
        
-#logging.basicConfig(filename=LOG_FILENAME,
-#                   level=logging.DEBUG,
-#                   datefmt="%Y-%m-%d %H:%M:%S",
-#                   format="%(asctime)s %(levelname)s %(name)s %(message)s",
-#                  )
+logging.basicConfig(filename=LOG_FILENAME,
+                   level=logging.DEBUG,
+                   datefmt="%Y-%m-%d %H:%M:%S",
+                   format="%(asctime)s %(levelname)s %(name)s %(message)s",
+                  )
