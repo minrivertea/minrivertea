@@ -86,14 +86,15 @@ def page(request, slug, x=None, y=None, z=None):
    
 # the product listing page
 def category(request):
-    
     curr = _get_currency(request)
     slug = request.path.strip('/')
-    if slug == 'teas':
+    if slug == _('teas'):
         products = None
         category = None
+        special = get_object_or_404(UniqueProduct, parent_product__slug=_('buddhas-hand-oolong-tea'), currency=curr)
         categories = Category.objects.filter(parent_category__slug=slug)
         for c in categories:
+            
             c.products = _get_products(request, c.slug)
                 
     else:
@@ -114,7 +115,7 @@ def category(request):
             form = MonthlyBoxForm()
 
 
-    special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
+    
     return _render(request, "shop/category.html", locals())
 
 
