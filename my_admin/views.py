@@ -66,7 +66,10 @@ def admin_shopper(request, id):
 @login_required
 def stocks(request):
        
-    products = Product.objects.filter(is_active=True).order_by('category')
+    stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
+    for x in stocks:
+        x.uk_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True, location=WarehouseItem.UK)
+        x.china_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True, location=WarehouseItem.CHINA)
     #for x in products:
     #    
     #    x.get_ups = UniqueProduct.objects.filter(parent_product=x, currency__code='GBP', is_active=True)

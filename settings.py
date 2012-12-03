@@ -195,11 +195,3 @@ try:
     from local_settings import *
 except ImportError:
     pass
-
-import logging 
-       
-logging.basicConfig(filename=LOG_FILENAME,
-                   level=logging.DEBUG,
-                   datefmt="%Y-%m-%d %H:%M:%S",
-                   format="%(asctime)s %(levelname)s %(name)s %(message)s",
-                  )

@@ -181,7 +181,12 @@ class UniqueProduct(models.Model):
         if self.weight:
             return "%s (%s%s)" % (self.parent_product, self.weight, self.weight_unit)
         else: 
-            return "%s" % self.parent_product           
+            return "%s" % self.parent_product  
+    
+    def stocks(self):
+        from logistics.models import WarehouseItem
+        stocks = WarehouseItem.objects.filter(unique_product=self, sold__isnull=True)
+        return stocks         
 
 class Shopper(models.Model):
     user = models.ForeignKey(User)

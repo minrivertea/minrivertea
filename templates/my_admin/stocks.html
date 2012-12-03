@@ -144,6 +144,9 @@ a.accept {
     padding: 5px;
 }
   
+span.red {
+  font-weight: bold;   
+}
   
   
   </style>
@@ -154,7 +157,25 @@ a.accept {
 {% block content %}
 
 
-<h3>Stocks ({{ stocks.count }} items listed)</h3>
+<h3>Stocks</h3>
+
+<table>
+    <thead>
+        <td>Item</td>
+        <td>UK Stock</td>
+        <td>China stock</td>
+    </thead>
+    {% for x in stocks %}
+        <tr>
+            <td>{{ x }}</td>
+            <td><span class="{% if x.uk_stocks.count < 3 %}red{% endif %}">{{ x.uk_stocks.count }}</span></td>
+            <td>{{ x.china_stocks.count }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+
 
 <ul id="stocks">
     {% for x in products %}
@@ -163,10 +184,10 @@ a.accept {
             {% thumbnail x.image "120x120" crop="center" as im %}
             <img src="{{ im.url }}" />
             {% endthumbnail %}
-            <h3>{{ x.name }}</h3>   
+            <h3>{{ x.name }} ({{ x.stocks.count }})</h3>   
             <ul>
-            {% for u in x.get_ups %}
-                <li><span class="{% if u.available.count < 3 %}low {% endif %}">{{ u.available.count }} {% if u.weight %}x {{ u.weight }}{{ u.weight_unit }}{% endif %}</span></li>
+            {% for u in x.stocks %}
+                <li><span class="{% if u.available.count < 3 %}low {% endif %}">{{ u.stocks.count }} {% if u.weight %}x {{ u.weight }}{{ u.weight_unit }}{% endif %}</span></li>
                 {% if u.transit.count > 0 %}
                     <li>
                         <span class="transit">{{ u.transit.count }} {% if u.weight %}x {{ u.weight }}{{ u.weight_unit }}{% endif %}</span>
