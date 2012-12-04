@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static thumbnail %}
+{% load django_static thumbnail i18n %}
 
 {% block metadescription %}{{ page.meta_description }}{% endblock %}
 
@@ -241,8 +241,8 @@ h2 {
   	
         <div class="box large">
           <div class="head">
-            <h3>Latest blog entries</h3>
-            <a class="more" href="{% url blog_home %}">See all blog entries &raquo;</a>
+            <h3>{% trans 'Latest blog entries' %}</h3>
+            <a class="more" href="{% url blog_home %}">{% trans 'See all blog entries' %} &raquo;</a>
           </div>
           <div class="content">
             <ul>
@@ -267,19 +267,19 @@ h2 {
         <!-- END BOX -->
         
         <div class="box small trans">
-           <h3>&laquo; Learn about Chinese tea!</h3>
-           <p><em>Appreciate your fine Chinese tea more with our guides to <a href="/how-to-brew-chinese-tea/">brewing</a> and tasting your tea, as well as information about the <a href="/about-chinese-tea/">growing, history and culture of tea</a> drinking in China.</em></p>
+           <h3>&laquo; {% trans 'Learn about Chinese tea!' %}</h3>
+           <p>{% trans '<em>Appreciate your fine Chinese tea more with our guides to <a href="/how-to-brew-chinese-tea/">brewing</a> and tasting your tea, as well as information about the <a href="/about-chinese-tea/">growing, history and culture of tea</a> drinking in China.</em>' %}</p>
            <p>
                 <br/>
-                <strong>Brew Your Tea:</strong>
+                <strong>{% trans 'Brew Your Tea:' %}</strong>
                 <br/>
-                <a href="http://www.minrivertea.com/how-to-brew-iron-buddha-tea/">Iron Buddha</a> | 
-                <a href="http://www.minrivertea.com/how-to-brew-jin-jun-mei/">Jin Jun Mei</a> | 
-                <a href="http://www.minrivertea.com/how-to-brew-da-hong-pao/">The Big Red</a> | 
-                <a href="http://www.minrivertea.com/how-to-brew-jasmine-pearls-tea/">Jasmine Pearls</a> | 
-                <a href="http://www.minrivertea.com/how-to-brew-old-iron-tea/">Old Iron</a> | 
-                <a href="http://www.minrivertea.com/how-to-brew-silver-needle/">Silver Needle</a> |
-                <a href="http://www.minrivertea.com/how-to-brew-lapsang-souchong/">Lapsang Souchong</a>
+                <a href="http://www.minrivertea.com/how-to-brew-iron-buddha-tea/">{% trans 'Iron Buddha' %}</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-jin-jun-mei/">{% trans 'Jin Jun Mei' %}</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-da-hong-pao/">{% trans 'The Big Red' %}</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-jasmine-pearls-tea/">{% trans 'Jasmine Pearls' %}</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-old-iron-tea/">{% trans 'Old Iron' %}</a> | 
+                <a href="http://www.minrivertea.com/how-to-brew-silver-needle/">{% trans 'Silver Needle' %}</a> |
+                <a href="http://www.minrivertea.com/how-to-brew-lapsang-souchong/">{% trans 'Lapsang Souchong' %}</a>
            </p>
         
         </div>
@@ -288,17 +288,17 @@ h2 {
          <div>
             <a href="/blog/how-iron-buddha-tea-is-made-photos/"><span class="link"></span></a>
             <img src="{% staticfile '/images/learn/home1.jpg' %}" />
-            <h4>Find out how Iron Buddha tea is made.</h4>
+            <h4>{% trans 'Find out how Iron Buddha tea is made.' %}</h4>
          </div>
          <div>
             <a href="/blog/step-by-step-to-making-jasmine-tea/"><span class="link"></span></a>
             <img src="{% staticfile '/images/learn/home2.jpg' %}" />
-            <h4>The secrets of Jasmine tea revealed</h4>
+            <h4>{% trans 'The secrets of Jasmine tea revealed' %}</h4>
          </div>
          <div>
             <a href=""><span class="link"></span></a>
             <img src="{% staticfile '/images/learn/home3.jpg' %}" />
-            <h4>Tea and the environment.</h4>
+            <h4>{% trans 'Tea and the environment.' %}</h4>
          </div>
         </div>
         
@@ -306,7 +306,7 @@ h2 {
             <a href="/about-fujian-province/"><span class="link"></span></a>
             <img src="{% staticfile '/images/learn/full-map-wide.jpg' %}" />
             <div class="head">
-                <h3>Where are our teas grown?</h3>
+                <h3>{% trans 'Where are our teas grown?' %}</h3>
             </div>
         </div>
         
@@ -318,14 +318,14 @@ h2 {
             <ul>
                 <li>
                     <p>
-                        <a href="/varieties-of-chinese-tea/">Varieties of Chinese tea</a><br/>
-                        There are thousands of varieties of Chinese tea - learn the basics
+                        <a href="/varieties-of-chinese-tea/">{% trans 'Varieties of Chinese tea' %}</a><br/>
+                        {% trans 'There are thousands of varieties of Chinese tea - learn the basics' %}
                     </p>
                 </li>
                 <li>
                     <p>
-                        <a href="/what-are-green-teas/">What is green tea?</a><br/>
-                        A quick introduction to the ubiquitous 'green tea'
+                        <a href="/what-are-green-teas/">{% trans 'What is green tea?' %}</a><br/>
+                        {% trans "A quick introduction to the ubiquitous 'green tea' " %}
                     </p>
                 </li>
             </ul>

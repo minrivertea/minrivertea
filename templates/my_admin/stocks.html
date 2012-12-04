@@ -167,7 +167,7 @@ span.red {
     </thead>
     {% for x in stocks %}
         <tr>
-            <td>{{ x }}</td>
+            <td><a href="{% url admin_product x.parent_product.id %}">{{ x }}</a></td>
             <td><span class="{% if x.uk_stocks.count < 3 %}red{% endif %}">{{ x.uk_stocks.count }}</span></td>
             <td>{{ x.china_stocks.count }}</td>
         </tr>
