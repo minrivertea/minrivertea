@@ -35,6 +35,7 @@ class CategoryTranslationOptions(TranslationOptions):
         'long_title',
         'meta_description',
         'short_description',
+        'slug',
     )
 
 class UniqueProductTranslationOptions(TranslationOptions):

@@ -12,8 +12,10 @@ from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.translation import ugettext as _
-from django.utils.translation import get_language
+from django.utils.translation import get_language, activate
 from django.core.exceptions import MultipleObjectsReturned
+
+from django.db.models import Q
 
 
 import urllib
@@ -80,11 +82,7 @@ def _get_basket(request):
 def _changelang(request, code):
     
     from django.utils.translation import check_for_language, activate, to_locale, get_language
-    next = request.REQUEST.get('next', None)
-    if not next:
-        next = request.META.get('HTTP_REFERER', None)
-    if not next:
-        next = '/'
+    next = '/'
 
     response = HttpResponseRedirect(next)
     lang_code = code
@@ -195,5 +193,61 @@ def _get_products(request, cat=None, random=False, exclude=None):
         x.price = x.get_lowest_price(currency)
     
     return products   
+
+def _finder(request, x=None, y=None, z=None, slug=None):
+        
+    
+    # IF THERE'S ONLY 2 PARTS, CHECK LOTS OF THINGS
+    if z and slug and not y:
+        # could be a category + product or a page
+        try:
+            try:
+                product = Product.objects.get(slug_en=slug)
+                activate('en')
+            except:
+                product = Product.objects.get(slug_de=slug)
+                activate('de')
+            
+            from shop.views import tea_view
+            if hasattr(request, 'session'):
+                request.session[settings.LANGUAGE_COOKIE_NAME] = get_language()
+            else:
+                response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
+            return tea_view(request, slug)
+        except:
+            pass
+
+    else:
+            
+        try: # CATEGORIES FIRST
+            try:
+                category = Category.objects.get(slug_en=slug)
+                activate('en')
+            except:
+                category = Category.objects.get(slug_de=slug)
+                activate('de')
+            
+            from shop.views import category
+            if hasattr(request, 'session'):
+                request.session[settings.LANGUAGE_COOKIE_NAME] = get_language()
+            else:
+                response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
+            return category(request, slug=slug)
+        except: # PAGES SECOND
+            try:
+                page = Page.objects.get(slug_en=slug)
+                activate('en')
+            except:
+                page = Page.objects.get(slug_de=slug)
+                activate('de')
+            
+            from shop.views import page
+            if hasattr(request, 'session'):
+                request.session[settings.LANGUAGE_COOKIE_NAME] = get_language()
+            else:
+                response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
+            return page(request, slug=slug)
+    
+    return Http404()
 
 

@@ -5,6 +5,7 @@ from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
 from shop.views import page, category, review_tea, tea_view, make_product_feed, _changelang, germany
+from shop.utils import _finder
 from blog.models import BlogEntry
 from blog.feeds import LatestEntriesFeed
 from django.utils.translation import ugettext_lazy as _
@@ -62,6 +63,18 @@ urlpatterns = patterns('',
     
     url(r'^de/$', germany, name="germany"),
     url(r'^DE/$', germany, name="germany"),
+    
+    
+    
+    
+    # test category/page resolver
+    url(r'^(?P<slug>[\w-]+)/$', _finder, name="finder"),
+    url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
+    url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/review$', review_tea, name="review_tea"),
+    url(r'^(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
+    url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
+    
+    
     
     # urls for the products/categories
     url(r'^packages/$', category, name="packages"),

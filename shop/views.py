@@ -69,32 +69,29 @@ def index(request):
 
 
 
-def page(request, slug, x=None, y=None, z=None):
+def page(request, slug):
     page = get_object_or_404(Page, slug=slug)
     
     if request.path == '/contact-us/':
         form = ContactForm()
     
-    if x or y or z:
-        return HttpResponseRedirect(page.get_absolute_url())
-        
     template = "shop/page.html"
     if page.template:
         template = page.template
     teas = _get_products(request, random=True)[:2]
     return _render(request, template, locals())
    
+   
+   
 # the product listing page
-def category(request):
+def category(request, slug):
     curr = _get_currency(request)
-    slug = request.path.strip('/')
     if slug == _('teas'):
         products = None
         category = None
         special = get_object_or_404(UniqueProduct, parent_product__slug=_('buddhas-hand-oolong-tea'), currency=curr)
         categories = Category.objects.filter(parent_category__slug=slug)
         for c in categories:
-            
             c.products = _get_products(request, c.slug)
                 
     else:
