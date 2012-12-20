@@ -6,6 +6,7 @@ from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
 from shop.views import page, category, review_tea, tea_view, make_product_feed, _changelang, germany
 from shop.utils import _finder
+from shop.sitemap import ENSitemap, DESitemap
 from blog.models import BlogEntry
 from blog.feeds import LatestEntriesFeed
 from django.utils.translation import ugettext_lazy as _
@@ -16,24 +17,14 @@ from registration.views import register
 from django.contrib import admin
 admin.autodiscover()
 
-# for the sitemaps
-products = {
-    'queryset': Product.objects.filter(is_active=True),
+sitemap_en = {
+    'things': ENSitemap,    
 }
 
-blogs = {
-    'queryset': BlogEntry.objects.filter(is_draft=False),	
+sitemap_de = {
+    'things': DESitemap,    
 }
 
-pages = {
-    'queryset': Page.objects.all()
-}
-
-sitemaps = {
-    'pages': GenericSitemap(pages, priority=0.6),
-    'products': GenericSitemap(products, priority=0.6),
-    'blogs': GenericSitemap(blogs, priority=0.6),
-}
 
 # main URL patterns
 urlpatterns = patterns('',
@@ -48,7 +39,8 @@ urlpatterns = patterns('',
     (r'^emailer/', include('emailer.urls')),
     (r'^rosetta/', include('rosetta.urls')),
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
-    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap_en}),
+    (r'^sitemap_de\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap_de}),
     (r'^feeds/latest/$', LatestEntriesFeed()),
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
     (r'^humans\.txt$', direct_to_template, {'template': 'humans.txt', 'mimetype': 'text/plain'}),
