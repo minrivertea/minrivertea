@@ -13,6 +13,7 @@ class WarehouseItem(models.Model):
     created = models.DateTimeField(default=datetime.now(), help_text="The date the item entered the stock system")
     available = models.DateTimeField(blank=True, null=True, help_text="The date the item was made available to ship")
     sold = models.DateTimeField(blank=True, null=True)
+    package = models.ForeignKey('CustomerPackage', blank=True, null=True)
         
     SOLD = 'sold'
     DESTROYED = 'destroyed'
@@ -52,3 +53,7 @@ class CustomerPackage(models.Model):
     
     def __unicode__(self):
         return "%s : %s" % (self.order, self.order.owner)    
+    
+    def get_items(self):
+        items = WarehouseItem.objects.filter(package=self)
+        return items

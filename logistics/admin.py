@@ -4,7 +4,7 @@ from django.contrib import admin
 
 class WarehouseItemAdmin(admin.ModelAdmin):
     list_filter = ('sold', 'unique_product')
-    list_display = ('hashkey', 'unique_product', 'sold')    
+    list_display = ('hashkey', 'unique_product', 'sold', 'package')    
 
 class CustomerPackageAdmin(admin.ModelAdmin):
     list_filter = ('posted',)

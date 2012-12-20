@@ -18,7 +18,7 @@
             			</td>
             			<td class="items" valign="top">
             				<ul>
-            				{% for item in x.items.all %}
+            				{% for item in x.get_items %}
             					<li>   
             					   <a href="{% url admin_product item.unique_product.parent_product.id %}">{{ item.unique_product }}</a>
             					 </li>
