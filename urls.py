@@ -65,8 +65,6 @@ urlpatterns = patterns('',
     url(r'^DE/$', germany, name="germany"),
     
     
-    
-    
     # test category/page resolver
     url(r'^(?P<slug>[\w-]+)/$', _finder, name="finder"),
     url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
@@ -74,46 +72,6 @@ urlpatterns = patterns('',
     url(r'^(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
     
-    
-    
-    # urls for the products/categories
-    url(r'^packages/$', category, name="packages"),
-    url(r'^packages/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    url(r'^tasters/$', category, name="tasters"),
-    url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    url(_(r'^teaware/$'), category, name="teaware"),
-    url(_(r'^teaware/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-    
-    url(_(r'^oolong-tea/$'), category, name="oolong_tea"),
-    url(_(r'^oolong-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^red-tea/$'), category, name="red_tea"),
-    url(_(r'^red-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^green-tea/$'), category, name="green_tea"),
-    url(_(r'^green-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^white-tea/$'), category, name="white_tea"),
-    url(_(r'^white-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^scented-tea/$'), category, name="scented_tea"),
-    url(_(r'^scented-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^tea-gifts/$'), category, name="tea_gifts"),
-    url(_(r'^tea-gifts/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^tea-boxes/$'), category, name="tea_boxes"),
-    url(_(r'^tea-boxes/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^teas/$'), category, name="teas"),
-    url(_(r'^teas/(?P<slug>[\w-]+)/review/$'), review_tea, name="review_tea"),
-    url(_(r'^teas/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-    
-    # urls for the pages
-    url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_sub_page"),
-    url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_page"),
-    url(r'^(?P<y>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_page"),
-    url(r'^(?P<slug>[\w-]+)/$', page, name="page"),
     
 )
 
