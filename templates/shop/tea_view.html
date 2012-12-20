@@ -4,7 +4,12 @@
 {% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
 {% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="http://www.minrivertea.com{{ tea.get_absolute_url }}" />{% endblock %}
+{% block canonical %}
+    
+    <link rel="canonical" href="http://www.minrivertea.com{{ tea.get_absolute_url }}" />
+
+
+{% endblock %}
 
 
 {% block extrajs %}

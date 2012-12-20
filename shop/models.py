@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 import logging
 from datetime import datetime, timedelta
 from urlparse import urlparse
+from django.utils import translation
 
 from slugify import smart_slugify
 from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
@@ -97,14 +98,8 @@ class Product(models.Model):
         return date
     
     def get_absolute_url(self):
-        
         return "/%s/%s/" % (self.category.slug, self.slug)
-        
-        #if self.category.parent_category:
-        #    return "/%s/%s/" % (self.category.parent_category.slug, self.slug)
-        #else:    
-        #    return "/%s/%s/" % (self.category.slug, self.slug)  #important, do not change
-    
+
     def get_lowest_price(self, currency):
         try:
             prices = UniqueProduct.objects.filter(

@@ -150,6 +150,7 @@ EMAIL_TEMPLATES = (
 )
 
 # LANGUAGE SETTINGS
+# ------------------------------------------
 LANGUAGE_CODE = 'en'
 USE_I18N = True
 gettext = lambda s: s

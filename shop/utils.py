@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.template import RequestContext
 from paypal.standard.forms import PayPalPaymentsForm
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound, Http404
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
@@ -194,17 +194,21 @@ def _get_products(request, cat=None, random=False, exclude=None):
     
     return products   
 
+
 def _finder(request, x=None, y=None, z=None, slug=None):
         
-    
     # IF THERE'S ONLY 2 PARTS, CHECK LOTS OF THINGS
     if z and slug and not y:
+        
+        
+        
         # could be a category + product or a page
         try:
             try:
                 product = Product.objects.get(slug_en=slug)
                 activate('en')
-            except:
+                
+            except Product.DoesNotExist:
                 product = Product.objects.get(slug_de=slug)
                 activate('de')
             
@@ -213,17 +217,18 @@ def _finder(request, x=None, y=None, z=None, slug=None):
                 request.session[settings.LANGUAGE_COOKIE_NAME] = get_language()
             else:
                 response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
+            
             return tea_view(request, slug)
+            
         except:
             pass
-
-    else:
-            
+    
+    try:
         try: # CATEGORIES FIRST
             try:
                 category = Category.objects.get(slug_en=slug)
                 activate('en')
-            except:
+            except Category.DoesNotExist:
                 category = Category.objects.get(slug_de=slug)
                 activate('de')
             
@@ -233,11 +238,12 @@ def _finder(request, x=None, y=None, z=None, slug=None):
             else:
                 response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
             return category(request, slug=slug)
-        except: # PAGES SECOND
+        
+        except Category.DoesNotExist: # PAGES SECOND
             try:
                 page = Page.objects.get(slug_en=slug)
                 activate('en')
-            except:
+            except Page.DoesNotExist:
                 page = Page.objects.get(slug_de=slug)
                 activate('de')
             
@@ -247,7 +253,9 @@ def _finder(request, x=None, y=None, z=None, slug=None):
             else:
                 response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
             return page(request, slug=slug)
+    except:
+        raise Http404
     
-    return Http404()
+    return HttpResponseNotFound()
 
 

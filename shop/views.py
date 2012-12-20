@@ -139,8 +139,10 @@ def tea_view(request, slug):
         thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
         message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': thing.item.weight, 'unit':thing.item.weight_unit}
         request.session['ADDED'] = None
-        
+    
+    
     tea = get_object_or_404(Product, slug=slug)
+    
     recommended = _get_products(request, random=True, exclude=tea.id)[:3]
     
     try:
