@@ -28,19 +28,28 @@ def _create_customer_package(order):
         loop = x.quantity
         while loop >= 1:
             try:
-                wh_item = WarehouseItem.objects.filter(unique_product=x.item, sold__isnull=True)[0]
+                # get a WarehouseItem that matches the parent_product, weight and currency=GBP
+                wh_item = WarehouseItem.objects.filter(
+                    unique_product__parent_product=x.item.parent_product, 
+                    unique_product__weight=x.item.weight,
+                    unique_product__currency__code='GBP',
+                    sold__isnull=True,
+                )[0]
+                
                 if not package:
                     package = CustomerPackage.objects.create(
                         order=order,
                         created=datetime.datetime.now(),
                     )
-                package.items.add(wh_item)
                 package.save()
+                
                 wh_item.sold = datetime.datetime.now()
                 wh_item.reason = WarehouseItem.SOLD
+                wh_item.package = package
                 wh_item.save()
             
-            except:                
+            except: 
+                # otherwise, create a warehouse item (because there's none in stock)               
                 wh_item = WarehouseItem.objects.create(
                     unique_product=x.item,
                     hashkey=uuid.uuid1().hex,
@@ -55,8 +64,9 @@ def _create_customer_package(order):
                         is_preorder=True,
                     )
 
-                preorder_package.items.add(wh_item)
                 preorder_package.save()
+                wh_item.package = preorder_package
+                wh_item.save()
             
             loop -= 1
 
