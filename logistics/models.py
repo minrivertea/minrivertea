@@ -7,7 +7,7 @@ from shop.models import UniqueProduct, Order, Currency
 
 
 class WarehouseItem(models.Model):
-    hashkey = models.CharField(max_length=100, help='Type "LAZY" if you want the system to auto-generate a key.')
+    hashkey = models.CharField(max_length=100, help_text='Type "LAZY" if you want the system to auto-generate a key.')
     unique_product = models.ForeignKey(UniqueProduct)
     batch = models.CharField(max_length=10) 
     
