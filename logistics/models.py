@@ -1,12 +1,13 @@
 from django.db import models
 from datetime import datetime, timedelta
+import uuid
 
 from shop.models import UniqueProduct, Order, Currency
 
 
 
 class WarehouseItem(models.Model):
-    hashkey = models.CharField(max_length=100)
+    hashkey = models.CharField(max_length=100, help='Type "LAZY" if you want the system to auto-generate a key.')
     unique_product = models.ForeignKey(UniqueProduct)
     batch = models.CharField(max_length=10) 
     
@@ -39,6 +40,11 @@ class WarehouseItem(models.Model):
     
     def __unicode__(self):
         return self.hashkey
+        
+    def save(self, *args, **kwargs):
+        if self.hashkey == 'LAZY':
+            self.hashkey = uuid.uuid1().hex
+        super(WarehouseItem, self).save(*args, **kwargs) # Call the "real" save() method.
 
 
 
