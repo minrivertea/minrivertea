@@ -196,66 +196,99 @@ def _get_products(request, cat=None, random=False, exclude=None):
 
 
 def _finder(request, x=None, y=None, z=None, slug=None):
-        
-    # IF THERE'S ONLY 2 PARTS, CHECK LOTS OF THINGS
+    
+    current_lang = get_language()
+    products = []
+    categories = []
+    pages = []
+    
+    # IF IT HAS 2 PARTS TO THE URL IT COULD BE A PRODUCT - CHECK THIS FIRST
     if z and slug and not y:
         
-        
-        
-        # could be a category + product or a page
-        try:
+        for l in settings.LANGUAGES:
             try:
-                product = Product.objects.get(slug_en=slug)
-                activate('en')
-                
-            except Product.DoesNotExist:
-                product = Product.objects.get(slug_de=slug)
-                activate('de')
+                activate(l[0])
+                p = Product.objects.get(slug=slug)
+                products.append(dict(product=p, lang=l[0]))
+            except:
+                pass
+
+        if len(products) > 0:
             
-            from shop.views import tea_view
+            if len(products) == 1:
+                activate(products[0]['lang'])
+                        
+            if len(products) > 1:
+                activate(current_lang)
+                        
             if hasattr(request, 'session'):
                 request.session[settings.LANGUAGE_COOKIE_NAME] = get_language()
             else:
                 response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
             
+            from shop.views import tea_view
             return tea_view(request, slug)
-            
+        else:
+            pass
+
+
+
+    # CATEGORIES FIRST - DOES THE SLUG MATCH A CATEGORY?
+    for l in settings.LANGUAGES:
+        try:
+            activate(l[0])
+            c = Category.objects.get(slug=slug)
+            categories.append(dict(cat=c.slug, lang=l[0]))
         except:
             pass
     
-    try:
-        try: # CATEGORIES FIRST
-            try:
-                category = Category.objects.get(slug_en=slug)
-                activate('en')
-            except Category.DoesNotExist:
-                category = Category.objects.get(slug_de=slug)
-                activate('de')
-            
-            from shop.views import category
-            if hasattr(request, 'session'):
-                request.session[settings.LANGUAGE_COOKIE_NAME] = get_language()
-            else:
-                response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
-            return category(request, slug=slug)
+    if len(categories) > 0:
+        if len(categories) == 1:
+            activate(categories[0]['lang'])
         
-        except Category.DoesNotExist: # PAGES SECOND
-            try:
-                page = Page.objects.get(slug_en=slug)
-                activate('en')
-            except Page.DoesNotExist:
-                page = Page.objects.get(slug_de=slug)
-                activate('de')
+        else:
+            activate(current_lang)
+        
+        if hasattr(request, 'session'):
+            request.session[settings.LANGUAGE_COOKIE_NAME] = get_language()
+        else:
+            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
+        
+        from shop.views import category
+        return category(request, slug=slug)
             
-            from shop.views import page
-            if hasattr(request, 'session'):
-                request.session[settings.LANGUAGE_COOKIE_NAME] = get_language()
-            else:
-                response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
-            return page(request, slug=slug)
-    except:
-        raise Http404
+        
+    else:
+        pass
+        
     
+    for l in settings.LANGUAGES:
+        try:
+            activate(l[0])  
+            p = Page.objects.get(slug=slug)
+            pages.append(dict(page=p, lang=l[0]))
+        except:
+            pass  
+        
+    
+    if len(pages) > 0:
+        if len(pages) == 1:
+            activate(pages[0]['lang'])
+        
+        if len(pages) > 1:
+            activate(current_lang)
+        
+        
+        if hasattr(request, 'session'):
+            request.session[settings.LANGUAGE_COOKIE_NAME] = get_language()
+        else:
+            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, get_language())
+        
+        from shop.views import page
+        return page(request, slug=slug)
+    
+
+
     return HttpResponseNotFound()
 
 

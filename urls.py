@@ -77,8 +77,7 @@ urlpatterns = patterns('',
     
     
     # urls for the products/categories
-    url(r'^packages/$', category, name="packages"),
-    url(r'^packages/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+
     url(r'^tasters/$', category, name="tasters"),
     url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     url(_(r'^teaware/$'), category, name="teaware"),
