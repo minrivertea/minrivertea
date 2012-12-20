@@ -50,7 +50,6 @@ class WarehouseItem(models.Model):
 
 class CustomerPackage(models.Model):
     order = models.ForeignKey(Order)
-    items = models.ManyToManyField(WarehouseItem, blank=True, null=True)
     created = models.DateTimeField(default=datetime.now())
     is_preorder = models.BooleanField(default=False)
     posted = models.DateTimeField(blank=True, null=True)
