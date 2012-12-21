@@ -70,16 +70,8 @@ def stocks(request):
     for x in stocks:
         x.uk_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True, location=WarehouseItem.UK)
         x.china_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True, location=WarehouseItem.CHINA)
-    #for x in products:
-    #    
-    #    x.get_ups = UniqueProduct.objects.filter(parent_product=x, currency__code='GBP', is_active=True)
-    #    
-    #    # how many of each UP are available/in-transit?
-    #    
-    #    for u in x.get_ups: # now we have all the unique products for this product...
-    #        u.available = WarehouseItem.objects.filter(sold=None, unique_product=u).exclude(available=None)
-    #        u.transit = WarehouseItem.objects.filter(sold=None, unique_product=u, available=None)
-        
+    
+    products = UniqueProduct.objects.filter(currency__code='GBP')
     return _render(request, 'my_admin/stocks.html', locals())
 
 
