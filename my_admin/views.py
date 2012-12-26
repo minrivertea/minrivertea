@@ -136,6 +136,9 @@ def stats(request):
     pp_cost = 0
     postage_cost = 0
     shoppers = {}
+    german_orders_total_value = 0
+    raph = 0
+    german_countries = ('DE', 'AT', 'BE')
     
     for o in orders:
         
@@ -177,7 +180,20 @@ def stats(request):
         
             postage_cost += p
         
-        
+        if o.order.address.country in german_countries:
+            print o.order
+            amount = o.order.get_amount()
+            
+            if code == 'EUR':
+                amount = float(amount) * 0.808
+            
+            if code == 'USD':
+                amount = float(amount) * 0.66
+            
+            german_orders_total_value += amount
+            
+    
+    raph = german_orders_total_value * 0.1
     total_extra_costs = pp_cost + postage_cost
     shoppers = len(shoppers)
     
