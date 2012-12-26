@@ -185,15 +185,15 @@ def stats(request):
             amount = o.order.get_amount()
             
             if code == 'EUR':
-                amount = float(amount) * 0.808
+                amount = float(amount) * float(0.808)
             
             if code == 'USD':
-                amount = float(amount) * 0.66
+                amount = float(amount) * float(0.66)
             
             german_orders_total_value += amount
             
     
-    raph = german_orders_total_value * 0.1
+    raph = float(german_orders_total_value) * float(0.1)
     total_extra_costs = pp_cost + postage_cost
     shoppers = len(shoppers)
     
