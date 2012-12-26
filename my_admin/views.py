@@ -190,7 +190,7 @@ def stats(request):
             if code == 'USD':
                 amount = float(amount) * float(0.66)
             
-            float(german_orders_total_value) += float(amount)
+            float(german_orders_total_value) += amount
             
     
     raph = float(german_orders_total_value) * float(0.1)
