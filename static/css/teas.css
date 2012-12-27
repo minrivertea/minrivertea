@@ -321,79 +321,117 @@ a.more {
 
 /* TEA BOXES STYLES */
 
-#teaboxes {
-    
-}
-
 #teaboxes .box {
-  width: 270px;
+  width: 100%;
   float: left;
-  background: #E1ECF3;
-  margin: 0 15px 0 0;
-  padding: 15px;
-  height: 80px;
+  margin: 0 0px 20px 0;
   position: relative;
 }
 
-#teaboxes .box.frequency {
-  width: 160px;   
+#teaboxes .box.teas label {
+  float: left;
+  width: auto;
+  margin: 0 10px 10px 0;
+  padding: 10px 10px 30px 10px;
+  background: #fff;
+  position: relative;
+  z-index: 18;
 }
 
-#teaboxes .box.teas {
-  width: 530px;
+#teaboxes .box.teas label img {
+  opacity: 0.6;   
 }
 
-#teaboxes .box:last-child {
-  margin-right: 0;
-  background: none;
-  width: 180px; 
-  padding: 15px 0;  
-}
-
-#teaboxes .box h3 {
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  color: #59849F;
-  text-shadow: 1px 1px 0 #fff;
-  font-size: 16px;
-  margin: 0 0 20px 0;   
-}
-
-#teaboxes #price {
-
-}
-
-#teaboxes #price input.button {
-  float: right;
-  margin: 15px 0 0 30px;
-  width: 180px;
+#teaboxes .box.teas label span.title {
   position: absolute;
-  bottom: 0;
-  right: 0;   
+  bottom: 7px;
+  left: 13px;
+  font-size: 14px;
+  color: #237A2A;
+  letter-spacing: -0.5px;
+  opacity: 0.6;
 }
 
-#teaboxes #price #amount {
-  float: right;
-  font-size: 30px;
+#teaboxes .box.teas label:hover {
+  cursor: pointer;   
+}
+
+#teaboxes .box.teas label:hover img, #teaboxes .box.teas label.selected img, #teaboxes .box.teas label:hover span.title, #teaboxes .box.teas label.selected span.title  {
+  opacity: 1;   
+}
+
+
+
+#teaboxes .box.teas label span.title .price {
+  color: #333;
+  font-size: 13px;   
+}
+
+#teaboxes .box.teas label span.title .grey {
+  font-weight: normal;
+  color: #555;   
+}
+
+#teaboxes .box.teas label span.quantity {
+    color: #fff;
+    font-size: 120px;
+    left: 35%;
+    opacity: 1;
+    position: absolute;
+    top: 11px;
+}
+
+#teaboxes .box.teas label span.clear {
+  position: absolute;
+  bottom: 9px;
+  right: 10px;
   font-weight: bold;
-  font-family: helvetica, arial, sans-serif;
-  margin: 20px 0 0; 
-  width: auto;   
-  
+  font-size: 10px;
+  color: red;   
+  display: none;
+  z-index: 20;
 }
 
-#teaboxes .teas ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;   
+#teaboxes .box.teas label span.clear:hover {
+  text-decoration: underline;
 }
 
-#teaboxes input[type=checkbox], #teaboxes input[type=radio] {
-  width: 30px;   
+#teaboxes .box.teas label.selected span.clear {
+  display: block;   
 }
 
-#teaboxes label {
-  width: 80%;   
+#teaboxes .box.teas input[type="checkbox"], #teaboxes .box.frequency input[type="radio"] {
+  display: none;   
+}
+
+#teaboxes .box.frequency label {
+  font-size: 32px;
+  padding: 20px 25px;
+  background: #fff;
+  margin: 0 15px 0 0;
+  text-align: center;
+  width: auto;  
+  border-radius: 5px; 
+  opacity: 0.5;
+  box-shadow: inset 0 1px 3px #a1a1a1;
+  border: 1px solid #a1a1a1; 
+}
+
+
+#teaboxes .box.frequency label:hover {
+  color: #237A2A;
+  cursor: pointer;
+  opacity: 0.8; 
+}
+
+#teaboxes .box.frequency input[type="radio"]:checked + label {
+  background: #237A2A;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  opacity: 1;
+  box-shadow: none;
+  border: 1px solid #237A2A;
 }
 
 

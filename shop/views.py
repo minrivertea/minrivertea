@@ -108,7 +108,11 @@ def category(request, slug):
             
     
     if category:         
-        if category.slug == 'tea-boxes':
+        if category.slug == _('tea-boxes'):
+            products = Product.objects.filter(category__parent_category__slug='teas', is_active=True).exclude(
+                name__icontains='taster')
+            for p in products:
+                p.price = p.get_lowest_price(curr)
             form = MonthlyBoxForm()
 
 

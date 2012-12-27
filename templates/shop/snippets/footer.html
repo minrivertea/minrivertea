@@ -1,6 +1,5 @@
 {% load i18n %}
 
-
 <div id="footer">	
 
   <div class="sp">
@@ -10,13 +9,13 @@
   <div class="sp thin">
     
 	<div class="footer-box about">
-	  <h4><a href="/about/">{% trans 'About the Min River Tea Farm &raquo;' %}</a></h4>
+	  <h4><a href="{% url page _('about') %}">{% trans 'About the Min River Tea Farm &raquo;' %}</a></h4>
 	  <p>{% trans "We're a UK tea company selling fine quality Chinese teas across the world." %}</p>
 	  
 	  <ul>
-	    <li><a href="/about/">{% trans 'About us' %}</a></li>
-	  	<li><a href="/where-do-we-deliver/">{% trans 'Where do we deliver?' %}</a></li>
-        <li><a href="/about-fujian-province/">{% trans 'Where does our tea come from?' %}</a></li>
+	    <li><a href="{% url page _('about') %}">{% trans 'About us' %}</a></li>
+	  	<li><a href="{% url page _('where-do-we-deliver') %}">{% trans 'Where do we deliver?' %}</a></li>
+        <li><a href="{% url page _('about-fujian-province' %}">{% trans 'Where does our tea come from?' %}</a></li>
 	  </ul>
 	  
 	</div>
@@ -44,10 +43,10 @@
 
     <p class="copyright">
         &copy; minrivertea.com | 145 - 157 St John St, London, EC1V 4PW, UK | 
-        <a href="/contact-us/">{% trans 'Contact Us' %}</a> | 
-        <a href="/terms-and-conditions/">{% trans 'Terms & Conditions' %}</a> | 
-        <a href="/privacy/">{% trans 'Privacy' %}</a> | 
-        <a href="/imprint/">{% trans 'Imprint' %}</a>
+        <a href="{% url page _('contact-us') %}">{% trans 'Contact Us' %}</a> | 
+        <a href="{% url page _('terms-and-conditions') %}">{% trans 'Terms & Conditions' %}</a> | 
+        <a href="{% url page _('privacy') %}">{% trans 'Privacy' %}</a> | 
+        <a href="{% url page _('imprint') %}">{% trans 'Imprint' %}</a>
     </p>
 
 
