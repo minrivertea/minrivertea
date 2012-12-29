@@ -44,13 +44,15 @@ span.red {
         <td>Item</td>
         <td>UK Stock</td>
         <td>China stock</td>
+        <td>Total stock value</td>
     </thead>
     {% for x in stocks %}
         <tr>
             <td><a href="{% url admin_product x.parent_product.id %}">{{ x }}</a></td>
             <td><span class="{% if x.uk_stocks.count < 3 %}red{% endif %}">{{ x.uk_stocks.count }}</span></td>
             <td>{{ x.china_stocks.count }}</td>
-            <td><a href="#" id="add-stocks">Add</a>{% if x.china_stocks %}<br/><a href="">transfer China stocks</a>{% endif %}</td>
+            <td>£{{ x.total_value }}</td>
+            <td><a href="#" id="add-stocks">Add</a></td>
         </tr>
     {% endfor %}
 </table>
