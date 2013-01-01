@@ -102,15 +102,15 @@ class Product(models.Model):
 
     def get_lowest_price(self, currency):
         try:
-            prices = UniqueProduct.objects.filter(
+            price = UniqueProduct.objects.filter(
                 parent_product=self,
                 is_active=True, 
                 is_sale_price=False, 
                 currency=currency,
             ).order_by('price')[0]
         except:
-            prices = None
-        return prices
+            price = None
+        return price
     
     def get_reviews(self):
         reviews = Review.objects.filter(product=self, is_published=True)
@@ -262,14 +262,18 @@ class BasketItem(models.Model):
     # specific for monthly ordering
     monthly_order = models.BooleanField()
     months = models.IntegerField(blank=True, null=True)
-    weight = models.CharField(blank=True, null=True, choices=settings.MONTHLY_ORDER_AMOUNTS, max_length=5)
     
     def get_price(self):
         price = self.quantity * self.item.price
+        if self.monthly_order:
+            price = price * self.months
         return price
         
     def __unicode__(self):
-        return "%s x %s" % (self.item, self.quantity)
+        if self.monthly_order:
+            return "%s x %s (%s months)" % (self.item, self.quantity, self.months)
+        else:
+            return "%s x %s" % (self.item, self.quantity)
 
     
 class Discount(models.Model):
@@ -317,9 +321,6 @@ class Order(models.Model):
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
     date_shipped = models.DateTimeField(blank=True, null=True)
-    
-    # these are specific for repeat/monthly ordering
-    monthly_order = models.BooleanField(default=False)
     
     def get_discount(self):
         total_price = 0
@@ -543,7 +544,6 @@ def show_me_the_money(sender, **kwargs):
     
     from emailer.views import _payment_success_email 
     _payment_success_email(order)
-    
     
 payment_was_successful.connect(show_me_the_money)    
 

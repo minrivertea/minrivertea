@@ -20,6 +20,7 @@ import urllib
 import urllib2
 import xml.etree.ElementTree as etree
 from django.utils import simplejson
+from itertools import chain
 
 from PIL import Image
 from cStringIO import StringIO
@@ -106,17 +107,6 @@ def category(request, slug):
             if basket_item.count() > 0:
                 x.basket_quantity = basket_item[0].quantity
             
-    
-    if category:         
-        if category.slug == _('tea-boxes'):
-            products = Product.objects.filter(category__parent_category__slug='teas', is_active=True).exclude(
-                name__icontains='taster')
-            for p in products:
-                p.price = p.get_lowest_price(curr)
-            form = MonthlyBoxForm()
-
-
-    
     return _render(request, "shop/category.html", locals())
 
 
@@ -146,7 +136,6 @@ def tea_view(request, slug):
     
     
     tea = get_object_or_404(Product, slug=slug)
-    
     recommended = _get_products(request, random=True, exclude=tea.id)[:3]
     
     try:
@@ -169,6 +158,8 @@ def tea_view(request, slug):
         )[0]
     except:
         big_price = None
+    
+    monthly_price = price.price * 12
         
     try:
         review = Review.objects.filter(product=tea)[0]
@@ -176,6 +167,22 @@ def tea_view(request, slug):
         pass
 
     return _render(request, "shop/tea_view.html", locals())
+
+def monthly_tea_box(request):
+    
+    product = get_object_or_404(Product, slug=_('monthly-tea-box'))
+    products = Product.objects.filter(category__parent_category__slug='teas').exclude(name__icontains="taster")
+    basket_items = BasketItem.objects.filter(basket=_get_basket(request))
+    
+    for x in products:
+        x.price = x.get_lowest_price(_get_currency(request))
+        x.monthly_price = x.price.price * 12
+        x.quantity = 0
+        for y in basket_items:
+            if x.price == y.item:
+                x.quantity += y.quantity 
+    
+    return _render(request, 'shop/monthly_tea_box.html', locals())
     
 def contact_form_submit(request, xhr=None):
     
@@ -221,6 +228,22 @@ def add_to_basket(request, productID):
     return HttpResponseRedirect(url)
 
 
+def add_to_basket_monthly(request, productID, months):
+    uproduct = get_object_or_404(UniqueProduct, id=productID)
+    basket = _get_basket(request)
+   
+    try:
+        item = get_object_or_404(BasketItem, basket=basket, item=uproduct, monthly_order=True, months=months)
+        item.quantity += 1
+    except:
+        item = BasketItem.objects.create(item=uproduct, quantity=1, basket=basket, monthly_order=True, months=months)
+        
+    item.save()
+    
+    url = request.META.get('HTTP_REFERER','/')
+    return HttpResponseRedirect(url)
+    
+
 # function for removing stuff from your basket
 def remove_from_basket(request, id):
     basket_item = get_object_or_404(BasketItem, pk=id)
@@ -256,10 +279,8 @@ def monthly_order_save(request):
     return HttpResponseRedirect(reverse('tea_boxes'))
 
 
-def reduce_quantity(request, productID):
-    product = get_object_or_404(UniqueProduct, id=productID)
-        
-    basket_item = BasketItem.objects.get(basket=_get_basket(request), item=product)
+def reduce_quantity(request, basket_item):        
+    basket_item = get_object_or_404(BasketItem, pk=basket_item)
     if basket_item.quantity > 1:
         basket_item.quantity -= 1
         basket_item.save()
@@ -270,24 +291,24 @@ def reduce_quantity(request, productID):
 
 
 # function for increasing the quantity of an item in your basket
-def increase_quantity(request, productID):
-    product = get_object_or_404(UniqueProduct, id=productID)
-        
-    basket_item = BasketItem.objects.get(basket=_get_basket(request), item=product)
+def increase_quantity(request, basket_item):        
+    basket_item = get_object_or_404(BasketItem, pk=basket_item)
     basket_item.quantity += 1
     basket_item.save()
-    
     return HttpResponseRedirect('/basket/') # Redirect after POST
 
 
 def basket(request):
            
-    basket_items = BasketItem.objects.filter(basket=_get_basket(request))
+    basket_items = BasketItem.objects.filter(basket=_get_basket(request)).exclude(monthly_order=True)
+    monthly_items = BasketItem.objects.filter(basket=_get_basket(request), monthly_order=True)
     
     total_price = 0
-    for item in basket_items:
-        price = item.quantity * item.item.price
+    for item in chain(basket_items, monthly_items):
+        price = item.get_price()
         total_price += price
+        if item.monthly_order:
+            item.item.weight = item.item.weight * item.quantity
     
     currency = _get_currency(request)
     

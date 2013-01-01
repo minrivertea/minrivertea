@@ -36,7 +36,15 @@ from logistics.models import WarehouseItem, CustomerPackage
 # view for my private admin pages
 @login_required
 def index(request):
-    packages = CustomerPackage.objects.filter(postage_cost=None).order_by('-created')
+    packages = CustomerPackage.objects.filter(postage_cost=None, shipping_due_date__isnull=True).order_by('-created')
+    
+    today = datetime.today()
+    next_week = (datetime.today() + timedelta(weeks=5))
+    
+    
+    
+    monthly_packages = CustomerPackage.objects.filter(shipping_due_date__range=(today, next_week), posted__isnull=True).order_by('-created')
+    
     return _render(request, "my_admin/home.html", locals())
 
 

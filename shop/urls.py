@@ -14,6 +14,9 @@ urlpatterns = patterns('',
     url(r'^basket/remove/(\w+)$', views.remove_from_basket, name="remove_from_basket"),
     url(r'^china_convert_prices/(\w+)$', views.china_convert_prices, name="china_convert_prices"),
     
+    
+    # monthly order specific
+    url(r'^basket/add/(?P<productID>\w+)/monthly/(?P<months>\w+)/$', views.add_to_basket_monthly, name="add_to_basket_monthly"),
     url(r'^monthly-order-save/$', views.monthly_order_save, name="monthly_order_save"),
 
 

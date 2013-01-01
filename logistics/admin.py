@@ -8,7 +8,7 @@ class WarehouseItemAdmin(admin.ModelAdmin):
 
 class CustomerPackageAdmin(admin.ModelAdmin):
     list_filter = ('posted',)
-    list_display = ('order', 'posted', 'postage_cost')
+    list_display = ('order', 'posted', 'postage_cost', 'shipping_due_date')
     ordering = ('-order',)    
 
 

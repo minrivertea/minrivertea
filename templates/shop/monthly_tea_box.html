@@ -1,12 +1,12 @@
 {% extends base_template %}
 {% load thumbnail django_static i18n %}
 
-{% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
-{% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
+{% block metadescription %}{% if product.meta_description %}{{ product.meta_description|safe }}{% else %}{{ product.name }} - {{ product.description|safe }}{% endif %}{% endblock %}
+{% block pagetitle %}{% if not product.meta_title %}{{ product.name }}{% else %}{{ product.meta_title }}{% endif %}{% endblock %}
 
 {% block canonical %}
     
-    <link rel="canonical" href="http://www.minrivertea.com{{ tea.get_absolute_url }}" />
+    <link rel="canonical" href="http://www.minrivertea.com{{ product.get_absolute_url }}" />
 
 
 {% endblock %}
@@ -117,7 +117,7 @@ div.product-photos-small {
     float: left;
     height: auto;
     margin-right: 30px;
-    width: 565px;
+    width: 500px;
 }
 
 .tea-top div.main-image div.product-photos-small img {
@@ -156,7 +156,7 @@ div.product-photos-small p {
 }
 
 .tea-top .description {
-  width: 365px;
+  width: 430px;
   float: right;	
 }
 
@@ -173,27 +173,9 @@ div.product-photos-small p {
 
 .tea-top div.main-image {
     float: left;
-    width: 565px;
+    width: 500px;
 }
 
-.tea-top div#prices {
-    float: right;
-    width: 365px;
-    margin: 15px 0 0;
-}
-
-.tea-top .price {
-    float: left;
-    margin: 0;
-    position: relative;
-    width: 360px;
-}
-
-.price.big {
-  float: left;
-  margin: 10px 0 0 0; 
-  width: 225px;  
-}
 
 a.button {
     float: right;
@@ -337,23 +319,7 @@ span.name {
   font-size: 14px;   
 }
 
-.amount {
-    color: #237A2A;
-    float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 30px;
-    font-weight: bold;
-    letter-spacing: -4px;
-    line-height: 1em;
-    margin: 0 0 10px;
-    position: relative;
-    text-shadow: 1px 1px 0 #FFFFFF;
-}
 
-.price.big .amount {
-   font-size: 35px;
-   margin: 5px 0 15px;   
-}
 
 .price-description {
     color: #555555;
@@ -530,17 +496,17 @@ div.fb-recommend {
     border-top: 3px dotted #E1E1E1;
     float: left;
     height: auto;
-    margin: 30px 0 20px;
+    margin: 0px 0 20px;
     padding: 20px 0;
     width: 100%;
 }
 
 #monthly .button {
-  width: 145px;
+  width: 130px;
   font-size: 15px;
-  padding: 8px 20px;
+  padding: 5px 20px;
   text-align: center;  
-  margin: 5px 0; 
+  margin: 5px 0 0; 
   top: 0;
   float: left;
 }
@@ -548,29 +514,29 @@ div.fb-recommend {
 #monthly h3 {
     background: none repeat scroll 0 0 #59849F;
     border-radius: 5px 0 0 5px;
-    color: #fff;
-    text-shadow: 0 1px 1px #333;
+    color: #FFFFFF;
     float: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
-    height: 45px;
+    height: 30px;
     letter-spacing: -1.5px;
-    margin: 0 40px 0 0;
-    padding: 25px 0 10px;
+    margin: 0 30px 0 0;
+    padding: 19px 0 10px;
     position: relative;
     text-align: center;
-    width: 135px;
+    text-shadow: 0 1px 1px #333333;
+    width: 195px;
 }
 
 #monthly h3:before {
     border-color: transparent -moz-use-text-color transparent #59849F;
     border-style: solid none solid solid;
-    border-width: 40px 0 40px 20px;
+    border-width: 30px 0 30px 15px;
     content: " ";
     display: block;
     position: absolute;
-    right: -20px;
+    right: -15px;
     top: 0;
 }
 
@@ -583,34 +549,129 @@ div.fb-recommend {
   padding: 15px 0 0;  
 }
 
-#monthly div span {
-  font-size: 18px;
-  font-family: Helvetica, Arial, sans-serif;   
-  font-weight: bold;
-  letter-spacing: -0.5px;
-}
-
-#monthly div.price {
+#monthly .price {
   width: 180px; 
   margin: 0;
-  padding-top: 10px;  
-}
-
-#monthly div.price span {
-  font-size: 26px;
-  color: #237A2A;
-}
-
-#monthly div.price a.add-more {
-  font-size: 13px;
-  float: right;
-  margin: 5px 0 0 0;
+  padding-top: 10px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  letter-spacing: -0.5px;
+  color: #555;  
 }
 
 #monthly div.price span.grey {
     color: #777777;
     font-size: 13px;
     font-weight: normal;
+}
+
+#monthly div#products {
+  width: 735px;
+  padding: 0;
+  margin: 0;   
+}
+
+#monthly #products .product {
+  float: left;
+  width: 650px;
+  height: auto;
+  background: #fff;
+  padding: 10px;
+  margin: 0 10px 10px 0;
+  position: relative;
+}
+
+#monthly #products img {
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+#monthly #products h4 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  float: left;
+  margin: 5px 0 0;
+  padding: 0;
+  color: #237A2A;
+  width: 330px;
+  letter-spacing: -0.5px;   
+}
+
+#monthly #products p {
+  float: left;
+  font-size: 15px;
+  width: 330px;
+  padding: 0;
+  margin: 0;
+}
+
+#monthly #products .product .price {
+  margin: 0;
+  width: 385px;
+  float: left;
+  position: absolute;
+  bottom: 10px;
+  left: 270px;
+  font-size: 14px;
+}
+
+#monthly p.price span.amount {
+  font-weight: bold;
+  color: #333;
+  font-size: 18px; 
+}
+
+#monthly p.price a.up {
+    background: none repeat scroll 0 0 #237A2A;
+    border-radius: 4px 4px 4px 4px;
+    bottom: 0;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 2px 10px;
+    position: absolute;
+    right: 0;
+}
+
+#monthly p.price a.up:hover {
+   background: #FF6569;
+   cursor: pointer;   
+}
+
+#monthly p.price span.quantity {
+    background: none repeat scroll 0 0 #E1ECF3;
+    color: #59849F;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    padding: 5px 10px 5px 5px;
+    position: absolute;
+    right: -33%;
+    top: -6px;
+    width: auto;
+    text-shadow: 0 1px 1px #fff;
+}
+
+#monthly p.price span.quantity:before {
+    border-color: transparent #E1ECF3 transparent -moz-use-text-color;
+    border-style: solid solid solid none;
+    border-width: 16px 16px 16px 0px;
+    content: " ";
+    display: block;
+    position: absolute;
+    left: -16px;
+    top: 0;
+}
+
+#monthly p.price span.amount span.grey {
+    color: #777777;
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: -0.5px;
+}
+
+.left {
+  width: 700px;
 }
 
 </style>
@@ -625,7 +686,7 @@ div.fb-recommend {
 {% block content %}
 
 
-{% if tea.category.parent_category.slug == 'teas' %}
+{% if product.category.parent_category.slug == 'teas' %}
     {% include 'shop/snippets/teas_sub_nav.html' %}
 {% endif %}
 
@@ -633,156 +694,54 @@ div.fb-recommend {
 <div id="mtw">
   <div class="sp">
 		
-	<h1>{% if tea.long_name %}{{ tea.long_name|safe }}{% else %}{{ tea.name }}{% endif %}</h1>
+	<h1>{% if product.long_name %}{{ product.long_name|safe }}{% else %}{{ product.name }}{% endif %}</h1>
 
 	<div class="tea-top">
 		<div class="left">
 		<div class="main-image">
 			<img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
-			<div id="image_wrap">	
-				<img src="{% staticfile '/images/blank.gif' %}" width="500px" height="331px" /> 
+			<div id="image_wrap">
+			    {% thumbnail product.image thumb_large crop="center" as im %}
+					<img class="product-small" alt="{{ im.url }}" title="{{ product.description }}" src="{{ im.url }}"/></a>
+				{% endthumbnail %}	
 			</div>
-		
-		    <div class="product-photos-small">
-			<div class="scrollable">   
-			   <div class="items">
-  			    <div>
-  			        {% thumbnail tea.image thumb_small crop="center" as im %}
-  			    		{% thumbnail tea.image thumb_large crop="center" as im_large %}
-						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.description }}" src="{{ im.url }}"/></a>
-						{% endthumbnail %}
-					{% endthumbnail %}
-					
-					{% if tea.image_2 %}
-  			    	{% thumbnail tea.image_2 thumb_small crop="center" as im %}
-  			    		{% thumbnail tea.image_2 thumb_large crop="center" as im_large %}
-						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_2_caption }}" src="{{ im.url }}"/></a>
-						{% endthumbnail %}
-					{% endthumbnail %}
-					{% endif %}
-					
-					{% if tea.image_3 %}
-					{% thumbnail tea.image_3 thumb_small crop="center" as im %}
-  			    		{% thumbnail tea.image_3 thumb_large crop="center" as im_large %}
-						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_3_caption }}" src="{{ im.url }}"/></a>
-						{% endthumbnail %}
-					{% endthumbnail %}
-					{% endif %}
-					
-					{% if tea.image_4 %}
-					{% thumbnail tea.image_4 thumb_small crop="center" as im %}
-  			    		{% thumbnail tea.image_4 thumb_large crop="center" as im_large %}
-						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_4_caption }}" src="{{ im.url }}"/></a>
-						{% endthumbnail %}
-					{% endthumbnail %}
-					{% endif %}
-					
-					{% if tea.image_5 %}
-					{% thumbnail tea.image_5 thumb_small crop="center" as im %}
-  			    		{% thumbnail tea.image_5 thumb_large crop="center" as im_large %}
-						<img class="product-small" alt="{{ im_large.url }}" title="{{ tea.image_5_caption }}" src="{{ im.url }}"/></a>
-						{% endthumbnail %}
-					{% endthumbnail %}
-					{% endif %}
-      			</div>
-      		  </div>
-      		</div>
-		</div><!-- end product photos small -->
 		</div><!-- end main image div -->
 		</div>
 		
-		<div class="description">{{ tea.body_text|safe }}</div>
+		<div class="description">{{ product.body_text|safe }}</div>
 		
-		<div id="prices">
-	 	{% if tea.is_active %}
-		      <div id="price_{{ price.id }}" class="price">
-		      	<div class="message"></div>
-		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
-		    	     <span class="price-description">/ {% if price.weight %}{{ price.weight }}{{ price.weight_unit }}{% else %}{{ price.description }}{% endif %}<br/>
-		    	</span>
-				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
-              </div>
-
-		      <div id="price-helper"> 
-		        {% if tea.stocks.count > 0 %}
-		          <div class="stocks">{% blocktrans with tea.stocks.count as tsc %}<strong>{{ tsc }}</strong> in stock{% endblocktrans %}</div>
-		          <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
-        	    {% else %}
-       	          <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong></span>
-        	      <br/>{% trans "We're restocking, so delivery will take longer than usual." %}</a>
-			   {% endif %}
-		      </div>
-
-		      
-		      
-		      
-		      
-		{% else %}
-    		  <div id="price-helper">        
-            	<span class="not-in-stock">{% trans 'This tea is not currently available for sale.' %}</span>
-    		  </div>	
-		{% endif %}
-		
-		</div>
 	</div><!-- end top product info div -->
-		
-
-	
-	{% if tea.map_image %}
-    <div id="map">  
-              {% thumbnail tea.map_image "255x120" crop="center" as im %}
-                <img src="{{ im.url }}"/>
-              {% endthumbnail %}
-              {% if tea.map_caption %}<p>{{ tea.map_caption|safe }}</p>{% endif %}
-                    
-          {% if tea.farm_image %}
-              {% thumbnail tea.farm_image "255x120" crop="center" as im %}
-                  <img src="{{ im.url }}"/>
-              {% endthumbnail %}
-              {% if tea.farm_caption %}<p>{{ tea.farm_caption|safe }}</p>{% endif %}
-          {% endif %}
-    </div>
-	{% endif  %}
-	
-	<div id="long-description">
-	   <h3>{% trans 'More about this product' %}</h3>
-	   {{ tea.long_description|safe }}
-	</div>
-	
-	<div id="brew">
-	   {{ tea.extra_info|safe }}
-	</div>
-	
-	<div id="shipping" class="info">
-	   <img src="{% staticfile '/images/free-delivery.png' %}"/>
-	   <span id="shipping-amount">{{ currency.symbol }}{{ currency.postage_discount_threshold }}</span>
-	</div>
-	
 	
 	<br clear="all"/>
 	
-	{% if request.user.is_superuser %}
-		<div id="monthly">
+	<div id="monthly">
 	   <h3>
-	       {% trans 'TeaBox' %}<br/>
+	       {% trans 'Choose your tea' %}<br/>
 	   </h3>
-	   <div class="months">
-	       {% url monthly_tea_box as url %}
-	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
-	       <span>Get {{ weight }}{{ weight_unit }} of {{ tea_name }} delivered to your door every month</span><br/>
-	       Save time and money with a monthly delivery of tea direct to your home or office. We'll even throw in a 10% discount plus a free teapot and cups!
-	       <strong><a href="{{ url }}">Find out more &raquo;</a></strong>
-	       {% endblocktrans %}
-	   </div>
-
-	   <div class="price">
-	       <span>{{ currency.symbol }}{{ monthly_price }} <span class="grey">/ {% trans '12 months' %}</span></span>
-	       <a href="{% url add_to_basket_monthly price.id 12 %}" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
-	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'More teas for your TeaBox' %} &raquo;</a>
-	   </div>
 	   
+	   <div id="products">
+	       {% for x in products %}	           
+	           <div class="product">
+	           {% thumbnail x.image thumb_medium crop="center" as im %}
+	               <img src="{{ im.url }}" />
+	           {% endthumbnail %}
+	               <h4><a href="{{ x.get_absolute_url }}">{{ x.name }} ({{ x.price.weight }}{{ x.price.weight_unit }}) &raquo;</a></h4>
+	               
+	               <p>{{ x.description }}</p>
+	               <p class="price">
+	                   <span class="amount">{{ currency.symbol }}{{ x.monthly_price }} <span class="grey">/ 12 months</span></span>
+	                   <a class="up" href="{% url add_to_basket_monthly x.price.id 12 %}">Add to basket</a>
+	                   {% if x.quantity > 0 %}<span class="quantity">{{ x.quantity }} in basket!</span>{% endif %}
+	               </p>
+	           </div>
+	       {% endfor %}
+	   </div>
 	</div>
-	{% endif %}
+	
+	<div class="left">
+	   {{ product.long_description|safe }}
+	</div>
+
 	
 	<div id="recommended">
 	   <h3>{% trans 'Also recommended...' %}</h3>
@@ -821,7 +780,7 @@ div.fb-recommend {
     	<li id="facebook">
 		    <div id="fb-root"></div>
 		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+		    <fb:like href="http://www.minrivertea.com/teas/{{ product.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 		    </fb:like>
 		</li>
 	</ul>

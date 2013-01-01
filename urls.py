@@ -4,7 +4,7 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, category, review_tea, tea_view, make_product_feed, _changelang, germany
+from shop.views import page, category, review_tea, tea_view, make_product_feed, _changelang, germany, monthly_tea_box
 from shop.utils import _finder
 from shop.sitemap import ENSitemap, DESitemap
 from blog.models import BlogEntry
@@ -58,6 +58,8 @@ urlpatterns = patterns('',
     
     
     
+    url(_(r'^tea-boxes/monthly-tea-box/$'), monthly_tea_box, name="monthly_tea_box"),
+    
     
     # test category/page resolver
     url(r'^(?P<slug>[\w-]+)/$', _finder, name="finder"),
@@ -70,8 +72,11 @@ urlpatterns = patterns('',
     
     # urls for the products/categories
 
+    url(_(r'^tea-boxes/$'), category, name="tea_boxes"),
+
     url(r'^tasters/$', category, name="tasters"),
     url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
+    
     url(_(r'^teaware/$'), category, name="teaware"),
     url(_(r'^teaware/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
     
@@ -92,9 +97,6 @@ urlpatterns = patterns('',
 
     url(_(r'^tea-gifts/$'), category, name="tea_gifts"),
     url(_(r'^tea-gifts/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^tea-boxes/$'), category, name="tea_boxes"),
-    url(_(r'^tea-boxes/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
     url(_(r'^teas/$'), category, name="teas"),
     url(_(r'^teas/(?P<slug>[\w-]+)/review/$'), review_tea, name="review_tea"),

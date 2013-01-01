@@ -30,12 +30,6 @@
       <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="{% trans 'Teacups, teapots and accessories for your Chinese tea experience' %}" alt="{% trans 'Teacups, teapots and accessories for your Chinese tea experience' %}">{% trans 'TeaWare' %}</a>
     </li>
 
-    {% if request.user.is_superuser %}
-    <li>
-      <a class="{% nav_selected request '^/tea-boxes/' %}" href="{% url tea_boxes %}" title="{% trans 'Get your tea delivered to your door regularly, with our TEABoxes packages.' %}" alt="{% trans 'Get your tea delivered to your door regularly, with our TeaBoxes packages.' %}">{% trans 'TeaBoxes' %}</a>
-    </li>
-    {% endif %}
-
 <!--
     <li>
       <a class="{% nav_selected request '^/tea-gifts/' %}" href="{% url tea_gifts %}" title="{% trans 'Give the gift of tea' %}" alt="{% trans 'Give the gift of tea' %}">{% trans 'TEAGifts' %}</a>

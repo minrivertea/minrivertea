@@ -47,13 +47,13 @@ $(document).ready( function() {
     <div class="section">
 
         {% if packages %}
-            <h2>Incomplete orders ({{ packages.count }})</h2>
+            <h2>New orders ({{ packages.count }})</h2>
             
             <table id="orders-table">
          		<thead>
          			<tr>
          			<td>Order ID</td>
-         			<td>Customer</td>
+         			<td width="250px">Customer</td>
          			<td>Items</td>
          			<td>Value</td>
          			<td>Postage</td>
@@ -71,6 +71,34 @@ $(document).ready( function() {
       	{% else %}
            	<p><strong>No unfulfilled orders</strong> - well done my minions!</p>
       	{% endif %}
+      	
+      	
+      	{% if monthly_packages %}
+            <h2>Monthly orders due ({{ monthly_packages.count }})</h2>
+            
+            <table id="orders-table">
+         		<thead>
+         			<tr>
+         			<td>Order ID</td>
+         			<td width="250px">Customer</td>
+         			<td>Items</td>
+         			<td>Value</td>
+         			<td>Postage</td>
+         			<td>Paypal Cost</td>
+         			<td>Status</td>
+         			</tr>
+         		</thead>
+            	{% for x in monthly_packages %}
+            	   {% with x.order as order %}
+            	       {% include 'my_admin/snippets/table_row.html' %}
+            	   {% endwith %}
+            	{% endfor %}
+            </table>
+            
+      	{% else %}
+           	<p><strong>No unfulfilled orders</strong> - well done my minions!</p>
+      	{% endif %}
+      	
 
     </div>
 

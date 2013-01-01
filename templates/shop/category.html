@@ -308,17 +308,12 @@ span.price .amount {
   
 	<div id="teas">
 		
-		{% if category.slug == 'tea-boxes' %}
-		  {% include 'shop/snippets/box-ordering.html' %}
-		{% else %}
 			
-			{% if category.slug == 'teaware' %}
-    		     {% include 'shop/snippets/brewer-special.html' %}
-    		{% endif %}
-			
+		{% if category.slug == 'teaware' %}
+		     {% include 'shop/snippets/brewer-special.html' %}
+		{% endif %}
 
-    	     {% include "shop/snippets/products_normal.html" %}
-	     {% endif %}
+  	     {% include "shop/snippets/products_normal.html" %}
 	    
 	     {% if categories %}
 		    {% include "shop/snippets/products.html" %}

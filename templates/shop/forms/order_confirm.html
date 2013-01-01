@@ -122,15 +122,9 @@ p.checkout {
 	<table>
 		{% for thing in order.items.all %}
 			  <tr>				
-		    	<td width="350px" valign="top">
-		    		{% if thing.monthly_order %}
-		    		    Monthly Order - {{ thing.quantity }} months - {{ thing.item.parent_product.name }}
-		    		{% else %}
-		    		    {{ thing.quantity }} X {{ thing.item.parent_product.name }} 
-		    		{% endif %}
-	    		    {% if thing.item.weight %}
-	    		        ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})
-	    		    {% endif %}
+		    	<td width="450px" valign="top">
+		    		{{ thing }}
+
 		    	</td>
 		    	<td width="150px" valign="top">
 		    	</td>

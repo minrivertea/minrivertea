@@ -52,6 +52,7 @@ class CustomerPackage(models.Model):
     order = models.ForeignKey(Order)
     created = models.DateTimeField(default=datetime.now())
     is_preorder = models.BooleanField(default=False)
+    shipping_due_date = models.DateField(blank=True, null=True, help_text="Only used for monthly order packages")
     posted = models.DateTimeField(blank=True, null=True)
     postage_cost = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     postage_currency = models.ForeignKey(Currency, null=True, blank=True)
@@ -62,3 +63,27 @@ class CustomerPackage(models.Model):
     def get_items(self):
         items = WarehouseItem.objects.filter(package=self)
         return items
+    
+    def repeat_order(self):
+        if CustomerPackage.objects.filter(order=self.order).count() > 1:
+            return True
+        else:
+            return False
+    
+    def repeat_order_first(self):
+        try:
+            first = CustomerPackage.objects.filter(order=self.order)[0]
+        except:
+            return False
+        
+        if first.id == self.id:
+            return True
+     
+    def repeat_order_last(self):
+        try:
+            last = CustomerPackage.objects.filter(order=self.order).order_by('-created')[0]
+        except:
+            return False
+        
+        if last.id == self.id:
+            return True
