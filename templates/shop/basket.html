@@ -328,7 +328,7 @@ input#id_discount_code {
   <div class="sp">
   	<h1>{% blocktrans count basket_quantity as counter %}Your basket ({{ basket_quantity }} item){% plural %}Your basket ({{ basket_quantity }} items){% endblocktrans %}</h1>
 
-{% if basket_items %}
+{% if basket_items or monthly_items %}
 
   <div id="basket">
     <div id="basket-full"> 
