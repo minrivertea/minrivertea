@@ -403,7 +403,7 @@ input#id_discount_code {
         <div class="tea-total monthly">
            <ul>
             {% for x in monthly_items %}
-                <li>{{ currency.symbol }}{{ x.get_price }}
+                <li>{{ currency.symbol }}{{ x.get_price|floatformat:"2" }}
                 
                 </li>
             {% endfor %}

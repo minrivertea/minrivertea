@@ -266,6 +266,7 @@ class BasketItem(models.Model):
     def get_price(self):
         price = self.quantity * self.item.price
         if self.monthly_order:
+            from utils import _get_monthly_price
             price = _get_monthly_price(price, self.months)
         return price
         

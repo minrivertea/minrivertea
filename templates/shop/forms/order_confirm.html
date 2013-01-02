@@ -128,7 +128,7 @@ p.checkout {
 		    	</td>
 		    	<td width="150px" valign="top">
 		    	</td>
-		    	<td valign="top">{{ currency.symbol }}{{ thing.get_price }}</td>		    				
+		    	<td valign="top">{{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}</td>		    				
 			  </tr>
         {% endfor %}
     	{% if postage_discount %}

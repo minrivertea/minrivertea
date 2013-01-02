@@ -58,13 +58,13 @@
 	 		 {% for thing in order.items.all %}
 				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
 				<input type="hidden" name="quantity_{{ forloop.counter }}" value="{{ thing.quantity }}">
-				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.item.price }}"> 
+				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.get_price|floatformat:'2' }}"> 
 			 {% endfor %}
 		{% else %}
 			 {% for thing in order.items.all %}
 				<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
 				<input type="hidden" name="quantity_{{ forloop.counter|add:"1" }}" value="{{ thing.quantity }}">
-				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.item.price }}"> 
+				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.get_price|floatformat:'2' }}"> 
 			 {% endfor %}
 		{% endif %}
 
