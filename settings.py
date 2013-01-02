@@ -167,19 +167,9 @@ MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 
-REPEAT_FREQUENCIES = (
-    ('12', gettext('12 Months')),
-    ('6', gettext('6 Months')),
-    ('3', gettext('3 Months')),
-)
+MONTHLY_ORDER_DISCOUNT = 0.1 # expressed as a percentage, eg. 0.1 is 10% off
+MONTHLY_ORDER_MINIMUM_MONTHS = 12
 
-MONTHLY_ORDER_AMOUNTS = (
-    ('1', gettext('100g')),
-    ('2', gettext('200g')),
-    ('3', gettext('300g')),
-    ('5', gettext('500g')),
-    ('10', gettext('1kg')),
-)
 
 # paypal info
 PAYPAL_IDENTITY_TOKEN = ''

@@ -291,4 +291,11 @@ def _finder(request, x=None, y=None, z=None, slug=None):
 
     return HttpResponseNotFound()
 
+def _get_monthly_price(price, months):
+    
+    discount_amount = float(price) * float(settings.MONTHLY_ORDER_DISCOUNT)
+    price = float(price) - float(discount_amount)
+    price = float(price) * months
+    
+    return price
 

@@ -729,8 +729,8 @@ div.fb-recommend {
 	               
 	               <p>{{ x.description }}</p>
 	               <p class="price">
-	                   <span class="amount">{{ currency.symbol }}{{ x.monthly_price }} <span class="grey">/ 12 months</span></span>
-	                   <a class="up" href="{% url add_to_basket_monthly x.price.id 12 %}">Add to basket</a>
+	                   <span class="amount">{{ currency.symbol }}{{ x.monthly_price|floatformat:"2" }} <span class="grey">/ 12 months</span></span>
+	                   <a class="up" href="{% url add_to_basket_monthly x.price.id 12 %}">Add to TeaBox</a>
 	                   {% if x.quantity > 0 %}<span class="quantity">{{ x.quantity }} in basket!</span>{% endif %}
 	               </p>
 	           </div>

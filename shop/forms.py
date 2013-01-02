@@ -52,10 +52,8 @@ class UpdateDiscountForm(forms.Form):
 
 
 class MonthlyBoxForm(forms.Form):
-    frequency = forms.ChoiceField(required=False, choices=settings.REPEAT_FREQUENCIES)
     tea = forms.ModelChoiceField(required=False, queryset=UniqueProduct.objects.filter(is_active=True, weight="100", 
         currency__code='GBP'), empty_label=None)
-    quantity = forms.ChoiceField(required=False, choices=settings.MONTHLY_ORDER_AMOUNTS)
     
     # perhaps if it's a custom package, these fields should be required=True??
     

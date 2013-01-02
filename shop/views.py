@@ -32,7 +32,7 @@ import re
 
 
 from shop.models import *
-from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, _changelang, _set_currency, _get_products
+from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, _changelang, _set_currency, _get_products, _get_monthly_price
 from shop.forms import *
 from slugify import smart_slugify
 from emailer.views import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email, _get_subscriber_list, _tell_a_friend_email
@@ -159,7 +159,7 @@ def tea_view(request, slug):
     except:
         big_price = None
     
-    monthly_price = price.price * 12
+    monthly_price = _get_monthly_price(price.price, settings.MONTHLY_ORDER_MINIMUM_MONTHS)
         
     try:
         review = Review.objects.filter(product=tea)[0]
@@ -176,7 +176,7 @@ def monthly_tea_box(request):
     
     for x in products:
         x.price = x.get_lowest_price(_get_currency(request))
-        x.monthly_price = x.price.price * 12
+        x.monthly_price = _get_monthly_price(x.price.price, settings.MONTHLY_ORDER_MINIMUM_MONTHS)
         x.quantity = 0
         for y in basket_items:
             if x.price == y.item:

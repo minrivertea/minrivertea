@@ -286,6 +286,85 @@ ul.rss {
 }
 
 
+
+#monthly {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 3px dotted #E1E1E1;
+    border-top: 3px dotted #E1E1E1;
+    float: left;
+    height: auto;
+    margin: 30px 0 20px;
+    padding: 20px 0;
+    width: 100%;
+}
+
+#monthly .button {
+  width: 145px;
+  font-size: 15px;
+  padding: 8px 20px;
+  text-align: center;  
+  margin: 5px 0; 
+  top: 0;
+  float: left;
+}
+
+#monthly h3 {
+    background: none repeat scroll 0 0 #59849F;
+    border-radius: 5px 0 0 5px;
+    color: #fff;
+    text-shadow: 0 1px 1px #333;
+    float: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    height: 45px;
+    letter-spacing: -1.5px;
+    margin: 0 60px 0 0;
+    padding: 25px 0 10px;
+    position: relative;
+    text-align: center;
+    width: 160px;
+}
+
+#monthly h3:before {
+    border-color: transparent -moz-use-text-color transparent #59849F;
+    border-style: solid none solid solid;
+    border-width: 40px 0 40px 20px;
+    content: " ";
+    display: block;
+    position: absolute;
+    right: -20px;
+    top: 0;
+}
+
+#monthly div {
+  display: block;
+  float: left;
+  width: 460px;
+  margin: 0 10px 0 0;
+  font-size: 14px; 
+  padding: 15px 0 0;  
+}
+
+#monthly div span {
+  font-size: 18px;
+  font-family: Helvetica, Arial, sans-serif;   
+  font-weight: bold;
+  letter-spacing: -0.5px;
+}
+
+#monthly div.more {
+  float: right;
+  width: 100px;
+  font-size: 24px;
+  margin: 0 20px 0 0;   
+}
+
+#monthly img {
+  float: right;
+  margin: -5px 20px 0 0;   
+}
+
 </style>
 {% endblock %}
 
@@ -338,25 +417,34 @@ ul.rss {
 			{% endfor %}
 		</div>
 	</div>	
-	
+
+
+	{% if request.user.is_superuser %}
+	<div id="monthly">
+	   <h3>
+	       {% trans 'TeaBoxes' %}<br/>
+	   </h3>
+	   <div class="more">
+	       <a href="{% url monthly_tea_box %}">Start your TeaBox &raquo;</a>
+	   </div>
+	   <img src="/images/homepage/home-monthly.png" />
+	   <div class="months">
+	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
+	       <span>Get {{ weight }}{{ weight_unit }} of {{ tea_name }} delivered to your door every month</span><br/>
+	       Save time and money with a monthly delivery of tea direct to your home or office. We'll even throw in a 10% discount plus a free teapot and cups!
+	       {% endblocktrans %}
+	   </div>
+	</div>
+	{% endif %}
 	
 	<div id="about">
 	   <div id="text">
 	   <h2>{% blocktrans %}A big <em>ni hao</em> from China!{% endblocktrans %}</h2>
 	   <p>{% blocktrans %}<strong>We are one of the only tea companies actually based in China.</strong> Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! <strong>We're able to sell better teas at lower prices</strong> because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="/about/">{% trans 'Find out more about us' %} &raquo;</a></p>
-        </div>
-	   <img src="{% staticfile '/images/homepage/making.jpg' %}"/>
-	   <img src="{% staticfile '/images/homepage/chris-kneeling.jpg' %}"/>
-	   <img src="{% staticfile '/images/homepage/chris-wuyi.jpg' %}"/>
-	   <img src="{% staticfile '/images/homepage/bonnie-hug.jpg' %}"/>
-	   <img src="{% staticfile '/images/homepage/coolie.jpg' %}"/>
-	   <img src="{% staticfile '/images/homepage/chris-mountain.jpg' %}"/>
-	   <img src="{% staticfile '/images/homepage/filming.jpg' %}"/>
-	   <img src="{% staticfile '/images/homepage/chris-anxi.jpg' %}"/>
-
-
-
+       </div>
+       <img src="{% staticfile '/images/homepage/home-about.jpg' %}" />
 	</div>
+	
 	
 	<div id="teaware">
 	   <h2>{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %}</h2>

@@ -584,7 +584,7 @@ div.fb-recommend {
 }
 
 #monthly div span {
-  font-size: 18px;
+  font-size: 17px;
   font-family: Helvetica, Arial, sans-serif;   
   font-weight: bold;
   letter-spacing: -0.5px;
@@ -776,7 +776,7 @@ div.fb-recommend {
 	   </div>
 
 	   <div class="price">
-	       <span>{{ currency.symbol }}{{ monthly_price }} <span class="grey">/ {% trans '12 months' %}</span></span>
+	       <span>{{ currency.symbol }}{{ monthly_price|floatformat:"2" }} <span class="grey">/ {% trans '12 months' %}</span></span>
 	       <a href="{% url add_to_basket_monthly price.id 12 %}" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
 	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'More teas for your TeaBox' %} &raquo;</a>
 	   </div>
