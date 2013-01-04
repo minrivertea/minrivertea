@@ -259,8 +259,7 @@ def email_unsubscribe(request, key):
     subscriber.date_unsubscribed = datetime.now()
     subscriber.save()
     
-    from minriver.shop.views import render
-    return render(request, 'shop/emails/unsubscribe_confirmed.html', locals())
+    return _render(request, 'shop/emails/unsubscribe_confirmed.html', locals())
 
 
 @login_required
@@ -285,7 +284,6 @@ def create_email(request, id=None):
             email_object.save()
             recipients_list = _get_subscriber_list()
             recipients_count = len(recipients_list)
-            from minriver.shop.views import render
             return _render(request, 'shop/emails/create_send_email.html', locals())
     else:
         if id:
