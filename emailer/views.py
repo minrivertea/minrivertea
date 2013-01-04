@@ -283,6 +283,10 @@ def create_email(request, id=None):
             
             email_object.save()
             recipients_list = _get_subscriber_list()
+            des = Subscriber.objects.filter(language='de')
+            de_cus = Shopper.objects.filter(language='de')
+            from itertools import chain
+            de_recipients = chain(des, de_cus)
             recipients_count = len(recipients_list)
             return _render(request, 'shop/emails/create_send_email.html', locals())
     else:
@@ -311,11 +315,6 @@ def send_email(request, id):
     email_object.save()
     
     recipients_list = _get_subscriber_list()
-    
-    des = Subscriber.objects.filter(langauge='de')
-    de_cus = Shopper.objects.filter(language='de')
-    
-    de_recipients = chain(des, de_cus)
         
     for r in recipients_list:
         receiver = r.email
