@@ -146,6 +146,11 @@ def tea_view(request, slug):
     
     
     tea = get_object_or_404(Product, slug=slug)
+    
+    # if it's a monthly package, let's redirect here:
+    if tea.slug == _('monthly-tea-box'):
+        return monthly_tea_box(request)
+    
     recommended = _get_products(request, random=True, exclude=tea.id)[:3]
     
     try:
@@ -168,8 +173,11 @@ def tea_view(request, slug):
     except:
         big_price = None
     
-    monthly_price = _get_monthly_price(price.price, settings.MONTHLY_ORDER_MINIMUM_MONTHS)
-        
+    try:
+        monthly_price = _get_monthly_price(price.price, settings.MONTHLY_ORDER_MINIMUM_MONTHS)
+    except:
+        monthly_price = None
+    
     try:
         review = Review.objects.filter(product=tea)[0]
     except:

@@ -784,26 +784,27 @@ div.fb-recommend {
 	<br clear="all"/>
 	
 	{% if request.user.is_superuser %}
-		<div id="monthly">
-	   <h3>
-	       {% trans 'TeaBox' %}<br/>
-	   </h3>
-	   <div class="months">
-	       {% url monthly_tea_box as url %}
-	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
-	       <span>Get {{ weight }}{{ weight_unit }} of {{ tea_name }} delivered to your door every month</span><br/>
-	       Save time and money with a monthly delivery of tea direct to your home or office. We'll even throw in a 10% discount plus a free teapot and cups!
-	       <strong><a href="{{ url }}">Find out more &raquo;</a></strong>
-	       {% endblocktrans %}
-	   </div>
-
-	   <div class="price">
-	       <span>{{ currency.symbol }}{{ monthly_price|floatformat:"2" }} <span class="grey">/ {% trans '12 months' %}</span></span>
-	       <a href="{% url add_to_basket_monthly price.id 12 %}" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
-	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'More teas for your TeaBox' %} &raquo;</a>
-	   </div>
-	   
-	</div>
+	   {% if monthly_price %}
+	   <div id="monthly">
+    	   <h3>
+    	       {% trans 'TeaBox' %}<br/>
+    	   </h3>
+    	   <div class="months">
+    	       {% url monthly_tea_box as url %}
+    	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
+    	       <span>Get {{ weight }}{{ weight_unit }} of {{ tea_name }} delivered to your door every month</span><br/>
+    	       Save time and money with a monthly delivery of tea direct to your home or office. We'll even throw in a 10% discount plus a free teapot and cups!
+    	       <strong><a href="{{ url }}">Find out more &raquo;</a></strong>
+    	       {% endblocktrans %}
+    	   </div>
+    
+    	   <div class="price">
+    	       <span>{{ currency.symbol }}{{ monthly_price|floatformat:"2" }} <span class="grey">/ {% trans '12 months' %}</span></span>
+    	       <a href="{% url add_to_basket_monthly price.id 12 %}" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
+    	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'More teas for your TeaBox' %} &raquo;</a>
+    	   </div>
+	  </div>
+	  {% endif %}
 	{% endif %}
 	
 	<div id="recommended">
