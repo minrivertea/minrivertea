@@ -817,7 +817,7 @@ div.fb-recommend {
 		      {% endthumbnail %}
 		      <div class="text">
 		          <span class="price">
-		              <strong>{{ currency.symbol }}{{ x.price.price|floatformat }}</strong>
+		              <strong>{{ currency.symbol }}{{ x.price.price|floatformat:"2" }}</strong>
 		              {% if x.price.weight %} / {{ x.price.weight }}{{ x.price.weight_unit }}{% endif %}
 		          </span> 
     		      <h3><a href="{{ x.get_absolute_url }}">{{ x.name }} &raquo;</a></h3>
