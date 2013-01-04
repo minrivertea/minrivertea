@@ -105,7 +105,6 @@ def category(request, slug):
         for x in products: 
             basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price(curr))
             x.price = x.get_lowest_price(curr)
-            print x.price
             if basket_item.count() > 0:
                 x.basket_quantity = basket_item[0].quantity
             
