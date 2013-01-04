@@ -328,7 +328,7 @@ def send_email(request, id):
 
 
 def _get_subscriber_list():
-    email_signups = Subscriber.objects.filter(date_unsubscribed=None)
+    email_signups = Subscriber.objects.exclude(language='de')
     
     def idfun(x): return x 
     seen = {}
