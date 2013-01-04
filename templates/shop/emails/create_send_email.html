@@ -20,10 +20,8 @@
   	
   		<div class="email-example">
   			<p><strong>{{ email_object.subject_line }}</strong></p>
-	  		
-	  		<p>{{ email_object.content|truncatewords:9 }}</p>
-	  		
-	  		{{ email_object.content|safe }}
+	  			  		
+	  		{{ email_object.content }}
 		</div>  
 		
 		<h3>We'll send it to these people ({{ recipients_count }}):</h3>

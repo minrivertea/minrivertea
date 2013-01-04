@@ -280,6 +280,7 @@ def create_email(request, id=None):
                     content = form.cleaned_data['content'],
                 )
             
+            print email_object.content
             
             email_object.save()
             recipients_list = _get_subscriber_list()
@@ -322,7 +323,12 @@ def send_email(request, id):
         try:
             link = reverse('email_unsubscribe', args=[r.slug])
         except:
-            link = reverse('email_unsubscribe', args=[r.hashkey])
+            try:
+                link = reverse('email_unsubscribe', args=[r.hashkey])
+            except:
+                r.hashkey = uuid.uuid1().hex
+                r.save()
+                link = reverse('email_unsubscribe', args=[r.hashkey])
             
         text = render_to_string('shop/emails/newsletter_template.txt', {'content': email_object.content, 'link':link})
         _send_email(receiver, subject_line, text)
