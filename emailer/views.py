@@ -311,6 +311,11 @@ def send_email(request, id):
     email_object.save()
     
     recipients_list = _get_subscriber_list()
+    
+    des = Subscriber.objects.filter(langauge='de')
+    de_cus = Shopper.objects.filter(language='de')
+    
+    de_recipients = chain(des, de_cus)
         
     for r in recipients_list:
         receiver = r.email
@@ -329,6 +334,7 @@ def send_email(request, id):
 
 def _get_subscriber_list():
     email_signups = Subscriber.objects.exclude(language='de')
+    
     
     def idfun(x): return x 
     seen = {}

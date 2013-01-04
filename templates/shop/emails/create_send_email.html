@@ -32,6 +32,13 @@
   			<li>{{ r }}</li>
   		{% endfor%}
   		</ul>
+  		
+  		germans:
+  		<ul>
+  		    {% for x in de_recipients %}
+  		        <li>{{ x.email }}</li>
+  		    {% endfor %}
+  		</ul>
 		
 		
 		<a href="{% url create_email_wid email_object.id %}" class="button" style="float: left; font-size: 18px; padding: 11px 15px 9px;">&laquo; Go back and edit</a>
