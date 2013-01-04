@@ -9,7 +9,8 @@
 {% block extrajs %}
 <script type="text/javascript">
     $('#special').hover( function() {
-        $('#special img, #click, #punchline').animate({
+        $('#opener').fadeOut(100);
+        $('#special img, #click, #punchline, h2').animate({
             opacity: 1,    
         }, 400);
     });
@@ -196,6 +197,17 @@ h1 {
    box-shadow: 0 1px 3px #e1e1e1;   
 }
 
+#special #opener {
+  position: absolute;
+  top: 40%;
+  left: 25%;
+  font-size: 40px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  letter-spacing: -1px;
+  color: #FF6569;
+}
+
 #special h2 {
     top: 20px;
     color: #b5410d;
@@ -206,6 +218,7 @@ h1 {
     letter-spacing: -1px;
     margin: 5px 0 10px;
     position: absolute;
+    opacity: 0;
 }
 
 #special h2 span {
@@ -228,7 +241,7 @@ h1 {
 #special img {
   float: left;
   margin-right: 20px;
-  opacity: 0;	
+  opacity: 0.1;	
 }
 
 #special #click {
