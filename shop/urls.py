@@ -1,12 +1,14 @@
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
+from django.utils.translation import ugettext_lazy as _
+
 import views
 
 urlpatterns = patterns('',
 
     url(r'^$', views.index, name="home"),
     
-    url(r'^sale/$', views.sale, name="sale"),
+    url(_(r'^sale/$'), views.sale, name="sale"),
     url(r'^basket/$', views.basket, name="basket"),
     url(r'^basket/add/(\w+)$', views.add_to_basket, name="add_to_basket"),
     url(r'^basket/reduce/(\w+)$', views.reduce_quantity, name="reduce_quantity"),

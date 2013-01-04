@@ -1,0 +1,9 @@
+   {% load django_static i18n %}
+    
+    <div id="special">    
+        <a href="{% url sale %}"><span class="link"></span></a>
+		<img src="{% staticfile '/images/homepage/home-promo-jan-2013.jpg' %}"/>
+		<h2>{% blocktrans %}<span>10% off all our roasted teas?</span></h2>
+		<span id="punchline"><br/>That'll warm you up this winter.{% endblocktrans %}</span>
+		<a class="button green" id="click" href="{% url sale %}">Start browsing our sale &raquo;</a>
+	</div>

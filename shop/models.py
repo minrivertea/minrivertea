@@ -105,7 +105,6 @@ class Product(models.Model):
             price = UniqueProduct.objects.filter(
                 parent_product=self,
                 is_active=True, 
-                is_sale_price=False, 
                 currency=currency,
             ).order_by('price')[0]
         except:
@@ -181,7 +180,13 @@ class UniqueProduct(models.Model):
     def stocks(self):
         from logistics.models import WarehouseItem
         stocks = WarehouseItem.objects.filter(unique_product=self, sold__isnull=True)
-        return stocks         
+        return stocks  
+    
+    def get_saving(self):
+        if self.is_sale_price:
+            return (self.old_price - self.price)
+        else:
+            return None       
 
 class Shopper(models.Model):
     user = models.ForeignKey(User)

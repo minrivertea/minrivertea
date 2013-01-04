@@ -104,6 +104,8 @@ def category(request, slug):
     if basket and products:
         for x in products: 
             basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price(curr))
+            x.price = x.get_lowest_price(curr)
+            print x.price
             if basket_item.count() > 0:
                 x.basket_quantity = basket_item[0].quantity
             
@@ -117,8 +119,16 @@ def germany(request):
 
 
 def sale(request):
-    prices = UniqueProduct.objects.filter(is_active=True, is_sale_price=True)
-    return _render(request, "shop/sale.html", locals())
+    category = get_object_or_404(Category, slug=_('sale'))
+    currency = _get_currency(request)
+    ups = UniqueProduct.objects.filter(is_active=True, is_sale_price=True, currency=currency)
+    products = []
+    for x in ups:
+        p = x.parent_product
+        p.price = x
+        products.append(p)
+        
+    return _render(request, "shop/category.html", locals())
 
 
 
@@ -142,7 +152,6 @@ def tea_view(request, slug):
         price = UniqueProduct.objects.filter(
             parent_product=tea, 
             is_active=True, 
-            is_sale_price=False, 
             currency=_get_currency(request),
             ).order_by('price')[0]
     except:

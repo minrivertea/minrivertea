@@ -189,6 +189,25 @@ div.product-photos-small p {
     width: 360px;
 }
 
+.tea-top #original {
+  float: left;
+  width: 360px;
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 13px; 
+  margin: 0 0 30px 0;
+}
+
+.tea-top #original span {
+    background: none repeat scroll 0 0 red;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    padding: 5px 10px;
+    text-decoration: normal;
+    text-shadow: 0 1px 1px #555;
+}
+
 .price.big {
   float: left;
   margin: 10px 0 0 0; 
@@ -577,7 +596,7 @@ div.fb-recommend {
 #monthly div {
   display: block;
   float: left;
-  width: 500px;
+  width: 480px;
   margin: 0 30px 0 0;
   font-size: 14px; 
   padding: 15px 0 0;  
@@ -697,6 +716,9 @@ div.fb-recommend {
 	 	{% if tea.is_active %}
 		      <div id="price_{{ price.id }}" class="price">
 		      	<div class="message"></div>
+		      	{% if price.is_sale_price %}
+		      	   <div id="original"><span>On Sale Now!</span> Was <strong>{{ currency.symbol }}{{ price.old_price|floatformat:"2" }}</strong>, save <strong>{{ currency.symbol }}{{ price.get_saving }}</strong></div>
+		      	{% endif %}
 		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
 		    	     <span class="price-description">/ {% if price.weight %}{{ price.weight }}{{ price.weight_unit }}{% else %}{{ price.description }}{% endif %}<br/>
 		    	</span>

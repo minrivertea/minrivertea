@@ -101,7 +101,7 @@ urlpatterns = patterns('',
     url(_(r'^teas/$'), category, name="teas"),
     url(_(r'^teas/(?P<slug>[\w-]+)/review/$'), review_tea, name="review_tea"),
     url(_(r'^teas/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-    
+        
     # urls for the pages
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_sub_page"),
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_page"),

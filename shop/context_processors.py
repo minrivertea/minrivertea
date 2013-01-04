@@ -58,7 +58,7 @@ def common(request):
                 basket_quantity += 1
             else:
                 basket_quantity += item.quantity
-            basket_amount += item.get_price()
+            basket_amount += float(item.get_price())
     
     context['basket_quantity'] = basket_quantity
     context['basket_amount'] = basket_amount    
