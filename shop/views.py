@@ -786,9 +786,8 @@ def order_confirm(request):
     # work out the price
     total_price = 0
     for item in order_items:
-        price = item.quantity * item.get_price()
-        total_price += price
-    
+        total_price += item.get_price()
+        
     currency = _get_currency(request)
     
     if total_price > currency.postage_discount_threshold:
