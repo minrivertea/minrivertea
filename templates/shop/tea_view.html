@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail django_static i18n %}
+{% load thumbnail django_static i18n convert_weights %}
 
 {% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
 {% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
@@ -53,7 +53,7 @@ function addToBasket(idx) {
 
     		$("#basket-number").replaceWith('<span id="basket-number">(' + data.quantity + ')</span>');
     		$('.description').css('opacity', '0.4').delay(3900).queue(function() {$(this).css('opacity', '1')});
-            $('#price_' + idx + ' .message').append(data.item).delay(3800).fadeOut(1200);
+            $('#price_' + idx + ' .message').append(data.item).delay(4800).fadeOut(1200);
             $('#price_' + idx).css('opacity', '1');
   		  }
    	  })
@@ -720,9 +720,9 @@ div.fb-recommend {
 		      	   <div id="original"><span>On Sale Now!</span> Was <strong>{{ currency.symbol }}{{ price.old_price|floatformat:"2" }}</strong>, save <strong>{{ currency.symbol }}{{ price.get_saving }}</strong></div>
 		      	{% endif %}
 		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
-		    	     <span class="price-description">/ {% if price.weight %}{{ price.weight }}{{ price.weight_unit }}{% else %}{{ price.description }}{% endif %}<br/>
+		    	     <span class="price-description">/ {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %}<br/>
 		    	</span>
-				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} ({{ price.weight|floatformat }}{{ price.weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
+				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} ({% convert_weights request price.weight %}{{ weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
               </div>
 
 		      <div id="price-helper"> 
@@ -818,7 +818,7 @@ div.fb-recommend {
 		      <div class="text">
 		          <span class="price">
 		              <strong>{{ currency.symbol }}{{ x.price.price|floatformat:"2" }}</strong>
-		              {% if x.price.weight %} / {{ x.price.weight }}{{ x.price.weight_unit }}{% endif %}
+		              {% if x.price.weight %} / {% convert_weights request x.price.weight %}{{ weight_unit }}{% endif %}
 		          </span> 
     		      <h3><a href="{{ x.get_absolute_url }}">{{ x.name }} &raquo;</a></h3>
 		      </div>

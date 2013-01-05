@@ -188,12 +188,42 @@ span.red {
   color: #d11010;	
 }
 
-span.country {
-  float: left;
-  width: 280px;
-  padding: 10px 15px;	
+input[type="email"] {
+  box-shadow: none;   
 }
 
+.styled-select select {
+   background: transparent;
+   width: 340px;
+   padding: 9px 10px 9px 15px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 36px;
+   font-family: Helvetica, Arial, sans-serif;
+   color: #999;
+}
+
+.styled-select select:hover {
+  cursor: pointer;   
+}
+
+
+.styled-select {
+   width: 280px;
+   height: 36px;
+   overflow: hidden;
+   background: url('{% staticfile "/images/select-down-arrow.png" %}') no-repeat 250px #fff;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   margin: 0 0 20px 0;
+}
+
+.styled-select:hover {
+  border-color: #6ACC75; 
+  cursor: pointer;  
+}
 
 </style>
 
@@ -273,7 +303,7 @@ span.country {
     		</p>
     		<p>
     			<label for="id_email"><span class="red">*</span> {% trans 'Email address' %}</label>
-    			<input class="clearMeFocus {% if form.email.errors %}error{% endif %}" title="{% trans 'Email address' %}" type="text" name="email" id="id_email" value="{{ email }}"/>
+    			<input class="clearMeFocus {% if form.email.errors %}error{% endif %}" title="{% trans 'Email address' %}" type="email" name="email" id="id_email" value="{{ email }}"/>
     		</p>	
         </fieldset>
 
@@ -300,13 +330,20 @@ span.country {
           	<label for="id_town_city">{% trans 'Town / City' %}:</label>
           	<input class="clearMeFocus {% if form.town_city.errors %}error{% endif %}" title="{% trans 'Town or city' %}" id="id_town_city" type="text" name="town_city" value="{{ town_city }}"/> 
           </p>
+          
+          {% if region == 'US' %}
+            <p class="styled-select">
+               <label for="id_province_state">{% trans 'State' %}:</label>
+            	{{ form.province_state }}
+            </p>
+          {% endif %}
       	
           <p>
           	<label for="id_postcode"><span class="red">*</span> {% trans 'Postcode' %}:</label>
           	<input class="clearMeFocus {% if form.postcode.errors %}error{% endif %}" title="{% trans 'Postcode' %}" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
           	</p>
       	
-    	  <p>
+    	  <p class="styled-select">
     	    <label for="id_country"><span class="red">*</span> {% trans 'Country' %}:</label>
     	    <span class="country">
     	    {{ form.country }}

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from captcha.fields import CaptchaField
 
 from shop.models import Address, Order, Discount, Shopper, Product, Notify, BasketItem, Currency, UniqueProduct
-from countries import all_countries, COUNTRY_CHOICES
+from countries import all_countries, COUNTRY_CHOICES, US_STATES
 
  
 class AddressAddForm(ModelForm): 
@@ -25,27 +25,11 @@ class OrderStepOneForm(forms.Form):
     address_line_1 = forms.CharField(max_length=200, required=False)
     address_line_2 = forms.CharField(max_length=200, required=False)
     town_city = forms.CharField(max_length=200, required=True, error_messages={'required': '* Please provide a town or city name'})
-    province_state = forms.CharField(max_length=200, required=False)
+    province_state = forms.ChoiceField(required=False, choices=US_STATES)
     postcode = forms.CharField(max_length=200, required=True)
     country = forms.ChoiceField(required=True, choices=COUNTRY_CHOICES)
     phone = forms.CharField(max_length=80, required=False)
     
-    def clean(self):
-        
-        cleaned_data = self.cleaned_data      
-        if cleaned_data.get('province_state'):
-            if cleaned_data.get('town_city'):
-                sep = ', '
-            else:
-                cleaned_data['town_city'] = ''
-                sep = ''
-            
-            string = ''.join((sep, cleaned_data.get('province_state')))
-            cleaned_data["town_city"] =  ''.join((cleaned_data.get('town_city'), string))
-            del cleaned_data['province_state']
-           
-        
-        return cleaned_data
 
 class UpdateDiscountForm(forms.Form):
     discount_code = forms.CharField(required=True)

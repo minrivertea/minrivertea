@@ -180,7 +180,11 @@ class UniqueProduct(models.Model):
     def stocks(self):
         from logistics.models import WarehouseItem
         stocks = WarehouseItem.objects.filter(unique_product=self, sold__isnull=True)
-        return stocks  
+        return stocks 
+    
+    def get_weight(self):
+        
+        return self.weight 
     
     def get_saving(self):
         if self.is_sale_price:
@@ -242,6 +246,7 @@ class Address(models.Model):
     address_line_1 = models.CharField(max_length=200, blank=True, null=True)
     address_line_2 = models.CharField(max_length=200, blank=True, null=True)
     town_city = models.CharField(max_length=200)
+    province_state = models.CharField(max_length=200, blank=True, null=True)
     postcode = models.CharField(max_length=200)
     country = models.CharField(max_length=200, choices=COUNTRY_CHOICES, db_index=True)
     phone = models.CharField(max_length=80, blank=True, null=True)

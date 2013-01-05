@@ -1,4 +1,4 @@
-{% load django_static i18n %}
+{% load django_static i18n convert_weights %}
 
 <form id="paypal" method="post" action="{{ paypal_submit_url }}">
     
@@ -26,6 +26,7 @@
 		<input type="hidden" name="address1" value="{{ order.address.house_name_number }}, {{ order.address.address_line_1 }}">		
 		<input type="hidden" name="address2" value="{{ order.address.address_line_2 }}">
 		<input type="hidden" name="city" value="{{ order.address.town_city }}">
+		{% if order.address.province_state %}<input type="hidden" name="state" value="{{ order.address.province_state }}">{% endif %}
 		<input type="hidden" name="country" value="{{ order.address.country }}">
 		<input type="hidden" name="zip" value="{{ order.address.postcode }}">
 		<input TYPE="hidden" NAME="return" value="{{ paypal_return_url }}">
@@ -56,13 +57,13 @@
 		 
 		 {% if postage_discount %}
 	 		 {% for thing in order.items.all %}
-				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
+				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}"> 
 				<input type="hidden" name="quantity_{{ forloop.counter }}" value="{{ thing.quantity }}">
 				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.get_price|floatformat:'2' }}"> 
 			 {% endfor %}
 		{% else %}
 			 {% for thing in order.items.all %}
-				<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
+				<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}"> 
 				<input type="hidden" name="quantity_{{ forloop.counter|add:"1" }}" value="{{ thing.quantity }}">
 				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.get_price|floatformat:'2' }}"> 
 			 {% endfor %}

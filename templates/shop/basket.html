@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail django_static i18n %}
+{% load thumbnail django_static i18n convert_weights %}
 
 {% block pagetitle %}{% trans 'Your basket' %} ({{ basket_quantity }}){% endblock %}
 {% block metadescription %}{% trans 'Your basket - shop on www.minrivertea.com and get the best prices and great tasting authentic Chinese teas delivered direct to your door.' %}{% endblock %}
@@ -350,9 +350,9 @@ input#id_discount_code {
 		  </a>
 		  {% if thing.monthly_order %}
 		      <br/>
-		      {{ thing.item.parent_product.name }} {% if thing.item.weight %}({{ thing.get_weight_display }}){% endif %}<br/>
+		      {{ thing.item.parent_product.name }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}<br/>
 		  {% else %}
-		      {% if thing.item.weight %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}) {% endif %}<br/>
+		      {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}) {% endif %}<br/>
 		      {{ currency.symbol }}{{ thing.item.price }} {% trans 'each' %}<br/>
 		  {% endif %}
 	   </div>
@@ -388,7 +388,7 @@ input#id_discount_code {
 	                   <a href="{% url tea_view x.item.parent_product.slug %}">
 	                       {{ x.item.parent_product }}
 	                   </a> 
-	                   ({{ x.item.weight }}{{ x.item.weight_unit }}) 
+	                   ({% convert_weights request x.item.weight %}{{ weight_unit }}) 
 	               </li>
                 {% endfor %}
             </ul>

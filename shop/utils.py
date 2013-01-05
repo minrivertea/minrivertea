@@ -102,6 +102,7 @@ def _get_region(request):
         # http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
         region = _get_country(request)['countryCode']
         request.session['REGION'] = region
+    region = 'US'
     return region
 
 

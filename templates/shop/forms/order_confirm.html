@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static thumbnail i18n %}
+{% load django_static thumbnail i18n convert_weights %}
 
 {% block pagetitle %}{% trans 'Order (Step 3 of 4) - Confirm Order' %}{% endblock %}
 
@@ -123,8 +123,8 @@ p.checkout {
 		{% for thing in order.items.all %}
 			  <tr>				
 		    	<td width="450px" valign="top">
-		    		{{ thing }}
-
+		    		{{ thing.item.parent_product.name }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
+		    		x {{ thing.quantity }}
 		    	</td>
 		    	<td width="150px" valign="top">
 		    	</td>

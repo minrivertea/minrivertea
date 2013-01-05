@@ -279,17 +279,18 @@ def create_email(request, id=None):
                     subject_line = form.cleaned_data['subject_line'],
                     content = form.cleaned_data['content'],
                 )
-            
-            print email_object.content
-            
+                        
             email_object.save()
             recipients_list = _get_subscriber_list()
+            recipients_count = len(recipients_list)
+            
             des = Subscriber.objects.filter(language='de')
             de_cus = Shopper.objects.filter(language='de')
             from itertools import chain
             de_recipients = chain(des, de_cus)
-            recipients_count = len(recipients_list)
+            
             return _render(request, 'shop/emails/create_send_email.html', locals())
+    
     else:
         if id:
             email_object = get_object_or_404(EmailInstance, pk=id)
@@ -338,7 +339,7 @@ def send_email(request, id):
 
 
 def _get_subscriber_list():
-    email_signups = Subscriber.objects.exclude(language='de')
+    email_signups = Subscriber.objects.exclude(language='de', date_unsubscribed__isnull=True)
     
     
     def idfun(x): return x 

@@ -372,6 +372,7 @@ def order_step_one(request, basket=None):
         address_line_2 = order.address.address_line_2
         town_city = order.address.town_city
         postcode = order.address.postcode
+        province_state = order.address.province_state
         country = order.address.country
         first_name = order.owner.first_name
         last_name = order.owner.last_name
@@ -388,7 +389,7 @@ def order_step_one(request, basket=None):
         initial_values = (
             _('First name'), _('Last name'), _('Email address'),
             _('Your address...'), _(' ...address continued (optional)'),
-            _('Town or city'), _('Post/ZIP code'), _('Province'),
+            _('Town or city'), _('Post/ZIP code'), _('State'),
             )
             
         for k, v in post_values.iteritems():
@@ -449,6 +450,7 @@ def order_step_one(request, basket=None):
                 address_line_1 = form.cleaned_data['address_line_1'],
                 address_line_2 = form.cleaned_data['address_line_2'],
                 town_city = form.cleaned_data['town_city'],
+                province_state = form.cleaned_data['province_state'],
                 postcode = form.cleaned_data['postcode'],
                 country = form.cleaned_data['country'],
             )
@@ -498,6 +500,7 @@ def order_step_one(request, basket=None):
              address_line_1 = request.POST['address_line_1']
              address_line_2 = request.POST['address_line_2']
              town_city = request.POST['town_city']
+             province_state = request.POST['province_state']
              postcode = request.POST['postcode']
              country = request.POST['country']
              first_name = request.POST['first_name']
