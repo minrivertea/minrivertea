@@ -140,8 +140,8 @@ def tea_view(request, slug):
        
     if added:
         thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
-        weight = convert_weights(request, thing.item.weight)
         if _get_region(request) == 'US':
+            weight = weight_converter(thing.item.weight)
             weight_unit = 'oz'
         else:
             weight_unit = 'g'
