@@ -722,7 +722,7 @@ div.fb-recommend {
 		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
 		    	     <span class="price-description">/ {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %}<br/>
 		    	</span>
-				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} ({% convert_weights request price.weight %}{{ weight_unit }}) to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
+				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
               </div>
 
 		      <div id="price-helper"> 

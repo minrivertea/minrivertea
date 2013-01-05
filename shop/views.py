@@ -32,7 +32,7 @@ import re
 
 
 from shop.models import *
-from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, _changelang, _set_currency, _get_products, _get_monthly_price
+from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter
 from shop.forms import *
 from slugify import smart_slugify
 from emailer.views import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email, _get_subscriber_list, _tell_a_friend_email
@@ -140,7 +140,12 @@ def tea_view(request, slug):
        
     if added:
         thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
-        message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': thing.item.weight, 'unit':thing.item.weight_unit}
+        weight = convert_weights(request, thing.item.weight)
+        if _get_region(request) == 'US':
+            weight_unit = 'oz'
+        else:
+            weight_unit = 'g'
+        message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': weight, 'unit': weight_unit}
         request.session['ADDED'] = None
     
     
@@ -233,7 +238,25 @@ def add_to_basket(request, productID):
         for x in BasketItem.objects.filter(basket=basket):
             basket_quantity += x.quantity
         
-        message = _('<p><span class="tick">&#10003;</span><strong>1 x %(quantity)s</strong> added to your basket!<br/><br/> <a href="/basket/"><strong>Checkout now &raquo;</strong></a></p>') % {'quantity':item.item}
+        
+        weight = None
+        weight_unit = None
+        if _get_region(request) == 'US':
+            if uproduct.weight:
+                weight_unit = 'oz'
+                weight = weight_converter(uproduct.weight)
+        else:
+            if uproduct.weight:
+                weight_unit = 'g'
+                weight = uproduct.weight
+        
+        
+        if weight:
+            item_description = "%s (%s%s)" % (uproduct.parent_product.name, weight, weight_unit)
+        else:
+            item_description = uproduct.parent_product.name
+            
+        message = _('<p><span class="tick">&#10003;</span><strong>1 x %(item)s</strong> added to your basket!<br/><br/> <a href="/basket/"><strong>Checkout now &raquo;</strong></a></p>') % {'item':item_description}
         data = {'quantity': basket_quantity, 'item': message}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)

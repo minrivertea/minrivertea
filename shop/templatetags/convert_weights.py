@@ -1,5 +1,6 @@
 from django import template
-from shop.utils import _get_region
+from shop.utils import _get_region, weight_converter
+
 
 register = template.Library()
 
@@ -7,10 +8,9 @@ register = template.Library()
 def convert_weights(request, weight):
     
     region = _get_region(request)
-    print region
     if region == 'US':
         # 100g = 3.5 ounces
-        return round((weight / 28.75), 1)
+        return weight_converter(weight)
         
     return weight
 
