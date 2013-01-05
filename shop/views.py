@@ -145,6 +145,7 @@ def tea_view(request, slug):
             weight_unit = 'oz'
         else:
             weight_unit = 'g'
+            weight = thing.item.weight
         message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': weight, 'unit': weight_unit}
         request.session['ADDED'] = None
     
