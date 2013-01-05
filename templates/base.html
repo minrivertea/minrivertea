@@ -4,7 +4,8 @@
 <head>
 
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-	<meta content="en-gb" http-equiv="Content-Language" />
+	{% get_current_language as LANGUAGE_CODE %}
+	<meta content="{{ LANGUAGE_CODE }}" http-equiv="Content-Language" />
 	<meta content="{% block metadescription %}{% endblock %}" name="description" />
 	
 	<meta name="msvalidate.01" content="D72BD43A6F271B73C8F653A920B8C23C" />

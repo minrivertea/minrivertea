@@ -151,19 +151,24 @@ EMAIL_TEMPLATES = (
 
 # LANGUAGE SETTINGS
 # ------------------------------------------
-LANGUAGE_CODE = 'en'
 USE_I18N = True
 gettext = lambda s: s
-LANGUAGE_CODE = 'en'
 LANGUAGES = (
-    ('en', gettext('English')),
-    # ('en-us', gettext('US English')),
+    ('en-gb', gettext('English')),
+    ('en-us', gettext('US English')),
     ('de', gettext('German')),
 )
+
+MODEL_LANGUAGES = (
+    ('en', gettext('English')),
+    ('de', gettext('German')),
+)
+
 LOCALE_PATHS = (
     os.path.join(PROJECT_PATH, "locale"),
 )
 LANGUAGE_COOKIE_NAME = 'django_language'
+
 MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 

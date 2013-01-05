@@ -25,9 +25,10 @@ def common(request):
         
     # REGIONAL STUFF
     context['region'] = _get_region(request)    
-    context['region'] = 'US'    
+    context['region'] = 'UK'
 
     if context['region'] == 'US':
+        translation.activate('en_US')
         context['weight_unit'] = 'oz'
     else:
         context['weight_unit'] = 'g'
