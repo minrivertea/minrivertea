@@ -157,7 +157,7 @@ gettext = lambda s: s
 LANGUAGE_CODE = 'en'
 LANGUAGES = (
     ('en', gettext('English')),
-    ('en-us', gettext('US English')),
+    # ('en-us', gettext('US English')),
     ('de', gettext('German')),
 )
 LOCALE_PATHS = (
