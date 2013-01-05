@@ -473,10 +473,15 @@ def order_step_one(request, basket=None):
                 address_line_1 = form.cleaned_data['address_line_1'],
                 address_line_2 = form.cleaned_data['address_line_2'],
                 town_city = form.cleaned_data['town_city'],
-                province_state = form.cleaned_data['province_state'],
                 postcode = form.cleaned_data['postcode'],
                 country = form.cleaned_data['country'],
             )
+            
+            try:
+                address.province_state = form.cleaned_data['province_state']
+                address.save()
+            except:
+                pass
             
             # CREATE OR FIND THE ORDER
             try:
@@ -523,11 +528,15 @@ def order_step_one(request, basket=None):
              address_line_1 = request.POST['address_line_1']
              address_line_2 = request.POST['address_line_2']
              town_city = request.POST['town_city']
-             province_state = request.POST['province_state']
              postcode = request.POST['postcode']
              country = request.POST['country']
              first_name = request.POST['first_name']
              last_name = request.POST['last_name']
+             
+             try:
+                 province_state = request.POST['province_state']
+             except:
+                 pass
              
              form = OrderStepOneForm(post_values)
 
