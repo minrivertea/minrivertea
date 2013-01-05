@@ -155,7 +155,7 @@ if (15.00) {
          	<div id="language">
       			{% get_current_language as LANGUAGE_CODE %}
       			<a href="{% url changelang 'de' %}" class="{% if LANGUAGE_CODE == 'de' %}selected{% endif %}">{% trans 'German' %}</a> | 
-      			<a href="{% url changelang 'en' %}" class="{% if LANGUAGE_CODE == 'en' %}selected{% endif %}">{% trans 'English' %}</a>
+      			<a href="{% url changelang 'en' %}" class="{% if LANGUAGE_CODE in 'en, en-us, en-gb' %}selected{% endif %}">{% trans 'English' %}</a>
       		</div>	
 	
         	{% include 'shop/snippets/currency.html' %}

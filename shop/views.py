@@ -412,7 +412,7 @@ def order_step_one(request, basket=None):
         initial_values = (
             _('First name'), _('Last name'), _('Email address'),
             _('Your address...'), _(' ...address continued (optional)'),
-            _('Town or city'), _('Post/ZIP code'), _('State'),
+            _('Town or city'), _('State'), _('Post / ZIP code'), _('invalid'),
             )
             
         for k, v in post_values.iteritems():

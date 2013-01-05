@@ -338,8 +338,8 @@ input[type="email"] {
             </p>
           {% endif %}
           <p>
-          	<label for="id_postcode"><span class="red">*</span> {% trans 'Postcode' %}:</label>
-          	<input class="clearMeFocus {% if form.postcode.errors %}error{% endif %}" title="{% trans 'Postcode' %}" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
+          	<label for="id_postcode"><span class="red">*</span> {% trans 'Post / ZIP code' %}:</label>
+          	<input class="clearMeFocus {% if form.postcode.errors %}error{% endif %}" title="{% trans 'Post / ZIP code' %}" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
           	</p>
       	
     	  <p class="styled-select">
