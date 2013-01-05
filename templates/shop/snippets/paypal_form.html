@@ -59,7 +59,7 @@
 	 		 {% for thing in order.items.all %}
 				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}"> 
 				<input type="hidden" name="quantity_{{ forloop.counter }}" value="{{ thing.quantity }}">
-				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.get_price|floatformat:'2' }}"> 
+				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.item.price|floatformat:'2' }}"> 
 			 {% endfor %}
 		{% else %}
 			 {% for thing in order.items.all %}

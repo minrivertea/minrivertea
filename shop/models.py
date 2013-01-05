@@ -280,6 +280,7 @@ class BasketItem(models.Model):
             price = _get_monthly_price(price, self.months)
         return price
         
+        
     def __unicode__(self):
         if self.monthly_order:
             return "%s x %s (%s months)" % (self.item, self.quantity, self.months)

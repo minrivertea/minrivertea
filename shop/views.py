@@ -764,7 +764,7 @@ def not_you(request):
     
     
     
-# the view for the order step 2 - confirming your order
+# the view for the order step 3 - confirming your order
 def order_confirm(request):
     
     try:
@@ -781,7 +781,7 @@ def order_confirm(request):
         
         
     shopper = order.owner
-    order_items = order.items.all() #BasketItem.objects.filter(basket=basket)
+    order_items = order.items.all() 
     
     # work out the price
     total_price = 0
