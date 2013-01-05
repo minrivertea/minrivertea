@@ -11,7 +11,7 @@ We've received your tea order at www.minrivertea.com, and we'll send it to you r
 {% endblocktrans %}
 
 {% for item in items %}
-	- {{ item.item.parent_product }} {% if item.item.weight %}({{ convert_weights request item.item.weight %}{{ weight_unit }}){% endif %} x {{ item.quantity }}
+	- {{ item.item.parent_product }} {% if item.item.weight %}({% convert_weights request item.item.weight %}{{ weight_unit }}){% endif %} x {{ item.quantity }}
 {% endfor %}
 
 {% trans 'We hope you enjoy drinking your tea!' %}
