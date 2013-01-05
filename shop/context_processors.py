@@ -25,7 +25,6 @@ def common(request):
         
     # REGIONAL STUFF
     context['region'] = _get_region(request)    
-    context['region'] = 'UK'
 
     if context['region'] == 'US':
         translation.activate('en_US')
