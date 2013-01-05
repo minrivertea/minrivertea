@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n convert_weights %}
 
 {% blocktrans with order.owner.first_name as fn and order.invoice_id as id and order.items.all as items %}
 
@@ -11,7 +11,7 @@ We've received your tea order at www.minrivertea.com, and we'll send it to you r
 {% endblocktrans %}
 
 {% for item in items %}
-	- {{ item }}
+	- {{ item.item.parent_product }} {% if item.item.weight %}({{ convert_weights request item.item.weight %}{{ weight_unit }}){% endif %} x {{ item.quantity }}
 {% endfor %}
 
 {% trans 'We hope you enjoy drinking your tea!' %}
