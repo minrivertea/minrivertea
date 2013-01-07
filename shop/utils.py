@@ -128,30 +128,32 @@ def _set_currency(request, code=None):
 
     if code:
         request.session['CURRENCY'] = code
-        
-    
+        currency = get_object_or_404(Currency, code=code)
     
     else:
         try:
+            # check for get parameter in URL (ie. in the header links)
             currency = get_object_or_404(Currency, code=request.GET.get('curr'))
             request.session['CURRENCY'] = currency.code
         except:
             currency = get_object_or_404(Currency, code='GBP')
             request.session['CURRENCY'] = currency.code
     
-    # if they have a basket already, we need to change the unique products around
     try:
+        # if they have a basket already, we need to change the unique products around
         basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
         for item in BasketItem.objects.filter(basket=basket):
-            newup = get_object_or_404(UniqueProduct,
+                        
+            newup = UniqueProduct.objects.filter(
                 is_active=True, 
                 parent_product=item.item.parent_product,
                 currency=currency,
-                weight=item.item.weight)
+                weight=item.item.weight)[0]
             item.item = newup
             item.save()
     except:
-        pass  
+        pass
+ 
     
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)

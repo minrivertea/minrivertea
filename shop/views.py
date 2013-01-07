@@ -966,7 +966,6 @@ def tell_a_friend(request):
 def international(request):
     request.session['REGION'] = 'global'
     currency = _set_currency(request)
-    request.session['CURRENCY'] = 'GBP'
             
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
