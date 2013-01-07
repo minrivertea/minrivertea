@@ -148,7 +148,7 @@ def _set_currency(request, code=None):
                 is_active=True, 
                 parent_product=item.item.parent_product,
                 currency=currency,
-                weight=item.item.weight)[0]
+                weight=item.item.weight).order_by('price')[0]
             item.item = newup
             item.save()
     except:
