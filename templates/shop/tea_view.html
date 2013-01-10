@@ -727,7 +727,7 @@ div.fb-recommend {
 
 		      <div id="price-helper"> 
 		        {% if price.stocks.count > 0 %}
-		          <div class="stocks">{% blocktrans with tea.stocks.count as tsc %}<strong>{{ tsc }}</strong> in stock{% endblocktrans %}</div>
+		          <div class="stocks">{% blocktrans with price.stocks.count as tsc %}<strong>{{ tsc }}</strong> in stock{% endblocktrans %}</div>
 		          <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
         	    {% else %}
        	          <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong></span>
