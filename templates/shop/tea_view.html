@@ -726,7 +726,7 @@ div.fb-recommend {
               </div>
 
 		      <div id="price-helper"> 
-		        {% if tea.stocks.count > 0 %}
+		        {% if price.stocks.count > 0 %}
 		          <div class="stocks">{% blocktrans with tea.stocks.count as tsc %}<strong>{{ tsc }}</strong> in stock{% endblocktrans %}</div>
 		          <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
         	    {% else %}
@@ -735,10 +735,7 @@ div.fb-recommend {
 			   {% endif %}
 		      </div>
 
-		      
-		      
-		      
-		      
+
 		{% else %}
     		  <div id="price-helper">        
             	<span class="not-in-stock">{% trans 'This tea is not currently available for sale.' %}</span>

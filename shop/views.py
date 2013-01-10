@@ -158,14 +158,7 @@ def tea_view(request, slug):
     
     recommended = _get_products(request, random=True, exclude=tea.id)[:3]
     
-    try:
-        price = UniqueProduct.objects.filter(
-            parent_product=tea, 
-            is_active=True, 
-            currency=_get_currency(request),
-            ).order_by('price')[0]
-    except:
-        price = None
+    price = tea.get_lowest_price(_get_currency(request))
     
     try:
         big_price = UniqueProduct.objects.filter(

@@ -335,7 +335,7 @@ input#id_discount_code {
 	{% for thing in basket_items %}
 	  <div class="basket-row">
 	  
-	    {% if thing.item.parent_product.coming_soon %}
+	    {% if thing.item.stocks.count == 0 or thing.item.stocks == None %}
 	    	<div class="coming-soon">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}<strong>NOTE:</strong> this item has been pre-ordered and will be delivered on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
 	    {% endif %}
 		<div class="tea-name">
