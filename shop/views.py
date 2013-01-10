@@ -119,8 +119,7 @@ def germany(request):
 
 def sale(request):
     category = get_object_or_404(Category, slug=_('sale'))
-    currency = _get_currency(request)
-    ups = UniqueProduct.objects.filter(is_active=True, is_sale_price=True, currency=currency)
+    ups = UniqueProduct.objects.filter(is_active=True, is_sale_price=True, currency=_get_currency(request))
     products = []
     for x in ups:
         p = x.parent_product

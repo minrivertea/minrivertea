@@ -114,18 +114,6 @@ class Product(models.Model):
     def get_reviews(self):
         reviews = Review.objects.filter(product=self, is_published=True)
         return reviews    
-
-
-    def stocks(self):
-        if self.coming_soon:
-            return None
-        
-        if not self.is_active:
-            return None
-        
-        from logistics.models import WarehouseItem
-        stocks = WarehouseItem.objects.filter(unique_product__parent_product=self, sold=None)
-        return stocks
     
     def save(self, force_insert=False, force_update=False):
          super(Product, self).save(force_insert, force_update)
@@ -179,12 +167,14 @@ class UniqueProduct(models.Model):
     
     def stocks(self):
         from logistics.models import WarehouseItem
-        stocks = WarehouseItem.objects.filter(unique_product=self, sold__isnull=True)
+        # how many items match this product, this weight, and are in the UK, and not sold?
+        stocks = WarehouseItem.objects.filter(
+            unique_product__parent_product=self.parent_product, 
+            unique_product__weight=self.weight,
+            sold__isnull=True, 
+            location=WarehouseItem.UK,
+            unique_product__currency__code='GBP')
         return stocks 
-    
-    def get_weight(self):
-        
-        return self.weight 
     
     def get_saving(self):
         if self.is_sale_price:
