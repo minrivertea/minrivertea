@@ -154,8 +154,7 @@ EMAIL_TEMPLATES = (
 USE_I18N = True
 gettext = lambda s: s
 LANGUAGES = (
-    ('en-gb', gettext('English')),
-    ('en-us', gettext('US English')),
+    ('en', gettext('English')),
     ('de', gettext('German')),
 )
 

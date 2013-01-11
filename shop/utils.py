@@ -79,12 +79,15 @@ def _changelang(request, code):
 
     response = HttpResponseRedirect(next)
     lang_code = code
-        
+     
+    print check_for_language(lang_code)
+       
     if lang_code and check_for_language(lang_code):
         if hasattr(request, 'session'):
             request.session[settings.LANGUAGE_COOKIE_NAME] = lang_code
         else:
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
+    
     return response
 
 
