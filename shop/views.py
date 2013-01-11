@@ -49,23 +49,11 @@ class BasketDoesNotExist(Exception):
 
 # the homepage view
 def index(request):
-    
-    try:
-        if request.session['REGION'] == 'CN':
-            teas = Product.objects.filter(category__parent_category__slug=_('teas'), is_featured=True)
-            cups = Product.objects.filter(category__slug=_('teaware'))[:3]
-            reviews = Review.objects.filter(is_published=True).order_by('?')[:3]
-            return _render(request, 'shop/home.html', locals())
-    except:
-        pass
-         
-    
+   
     curr = _get_currency(request)
     teas = _get_products(request)[:5]
     teaware = _get_products(request, cat=_('teaware'))[:3]
-    
-    #special = get_object_or_404(UniqueProduct, parent_product__slug='buddhas-hand-oolong-tea', currency=curr)
-        
+            
     return _render(request, "shop/home.html", locals())
 
 

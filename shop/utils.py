@@ -39,13 +39,6 @@ from slugify import smart_slugify
 
 #render shortcut
 def _render(request, template, context_dict=None, **kwargs):
-      
-    if _get_region(request) == 'CN':      
-        new_template = "china/%s" % template
-        new_template_full = os.path.join(settings.PROJECT_PATH, "templates/", new_template)
-        if os.path.exists(new_template_full):
-            template = new_template
-
         
     return render_to_response(
         template, context_dict or {}, context_instance=RequestContext(request),

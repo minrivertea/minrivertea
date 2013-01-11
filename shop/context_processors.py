@@ -41,9 +41,6 @@ def common(request):
     base_template = settings.BASE_TEMPLATE
     if '/admin-stuff/' in request.path:
         base_template = settings.BASE_TEMPLATE_ADMIN
-    else:
-        if _get_region(request) == 'CN':
-            base_template = settings.BASE_TEMPLATE_CHINA
     
     context['base_template'] = base_template
 
