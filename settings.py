@@ -166,6 +166,8 @@ MODEL_LANGUAGES = (
 LOCALE_PATHS = (
     os.path.join(PROJECT_PATH, "locale"),
 )
+
+LANGUAGE_CODE = 'en'
 LANGUAGE_COOKIE_NAME = 'django_language'
 
 MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"

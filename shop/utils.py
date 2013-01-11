@@ -74,20 +74,20 @@ def _get_basket(request):
 
 def _changelang(request, code):
     
-    from django.utils.translation import check_for_language, activate, to_locale, get_language
+    from django.utils.translation import check_for_language, activate
     next = '/'
 
     response = HttpResponseRedirect(next)
     lang_code = code
      
     print check_for_language(lang_code)
+    print lang_code
        
     if lang_code and check_for_language(lang_code):
         if hasattr(request, 'session'):
             request.session[settings.LANGUAGE_COOKIE_NAME] = lang_code
         else:
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
-    
     return response
 
 
