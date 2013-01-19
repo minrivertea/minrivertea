@@ -855,9 +855,9 @@ def turn_off_twitter(request, id):
     return HttpResponseRedirect('/order/complete/')
 
 # handles the review/testimonial view
-def review_tea(request, slug):
+def review_tea(request, category, slug):
     tea = get_object_or_404(Product, slug=slug)
-    other_reviews = Review.objects.filter(product=tea, is_published=True)
+    
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -872,18 +872,20 @@ def review_tea(request, slug):
                 last_name=last_name,
                 email=email,
             )
-            
-            review.save()
-            
-            _admin_notify_new_review(tea, review)
                         
-            return HttpResponseRedirect('/review/thanks')
+            review.save()
+            _admin_notify_new_review(tea, review)
+                                 
+            return HttpResponseRedirect(reverse('review_tea_thanks', args=[tea.category.slug, tea.slug]))
         
     else:
         form = ReviewForm()
     return _render(request, "shop/forms/review_form.html", locals())
 
 
+def review_tea_thanks(request, category, slug):
+    message = _("Thanks for posting your review! It's really important to us and we will read and respond to any suggetions you've made.")
+    return _render(request, 'shop/message.html', locals())
             
 
 # view for the photo wall

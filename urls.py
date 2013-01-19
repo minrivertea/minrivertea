@@ -4,7 +4,7 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, category, review_tea, tea_view, make_product_feed, _changelang, germany, monthly_tea_box
+from shop.views import page, category, review_tea, review_tea_thanks, tea_view, make_product_feed, _changelang, germany, monthly_tea_box
 from shop.utils import _finder
 from shop.sitemap import ENSitemap, DESitemap
 from blog.models import BlogEntry
@@ -64,7 +64,8 @@ urlpatterns = patterns('',
     # test category/page resolver
     url(r'^(?P<slug>[\w-]+)/$', _finder, name="finder"),
     url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
-    url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/review$', review_tea, name="review_tea"),
+    url(r'^(?P<category>[\w-]+)/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
+    url(r'^(?P<category>[\w-]+)/(?P<slug>[\w-]+)/review/thanks/$', review_tea_thanks, name="review_tea_thanks"),
     url(r'^(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
     
@@ -99,7 +100,6 @@ urlpatterns = patterns('',
     url(_(r'^tea-gifts/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
     url(_(r'^teas/$'), category, name="teas"),
-    url(_(r'^teas/(?P<slug>[\w-]+)/review/$'), review_tea, name="review_tea"),
     url(_(r'^teas/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
         
     # urls for the pages

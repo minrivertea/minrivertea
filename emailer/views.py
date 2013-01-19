@@ -133,7 +133,6 @@ def _admin_notify_new_review(tea, review):
     text = "%s %s just posted a review of %s" % (review.first_name, review.last_name, tea.name)              
     subject_line = "New Review Posted - %s" % tea.name 
     receiver = settings.SITE_EMAIL
-      
     _send_email(receiver, subject_line, text)
     
     return
