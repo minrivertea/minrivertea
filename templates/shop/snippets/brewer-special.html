@@ -1,7 +1,7 @@
-{% load django_static i18n %}
+{% load i18n %}
     
     <div id="special">
         <a href="/teaware/the-tea-shaker/"><span class="link"></span></a>
-		<img src="{% staticfile '/images/brewer-special.jpg' %}"/>
+		<img src="{{ static_url }}images/brewer-special.jpg"/>
 		<h2>{% blocktrans %}The future of tea brewing is here. But… <br/><br/><span>How does it work? {% endblocktrans %}&raquo;</span></h2>
 	</div>

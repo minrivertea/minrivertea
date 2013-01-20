@@ -1,8 +1,8 @@
-{% load django_static i18n %}
+{% load i18n %}
 
 <h2>{% trans 'Your amazing Chinese tea wishlist!' %}</h2>
 
-<p><img style="float: left; margin-right: 15px; position: relative; top: -10px;" src="{% staticfile '/images/gift.png' %}"/>{% trans "Cool, you've made a wishlist! Below is a unique wishlist URL - you can send this URL to your family and friends, and they can purchase this basket on your behalf." %}</p>
+<p><img style="float: left; margin-right: 15px; position: relative; top: -10px;" src="{{ static_url }}images/gift.png"/>{% trans "Cool, you've made a wishlist! Below is a unique wishlist URL - you can send this URL to your family and friends, and they can purchase this basket on your behalf." %}</p>
 
 <p>{% trans "Here's your unique wishlist URL:" %}</p>
 

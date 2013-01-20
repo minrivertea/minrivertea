@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail django_static i18n convert_weights %}
+{% load thumbnail i18n convert_weights %}
 
 {% block pagetitle %}{% trans 'Exceptional Chinese tea delivered to your door' %}{% endblock %}
 
@@ -473,7 +473,7 @@ ul.rss {
 	   <div class="more">
 	       <a href="{% url monthly_tea_box %}">Start your TeaBox &raquo;</a>
 	   </div>
-	   <img src="{% staticfile '/images/homepage/home-monthly.jpg' %}" />
+	   <img src="{{ static_url }}images/homepage/home-monthly.jpg" />
 	   <div class="months">
 	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
 	       <span>Get a box of tea delivered to your door every month</span><br/>
@@ -488,7 +488,7 @@ ul.rss {
 	   <h2>{% blocktrans %}A big <em>ni hao</em> from China!{% endblocktrans %}</h2>
 	   <p>{% blocktrans %}<strong>We are one of the only tea companies actually based in China.</strong> Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! <strong>We're able to sell better teas at lower prices</strong> because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="/about/">{% trans 'Find out more about us' %} &raquo;</a></p>
        </div>
-       <img src="{% staticfile '/images/homepage/home-about.jpg' %}" />
+       <img src="{{ static_url }}images/homepage/home-about.jpg" />
 	</div>
 	
 	

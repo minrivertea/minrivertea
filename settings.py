@@ -29,10 +29,14 @@ SECRET_KEY = ''
 
 
 # STATIC / MEDIA FILES
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'static') # the place where user-uploaded files should sit in the filesystem
-MEDIA_URL = '/' # the public URL for user uploaded files
-STATIC_URL = '/static/' # the public URL for static files
+# ----------------------------------------------------------
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
+MEDIA_URL = '/'
 
+STATIC_URL = 'http://static.minrivertea.com/static/'
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, 'static'),
+)
 
 
 
@@ -89,6 +93,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.comments',
     'django.contrib.redirects',
+    'django.contrib.staticfiles',
     'shop',
     'blog',
     'sorl.thumbnail',
@@ -106,10 +111,11 @@ INSTALLED_APPS = (
     'modeltranslation',
     'logistics',
     'emailer',
+    'ckeditor',
 #    'debug_toolbar',
 )
 
-# Random app information for different things
+
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # django-static info
@@ -118,7 +124,8 @@ DJANGO_STATIC_SAVE_PREFIX = '/tmp/cache-forever'
 DJANGO_STATIC_NAME_PREFIX = '/cache-forever'
 DJANGO_STATIC_MEDIA_URL = 'http://static.minrivertea.com'
 
-# mail settings
+# MAIL SETTINGS
+# -----------------------------------------------
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_PORT = ''
@@ -127,6 +134,7 @@ SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
 SEND_BROKEN_LINK_EMAILS = False
 
 #THUMBNAIL SIZES
+# -----------------------------------------------
 THUMB_LARGE = "500x331"
 THUMB_HOME_LARGE = "375x240"
 THUMB_MEDIUM = "240x160"
@@ -134,20 +142,43 @@ THUMB_SMALL = "50x50"
 
 
 # REGIONAL TEMPLATES
+# -----------------------------------------------
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'
 BASE_TEMPLATE_ADMIN = 'base_admin.html'
 
 # DJANGO-CAPTCHA
+# -----------------------------------------------
 COMMENTS_APP = 'my_comments'
 CAPTCHA_FONT_SIZE = 35
 CAPTCHA_LETTER_ROTATION = None
 
+
+# DJANGO SOUTH
+# -----------------------------------------------
 SOUTH_TESTS_MIGRATE = False
 
-EMAIL_TEMPLATES = (
 
-)
+# CKEDITOR SETTINGS
+# -----------------------------------------------
+CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'ckuploads')
+CKEDITOR_UPLOAD_PREFIX = "/ckuploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [
+            [      'Undo', 'Redo',
+              '-', 'Bold', 'Italic', 'Underline', 'BulletedList', 'NumberedList', 'Image',
+              '-', 'Link', 'Unlink', 'Anchor',
+              '-', 'Format',
+              '-', 'PasteFromWord',
+              '-', 'Maximize', 'Source', 
+            ],
+        ],
+        'width': 840,
+        'height': 300,
+        'toolbarCanCollapse': False,
+    }
+}
 
 # LANGUAGE SETTINGS
 # ------------------------------------------
@@ -178,7 +209,8 @@ MONTHLY_ORDER_DISCOUNT = 0.1 # expressed as a percentage, eg. 0.1 is 10% off
 MONTHLY_ORDER_MINIMUM_MONTHS = 12
 
 
-# paypal info
+# PAYPAL INFORMATION
+# ---------------------------------------------------
 PAYPAL_IDENTITY_TOKEN = ''
 PAYPAL_RECEIVER_EMAIL = ''
 PAYPAL_RETURN_URL = ''

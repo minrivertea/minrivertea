@@ -1,8 +1,8 @@
-{% load django_static i18n %}
+{% load i18n %}
 
 
 		<div class="info bio">
-			<img src="{% staticfile '/images/chris-west-bio.jpg' %}"/>
+			<img src="{{ static_url }}images/chris-west-bio.jpg"/>
 			<h3>{% trans 'About Me' %}</h3>
 			<p>{% trans "I'm Chris - I live in China, sell great teas, and write about tea." %} <br/>
 			     {% if region == 'China' %}<a href="/about-china/">{% else %}<a href="/about/">{% endif %}{% trans 'Find out more' %} &raquo;</a>

@@ -1,6 +1,6 @@
-{% load django_static i18n %}
+{% load i18n %}
 
-	<div class="info tea" style="background-image: url('{% staticfile '/images/samplers.jpg' %}'); height: 114px;">
+	<div class="info tea" style="background-image: url('{{ static_url }}images/samplers.jpg'); height: 114px;">
 		<a href="/tasters/"><span class="link"></span></a>
 		<div class="text">
 			<h3><a href="/tasters/">{% trans 'Try a taster pack' %} &raquo;</a></h3>

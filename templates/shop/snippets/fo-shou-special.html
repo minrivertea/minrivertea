@@ -1,8 +1,7 @@
-   {% load django_static %}
     
     <div id="special">
         <a href="/teas/buddhas-hand-oolong-tea/"><span class="link"></span></a>
-		<img src="{% staticfile '/images/home2.jpg' %}"/>
+		<img src="{{ static_url }}images/home2.jpg"/>
 		<h2>{% trans 'Real Kung Fu Tea!' %}</h2>
 		<p class="tea-desc">{% trans  "Grown in the birthplace of White Crane Kung Fu, you'll love the fresh green taste and butter-smooth texture of this Buddha's Hand oolong tea, but sadly it probably won't turn your hands into deadly weapons!" %}</p>
 	

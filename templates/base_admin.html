@@ -1,4 +1,4 @@
-{% load django_static nav_selected %}
+{% load nav_selected %}
 
 <html>
 <head>
@@ -11,13 +11,13 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	
 	<title>{% block pagetitle %}{% endblock %} | minrivertea.com </title>
-	<link rel="shortcut icon" href="{% staticfile '/images/favicon.ico' %}" type="image/x-icon">
+	<link rel="shortcut icon" href="{{ static_url }}images/favicon.ico" type="image/x-icon">
 	
-	<link rel="stylesheet" href="{% staticfile '/css/styles.css' %}" />
-	<link rel="stylesheet" href="{% staticfile '/css/admin.css' %}" />
+	<link rel="stylesheet" href="{{ static_url }}css/styles.css" />
+	<link rel="stylesheet" href="{{ static_url }}css/admin.css" />
 
 	    
-	<script type="text/javascript" src="{% staticfile '/js/jquery-1.6.min.js' %}"></script>
+	<script type="text/javascript" src="{{ static_url }}js/jquery-1.6.min.js"></script>
 	{% if ga_is_on %}
 		<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
 	{% else %}

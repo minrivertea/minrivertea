@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static i18n %}
+{% load i18n %}
 
 {% block pagetitle %}{% trans 'Order (Step 2 of 4) - Your details' %}{% endblock %}
 
@@ -214,7 +214,7 @@ input[type="email"] {
    width: 280px;
    height: 36px;
    overflow: hidden;
-   background: url('{% staticfile "/images/select-down-arrow.png" %}') no-repeat 250px #fff;
+   background: url('{{ static_url }}images/select-down-arrow.png') no-repeat 250px #fff;
    border: 1px solid #ccc;
    border-radius: 5px;
    margin: 0 0 20px 0;

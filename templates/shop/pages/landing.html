@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static thumbnail %}
+{% load thumbnail %}
 
 {% block aboutselected %}selected{% endblock %}
 
@@ -33,7 +33,7 @@ $(function() {
 {% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+<link rel="stylesheet" type="text/css" href="{{ static_url }}css/pages.css">
 <style type="text/css">
 div#mtw #left {
   border-left: none;	

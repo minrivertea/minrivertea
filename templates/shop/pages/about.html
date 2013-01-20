@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static thumbnail i18n %}
+{% load thumbnail i18n %}
 
 {% block aboutselected %}selected{% endblock %}
 
@@ -33,7 +33,7 @@ $(function() {
 {% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+<link rel="stylesheet" type="text/css" href="{{ static_url }}css/pages.css">
 <style type="text/css">
 
 div.top {
@@ -158,7 +158,7 @@ ul.rss #facebook p {
   	
   			<div class="top">
 		
-			<img title="{% trans 'This is me, Chris West, owner of the Min River Tea Farm' %}" src="{% staticfile '/images/chris.jpg' %}" style="float:left;margin-right: 30px;">
+			<img title="{% trans 'This is me, Chris West, owner of the Min River Tea Farm' %}" src="{{ static_url }}images/chris.jpg" style="float:left;margin-right: 30px;">
 			
 			<div class="white">
 				<p class="nihao">{% trans "We sell exceptional quality Chinese teas, direct from China" %}</p>

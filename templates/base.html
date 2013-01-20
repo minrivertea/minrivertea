@@ -1,4 +1,4 @@
-{% load django_static nav_selected i18n %}
+{% load nav_selected i18n %}
 
 <html>
 <head>
@@ -19,33 +19,33 @@
 	<meta name="robots" content="ALL" />
 	
 	<title>{% block pagetitle %}{% endblock %} | minrivertea.com</title>
-	<link rel="shortcut icon" href="{% staticfile '/images/favicon.ico' %}" type="image/x-icon">
+	<link rel="shortcut icon" href="{{ static_url }}images/favicon.ico" type="image/x-icon">
 	{% block canonical %}{% endblock %}
 	
 	{% block extra-head %}{% endblock %}
 
-	<link rel="stylesheet" href="{% staticfile '/css/styles.css' %}" />
+	<link rel="stylesheet" href="{{ static_url }}css/styles.css" />
 	    
 	{% if ga_is_on %}
 		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 		<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
 	{% else %}
-		<script src="{% staticfile '/js/jquery-1.8.2.min.js' %}"></script>
-		<script src="{% staticfile '/js/jquery.tools.min.js' %}"></script>
+		<script src="{{ static_url }}js/jquery-1.8.2.min.js"></script>
+		<script src="{{ static_url }}js/jquery.tools.min.js"></script>
 	{% endif %}
 	   
 	{% block extracss %}{% endblock %}
 
     {% if request.LANGUAGE_CODE == 'de' %}
-    <link rel="stylesheet" href="{% staticfile '/css/germany.css' %}"/>
+    <link rel="stylesheet" href="{{ static_url }}css/germany.css"/>
     {% endif %}
 
     {% if request.user.is_superuser %}
-	<!--<link rel="stylesheet" href="{% staticfile '/css/christmas.css' %}" />-->
+	<!--<link rel="stylesheet" href="{{ static_url }}css/christmas.css" />-->
 	{% endif %}
 	
 	<!--[if lte IE 8]>
-		<link rel="stylesheet" media="screen" type="text/css" href="{% staticfile '/css/ie.css' %}" />
+		<link rel="stylesheet" media="screen" type="text/css" href="{{ static_url }}css/ie.css" />
 	<![endif]-->
 
 	

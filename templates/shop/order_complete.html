@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static i18n %}
+{% load i18n %}
 
 {% block pagetitle %}{% trans 'Order Complete' %}{% endblock %}
 
@@ -78,7 +78,7 @@
 	<div class="text">
 		<h3>{% trans 'Tweet your order!' %}</h3>
 		<p>{% trans 'Please help spread the word about our great teas by tweeting:' %}</p>			
-		<img id="example" src="{% staticfile '/images/complete-tweet.jpg' %}"/>
+		<img id="example" src="{{ static_url }}images/complete-tweet.jpg"/>
 	</div>
 	
 	<div class="image">

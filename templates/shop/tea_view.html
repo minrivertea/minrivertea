@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail django_static i18n convert_weights %}
+{% load thumbnail i18n convert_weights %}
 
 {% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
 {% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
@@ -71,7 +71,7 @@ $(document).ready( function() {
 {% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{% staticfile '/css/teas.css' %}"/>
+<link rel="stylesheet" href="{{ static_url }}css/teas.css"/>
 <style type="text/css">
 
 #mtw #left {
@@ -657,9 +657,9 @@ div.fb-recommend {
 	<div class="tea-top">
 		<div class="left">
 		<div class="main-image">
-			<img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
+			<img class="loading" src="{{ static_url }}images/loading.gif"/>
 			<div id="image_wrap">	
-				<img src="{% staticfile '/images/blank.gif' %}" width="500px" height="331px" /> 
+				<img src="{{ static_url }}images/blank.gif" width="500px" height="331px" /> 
 			</div>
 		
 		    <div class="product-photos-small">
@@ -773,7 +773,7 @@ div.fb-recommend {
 	</div>
 	
 	<div id="shipping" class="info">
-	   <img src="{% staticfile '/images/free-delivery.png' %}"/>
+	   <img src="{{ static_url }}images/free-delivery.png"/>
 	   <span id="shipping-amount">{{ currency.symbol }}{{ currency.postage_discount_threshold }}</span>
 	</div>
 	

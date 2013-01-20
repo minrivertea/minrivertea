@@ -1,8 +1,8 @@
-{% load django_static i18n %}
+{% load i18n %}
 
 
 <div class="info email-signup" id="email-signup">	
-	<img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
+	<img class="loading" src="{{ static_url }}images/loading.gif"/>
 	<h3>{% trans 'Want email updates?' %}</h3>
 	<p>{% trans 'We send news, information and offers to your inbox about twice a month - signup below.' %}</p>
 	<form action="{% url email_signup %}" type="post">

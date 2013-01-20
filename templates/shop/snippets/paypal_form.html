@@ -1,11 +1,11 @@
-{% load django_static i18n convert_weights %}
+{% load i18n convert_weights %}
 
 <form id="paypal" method="post" action="{{ paypal_submit_url }}">
     
     	<div id="checkout-button">
 			<input type="submit" value="{% trans 'Confirm and pay' %}" next="" class="button green"/>
 			<p class="checkout"><strong>{% trans "Next step" %}:</strong> <em>{% trans "pay securely via PayPal, using all major credit and debit cards or your linked Paypal account." %}</em></p>
-			<img id="ppicon" src="{% staticfile '/images/002.gif' %}" class="paypal">
+			<img id="ppicon" src="{{ static_url }}images/002.gif" class="paypal">
 			
 		</div>	
     

@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static thumbnail i18n %}
+{% load thumbnail i18n %}
 
 {% block metadescription %}{{ page.meta_description }}{% endblock %}
 
@@ -30,7 +30,7 @@ $(function() {
 {% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" type="text/css" href="{% staticfile '/css/pages.css' %}">
+<link rel="stylesheet" type="text/css" href="{{ static_url }}css/pages.css">
 <style type="text/css">
 
 #mtw {
@@ -287,24 +287,24 @@ h2 {
         <div class="box trans full triple">
          <div>
             <a href="/blog/how-iron-buddha-tea-is-made-photos/"><span class="link"></span></a>
-            <img src="{% staticfile '/images/learn/home1.jpg' %}" />
+            <img src="{{ static_url }}images/learn/home1.jpg" />
             <h4>{% trans 'Find out how Iron Buddha tea is made.' %}</h4>
          </div>
          <div>
             <a href="/blog/step-by-step-to-making-jasmine-tea/"><span class="link"></span></a>
-            <img src="{% staticfile '/images/learn/home2.jpg' %}" />
+            <img src="{{ static_url }}/images/learn/home2.jpg" />
             <h4>{% trans 'The secrets of Jasmine tea revealed' %}</h4>
          </div>
          <div>
             <a href=""><span class="link"></span></a>
-            <img src="{% staticfile '/images/learn/home3.jpg' %}" />
+            <img src="{{ static_url }}/images/learn/home3.jpg" />
             <h4>{% trans 'Tea and the environment.' %}</h4>
          </div>
         </div>
         
         <div class="box white">
             <a href="/about-fujian-province/"><span class="link"></span></a>
-            <img src="{% staticfile '/images/learn/full-map-wide.jpg' %}" />
+            <img src="{{ static_url }}/images/learn/full-map-wide.jpg" />
             <div class="head">
                 <h3>{% trans 'Where are our teas grown?' %}</h3>
             </div>

@@ -1,8 +1,8 @@
 {% extends base_template %}
-{% load django_static i18n %}
+{% load i18n %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{% staticfile '/css/teas.css' %}"/>
+<link rel="stylesheet" href="{{ static_url }}css/teas.css"/>
 <style type="text/css">
 
 div.tea-promo.small {
@@ -99,7 +99,7 @@ div.text .button {
 		</div>
 		<div class="tea-promo small">
 			<div class="image">
-				<img style="box-shadow: 0 1px 2px #999 inner;" src="{% staticfile '/images/plusone.png' %}">
+				<img style="box-shadow: 0 1px 2px #999 inner;" src="{{ static_url }}images/plusone.png">
 			</div>
 			<div class="text">
 				<h3 style="float:none;">{% trans "Give us a +1" %}</h3>
@@ -121,7 +121,7 @@ div.text .button {
 			<input type="text" name="sender" id="id_sender" title="{% trans 'Your email address' %}" class="clearMeFocus"/> <br/>
 			{% endif %}
 			<input type="text" name="recipient" id="id_recipient" title="{% trans "Your friend's email" %}" class="clearMeFocus" />
-			<p class="help"><img src="{% staticfile '/images/lock.gif' %}">{% trans "We will never share, sell or spam these email addresses" %} (<a target="_blank" title="{% trans 'Read our privacy policy (opens in a new window)' %}" href="/privacy/">{% trans 'Privacy' %}</a>)</p>	
+			<p class="help"><img src="{{ static_url }}images/lock.gif">{% trans "We will never share, sell or spam these email addresses" %} (<a target="_blank" title="{% trans 'Read our privacy policy (opens in a new window)' %}" href="/privacy/">{% trans 'Privacy' %}</a>)</p>	
     		<input type="submit" value="{% trans 'Submit' %}" class="button">
     		    {{ form.sender.errors }}
     		    {{ form.recipient.errors }}        

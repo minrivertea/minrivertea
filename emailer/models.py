@@ -14,7 +14,7 @@ class EmailInstance(models.Model):
     date_sent = models.DateTimeField(blank=True, null=True)
     subject_line = models.CharField(max_length=256)
     copy = models.TextField(help_text="A copy of the original email sent to the customer")
-    template = models.CharField(max_length=200, choices=settings.EMAIL_TEMPLATES)
+    template = models.CharField(max_length=200)
     language = models.CharField(max_length=100, choices=settings.LANGUAGES)
     
 

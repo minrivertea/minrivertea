@@ -15,7 +15,7 @@ def common(request):
     context['paypal_submit_url'] = settings.PAYPAL_SUBMIT_URL
     context['ga_is_on'] = settings.GA_IS_ON
     context['latestblogs'] = BlogEntry.objects.filter(is_draft=False, title__isnull=False).exclude(title__exact="None").order_by('-date_added')[:3]
-    
+    context['static_url'] = settings.STATIC_URL
     context['thumb_large'] = settings.THUMB_LARGE
     context['thumb_home_large'] = settings.THUMB_HOME_LARGE
     context['thumb_medium'] = settings.THUMB_MEDIUM

@@ -1,6 +1,6 @@
-{% load django_static i18n %}
+{% load i18n %}
 
-<div class="info tea" style="background-image: url('{% staticfile '/images/harvest.jpg' %}'); height: 134px;">
+<div class="info tea" style="background-image: url('{{ static_url }}images/harvest.jpg'); height: 134px;">
 	<a href="/how-is-chinese-tea-made/"><span class="link"></span></a>
 	<div class="text">
 		<h3><a href="/how-is-chinese-tea-made/">{% trans 'How is tea made?' %}</a></h3>

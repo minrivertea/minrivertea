@@ -231,7 +231,7 @@ input.button:hover {
 #logo {	 
  width: 390px;
  height: 60px;
- background: url("/images/logo15.jpg") no-repeat scroll top left transparent;
+ background: url("/static/images/logo15.jpg") no-repeat scroll top left transparent;
  float: left;
  margin: 15px 0 10px 0px;
  position: relative;
@@ -295,7 +295,7 @@ input.button:hover {
 }
 
 #userbasket span.basket {
-    background: url("/images/logo15.jpg") no-repeat scroll -273px -65px transparent;
+    background: url("/static/images/logo15.jpg") no-repeat scroll -273px -65px transparent;
     display: block;
     float: left;
     height: 18px;
@@ -306,7 +306,7 @@ input.button:hover {
 }
 
 #userbasket.selected span.basket {
-    background: url("/images/logo15.jpg") no-repeat scroll -250px -65px transparent;
+    background: url("/static/images/logo15.jpg") no-repeat scroll -250px -65px transparent;
     top:-1px;
 }
 
@@ -333,7 +333,7 @@ input.button:hover {
 
 
 #currency a {
-	background: url('/images/logo15.jpg') no-repeat -168px -63px;
+	background: url('/static/images/logo15.jpg') no-repeat -168px -63px;
     color: #333;
     text-align: center;
     float: left;
@@ -767,7 +767,7 @@ p.introduction {
   float: left;
   margin: 0 5px 0 0;
   display: block;
-  background: url('/images/logo15.jpg') no-repeat 0 -61px;;	
+  background: url('/static/images/logo15.jpg') no-repeat 0 -61px;;	
 }
 
 .info.follow a:hover {
@@ -829,7 +829,7 @@ a.atb.large:hover {
 }
 
 a.atb span {
-  background: url('/images/logo15.jpg') top left no-repeat; 
+  background: url('/static/images/logo15.jpg') top left no-repeat; 
   display: block;
   height: 35px;
   width: 30px; 
@@ -839,7 +839,7 @@ a.atb span {
 }
 
 a.atb.large span {
-    background: url("/images/logo15.jpg") no-repeat scroll -354px -62px transparent;
+    background: url("/static/images/logo15.jpg") no-repeat scroll -354px -62px transparent;
     display: block;
     height: 29px;
     width: 32px;

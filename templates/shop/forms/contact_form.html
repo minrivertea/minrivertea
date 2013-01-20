@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static i18n %}
+{% load i18n %}
 
 {% block extracss %}
 <style type="text/css">
@@ -164,7 +164,7 @@ img#loading-contact {
         <h1>{% trans 'Contact us' %}</h1>			
 		<div class="top">
 		
-			<img src="{% staticfile '/images/chris.jpg' %}" style="float:left;margin-right: 30px;">
+			<img src="{{ static_url }}images/chris.jpg" style="float:left;margin-right: 30px;">
 		
 			<div class="white">
 				<p class="nihao"><strong>Nǐ hǎo {% blocktrans %}(that's <em>hello</em> in China!){% endblocktrans %}</strong></p>
@@ -199,7 +199,7 @@ img#loading-contact {
 					{% include 'shop/forms/contact_form_message_snippet.html' %}
 				{% else %}
 	
-				<img id="loading-contact" src="{% staticfile '/images/loading.gif' %}"/>
+				<img id="loading-contact" src="{{ static_url }}images/loading.gif"/>
 				<form action="{% url contact_form_submit %}" method="post" id="contact-form">
 					<h2>{% trans "Send us a message" %}</h2>
 					<p>{% trans "Use our online contact form to send us a message. We respond to all messages within 12 hours." %}</p>			
@@ -211,7 +211,7 @@ img#loading-contact {
 					{{ form.captcha }}
 					<input class="button" value="{% trans 'Submit' %}" type="submit"/>
 					<p class="help-text">
-						<img src="{% staticfile '/images/lock.gif' %}"> 
+						<img src="{{ static_url }}images/lock.gif"> 
 						{% trans "We will never share, sell or spam your email address" %} (<a target="_blank" title="{% trans 'Read our privacy policy (opens in a new window)' %}" href="/privacy/">{% trans 'Privacy' %}</a>)
 					</p>			
 				</form>

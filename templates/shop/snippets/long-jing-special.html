@@ -1,4 +1,4 @@
-   {% load django_static i18n %}
+   {% load i18n %}
     
     <div id="special">
         <a href="" class="atb large">
@@ -7,6 +7,6 @@
         </a>
     
         <a href="/teas/long-jing-green-tea/"><span class="link"></span></a>
-		<img src="{% staticfile '/images/long-jing-promo.jpg' %}"/>
+		<img src="{{ static_url }}images/long-jing-promo.jpg"/>
 		<h2>{% blocktrans %}Fresh and natural <span>Dragon Well tea,</span> picked in April 2012, Hangzhou, China &raquo;{% endblocktrans %}</h2>
 	</div>

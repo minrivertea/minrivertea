@@ -14,6 +14,8 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMultiAlternatives
 from countries import COUNTRY_CHOICES
 
+from ckeditor.fields import RichTextField
+
 
 GREEN = '#177117'
 BLUE = '#1f7dc5'
@@ -458,7 +460,7 @@ class Page(models.Model):
     meta_title = models.CharField(max_length=200, blank=True, null=True)
     meta_description = models.TextField(blank=True, null=True)
     parent = models.ForeignKey('self', blank=True, null=True)
-    content = models.TextField()
+    content = RichTextField()
     promo_image = models.ImageField(upload_to='images/learn', blank=True, null=True)
     feature_image = models.ImageField(upload_to='images/learn', blank=True, null=True)
     template = models.CharField(max_length=200, blank=True, null=True)

@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail django_static i18n %}
+{% load thumbnail i18n %}
 
 {% block metadescription %}{% if product.meta_description %}{{ product.meta_description|safe }}{% else %}{{ product.name }} - {{ product.description|safe }}{% endif %}{% endblock %}
 {% block pagetitle %}{% if not product.meta_title %}{{ product.name }}{% else %}{{ product.meta_title }}{% endif %}{% endblock %}
@@ -71,7 +71,7 @@ $(document).ready( function() {
 {% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{% staticfile '/css/teas.css' %}"/>
+<link rel="stylesheet" href="{{ static_url }}css/teas.css"/>
 <style type="text/css">
 
 #mtw #left {
@@ -700,7 +700,7 @@ div.fb-recommend {
 	<div class="tea-top">
 		<div class="left">
 		<div class="main-image">
-			<img class="loading" src="{% staticfile '/images/loading.gif' %}"/>
+			<img class="loading" src="{{ static_url }images/loading.gif"/>
 			<div id="image_wrap">
 			    {% thumbnail product.image thumb_large crop="center" as im %}
 					<img class="product-small" alt="{{ im.url }}" title="{{ product.description }}" src="{{ im.url }}"/></a>

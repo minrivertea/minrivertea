@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load django_static thumbnail i18n %}
+{% load thumbnail i18n %}
 
 {% block pagetitle %}{% blocktrans with wishlist.owner.first_name as owner %}{{ owner }}'s Chinese tea wishlist - Confirm Order{% endblocktrans %}{% endblock %}
 
@@ -79,7 +79,7 @@ $('input').customInput();
 
 
 {% block extracss %}
-<script src="{% staticfile '/js/customInput.jquery.js' %}" type="text/javascript"></script>
+<script src="{{ static_url }}js/customInput.jquery.js' %}" type="text/javascript"></script>
 <style type="text/css">
 div#mtw {
   margin-top: 30px;	
@@ -191,7 +191,7 @@ ul#items {
   float: left;
   height: 49px;
   width: 49px;
-  background: url('{% staticfile "/images/large_tick2.png" %}') no-repeat top left;
+  background: url('{{ static_url }}images/large_tick2.png" %}') no-repeat top left;
   margin-right: 20px;
   position: relative;
   top: 30px;	
@@ -252,13 +252,13 @@ div#loading img {
 <div id="mtw">
   <div class="sp">
       <div>
-		<img src="{% staticfile '/images/gift.png' %}" style="float: left;margin-right:15px;position:relative;top:-20px;"/>
+		<img src="{{ static_url }}images/gift.png" style="float: left;margin-right:15px;position:relative;top:-20px;"/>
 		{% blocktrans with wishlist.owner.first_name as fn and wishlist.owner.last_name as ln %}<strong>You're looking at <span class="name">{{ fn }} {{ ln }}'s</span> Chinese tea wishlist</strong><br/><span class="grey">Which items would you like to buy for {{ fn }}?</span>{% endblocktrans %}
 	  </div>
 	
 	<div id="basket">
 		<div id="loading">
-			<img id="loading" src="{% staticfile '/images/loading.gif' %}"/>
+			<img id="loading" src="{{ static_url }}images/loading.gif"/>
 		</div>
 		
 	<form id="select-items-form" method="post" action="{% url wishlist_select_items %}">

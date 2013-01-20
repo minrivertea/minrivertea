@@ -10,6 +10,9 @@ from shop.sitemap import ENSitemap, DESitemap
 from blog.models import BlogEntry
 from blog.feeds import LatestEntriesFeed
 from django.utils.translation import ugettext_lazy as _
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 from registration.views import register
 
@@ -35,6 +38,7 @@ urlpatterns = patterns('',
     (r'^admin-stuff/', include('my_admin.urls')),
     (_(r'^blog/'), include('blog.urls')),
     (r'^captcha/', include('captcha.urls')),
+    (r'^ckeditor/', include('ckeditor.urls')),
     (r'^logistics/', include('logistics.urls')),
     (r'^emailer/', include('emailer.urls')),
     (r'^rosetta/', include('rosetta.urls')),
@@ -108,7 +112,10 @@ urlpatterns = patterns('',
     url(r'^(?P<y>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_page"),
     url(r'^(?P<slug>[\w-]+)/$', page, name="page"),
     
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()
+
 
 # logging for SORL - have to put it here because in settings it causes import errors
 import logging
@@ -117,34 +124,3 @@ handler = ThumbnailLogHandler()
 handler.setLevel(logging.ERROR)
 logging.getLogger('sorl.thumbnail').addHandler(handler)
 
-
-# for the development server static files
-urlpatterns += patterns('',
-
-    # CSS, Javascript and IMages
-    (r'^photos/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': settings.MEDIA_ROOT + '/photos',
-        'show_indexes': settings.DEBUG}),
-    (r'^images/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': settings.MEDIA_ROOT + '/images',
-        'show_indexes': settings.DEBUG}),
-    (r'^cache/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': settings.MEDIA_ROOT + '/cache',
-        'show_indexes': settings.DEBUG}),
-    (r'^thumbs/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': settings.MEDIA_ROOT + '/thumbs',
-        'show_indexes': settings.DEBUG}),
-    (r'^css/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': settings.MEDIA_ROOT + '/css',
-        'show_indexes': settings.DEBUG}),
-    # for the fontface CSS trick to work
-    (r'^fonts/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': settings.MEDIA_ROOT + '/fonts',
-        'show_indexes': settings.DEBUG}),
-    (r'^js/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': settings.MEDIA_ROOT + '/js',
-        'show_indexes': settings.DEBUG}),
-    (r'^modeltranslation/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': settings.MEDIA_ROOT + '/modeltranslation',
-        'show_indexes': settings.DEBUG}),
-)
