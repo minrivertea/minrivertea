@@ -468,7 +468,7 @@ class Page(models.Model):
     
     def __unicode__(self):
         return self.title
-    
+        
     def get_root(self):
         
         def _iterator(obj):
@@ -500,6 +500,10 @@ class Page(models.Model):
     
     def get_absolute_url(self):
         url = "/%s/" % self.slug  
+        return url
+    
+    def get_url_by_id(self):
+        url = "/page/%s/" % self.id
         return url
 
     def get_products_mentioned(self):

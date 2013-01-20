@@ -69,7 +69,11 @@ def page(request, slug):
         template = page.template
     teas = _get_products(request, random=True)[:2]
     return _render(request, template, locals())
-   
+
+
+def page_by_id(request, id):
+    this_page = get_object_or_404(Page, pk=id)
+    return page(request, this_page.slug) 
    
    
 # the product listing page

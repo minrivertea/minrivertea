@@ -4,8 +4,8 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, category, review_tea, review_tea_thanks, tea_view, make_product_feed, _changelang, germany, monthly_tea_box
-from shop.utils import _finder
+from shop.views import page, category, review_tea, review_tea_thanks, tea_view, make_product_feed, _changelang, germany, monthly_tea_box, page_by_id
+from shop.utils import _finder, _internal_pages_list
 from shop.sitemap import ENSitemap, DESitemap
 from blog.models import BlogEntry
 from blog.feeds import LatestEntriesFeed
@@ -39,10 +39,13 @@ urlpatterns = patterns('',
     (_(r'^blog/'), include('blog.urls')),
     (r'^captcha/', include('captcha.urls')),
     (r'^ckeditor/', include('ckeditor.urls')),
+    (r'^comments/', include('django.contrib.comments.urls')),
     (r'^logistics/', include('logistics.urls')),
     (r'^emailer/', include('emailer.urls')),
     (r'^rosetta/', include('rosetta.urls')),
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
+    
+    # SITEMAPS, FEEDS AND STATICS
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap_en}),
     (r'^sitemap_de\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap_de}),
     (r'^feeds/latest/$', LatestEntriesFeed()),
@@ -52,13 +55,18 @@ urlpatterns = patterns('',
     (r'^nomonkeys/$', direct_to_template, {'template': 'no_monkeys.html'}),
     (r'^noteaheroics/$', direct_to_template, {'template': 'no_heroics.html'}),
     (r'^noteanazis/$', direct_to_template, {'template': 'no_tea_nazis.html'}),
+    (r'^400/$', direct_to_template, {'template': '404.html'}),
     
-    url(r'^changelang/(?P<code>[\w-]+)/$', _changelang, name="changelang"),
-    (r'^400/$', direct_to_template, {'template': '404.html'}),  
-    (r'^comments/', include('django.contrib.comments.urls')), 
     
+    # random specific URLs that must appear here
+    url(r'^changelang/(?P<code>[\w-]+)/$', _changelang, name="changelang"),    
     url(r'^de/$', germany, name="germany"),
     url(r'^DE/$', germany, name="germany"),
+    url(r'^view_internal_pages/$', _internal_pages_list, name="internal_pages_list"),
+    
+    
+    # get objects by ID urls
+    url(r'^page/(?P<id>[\w-]+)/$', page_by_id, name="page_by_id"),
     
     
     

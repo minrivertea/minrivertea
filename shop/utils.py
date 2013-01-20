@@ -301,3 +301,17 @@ def  weight_converter(weight):
      weight = round((weight / 28.75), 1)
      return weight
 
+@login_required
+def _internal_pages_list(request):
+    
+    pages = Page.objects.all()
+    products = Product.objects.all()
+    categories = Category.objects.all()
+    from blog.models import BlogEntry
+    blogs = BlogEntry.objects.all()
+    
+    import itertools
+    objects = itertools.chain(pages, products, categories, blogs)
+    
+    return _render(request, 'my_admin/internal_pages_list.html', locals())
+

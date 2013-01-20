@@ -1,0 +1,30 @@
+
+<html>
+<head>
+<title>Link to CMS Page</title>
+
+<script  language="JavaScript">
+<!-- 
+function AddLink(txtLink) 
+{
+    var dialog = window.opener.CKEDITOR.dialog.getCurrent();
+        dialog.setValueOf('info','url',txtLink);  // Populates the URL field in the Links dialogue.
+        dialog.setValueOf('info','protocol','');  // This sets the Link's Protocol to Other which loads the file from the same folder the link is on
+        window.close(); // closes the popup window
+} 
+-->
+</script>
+</head>
+
+<body>
+<h3>Internal Links</h3>
+
+<ul>
+{% for x in objects %}
+    <li><a href="JavaScript:AddLink('{{ x.get_url_by_id }}')">{{ x }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
+

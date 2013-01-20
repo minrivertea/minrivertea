@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail django_static comments i18n %}
+{% load thumbnail django_static comments i18n convert_links %}
 
 {% block metadescription %}{{ entry.summary|safe }}{% endblock %}
 {% block pagetitle %}{{ entry.title }}{% endblock %}
@@ -212,7 +212,7 @@ p.quote {
     	<h1>{{ entry.title }}</h1>
     	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="#commentsa">{% blocktrans with comment_count|pluralize as plural %}{{ comment_count }} comment{{ plural }}{% endblocktrans %}</a></p>	
     
-    	{{ entry.content|safe }}
+    	{{ entry.content|safe|convert_links }}
     			
     			
     	<div id="comments">
