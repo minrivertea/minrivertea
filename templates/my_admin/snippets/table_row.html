@@ -38,10 +38,10 @@
 			   <a href="{% url admin_product item.unique_product.parent_product.id %}">{{ item.unique_product }}</a>
 			 </li>
 		{% endfor %}
-        {% if x.is_preorder %}
-            <strong>This is a preorder - not enough stocks</strong>
-        {% endif %}
 		</ul>
+		{% if x.is_preorder %}
+            <span class="red"><strong>This is a preorder.</strong></span>
+        {% endif %}
 	</td>
 	<td class="value" valign="top">
 			{{ order.get_amount|floatformat:"2" }} {{ order.get_currency.code }}
