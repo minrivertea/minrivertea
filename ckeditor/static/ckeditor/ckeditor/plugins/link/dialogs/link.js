@@ -17,16 +17,16 @@ return G?G.replace(/\s*(?:cke_anchor_empty|cke_anchor)(?:\s*$)?/g,''):'';};var D
             id : 'browse',
             hidden : 'true',
             filebrowser : 'info:url',
-            label : 'Link to File'  // See Note 1 
+            label : 'Link to File' 
         },
         {
             type : 'button',
              id : 'browseInternal',
-             label : 'Internal Page',    // See Note 2
+             label : 'Internal Page',
              filebrowser :
              {
                  action : 'Browse',
-                 url : '/view_internal_pages/'    // See Note 3
+                 url : '/view_internal_pages/'
              }
          }
     ]

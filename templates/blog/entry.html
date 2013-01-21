@@ -212,7 +212,7 @@ p.quote {
     	<h1>{{ entry.title }}</h1>
     	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="#commentsa">{% blocktrans with comment_count|pluralize as plural %}{{ comment_count }} comment{{ plural }}{% endblocktrans %}</a></p>	
     
-    	{{ entry.content|safe|convert_links }}
+    	{{ entry.content|convert_links|safe }}
     			
     			
     	<div id="comments">
