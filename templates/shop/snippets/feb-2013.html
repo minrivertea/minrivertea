@@ -1,0 +1,7 @@
+   {% load i18n %}
+    
+    <div id="special">    
+        <a href="{% url tea_view 'jasmine-pearls' %}"><span class="link"></span></a>
+		<img src="{{ static_url }}images/homepage/home-promo-feb-2013-2.jpg"/>
+		<h2>{% url tea_view 'jasmine-pearls' as url %}{% blocktrans %}Green tea, lovingly hand rolled and scented with natural Jasmine flowers. <a href="{{ url }}">Try our Jasmine Pearls now &raquo;</a>{% endblocktrans %}</h2>
+	</div>

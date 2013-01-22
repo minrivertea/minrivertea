@@ -41,8 +41,6 @@ def index(request):
     today = datetime.today()
     next_week = (datetime.today() + timedelta(weeks=5))
     
-    
-    
     monthly_packages = CustomerPackage.objects.filter(shipping_due_date__range=(today, next_week), posted__isnull=True).order_by('-created')
     
     return _render(request, "my_admin/home.html", locals())

@@ -8,12 +8,7 @@
 
 {% block extrajs %}
 <script type="text/javascript">
-    $('#special').hover( function() {
-        $('#opener').fadeOut(100);
-        $('#special img, #click, #punchline, h2').animate({
-            opacity: 1,    
-        }, 400);
-    });
+
 </script>
 {% endblock %}
 
@@ -197,51 +192,22 @@ h1 {
    box-shadow: 0 1px 3px #e1e1e1;   
 }
 
-#special #opener {
-  position: absolute;
-  top: 40%;
-  left: 25%;
-  font-size: 40px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  letter-spacing: -1px;
-  color: #FF6569;
-}
-
 #special h2 {
-    top: 20px;
-    color: #b5410d;
-    font-size: 28px;
+    bottom: 10px;
+    color: #999999;
+    font-size: 22px;
     font-weight: normal;
-    right: 30px;
-    text-align: right;
     letter-spacing: -1px;
     margin: 5px 0 10px;
     position: absolute;
-    opacity: 0;
-}
-
-#special h2 span {
-    color: #237A2A;
-}
-
-#special #punchline {
-    top: 20px;
-    color: #FF6569;
-    font-size: 28px;
-    font-weight: normal;
-    right: 30px;
+    right: 40px;
     text-align: right;
-    letter-spacing: -1px;
-    margin: 5px 0 10px;
-    position: absolute;
-    opacity: 0;
+    text-shadow: 0 1px 1px #FFFFFF;
 }
 
 #special img {
   float: left;
   margin-right: 20px;
-  opacity: 0.1;	
 }
 
 #special #click {
@@ -423,7 +389,7 @@ ul.rss {
 
     <h1>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h1>
     
-    {% include "shop/snippets/jan-2013.html" %}
+    {% include "shop/snippets/feb-2013.html" %}
 
 
 	<div id="benefits">

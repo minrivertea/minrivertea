@@ -133,8 +133,14 @@ def _create_customer_package(order):
                 
                 except: 
                     # otherwise, create a warehouse item (because there's none in stock)               
+                    up = get_object_or_404(UniqueProduct, 
+                        currency__code='GBP', 
+                        parent_product=x.item.parent_product,
+                        weight=x.item.weight,    
+                    )
+                    
                     wh_item = WarehouseItem.objects.create(
-                        unique_product=x.item,
+                        unique_product=up,
                         hashkey=uuid.uuid1().hex,
                         created=datetime.datetime.now(),
                         batch='TEMP',
