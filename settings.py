@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'logistics',
     'emailer',
     'ckeditor',
+    'django_static',
 #    'debug_toolbar',
 )
 
