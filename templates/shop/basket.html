@@ -247,15 +247,11 @@ input#id_discount_code {
 }
 
 #basket-full .coming-soon {
-    background-color: #FFFFFF;
     float: left;
+    color: red;
     font-size: 13px;
     height: auto;
-    padding: 7px 12px;
-    position: absolute;
-    right: -140px;
-    top: 15px;
-    width: 120px;
+    width: 600px;
 }
 
 .coming-soon:after {
@@ -335,9 +331,6 @@ input#id_discount_code {
 	{% for thing in basket_items %}
 	  <div class="basket-row">
 	  
-	    {% if thing.item.stocks.count == 0 or thing.item.stocks == None %}
-	    	<div class="coming-soon">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}<strong>NOTE:</strong> this item has been pre-ordered and will be delivered on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
-	    {% endif %}
 		<div class="tea-name">
 			{% thumbnail thing.item.parent_product.image thumb_small crop="center" as im %}
 			<img src="{{ im.url }}"/>
@@ -371,6 +364,9 @@ input#id_discount_code {
 		     </li>
 		    </ul>
 		</div>
+		{% if thing.item.stocks.count == 0 or thing.item.stocks == None %}
+	    	<div class="coming-soon">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}<strong>NOTE:</strong> this item is a pre-order and will be delivered separately on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
+	    {% endif %}
 		
 	  </div>
 	{% endfor %}
