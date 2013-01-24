@@ -98,7 +98,6 @@ INSTALLED_APPS = (
     'blog',
     'sorl.thumbnail',
     'paypal.standard.ipn',
-    'django_static',
     'registration',
 #    'ab',
 #    'django_mobile',
@@ -117,12 +116,6 @@ INSTALLED_APPS = (
 
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-# django-static info
-DJANGO_STATIC = True
-DJANGO_STATIC_SAVE_PREFIX = '/tmp/cache-forever'
-DJANGO_STATIC_NAME_PREFIX = '/cache-forever'
-DJANGO_STATIC_MEDIA_URL = 'http://static.minrivertea.com'
 
 # MAIL SETTINGS
 # -----------------------------------------------

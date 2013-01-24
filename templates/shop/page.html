@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail nav_selected %}
+{% load thumbnail nav_selected convert_links %}
 
 {% block aboutselected %}selected{% endblock %}
 
@@ -61,7 +61,7 @@ $(function() {
 
 	<div id="left">
 
-		{{ page.content|safe }}
+		{{ page.content|convert_links|safe }}
 	
 	</div>
 	

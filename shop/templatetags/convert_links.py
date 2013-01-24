@@ -18,6 +18,7 @@ def get_new_url(match):
 
 @register.filter(name='convert_links')
 def convert_links(text):
+    """ This converts a link_by_id into a slug - it's a helper for WYSIWYG linking """
     url_pattern = re.compile(r'/page/\d+/')
     new_text = url_pattern.sub(get_new_url, text)
     return new_text

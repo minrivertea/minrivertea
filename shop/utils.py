@@ -51,12 +51,29 @@ def _get_country(request):
     apikey = settings.IPINFO_APIKEY 
     ip = request.META.get('REMOTE_ADDR')
     baseurl = "http://api.ipinfodb.com/v3/ip-country/?key=%s&ip=%s&format=json" % (apikey, ip)
-    urlobj = urllib2.urlopen(baseurl)
     
-    # get the data
-    data = urlobj.read()
-    urlobj.close()
-    datadict = simplejson.loads(data)
+    try:
+        urlobj = urllib2.urlopen(baseurl)
+        # get the data
+        data = urlobj.read()
+        urlobj.close()
+    except URLError:
+        # if there's a timeout or something, fuckit - just return dummy USA data
+        data = {
+        	"statusCode" : "OK",
+        	"statusMessage" : "",
+        	"ipAddress" : "74.125.45.100",
+        	"countryCode" : "US",
+        	"countryName" : "UNITED STATES",
+        	"regionName" : "CALIFORNIA",
+        	"cityName" : "MOUNTAIN VIEW",
+        	"zipCode" : "94043",
+        	"latitude" : "37.3956",
+        	"longitude" : "-122.076",
+        	"timeZone" : "-08:00"
+        }
+
+    datadict = simplejson.loads(data)    
     return datadict
 
 
@@ -197,7 +214,7 @@ def _finder(request, x=None, y=None, z=None, slug=None):
     categories = []
     pages = []
     
-    # IF IT HAS 2 PARTS TO THE URL IT COULD BE A PRODUCT - CHECK THIS FIRST
+    #  PRODUCTS - IF IT HAS 2 PARTS TO THE URL IT COULD BE A PRODUCT
     if z and slug and not y:
         
         for l in settings.LANGUAGES:
@@ -228,7 +245,7 @@ def _finder(request, x=None, y=None, z=None, slug=None):
 
 
 
-    # CATEGORIES FIRST - DOES THE SLUG MATCH A CATEGORY?
+    # CATEGORIES - DOES THE SLUG MATCH A CATEGORY?
     for l in settings.LANGUAGES:
         try:
             activate(l[0])
@@ -283,9 +300,10 @@ def _finder(request, x=None, y=None, z=None, slug=None):
         return page(request, slug=slug)
     
 
-
-    return HttpResponseNotFound()
-
+    raise Http404
+    return
+    
+    
 def _get_monthly_price(price, months):
     
     discount_amount = float(price) * float(settings.MONTHLY_ORDER_DISCOUNT)
