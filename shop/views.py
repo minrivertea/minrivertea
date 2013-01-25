@@ -81,7 +81,7 @@ def category(request, slug):
     curr = _get_currency(request)
     if slug == _('teas'):
         products = None
-        category = None
+        category = get_object_or_404(Category, slug=slug)
         special = get_object_or_404(UniqueProduct, parent_product__slug=_('buddhas-hand-oolong-tea'), currency=curr)
         categories = Category.objects.filter(parent_category__slug=slug)
         for c in categories:
