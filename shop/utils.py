@@ -57,7 +57,7 @@ def _get_country(request):
         # get the data
         data = urlobj.read()
         urlobj.close()
-    except URLError:
+    except:
         # if there's a timeout or something, fuckit - just return dummy USA data
         data = {
         	"statusCode" : "OK",
