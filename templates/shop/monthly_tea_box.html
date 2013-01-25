@@ -14,47 +14,25 @@
 
 {% block extrajs %}
 <script>
-$(function() {
-
-$(".scrollable").scrollable();
-
-$(".items img").click(function() {
-
-	if ($(this).hasClass("active")) { return; }
-	var url = $(this).attr("alt");
-	var wrap = $("#image_wrap").fadeTo("medium", 0.2);
-
-	var img = new Image();
-    
-	img.onload = function() {
-		wrap.fadeTo("fast", 1);
-		wrap.find("img").attr("src", url);	
-	};
-
-	img.src = url;
-
-	$(".items img").removeClass("active");
-	$(this).addClass("active");
-
-}).filter(":first").click();
-});
 
 function addToBasket(idx) {
-   $('a#add_to_basket_' + idx).click( function() {
-   	  $('#price_' + idx).css('opacity', '0.5');
-   	  $('#price_' + idx + ' .message').replaceWith('<div class="message"></div>').toggle();
-   	  $('#price_' + idx + ' div.message').fadeIn(200);
+   $('#'+idx+' a.up').click( function() {
+   	  $('#'+idx).css('opacity', '0.5');
    	  $.ajax({
-   	      url: '/basket/add/' + idx,
+   	      url: '/basket/add/'+idx+'/monthly/12/',
    	      type: "GET",
-   	      data: "xhr=true&id=" + idx,
    	      dataType: 'json',
    	      success: function(data){
-
-    		$("#basket-number").replaceWith('<span id="basket-number">(' + data.quantity + ')</span>');
-    		$('.description').css('opacity', '0.4').delay(3900).queue(function() {$(this).css('opacity', '1')});
-            $('#price_' + idx + ' .message').append(data.item).delay(3800).fadeOut(1200);
-            $('#price_' + idx).css('opacity', '1');
+              $('#quantity .p').text(parseFloat(data).toFixed(2));
+              $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+              if ($('#'+idx+' .quantity').length) {
+                $('#'+idx+' .quantity .num').html(parseInt($('#'+idx+' .quantity .num').html(), 10)+1);
+              } else {
+                 $('#'+idx).append('<span class="quantity"><span class="num">1</span> in basket!</span>');
+              }
+              $('#'+idx).animate({'opacity': '1'}, 200);
+              $('#'+idx+' .quantity').addClass('flash').delay(3900).queue(function() {$(this).removeClass('flash')});
+              
   		  }
    	  })
    	  return false;
@@ -62,8 +40,9 @@ function addToBasket(idx) {
 }
 
 $(document).ready( function() {
-    addToBasket({{ price.id }});
-    addToBasket({{ big_price.id }});
+    {% for x in products %}
+    addToBasket({{ x.price.id }});
+    {% endfor %}
 });
 
 
@@ -576,14 +555,18 @@ div.fb-recommend {
   width: 650px;
   height: auto;
   background: #fff;
-  padding: 10px;
+  padding: 15px;
   margin: 0 10px 10px 0;
   position: relative;
 }
 
+#monthly #products .product:hover {
+  box-shadow: 0 1px 5px #d1d1d1;   
+}
+
 #monthly #products img {
   float: left;
-  margin: 0 20px 0 0;
+  margin: 0 30px 0 0;
 }
 
 #monthly #products h4 {
@@ -599,20 +582,19 @@ div.fb-recommend {
 
 #monthly #products p {
   float: left;
-  font-size: 15px;
   width: 330px;
   padding: 0;
   margin: 0;
 }
 
 #monthly #products .product .price {
-  margin: 0;
-  width: 385px;
-  float: left;
-  position: absolute;
-  bottom: 10px;
-  left: 270px;
-  font-size: 14px;
+    bottom: 10px;
+    float: left;
+    font-size: 14px;
+    left: 285px;
+    margin: 0;
+    position: absolute;
+    width: 380px;
 }
 
 #monthly p.price span.amount {
@@ -631,6 +613,7 @@ div.fb-recommend {
     padding: 2px 10px;
     position: absolute;
     right: 0;
+    text-decoration: none;
 }
 
 #monthly p.price a.up:hover {
@@ -652,6 +635,11 @@ div.fb-recommend {
     text-shadow: 0 1px 1px #fff;
 }
 
+#monthly p.price span.num {
+   color: inherit;
+   font: inherit;   
+}
+
 #monthly p.price span.quantity:before {
     border-color: transparent #E1ECF3 transparent -moz-use-text-color;
     border-style: solid solid solid none;
@@ -662,6 +650,16 @@ div.fb-recommend {
     left: -16px;
     top: 0;
 }
+
+#monthly p.price span.quantity.flash {
+  background: #fff;   
+}
+
+
+#monthly p.price span.quantity.flash:before {
+   border-color: transparent #fff transparent -moz-use-text-color;
+}
+
 
 #monthly p.price span.amount span.grey {
     color: #777777;
@@ -727,12 +725,11 @@ div.fb-recommend {
 	               <img src="{{ im.url }}" />
 	           {% endthumbnail %}
 	               <h4><a href="{{ x.get_absolute_url }}">{{ x.name }} ({{ x.price.weight }}{{ x.price.weight_unit }}) &raquo;</a></h4>
-	               
 	               <p>{{ x.description }}</p>
-	               <p class="price">
+	               <p class="price" id="{{ x.price.id }}">
 	                   <span class="amount">{{ currency.symbol }}{{ x.monthly_price|floatformat:"2" }} <span class="grey">/ 12 months</span></span>
 	                   <a class="up" href="{% url add_to_basket_monthly x.price.id 12 %}">Add to TeaBox</a>
-	                   {% if x.quantity > 0 %}<span class="quantity">{{ x.quantity }} in basket!</span>{% endif %}
+	                   {% if x.quantity > 0 %}<span class="quantity"><span class="num">{{ x.quantity }}</span> in basket!</span>{% endif %}
 	               </p>
 	           </div>
 	       {% endfor %}
@@ -741,26 +738,6 @@ div.fb-recommend {
 	
 	<div class="left">
 	   {{ product.long_description|safe }}
-	</div>
-
-	
-	<div id="recommended">
-	   <h3>{% trans 'Also recommended...' %}</h3>
-	   {% for x in recommended %}
-		  <div class="info trans">
-		      <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
-		      {% thumbnail x.image thumb_medium crop="center" as im %}
-		      <img src="{{ im.url }}"/>
-		      {% endthumbnail %}
-		      <div class="text">
-		          <span class="price">
-		              <strong>{{ currency.symbol }}{{ x.price.price|floatformat }}</strong>
-		              {% if x.price.weight %} / {{ x.price.weight }}{{ x.price.weight_unit }}{% endif %}
-		          </span> 
-    		      <h3><a href="{{ x.get_absolute_url }}">{{ x.name }} &raquo;</a></h3>
-		      </div>
-		  </div>
-	   {% endfor %}
 	</div>
 
 	

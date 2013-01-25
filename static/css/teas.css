@@ -84,16 +84,14 @@ span.message img {
 .tag {
     left: 0px;
     margin: 0;
-    padding: 0;
     position: absolute;
     text-decoration: none;
-    top: -3px;
     z-index: 0;
 }
 
 .tag {
   width: 300px;
-  height: 13px; 
+  height: 10px; 
   -webkit-transform: rotate(-45deg); 
   -moz-transform: rotate(-45deg); 
   -o-transform: rotate(-45deg); 
@@ -101,9 +99,9 @@ span.message img {
   background: #1e70cb;
   display: block;
   position: absolute;
-  top: 45px;
-  left: -110px;
-  padding: 10px;
+  top: 49px;
+  left: -101px;
+  padding: 6px 6px 8px;
 }
 
 .tag.pink {
@@ -138,67 +136,9 @@ span.message img {
   width: 100%;
 }
 
-.tea-promo {
-    float: left;
-    margin: 0 30px 20px 0px;
-    padding: 15px;
-    position: relative;
-    width: 680px;
-    background-color: #fff;
-    overflow: hidden;
-}
-
-.tea-promo.last {
-  margin-right: 0;	
-}
-
-.tea-promo div.image {
-    float: left;
-    margin-right: 30px;
-    width: 240px;
-}
 
 
-.tea-promo:hover {
-  box-shadow: 0 0px 8px #e1e1e1;
-  cursor: pointer;
-}
 
-.tea-promo div.text {
-  width: 400px;
-  float: left;	
-}
-
-div#main-text-wide div#left .tea-promo div.text p {
-  margin: 0 0 0 0;	
-}
-
-.tea-promo span.link {
-  position:absolute;
-  width:100%; 
-  height:100%; 
-  top:0; 
-  left: 0; 
-  z-index: 1;	
-}
-
-.tea-promo h3 {
-    font-size: 20px;
-    font-weight: bold;
-    font-family: Helvetica, Arial, sans-serif;
-    float: right;
-    letter-spacing: -0.5px;
-    margin: 0;
-}
-
-.tea-promo p {
-    margin: 0;
-}
-
-.tea-promo p.reviews {
-  color: #333;
-  font-size: 13px;
-}
 
 p.price span {
     color: #439249;
@@ -267,8 +207,6 @@ a.more {
     float: right;
     font-family: Helvetica,Arial,sans-serif;
     font-size: 12px;
-    margin: 5px 0 0;
-    padding: 15px 5px 5px;
     text-align: right;
     width: 100%;
 }

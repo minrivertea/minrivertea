@@ -41,5 +41,12 @@ urlpatterns = patterns('',
     url(r'^not-me/$', views.not_you, name="not_you"),
     url(r'^currency/$', utils._set_currency, name="set_currency"),
     
+    # get objects by ID urls
+    url(r'^page/(?P<id>[\w-]+)/$', views.page_by_id, name="page_by_id"),
+    url(r'^product/(?P<id>[\w-]+)/$', views.product_by_id, name="product_by_id"),
+    url(r'^category/(?P<id>[\w-]+)/$', views.category_by_id, name="category_by_id"),
+
+    
+    
 )
 

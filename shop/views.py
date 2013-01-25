@@ -102,6 +102,10 @@ def category(request, slug):
             
     return _render(request, "shop/category.html", locals())
 
+def category_by_id(request, id):
+    cat = get_object_or_404(Category, pk=id)
+    return category(request, cat.slug)
+
 
 def germany(request):
     _set_currency(request, 'EUR')
@@ -124,6 +128,7 @@ def sale(request):
 
 # view for a single product
 def tea_view(request, slug):
+    
     try:
         added = request.session['ADDED']
     except:
@@ -148,31 +153,19 @@ def tea_view(request, slug):
         return monthly_tea_box(request)
     
     recommended = _get_products(request, random=True, exclude=tea.id)[:3]
-    
     price = tea.get_lowest_price(_get_currency(request))
-    
-    try:
-        big_price = UniqueProduct.objects.filter(
-            parent_product=tea, 
-            is_active=True, 
-            is_sale_price=False, 
-            currency=_get_currency(request),
-            weight=500,
-        )[0]
-    except:
-        big_price = None
     
     try:
         monthly_price = _get_monthly_price(price, settings.MONTHLY_ORDER_MINIMUM_MONTHS)
     except:
         monthly_price = None
-    
-    try:
-        review = Review.objects.filter(product=tea)[0]
-    except:
-        pass
 
     return _render(request, "shop/tea_view.html", locals())
+
+def product_by_id(request, id):
+    product = get_object_or_404(Product, pk=id)
+    return tea_view(request, product.slug)
+
 
 def monthly_tea_box(request):
     
@@ -206,12 +199,12 @@ def contact_form_submit(request, xhr=None):
     return HttpResponseRedirect(url)       
    
 # function for adding stuff to your basket
-def add_to_basket(request, productID):
-    uproduct = get_object_or_404(UniqueProduct, id=productID)
+def add_to_basket(request, id):
+    uproduct = get_object_or_404(UniqueProduct, pk=id)
     basket = _get_basket(request)
      
     try:
-        item = get_object_or_404(BasketItem, basket=basket, item=uproduct)
+        item = get_object_or_404(BasketItem, basket=basket, item=uproduct, monthly_order=False)
         item.quantity += 1
     except:
         item = BasketItem.objects.create(item=uproduct, quantity=1, basket=basket)
@@ -242,7 +235,8 @@ def add_to_basket(request, productID):
             item_description = uproduct.parent_product.name
             
         message = _('<p><span class="tick">&#10003;</span><strong>1 x %(item)s</strong> added to your basket!<br/><br/> <a href="/basket/"><strong>Checkout now &raquo;</strong></a></p>') % {'item':item_description}
-        data = {'quantity': basket_quantity, 'item': message}
+        num = '%.2f' % float(RequestContext(request)['basket_amount'])
+        data = {'quantity': basket_quantity, 'item': message, 'basket_amount': num}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
@@ -263,6 +257,10 @@ def add_to_basket_monthly(request, productID, months):
         item = BasketItem.objects.create(item=uproduct, quantity=1, basket=basket, monthly_order=True, months=months)
         
     item.save()
+    
+    if request.is_ajax():
+        num = '%.2f' % float(RequestContext(request)['basket_amount'])
+        return HttpResponse(num)
     
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
@@ -329,8 +327,8 @@ def basket(request):
     
     total_price = 0
     for item in chain(basket_items, monthly_items):
-        price = item.get_price()
-        total_price += price
+        price = float(item.get_price())
+        total_price += float(price)
         if item.monthly_order:
             item.item.weight = item.item.weight * item.quantity
     

@@ -7,6 +7,7 @@ import logging
 from datetime import datetime, timedelta
 from urlparse import urlparse
 from django.utils import translation
+from django.core.urlresolvers import reverse
 
 from slugify import smart_slugify
 from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
@@ -101,6 +102,10 @@ class Product(models.Model):
     
     def get_absolute_url(self):
         return "/%s/%s/" % (self.category.slug, self.slug)
+    
+    def get_url_by_id(self):
+        url = "/product/%s/" % self.id
+        return url
 
     def get_lowest_price(self, currency):
         try:
@@ -139,6 +144,10 @@ class Category(models.Model):
     
     def get_absolute_url(self):
         return "/%s/" % self.slug
+
+    def get_url_by_id(self):
+        url = reverse('category_by_id', args=[self.id])
+        return url
     
     def get_sub_categories(self):
         subs = Category.objects.filter(parent_category=self)
@@ -176,7 +185,10 @@ class UniqueProduct(models.Model):
             sold__isnull=True, 
             location=WarehouseItem.UK,
             unique_product__currency__code='GBP')
-        return stocks 
+        if len(stocks) > 0:
+            return stocks 
+        else:
+            return None
     
     def get_saving(self):
         if self.is_sale_price:
@@ -250,7 +262,7 @@ class Address(models.Model):
         
 class Basket(models.Model):
     date_modified = models.DateTimeField()
-    owner = models.ForeignKey(Shopper, null=True) #can delete this
+    owner = models.ForeignKey(Shopper, null=True) # TODO can delete this
     
     def __unicode__(self):
         return str(self.date_modified)
@@ -266,10 +278,14 @@ class BasketItem(models.Model):
     months = models.IntegerField(blank=True, null=True)
     
     def get_price(self):
-        price = self.quantity * self.item.price
+        
         if self.monthly_order:
             from utils import _get_monthly_price
-            price = _get_monthly_price(price, self.months)
+            price = _get_monthly_price(self.item, self.months)
+        else:
+            price = self.item.price
+            
+        price = self.quantity * price
         return price
         
         

@@ -4,7 +4,7 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, category, review_tea, review_tea_thanks, tea_view, make_product_feed, _changelang, germany, monthly_tea_box, page_by_id
+from shop.views import page, category, review_tea, review_tea_thanks, tea_view, make_product_feed, _changelang, germany, monthly_tea_box
 from shop.utils import _finder, _internal_pages_list
 from shop.sitemap import ENSitemap, DESitemap
 from blog.models import BlogEntry
@@ -65,8 +65,7 @@ urlpatterns = patterns('',
     url(r'^view_internal_pages/$', _internal_pages_list, name="internal_pages_list"),
     
     
-    # get objects by ID urls
-    url(r'^page/(?P<id>[\w-]+)/$', page_by_id, name="page_by_id"),
+    
     
     
     

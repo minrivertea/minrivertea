@@ -34,4 +34,9 @@ def blog_entry(request, slug):
     other_entries = BlogEntry.objects.filter(title__isnull=False).exclude(id=entry.id, title__exact="None").order_by('?')[:2]
     teas = _get_products(request, random=True)[:2]
     return _render(request, "blog/entry.html", locals())
+
+
+def blog_by_id(request, id):
+    blog = get_object_or_404(Blog, pk=id)
+    return blog_entry(request, blog.slug)
   

@@ -57,9 +57,10 @@ def _get_country(request):
         # get the data
         data = urlobj.read()
         urlobj.close()
+        datadict = simplejson.loads(data)
     except:
         # if there's a timeout or something, fuckit - just return dummy USA data
-        data = {
+        datadict = {
         	"statusCode" : "OK",
         	"statusMessage" : "",
         	"ipAddress" : "74.125.45.100",
@@ -73,7 +74,6 @@ def _get_country(request):
         	"timeZone" : "-08:00"
         }
 
-    datadict = simplejson.loads(data)    
     return datadict
 
 
@@ -304,16 +304,16 @@ def _finder(request, x=None, y=None, z=None, slug=None):
     return
     
     
-def _get_monthly_price(price, months):
+def _get_monthly_price(unique_product, months):
     
-    if price.parent_product.category.slug == _('teaware'):
+    if unique_product.parent_product.category.slug == _('teaware'):
         return None
     
-    discount_amount = float(price.price) * float(settings.MONTHLY_ORDER_DISCOUNT)
-    price = float(price.price) - float(discount_amount)
-    price = float(price) * months
+    discount_amount = float(unique_product.price) * float(settings.MONTHLY_ORDER_DISCOUNT)
+    price = float(unique_product.price) - float(discount_amount)
+    total_price = float(price) * months
     
-    return price
+    return total_price
 
 def  weight_converter(weight):
      weight = round((weight / 28.75), 1)
@@ -325,11 +325,10 @@ def _internal_pages_list(request):
     pages = Page.objects.all()
     products = Product.objects.all()
     categories = Category.objects.all()
+    
     from blog.models import BlogEntry
     blogs = BlogEntry.objects.all()
     
-    import itertools
-    objects = itertools.chain(pages, products, categories, blogs)
     
     return _render(request, 'my_admin/internal_pages_list.html', locals())
 

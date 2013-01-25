@@ -2,7 +2,9 @@
 
 {% include 'shop/boxes/who.html' %}
 
-{% include 'shop/boxes/tea.html' %}
+{% for t in teas %}
+{% include 'shop/snippets/product_small.html' %}
+{% endfor %}
 
 {% include 'shop/boxes/follow.html' %}
 

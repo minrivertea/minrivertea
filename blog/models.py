@@ -19,6 +19,10 @@ class BlogEntry(models.Model):
         
     def get_absolute_url(self):
         return "/blog/%s/" % self.slug # important! do not change (for feeds)
+
+    def get_url_by_id(self):
+        url = "/blog/%s/" % self.id
+        return url
      
     def get_content(self):
         return self.summary

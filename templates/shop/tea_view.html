@@ -50,7 +50,8 @@ function addToBasket(idx) {
    	      data: "xhr=true&id=" + idx,
    	      dataType: 'json',
    	      success: function(data){
-
+            $('#quantity .p').text(parseFloat(data.basket_amount).toFixed(2));
+              $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
     		$("#basket-number").replaceWith('<span id="basket-number">(' + data.quantity + ')</span>');
     		$('.description').css('opacity', '0.4').delay(3900).queue(function() {$(this).css('opacity', '1')});
             $('#price_' + idx + ' .message').append(data.item).delay(4800).fadeOut(1200);
@@ -184,7 +185,7 @@ div.product-photos-small p {
 
 .tea-top .price {
     float: left;
-    margin: 0;
+    margin: 0 0 10px;
     position: relative;
     width: 360px;
 }
@@ -356,7 +357,7 @@ span.name {
   font-size: 14px;   
 }
 
-.amount {
+#prices .amount {
     color: #237A2A;
     float: left;
     font-family: Helvetica,Arial,sans-serif;
@@ -423,7 +424,7 @@ div.fb-recommend {
   margin: 0px 0 0 0;   
 }
 
-#recommended h3 {
+#recommended h3.title {
   font-size: 24px;
   font-family: Helvetica, Arial, sans-serif;
   font-weight:bold;  
@@ -431,48 +432,8 @@ div.fb-recommend {
   color: #FF6569;
 }
 
-#recommended .text .price {
-  width: auto;
-  color: #777;
-  font-weight: normal;
-  margin-left: 0;   
-}
 
-#recommended .price strong {
-  color: #333;   
-}
 
-#recommended .info {
-  margin: 0 15px 20px 0;   
-  height: 235px;
-  width: 225px;
-  background: #fff;
-  border: 10px solid #E1ECF3;
-}
-
-#recommended .info.trans {
-  margin: 0 15px 19px 0;
-  padding: 0px;   
-  width: auto;
-  height: 160px;
-  border-color: #fff;
-}
-
-#recommended .info .text {
-   width: 230px;
-   background: #fff;
-   padding: 3px 5px 0;
-   float: left;
-   position: absolute;
-   bottom: 0;
-}
-
-#recommended .info .text h3 {
-  text-align: right;
-  color: #6a9bba;
-  font-size: 13px;
-  margin: 6px 0 0 0;
-}
 
 #image_wrap {
     display: block;
@@ -805,21 +766,9 @@ div.fb-recommend {
 	{% endif %}
 	
 	<div id="recommended">
-	   <h3>{% trans 'Also recommended...' %}</h3>
-	   {% for x in recommended %}
-		  <div class="info trans">
-		      <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
-		      {% thumbnail x.image thumb_medium crop="center" as im %}
-		      <img src="{{ im.url }}"/>
-		      {% endthumbnail %}
-		      <div class="text">
-		          <span class="price">
-		              <strong>{{ currency.symbol }}{{ x.price.price|floatformat:"-2" }}</strong>
-		              {% if x.price.weight %} / {% convert_weights request x.price.weight %}{{ weight_unit }}{% endif %}
-		          </span> 
-    		      <h3><a href="{{ x.get_absolute_url }}">{{ x.name }} &raquo;</a></h3>
-		      </div>
-		  </div>
+	   <h3 class="title">{% trans 'Also recommended...' %}</h3>
+	   {% for t in recommended %}
+            {% include 'shop/snippets/product_small.html' %}		  
 	   {% endfor %}
 	</div>
 

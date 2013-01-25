@@ -174,7 +174,9 @@ ul.rss #facebook p {
 	<div id="right">
 		{% include 'shop/boxes/follow.html' %}
 		{% include 'shop/boxes/email.html' %}
-		{% include 'shop/boxes/tea.html' %}		
+		{% for t in teas %}
+		  {% include 'shop/snippets/product_small.html' %}
+		{% endfor %}	
 	</div>
 
 	<div id="left">

@@ -14,14 +14,44 @@ function AddLink(txtLink)
 } 
 -->
 </script>
+
+<style type="text/css">
+ul {
+  float: left;
+  width: 200px;
+  margin: 0 20px 0 0;   
+}
+</style>
+
 </head>
 
 <body>
-<h3>Internal Links</h3>
 
 <ul>
-{% for x in objects %}
-    <li><a href="JavaScript:AddLink('{{ x.get_url_by_id }}')">{{ x }}</li>
+   <h3>Pages</h3>
+{% for x in pages %}
+    <li><a href="JavaScript:AddLink('{{ x.get_url_by_id }}')">{{ x }}</a></li>
+{% endfor %}
+</ul>
+
+<ul>
+   <h3>Products</h3>
+{% for x in products %}
+    <li><a href="JavaScript:AddLink('{{ x.get_url_by_id }}')">{{ x }}</a></li>
+{% endfor %}
+</ul>
+
+<ul>  
+<h3>Blog Entries</h3>
+{% for x in blogs %}
+    <li><a href="JavaScript:AddLink('{{ x.get_url_by_id }}')">{{ x }}</a></li>
+{% endfor %}
+</ul>
+
+<ul>
+<h3>Categories</h3>
+{% for x in categories %}
+    <li><a href="JavaScript:AddLink('{{ x.get_url_by_id }}')">{{ x }}</a></li>
 {% endfor %}
 </ul>
 

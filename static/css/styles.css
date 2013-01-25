@@ -203,6 +203,15 @@ input.button:hover {
   text-decoration: underline;	
 }
 
+span.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;	
+}
+
 /* typography */
 
 
@@ -660,11 +669,11 @@ p.introduction {
 .info p {
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 
-.info.email-signup, .info.tea, .info.photo {
+.info.email-signup, .info.photo {
   background-color: transparent;
   border: none;
   padding: 0 0px;
@@ -713,39 +722,94 @@ p.introduction {
   color: #666;	
 }
 
+
+/* NORMAL SMALL PRODUCT BOX */
+
 .info.tea {
-  margin-bottom: 40px;
-  padding: 10px;
-  background: #fff;
+    float: left;
+    margin: 0 15px 15px 0;
+    border: none;
+    width: 240px;
+    background: #fff;
+    padding: 10px 10px 10px;
+    position: relative;
 }
 
-.info.tea span.link, span.link {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 10;	
+.info.tea:hover {
+  box-shadow: 0 1px 5px #d1d1d1;   
 }
 
-.info.tea:hover .text h3 a {
+.info.tea:hover img {
+  opacity: 0.9;   
+}
+
+.info.tea span.price {
+    color: #777777;
+    float: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    margin: 6px 0 0 5px;
+}
+
+.info.tea span.price .amount {
+  color: #333;
+  font-weight: bold;   
+}
+
+.info.tea:hover h3 a {
 	color: #FF6569;
 }
 
-.info.tea .text {
-  position: absolute;
-  top: 170px;
-  left: 0px;
-  padding: 5px 10px;
-  background-color: #fff;
-  width: 240px;
-  margin-bottom: 0px;	
+.info.tea h3 {
+    margin: 5px 3px 0px 0px;
+    letter-spacing: -0.5px;
+    padding: 0;
+    float: right;
+    font-size: 15px;
 }
 
-.info.tea .text h3 {
-  margin: 6px 0 3px;
-  float: right;	
-  font-size: 14px;
+/* LONG PRODUCT BOX */
+
+.info.tea.long {
+  width: 700px; 
+  overflow: hidden;
+  padding: 15px;
+  margin: 0 0 20px 0;  
+}
+
+.info.tea.long.last {
+  margin-right: 0;	
+}
+
+.info.tea.long .image {
+    float: left;
+    margin-right: 20px;
+    width: 240px;
+}
+
+.info.tea.long .text {
+    float: left;
+    position: static;
+    width: 400px;
+    padding-top: 0;
+}
+
+.info.tea.long h3 {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
+    letter-spacing: -0.5px;
+    margin: 0;
+    float: none;
+}
+
+.info.tea.long:hover {
+  background: #fff;
+  border: none;   
+}
+
+.info.tea.long p {
+  font-size: 16px;   
 }
 
 .info.bio img {
@@ -1298,15 +1362,6 @@ span.red {
 #right .did-you-know p, .did-you-know-p {
   font-size: 11px;
   margin: 0;	
-}
-
-.did-you-know span.link {
-  position:absolute;
-  width:100%; 
-  height:100%; 
-  top:0; 
-  left: 0; 
-  z-index: 1;		
 }
 
 .did-you-know:hover {

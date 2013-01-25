@@ -36,7 +36,7 @@ div#basket-full {
 }
 
 div#basket-full img {
-    box-shadow: 0 1px 2px #999999;
+    border: 5px solid #FFFFFF;
 }
 
 .basket-row {
@@ -261,22 +261,6 @@ input#id_discount_code {
     width: 600px;
 }
 
-.coming-soon:after {
-   content: " ";
-   display: block;
-   width: 0;
-   height: 0;
-   border-top: 12px solid transparent;     
-   border-left: 0;
-   border-bottom: 12px solid transparent;
-   border-right: 12px solid #fff;
-   position: absolute;
-   top: 5px;
-   left: -12px;
-   z-index: 2;
-}
-
-
 
 #sub-basket {
     width: 900px;
@@ -366,8 +350,8 @@ input#id_discount_code {
 		    <ul>
 		     <li>
 		      <a class="remove" title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" href="{% url remove_from_basket thing.id %}">X</a>
-		      <a class="plus" href="{% url increase_quantity thing.item.id %}">&#x25B2;</a>
-		      {% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.item.id %}">&#x25BC;</a>{% endifequal %}
+		      <a class="plus" href="{% url increase_quantity thing.id %}">&#x25B2;</a>
+		      {% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.id %}">&#x25BC;</a>{% endifequal %}
 		     </li>
 		    </ul>
 		</div>
@@ -470,6 +454,7 @@ input#id_discount_code {
 		<div class="label">{% trans 'Total' %}:</div><div class="total">{{ currency.symbol }}{{ total_price|floatformat:"-2" }}</div>
 	</div>
     </div> <!-- ENDS basket-full div -->
+
 
 	<br clear="all"/>
 	  	<div id="checkout-button">		
