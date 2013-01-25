@@ -19,7 +19,7 @@
 			
 			<div id="price-helper"> 
 		        {% if p.price.stocks.count > 0 %}
-		          <div class="stocks"><strong>{{ currency.symbol }}{{ p.price.price|floatformat:"2" }}</strong> / {% if p.price.weight %}{% convert_weights request p.price.weight %}{{ weight_unit }}{% else %}{{ p.price.description }}{% endif %}</div>
+		          <div class="stocks"><strong>{{ currency.symbol }}{{ p.price.price|floatformat:"-2" }}</strong> / {% if p.price.weight %}{% convert_weights request p.price.weight %}{{ weight_unit }}{% else %}{{ p.price.description }}{% endif %}</div>
 		          <div class="price">
 		              <a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" href="{% url add_to_basket p.price.id %}" class="" id="add_to_basket_{{ p.price.id }}">{% trans 'Add 1 to basket' %} +</a><br/>
 		              {% if p.basket_quantity %}{{ p.basket_quantity }} {% trans 'already in basket' %}{% endif %}

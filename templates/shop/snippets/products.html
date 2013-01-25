@@ -21,7 +21,7 @@
 	   	    <img alt="a picture of {{ p.name }} tea" title="{{ p.name }} tea - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
 	   	    {% endthumbnail %}
 	      </div>
-	      <span class="price"><span class="amount">{{ currency.symbol }}{{ p.price.price|floatformat }}</span> / {{ p.price.weight }}{{ p.price.weight_unit }}</span>
+	      <span class="price"><span class="amount">{{ currency.symbol }}{{ p.price.price|floatformat:"-2" }}</span> / {{ p.price.weight }}{{ p.price.weight_unit }}</span>
 	      
 	      <h3>
 	   	   <a title="{{ p.name }} - {% trans 'find out more or order some now!' %}" href="{{ p.get_absolute_url }}">

@@ -407,7 +407,7 @@ ul.rss {
     				    <h3><a href="{{ r.get_absolute_url }}">{{ r.name }}</a> &raquo;</h3>
     				    <p>{{ r.description }}</p> 				       
  				        <div id="price-helper">
- 				           <div class="stocks"><strong>{{ currency.symbol }}{{ r.price.price|floatformat }}</strong> {% if r.price.weight %}/ {% convert_weights request r.price.weight %}{{ weight_unit }}{% endif %}</div>
+ 				           <div class="stocks"><strong>{{ currency.symbol }}{{ r.price.price|floatformat:"-2" }}</strong> {% if r.price.weight %}/ {% convert_weights request r.price.weight %}{{ weight_unit }}{% endif %}</div>
  				           <div class="stocks"><strong>{{ r.stocks.count }}</strong> {% trans 'in stock now!' %}</div>
 		                   <div><a href="{{ r.get_absolute_url }}">{% trans 'Click for more info' %} &raquo;</a></div>      
  				        </div>
@@ -421,7 +421,7 @@ ul.rss {
 						<img alt="{{ r.description }}" src="{{ im.url }}"/>
 					</a>
 				    {% endthumbnail %}
-				    <span class="price"><span class="amount">{{ currency.symbol }}{{ r.price.price|floatformat }}</span> {% if r.price.weight %}/ {% convert_weights request r.price.weight %}{{ weight_unit }}{% endif %}
+				    <span class="price"><span class="amount">{{ currency.symbol }}{{ r.price.price|floatformat:"-2" }}</span> {% if r.price.weight %}/ {% convert_weights request r.price.weight %}{{ weight_unit }}{% endif %}
 				    </span>
 				    <h3><a href="{{ r.get_absolute_url }}">{{ r.name }}</a> &raquo;</h3>
 				</div>
@@ -466,7 +466,7 @@ ul.rss {
 	           {% thumbnail x.image thumb_medium crop="center" as im %}
 	               <img src="{{ im.url }}"/>
 	           {% endthumbnail %}
-	           <span class="price"><strong>{{ currency.symbol }}{{ x.price.price|floatformat }}</strong></span>
+	           <span class="price"><strong>{{ currency.symbol }}{{ x.price.price|floatformat:"-2" }}</strong></span>
 	           <h3><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></h3>
 	       </div>	  
 	       {% endfor %}

@@ -717,7 +717,7 @@ div.fb-recommend {
 		      <div id="price_{{ price.id }}" class="price">
 		      	<div class="message"></div>
 		      	{% if price.is_sale_price %}
-		      	   <div id="original"><span>On Sale Now!</span> Was <strong>{{ currency.symbol }}{{ price.old_price|floatformat:"2" }}</strong>, save <strong>{{ currency.symbol }}{{ price.get_saving }}</strong></div>
+		      	   <div id="original"><span>On Sale Now!</span> Was <strong>{{ currency.symbol }}{{ price.old_price|floatformat:"-2" }}</strong>, save <strong>{{ currency.symbol }}{{ price.get_saving }}</strong></div>
 		      	{% endif %}
 		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
 		    	     <span class="price-description">/ {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %}<br/>
@@ -796,7 +796,7 @@ div.fb-recommend {
     	   </div>
     
     	   <div class="price">
-    	       <span>{{ currency.symbol }}{{ monthly_price|floatformat:"2" }} <span class="grey">/ {% trans '12 months' %}</span></span>
+    	       <span>{{ currency.symbol }}{{ monthly_price|floatformat:"-2" }} <span class="grey">/ {% trans '12 months' %}</span></span>
     	       <a href="{% url add_to_basket_monthly price.id 12 %}" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
     	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'More teas for your TeaBox' %} &raquo;</a>
     	   </div>
@@ -814,7 +814,7 @@ div.fb-recommend {
 		      {% endthumbnail %}
 		      <div class="text">
 		          <span class="price">
-		              <strong>{{ currency.symbol }}{{ x.price.price|floatformat:"2" }}</strong>
+		              <strong>{{ currency.symbol }}{{ x.price.price|floatformat:"-2" }}</strong>
 		              {% if x.price.weight %} / {% convert_weights request x.price.weight %}{{ weight_unit }}{% endif %}
 		          </span> 
     		      <h3><a href="{{ x.get_absolute_url }}">{{ x.name }} &raquo;</a></h3>
