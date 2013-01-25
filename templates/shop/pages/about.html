@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail i18n %}
+{% load thumbnail i18n convert_links %}
 
 {% block aboutselected %}selected{% endblock %}
 
@@ -178,7 +178,7 @@ ul.rss #facebook p {
 	</div>
 
 	<div id="left">
-		{{ page.content|safe }}
+		{{ page.content|convert_links|safe }}
 	</div>
 
   	    {% if ga_is_on %} 

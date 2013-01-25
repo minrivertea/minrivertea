@@ -320,7 +320,7 @@ a.more {
 }
 
 #prices .button.green span.basket {
-    background: url("/images/logo15.jpg") no-repeat scroll -424px -63px transparent;
+    background: url("/static/images/logo15.jpg") no-repeat scroll -424px -63px transparent;
     display: block;
     float: left;
     height: 28px;

@@ -16,6 +16,7 @@ def load_template_source(template_name, template_dirs=None,
         return template_loader(test_template_name, template_dirs=template_dirs)
     except:
         return template_loader(template_name, template_dirs=template_dirs)
+
 load_template_source.is_usable = True
         
         

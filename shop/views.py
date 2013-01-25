@@ -502,7 +502,7 @@ def order_step_one(request, basket=None):
             request.session['ORDER_ID'] = order.id  
  
             # FINALLY! WE'RE DONE
-            return HttpResponseRedirect('/order/confirm') 
+            return HttpResponseRedirect(reverse('order_confirm')) 
         
         # IF THE FORM HAS ERRORS:
         else:

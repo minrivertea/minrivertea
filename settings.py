@@ -42,6 +42,7 @@ STATICFILES_DIRS = (
 
 TEMPLATE_LOADERS = (
 #    'ab.loaders.load_template_source',
+#    'django.template.loaders.filesystem.load_template_source',
 #    'django_mobile.loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -111,12 +112,13 @@ INSTALLED_APPS = (
     'logistics',
     'emailer',
     'ckeditor',
-    'django_static',
+#    'django_static', # CAN BE DELETED
 #    'debug_toolbar',
 )
 
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+APPEND_SLASH = True
 
 # MAIL SETTINGS
 # -----------------------------------------------

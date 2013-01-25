@@ -73,29 +73,25 @@ urlpatterns = patterns('',
     url(_(r'^tea-boxes/monthly-tea-box/$'), monthly_tea_box, name="monthly_tea_box"),
     
     
-    # test category/page resolver
-    url(r'^(?P<slug>[\w-]+)/$', _finder, name="finder"),
-    url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
+    # Category + Page resolver
+    url(r'^(?P<slug>[\w-]+)/?$', _finder, name="finder"),
+    url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/?$', _finder, name="finder"),
     url(r'^(?P<category>[\w-]+)/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
     url(r'^(?P<category>[\w-]+)/(?P<slug>[\w-]+)/review/thanks/$', review_tea_thanks, name="review_tea_thanks"),
-    url(r'^(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
-    url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
+    url(r'^(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/?$', _finder, name="finder"),
+    url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/?$', _finder, name="finder"),
     
     
     
     # urls for the products/categories
 
     url(_(r'^tea-boxes/$'), category, name="tea_boxes"),
-
     url(r'^tasters/$', category, name="tasters"),
     url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    
     url(_(r'^teaware/$'), category, name="teaware"),
     url(_(r'^teaware/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-    
     url(_(r'^oolong-tea/$'), category, name="oolong_tea"),
     url(_(r'^oolong-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
     url(_(r'^red-tea/$'), category, name="red_tea"),
     url(_(r'^red-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 

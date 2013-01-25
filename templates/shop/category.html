@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail django_static nav_selected i18n %}
+{% load thumbnail nav_selected i18n %}
 
 {% block metadescription %}{{ category.meta_description }}{% endblock %}
 
@@ -337,7 +337,7 @@ span.price .amount {
 		</div>
 		
 		<div class="info long">
-			<img src="{% staticfile '/images/packaging-square.jpg' %}">
+			<img src="{{ static_url }}images/packaging-square.jpg">
 			<a href="/packaging/" class="link"></a>
 			<h3>{% trans 'Our packaging' %}</h3>
 			<p>{% trans "It's simple, good for the environment, and protects your tea." %} <br/>
