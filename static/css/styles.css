@@ -60,6 +60,7 @@ p {
     color: #000;
     font-size: 16px;
     line-height: 1.6em;
+    letter-spacing: -0.2px;
 }
 
 div.left p {
@@ -115,6 +116,7 @@ a {
 
 a:link, a:visited {
   color: #237A2A;
+  text-decoration: underline;
 }
 
 a:hover, a:active {
@@ -151,10 +153,15 @@ ol {
     text-shadow: 0 1px 1px #fff;
     text-align: center;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .button:hover {
   box-shadow: 0 1px 4px #999;	
+}
+
+h3 a:link, h3:visited, h4 a:link, h4 a:visited, h2 a:link, h2 a:visited {
+  text-decoration: none;   
 }
 
 input.button, #comments div#comment-form input.submit-post {
@@ -182,7 +189,8 @@ input.button:hover {
     text-shadow: none;
     box-shadow: none;
     border-top: ;
-    color: #fff; 	
+    color: #fff; 
+    text-decoration: none;	
 }
 
 .button.green:hover, input.button.green:hover {
@@ -311,7 +319,12 @@ input.button:hover {
 }
 
 #userbasket a {
-  font-weight: bold;   
+  font-weight: bold;  
+  text-decoration: none; 
+}
+
+#language a, #currency a {
+  text-decoration: none;   
 }
 
 #currency {
@@ -413,6 +426,7 @@ ul#nav li a, ul#nav li a:link, ul#nav li a:visited  {
     font-size: 13px;
     position: relative;
     width: auto;
+    text-decoration: none;
 }
 
 ul#nav li a.grey {
@@ -477,6 +491,7 @@ ul#nav li a.selected:before {
   color: #666;
   font-family: Helvetica, sans-serif;
   font-weight: bold;
+  text-decoration: none;
 }
 
 #subnav li a:hover {
@@ -1519,6 +1534,10 @@ button.next:hover {
   margin-top: 0;
 }
 
+#footer a:link, #footer a:visited {
+  text-decoration: none;   
+}
+
 #footer p.copyright {
  float: left;
  width: 100%;
@@ -1530,7 +1549,7 @@ button.next:hover {
   margin-right: 40px;
   margin-top: 0px;
   float: left;
-  width: 260px;
+  width: 240px;
 }
 
 .footer-box.learn input {
@@ -1542,10 +1561,6 @@ button.next:hover {
   margin-left: 5px;
   position: relative;
   top: -1px;   
-}
-
-.footer-box.about {
-  margin-right: 0;
 }
 
 .footer-box.learn {
@@ -1590,7 +1605,8 @@ a#harvest {
    text-align: right;
    width: 100%;
    text-align: center;
-   color: #59849f;   
+   color: #59849f; 
+   text-decoration: none;  
 }
 
 a#harvest:hover {

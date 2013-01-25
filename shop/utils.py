@@ -306,8 +306,11 @@ def _finder(request, x=None, y=None, z=None, slug=None):
     
 def _get_monthly_price(price, months):
     
-    discount_amount = float(price) * float(settings.MONTHLY_ORDER_DISCOUNT)
-    price = float(price) - float(discount_amount)
+    if price.parent_product.category.slug == _('teaware'):
+        return None
+    
+    discount_amount = float(price.price) * float(settings.MONTHLY_ORDER_DISCOUNT)
+    price = float(price.price) - float(discount_amount)
     price = float(price) * months
     
     return price
