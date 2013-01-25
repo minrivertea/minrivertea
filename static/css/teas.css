@@ -311,12 +311,14 @@ a.more {
 #price-helper a {
   font-size: 13px;	
   font-weight: bold;
+  text-decoration: none;
 }
 
 #price-helper span.not-in-stock {
-  font-size: 16px;
-  color: #FF6569;	
-  text-align: left;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
 }
 
 #prices .button.green span.basket {
