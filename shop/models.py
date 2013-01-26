@@ -532,12 +532,11 @@ class Page(models.Model):
         
 
 # signals to connect to receipt of PayPal IPNs
-
 def show_me_the_money(sender, **kwargs):
     ipn_obj = sender
     order = get_object_or_404(Order, invoice_id=ipn_obj.invoice)
     
-    # this prevents double emails being sent...
+    # PREVENTS DUPLICATES
     if order.status == Order.STATUS_PAID:
         return
     
@@ -546,11 +545,8 @@ def show_me_the_money(sender, **kwargs):
     order.is_paid = True
     order.save()
     
-    
     from logistics.views import _create_customer_package
     _create_customer_package(order)
-
-    
     
     # if it was a WISHLIST payment...
     if order.wishlist_payee:
@@ -575,7 +571,7 @@ def payment_flagged(sender, **kwargs):
     ipn_obj = sender
     order = get_object_or_404(Order, invoice_id=ipn_obj.invoice)
     
-    # this prevents double emails being sent...
+    # PREVENTS DUPLICATES
     if order.status == Order.STATUS_PAYMENT_FLAGGED:
         return
     

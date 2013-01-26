@@ -163,21 +163,49 @@ h1 {
 }
 
 #special:hover {
-   box-shadow: 0 1px 3px #e1e1e1;   
+   box-shadow: 0 1px 5px #d1d1d1;   
+}
+
+#special:hover #price a {
+  color: #FF6569;   
+}
+
+#special #price {
+  font-family: Helvetica, arial, sans-serif;
+  color: #777;   
+  letter-spacing: -1px;
+  position: absolute;
+  right: 30px;
+  bottom: 18px;
+  text-align: right;
+  font-size: 20px;
+  line-height: 1.2em;
+}
+
+#special #price span {
+  font-weight: bold;
+  color: #333;   
+}
+
+#special #price a {
+  font-weight: bold;
+  font-size: 18px; 
+  letter-spacing: -0.5px;  
 }
 
 #special h2 {
-    bottom: 10px;
+    bottom: 18px;
     color: #999999;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: normal;
-    letter-spacing: -1px;
-    margin: 5px 0 10px;
+    letter-spacing: -0.5px;
+    margin: 0;
+    width: 350px;
     position: absolute;
-    right: 40px;
-    text-align: right;
+    left: 30px;
     text-shadow: 0 1px 1px #FFFFFF;
 }
+
 
 #special img {
   float: left;
@@ -240,17 +268,34 @@ ul.rss {
 #about {
   width: 100%;
   float: left;
-  margin: 30px 0 0;   
+  margin: 30px 0;   
+}
+
+#about .info.follow {
+  border: none;
+  background: none;
+  padding: 0; 
+  width: auto;
+  margin: 10px 0 0 0;  
+}
+
+#about .info.follow h3 {
+  float: left;
+  position: relative;
+  top: 8px;
+  margin-right: 20px;
+  font-size: 18px;
+  color: #FF6569;
 }
 
 #about img {
   float: left;
-  margin: 0 10px 10px 0;   
+  margin: 10px 0 0;   
 }
 
 #about #text {
   float: left;
-  width: 45%;
+  width: 490px;
   margin: 0 40px 0 0;  
 }
 
@@ -417,6 +462,7 @@ ul.rss {
 	   <div id="text">
 	   <h2>{% blocktrans %}A big <em>ni hao</em> from China!{% endblocktrans %}</h2>
 	   <p>{% blocktrans %}<strong>We are one of the only tea companies actually based in China.</strong> Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! <strong>We're able to sell better teas at lower prices</strong> because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="/about/">{% trans 'Find out more about us' %} &raquo;</a></p>
+       {% include 'shop/boxes/follow.html' %}
        </div>
        <img src="{{ static_url }}images/homepage/home-about.jpg" />
 	</div>

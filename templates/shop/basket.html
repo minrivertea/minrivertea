@@ -375,7 +375,6 @@ input#id_discount_code {
 	                   <a href="{% url tea_view x.item.parent_product.slug %}">
 	                       {{ x.item.parent_product }}
 	                   </a> 
-	                   ({% convert_weights request x.item.weight %}{{ weight_unit }}) 
 	               </li>
                 {% endfor %}
             </ul>
@@ -383,7 +382,7 @@ input#id_discount_code {
         <div class="tea-quantity monthly">
             <ul>
                 {% for x in monthly_items %}
-                    <li>{{ x.months }} {% trans 'months' %}</li>
+                    <li>{{ x.months }} {% trans 'months' %} / {% convert_weights request x.item.weight %}{{ weight_unit }}</li>
             {% endfor %}
            </ul>
         </div>

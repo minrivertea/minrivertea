@@ -50,6 +50,10 @@ function addToBasket(idx) {
    	      data: "xhr=true&id=" + idx,
    	      dataType: 'json',
    	      success: function(data){
+            if ($('#userbasket').hasClass('selected')) {} else {
+                 $('#userbasket').addClass('selected'); 
+                 $('#userbasket #quantity').append('<br/><a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+            }
             $('#quantity .p').text(parseFloat(data.basket_amount).toFixed(2));
               $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
     		$("#basket-number").replaceWith('<span id="basket-number">(' + data.quantity + ')</span>');
@@ -250,6 +254,33 @@ div.price-text {
     position: relative;
     top: -4px;
     width: 200px;
+}
+
+#stocks {
+  float: left;
+  width: 365px;
+  padding: 15px 0 0 0;
+  border-top: 1px solid #e1e1e1; 
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 13px;
+  text-align: right;  
+}
+
+#stocks div {
+  float: left;
+  width: auto;
+  text-align: center;
+  padding: 0 10px;
+  color: #555; 
+  border-right: 1px solid #e1e1e1;   
+}
+
+#stocks div:last-child {
+  border-right: none;   
+}
+
+#stocks div strong {
+  color: #32607d;   
 }
 
 div.message {
@@ -686,19 +717,19 @@ div.fb-recommend {
 				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
               </div>
 
-		      <div id="price-helper"> 
+		      <div id="stocks"> 
 		        {% if price.stocks.count > 0 %}
 		          <div class="stocks">{% blocktrans with price.stocks.count as tsc %}<strong>{{ tsc }}</strong> in stock{% endblocktrans %}</div>
 		          <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
         	    {% else %}
-       	          <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong></span>
+       	          <span class="not-in-stock">{% trans 'Order now and get this on' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong></span>
         	      <br/>{% trans "We're restocking, so delivery will take longer than usual." %}</a>
 			   {% endif %}
 		      </div>
 
 
 		{% else %}
-    		  <div id="price-helper">        
+    		  <div id="stocks">        
             	<span class="not-in-stock">{% trans 'This tea is not currently available for sale.' %}</span>
     		  </div>	
 		{% endif %}

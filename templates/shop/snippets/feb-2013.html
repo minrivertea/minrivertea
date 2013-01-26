@@ -1,7 +1,8 @@
-   {% load i18n %}
+{% load i18n convert_weights %}
     
     <div id="special">    
-        <a href="{% url tea_view 'jasmine-pearls' %}"><span class="link"></span></a>
+        <a href="{% url tea_view special.parent_product.slug %}"><span class="link"></span></a>
 		<img src="{{ static_url }}images/homepage/home-promo-feb-2013-2.jpg"/>
-		<h2>{% url tea_view 'jasmine-pearls' as url %}{% blocktrans %}Green tea, lovingly hand rolled and scented with natural Jasmine flowers. <a href="{{ url }}">Try our Jasmine Pearls now &raquo;</a>{% endblocktrans %}</h2>
+		<span id="price"><span>{{ currency.symbol }}{{ special.price }}</span> / {% convert_weights request special.weight %}{{ weight_unit }}<br/> <a href="">Try our Jasmine Pearls out now &raquo;</a></span>
+		<h2>{% blocktrans with special.parent_product.get_absolute_url as url  %}Green tea, lovingly hand rolled and scented with natural Jasmine flowers.{% endblocktrans %}</h2>
 	</div>

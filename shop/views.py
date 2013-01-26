@@ -53,6 +53,7 @@ def index(request):
     curr = _get_currency(request)
     teas = _get_products(request)[:5]
     teaware = _get_products(request, cat=_('teaware'))[:3]
+    special = get_object_or_404(UniqueProduct, parent_product__slug=_('jasmine-pearls'), currency=curr, weight=100)
             
     return _render(request, "shop/home.html", locals())
 

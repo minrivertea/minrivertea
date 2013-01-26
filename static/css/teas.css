@@ -245,14 +245,13 @@ a.more {
     width: auto;
 }
 
-
 #price-helper a {
   font-size: 13px;	
   font-weight: bold;
   text-decoration: none;
 }
 
-#price-helper span.not-in-stock {
+#stocks span.not-in-stock, #price-helper .not-in-stock {
     color: red;
     font-size: 14px;
     font-weight: bold;

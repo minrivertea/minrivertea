@@ -23,6 +23,10 @@ function addToBasket(idx) {
    	      type: "GET",
    	      dataType: 'json',
    	      success: function(data){
+              if ($('#userbasket').hasClass('selected')) {} else {
+                 $('#userbasket').addClass('selected');
+                 $('#userbasket #quantity').append('<br/><a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+              }
               $('#quantity .p').text(parseFloat(data).toFixed(2));
               $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
               if ($('#'+idx+' .quantity').length) {

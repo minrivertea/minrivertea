@@ -26,7 +26,7 @@
 		          </div> 
 		          <div><a href="{% url tea_view p.slug %}">{% trans 'Read more' %} &raquo;</a></div>      
         	    {% else %}
-       	          <span class="not-in-stock">{% trans 'Pre-order now and get this on' %} <strong>{{ p.get_preorder_date|date:"d M Y" }}</strong></span>
+       	          <span class="not-in-stock">{% trans 'Order now and get this on' %} <strong>{{ p.get_preorder_date|date:"d M Y" }}</strong></span>
         	      <br/>{% trans "We're restocking, so delivery will take longer than usual." %}</a>
 			   {% endif %}
 		      </div>
