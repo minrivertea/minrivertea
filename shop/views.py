@@ -765,10 +765,13 @@ def order_confirm(request):
     shopper = order.owner
     order_items = order.items.all() 
     
+    regular_items = order.items.exclude(monthly_order=True)
+    monthly_items = order.items.filter(monthly_order=True)
+        
     # work out the price
     total_price = 0
     for item in order_items:
-        total_price += item.get_price()
+        total_price += float(item.get_price())
         
     currency = _get_currency(request)
     

@@ -278,15 +278,14 @@ class BasketItem(models.Model):
     months = models.IntegerField(blank=True, null=True)
     
     def get_price(self):
-        
         if self.monthly_order:
             from utils import _get_monthly_price
             price = _get_monthly_price(self.item, self.months)
         else:
             price = self.item.price
             
-        price = self.quantity * price
-        return price
+        total = self.quantity * price
+        return total
         
         
     def __unicode__(self):
