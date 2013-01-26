@@ -755,19 +755,25 @@ div.fb-recommend {
     </div>
 	{% endif  %}
 	
+	{% if tea.long_description %}
 	<div id="long-description">
 	   <h3>{% trans 'More about this product' %}</h3>
 	   {{ tea.long_description|safe }}
 	</div>
+	{% endif %}
 	
+	{% if tea.extra_info %}
 	<div id="brew">
 	   {{ tea.extra_info|safe }}
 	</div>
+	{% endif %}
 	
+	{% if tea.extra_info or tea.long_description or tea.map_image %}
 	<div id="shipping" class="info">
 	   <img src="{{ static_url }}images/free-delivery.png"/>
 	   <span id="shipping-amount">{{ currency.symbol }}{{ currency.postage_discount_threshold }}</span>
 	</div>
+	{% endif %}
 	
 	
 	<br clear="all"/>
