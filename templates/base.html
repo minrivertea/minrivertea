@@ -128,7 +128,13 @@ if (15.00) {
 
 
 <body>	 
- 	 	
+
+<div id="messages">
+    <div class="sp">
+        <span id="close">x</span>
+    </div>
+</div>
+
 <div id="header">
 	<div class="sp">
 	   	<div id="logo">
@@ -204,11 +210,18 @@ if (15.00) {
 				}
 			});
 		
-		 $('#currency').hover(function() {
-		    $(this).animate({top: '0px',}, 150);
-		 }, function() {
-		    $(this).animate({top: '-40px',}, 100);
-		 });
+            /// HANDLES THE CURRENCY ROLLDOWN
+    		 $('#currency').hover(function() {
+    		    $(this).animate({top: '0px',}, 150);
+    		 }, function() {
+    		    $(this).animate({top: '-40px',}, 100);
+    		 });
+    		 
+    		/// HANDLES THE MESSAGE-CLOSE BUTTON
+    		$('#messages #close').click( function() {
+    		   $('#messages').slideUp();
+    		   $('#messages .message').remove();
+    		});
 		 
 					
 		});

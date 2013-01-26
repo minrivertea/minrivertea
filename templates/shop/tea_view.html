@@ -40,26 +40,36 @@ $(".items img").click(function() {
 });
 
 function addToBasket(idx) {
-   $('a#add_to_basket_' + idx).click( function() {
-   	  $('#price_' + idx).css('opacity', '0.5');
-   	  $('#price_' + idx + ' .message').replaceWith('<div class="message"></div>').toggle();
-   	  $('#price_' + idx + ' div.message').fadeIn(200);
+   $(idx).click( function() {
+   	  
+      $('#messages').slideDown(100);
    	  $.ajax({
-   	      url: '/basket/add/' + idx,
+   	      url: $(this).attr('href'),
    	      type: "GET",
-   	      data: "xhr=true&id=" + idx,
    	      dataType: 'json',
    	      success: function(data){
+            
+            /// increment the values in the header basket
             if ($('#userbasket').hasClass('selected')) {} else {
                  $('#userbasket').addClass('selected'); 
                  $('#userbasket #quantity').append('<br/><a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
             }
-            $('#quantity .p').text(parseFloat(data.basket_amount).toFixed(2));
-              $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
-    		$("#basket-number").replaceWith('<span id="basket-number">(' + data.quantity + ')</span>');
-    		$('.description').css('opacity', '0.4').delay(3900).queue(function() {$(this).css('opacity', '1')});
-            $('#price_' + idx + ' .message').append(data.item).delay(4800).fadeOut(1200);
-            $('#price_' + idx).css('opacity', '1');
+            $('#quantity .p').text(parseFloat(data.basket_quantity).toFixed(2));
+            $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+    		
+    		/// add the message
+    		if ($('#messages .message').length) {
+    		    $('#messages .message .num').html(parseInt($('#messages .message .num').html(), 10)+1);
+   		        $('#messages .message .num').addClass('active');
+    		} else {    		
+        		$('#messages .sp').append('<div class="message"><img src="{{ static_url }}images/loading.gif" /></div>');
+        		$('#messages .message img:visible').remove();
+        		$('#messages .message').append(data.message).delay(5900).queue(function() {
+        		      $(this).css('opacity', '1');
+        		      $('#messages').slideUp(200);
+        		      $('#messages .message').remove();
+        		});
+    		}
   		  }
    	  })
    	  return false;
@@ -67,8 +77,8 @@ function addToBasket(idx) {
 }
 
 $(document).ready( function() {
-    addToBasket({{ price.id }});
-    addToBasket({{ big_price.id }});
+    addToBasket('#add_normal');
+    addToBasket('#monthly_add');
 });
 
 
@@ -281,81 +291,6 @@ div.price-text {
 
 #stocks div strong {
   color: #32607d;   
-}
-
-div.message {
-    background-color: #FFFFFF;
-    border: 1px solid #C1C1C1;
-    border-radius: 5px 5px 5px 5px;
-    display: none;
-    height: auto;
-    padding: 15px;
-    position: absolute;
-    right: 0;
-    top: -135px;
-    width: 260px;
-    z-index: 10;
-}
-
-div.message:after {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-top: 15px solid #d1d1d1;         
-        border-bottom: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        position: absolute;
-        bottom: -15px;
-        right: 25px;
-        z-index: 1;
-        margin-left: ;
-}
-
-.message:before {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-top: 15px solid #fff;     
-        border-bottom: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        position: absolute;
-        bottom: -14px;
-        right: 25px;
-        z-index: 2;
-        margin-left: -1px;
-}
-
-div.message p {
-  margin: 0;
-  font-size: 15px;
-  font-family: Helvetica, Arial, sans-serif;
-  line-height: 1.2em;
-}
-
-div.message p a {
-  font-size: 20px;
-  line-height: 1em;	
-  color: #f37679;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-div.message p span.tick {
-  color: #237A2A;
-  font-size: 30px;   
-}
-
-div.message p a:hover {
-  text-decoration: underline;	
-}
-
-div.message img {
-  float: left;
-  margin-right: 5px;
-  margin-bottom: 15px;	
 }
 
 table.details {
@@ -707,14 +642,13 @@ div.fb-recommend {
 		<div id="prices">
 	 	{% if tea.is_active %}
 		      <div id="price_{{ price.id }}" class="price">
-		      	<div class="message"></div>
 		      	{% if price.is_sale_price %}
 		      	   <div id="original"><span>On Sale Now!</span> Was <strong>{{ currency.symbol }}{{ price.old_price|floatformat:"-2" }}</strong>, save <strong>{{ currency.symbol }}{{ price.get_saving }}</strong></div>
 		      	{% endif %}
 		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
 		    	     <span class="price-description">/ {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %}<br/>
 		    	</span>
-				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_to_basket_{{ price.id }}"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
+				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_normal"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
               </div>
 
 		      <div id="stocks"> 
@@ -795,7 +729,7 @@ div.fb-recommend {
     
     	   <div class="price">
     	       <span>{{ currency.symbol }}{{ monthly_price|floatformat:"-2" }} <span class="grey">/ {% trans '12 months' %}</span></span>
-    	       <a href="{% url add_to_basket_monthly price.id 12 %}" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
+    	       <a href="{% url add_to_basket_monthly price.id 12 %}" id="monthly_add" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
     	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'More teas for your TeaBox' %} &raquo;</a>
     	   </div>
 	  </div>

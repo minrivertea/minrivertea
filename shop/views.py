@@ -209,35 +209,23 @@ def add_to_basket(request, id):
         item.quantity += 1
     except:
         item = BasketItem.objects.create(item=uproduct, quantity=1, basket=basket)
-        
     item.save()
 
     if request.is_ajax():
-        basket_quantity = 0
-        for x in BasketItem.objects.filter(basket=basket):
-            basket_quantity += x.quantity
-        
-        
-        weight = None
-        weight_unit = None
-        if _get_region(request) == 'US':
-            if uproduct.weight:
-                weight_unit = 'oz'
-                weight = weight_converter(uproduct.weight)
+        if item.item.weight:
+            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s (%(weight)s%(weight_unit)s) added to your basket! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
+                    'item':item.item.parent_product, 
+                    'weight': item.item.weight, 
+                    'weight_unit': RequestContext(request)['weight_unit'],
+                    'url': reverse('basket'),
+            }
         else:
-            if uproduct.weight:
-                weight_unit = 'g'
-                weight = uproduct.weight
-        
-        
-        if weight:
-            item_description = "%s (%s%s)" % (uproduct.parent_product.name, weight, weight_unit)
-        else:
-            item_description = uproduct.parent_product.name
-            
-        message = _('<p><span class="tick">&#10003;</span><strong>1 x %(item)s</strong> added to your basket!<br/><br/> <a href="/basket/"><strong>Checkout now &raquo;</strong></a></p>') % {'item':item_description}
-        num = '%.2f' % float(RequestContext(request)['basket_amount'])
-        data = {'quantity': basket_quantity, 'item': message, 'basket_amount': num}
+            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your basket! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
+                    'item':item.item.parent_product, 
+                    'url': reverse('basket'),
+            }
+        basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
+        data = {'message': message, 'basket_quantity': basket_quantity}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
@@ -260,8 +248,22 @@ def add_to_basket_monthly(request, productID, months):
     item.save()
     
     if request.is_ajax():
-        num = '%.2f' % float(RequestContext(request)['basket_amount'])
-        return HttpResponse(num)
+        if item.item.weight:
+            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s (%(weight)s%(weight_unit)s) added to your basket! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
+                    'item':item.item.parent_product, 
+                    'weight': item.item.weight, 
+                    'weight_unit': RequestContext(request)['weight_unit'],
+                    'url': reverse('basket'),
+            }
+        else:
+            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your basket! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
+                    'item':item.item.parent_product, 
+                    'url': reverse('basket'),
+            }
+        basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
+        data = {'message': message, 'basket_quantity': basket_quantity}
+        json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
+        return HttpResponse(json)
     
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
