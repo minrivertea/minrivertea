@@ -73,12 +73,12 @@ urlpatterns = patterns('',
     
     
     # Category + Page resolver
-    url(r'^(?P<slug>[\w-]+)/?$', _finder, name="finder"),
-    url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/?$', _finder, name="finder"),
+    url(r'^(?P<slug>[\w-]+)/$', _finder, name="finder"),
+    url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
     url(r'^(?P<category>[\w-]+)/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
     url(r'^(?P<category>[\w-]+)/(?P<slug>[\w-]+)/review/thanks/$', review_tea_thanks, name="review_tea_thanks"),
-    url(r'^(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/?$', _finder, name="finder"),
-    url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/?$', _finder, name="finder"),
+    url(r'^(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
+    url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
     
     
     

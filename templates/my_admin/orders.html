@@ -1,5 +1,4 @@
 {% extends base_template %}
-{% load django_static %}
 
 {% block extracss %}
   <style type="text/css">
@@ -12,7 +11,7 @@ $(document).ready( function() {
     $('.trans form').bind('submit', function() {
        
        var id = $(this).attr('id');
-       $('form#'+id).replaceWith('<img id="'+id+'" src="{% staticfile "/images/loading.gif" %}" />');
+       $('form#'+id).replaceWith('<img id="'+id+'" src="{{ static_url }}images/loading.gif" />');
        
        $.ajax({
            url: $(this).attr('action'),

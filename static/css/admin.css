@@ -6,7 +6,7 @@
 #logo {	 
  width: 450px;
  height: 42px;
- background: url("/images/logo-admin.jpg") no-repeat scroll top left transparent;
+ background: url("/static/images/logo-admin.jpg") no-repeat scroll top left transparent;
  float: left;
  margin: 20px 0 15px 0px;
  position: relative;

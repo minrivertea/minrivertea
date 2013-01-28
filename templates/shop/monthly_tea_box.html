@@ -494,32 +494,17 @@ div.fb-recommend {
 }
 
 #monthly h3 {
-    background: none repeat scroll 0 0 #59849F;
-    border-radius: 5px 0 0 5px;
-    color: #FFFFFF;
     float: left;
-    font-family: Helvetica,Arial,sans-serif;
+    font-family: Helvetica,arial,sans-serif;
     font-size: 24px;
     font-weight: bold;
-    height: 30px;
-    letter-spacing: -1.5px;
-    margin: 0 30px 0 0;
-    padding: 19px 0 10px;
+    letter-spacing: -0.5px;
+    line-height: 1em;
+    margin: 0 20px 0 0;
     position: relative;
-    text-align: center;
-    text-shadow: 0 1px 1px #333333;
-    width: 195px;
-}
-
-#monthly h3:before {
-    border-color: transparent -moz-use-text-color transparent #59849F;
-    border-style: solid none solid solid;
-    border-width: 30px 0 30px 15px;
-    content: " ";
-    display: block;
-    position: absolute;
-    right: -15px;
-    top: 0;
+    top: -5px;
+    color: #FF6569;
+    width: 210px;
 }
 
 #monthly div {
@@ -548,19 +533,19 @@ div.fb-recommend {
 }
 
 #monthly div#products {
-  width: 735px;
+  width: 730px;
   padding: 0;
   margin: 0;   
 }
 
 #monthly #products .product {
-  float: left;
-  width: 600px;
-  height: auto;
-  background: #fff;
-  padding: 15px;
-  margin: 0 10px 10px 0;
-  position: relative;
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    height: auto;
+    margin: 0 0px 15px 0;
+    padding: 1.5%;
+    position: relative;
+    width: 97%;
 }
 
 #monthly #products .product:hover {
@@ -579,25 +564,25 @@ div.fb-recommend {
   margin: 5px 0 0;
   padding: 0;
   color: #237A2A;
-  width: 330px;
+  width: 438px;
   letter-spacing: -0.5px;   
 }
 
 #monthly #products p {
   float: left;
-  width: 330px;
+  width: 438px;
   padding: 0;
   margin: 0;
 }
 
 #monthly #products .product .price {
-    bottom: 10px;
+    bottom: 15px;
     float: left;
     font-size: 14px;
     left: 285px;
     margin: 0;
     position: absolute;
-    width: 330px;
+    width: 438px;
 }
 
 #monthly p.price span.amount {
@@ -615,7 +600,7 @@ div.fb-recommend {
     font-weight: bold;
     padding: 2px 10px;
     position: absolute;
-    right: 0;
+    right: 10px;
     text-decoration: none;
 }
 
@@ -626,32 +611,23 @@ div.fb-recommend {
 
 #monthly p.price span.quantity {
     background: none repeat scroll 0 0 #E1ECF3;
+    border-radius: 3px 3px 3px 3px;
     color: #59849F;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     letter-spacing: -0.5px;
-    padding: 5px 10px 5px 5px;
+    padding: 0 10px;
     position: absolute;
-    right: -120px;
-    top: -6px;
-    width: auto;
-    text-shadow: 0 1px 1px #fff;
+    right: 10px;
+    text-align: center;
+    text-shadow: 0 1px 1px #FFFFFF;
+    top: -33px;
+    width: 105px;
 }
 
 #monthly p.price span.num {
    color: inherit;
    font: inherit;   
-}
-
-#monthly p.price span.quantity:before {
-    border-color: transparent #E1ECF3 transparent -moz-use-text-color;
-    border-style: solid solid solid none;
-    border-width: 16px 16px 16px 0px;
-    content: " ";
-    display: block;
-    position: absolute;
-    left: -16px;
-    top: 0;
 }
 
 #monthly p.price span.quantity.flash {
@@ -669,6 +645,53 @@ div.fb-recommend {
     font-size: 14px;
     font-weight: normal;
     letter-spacing: -0.5px;
+}
+
+#help {
+    float: left;
+    padding: 0 0 20px;
+    width: 100%;
+    margin: 0 0 30px 0;
+}
+
+#help div {
+   float: left; 
+   padding: 0 20px;  
+}
+
+#help div:first-child {
+  padding-left: 0;   
+}
+
+#help div:last-child {
+  padding-right: 0;
+  border-right: none;   
+}
+
+#help div ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  float: left;   
+}
+
+
+#help div ul li {
+  margin: 0 20px 0 0; 
+  font-size: 16px;
+  letter-spacing: -0.5px;
+  font-weight: normal;
+  color: #555;
+}
+
+#help div ul li:first-child {
+  color: #59849F;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: 0 1px 1px #fff;
+  border-bottom: 1px solid #E1ECF3;
+  margin-bottom: 10px;
+  font-family: Helvetica, arial, sans-serif;
 }
 
 .left {
@@ -716,9 +739,35 @@ div.fb-recommend {
 	
 	<br clear="all"/>
 	
+	<div id="help">
+	   <div>
+    	   <ul>
+    	       <li>How does it work?</li>
+    	       <li>Choose your teas</li>
+    	       <li>Pay for 6 or 12 months</li>
+    	       <li>Your tea is delivered once a month.</li>
+    	   </ul>
+	   </div>
+	   <div>
+	       <ul>
+	           <li>Why buy monthly?</li>
+	           <li>It costs less - 10% off and postage is free.</li>
+	           <li>Tea on time, every month.</li>
+	           <li>Never run out of your favourite tea again.</li>
+	       </ul>
+	   </div>
+	   <div>
+	       <ul>
+	           <li>Is it for me?</li>
+	           <li>Perfect for your office or social events</li>
+	           <li>Easy cancellation if you don't like it.</li>
+	       </ul>
+	   </div>
+	</div>
+	
 	<div id="monthly">
 	   <h3>
-	       {% trans 'Choose your tea' %}<br/>
+	       {% trans 'Choose your tea' %} &raquo;<br/>
 	   </h3>
 	   
 	   <div id="products">
@@ -732,7 +781,7 @@ div.fb-recommend {
 	               <p class="price" id="{{ x.price.id }}">
 	                   <span class="amount">{{ currency.symbol }}{{ x.monthly_price|floatformat:"2" }} <span class="grey">/ 12 months</span></span>
 	                   <a class="up" href="{% url add_to_basket_monthly x.price.id 12 %}">Add to TeaBox</a>
-	                   {% if x.quantity > 0 %}<span class="quantity"><span class="num">{{ x.quantity }}</span> in basket!</span>{% endif %}
+	                   {% if x.quantity > 0 %}<span class="quantity"><span class="num">{{ x.quantity }}</span> in your TeaBox!</span>{% endif %}
 	               </p>
 	           </div>
 	       {% endfor %}
