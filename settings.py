@@ -143,12 +143,20 @@ BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'
 BASE_TEMPLATE_ADMIN = 'base_admin.html'
 
+
+
 # DJANGO-CAPTCHA
 # -----------------------------------------------
 COMMENTS_APP = 'my_comments'
 CAPTCHA_FONT_SIZE = 35
 CAPTCHA_LETTER_ROTATION = None
 
+
+# DISCOUNTS
+# -----------------------------------------------
+
+TEABOX_DISCOUNT = 0.1 # expressed as a percentage, eg. 0.1 is 10% off
+TEABOX_MONTHS = 6
 
 # DJANGO SOUTH
 # -----------------------------------------------
@@ -201,8 +209,6 @@ MODELTRANSLATION_TRANSLATION_REGISTRY = "translation"
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 
-MONTHLY_ORDER_DISCOUNT = 0.1 # expressed as a percentage, eg. 0.1 is 10% off
-MONTHLY_ORDER_MINIMUM_MONTHS = 12
 
 
 # PAYPAL INFORMATION

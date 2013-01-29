@@ -20,7 +20,8 @@ def common(request):
     context['thumb_home_large'] = settings.THUMB_HOME_LARGE
     context['thumb_medium'] = settings.THUMB_MEDIUM
     context['thumb_small'] = settings.THUMB_SMALL
-
+    context['monthly_discount_amount'] = settings.TEABOX_DISCOUNT * 100
+    context['teabox_months'] = settings.TEABOX_MONTHS
 
         
     # REGIONAL STUFF

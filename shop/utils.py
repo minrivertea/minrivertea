@@ -309,7 +309,7 @@ def _get_monthly_price(unique_product, months):
     if unique_product.parent_product.category.slug == _('teaware'):
         return None
     
-    discount_amount = float(unique_product.price) * float(settings.MONTHLY_ORDER_DISCOUNT)
+    discount_amount = float(unique_product.price) * float(settings.TEABOX_DISCOUNT)
     price = float(unique_product.price) - float(discount_amount)
     total_price = float(price) * months
     

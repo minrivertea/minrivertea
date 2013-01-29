@@ -157,7 +157,7 @@ def tea_view(request, slug):
     price = tea.get_lowest_price(_get_currency(request))
     
     try:
-        monthly_price = _get_monthly_price(price, settings.MONTHLY_ORDER_MINIMUM_MONTHS)
+        monthly_price = _get_monthly_price(price, settings.TEABOX_MONTHS)
     except:
         monthly_price = None
 
@@ -176,7 +176,7 @@ def monthly_tea_box(request):
     
     for x in products:
         x.price = x.get_lowest_price(_get_currency(request))
-        x.monthly_price = _get_monthly_price(x.price, settings.MONTHLY_ORDER_MINIMUM_MONTHS)
+        x.monthly_price = _get_monthly_price(x.price, settings.TEABOX_MONTHS)
         x.quantity = 0
         for y in basket_items:
             if x.price == y.item:

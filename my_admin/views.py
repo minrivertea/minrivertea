@@ -78,7 +78,7 @@ def stocks(request):
         x.china_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True, location=WarehouseItem.CHINA)
         x.total_value = (x.uk_stocks.count() + x.china_stocks.count()) * x.price
     
-    products = UniqueProduct.objects.filter(currency__code='GBP')
+    products = UniqueProduct.objects.filter(currency__code='GBP', is_active=True)
     return _render(request, 'my_admin/stocks.html', locals())
 
 

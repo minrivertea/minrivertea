@@ -12,3 +12,4 @@ class AddStocksForm(forms.Form):
     quantity = forms.IntegerField(required=True)
     unique_product = forms.CharField(required=True)
     batch = forms.CharField(required=True)
+    

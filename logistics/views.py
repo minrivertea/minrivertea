@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response, get_object_or_404
 
 
 import datetime
@@ -217,10 +218,12 @@ def add_stocks(request):
     return HttpResponse()
 
 def mark_stock_as_arrived(request, id):
-    up = UniqueProduct.objects.get(pk=id)
-    stock_in_transit = WarehouseItem.objects.filter(unique_product=up, available=None, sold=None)
+    up = get_object_or_404(UniqueProduct, pk=id)
+
+    stock_in_transit = WarehouseItem.objects.filter(unique_product=up, sold__isnull=True, location=WarehouseItem.CHINA)
     for x in stock_in_transit:
         x.available = datetime.datetime.now()
+        x.location = WarehouseItem.UK
         x.save()
     
     url = request.META.get('HTTP_REFERER')

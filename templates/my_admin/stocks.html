@@ -4,17 +4,41 @@
 {% block extrajs %}
 <script type="text/javascript">
 $(document).ready( function() {
-
+  $('#add-stocks').click(function() {
+     $('#add-form').toggle();
+  });
 });
 </script>
 {% endblock %}
 
 {% block extracss %}
 <style type="text/css">
-  p.filter {font-size: 13px;}
+p.filter {font-size: 13px;}
 
-  #add-form {
-  }
+#add-form {
+   position: absolute;
+   left: 10%;
+   top: 10%;
+   width: 600px;
+   padding: 3% 4%;
+   background: #fff;
+   box-shadow: 0 1px 30px #333;
+   display: none;
+}
+
+#add-form h2 {
+  margin: 0;   
+}
+
+#add-form p {
+  width: 100%;
+  float: left;   
+}
+
+#add-form input[type=submit] {
+  font-size: 24px;
+  padding: 15px 25px;   
+}
   
   
 a.accept {
@@ -27,6 +51,19 @@ a.accept {
 span.red {
   font-weight: bold;   
 }
+
+#add-stocks {
+  float: right;   
+}
+
+#mtw {
+  padding-bottom: 200px;  
+}
+
+a.transfer {
+  text-decoration:none; 
+  font-weight: bold;  
+}
   
   
   </style>
@@ -38,11 +75,13 @@ span.red {
 
 
 <h3>Stocks</h3>
+<a href="#" class="button green" id="add-stocks">Add stocks</a>
 
 <table>
     <thead>
         <td>Item</td>
         <td>UK Stock</td>
+        <td>Transfer</td>
         <td>China stock</td>
         <td>Total stock value</td>
     </thead>
@@ -50,9 +89,10 @@ span.red {
         <tr>
             <td><a href="{% url admin_product x.parent_product.id %}">{{ x }}</a></td>
             <td><span class="{% if x.uk_stocks.count < 3 %}red{% endif %}">{{ x.uk_stocks.count }}</span></td>
+            <td><a class="transfer" href="{% url mark_stock_as_arrived x.id %}">&larr;</a></td>
             <td>{{ x.china_stocks.count }}</td>
             <td>£{{ x.total_value }}</td>
-            <td><a href="#" id="add-stocks">Add</a></td>
+            
         </tr>
     {% endfor %}
 </table>
@@ -61,20 +101,20 @@ span.red {
 
 
             
-<div class="add-form">
+<div id="add-form">
     <form method="post" action="{% url add_stocks %}">
-        <h3>Add stocks</h3>
-        <p><label for="quantity">How many items?</label><br/><input type="text" id="id_quantity" name="quantity" class="clearMeFocus" title="How many items?" /></p>
-        <p><label for="batch">Batch Ref:</label><input type="text" name="batch" id="id_batch"/></p>
+        <h2>Add stocks</h2>
         <p>
-            <label for="">Which product</label>
+            <label for="">Which product</label><br/>
             <select id="id_unique_product" name="unique_product">
             {% for u in products %}
                 <option value="{{ u.id }}">{{ u }}</option>
             {% endfor %}
             </select>
-            </p>
-        <input type="submit" class="submit button" value="Add stocks" />
+        </p>
+        <p><label for="quantity">How many items?</label><br/><input type="text" id="id_quantity" name="quantity" class="clearMeFocus" title="How many items?" /></p>
+        <p><label for="batch">Batch Ref:</label><br/><input type="text" name="batch" id="id_batch"/></p>
+        <input type="submit" class="submit button green" value="Add stocks" />
     </form>
 </div>
 

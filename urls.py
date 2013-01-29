@@ -70,6 +70,7 @@ urlpatterns = patterns('',
     
     
     url(_(r'^tea-boxes/monthly-tea-box/$'), monthly_tea_box, name="monthly_tea_box"),
+
     
     
     # Category + Page resolver
@@ -85,6 +86,7 @@ urlpatterns = patterns('',
     # urls for the products/categories
 
     url(_(r'^tea-boxes/$'), category, name="tea_boxes"),
+    
     url(r'^tasters/$', category, name="tasters"),
     url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
     url(_(r'^teaware/$'), category, name="teaware"),

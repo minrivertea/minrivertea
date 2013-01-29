@@ -453,9 +453,9 @@ ul.rss {
 	       <a href="{% url monthly_tea_box %}">Start your TeaBox &raquo;</a>
 	   </div>
 	   <div class="months">
-	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
-	       <span>Get a box of tea delivered to your door every month</span><br/>
-	       Save time and money with a monthly delivery of tea direct to your home or office. We'll even throw in a 10% discount plus a free teapot and cups!
+	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name and monthly_discount_amount|floatformat:"-2" as discount %}
+	       <span>Your favourite tea delivered to your door every month</span><br/>
+	       Get a monthly delivery of great teas direct to your home or office and save {{ discount }}% on the total cost (and postage is totally free too)!
 	       {% endblocktrans %}
 	   </div>
    	   <img src="{{ static_url }}images/homepage/home-monthly2.jpg" />
