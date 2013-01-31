@@ -816,19 +816,19 @@ div.fb-recommend {
 	<br clear="all"/>
 	
 	<div id="choose-months">
-	   <h3>How many months would you like? &raquo;</h3>
+	   <h3>{% trans 'How many months would you like?' %} &raquo;</h3>
 	   <ul>
 	       <li>
 	           <a href="{% url change_monthly_frequency 3 %}" class="changemonths{% if months == 3 %} selected{% endif %}">3 {% trans 'months' %}</a>
 	       </li>
 	       <li>
 	           <a href="{% url change_monthly_frequency 6 %}" class="changemonths{% if months == 6 %} selected{% endif %}">6 {% trans 'months' %}</a>
-	           <br/>&#10003; Free postage
+	           <br/>&#10003; {% trans 'Free postage' %}
 	       </li>
 	       <li>
 	           <a href="{% url change_monthly_frequency 12 %}" class="changemonths{% if months == 12 %} selected{% endif %}">12 {% trans 'months' %}</a>
-	           <br/>&#10003; Free postage
-	           <br/>&#10003; {{ monthly_discount_low|floatformat }}% discount
+	           <br/>&#10003; {% trans 'Free postage' %}
+	           <br/>&#10003; {{ monthly_discount_low|floatformat }}% {% trans 'discount' %}
 	       </li>
 	   </ul>
 	</div>
