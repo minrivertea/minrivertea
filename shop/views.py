@@ -334,6 +334,7 @@ def basket(request):
     monthly_items = BasketItem.objects.filter(basket=_get_basket(request), monthly_order=True)
     
     total_price = 0
+    monthly = False
     for item in chain(basket_items, monthly_items):
         price = float(item.get_price())
         total_price += float(price)
@@ -341,8 +342,7 @@ def basket(request):
             item.item.weight = item.item.weight * item.quantity
             if item.months >= 6:
                 monthly = True
-            else:
-                monthly = False
+                
     
     currency = _get_currency(request)
     
