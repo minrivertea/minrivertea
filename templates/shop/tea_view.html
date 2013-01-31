@@ -2,15 +2,10 @@
 {% load thumbnail i18n convert_weights %}
 
 {% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
+
 {% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
 
-{% block canonical %}
-    
-    <link rel="canonical" href="http://www.minrivertea.com{{ tea.get_absolute_url }}" />
-
-
-{% endblock %}
-
+{% block canonical %}<link rel="canonical" href="http://www.minrivertea.com{{ tea.get_absolute_url }}" />{% endblock %}
 
 {% block extrajs %}
 <script>
@@ -481,10 +476,17 @@ div.fb-recommend {
     width: 100%;
 }
 
+#monthly img.teabox {
+    float: left;
+    margin: 0 20px 0 0;
+    position: relative;
+    top: -5px;
+}
+
 #monthly .button {
   width: 145px;
   font-size: 15px;
-  padding: 8px 20px;
+  padding: 8px 15px;
   text-align: center;  
   margin: 5px 0; 
   top: 0;
@@ -494,37 +496,37 @@ div.fb-recommend {
 #monthly h3 {
     background: none repeat scroll 0 0 #59849F;
     border-radius: 5px 0 0 5px;
-    color: #fff;
-    text-shadow: 0 1px 1px #333;
+    color: #FFFFFF;
     float: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
     height: 45px;
     letter-spacing: -1.5px;
-    margin: 0 40px 0 0;
-    padding: 25px 0 10px;
+    margin: 0 30px 0 0;
+    padding: 20px 0 0;
     position: relative;
     text-align: center;
-    width: 135px;
+    text-shadow: 0 1px 1px #333333;
+    width: 120px;
 }
 
 #monthly h3:before {
     border-color: transparent -moz-use-text-color transparent #59849F;
     border-style: solid none solid solid;
-    border-width: 40px 0 40px 20px;
+    border-width: 33px 0 33px 19px;
     content: " ";
     display: block;
     position: absolute;
-    right: -20px;
+    right: -19px;
     top: 0;
 }
 
 #monthly div {
   display: block;
   float: left;
-  width: 480px;
-  margin: 0 30px 0 0;
+  width: 440px;
+  margin: 0 20px 0 0;
   font-size: 14px; 
   padding: 15px 0 0;  
 }
@@ -537,9 +539,11 @@ div.fb-recommend {
 }
 
 #monthly div.price {
-  width: 180px; 
-  margin: 0;
-  padding-top: 10px;  
+    float: right;
+    margin: 0;
+    padding-top: 0px;
+    text-align: right;
+    width: 175px;
 }
 
 #monthly div.price span {
@@ -669,8 +673,7 @@ div.fb-recommend {
 		{% endif %}
 		
 		</div>
-	</div><!-- end top product info div -->
-		
+	</div><!-- end top product info div -->	
 
 	
 	{% if tea.map_image %}
@@ -712,29 +715,29 @@ div.fb-recommend {
 	
 	<br clear="all"/>
 	
-	{% if request.user.is_superuser %}
+		{% if request.user.is_superuser %}
 	   {% if monthly_price %}
 	   <div id="monthly">
     	   <h3>
     	       {% trans 'TeaBox' %}<br/>
     	   </h3>
+    	   <img class="teabox" src="{{ static_url }}images/homepage/home-monthly2.jpg"/>
     	   <div class="months">
     	       {% url monthly_tea_box as url %}
     	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
-    	       <span>Get {{ weight }}{{ weight_unit }} of {{ tea_name }} delivered to your door every month</span><br/>
-    	       Save time and money with a monthly delivery of tea direct to your home or office. We'll even throw in a 10% discount plus a free teapot and cups!
-    	       <strong><a href="{{ url }}">Find out more &raquo;</a></strong>
+    	       <span>Add {{ tea_name }} ({{ weight }}{{ weight_unit }}) to your monthly TeaBox</span><br/>
+    	       Save time and money with a monthly delivery of tea direct to your home or office.
+    	       <a href="{{ url }}">Find out more &raquo;</a>
     	       {% endblocktrans %}
     	   </div>
-    
     	   <div class="price">
     	       <span>{{ currency.symbol }}{{ monthly_price|floatformat:"-2" }} <span class="grey">/ {% trans '12 months' %}</span></span>
     	       <a href="{% url add_to_basket_monthly price.id 12 %}" id="monthly_add" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
-    	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'More teas for your TeaBox' %} &raquo;</a>
+    	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'Add more teas to your TeaBox' %} &raquo;</a>
     	   </div>
 	  </div>
 	  {% endif %}
-	{% endif %}
+	{% endif %}	
 	
 	<div id="recommended">
 	   <h3 class="title">{% trans 'Also recommended...' %}</h3>

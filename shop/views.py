@@ -157,7 +157,7 @@ def tea_view(request, slug):
     price = tea.get_lowest_price(_get_currency(request))
     
     try:
-        monthly_price = _get_monthly_price(price, settings.TEABOX_MONTHS)
+        monthly_price = _get_monthly_price(price, settings.TEABOX_DEFAULT_MONTHS)
     except:
         monthly_price = None
 
@@ -254,14 +254,14 @@ def add_to_basket_monthly(request, productID, months):
     
     if request.is_ajax():
         if item.item.weight:
-            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s (%(weight)s%(weight_unit)s) added to your basket! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
+            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s (%(weight)s%(weight_unit)s) added to your TeaBox! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
                     'item':item.item.parent_product, 
                     'weight': item.item.weight, 
                     'weight_unit': RequestContext(request)['weight_unit'],
                     'url': reverse('basket'),
             }
         else:
-            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your basket! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
+            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your TeaBox! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
                     'item':item.item.parent_product, 
                     'url': reverse('basket'),
             }
