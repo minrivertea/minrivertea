@@ -1,0 +1,16 @@
+{% load thumbnail i18n %}
+
+{% for x in products %}
+<div class="product">
+    {% thumbnail x.image thumb_medium crop="center" as im %}
+        <img src="{{ im.url }}" />
+    {% endthumbnail %}
+        <h4><a href="{{ x.get_absolute_url }}">{{ x.name }} ({{ x.price.weight }}{{ x.price.weight_unit }}) &raquo;</a></h4>
+        <p>{{ x.description }}</p>
+        <p class="price" id="{{ x.price.id }}">
+            <span class="amount">{{ currency.symbol }}{{ x.monthly_price|floatformat:"2" }} <span class="grey">/ {{ months }} {% trans 'months' %}</span></span>
+            <a class="up" href="{% url add_to_basket_monthly x.price.id months %}">{% trans 'Add to TeaBox' %}</a>
+            {% if x.quantity > 0 %}<span class="quantity"><span class="num">{{ x.quantity }}</span> {% trans 'in your TeaBox!' %}</span>{% endif %}
+        </p>
+</div>
+{% endfor %}
