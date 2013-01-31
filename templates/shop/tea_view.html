@@ -751,6 +751,7 @@ div.fb-recommend {
 	
 	<br clear="all"/>	
 
+{% if request.user.is_superuser %}
 {% if reviews %}
 </div>
 	<div id="reviews">
@@ -769,6 +770,7 @@ div.fb-recommend {
       </div>
 	</div>
 <div class="sp">
+{% endif %}
 {% endif %}
 
     {% if request.user.is_superuser %}
