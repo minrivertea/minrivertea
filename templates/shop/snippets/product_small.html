@@ -9,7 +9,7 @@
 		<img alt="{{ t.description }}" src="{{ im.url }}"/>
 	</a>
     {% endthumbnail %}
-    <span class="price"><span class="amount">{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}</span> {% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}
+    <span class="price"><span class="amount">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% endif %}</span> {% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}
     </span>
     <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a> &raquo;</h3>
 </div>

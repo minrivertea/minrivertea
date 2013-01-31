@@ -14,7 +14,7 @@
 	</div>
 	
 	   {% for p in c.products %}
-        <div class="tea-promo">
+        <div class="info tea">
     	  <a title="{{ p.name }} - {% trans 'click to view more details' %}" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
     	  <div class="image">
     	    {% thumbnail p.image thumb_medium crop="center" as im %}

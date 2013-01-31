@@ -379,13 +379,21 @@ div.fb-recommend {
     z-index: -1;
 }
 
-#recommended {
+#recommended, #reviews {
   float: left;
   width: 100%;
   margin: 0px 0 0 0;   
 }
 
-#recommended h3.title {
+#reviews {
+  background: #fff;
+  padding: 2%;
+  width: 96%;
+  margin: 10px 0 10px;
+  position: relative;  
+}
+
+#recommended h3.title, #reviews h3 {
   font-size: 24px;
   font-family: Helvetica, Arial, sans-serif;
   font-weight:bold;  
@@ -393,8 +401,28 @@ div.fb-recommend {
   color: #FF6569;
 }
 
+#reviews a.add-review {
+  position: absolute;
+  top: 0px;
+  right: 30px;   
+}
 
 
+#reviews ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;   
+}
+
+#reviews ul li {
+  float: left;
+  width: 430px;
+  margin: 0 30px 0px 0;
+}
+
+#reviews ul li strong {
+  font-family: Helvetica, Arial, sans-serif; 
+}
 
 #image_wrap {
     display: block;
@@ -468,29 +496,27 @@ div.fb-recommend {
 #monthly {
     background: none repeat scroll 0 0 transparent;
     border-bottom: 3px dotted #E1E1E1;
-    border-top: 3px dotted #E1E1E1;
     float: left;
     height: auto;
-    margin: 30px 0 20px;
-    padding: 20px 0;
+    margin: 30px 0 40px;
+    padding: 0px 0 20px;
     width: 100%;
 }
 
 #monthly img.teabox {
     float: left;
-    margin: 0 20px 0 0;
+    margin: 0 0px 0 0;
     position: relative;
     top: -5px;
 }
 
 #monthly .button {
-  width: 145px;
-  font-size: 15px;
-  padding: 8px 15px;
-  text-align: center;  
-  margin: 5px 0; 
-  top: 0;
-  float: left;
+    float: right;
+    font-size: 18px;
+    margin: 10px 0 5px;
+    padding: 8px 15px;
+    text-align: center;
+    top: 0;
 }
 
 #monthly h3 {
@@ -503,7 +529,7 @@ div.fb-recommend {
     font-weight: bold;
     height: 45px;
     letter-spacing: -1.5px;
-    margin: 0 30px 0 0;
+    margin: 0 40px 0 0;
     padding: 20px 0 0;
     position: relative;
     text-align: center;
@@ -523,12 +549,12 @@ div.fb-recommend {
 }
 
 #monthly div {
-  display: block;
-  float: left;
-  width: 440px;
-  margin: 0 20px 0 0;
-  font-size: 14px; 
-  padding: 15px 0 0;  
+    display: block;
+    float: left;
+    font-size: 14px;
+    margin: 0 10px 0 0;
+    padding: 10px 0 0;
+    width: 280px;
 }
 
 #monthly div span {
@@ -543,12 +569,13 @@ div.fb-recommend {
     margin: 0;
     padding-top: 0px;
     text-align: right;
-    width: 175px;
+    width: 350px;
 }
 
 #monthly div.price span {
-  font-size: 26px;
-  color: #237A2A;
+  float: left;
+  width: 120px;
+  text-align: center;
 }
 
 #monthly div.price a.add-more {
@@ -558,10 +585,19 @@ div.fb-recommend {
 }
 
 #monthly div.price span.grey {
-    color: #777777;
-    font-size: 13px;
+    color: #555555;
+    font-size: 15px;
     font-weight: normal;
+    float: left;
 }
+
+#monthly div.price span.amount {
+  float: left; 
+  color: #237A2A;
+  font-size: 34px;
+  padding-top: 15px;  
+}
+
 
 </style>
 {% endblock %}
@@ -713,31 +749,53 @@ div.fb-recommend {
 	{% endif %}
 	
 	
-	<br clear="all"/>
-	
-		{% if request.user.is_superuser %}
+	<br clear="all"/>	
+
+{% if reviews %}
+</div>
+	<div id="reviews">
+      <div class="sp">
+	   <h3>{% trans 'What are our customers saying?' %}</h3>
+	   <a class="add-review" href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review of this tea' %} &raquo;</a>
+	       <ul>
+	       {% for r in reviews %}
+	           <li>
+	               {{ r.short_text }}<br/>
+	               <strong>{{ r.first_name }} {{ r.last_name }}</strong>{% if r.url %} (<a href="{{ r.url }}">view original</a>){% endif %}
+	           </li>
+	       {% endfor %}
+            </ul>
+            
+      </div>
+	</div>
+<div class="sp">
+{% endif %}
+
+    {% if request.user.is_superuser %}
 	   {% if monthly_price %}
 	   <div id="monthly">
     	   <h3>
     	       {% trans 'TeaBox' %}<br/>
     	   </h3>
-    	   <img class="teabox" src="{{ static_url }}images/homepage/home-monthly2.jpg"/>
     	   <div class="months">
-    	       {% url monthly_tea_box as url %}
     	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
-    	       <span>Add {{ tea_name }} ({{ weight }}{{ weight_unit }}) to your monthly TeaBox</span><br/>
-    	       Save time and money with a monthly delivery of tea direct to your home or office.
-    	       <a href="{{ url }}">Find out more &raquo;</a>
+    	       <span>Start a monthly TeaBox!</span><br/>
+    	       Save time and money with a monthly delivery of {{ tea_name }} direct to your home or office.
     	       {% endblocktrans %}
     	   </div>
+    	   <img class="teabox" src="{{ static_url }}images/homepage/home-monthly2.jpg"/>
     	   <div class="price">
-    	       <span>{{ currency.symbol }}{{ monthly_price|floatformat:"-2" }} <span class="grey">/ {% trans '12 months' %}</span></span>
+    	           <span>
+    	               <span class="amount">{{ currency.symbol }}{{ monthly_price|floatformat:"-2" }}</span>
+    	               <span class="grey">{% convert_weights request price.weight %}{{ weight_unit }} / {% trans '12 months' %} </span> 
+    	           </span>    
     	       <a href="{% url add_to_basket_monthly price.id 12 %}" id="monthly_add" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
     	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'Add more teas to your TeaBox' %} &raquo;</a>
     	   </div>
 	  </div>
 	  {% endif %}
-	{% endif %}	
+	{% endif %}
+	
 	
 	<div id="recommended">
 	   <h3 class="title">{% trans 'Also recommended...' %}</h3>
