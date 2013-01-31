@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     
     # monthly order specific
     url(r'^basket/add/(?P<productID>\w+)/monthly/(?P<months>\w+)/$', views.add_to_basket_monthly, name="add_to_basket_monthly"),
+    url(r'^change_monthly_frequency/(?P<months>\w+)/$', utils._update_monthly_box_months, name="update_monthly_box_months"),
     url(r'^monthly-order-save/$', views.monthly_order_save, name="monthly_order_save"),
 
 

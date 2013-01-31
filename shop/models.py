@@ -107,13 +107,21 @@ class Product(models.Model):
         url = "/product/%s/" % self.id
         return url
 
-    def get_lowest_price(self, currency):
+    def get_lowest_price(self, currency, exclude_sales=False):
         try:
-            price = UniqueProduct.objects.filter(
-                parent_product=self,
-                is_active=True, 
-                currency=currency,
-            ).order_by('price')[0]
+            if exclude_sales == True:
+                price = UniqueProduct.objects.filter(
+                    parent_product=self,
+                    is_active=True, 
+                    currency=currency,
+                    is_sale_price=False,
+                ).order_by('price')[0]
+            else:
+                price = UniqueProduct.objects.filter(
+                    parent_product=self,
+                    is_active=True, 
+                    currency=currency,
+                ).order_by('price')[0]
         except:
             price = None
         return price

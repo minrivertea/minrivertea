@@ -472,7 +472,7 @@ div.fb-recommend {
 }
 
 
-#monthly {
+#monthly, #choose-months {
     background: none repeat scroll 0 0 transparent;
     border-bottom: 3px dotted #E1E1E1;
     border-top: 3px dotted #E1E1E1;
@@ -481,6 +481,55 @@ div.fb-recommend {
     margin: 0px 0 20px;
     padding: 20px 0;
     width: 100%;
+}
+
+#choose-months {
+  border-bottom: none;   
+}
+
+#choose-months ul {
+  float: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;   
+}
+
+#choose-months ul li {
+  float: left;
+  font-size: 13px;
+  color: #59849F;
+  padding-left: 10px;
+  line-height: 1.2em;  
+}
+
+#choose-months ul li a {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 2px;
+    float: left;
+    font-size: 18px;
+    margin: 0 20px 10px -10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-family: Helvetica, sans-serif;
+    letter-spacing: -0.5px;
+    font-weight:bold;
+    text-shadow: none;
+  line-height: 1.6em;  
+
+}
+
+#choose-months ul li a:hover {
+  box-shadow: 0 1px 3px #d1d1d1;   
+}
+
+#choose-months ul li a.selected {
+  background: #237A2A;  
+  color: #fff; 
+}
+
+#choose-months ul li a.selected:hover {
+  background: #FF6569;
+  color: #fff;   
 }
 
 #monthly .button {
@@ -493,10 +542,10 @@ div.fb-recommend {
   float: left;
 }
 
-#monthly h3 {
+#monthly h3, #choose-months h3 {
     float: left;
     font-family: Helvetica,arial,sans-serif;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     letter-spacing: -0.5px;
     line-height: 1em;
@@ -505,6 +554,11 @@ div.fb-recommend {
     top: -5px;
     color: #FF6569;
     width: 210px;
+}
+
+#choose-months h3 {
+  position: relative;
+  top: 3px;
 }
 
 #monthly div {
@@ -739,35 +793,27 @@ div.fb-recommend {
 	
 	<br clear="all"/>
 	
-	<div id="help">
-	   <div>
-    	   <ul>
-    	       <li>How does it work?</li>
-    	       <li>Choose your teas</li>
-    	       <li>Pay for 6 or 12 months</li>
-    	       <li>Your tea is delivered once a month.</li>
-    	   </ul>
-	   </div>
-	   <div>
-	       <ul>
-	           <li>Why buy monthly?</li>
-	           <li>It costs less - 10% off and postage is free.</li>
-	           <li>Tea on time, every month.</li>
-	           <li>Never run out of your favourite tea again.</li>
-	       </ul>
-	   </div>
-	   <div>
-	       <ul>
-	           <li>Is it for me?</li>
-	           <li>Perfect for your office or social events</li>
-	           <li>Easy cancellation if you don't like it.</li>
-	       </ul>
-	   </div>
+	<div id="choose-months">
+	   <h3>How many months would you like? &raquo;</h3>
+	   <ul>
+	       <li>
+	           <a href="{% url update_monthly_box_months 3 %}" {% if months == 3 %}class="selected"{% endif %}>3 {% trans 'months' %}</a>
+	       </li>
+	       <li>
+	           <a href="{% url update_monthly_box_months 6 %}" {% if months == 6 %}class="selected"{% endif %}>6 {% trans 'months' %}</a>
+	           <br/>&#10003; Free postage
+	       </li>
+	       <li>
+	           <a href="{% url update_monthly_box_months 12 %}" {% if months == 12 %}class="selected"{% endif %}>12 {% trans 'months' %}</a>
+	           <br/>&#10003; Free postage
+	           <br/>&#10003; {{ monthly_discount_low|floatformat }}% discount
+	       </li>
+	   </ul>
 	</div>
 	
 	<div id="monthly">
 	   <h3>
-	       {% trans 'Choose your tea' %} &raquo;<br/>
+	       {% trans 'Choose which teas to add to your TeaBox' %} &raquo;<br/>
 	   </h3>
 	   
 	   <div id="products">
@@ -779,8 +825,8 @@ div.fb-recommend {
 	               <h4><a href="{{ x.get_absolute_url }}">{{ x.name }} ({{ x.price.weight }}{{ x.price.weight_unit }}) &raquo;</a></h4>
 	               <p>{{ x.description }}</p>
 	               <p class="price" id="{{ x.price.id }}">
-	                   <span class="amount">{{ currency.symbol }}{{ x.monthly_price|floatformat:"2" }} <span class="grey">/ {{ teabox_months }} {% trans 'months' %}</span></span>
-	                   <a class="up" href="{% url add_to_basket_monthly x.price.id 12 %}">{% trans 'Add to TeaBox' %}</a>
+	                   <span class="amount">{{ currency.symbol }}{{ x.monthly_price|floatformat:"2" }} <span class="grey">/ {{ months }} {% trans 'months' %}</span></span>
+	                   <a class="up" href="{% url add_to_basket_monthly x.price.id months %}">{% trans 'Add to TeaBox' %}</a>
 	                   {% if x.quantity > 0 %}<span class="quantity"><span class="num">{{ x.quantity }}</span> {% trans 'in your TeaBox!' %}</span>{% endif %}
 	               </p>
 	           </div>

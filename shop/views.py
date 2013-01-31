@@ -174,9 +174,14 @@ def monthly_tea_box(request):
     products = Product.objects.filter(category__parent_category__slug='teas').exclude(name__icontains="taster")
     basket_items = BasketItem.objects.filter(basket=_get_basket(request))
     
+    try:
+        months = int(request.session['MONTHS'])
+    except:
+        months = settings.TEABOX_DEFAULT_MONTHS
+    
     for x in products:
-        x.price = x.get_lowest_price(_get_currency(request))
-        x.monthly_price = _get_monthly_price(x.price, settings.TEABOX_MONTHS)
+        x.price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
+        x.monthly_price = _get_monthly_price(x.price, months)
         x.quantity = 0
         for y in basket_items:
             if x.price == y.item:
@@ -334,10 +339,13 @@ def basket(request):
         total_price += float(price)
         if item.monthly_order:
             item.item.weight = item.item.weight * item.quantity
+            if item.months >= 6:
+                monthly = True
     
     currency = _get_currency(request)
     
-    if total_price > currency.postage_discount_threshold:
+    
+    if total_price > currency.postage_discount_threshold or monthly == True:
         postage_discount = True
     else:
         total_price += currency.postage_cost

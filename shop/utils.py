@@ -151,7 +151,7 @@ def _set_currency(request, code=None):
     
     try:
         # if they have a basket already, we need to change the unique products around
-        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
+        basket = _get_basket(request)
         for item in BasketItem.objects.filter(basket=basket):
                         
             newup = UniqueProduct.objects.filter(
@@ -188,6 +188,7 @@ def _get_price(request, items):
     
 
 def _get_products(request, cat=None, random=False, exclude=None):
+    
     if cat:
         products = Product.objects.filter(category__slug=cat, is_active=True).order_by('-list_order')
     else:        
@@ -309,11 +310,40 @@ def _get_monthly_price(unique_product, months):
     if unique_product.parent_product.category.slug == _('teaware'):
         return None
     
-    discount_amount = float(unique_product.price) * float(settings.TEABOX_DISCOUNT)
-    price = float(unique_product.price) - float(discount_amount)
+    if months == 3:
+        discount = 0
+        
+    if months == 6:
+        discount = 0
+    
+    if months == 12:
+        discount = float(unique_product.price) * float(settings.TEABOX_LOW_DISCOUNT)
+
+    price = float(unique_product.price) - float(discount)
     total_price = float(price) * months
     
     return total_price
+
+
+
+def _update_monthly_box_months(request, months):
+    
+    if months == settings.TEABOX_DEFAULT_MONTHS:
+        request.session['MONTHS'] = None
+    else:
+        request.session['MONTHS'] = months
+    
+    
+    basket = _get_basket(request)
+    for item in BasketItem.objects.filter(basket=basket, monthly_order=True):
+        item.months = months
+        item.save()
+    
+    url = request.META.get('HTTP_REFERER','/')
+    return HttpResponseRedirect(url)
+
+
+
 
 def  weight_converter(weight):
      weight = round((weight / 28.75), 1)

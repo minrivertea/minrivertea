@@ -155,8 +155,9 @@ CAPTCHA_LETTER_ROTATION = None
 # DISCOUNTS
 # -----------------------------------------------
 
-TEABOX_DISCOUNT = 0.1 # expressed as a percentage, eg. 0.1 is 10% off
-TEABOX_MONTHS = 6
+TEABOX_LOW_DISCOUNT = 0.1 # expressed as a percentage, eg. 0.1 is 10% off
+TEABOX_HIGH_DISCOUNT = 0.15 # expressed as a percentage, eg. 0.1 is 10% off
+TEABOX_DEFAULT_MONTHS = 6
 
 # DJANGO SOUTH
 # -----------------------------------------------

@@ -10,7 +10,7 @@
 <style type="text/css">
 
 div#logo {
-  background: url('/static/images/logo-blue-back.png') no-repeat top left;	
+  background: url('{{ static_url }}images/logo-blue-back.png') no-repeat top left;	
   margin-top: 30px;
 }
 
@@ -107,7 +107,7 @@ div#feature {
     height: 450px;
     float: left;
     width: 100%;
-    background: url("{% staticfile '/static/images/noheroics.png' %}") no-repeat #D8EEF1;
+    background: url("{{ static_url }}images/noheroics.png") no-repeat #D8EEF1;
     background-position: 190px 0px;
     margin: 0px 0 0;
     padding-bottom: 0px;
@@ -143,7 +143,7 @@ div#feature div.top p {
 div#feature div.top div.button a {
   width: 214px;
   height: 50px;
-  background: url('{% staticfile "/static/images/find-your-tea.png" %}') no-repeat top left;	
+  background: url('{{ static_url }}images/find-your-tea.png') no-repeat top left;	
   float: right;
   margin-top: 20px;
   margin-left: -5px;
@@ -443,7 +443,7 @@ h1 {
 }
 
 ul#benefits {
-    list-style-image: url("/static/images/large-tick.png");
+    list-style-image: url("{{ static_url }}images/large-tick.png");
     margin-left: 13px;
     width: 400px;
 }
