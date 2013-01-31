@@ -341,6 +341,8 @@ def basket(request):
             item.item.weight = item.item.weight * item.quantity
             if item.months >= 6:
                 monthly = True
+            else:
+                monthly = False
     
     currency = _get_currency(request)
     

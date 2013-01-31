@@ -42,7 +42,26 @@ function addToBasket(idx) {
    });	
 }
 
+function changeMonths() {
+   $('#choose-months a.changemonths').click( function() {
+       var obj = $(this);
+       $.ajax({
+         url: obj.attr('href'),
+         type: 'GET',
+         dataType: 'json',
+         success: function(data) {
+            $('a.changemonths').removeClass('selected');
+            obj.addClass('selected');
+            $('#products').html(data.html);
+         }
+        
+       }) 
+       return false;  
+   }); 
+}
+
 $(document).ready( function() {
+    changeMonths();
     {% for x in products %}
     addToBasket({{ x.price.id }});
     {% endfor %}
@@ -797,14 +816,14 @@ div.fb-recommend {
 	   <h3>How many months would you like? &raquo;</h3>
 	   <ul>
 	       <li>
-	           <a href="{% url update_monthly_box_months 3 %}" {% if months == 3 %}class="selected"{% endif %}>3 {% trans 'months' %}</a>
+	           <a href="{% url update_monthly_box_months 3 %}" class="changemonths{% if months == 3 %} selected{% endif %}">3 {% trans 'months' %}</a>
 	       </li>
 	       <li>
-	           <a href="{% url update_monthly_box_months 6 %}" {% if months == 6 %}class="selected"{% endif %}>6 {% trans 'months' %}</a>
+	           <a href="{% url update_monthly_box_months 6 %}" class="changemonths{% if months == 6 %} selected{% endif %}">6 {% trans 'months' %}</a>
 	           <br/>&#10003; Free postage
 	       </li>
 	       <li>
-	           <a href="{% url update_monthly_box_months 12 %}" {% if months == 12 %}class="selected"{% endif %}>12 {% trans 'months' %}</a>
+	           <a href="{% url update_monthly_box_months 12 %}" class="changemonths{% if months == 12 %} selected{% endif %}">12 {% trans 'months' %}</a>
 	           <br/>&#10003; Free postage
 	           <br/>&#10003; {{ monthly_discount_low|floatformat }}% discount
 	       </li>
@@ -817,20 +836,7 @@ div.fb-recommend {
 	   </h3>
 	   
 	   <div id="products">
-	       {% for x in products %}	           
-	           <div class="product">
-	           {% thumbnail x.image thumb_medium crop="center" as im %}
-	               <img src="{{ im.url }}" />
-	           {% endthumbnail %}
-	               <h4><a href="{{ x.get_absolute_url }}">{{ x.name }} ({{ x.price.weight }}{{ x.price.weight_unit }}) &raquo;</a></h4>
-	               <p>{{ x.description }}</p>
-	               <p class="price" id="{{ x.price.id }}">
-	                   <span class="amount">{{ currency.symbol }}{{ x.monthly_price|floatformat:"2" }} <span class="grey">/ {{ months }} {% trans 'months' %}</span></span>
-	                   <a class="up" href="{% url add_to_basket_monthly x.price.id months %}">{% trans 'Add to TeaBox' %}</a>
-	                   {% if x.quantity > 0 %}<span class="quantity"><span class="num">{{ x.quantity }}</span> {% trans 'in your TeaBox!' %}</span>{% endif %}
-	               </p>
-	           </div>
-	       {% endfor %}
+	           {% include 'shop/snippets/products_monthly.html' %}
 	   </div>
 	</div>
 	

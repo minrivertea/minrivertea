@@ -338,6 +338,14 @@ def _update_monthly_box_months(request, months):
     for item in BasketItem.objects.filter(basket=basket, monthly_order=True):
         item.months = months
         item.save()
+        
+    if request.is_ajax():
+        products = Product.objects.filter(category__parent_category__slug='teas').exclude(name__icontains="taster")
+        html = render_to_string('shop/snippets/products_monthly.html', {'products': products,})
+        basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
+        data = {'html': html, 'basket_quantity': basket_quantity}
+        json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
+        return HttpResponse(json)
     
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
