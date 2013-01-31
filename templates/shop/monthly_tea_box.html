@@ -44,7 +44,7 @@ function addToBasket(idx) {
 
 function changeMonths() {
    $('#choose-months a.changemonths').click( function() {
-       $('#products').html('<img id="loading" src="{{ static_url }}"images/loading.gif"/>');
+       $('#products').html('<img id="loading" src="{{ static_url }}images/loading.gif"/>');
        var obj = $(this);
        $.ajax({
          url: obj.attr('href'),
