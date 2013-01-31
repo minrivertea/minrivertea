@@ -15,9 +15,10 @@
 {% block extrajs %}
 <script>
 
-function addToBasket(idx) {
-   $('#'+idx+' a.up').click( function() {
-   	  $('#'+idx).css('opacity', '0.5');
+function addToBasket() {
+   $('a.up').click( function() {
+   	  var idx = $(this).attr('id');
+   	  $('#price_'+idx).css('opacity', '0.5');
    	  $.ajax({
    	      url: '/basket/add/'+idx+'/monthly/12/',
    	      type: "GET",
@@ -29,12 +30,12 @@ function addToBasket(idx) {
               }
               $('#quantity .p').text(parseFloat(data.basket_quantity).toFixed(2));
               $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
-              if ($('#'+idx+' .quantity').length) {
-                $('#'+idx+' .quantity .num').html(parseInt($('#'+idx+' .quantity .num').html(), 10)+1);
+              if ($('#price_'+idx+' .quantity').length) {
+                $('#price_'+idx+' .quantity .num').html(parseInt($('#price_'+idx+' .quantity .num').html(), 10)+1);
               } else {
-                 $('#'+idx).append('<span class="quantity"><span class="num">1</span> in basket!</span>');
+                 $('#price_'+idx).append('<span class="quantity"><span class="num">1</span> in basket!</span>');
               }
-              $('#'+idx).animate({'opacity': '1'}, 200);
+              $('#price_'+idx).animate({'opacity': '1'}, 200);
               $('#'+idx+' .quantity').addClass('flash').delay(3900).queue(function() {$(this).removeClass('flash')});
   		  }
    	  })
@@ -56,6 +57,7 @@ function changeMonths() {
             $('#products').html(data.html);
             $('#userbasket #quantity .p').html(data.basket_quantity);
             $('#loading').remove();
+            addToBasket();
          }
         
        }) 
@@ -65,9 +67,7 @@ function changeMonths() {
 
 $(document).ready( function() {
     changeMonths();
-    {% for x in products %}
-    addToBasket({{ x.price.id }});
-    {% endfor %}
+    addToBasket();
 });
 
 
