@@ -307,6 +307,8 @@ def _finder(request, x=None, y=None, z=None, slug=None):
     
 def _get_monthly_price(unique_product, months):
     
+    months = int(months)
+        
     if unique_product.parent_product.category.slug == _('teaware'):
         return None
     
@@ -319,6 +321,7 @@ def _get_monthly_price(unique_product, months):
     if months == 12:
         discount = float(unique_product.price) * float(settings.TEABOX_LOW_DISCOUNT)
 
+
     price = float(unique_product.price) - float(discount)
     total_price = float(price) * months
     
@@ -326,27 +329,43 @@ def _get_monthly_price(unique_product, months):
 
 
 
-def _update_monthly_box_months(request, months):
+def _change_monthly_frequency(request, months):
     
+    # SET A COOKIE WITH THE NUMBER OF MONTHS
     if months == settings.TEABOX_DEFAULT_MONTHS:
         request.session['MONTHS'] = None
     else:
         request.session['MONTHS'] = months
     
-    
+    # UPDATE THEIR BASKET 
     basket = _get_basket(request)
     for item in BasketItem.objects.filter(basket=basket, monthly_order=True):
         item.months = months
         item.save()
-        
+    
+    # RETURN AN AJAX REPONSE   
     if request.is_ajax():
         products = Product.objects.filter(category__parent_category__slug='teas').exclude(name__icontains="taster")
-        html = render_to_string('shop/snippets/products_monthly.html', {'products': products,})
+        for x in products:
+            x.price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
+            x.monthly_price = _get_monthly_price(x.price, months)
+            x.quantity = 0
+            for y in BasketItem.objects.filter(basket=basket, monthly_order=True):
+                if x.price == y.item:
+                    x.quantity += y.quantity 
+                
+        html = render_to_string('shop/snippets/products_monthly.html', {
+                'products': products, 
+                'thumb_medium': RequestContext(request)['thumb_medium'],
+                'months': months,
+                })
         basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
         data = {'html': html, 'basket_quantity': basket_quantity}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
+    
+    # RETURN A NORMAL RESPONSE
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
 

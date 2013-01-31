@@ -44,6 +44,7 @@ function addToBasket(idx) {
 
 function changeMonths() {
    $('#choose-months a.changemonths').click( function() {
+       $('#products').html('<img id="loading" src="{{ static_url }}"images/loading.gif"/>');
        var obj = $(this);
        $.ajax({
          url: obj.attr('href'),
@@ -53,6 +54,8 @@ function changeMonths() {
             $('a.changemonths').removeClass('selected');
             obj.addClass('selected');
             $('#products').html(data.html);
+            $('#userbasket #quantity .p').html(data.basket_quantity);
+            $('#loading').remove();
          }
         
        }) 
@@ -816,14 +819,14 @@ div.fb-recommend {
 	   <h3>How many months would you like? &raquo;</h3>
 	   <ul>
 	       <li>
-	           <a href="{% url update_monthly_box_months 3 %}" class="changemonths{% if months == 3 %} selected{% endif %}">3 {% trans 'months' %}</a>
+	           <a href="{% url change_monthly_frequency 3 %}" class="changemonths{% if months == 3 %} selected{% endif %}">3 {% trans 'months' %}</a>
 	       </li>
 	       <li>
-	           <a href="{% url update_monthly_box_months 6 %}" class="changemonths{% if months == 6 %} selected{% endif %}">6 {% trans 'months' %}</a>
+	           <a href="{% url change_monthly_frequency 6 %}" class="changemonths{% if months == 6 %} selected{% endif %}">6 {% trans 'months' %}</a>
 	           <br/>&#10003; Free postage
 	       </li>
 	       <li>
-	           <a href="{% url update_monthly_box_months 12 %}" class="changemonths{% if months == 12 %} selected{% endif %}">12 {% trans 'months' %}</a>
+	           <a href="{% url change_monthly_frequency 12 %}" class="changemonths{% if months == 12 %} selected{% endif %}">12 {% trans 'months' %}</a>
 	           <br/>&#10003; Free postage
 	           <br/>&#10003; {{ monthly_discount_low|floatformat }}% discount
 	       </li>
