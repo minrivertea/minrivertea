@@ -358,6 +358,7 @@ def _change_monthly_frequency(request, months):
                 'products': products, 
                 'thumb_medium': RequestContext(request)['thumb_medium'],
                 'months': months,
+                'currency': RequestContext(request)['currency'],
                 })
         basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
         data = {'html': html, 'basket_quantity': basket_quantity}
