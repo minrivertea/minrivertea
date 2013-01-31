@@ -17,7 +17,7 @@ import uuid
 import re
 
 from shop.models import *
-from shop.utils import _render
+from shop.utils import _render, weight_converter
 from emailer.models import Subscriber
 from emailer.forms import EmailSignupForm
 from shop.forms import CreateSendEmailForm
@@ -196,7 +196,27 @@ def _payment_success_email(order):
     receiver = order.owner.email
     lang = activate(order.owner.language)
     subject_line = _("Order confirmed - minrivertea.com")
-    text = render_to_string('shop/emails/text/order_confirm_customer.txt', {'order': order})
+    
+    if order.address.country == 'US':
+        weight_unit = 'oz'
+    else:
+        weight_unit = 'g'
+    
+    items = order.items.all()
+    for item in items:
+        if item.item.weight:
+            if order.address.country == 'US':
+                item.weight = weight_converter(item.item.weight)
+            else:
+                item.weight = item.item.weight
+        else:
+            item.weight = None
+        
+    text = render_to_string('shop/emails/text/order_confirm_customer.txt', {
+        'order': order,
+        'items': items,
+        'weight_unit': weight_unit,
+    })
     
     _send_email(receiver, subject_line, text)
     
@@ -212,6 +232,7 @@ def _payment_success_email(order):
 
 def _payment_flagged_email(order):
 
+    # ONLY SEND AN ADMIN EMAIL
     receiver = settings.SITE_EMAIL
     text = render_to_string('shop/emails/text/order_confirm_admin.txt', {'order': order})
     subject_line = "FLAGGED ORDER - %s" % order.invoice_id 

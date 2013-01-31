@@ -373,9 +373,9 @@ def _change_monthly_frequency(request, months):
 
 
 
-def  weight_converter(weight):
-     weight = round((weight / 28.75), 1)
-     return weight
+def weight_converter(weight):
+    weight = round((weight / 28.75), 1)
+    return weight
 
 @login_required
 def _internal_pages_list(request):
