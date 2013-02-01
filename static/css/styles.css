@@ -817,10 +817,7 @@ p.introduction {
 }
 
 .info.tea span.price {
-    color: #777777;
     float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 13px;
     margin: 6px 0 0 5px;
 }
 
@@ -882,7 +879,8 @@ p.introduction {
 }
 
 .info.tea.long p {
-  font-size: 16px;   
+  font-size: 16px; 
+  color: #555;  
 }
 
 .info.bio img {

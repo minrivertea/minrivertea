@@ -394,16 +394,16 @@ div.fb-recommend {
 }
 
 #recommended h3.title, #reviews h3 {
-  font-size: 24px;
+  font-size: 18px;
   font-family: Helvetica, Arial, sans-serif;
   font-weight:bold;  
-  margin: 0 0 20px 0; 
+  margin: 0 0 10px 0; 
   color: #FF6569;
 }
 
 #reviews a.add-review {
   position: absolute;
-  top: 0px;
+  top: -5px;
   right: 30px;   
 }
 
@@ -416,8 +416,10 @@ div.fb-recommend {
 
 #reviews ul li {
   float: left;
-  width: 430px;
+  width: 290px;
   margin: 0 30px 0px 0;
+  font-size: 14px;
+  letter-spacing: -0.2px;
 }
 
 #reviews ul li strong {
@@ -439,13 +441,14 @@ div.fb-recommend {
 }
 
 #long-description p, #brew p, #map p {
-  font-size: 14px; 
-  margin: 0 0 20px 0;  
+  margin: 0 0 20px 0;
+  font-size: 14px;  
 }
 
 #long-description h3, #brew h3 {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 18px;
+  color: #FF6569;
   font-weight: bold;   
 }
 
@@ -461,10 +464,8 @@ div.fb-recommend {
   margin: 0 0 15px 0;   
 }
 
-#map h3 {
-  font-family: Helvetica, sans-serif;
-  font-size: 14px;
-  font-weight: bold;   
+#map p {
+  font-style: italic;   
 }
 
 #shipping {
@@ -553,8 +554,10 @@ div.fb-recommend {
     float: left;
     font-size: 14px;
     margin: 0 10px 0 0;
-    padding: 10px 0 0;
+    padding: 0;
     width: 280px;
+    line-height: 1.6em;
+    letter-spacing: -0.2px;
 }
 
 #monthly div span {
@@ -581,7 +584,7 @@ div.fb-recommend {
 #monthly div.price a.add-more {
   font-size: 13px;
   float: right;
-  margin: 5px 0 0 0;
+  margin: 0;
 }
 
 #monthly div.price span.grey {
@@ -756,12 +759,12 @@ div.fb-recommend {
 </div>
 	<div id="reviews">
       <div class="sp">
-	   <h3>{% trans 'What are our customers saying?' %}</h3>
+	   <h3>{% blocktrans %}What do customers say about {{ tea }}?{% endblocktrans %}</h3>
 	   <a class="add-review" href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review of this tea' %} &raquo;</a>
 	       <ul>
 	       {% for r in reviews %}
 	           <li>
-	               {{ r.short_text }}<br/>
+	               &ldquo;{{ r.short_text }}&rdquo;<br/>
 	               <strong>{{ r.first_name }} {{ r.last_name }}</strong>{% if r.url %} (<a href="{{ r.url }}">view original</a>){% endif %}
 	           </li>
 	       {% endfor %}

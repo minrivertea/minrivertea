@@ -63,16 +63,6 @@ h1 {
   box-shadow: 0 1px 4px #d1d1d1;  
 }
 
-#benefits .info p {
-   margin: 0;
-   font-size: 16px; 
-   line-height: 1.3em;  
-}
-
-
-
-
-
 #benefits .first {
   width: 375px;
   height: 405px;
@@ -80,10 +70,9 @@ h1 {
 }
 
 #benefits .first p {
-  color: #777;
-  line-height: 1.6em;
-  font-size: 15px;
+  color: #555;
   padding: 0 5px;
+  font-size: 16px;
 }
 
 #benefits .first h3 {
@@ -369,12 +358,13 @@ ul.rss {
 }
 
 #monthly div {
-  display: block;
-  float: left;
-  width: 450px;
-  margin: 0 0px 0 0;
-  font-size: 14px; 
-  padding: 15px 0 0;  
+    display: block;
+    float: left;
+    letter-spacing: -0.2px;
+    line-height: 1.6em;
+    margin: 0;
+    padding: 0;
+    width: 450px;
 }
 
 #monthly div span {
@@ -385,20 +375,44 @@ ul.rss {
 }
 
 #monthly div.more {
-  float: right;
-  width: 120px;
-  font-weight: bold;
-  font-family: Helvetica, sans-serif;
-  letter-spacing: -0.5px;
-  font-size: 26px;
-  margin: 0 20px 0 0;
-  text-align: right;   
+    float: right;
+    font-family: Helvetica,sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    line-height: 1em;
+    margin: 10px 20px 0 0;
+    text-align: right;
+    width: 120px;
 }
 
 #monthly img {
   float: left;
   margin: 0;   
 }
+
+#brewing {
+  float:left;
+  background: #fff;
+  width: 96%;
+  padding: 2%;
+  margin: 20px 0;
+}
+
+#brewing h2 {
+  color: #738693; 
+  margin: 10px 0 0;   
+}
+
+#brewing img {
+  float: left;
+  margin: 0 20px 0 0;   
+}
+
+#brewing p {
+  padding-right: 30px;   
+}
+
 
 </style>
 {% endblock %}
@@ -453,7 +467,7 @@ ul.rss {
 	       <a href="{% url monthly_tea_box %}">Start your TeaBox &raquo;</a>
 	   </div>
 	   <div class="months">
-	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name and monthly_discount_amount|floatformat:"-2" as discount %}
+	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name and monthly_discount_low|floatformat:"-2" as discount %}
 	       <span>Your favourite tea delivered to your door every month</span><br/>
 	       Get a monthly delivery of great teas direct to your home or office and save {{ discount }}% on the total cost (and postage is totally free too)!
 	       {% endblocktrans %}
@@ -461,15 +475,25 @@ ul.rss {
    	   <img src="{{ static_url }}images/homepage/home-monthly2.jpg" />
 	</div>
 	{% endif %}
-	
+
+{% if request.user.is_superuser %}	
+	<div id="brewing">
+	   <img src="{{ static_url }}images/jasmine-brew-3.jpg"/>
+	   <h2>Looking for brewing instructions?</h2>
+	   <p>Need some <a href="">brewing basics</a>? Or perhaps you're trying to find the secret to <a href="">the perfect Jasmine tea</a> - either way, we've got a full range of <a href="">detailed brewing guides for your tea</a> explaining everything you'll need to <a href="">prepare</a>, brew and <a href="">appreciate your Chinese tea</a> to the full. That includes <a href="">what kind of cups and pots</a> you should be using, how to <a href="">get the right water temperature</a> for your tea, and the perennial question, <a href="">how much tea</a> you should be using for each brew. </p>
+	</div>
+{% endif %}	
+
 	<div id="about">
 	   <div id="text">
 	   <h2>{% blocktrans %}A big <em>ni hao</em> from China!{% endblocktrans %}</h2>
-	   <p>{% blocktrans %}<strong>We are one of the only tea companies actually based in China.</strong> Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! <strong>We're able to sell better teas at lower prices</strong> because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="/about/">{% trans 'Find out more about us' %} &raquo;</a></p>
+	   <p>{% blocktrans %}We are one of the only tea companies actually based in China. Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! We're able to sell better teas at lower prices because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="/about/">{% trans 'Find out more about us' %} &raquo;</a></p>
        {% include 'shop/boxes/follow.html' %}
        </div>
        <img src="{{ static_url }}images/homepage/home-about.jpg" />
 	</div>
+
+
 	
 	
 	<div id="teaware">

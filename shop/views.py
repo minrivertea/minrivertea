@@ -148,7 +148,7 @@ def tea_view(request, slug):
     
     
     tea = get_object_or_404(Product, slug=slug)
-    reviews = Review.objects.filter(is_published=True, product=tea)[:2]
+    reviews = Review.objects.filter(is_published=True, product=tea)[:3]
     
     # if it's a monthly package, let's redirect here:
     if tea.slug == _('monthly-tea-box'):
