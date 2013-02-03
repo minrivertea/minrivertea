@@ -57,15 +57,18 @@ class Product(models.Model):
         help_text="Appears on the actual product page")
     slug = models.SlugField(max_length=80)
     meta_title = models.CharField(max_length=200, blank=True, null=True,
-        help_text="")		
+        help_text="A longer and more descriptive title that might appear in Google's search results")		
     description = models.TextField(
         help_text="The short description appearing in product listings - no HTML")
     meta_description = models.TextField(blank=True, null=True,
-        help_text="")
-    super_short_description = models.CharField(max_length=200)
-    body_text = models.TextField()
+        help_text="Customized search description that might appear in Google's search results")
+    super_short_description = models.CharField(max_length=200,
+        help_text="Appears as the really short description in right-box product listings")
+    body_text = models.TextField(
+        help_text="The introduction paragraph at the top-right of the main product page")
     long_description = models.TextField(blank=True, null=True)
-    extra_info = models.TextField(blank=True, null=True)
+    extra_info = models.TextField(blank=True, null=True,
+        help_text="This is normally the 'tasting notes' section. Add an 'h3' as the title.")
     image = models.ImageField(upload_to='images/product-photos')
     image_2 = models.ImageField(upload_to='images/product-photos', blank=True, null=True)
     image_2_caption = models.CharField(max_length=200, blank=True)
@@ -82,9 +85,6 @@ class Product(models.Model):
     tag_text = models.CharField(max_length="100", blank=True, null=True)
     tag_color = models.CharField(max_length="60", blank=True, null=True, choices=TAG_COLORS,
         help_text="A Hex reference with the preceding # hash")
-    coming_soon = models.BooleanField(default=False) # deprecated 1.5.2012
-    recommended = models.ManyToManyField('Product', blank=True, null=True)
-    site = models.CharField(max_length=20, choices=SITES, blank=True, null=True)
     
     map_image = models.ImageField(upload_to='images/maps', blank=True, null=True)
     map_caption = models.CharField(max_length=200, blank=True, null=True)

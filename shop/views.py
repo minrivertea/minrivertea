@@ -182,7 +182,10 @@ def monthly_tea_box(request):
     
     for x in products:
         x.price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
-        x.monthly_price = _get_monthly_price(x.price, months)
+        try:
+            x.monthly_price = _get_monthly_price(x.price, months)
+        except:
+            x.monthly_price = None
         x.quantity = 0
         for y in basket_items:
             if x.price == y.item:
