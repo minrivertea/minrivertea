@@ -167,7 +167,7 @@ SOUTH_TESTS_MIGRATE = False
 # CKEDITOR SETTINGS
 # -----------------------------------------------
 CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'ckuploads')
-CKEDITOR_UPLOAD_PREFIX = os.path.join(MEDIA_ROOT, 'ckuploads')
+CKEDITOR_UPLOAD_PREFIX = "/media/ckuploads/"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': [
