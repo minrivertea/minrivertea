@@ -81,6 +81,7 @@ def page_by_id(request, id):
 def category(request, slug):
     curr = _get_currency(request)
     if slug == _('teas'):
+        print slug
         products = None
         category = get_object_or_404(Category, slug=slug)
         special = get_object_or_404(UniqueProduct, parent_product__slug=_('buddhas-hand-oolong-tea'), currency=curr)
@@ -93,7 +94,6 @@ def category(request, slug):
         products = _get_products(request, category.slug)
     
     basket = _get_basket(request)
-         
     if basket and products:
         for x in products: 
             basket_item = BasketItem.objects.filter(basket=basket, item=x.get_lowest_price(curr))
@@ -172,7 +172,7 @@ def product_by_id(request, id):
 def monthly_tea_box(request):
     
     product = get_object_or_404(Product, slug=_('monthly-tea-box'))
-    products = Product.objects.filter(category__parent_category__slug='teas').exclude(name__icontains="taster")
+    products = Product.objects.filter(category__parent_category__slug=_('teas')).exclude(name__icontains=_("taster"))
     basket_items = BasketItem.objects.filter(basket=_get_basket(request))
     
     try:
