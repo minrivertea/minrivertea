@@ -444,7 +444,7 @@ ul.rss {
 
 
 	<div id="benefits">
-	   <h2>{% trans 'Check out our bestsellers below' %} <a class="underline" href="{% url finder _('teas') %}">{% trans 'or see our full range of teas here' %} &raquo;</a></h2>
+	   <h2>{% trans 'Check out our bestsellers below' %} <a class="underline" href="{% url teas %}">{% trans 'or see our full range of teas here' %} &raquo;</a></h2>
 		<div id="teas">
 			{% for t in teas %}
 			    {% if forloop.first %}
