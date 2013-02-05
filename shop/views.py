@@ -172,7 +172,7 @@ def product_by_id(request, id):
 def monthly_tea_box(request):
     
     product = get_object_or_404(Product, slug=_('monthly-tea-box'))
-    products = Product.objects.filter(category__parent_category__slug=_('teas')).exclude(name__icontains=_("taster"))
+    products = Product.objects.filter(category__parent_category__slug=_('teas'), is_active=True).exclude(name__icontains=_("taster"))
     basket_items = BasketItem.objects.filter(basket=_get_basket(request))
     
     try:
