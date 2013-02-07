@@ -44,29 +44,53 @@ $(function() {
 
 <div id="mtw">
   <div class="sp">
-  	{% if page.feature_image %}
-		{% thumbnail page.feature_image "960" crop="" as im %}
-		  <img src="{{ im.url }}" style="margin-bottom: 30px;"/>
-		{% endthumbnail %}
-		<h1 class="{% if page.feature_image %}fimage{% endif %}">{{ page.title }}</h1>
-  	{% else %}
-  		<h1>{{ page.title }}</h1>
-  	{% endif %}
+
+        <div id="breadcrumb">
+        {% for item in page.get_breadcrumb %}
+            {% if forloop.last %}{{ item.title }}{% else %}<a href="{% url page item.slug %}">{{ item.title }}</a> &raquo; {% endif %} 
+        {% endfor %}
+        </div>
 
 	<div id="right">
+		{% if nav_tree.two %}
+            <div class="info links">
+                <h4>Also in this section:</h4>
+                <ul>
+                {% for x in nav_tree.two %}
+                    <li>
+                        <a href="{% url page x.slug %}" class="{% nav_selected request x.slug %}">{{ x.title }}</a>
+                        {% if nav_tree.three %}
+                            <ul class="subnav">
+                                {% for y in nav_tree.three %}
+                                {% if x == y.parent %}
+                                    <li><a href="{% url page y.slug %}" class="{% nav_selected request y.slug %}">{{ y.title }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+		
 		{% include 'shop/boxes/who.html' %}
 		{% include 'shop/boxes/tea.html' %}
 		{% include 'shop/boxes/follow.html' %}
 	</div>
 
 	<div id="left">
+        
+        
+        <h1>{{ page.title }}</h1>
 
+        
 		{{ page.content|convert_links|safe }}
 	
 	</div>
 	
 		{% if ga_is_on %}
-		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
+		<ul class="rss">
 			<li id="google">
 				<g:plusone></g:plusone>
 				<script type="text/javascript">

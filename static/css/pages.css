@@ -7,7 +7,8 @@
 }
 
 h1 {
-  margin-bottom: 20px;	
+  font-size: 38px;
+  margin: 15px 0 50px;   
 }
 
 h1.fimage {
@@ -243,6 +244,63 @@ div.about-right img.top {
     border: none;
 }
 
+.info.links {
+  margin: 10px 30px 20px 0;
+  border: none;
+}
+
+#right .info.links h4 {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+  font-size: 16px; 
+}
+
+#breadcrumb {
+  font-size: 12px;
+  margin: 0px 0 10px;
+  float: left;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.info.links ul {
+  font-size: 13px;
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;
+  letter-spacing: -0.2px; 
+  margin: 5px 0 0;
+  padding: 0;
+  list-style-type: none; 
+  float: left;
+  width: 100%; 
+}
+
+.info.links ul li a {
+  text-decoration: none;
+  padding: 5px 0;
+  float: left;
+  width: 100%;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.info.links ul li:last-child a {
+  border-bottom: none;
+  padding-bottom: 0;   
+}
+
+.info.links ul li a.selected:link, .info.links ul li a.selected:visited  {
+  color: #333;  
+  font-weight: bold; 
+}
+
+.info.links ul ul {
+  padding: 0 0 0 15px;
+  margin: 0; 
+  font-weight: ;
+  font-size: 11px; 
+  letter-spacing: 0; 
+}
+
 
 /* position and dimensions of the navigator */
 .navi {
@@ -321,3 +379,14 @@ div.about-right img.top {
 	
 	}
 
+
+ul.rss {
+    left: 0;
+    list-style-type: none;
+    margin: 15px 0 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 92px;
+    width: 150px;
+}

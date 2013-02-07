@@ -368,10 +368,6 @@ div.fb-recommend {
   width: 80px;
 }
 
-#google {
-  margin-bottom: 10px;
-}
-
 .loading {
     left: 240px;
     position: absolute;
@@ -393,6 +389,10 @@ div.fb-recommend {
   position: relative;  
 }
 
+#reviews .sp {
+  height: 180px;   
+}
+
 #recommended h3.title, #reviews h3 {
   font-size: 18px;
   font-family: Helvetica, Arial, sans-serif;
@@ -403,8 +403,8 @@ div.fb-recommend {
 
 #reviews a.add-review {
   position: absolute;
-  top: -5px;
-  right: 30px;   
+  bottom: -10px;
+  right: 50px;   
 }
 
 
@@ -434,26 +434,47 @@ div.fb-recommend {
 }
 
 
-#long-description, #brew {
-  float: left;
+#description, #brewing {
+  background: none;
+  padding: 0;
   width: 300px;  
   margin: 0 30px 0 0; 
 }
 
-#long-description p, #brew p, #map p {
+#brewing {
+  margin-right: 0;
+  width: 345px;   
+}
+
+#description p, #brewing p, #map p {
   margin: 0 0 20px 0;
   font-size: 14px;  
 }
 
-#long-description h3, #brew h3 {
+#description h3, #brewing h3 {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 18px;
   color: #FF6569;
   font-weight: bold;   
 }
 
-#map {
+#extras {
   float: left;
+  width: 100%;   
+}
+
+#extras .box {
+  float: right;
+  width: 345px;   
+}
+
+#extras .info {
+  float: left;   
+}
+
+#map {
+  background: none;
+  padding: 0;
   width: 255px;
   margin: 0 30px 0 0;
   position: relative;  
@@ -468,31 +489,24 @@ div.fb-recommend {
   font-style: italic;   
 }
 
-#shipping {
-  width: 300px; 
-  background: transparent;
-  border: none;
-  padding: 0;
+#shipping.info, #safe.info {
+  width: 325px;
+  float: right;
+  padding: 10px;
   margin: 10px 0 0 0;  
 }
 
-#shipping img {
-  float: left; 
-  margin: 0 0 25px 0;  
+#shipping img, #safe img {
+  margin: 0;   
 }
 
-#shipping #shipping-amount {
-    color: #999999;
-    float: left;
-    font-size: 40px;
-    left: 12px;
-    line-height: 1em;
-    padding: 0;
-    position: relative;
-    text-shadow: 1px 1px 0 #FFFFFF;
-    top: -2px;
+#shipping p, #safe p {
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  color: #777; 
+  padding-left: 10px;  
 }
-
 
 #monthly {
     background: none repeat scroll 0 0 transparent;
@@ -503,6 +517,13 @@ div.fb-recommend {
     padding: 0px 0 20px;
     width: 100%;
 }
+
+{% if not reviews %}
+#monthly {
+  padding-top: 30px;
+  border-top: 3px dotted #e1e1e1;   
+}
+{% endif %}
 
 #monthly img.teabox {
     float: left;
@@ -713,10 +734,12 @@ div.fb-recommend {
 		
 		</div>
 	</div><!-- end top product info div -->	
-
 	
+	
+	<!-- START EXTRAS -->
+	<div id="extras">
 	{% if tea.map_image %}
-    <div id="map">  
+    <div id="map" class="info">  
               {% thumbnail tea.map_image "255x120" crop="center" as im %}
                 <img src="{{ im.url }}"/>
               {% endthumbnail %}
@@ -732,74 +755,88 @@ div.fb-recommend {
 	{% endif  %}
 	
 	{% if tea.long_description %}
-	<div id="long-description">
+	<div id="description" class="info">
 	   <h3>{% trans 'More about this product' %}</h3>
 	   {{ tea.long_description|safe }}
 	</div>
 	{% endif %}
 	
 	{% if tea.extra_info %}
-	<div id="brew">
+	<div id="brewing" class="info">
 	   {{ tea.extra_info|safe }}
 	</div>
 	{% endif %}
 	
 	{% if tea.extra_info or tea.long_description or tea.map_image %}
+	<div class="box">
+	<div id="safe" class="info">
+	   <img src="{{ static_url }}images/005.jpg"/>
+	   {% url page _('terms-and-conditions') as tcurl %}
+	   {% url page _('returns') as rturl %}
+	   <p>{% blocktrans %}Read our <a href="{{ tcurl }}">T&Cs</a> and <a href="{{ rturl }}">Returns</a> policies{% endblocktrans %}</p>
+	</div>
+	
 	<div id="shipping" class="info">
-	   <img src="{{ static_url }}images/free-delivery.png"/>
-	   <span id="shipping-amount">{{ currency.symbol }}{{ currency.postage_discount_threshold }}</span>
+	   <img src="{{ static_url }}images/free-delivery.jpg" />
+	   {% url page _('shipping') as shipurl %}
+	   <p>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold|floatformat:"-2" as ptd %}Orders over {{ symbol }}{{ ptd }} get free worldwide shipping.<br/>
+	   Read more info about <a href="{{ shipurl }}">shipping</a>{% endblocktrans %}
+	   </p>
+	</div>
 	</div>
 	{% endif %}
-	
-	
+	</div>
+	<!-- END EXTRAS -->
 	<br clear="all"/>	
 
 {% if request.user.is_superuser %}
 {% if reviews %}
 </div>
-	<div id="reviews">
-      <div class="sp">
-	   <h3>{% blocktrans %}What do customers say about {{ tea }}?{% endblocktrans %}</h3>
-	   <a class="add-review" href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review of this tea' %} &raquo;</a>
-	       <ul>
-	       {% for r in reviews %}
-	           <li>
-	               &ldquo;{{ r.short_text }}&rdquo;<br/>
-	               <strong>{{ r.first_name }} {{ r.last_name }}</strong>{% if r.url %} (<a href="{{ r.url }}">view original</a>){% endif %}
-	           </li>
-	       {% endfor %}
-            </ul>
-            
-      </div>
-	</div>
+
+<div id="reviews">
+    <div class="sp">
+   <h3>{% blocktrans %}What do customers say about {{ tea }}?{% endblocktrans %}</h3>
+   <a class="add-review" href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review of this tea' %} &raquo;</a>
+       <ul>
+       {% for r in reviews %}
+           <li>
+               &ldquo;{{ r.short_text }}&rdquo;<br/>
+               <strong>{{ r.first_name }} {{ r.last_name }}</strong>{% if r.url %} (<a href="{{ r.url }}">view original</a>){% endif %}
+           </li>
+       {% endfor %}
+        </ul>
+        
+    </div>
+</div>
+
 <div class="sp">
 {% endif %}
 {% endif %}
 
-    {% if request.user.is_superuser %}
-	   {% if monthly_price %}
-	   <div id="monthly">
-    	   <h3>
-    	       {% trans 'TeaBox' %}<br/>
-    	   </h3>
-    	   <div class="months">
-    	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
-    	       <span>Start a monthly TeaBox!</span><br/>
-    	       Save time and money with a monthly delivery of {{ tea_name }} direct to your home or office.
-    	       {% endblocktrans %}
-    	   </div>
-    	   <img class="teabox" src="{{ static_url }}images/homepage/home-monthly2.jpg"/>
-    	   <div class="price">
-    	           <span>
-    	               <span class="amount">{{ currency.symbol }}{{ monthly_price|floatformat:"-2" }}</span>
-    	               <span class="grey">{% convert_weights request price.weight %}{{ weight_unit }} / {% trans '6 months' %} </span> 
-    	           </span>    
-    	       <a href="{% url add_to_basket_monthly price.id 6 %}" id="monthly_add" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
-    	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'Add more teas to your TeaBox' %} &raquo;</a>
-    	   </div>
-	  </div>
-	  {% endif %}
-	{% endif %}
+{% if request.user.is_superuser %}
+   {% if monthly_price %}
+   <div id="monthly">
+	   <h3>
+	       {% trans 'TeaBox' %}<br/>
+	   </h3>
+	   <div class="months">
+	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
+	       <span>Start a monthly TeaBox!</span><br/>
+	       Save time and money with a monthly delivery of {{ tea_name }} direct to your home or office.
+	       {% endblocktrans %}
+	   </div>
+	   <img class="teabox" src="{{ static_url }}images/homepage/home-monthly2.jpg"/>
+	   <div class="price">
+	           <span>
+	               <span class="amount">{{ currency.symbol }}{{ monthly_price|floatformat:"-2" }}</span>
+	               <span class="grey">{% convert_weights request price.weight %}{{ weight_unit }} / {% trans '6 months' %} </span> 
+	           </span>    
+	       <a href="{% url add_to_basket_monthly price.id 6 %}" id="monthly_add" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
+	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'Add more teas to your TeaBox' %} &raquo;</a>
+	   </div>
+  </div>
+  {% endif %}
+{% endif %}
 	
 	
 	<div id="recommended">
@@ -809,10 +846,7 @@ div.fb-recommend {
 	   {% endfor %}
 	</div>
 
-	
-	{% if region == 'CN' %}
-	{% else %}
-	{% if ga_is_on %}
+    {% if ga_is_on %}
     <ul class="rss">
 		<li id="google">
 			<g:plusone></g:plusone>
@@ -832,8 +866,6 @@ div.fb-recommend {
 		</li>
 	</ul>
 	{% endif %}
-	{% endif %}
-
 
 </div>
 </div>

@@ -3,12 +3,16 @@
 <div id="subnav">
   <div class="sp">
 	<ul>
-		{% for x in page.get_root.get_children %}
-			<li><a class="{% if x.slug == page.parent.slug %}selected{% else %}{% if x.slug == page.slug %}selected{% endif %}{% endif %}" href="{% url page x.slug %}">{{ x.title }}</a></li>
+		{% for x in nav_tree.one %}
+			<li>
+			     <a class="{% if x.slug == page.parent.slug %}selected{% else %}{% if x.slug == page.slug %}selected{% endif %}{% endif %}" href="{% url page x.slug %}">{{ x.title }}</a>
+			</li>
 		{% endfor %}
-		{% if page.get_root.slug == 'learn' %}
+		
+		{% if page.get_root.slug == _('learn') %}
 		    <li><a href="{% url blog_home %}">{% trans "Blog" %}</a></li>
 		{% endif %}
+		
 	</ul>
   </div>
 </div>

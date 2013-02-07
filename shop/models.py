@@ -493,6 +493,14 @@ class Page(models.Model):
         return self.title
         
     def get_root(self):
+        def _iterator(obj):
+            if obj.parent:
+                return _iterator(obj.parent)
+            else:
+                return obj
+        return _iterator(self)
+    
+    def get_nav_tree(self):        
         
         def _iterator(obj):
             if obj.parent:
@@ -500,22 +508,56 @@ class Page(models.Model):
             else:
                 return obj
         
-        return _iterator(self)
+        root = None
+        level_one = None
+        level_two = None
+        level_three = None
+        pages = Page.objects.all()
         
+        root = _iterator(self) # THE ABSOLUTE ROOT OF THE CURRENT PAGE
+        all_level_one = pages.filter(parent=root) # POPULATES THE MAIN SUBNAV
+        all_level_two = pages.filter(parent__parent=root)
+        all_level_three = pages.filter(parent__parent__parent=root)
+        
+        
+        # IS THIS PAGE THE ROOT?
+        if self == root:
+            pass
+        
+        # IS THIS A 1ST LEVEL PAGE
+        if self in all_level_one:
+            level_two = self.get_children()
+        
+        
+        # IS THIS A 2ND LEVEL PAGE?
+        if self in all_level_two:
+            level_two = pages.filter(parent=self.parent)
+            level_three = self.get_children()
+        
+        
+        # IS THIS A 3RD LEVEL PAGE?
+        if self in all_level_three:
+            level_two = pages.filter(parent=self.parent.parent)
+            level_three = pages.filter(parent=self.parent)
+            level_four = self.get_children()
+                                
+        
+            
+        result = {'root': root, 'one': all_level_one, 'two': level_two, 'three': level_three}
+        return result
     
-    def get_nav_tree(self):
-        if self.parent is None: 
-            nav_items = Page.objects.filter(parent=self)
-        else:
-            if self.parent.parent is None:
-                nav_items = Page.objects.filter(parent=self.parent)
-            else:
-                if self.parent.parent.parent is None:
-                    nav_items = Page.objects.filter(parent=self.parent.parent)
-                else:
-                    if self.parent.parent.parent.parent is None:
-                        nav_items = Page.objects.filter(parent=self.parent.parent.parent)
-        return nav_items
+    def get_breadcrumb(self):
+        
+        items = []
+        def _iterator(obj):
+            items.insert(0, obj)
+            if obj.parent:
+                _iterator(obj.parent)
+            
+            return items
+        
+        return _iterator(self)
+            
     
     def get_children(self):
         items = Page.objects.filter(parent=self)
@@ -528,15 +570,6 @@ class Page(models.Model):
     def get_url_by_id(self):
         url = "/page/%s/" % self.id
         return url
-
-    def get_products_mentioned(self):
-        teas = Product.objects.filter(is_active=True)
-        products = []
-        for tea in teas:
-            if tea.name in self.content:
-                products.append(tea)
-        return products
-        
         
 
 # signals to connect to receipt of PayPal IPNs

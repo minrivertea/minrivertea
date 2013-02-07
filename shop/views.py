@@ -61,7 +61,7 @@ def index(request):
 
 def page(request, slug):
     page = get_object_or_404(Page, slug=slug)
-    
+    nav_tree = page.get_nav_tree()
     if request.path == '/contact-us/':
         form = ContactForm()
     
@@ -81,7 +81,6 @@ def page_by_id(request, id):
 def category(request, slug):
     curr = _get_currency(request)
     if slug == _('teas'):
-        print slug
         products = None
         category = get_object_or_404(Category, slug=slug)
         special = get_object_or_404(UniqueProduct, parent_product__slug=_('buddhas-hand-oolong-tea'), currency=curr)
@@ -127,7 +126,7 @@ def sale(request):
 
 
 
-# view for a single product
+# VIEW FOR A SINGLE PRODUCT
 def tea_view(request, slug):
     
     try:
@@ -136,21 +135,16 @@ def tea_view(request, slug):
         added = None
        
     if added:
-        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])
-        if _get_region(request) == 'US':
-            weight = weight_converter(thing.item.weight)
-            weight_unit = 'oz'
-        else:
-            weight_unit = 'g'
-            weight = thing.item.weight
+        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])        
+        from shop.templatetags.convert_weights import convert_weights
+        weight = convert_weights(request, thing.item.weight)
         message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': weight, 'unit': weight_unit}
         request.session['ADDED'] = None
-    
     
     tea = get_object_or_404(Product, slug=slug)
     reviews = Review.objects.filter(is_published=True, product=tea)[:3]
     
-    # if it's a monthly package, let's redirect here:
+    # IF IT'S A MONTHLY ITEM, LET'S REDIRECT HERE:
     if tea.slug == _('monthly-tea-box'):
         return monthly_tea_box(request)
     
@@ -222,9 +216,11 @@ def add_to_basket(request, id):
 
     if request.is_ajax():
         if item.item.weight:
+            from shop.templatetags.convert_weights import convert_weights
+            weight = convert_weights(request, item.item.weight)
             message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s (%(weight)s%(weight_unit)s) added to your basket! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
                     'item':item.item.parent_product, 
-                    'weight': item.item.weight, 
+                    'weight': weight, 
                     'weight_unit': RequestContext(request)['weight_unit'],
                     'url': reverse('basket'),
             }
