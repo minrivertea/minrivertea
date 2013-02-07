@@ -45,11 +45,13 @@ $(function() {
 <div id="mtw">
   <div class="sp">
 
+        {% if page.get_breadcrumb|length > 1 %}
         <div id="breadcrumb">
         {% for item in page.get_breadcrumb %}
             {% if forloop.last %}{{ item.title }}{% else %}<a href="{% url page item.slug %}">{{ item.title }}</a> &raquo; {% endif %} 
         {% endfor %}
         </div>
+        {% endif %}
 
 	<div id="right">
 		{% if nav_tree.two %}
