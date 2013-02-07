@@ -54,7 +54,7 @@ $(function() {
 	<div id="right">
 		{% if nav_tree.two %}
             <div class="info links">
-                <h4>Also in this section:</h4>
+                <h4>{% trans 'Also in this section:' %}</h4>
                 <ul>
                 {% for x in nav_tree.two %}
                     <li>

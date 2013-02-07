@@ -18,14 +18,12 @@ form input {
 
 form textarea {
   float: left;	
-  width: 430px;
+  width: 600px;
 }
 
 form input.button {
-  margin-left: 150px;
   float: left; 
-    font-size: 16px;	
-  margin-top: 15px;
+  font-size: 16px;	
   width: 300px;	
 }
 
@@ -35,6 +33,7 @@ div#mtw div#left p.help-text {
   margin-left: 0px;
   font-size: 15px;
   width: 100%;
+  color: #777;
 }
 
 div#mtw div#left p.help-text.red {
@@ -129,7 +128,7 @@ div.top {
 }
 
 #form form {
-  width: 470px;	
+  width: 100%;	
   float: left;
 }
 
@@ -179,16 +178,16 @@ img#loading-contact {
 
         <div id="right">
             {% include 'shop/boxes/follow.html' %}
+		 	<div class="info">
+				<h3>{% trans "Looking for a phone number?" %}</h3>
+				<p>{% trans "Sorry - because we're based in China we keep getting calls in the middle of the night! If you send us a message with your information, we will call you back." %}</p>
+			</div>
 		 	<div class="info"> 		
-			 	<h3>{% trans 'Returns' %}</h3>
+			 	<h3><a href="{% url page _('returns') %}">{% trans 'Returns' %} &raquo;</a></h3>
 			 	<p>{% trans "If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked." %}</p>
 			</div>
-			<div class="info">
-				<h3>{% trans "Personal shopping" %}</h3>
-				<p>{% trans "We're based here in China, so if you have specific tea needs that can't be fulfilled anywhere else, just get in touch." %}</p>
-			</div>
 			<div class="info">		 	
-			 	<h3>{% trans "Wholesale/trade" %}</h3>
+			 	<h3><a href="{% url page _('wholesale') %}">{% trans "Wholesale/trade" %} &raquo;</a></h3>
 			 	<p>{% trans "Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch." %}</p>
 			</div>        
         </div>
@@ -201,19 +200,19 @@ img#loading-contact {
 	
 				<img id="loading-contact" src="{{ static_url }}images/loading.gif"/>
 				<form action="{% url contact_form_submit %}" method="post" id="contact-form">
-					<h2>{% trans "Send us a message" %}</h2>
+					<h3>{% trans "Send us a message" %}</h2>
 					<p>{% trans "Use our online contact form to send us a message. We respond to all messages within 12 hours." %}</p>			
-					
+					<textarea id="id_your_message" name="your_message" title="{% trans 'Write your message here...' %}" class="clearMeFocus{% if form.your_message.errors %} error{% endif %}" cols="40" rows="10"></textarea>
 					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus{% if form.your_name.errors %} error{% endif %}" title="{% trans 'Your name' %}" value=""/>
 					<input type="text" name="your_email" id="id_your_email" class="clearMeFocus{% if form.your_email.errors %} error{% endif %}" title="{% trans 'Your email address' %}" value=""/>
-					<textarea id="id_your_message" name="your_message" title="{% trans 'Write your message here...' %}" class="clearMeFocus{% if form.your_message.errors %} error{% endif %}" cols="40" rows="10"></textarea>
+					<br clear="all"/>
 					<p class="help-text {% if form.captcha.errors %} red{% endif %}">{% trans "Sorry, please fill in the captcha - it stops spam." %}</p>
 					{{ form.captcha }}
-					<input class="button" value="{% trans 'Submit' %}" type="submit"/>
 					<p class="help-text">
 						<img src="{{ static_url }}images/lock.gif"> 
 						{% trans "We will never share, sell or spam your email address" %} (<a target="_blank" title="{% trans 'Read our privacy policy (opens in a new window)' %}" href="/privacy/">{% trans 'Privacy' %}</a>)
-					</p>			
+					</p>	
+					<input class="button green" value="{% trans 'Submit' %}" type="submit"/>		
 				</form>
 				{% endif %}
 			</div>
