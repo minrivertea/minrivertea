@@ -335,8 +335,8 @@ div.about-right img.top {
 	.scroll {
 		position:relative;
 		overflow:hidden;
-		width: 660px;
-		height: 438px;
+		width: 600px;
+		height: 389px;
 		float:left;
 		margin-bottom: 30px;
 	}
@@ -352,8 +352,8 @@ div.about-right img.top {
 	.pics div {
 		float:left;
 		cursor:pointer;
-		width:660px !important;
-		height:438px;
+		width:600px !important;
+		height:389px;
 		margin:0px;
 		border-radius: 10px;
 	}

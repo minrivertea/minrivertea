@@ -1,5 +1,7 @@
 {% load nav_selected i18n %}
 
+{% if nav_tree.one %}
+
 <div id="subnav">
   <div class="sp">
 	<ul>
@@ -16,3 +18,5 @@
 	</ul>
   </div>
 </div>
+
+{% endif %}
