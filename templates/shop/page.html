@@ -35,7 +35,7 @@ $(function() {
 {% block extracss %}
 <link rel="stylesheet" type="text/css" href="{{ static_url }}css/pages.css">
 <style type="text/css">
-{% if page.get_breadcrumb|length > 1 %}
+{% if page.get_breadcrumb|length < 1 %}
 ul.rss {
   top: 55px;   
 }
