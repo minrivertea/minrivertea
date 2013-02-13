@@ -37,7 +37,7 @@
 -->
 
     <li>
-      <a class="grey{% if page %}{% if page.get_root.slug == 'learn' %} selected{% endif %}{% else %} {% nav_selected request '^/(learn|blog)/' %}{% endif %} learn" href="{% url page _('learn') %}" title="{% trans 'Learn about Chinese tea' %}" alt="{% trans 'Learn about Chinese tea' %}">{% trans 'Learn about tea' %}</a>
+      <a class="grey{% if page %}{% if page.get_root.slug == _('learn') %} selected{% endif %}{% else %} {% nav_selected request '^/(learn|blog)/' %}{% endif %} learn" href="{% url page _('learn') %}" title="{% trans 'Learn about Chinese tea' %}" alt="{% trans 'Learn about Chinese tea' %}">{% trans 'Learn about tea' %}</a>
     </li>
     <li>
       <a class="grey {% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about/' %}{% endif %} about" href="{% url page _('about') %}" title="{% trans 'About Min River Tea' %}" alt="{% trans 'About Min River Tea' %}">{% trans 'About us' %}</a>
