@@ -478,7 +478,7 @@ ul.rss {
 	       {% trans 'TeaBoxes' %}<br/>
 	   </h3>
 	   <div class="more">
-	       <a href="{% url monthly_tea_box %}">Start your TeaBox &raquo;</a>
+	       <a href="{% url monthly_tea_box %}">{% trans 'Start your TeaBox' %} &raquo;</a>
 	   </div>
 	   <div class="months">
 	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name and monthly_discount_low|floatformat:"-2" as discount %}
