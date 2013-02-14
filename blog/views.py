@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import Http404
 
 
 
@@ -28,8 +29,8 @@ def index(request):
     return _render(request, "blog/home.html", locals())
     
     
-@csrf_protect   
 def blog_entry(request, slug):
+    # TODO - THIS CAUSES 404 IF LANGUAGE IS SET TO EN AND SOMEONE REQUESTS A DE SLUG
     entry = get_object_or_404(BlogEntry, slug=slug)
     other_entries = BlogEntry.objects.filter(title__isnull=False).exclude(id=entry.id, title__exact="None").order_by('?')[:2]
     teas = _get_products(request, random=True)[:2]

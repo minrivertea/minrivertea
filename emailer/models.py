@@ -7,6 +7,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 
 from shop.models import Shopper
 
+import uuid
 
 class EmailInstance(models.Model):
     shopper = models.ForeignKey(Shopper, blank=True, null=True)
@@ -33,7 +34,15 @@ class Subscriber(models.Model):
     language = models.CharField(max_length=200, choices=settings.LANGUAGES)
     confirmed = models.BooleanField(default=False)
     date_unsubscribed = models.DateField(blank=True, null=True)
-    hashkey = models.CharField(max_length=100)
+    hashkey = models.CharField(max_length=100,
+        help_text="Leave blank and the system will add a UID here.", blank=True, null=True)
     
     def __unicode__(self):
         return self.email
+    
+    
+    def save(self, *args, **kwargs):
+        if self.hashkey == "":
+            self.hashkey = uuid.uuid1().hex
+        else:
+            super(Blog, self).save(*args, **kwargs) # Call the "real" save() method.

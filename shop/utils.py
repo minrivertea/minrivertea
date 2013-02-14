@@ -275,6 +275,7 @@ def _finder(request, x=None, y=None, z=None, slug=None):
         pass
         
     
+    # PAGES - LAST ONE, TRY TO FIND A MATCHING PAGE
     for l in settings.LANGUAGES:
         try:
             activate(l[0])  
@@ -283,7 +284,6 @@ def _finder(request, x=None, y=None, z=None, slug=None):
         except:
             pass  
         
-    
     if len(pages) > 0:
         if len(pages) == 1:
             activate(pages[0]['lang'])
@@ -300,7 +300,8 @@ def _finder(request, x=None, y=None, z=None, slug=None):
         from shop.views import page
         return page(request, slug=slug)
     
-
+    # RESET TO ORIGINAL LANGUAGE AND SHOW 404
+    activate(current_lang)
     raise Http404
     return
     

@@ -138,7 +138,7 @@ def tea_view(request, slug):
         thing = get_object_or_404(BasketItem, id=request.session['ADDED'])        
         from shop.templatetags.convert_weights import convert_weights
         weight = convert_weights(request, thing.item.weight)
-        message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': weight, 'unit': weight_unit}
+        message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': weight, 'unit': RequestContext(request)['weight_unit']}
         request.session['ADDED'] = None
     
     tea = get_object_or_404(Product, slug=slug)
