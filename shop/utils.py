@@ -128,8 +128,6 @@ def _get_currency(request, currency_code=None):
                 currency_code = 'USD'
             if region == 'DE':
                 currency_code = 'EUR'
-            if region == 'CN':
-                currency_code = 'RMB'
         
     return get_object_or_404(Currency, code=currency_code)
     
