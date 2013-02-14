@@ -45,4 +45,4 @@ class Subscriber(models.Model):
         if self.hashkey == "":
             self.hashkey = uuid.uuid1().hex
         else:
-            super(Blog, self).save(*args, **kwargs) # Call the "real" save() method.
+            super(Subscriber, self).save(*args, **kwargs) # Call the "real" save() method.
