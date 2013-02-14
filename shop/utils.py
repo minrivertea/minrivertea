@@ -312,6 +312,9 @@ def _get_monthly_price(unique_product, months):
     if unique_product.parent_product.category.slug == _('teaware'):
         return None
     
+    if _('taster') in unique_product.parent_product.slug:
+        return None
+    
     if months == 3:
         discount = 0
         
