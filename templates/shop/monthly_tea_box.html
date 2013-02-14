@@ -33,7 +33,7 @@ function addToBasket() {
               if ($('#price_'+idx+' .quantity').length) {
                 $('#price_'+idx+' .quantity .num').html(parseInt($('#price_'+idx+' .quantity .num').html(), 10)+1);
               } else {
-                 $('#price_'+idx).append('<span class="quantity"><span class="num">1</span> in basket!</span>');
+                 $('#price_'+idx).append('<span class="quantity"><span class="num">1</span> {% trans "in basket!" %}</span>');
               }
               $('#price_'+idx).animate({'opacity': '1'}, 200);
               $('#'+idx+' .quantity').addClass('flash').delay(3900).queue(function() {$(this).removeClass('flash')});
