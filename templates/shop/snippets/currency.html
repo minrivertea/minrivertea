@@ -3,5 +3,5 @@
 <div id="currency">
 	<a class="uk{% if currency.code == 'GBP' %} strong one{% else %} two{% endif %}" title="Switch currency to British pounds" href="{% url set_currency %}?curr=GBP"><span>GBP</span></a>
 	<a class="us{% if currency.code == 'USD' %} strong one{% else %} three{% endif %}" title="Switch currency to US Dollars" href="{% url set_currency %}?curr=USD"><span>USD</span></a>
-	<a class="eu{% if currency.code == 'EUR' %} strong one{% else %}{% if currency.code == 'USD'%} three{% else %} two{% endif %}{% endif %}" title="Switch currency to Euros"href="{% url set_currency %}?curr=EUR"><span>EUR</span></a>
+	<a class="eu{% if currency.code == 'EUR' %} strong one{% else %}{% if currency.code == 'USD'%} three{% else %} two{% endif %}{% endif %}" title="Switch currency to Euros" href="{% url set_currency %}?curr=EUR"><span>EUR</span></a>
 </div>

@@ -482,6 +482,7 @@ def order_step_one(request, basket=None):
             # CREATE OR FIND THE ORDER
             try:
                 order = get_object_or_404(Order, id=request.session['ORDER_ID'])
+                
             except:
                 creation_args = {
                     'is_confirmed_by_user': True,
