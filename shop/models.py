@@ -479,7 +479,7 @@ class Notify(models.Model):
         return self.email
 
 class Page(models.Model):
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=100)
     title = models.CharField(max_length=200)
     meta_title = models.CharField(max_length=200, blank=True, null=True)
     meta_description = models.TextField(blank=True, null=True)
