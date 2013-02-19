@@ -789,29 +789,25 @@ div.fb-recommend {
 	<!-- END EXTRAS -->
 	<br clear="all"/>	
 
-{% if request.user.is_superuser %}
-{% if reviews %}
-</div>
-
-<div id="reviews">
-    <div class="sp">
-   <h3>{% blocktrans %}What do customers say about {{ tea }}?{% endblocktrans %}</h3>
-   <a class="add-review" href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review of this tea' %} &raquo;</a>
-       <ul>
-       {% for r in reviews %}
-           <li>
-               &ldquo;{{ r.short_text }}&rdquo;<br/>
-               <strong>{{ r.first_name }} {{ r.last_name }}</strong>{% if r.url %} (<a href="{{ r.url }}">view original</a>){% endif %}
-           </li>
-       {% endfor %}
-        </ul>
-        
+    {% if reviews %}
     </div>
-</div>
-
-<div class="sp">
-{% endif %}
-{% endif %}
+    <div id="reviews">
+        <div class="sp">
+       <h3>{% blocktrans %}What do customers say about {{ tea }}?{% endblocktrans %}</h3>
+       <a class="add-review" href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review of this tea' %} &raquo;</a>
+           <ul>
+           {% for r in reviews %}
+               <li>
+                   &ldquo;{{ r.short_text }}&rdquo;<br/>
+                   <strong>{{ r.first_name }} {{ r.last_name }}</strong>{% if r.url %} (<a href="{{ r.url }}">view original</a>){% endif %}
+               </li>
+           {% endfor %}
+            </ul>
+            
+        </div>
+    </div>
+    <div class="sp">
+    {% endif %}
 
 {% if request.user.is_superuser %}
    {% if monthly_price %}

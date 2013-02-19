@@ -8,7 +8,7 @@
 
 h1 {
   font-size: 38px;
-  margin: 15px 0 50px;   
+  margin: 15px 0;   
 }
 
 h1.fimage {
@@ -257,10 +257,10 @@ div.about-right img.top {
 
 #breadcrumb {
   font-size: 12px;
-  margin: 0px 0 10px;
+  margin: 0;
   float: left;
   width: 100%;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
 }
 
 .info.links ul {
@@ -381,12 +381,23 @@ div.about-right img.top {
 
 
 ul.rss {
-    left: 0;
-    list-style-type: none;
-    margin: 15px 0 0;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    top: 92px;
-    width: 150px;
+   position: absolute;
+   top: 80px;
+   float: right;
+   list-style-type: none;
+   width: 75px;
+   left: -130px;
+   overflow: hidden;
+}
+
+ul.rss #google {
+  width: 65px;
+  float: right;
+  margin: 0;
+}
+
+ul.rss #facebook {
+  width: 75px;
+  float: right;	
+  position: relative;
 }

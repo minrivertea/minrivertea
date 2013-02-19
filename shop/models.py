@@ -244,6 +244,7 @@ class Review(models.Model):
     short_text = models.TextField(blank=True, null=True)
     url = models.URLField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
+    lang = models.CharField(max_length=5, choices=settings.LANGUAGES)
     
     def __unicode__(self):
         return self.product.name  
