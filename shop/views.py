@@ -913,13 +913,6 @@ def reviews(request):
     return _render(request, 'shop/reviews.html', locals())
 
 
-# view for a user's "I'm a tea lover" page
-def tea_lover(request, slug):
-    tea_lover = get_object_or_404(Shopper, slug=slug)
-    
-    return _render(request, 'shop/tea_lover.html', locals())
- 
- 
  
 # view for the tell_a_friend form      
 def tell_a_friend(request):
@@ -934,22 +927,7 @@ def tell_a_friend(request):
             
             _tell_a_friend_email(sender, receiver)
 
-            # create the referrer/referee objects
-            try:
-                referrer = get_object_or_404(Shopper, email=sender)
-                referrer.number_referred += 1
-                referrer.save()
-            except:
-                pass
-            
-            referee = Referee.objects.create(
-                    email=receiver,
-                    referred_by=sender,
-                    date=datetime.now()
-                    )
-            referee.save()
-
-            message = _("We've sent an email to %s letting them know about minrivertea.com - thanks for your help!") % referee.email
+            message = _("We've sent an email to %s letting them know about minrivertea.com - thanks for your help!") % receiver
             # then send them back to the tell a friend page
             return _render(request, "shop/forms/tell_a_friend.html", locals())
 
@@ -962,80 +940,6 @@ def tell_a_friend(request):
     else:
         form = TellAFriendForm()
     return _render(request, 'shop/forms/tell_a_friend.html', locals())
-
-
-def international(request):
-    request.session['REGION'] = 'global'
-    currency = _set_currency(request)
-            
-    url = request.META.get('HTTP_REFERER','/')
-    return HttpResponseRedirect(url)
-    
-        
-def china_convert_prices(request, id):
-    order = get_object_or_404(Order, pk=id)
-    
-    # HACK!! we're going to fake the values just so we can let
-    # the customer pay in USD not RMB
-    
-    exchange_rate = 0.1571 # this is the RMB:USD exchange rate
-    
-    old_price = 0
-    new_price = 0
-        
-    items = []
-    for x in order.items.all():        
-        items.append(dict(
-            price = float(x.item.price)*float(exchange_rate),
-            parent_product = x.item.parent_product.name,
-            weight = '%s%s' % (x.item.weight, x.item.weight_unit),
-            quantity = x.quantity,
-        ))
-        old_price += x.item.price
-        new_price = float(x.item.price)*float(exchange_rate)
     
     
-    
-    currency = _get_currency(request)
-    if old_price > currency.postage_discount_threshold:
-        postage_cost = 0
-        postage_discount = True
-    else:
-        postage_cost = currency.postage_cost * float(exchange_rate) 
-        postage_discount = None
-    
-    old_total = old_price + postage_cost
-    new_total = new_price + postage_cost 
-          
-    paypal_form = render_to_string('shop/snippets/paypal_form_china.html', {
-            'order': order,
-            'order_items': items,
-            'new_price': new_price,
-            'old_price': old_price,
-            'old_total': old_total,
-            'new_total': new_total,
-            'exchange_rate': exchange_rate,
-            'postage_discount': postage_discount,
-            'postage_cost': postage_cost,
-            'currency': _get_currency(request, 'USD'),
-            'paypal_return_url': settings.PAYPAL_RETURN_URL,
-            'paypal_receiver_email': settings.PAYPAL_RECEIVER_EMAIL,
-            'paypal_notify_url': settings.PAYPAL_NOTIFY_URL, 
-            'paypal_submit_url': settings.PAYPAL_SUBMIT_URL,      
-        
-        })
-    
-    if request.is_ajax():
-        return HttpResponse(paypal_form)
-    
-   
-    return _render(request, 'shop/forms/order_confirm.html', locals())
-    
-    
-
-def make_product_feed(request):
-    products = UniqueProduct.objects.filter(currency__code='GBP', is_active=True)
-    
-    content = render_to_string('product_feed_template.xml', {'products': products}) 
-    return HttpResponse(content, mimetype="application/xml") 
        

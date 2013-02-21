@@ -33,9 +33,6 @@ class ReviewAdmin(admin.ModelAdmin):
 class PageAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'parent')
 
-class EmailInstanceAdmin(admin.ModelAdmin):
-    list_display = ('subject_line', 'date_sent')
-
 class UniqueProductAdmin(admin.ModelAdmin):
     list_display = ('parent_product', 'weight', 'price', 'is_sale_price', 'is_active', 'currency')
     list_filter = ('is_active', 'currency')
@@ -47,13 +44,9 @@ admin.site.register(Address)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Shopper)
 admin.site.register(UniqueProduct, UniqueProductAdmin)
-admin.site.register(EmailInstance, EmailInstanceAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Discount)
-admin.site.register(Photo)
 admin.site.register(Wishlist)
-admin.site.register(Referee)
-admin.site.register(Notify)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Review, ReviewAdmin)
 

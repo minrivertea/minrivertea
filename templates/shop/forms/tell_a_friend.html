@@ -5,12 +5,17 @@
 <link rel="stylesheet" href="{{ static_url }}css/teas.css"/>
 <style type="text/css">
 
-div.tea-promo.small {
-  width: 250px;	
+div.info.small {
+  width: 270px;	
+  height: 220px;
   margin-right: 15px;
 }
 
-div.tea-promo h3 {
+div.info.long {
+  width: 800px;   
+}
+
+div.info h3 {
   font-size: 32px;
   float: left;
   font-family: Helvetica, sans-serif;
@@ -18,21 +23,22 @@ div.tea-promo h3 {
   font-weight: bold;	
 }
 
-div.tea-promo p.help {
+div.info p.help {
     float: left;
     font-size: 0.7em;
     position: relative;
     width: 140px;
 }
 
-div.tea-promo div.image {
-  width: 250px;	
+div.info div.image {
+  width: 100%;	
   float: left;
   display: block;
+  margin: 0 0 15px 0;
 }
 
-div.tea-promo div.text {
-  width: 250px;
+div.info div.text {
+  width: 100%;
   margin-top: 15px;
 }
 
@@ -69,7 +75,7 @@ div.text .button {
 		{% endif %}
     			
 	
-		<div class="tea-promo small">
+		<div class="info small">
 			<div class="image">
 				<div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -87,7 +93,7 @@ div.text .button {
 			</div>
 		</div>
 		
-		<div class="tea-promo small">
+		<div class="info small">
 			<div class="image">
 				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com" data-text="better #tea for your mug" data-via="minrivertea" data-size="large" data-related="minrivertea">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -97,7 +103,7 @@ div.text .button {
 				<p>{% trans "Tweeting about us helps spread the word to a huge variety of people - many people are still unaware that buying good quality Chinese tea is actually quite easy and enjoyable. " %}</p>
 			</div>
 		</div>
-		<div class="tea-promo small">
+		<div class="info small">
 			<div class="image">
 				<img style="box-shadow: 0 1px 2px #999 inner;" src="{{ static_url }}images/plusone.png">
 			</div>
@@ -107,7 +113,7 @@ div.text .button {
 			</div>
 		</div>
 		
-		<div class="tea-promo">
+		<div class="info long">
 			<form method="post" action="/tell-a-friend/">
 			
 			<div class="image" style="width: 400px; padding-left: 10px;">

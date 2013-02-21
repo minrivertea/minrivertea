@@ -15,7 +15,6 @@ urlpatterns = patterns('',
     url(r'^basket/reduce/(\w+)$', views.reduce_quantity, name="reduce_quantity"),
     url(r'^basket/increase/(\w+)$', views.increase_quantity, name="increase_quantity"),
     url(r'^basket/remove/(\w+)$', views.remove_from_basket, name="remove_from_basket"),
-    url(r'^china_convert_prices/(\w+)$', views.china_convert_prices, name="china_convert_prices"),
     
     
     # monthly order specific
@@ -25,7 +24,6 @@ urlpatterns = patterns('',
 
 
     url(r'^contact-form-submit/$', views.contact_form_submit, name="contact_form_submit"),
-    url(r'^international/$', views.international, name="international"),
     url(r'^order/step-one/$', views.order_step_one, name="order_step_one"),
     url(r'^order/confirm/$', views.order_confirm, name="order_confirm"),
     url(r'^order/complete/$', views.order_complete, name="order_complete"),
@@ -37,7 +35,6 @@ urlpatterns = patterns('',
     url(r'^order/(?P<hash>[\w-]+)/$', views.order_url, name="order_url"),
     url(r'^order/complete/turn-off-twitter/(\w+)$', views.turn_off_twitter, name="turn_off_twitter"),    
     url(r'^reviews/$', views.reviews, name="reviews"),
-    url(r'^tea-lover/(?P<slug>[\w-]+)/$', views.tea_lover, name="tea_lover"),
     url(r'^tell-a-friend/$', views.tell_a_friend, name="tell_a_friend"),
     url(r'^not-me/$', views.not_you, name="not_you"),
     url(r'^currency/$', utils._set_currency, name="set_currency"),

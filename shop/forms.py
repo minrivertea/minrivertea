@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 from captcha.fields import CaptchaField
 
-from shop.models import Address, Order, Discount, Shopper, Product, Notify, BasketItem, Currency, UniqueProduct
+from shop.models import Address, Order, Discount, Shopper, Product, BasketItem, Currency, UniqueProduct
 from countries import all_countries, COUNTRY_CHOICES, US_STATES
 
  

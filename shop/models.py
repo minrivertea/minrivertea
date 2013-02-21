@@ -271,7 +271,7 @@ class Address(models.Model):
         
 class Basket(models.Model):
     date_modified = models.DateTimeField()
-    owner = models.ForeignKey(Shopper, null=True) # TODO can delete this
+    owner = models.ForeignKey(Shopper, null=True) # DELETE
     
     def __unicode__(self):
         return str(self.date_modified)
@@ -428,55 +428,7 @@ class Wishlist(models.Model):
     def __unicode__(self):
         return self.owner.email
         
-          
-     
 
-class Photo(models.Model):
-    shopper = models.ForeignKey(Shopper)
-    photo = models.ImageField(upload_to='images/user-submitted')
-    published = models.BooleanField(default=False)
-    published_homepage = models.BooleanField(default=False)
-    email_sent = models.BooleanField(default=False)
-    related_product = models.ForeignKey(Product, blank=True, null=True)
-    
-    def __unicode__(self):
-        return self.shopper.email
-    
-    def get_absolute_url(self):
-        return "/tea-lover/%s/" % self.shopper.slug
-
-
-class Referee(models.Model):
-    email = models.EmailField()
-    date = models.DateTimeField('date_referred', default=datetime.now)
-    referred_by = models.CharField(max_length=200)
-    
-    def __unicode__(self):
-        return self.email
-
-
-
- 
-class EmailInstance(models.Model):
-    subject_line = models.CharField(max_length=256)
-    content = models.TextField()
-    date_sent = models.DateTimeField(blank=True, null=True)
-    
-    def __unicode__(self):
-        return self.subject_line   
-        
-
-class Notify(models.Model):
-    email = models.EmailField()
-    name = models.CharField(max_length=200, blank=True, null=True)
-    product = models.ForeignKey(Product, blank=True, null=True)
-    country = models.CharField(max_length=200, blank=True, null=True)
-    date = models.DateTimeField('date', default=datetime.now,
-        help_text="The date that they made contact")
-    email_sent = models.BooleanField(default=False, help_text="If this is ticked, don't send them emails again")
-
-    def __unicode__(self):
-        return self.email
 
 class Page(models.Model):
     slug = models.SlugField(max_length=100)
