@@ -153,13 +153,24 @@ if (15.00) {
       		    {% endif %}
       		  </div>
       		</div>
-	   	
-         	<div id="language">
-      			{% get_current_language as LANGUAGE_CODE %}
-      			<a href="{% url changelang 'de' %}" class="{% if LANGUAGE_CODE == 'de' %}selected{% endif %}">{% trans 'German' %}</a> | 
-      			<a href="{% url changelang 'en' %}" class="{% if LANGUAGE_CODE in 'en, en-us, en-gb' %}selected{% endif %}">{% trans 'English' %}</a>
-      		</div>	
+	   		
         	{% include 'shop/snippets/currency.html' %}
+
+        
+        	
+        	<div id="learn">
+        	   <a href="{% url page _('about') %}" class="{% if page %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% else %}{% nav_selected request '^/about/' %}{% endif %}">{% trans 'About us' %}</a> | 
+        	   <a href="{% url page _('learn') %}" class="{% if page %}{% if page.get_root.slug == _('learn') %} selected{% endif %}{% else %} {% nav_selected request '^/(learn|blog)/' %}{% endif %}">{% trans 'Learn about tea' %}</a> | 
+        	   <a href="{% url page _('contact-us') %}" class="{% if page %}{% if page.slug == _('contact-us') %} selected{% endif %}{% endif %}">{% trans 'Contact us' %}</a> | 
+        	   {% get_current_language as LANGUAGE_CODE %}
+        	   {% if LANGUAGE_CODE == 'de' %}
+      			<a href="{% url changelang 'en' %}" class="{% if LANGUAGE_CODE in 'en, en-us, en-gb' %}selected{% endif %}">{% trans 'English' %}?</a>
+        	   {% else %}
+      			<a href="{% url changelang 'de' %}" class="{% if LANGUAGE_CODE == 'de' %}selected{% endif %}">{% trans 'German' %}?</a>
+        	   {% endif %}
+
+
+        	</div>
         </div>
 
     	{% include 'shop/snippets/main_navigation.html' %}

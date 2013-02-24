@@ -107,7 +107,7 @@ $(document).ready( function() {
 
 h1 {
   font-size: 40px;	
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 h1 span {
@@ -118,21 +118,14 @@ h1 span {
 
 div.product-photos-small {
     float: left;
-    margin: 0px 0 0px 15px;
+    margin: 15px 0 0px;
     text-align: right;
-    width: 50px;
-}
-
-.tea-top .left {
-    float: left;
-    height: auto;
-    margin-right: 30px;
-    width: 565px;
+    width: 500px;
 }
 
 .tea-top div.main-image div.product-photos-small img {
     float: left;
-    margin: 0 0px 10px 0;
+    margin: 0 5px 0px 0;
     opacity: 0.6;
 }
 
@@ -160,18 +153,26 @@ div.product-photos-small p {
 }
 
 .tea-top {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 8px 8px 8px 8px;
     float: left;
-    margin: 10px 0 30px;
-    padding-bottom: 10px;
+    margin: 20px 0 40px;
+    padding: 15px;
 }
 
+.tea-top .left {
+  width: 500px;
+  float: left;   
+}
+
+
 .tea-top .description {
-  width: 365px;
+  width: 400px;
   float: right;	
 }
 
 .tea-top div.description p {
-  font-size: 20px;
+  font-size: 22px;
   color: #333;	
   margin: 0 0 10px 0;
   text-shadow: 2px 2px 0 #fff;
@@ -183,12 +184,12 @@ div.product-photos-small p {
 
 .tea-top div.main-image {
     float: left;
-    width: 565px;
+    width: 500px;
 }
 
 .tea-top div#prices {
     float: right;
-    width: 365px;
+    width: 400px;
     margin: 15px 0 0;
 }
 
@@ -196,7 +197,7 @@ div.product-photos-small p {
     float: left;
     margin: 0 0 10px;
     position: relative;
-    width: 360px;
+    width: 100%;
 }
 
 .tea-top #original {
@@ -230,7 +231,6 @@ a.button {
     margin: 0;
     position: relative;
     width: 170px;
-    top: -5px;
     padding: 11px 20px 9px;
     text-align: right;
 }
@@ -263,7 +263,7 @@ div.price-text {
 
 #stocks {
   float: left;
-  width: 365px;
+  width: 100%;
   padding: 15px 0 0 0;
   border-top: 1px solid #e1e1e1; 
   font-family: Helvetica, arial, sans-serif;
@@ -320,13 +320,13 @@ span.name {
 
 #prices .amount {
     color: #237A2A;
-    float: left;
+    float: right;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
-    letter-spacing: -2px;
+    letter-spacing: -2.5px;
     line-height: 1em;
-    margin: 0 0 10px;
+    margin: 0 10px 10px;
     position: relative;
     text-shadow: 1px 1px 0 #FFFFFF;
 }
@@ -337,15 +337,14 @@ span.name {
 }
 
 .price-description {
-    color: #555555;
-    float: left;
+    color: #777777;
+    float: right;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 12px;
-    left: 5px;
-    line-height: 1em;
-    margin: 0 0 0 5px;
+    font-size: 14px;
+    margin: 0;
     position: relative;
-    width: 90px;
+    width: auto;
+    max-width: 110px;
 }
 
 .price-description span {
@@ -394,11 +393,9 @@ div.fb-recommend {
 }
 
 #recommended h3.title, #reviews h3 {
-  font-size: 18px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight:bold;  
-  margin: 0 0 10px 0; 
-  color: #FF6569;
+    color: #5F829A;
+    font-size: 22px;
+    margin: 0 0 10px;
 }
 
 #reviews a.add-review {
@@ -433,7 +430,6 @@ div.fb-recommend {
     float: left;
 }
 
-
 #description, #brewing {
   background: none;
   padding: 0;
@@ -452,10 +448,10 @@ div.fb-recommend {
 }
 
 #description h3, #brewing h3 {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  color: #FF6569;
-  font-weight: bold;   
+    color: #5F829A;
+    font-size: 22px;
+    font-weight: normal;
+    font-family: "Times New Roman", Georgia, serif;
 }
 
 #extras {
@@ -715,9 +711,10 @@ ul.rss {
 		      	{% if price.is_sale_price %}
 		      	   <div id="original"><span>On Sale Now!</span> Was <strong>{{ currency.symbol }}{{ price.old_price|floatformat:"-2" }}</strong>, save <strong>{{ currency.symbol }}{{ price.get_saving }}</strong></div>
 		      	{% endif %}
+		    	<span class="price-description">/ {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %}</span>
 		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
-		    	     <span class="price-description">/ {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %}<br/>
-		    	</span>
+
+		    	<br clear="all"/>
 				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_normal"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
               </div>
 

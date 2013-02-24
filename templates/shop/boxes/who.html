@@ -2,5 +2,5 @@
 
 <div class="info">
 	<h3>{% trans 'We sell fresh + natural Chinese tea direct from our home in China.' %} <br/>
-	{% if region == 'China' %}<a href="/about-china/">{% else %}<a href="/about/">{% endif %}{% trans 'Find out more' %} &raquo;</a></h3>	
+    <a href="{% url page _('about') %}">{% trans 'Find out more' %} &raquo;</a></h3>	
 </div>

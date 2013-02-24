@@ -4,18 +4,50 @@
 
 <div id="subnav">
   <div class="sp">
-	<ul>
-		{% for x in nav_tree.one %}
-			<li>
-			     <a class="{% if x.slug == page.parent.slug %}selected{% else %}{% if x.slug == page.slug %}selected{% endif %}{% endif %}" href="{% url page x.slug %}">{{ x.title }}</a>
-			</li>
-		{% endfor %}
+	
+	
+	<div>
+	  <ul>
+	  <li><a href="{% url page _('about') %}" class="{% if page.get_root.slug == _('about') %}selected{% endif %}">{% trans 'About us' %} <span>&raquo;</span></a></li>
+	  <li><a href="{% url page _('learn') %}" class="{% if page.get_root.slug == _('learn') %}selected{% endif %}">{% trans 'Learn about tea' %} <span>&raquo;</span></a></li>
+	  <li><a href="{% url finder _('teas') %}" class="{% if page.get_root.slug == _('teas') %}selected{% endif %}">{% trans 'Our teas' %} <span>&raquo;</span></a></li>
+	  </ul>
+	</div>
 		
-		{% if page.get_root.slug == _('learn') %}
-		    <li><a href="{% url blog_home %}">{% trans "Blog" %}</a></li>
-		{% endif %}
-		
-	</ul>
+	<div>
+    	<ul>
+    		{% for x in nav_tree.one %}
+    			<li>
+    			     <a class="{% if x.slug == page.parent.slug %}selected{% else %}{% if x.slug == page.slug %}selected{% endif %}{% endif %}" href="{% url page x.slug %}">{{ x.title }} <span>&raquo;</span></a>
+    			</li>
+    		{% endfor %}
+    		
+    		{% if page.get_root.slug == _('learn') %}
+    		    <li><a href="{% url blog_home %}" class="">{% trans "Blog" %}</a></li>
+    		{% endif %}
+    		
+    	</ul>
+	</div>
+
+	<div>
+    	<ul>
+    		{% for x in nav_tree.two %}    		
+    			
+    			{% if forloop.revcounter == forloop.counter %}
+                    </ul><ul>
+                {% endif %} 
+                
+                {% if forloop.counter0 == forloop.revcounter %}
+                    </ul><ul>
+                {% endif %}
+                   			
+    			<li>
+    			     <a class="{% if x.slug == page.parent.slug %}selected{% else %}{% if x.slug == page.slug %}selected{% endif %}{% endif %} {% cycle '' 'two' 'three' %}" href="{% url page x.slug %}">{{ x.title }} <span>&raquo;</span></a>
+    			</li>
+    		{% endfor %}
+    	</ul>
+	</div>
+	
   </div>
 </div>
 

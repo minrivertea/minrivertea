@@ -40,3 +40,15 @@ a.button {
 #monthly div.more {
   font-size: 23px;   
 }
+
+.tea-top div.description p {
+  font-size: 20px;   
+}
+
+.tea-top div.description p.small {
+  font-size: 14px;   
+}
+
+#stocks span.not-in-stock, #price-helper .not-in-stock, #stocks {
+   font-size: 12px;   
+}

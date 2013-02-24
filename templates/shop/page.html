@@ -52,36 +52,7 @@ ul.rss {
 <div id="mtw">
   <div class="sp">
 
-        {% if page.get_breadcrumb|length > 1 %}
-        <div id="breadcrumb">
-        {% for item in page.get_breadcrumb %}
-            {% if forloop.last %}{{ item.title }}{% else %}<a href="{% url page item.slug %}">{{ item.title }}</a> &raquo; {% endif %} 
-        {% endfor %}
-        </div>
-        {% endif %}
-
 	<div id="right">
-		{% if nav_tree.two %}
-            <div class="info links">
-                <h4>{% trans 'Also in this section:' %}</h4>
-                <ul>
-                {% for x in nav_tree.two %}
-                    <li>
-                        <a href="{% url page x.slug %}" class="{% nav_selected request x.slug %}">{{ x.title }}</a>
-                        {% if nav_tree.three %}
-                            <ul class="subnav">
-                                {% for y in nav_tree.three %}
-                                {% if x == y.parent %}
-                                    <li><a href="{% url page y.slug %}" class="{% nav_selected request y.slug %}">{{ y.title }}</a></li>
-                                {% endif %}
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
 		
 		{% include 'shop/boxes/who.html' %}
 		{% include 'shop/boxes/tea.html' %}

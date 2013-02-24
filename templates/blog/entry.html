@@ -20,7 +20,9 @@ $(".scroll").scrollable({ circular: true }).click(function() {
 {% block extracss %}
 <style type="text/css">
 h1 {
-  font-size: 36px;   
+  font-size: 34px;
+  color: #5F829A;
+  margin: 0 0 15px 0;   
 }
 
 div#mtw {
@@ -46,9 +48,13 @@ ul.rss li#google {
   width: 65px;   
 }
 
-p.meta {
+p.meta, p.meta a {
   color: #666;
   font-size: 14px;
+}
+
+p.meta a:hover {
+  color: #FF6569;   
 }
 
 div#entry-content h3 {
@@ -185,10 +191,11 @@ div.info.wide input.button {
 
 p.quote {
     background: none repeat scroll 0 0 #FFFFFF;
-    border-left: 10px solid #E1ECF3;
-    margin: 0 0 20px 0px;
-    padding: 20px 20px 20px 40px;
+    border-left: 10px solid #5F829A;
+    margin: 0 0 20px;
+    padding: 20px 20px 20px 30px;
 }
+
 
 </style>
 {% endblock %}
@@ -210,7 +217,7 @@ p.quote {
 	<div id="left">
     	{% get_comment_count for entry as comment_count %}
     	<h1>{{ entry.title }}</h1>
-    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="#commentsa">{% blocktrans with comment_count|pluralize as plural %}{{ comment_count }} comment{{ plural }}{% endblocktrans %}</a></p>	
+    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="#commentsa">{% blocktrans with comment_count|pluralize as plural %}{{ comment_count }} comment{{ plural }}{% endblocktrans %}</a> | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
     
     	{{ entry.content|convert_links|safe }}
     			
@@ -247,7 +254,8 @@ p.quote {
     		</div>
     		{% endif %}
     	</div>
-						
+			
+	   {% if ga_is_on %}			
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
 			<li id="google">
 				<g:plusone></g:plusone>
@@ -266,6 +274,7 @@ p.quote {
 			    </fb:like>
 			</li>
 		</ul>
+		{% endif %}
   </div>
 </div>
 

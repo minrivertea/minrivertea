@@ -24,11 +24,11 @@ ul#nav li a.selected:before {
 }
 
 h1 {
-  font-size: 30px;
-  margin: 30px 0 0 0;
+  font-size: 26px;
+  margin: 20px 0 0px;
   float: left;
   width: 100%;
-  color: #738693;   
+  color: #5f829a;
 }
 
 #benefits {
@@ -46,9 +46,17 @@ h1 {
 }
 
 #benefits h2, #teaware h2 {
- color: #738693;
- margin: 20px 0 15px 10px;   
+    color: #5f829a;
+    float: left;
+    font-size: 26px;
+    margin: 15px 0 15px 10px;
+    width: 100%;
 }
+#benefits h2 {
+  text-align: right;
+  font-size: 22px;   
+}
+
 
 #benefits #teas {
   float: left;
@@ -63,10 +71,15 @@ h1 {
   box-shadow: 0 1px 4px #d1d1d1;  
 }
 
-#benefits .first {
-  width: 375px;
+#benefits .info.tea {
+  margin: 0 0 15px 15px;   
+}
+
+#benefits .info.tea.first {
+  width: 390px;
   height: 405px;
   position: relative;
+  margin-left: 0;
 }
 
 #benefits .first p {
@@ -146,7 +159,12 @@ h1 {
 }
 
 .first #price-helper div.stocks {
-  float: left;   
+  float: left;  
+  color: #999 
+}
+
+.first #price-helper div.stocks strong {
+  color: #333;   
 }
 
 #benefits img {
@@ -162,6 +180,7 @@ h1 {
   position: relative;
   overflow: hidden;
   margin: 20px 0 0px 0;
+  display: none;
 }
 
 #special:hover {
@@ -262,15 +281,19 @@ h1 {
 }
 
 ul.rss {
-    left: 400px;
-    top: 38px;
+    left: 280px;
+    padding: 0;
+    top: 20px;
     width: 80px;
 }
 
 #about {
-  width: 100%;
+  width: 96%;
   float: left;
-  margin: 30px 0;   
+  margin: 30px 0; 
+  background: #fff;
+  padding: 1.5% 2%;
+  border-radius: 8px;  
 }
 
 #about .info.follow {
@@ -297,14 +320,14 @@ ul.rss {
 
 #about #text {
   float: left;
-  width: 490px;
+  width: 450px;
   margin: 0 40px 0 0;  
 }
 
 #about h2 {
   margin: 0 0 10px 0; 
   float: left; 
-  color: #738693; 
+  color: #5f829a; 
 }
 
 #about p {
@@ -326,7 +349,7 @@ ul.rss {
     border-top: 3px dotted #E1E1E1;
     float: left;
     height: auto;
-    margin: 30px 0 20px;
+    margin: 10px 0 20px;
     padding: 20px 0;
     width: 100%;
 }
@@ -381,10 +404,10 @@ ul.rss {
 }
 
 #monthly div span {
-  font-size: 18px;
-  font-family: Helvetica, Arial, sans-serif;   
-  font-weight: bold;
-  letter-spacing: -0.5px;
+    color: #5f829a;
+    font-size: 21px;
+    letter-spacing: -0.5px;
+    text-shadow: 0 1px 1px #FFFFFF;
 }
 
 #monthly div.more {
@@ -410,10 +433,11 @@ ul.rss {
   width: 96%;
   padding: 2%;
   margin: 20px 0;
+  border-radius: 8px;
 }
 
 #brewing h2 {
-  color: #738693; 
+  color: #5f829a; 
   margin: 10px 0 0;   
 }
 
@@ -443,13 +467,12 @@ ul.rss {
 
 
 	<div id="benefits">
-	   <h2>{% trans 'Check out our bestsellers below' %} <a class="underline" href="{% url teas %}">{% trans 'or see our full range of teas here' %} &raquo;</a></h2>
 		<div id="teas">
 			{% for t in teas %}
 			    {% if forloop.first %}
 			         <div class="info tea first">
     				    <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
-    				    {% thumbnail t.image thumb_home_large crop="center" as im %}
+    				    {% thumbnail t.image "390" crop="center" as im %}
     					<a alt="{% blocktrans with t.name as name %}a picture of our {{ name }} Chinese tea{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
     						<img alt="{{ t.description }}" src="{{ im.url }}"/>
     					</a>
@@ -468,6 +491,7 @@ ul.rss {
 				{% endif %}
 			{% endfor %}
 		</div>
+		<h2>{% trans 'Check out our bestsellers above' %} <a class="underline" href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
 	</div>	
 
 
@@ -502,7 +526,7 @@ ul.rss {
 	<div id="about">
 	   <div id="text">
 	   <h2>{% blocktrans %}A big <em>ni hao</em> from China!{% endblocktrans %}</h2>
-	   <p>{% blocktrans %}We are one of the only tea companies actually based in China. Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! We're able to sell better teas at lower prices because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="/about/">{% trans 'Find out more about us' %} &raquo;</a></p>
+	   <p>{% blocktrans %}We are one of the only tea companies actually based in China. Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! We're able to sell better teas at lower prices because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="{% url page _('about') %}">{% trans 'Find out more about us' %} &raquo;</a></p>
        {% include 'shop/boxes/follow.html' %}
        </div>
        <img src="{{ static_url }}images/homepage/home-about.jpg" />

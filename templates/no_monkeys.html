@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load thumbnail django_static %}
+{% extends base_template %}
+{% load thumbnail %}
 
 {% block pagetitle %}Chinese tea delivered to your door in the UK{% endblock %}
 
@@ -56,7 +56,7 @@ div#feature {
     height: 670px;
     float: left;
     width: 100%;
-    background: url("{% staticfile '/images/nomonkeys.jpg' %}") no-repeat #fff;
+    background: url('{{ static_url }}images/nomonkeys.jpg') no-repeat #fff;
     background-position: 150px 100px;
     margin: 0px 0 0;
     padding-bottom: 0px;

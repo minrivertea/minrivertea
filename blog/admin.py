@@ -1,4 +1,4 @@
-from blog.models import BlogEntry
+from blog.models import BlogEntry, Blogger
 from django.contrib import admin
 
 class BlogEntryAdmin(admin.ModelAdmin):
@@ -6,3 +6,5 @@ class BlogEntryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BlogEntry, BlogEntryAdmin)
+admin.site.register(Blogger)
+

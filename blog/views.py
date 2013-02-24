@@ -1,4 +1,4 @@
-from blog.models import BlogEntry
+from blog.models import BlogEntry, Blogger
 from shop.models import Product
 from shop.utils import _get_products, _render
 from django.shortcuts import render_to_response, get_object_or_404
@@ -41,3 +41,7 @@ def blog_by_id(request, id):
     blog = get_object_or_404(Blog, pk=id)
     return blog_entry(request, blog.slug)
   
+
+def staff(request, slug):
+    staff = get_object_or_404(Blogger, slug=slug)
+    return _render(request, "blog/blogger.html", locals())

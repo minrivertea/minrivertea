@@ -42,7 +42,7 @@ class Subscriber(models.Model):
     
     
     def save(self, *args, **kwargs):
-        if self.hashkey == "":
+        if self.hashkey == None:
             self.hashkey = uuid.uuid1().hex
         
         super(Subscriber, self).save(*args, **kwargs) # Call the "real" save() method.

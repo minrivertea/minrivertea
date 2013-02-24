@@ -15,7 +15,7 @@
   		<h2>
   		<a alt="{{ thing.title }}" title="{{ thing.title }}" href="{% url blog_entry thing.slug %}">{{ thing.title }}</a>
   	    </h2>
-  		<p>{{ thing.summary|urlize }}</p>
+  		<p>{{ thing.summary }}</p>
   		<span class="entry-meta">{{ thing.date_added|date:"d M Y" }}
   		</p>
 	</div> 

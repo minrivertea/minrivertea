@@ -9,7 +9,7 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
-  background-color: #EFF5F8;
+  background: url('/static/images/back.png') repeat #EFF5F8;
 }
 
 /* sp is the 'super' div which keeps everything centered */
@@ -19,6 +19,10 @@ body {
   position: relative;
 }
 
+img {
+  border-radius: 4px;  
+     
+}
 
 /* typography */
 
@@ -77,10 +81,8 @@ div.left p {
 
 
 #mtw #left h3 {
-    font-size: 18px;
+    font-size: 22px;
     margin: 30px 0 5px;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: bold;
     color: #59849F;
 }
 
@@ -320,11 +322,11 @@ span.link {
 }
 
 #logo {	 
- width: 390px;
- height: 60px;
+ width: 320px;
+ height: 54px;
  background: url("/static/images/logo15.jpg") no-repeat scroll top left transparent;
  float: left;
- margin: 15px 0 10px 0px;
+ margin: 55px 0 20px;
  position: relative;
 }
 
@@ -348,7 +350,7 @@ span.link {
   right: 0;   
 }
 
-#language, #userbasket {
+#language, #userbasket, #learn {
   float: right;
   margin-right: 10px;
   width: auto;
@@ -360,7 +362,7 @@ span.link {
   font-family: Helvetica, Arial, sans-serif;  
 }
 
-#language a.selected {
+#language a.selected, #learn a.selected {
   font-weight: bold;
   color: #333;   
 }
@@ -406,8 +408,12 @@ span.link {
   text-decoration: none; 
 }
 
-#language a, #currency a {
+#language a, #currency a, #learn a {
   text-decoration: none;   
+}
+
+#learn a {
+  margin: 0 5px;   
 }
 
 #currency {
@@ -478,10 +484,12 @@ div#home-banner {
 
 
 #navigation {
-  float: left;
-  margin: 0px 0px 10px -10px;	
-  width: 100%;
+  float: right;
+  margin: 0px;	
+  width: auto;
   position: relative;
+  top: 80px;
+  left: 0px;
 }
 
 ul#nav {
@@ -496,17 +504,17 @@ ul#nav li {
 }
 
 ul#nav li:not(:last-child) a {
-  border-right: 1px dotted #e1e1e1;
+  border-right: 1px solid #E1ECF3;
 }
 
 ul#nav li a, ul#nav li a:link, ul#nav li a:visited  {
     display: block;
     float: left;
     font-family: Helvetica, Arial, sans-serif;
-    padding: 0px 13px;
+    padding: 10px 13px 14px;
     color: #237a2a;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 14px;
     position: relative;
     width: auto;
     text-decoration: none;
@@ -540,8 +548,8 @@ ul#nav li a.selected:before {
    border-left: 25px solid transparent;
    border-right: 25px solid transparent;
    position: absolute;
-   bottom: -25px;
-   left: 40%;
+   bottom: -24px;
+   left: 35%;
    margin-left: -13px;
    z-index: 2;
 }
@@ -551,29 +559,93 @@ ul#nav li a.selected:before {
 #subnav {
   width: 100%;
   background-color: #E1ECF3;
-  height: 45px;
   float: left;	
+  margin-bottom: 20px;
+  padding: 10px 0 20px;
+}
+
+#subnav.basket ul {
+  width: 100%; 
+  text-align: center;  
+}
+
+#subnav.basket li a {
+    font-weight: bold;
+    text-transform: uppercase;
+    float: left;
+    margin: 0 30px;
+    text-shadow: 0 1px 1px #fff;
+    color: #777;
+}
+
+#subnav > .sp > div {
+  float : left;
+  margin: 0px 20px;
+  border-left: 1px solid #ccdeea;
+  padding-left: 20px;
+}
+
+#subnav .sp div li a {
+  text-shadow: 0 1px 1px #fff;
+  font-size: 12px;
+}
+
+#subnav > .sp > div:first-child {
+  border-left: none;  
+  padding-left: 0;
+  margin: 0 0; 
+  width: auto;
+}
+
+#subnav .sp div:first-child li a {
+  margin: 0px 0px 0px 0;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 2em;
+}
+
+
+
+#subnav .sp div:last-child ul {
+  float:right;
+  width: auto;
+  max-width: 250px;
+  margin-left: 40px;   
+}
+
+#subnav .sp div:last-child ul:last-child {
+  margin: 0;   
+}
+
+#subnav .sp div:last-child li {
+}
+
+
+
+#subnav .sp div li a span {
+  display: none;
+}
+
+#subnav .sp div li a.selected span {
+  display: inline;   
 }
 
 #subnav ul {
   list-style-type: none;
-  margin: 0px 0 0 20px;
-  padding: 0;	
+  margin: 0px 0 0px 10px;
+  padding: 0;
+  float: left;	
+  line-height: 1.4em;
 }
 
 #subnav li {
-  float: left;
-  margin-right: 40px;
   position: relative;	
 }
 
 #subnav li a:link, #subnav li a:visited   {
-  font-size: 11px;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 1px #fff;	
-  color: #666;
-  font-family: Helvetica, sans-serif;
-  font-weight: bold;
+  font-size: 12px;
+  text-transform: ;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: ;
   text-decoration: none;
 }
 
@@ -589,23 +661,6 @@ ul#nav li a.selected:before {
 #subnav li a.completed {
   color: #237A2A;   
 }
-
-#subnav li a.selected:before {
-   content: " ";
-   display: block;
-   width: 0;
-   height: 0;
-   border-top: 25px solid #E1ECF3;     
-   border-bottom: 0;
-   border-left: 25px solid transparent;
-   border-right: 25px solid transparent;
-   position: absolute;
-   bottom: -30px;
-   left: 40%;
-   margin-left: -13px;
-   z-index: 2;
-}
-
 
 /* right navigation styles */
 ul#right-nav {
@@ -703,8 +758,8 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
 }
 
 p.introduction {
-    color: #59849F;
-    font-size: 22px;
+    color: #5f829a;
+    font-size: 18px;
     margin: 10px 0 0;
     padding-bottom: 10px;
 }
@@ -806,6 +861,7 @@ p.introduction {
     background: #fff;
     padding: 10px 10px 10px;
     position: relative;
+    border-radius: 8px;
 }
 
 .info.tea:hover {
@@ -843,7 +899,6 @@ p.introduction {
 .info.tea.long {
   width: 700px; 
   overflow: hidden;
-  padding: 15px;
   margin: 0 0 20px 0;  
 }
 
@@ -861,7 +916,7 @@ p.introduction {
     float: left;
     position: static;
     width: 400px;
-    padding-top: 0;
+    padding-top: 5px;
 }
 
 .info.tea.long h3 {
