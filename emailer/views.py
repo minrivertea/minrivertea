@@ -314,7 +314,7 @@ def create_email(request, id=None):
     
     else:
         if id:
-            email_object = get_object_or_404(EmailInstance, pk=id)
+            email_object = get_object_or_404(Newsletter, pk=id)
             data = {'subject_line': email_object.subject_line, 'text_version': email_object.content}
         else:
             data = None
