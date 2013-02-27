@@ -314,6 +314,9 @@ def _get_monthly_price(unique_product, months):
     if _('taster') in unique_product.parent_product.slug:
         return None
     
+    if _('beginners-pack') in unique_product.parent_product.slug:
+        return None
+    
     if months == 3:
         discount = 0
         
