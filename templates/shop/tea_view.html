@@ -827,7 +827,7 @@ ul.rss {
 	   <div class="price">
 	           <span>
 	               <span class="amount">{{ currency.symbol }}{{ monthly_price|floatformat:"-2" }}</span>
-	               <span class="grey">{% convert_weights request price.weight %}{{ weight_unit }} / {% trans '6 months' %} </span> 
+	               <span class="grey">{% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% endif %} / {% trans '6 months' %} </span> 
 	           </span>    
 	       <a href="{% url add_to_basket_monthly price.id 6 %}" id="monthly_add" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
 	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'Add more teas to your TeaBox' %} &raquo;</a>
