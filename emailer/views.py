@@ -34,7 +34,7 @@ def _send_email(receiver, subject_line, text, request=None, sender=None):
             text, 
             sender,
             [receiver], 
-            fail_silently=False
+            fail_silently=True
     )
 
 
@@ -354,6 +354,7 @@ def send_email(request, id):
                 link = reverse('email_unsubscribe', args=[r.hashkey])
             
         text = render_to_string('shop/emails/newsletter_template.txt', {'content': email_object.text_version, 'link':link})
+        
         _send_email(receiver, subject_line, text)
     
     return _render(request, 'shop/emails/email_sent_confirmation.html', locals()) 
@@ -361,13 +362,20 @@ def send_email(request, id):
 
 
 def _get_subscriber_list():
-    email_signups = Subscriber.objects.exclude(language='de', date_unsubscribed__isnull=True)
+    email_signups = Subscriber.objects.filter(
+        date_unsubscribed__isnull=True,     # only those who have nothing for the unsubscribed field
+    ).exclude(
+        language='de',                      # excluding German language signups for now
+    )
     
     
     def idfun(x): return x 
     seen = {}
     result = []
     for item in email_signups:
+        if item.hashkey == None:
+            item.hashkey = uuid.uuid1().hex
+            item.save()
         marker = idfun(item.email)
         if marker in seen: continue
         seen[marker] = 1

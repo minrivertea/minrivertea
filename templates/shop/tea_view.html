@@ -781,7 +781,7 @@ ul.rss {
 	
 	<div id="shipping" class="info">
 	   <img src="{{ static_url }}images/free-delivery.jpg" />
-	   {% url page _('postage-and-packaging') as shipurl %}
+	   {% url page _('shipping') as shipurl %}
 	   <p>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold|floatformat:"-2" as ptd %}Orders over {{ symbol }}{{ ptd }} get free worldwide shipping.<br/>
 	   Read more info about <a href="{{ shipurl }}">shipping</a>{% endblocktrans %}
 	   </p>
