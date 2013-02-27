@@ -295,7 +295,7 @@ def create_email(request, id=None):
                 email_object.text_version = form.cleaned_data['content']
                 
             except:
-                email_object = EmailInstance.objects.create(
+                email_object = Newsletter.objects.create(
                     subject_line = form.cleaned_data['subject_line'],
                     text_version = form.cleaned_data['content'],
                     is_draft = False,
