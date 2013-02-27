@@ -18,7 +18,7 @@ import re
 
 from shop.models import *
 from shop.utils import _render, weight_converter
-from emailer.models import Subscriber
+from emailer.models import Subscriber, Newsletter
 from emailer.forms import EmailSignupForm
 from shop.forms import CreateSendEmailForm
 
