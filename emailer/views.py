@@ -291,13 +291,14 @@ def create_email(request, id=None):
         form = CreateSendEmailForm(request.POST)
         if form.is_valid():
             try:
-                email_object = get_object_or_404(EmailInstance, subject_line=form.cleaned_data['subject_line'])
-                email_object.content = form.cleaned_data['content']
+                email_object = get_object_or_404(Newsletter, subject_line=form.cleaned_data['subject_line'])
+                email_object.text_version = form.cleaned_data['content']
                 
             except:
                 email_object = EmailInstance.objects.create(
                     subject_line = form.cleaned_data['subject_line'],
-                    content = form.cleaned_data['content'],
+                    text_version = form.cleaned_data['content'],
+                    is_draft = False,
                 )
                         
             email_object.save()
@@ -314,7 +315,7 @@ def create_email(request, id=None):
     else:
         if id:
             email_object = get_object_or_404(EmailInstance, pk=id)
-            data = {'subject_line': email_object.subject_line, 'content': email_object.content}
+            data = {'subject_line': email_object.subject_line, 'text_version': email_object.content}
         else:
             data = None
         
@@ -328,12 +329,13 @@ def create_email(request, id=None):
 def send_email(request, id):
     
     
-    email_object = get_object_or_404(EmailInstance, pk=id)
+    email_object = get_object_or_404(Newsletter, pk=id)
     if email_object.date_sent:
         message = "That email message has already been sent"
         return HttpResponse(message)
         
     email_object.date_sent = datetime.now()
+    email_object.is_draft = False
     email_object.save()
     
     recipients_list = _get_subscriber_list()
@@ -351,7 +353,7 @@ def send_email(request, id):
                 r.save()
                 link = reverse('email_unsubscribe', args=[r.hashkey])
             
-        text = render_to_string('shop/emails/newsletter_template.txt', {'content': email_object.content, 'link':link})
+        text = render_to_string('shop/emails/newsletter_template.txt', {'content': email_object.text_version, 'link':link})
         _send_email(receiver, subject_line, text)
     
     return _render(request, 'shop/emails/email_sent_confirmation.html', locals()) 

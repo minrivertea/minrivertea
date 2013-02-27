@@ -22,7 +22,7 @@ class EmailInstance(models.Model):
 
 class Newsletter(models.Model):
     text_version = models.TextField()
-    html_version = models.TextField()
+    subject_line = models.CharField(max_length=256)
     is_draft = models.BooleanField(default=True)
     date_sent = models.DateTimeField(blank=True, null=True)
 

@@ -513,7 +513,8 @@ ul.rss {
 	</div>
 	{% endif %}
 
-{% if request.user.is_superuser %}	
+{% get_current_language as LANGUAGE_CODE %}
+{% if LANGUAGE_CODE == 'en' %}	
 	<div id="brewing">
 	   <img src="{{ static_url }}images/jasmine-brew-3.jpg"/>
 	   <h2>{% trans 'Looking for brewing instructions?' %}</h2>
