@@ -173,74 +173,107 @@ h1 {
 
 
 #special {
-  float: left;	
-  width: 920px;
-  padding: 10px;
-  background-color: #fff;
+  float: left;
+  width: 100%;	
   position: relative;
-  overflow: hidden;
   margin: 20px 0 0px 0;
   display: none;
 }
 
-#special:hover {
-   box-shadow: 0 1px 5px #d1d1d1;   
+#special .right {
+  float: right; 
+  width: 300px;
+  padding: 0px 0;  
 }
 
-#special:hover #price a {
+#special .right h3 {
+  color: #5F829A;
+  font-size: 26px;
+  margin: 10px 0;
+  letter-spacing: -1px;
+}
+
+#special .right p {
+  text-shadow: 1px 1px 1px #fff; 
+  margin: 0 0 20px;  
+}
+
+#special .right p.small {
+  font-size: 16px;
+  color: #333;
+}
+
+#special .right .price {
+  margin: 10px 0 20px;
+}
+
+
+#special .right a.button {
+  font-size: 22px;
+  float: left;
+  padding: 10px 20px;
+}
+
+#special .right a.button span {
+    background: url("{{ static_url }}images/logo15.jpg") no-repeat scroll -426px -65px transparent;
+    display: block;
+    float: left;
+    height: 22px;
+    width: 32px;
+    position: relative;
+    top: -1px;
+    margin-right: 5px;
+}
+
+#special .right .amount {
+  font-size: 32px;
+  font-family: Helvetica, Arial, sans-serif;
+  letter-spacing: -2px;
+  font-weight: bold;   
+}
+
+#special .info {
+  float: left; 
+  width: 600px;
+  border-radius: 5px;
+}
+
+#special .info:hover .image {
+  opacity: 0.8;
+}
+
+#special .info:hover h3 a, #special .info:hover h3 {
   color: #FF6569;   
 }
 
-#special #price {
-  font-family: Helvetica, arial, sans-serif;
-  color: #777;   
-  letter-spacing: -1px;
-  position: absolute;
-  right: 30px;
-  bottom: 18px;
-  text-align: right;
-  font-size: 20px;
-  line-height: 1.2em;
+#special .info .image {
+  float: left;
+  margin: 0 0 0px 0;   
 }
 
-#special #price span {
+#special .info .text {
+  float: left;
+  width: 100%;   
+}
+
+#special .info h3 {
+ margin: 0;
+ padding: 0;
+ float: right;
+ font-size: 16px;
+ letter-spacing: -0.5px;
+}
+
+#special .info span.price {
+  margin-top: 0;
+  font-size: 16px;
+  letter-spacing: -0.5px; 
+  line-height: 1em;  
+}
+
+#special .info span.amount {
   font-weight: bold;
   color: #333;   
-}
-
-#special #price a {
-  font-weight: bold;
-  font-size: 18px; 
-  letter-spacing: -0.5px;  
-}
-
-#special h2 {
-    bottom: 18px;
-    color: #999999;
-    font-size: 24px;
-    font-weight: normal;
-    letter-spacing: -0.5px;
-    margin: 0;
-    width: 350px;
-    position: absolute;
-    left: 30px;
-    text-shadow: 0 1px 1px #FFFFFF;
-}
-
-
-#special img {
-  float: left;
-  margin-right: 20px;
-}
-
-#special #click {
-    bottom: 30px;
-    font-size: 18px;
-    position: absolute;
-    right: 20px;
-    width: 240px;
-    z-index: 40;
-    opacity: 0;
 }
 
 
@@ -463,36 +496,51 @@ ul.rss {
 
     <h1>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h1>
     
-    {% include "shop/snippets/feb-2013.html" %}
-
-
 	<div id="benefits">
 		<div id="teas">
-			{% for t in teas %}
-			    {% if forloop.first %}
+			
 			         <div class="info tea first">
-    				    <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
-    				    {% thumbnail t.image "390" crop="center" as im %}
-    					<a alt="{% blocktrans with t.name as name %}a picture of our {{ name }} Chinese tea{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
-    						<img alt="{{ t.description }}" src="{{ im.url }}"/>
+    				    <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
+    				    {% thumbnail special.image "390" crop="center" as im %}
+    					<a alt="{% blocktrans with special.name as name %}a picture of our {{ name }} Chinese tea{% endblocktrans %}" title="{{ special.name }}" href="{{ special.get_absolute_url }}">
+    						<img alt="{{ special.description }}" src="{{ im.url }}"/>
     					</a>
     				    {% endthumbnail %}
-    				    <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a> &raquo;</h3>
-    				    <p>{{ t.description }}</p> 				       
+    				    <h3><a href="{{ special.get_absolute_url }}">{{ special.name }}</a> &raquo;</h3>
+    				    <p>{{ special.description }}</p> 				       
  				        <div id="price-helper">
- 				           <div class="stocks"><strong>{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}</strong> {% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</div>
- 				           {% if t.stocks.count > 0 %}<div class="stocks"><strong>{{ t.stocks.count }}</strong> {% trans 'in stock now!' %}</div>{% endif %}
-		                   <div><a href="{{ t.get_absolute_url }}">{% trans 'Click for more info' %} &raquo;</a></div>      
+ 				           <div class="stocks"><strong>{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</strong> {% if special.price.weight %}/ {% convert_weights request special.price.weight %}{{ weight_unit }}{% endif %}</div>
+ 				           {% if t.stocks.count > 0 %}<div class="stocks"><strong>{{ special.stocks.count }}</strong> {% trans 'in stock now!' %}</div>{% endif %}
+		                   <div><a href="{{ special.get_absolute_url }}">{% trans 'Click for more info' %} &raquo;</a></div>      
  				        </div>
     				</div>
 			    
-			    {% else %}
+			    {% for t in teas %}
                      {% include 'shop/snippets/product_small.html' %}
-				{% endif %}
-			{% endfor %}
+    			{% endfor %}
 		</div>
 		<h2>{% trans 'Check out our bestsellers above' %} <a class="underline" href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
 	</div>	
+	
+	<div id="special">
+	   <div class="info">
+	       <a href="{{ special.parent_product.get_absolute_url }}"><span class="link"></span></a>
+	       <div class="image">
+	           {% thumbnail special.parent_product.image "600" as im %}
+	               <img src="{{ im.url }}" />
+	           {% endthumbnail %}
+	       </div>
+	   </div>
+	   <div class="right">
+	       <h3>{{ special.parent_product.name }}</h3>
+	       <p>{{ special.parent_product.description }}</p>
+	       <div class="price">
+	           <span class="amount">{{ currency.symbol }}{{ special.price|floatformat:"-2" }}</span>
+	           / {% convert_weights request special.weight %}{{ weight_unit }}
+	       </div>
+	       <a href="{% url add_to_basket special.id %}" class="button green"><span></span>Add to basket &raquo;</a>
+	   </div>
+	</div>
 
 
 	<div id="monthly">
