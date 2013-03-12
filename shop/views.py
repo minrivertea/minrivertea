@@ -51,7 +51,7 @@ class BasketDoesNotExist(Exception):
 def index(request):
    
     curr = _get_currency(request)
-    teas = _get_products(request)[:5]
+    teas = _get_products(request)[:4]
         
     teaware = _get_products(request, cat=_('teaware'))[:3]
     special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
