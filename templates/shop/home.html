@@ -526,19 +526,19 @@ ul.rss {
 	   <div class="info">
 	       <a href="{{ special.parent_product.get_absolute_url }}"><span class="link"></span></a>
 	       <div class="image">
-	           {% thumbnail special.parent_product.image "600" as im %}
+	           {% thumbnail special.image "600" as im %}
 	               <img src="{{ im.url }}" />
 	           {% endthumbnail %}
 	       </div>
 	   </div>
 	   <div class="right">
-	       <h3>{{ special.parent_product.name }}</h3>
-	       <p>{{ special.parent_product.description }}</p>
+	       <h3>{{ special.name }}</h3>
+	       <p>{{ special.description }}</p>
 	       <div class="price">
-	           <span class="amount">{{ currency.symbol }}{{ special.price|floatformat:"-2" }}</span>
-	           / {% convert_weights request special.weight %}{{ weight_unit }}
+	           <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
+	           / {% convert_weights request special.price.weight %}{{ weight_unit }}
 	       </div>
-	       <a href="{% url add_to_basket special.id %}" class="button green"><span></span>Add to basket &raquo;</a>
+	       <a href="{% url add_to_basket special.price.id %}" class="button green"><span></span>Add to basket &raquo;</a>
 	   </div>
 	</div>
 
