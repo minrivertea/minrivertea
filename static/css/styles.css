@@ -561,7 +561,7 @@ ul#nav li a.selected:before {
   background-color: #E1ECF3;
   float: left;	
   margin-bottom: 20px;
-  padding: 10px 0 20px;
+  padding: 0px 0 10px;
 }
 
 #subnav.basket ul {
@@ -600,7 +600,7 @@ ul#nav li a.selected:before {
 #subnav .sp div:first-child li a {
   margin: 0px 0px 0px 0;
   font-family: Helvetica, Arial, sans-serif;
-  line-height: 2em;
+  line-height: 1em;
 }
 
 
@@ -634,7 +634,7 @@ ul#nav li a.selected:before {
   margin: 0px 0 0px 10px;
   padding: 0;
   float: left;	
-  line-height: 1.4em;
+  line-height: 1.2em;
 }
 
 #subnav li {
