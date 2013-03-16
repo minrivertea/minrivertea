@@ -483,6 +483,33 @@ ul.rss {
   padding-right: 30px;   
 }
 
+#sale {
+  float: left;
+  width: 88%;
+  padding:10px 2% 10px 10%;
+  background: #fff;
+  color: #999;
+  border-radius:5px;
+  font-family:Helvetica, Arial, sans-serif;
+  font-size:14px;
+  font-weight: bold;
+  margin: 10px 0 20px 0;
+  position: relative;
+}
+
+#sale .red {
+  color: #fff;
+  background:red;
+  position: absolute;
+  padding: 8px 10px;
+  border-radius: 5px 0 0 5px;
+  left: 0;
+  top: 0;
+  letter-spacing:-0.5px;
+  font-size:18px;
+  text-shadow: 0 1px 1px #bd0000;
+}
+
 
 </style>
 {% endblock %}
@@ -519,8 +546,12 @@ ul.rss {
                      {% include 'shop/snippets/product_small.html' %}
     			{% endfor %}
 		</div>
-		<h2>{% trans 'Check out our bestsellers above' %} <a class="underline" href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
+		<h2>{% trans 'Check out our bestsellers above' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
 	</div>	
+
+  <div id="sale">
+    <span class="red">{% trans 'On sale' %}!</span>  Long Jing (Dragonwell) green tea at an <span class="">incredible 35% off</span>! Limited stocks, so <a href="{% url finder _('green-tea') _('long-jing-green-tea') %}">buy your Long Jing now or find out more &raquo;</a>
+  </div>
 	
 	<div id="special">
 	   <div class="info">
