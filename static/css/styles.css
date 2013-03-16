@@ -182,11 +182,8 @@ input.button:hover {
 .button.green {
     background: #237A2A;
     background: -moz-linear-gradient(100% 100% 90deg, #237A2A, #399440) repeat scroll 0 0 transparent;
-    /* Safari 4-5, Chrome 1-9 */ 
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#399440), to(#237A2A)); 
-    /* Safari 5.1+, Chrome 10+ */ 
     background: -webkit-linear-gradient(#399440, #237A2A); 
-    /* Opera 11.10+ */ 
     background: -o-linear-gradient(#237A2A, #399440); 
     border: 1px solid #1e6c21;
     text-shadow: none;

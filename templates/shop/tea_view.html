@@ -214,15 +214,8 @@ div.product-photos-small p {
     color: #FFFFFF;
     font-weight: bold;
     letter-spacing: -0.5px;
-    padding: 5px 10px;
-    text-decoration: normal;
-    text-shadow: 0 1px 1px #555;
-}
-
-.price.big {
-  float: left;
-  margin: 10px 0 0 0; 
-  width: 225px;  
+    margin-right: 10px;
+    padding: 6px 10px;
 }
 
 a.button {
@@ -234,12 +227,6 @@ a.button {
     padding: 11px 20px 9px;
     text-align: right;
 }
-
-.price.big a.button {
-   float: left;
-}
-
-
 
 .tea-top div.tea-description {
   float: left;
@@ -318,6 +305,11 @@ span.name {
   font-size: 14px;   
 }
 
+.price-description {
+  float:left;
+  width:auto;
+}
+
 #prices .amount {
     color: #237A2A;
     float: right;
@@ -331,12 +323,7 @@ span.name {
     text-shadow: 1px 1px 0 #FFFFFF;
 }
 
-.price.big .amount {
-   font-size: 35px;
-   margin: 5px 0 15px;   
-}
-
-.price-description {
+.price .weight {
     color: #777777;
     float: right;
     font-family: Helvetica,Arial,sans-serif;
@@ -347,15 +334,9 @@ span.name {
     max-width: 110px;
 }
 
-.price-description span {
+.price .weight span {
   color: #666;
 }
-
-.price.big .price-description {
-  margin: 5px 0 15px 10px;
-     
-}
-
 
 div.fb-recommend {
   margin-top: 20px;
@@ -711,12 +692,14 @@ ul.rss {
 		      	{% if price.is_sale_price %}
 		      	   <div id="original"><span>On Sale Now!</span> Was <strong>{{ currency.symbol }}{{ price.old_price|floatformat:"-2" }}</strong>, save <strong>{{ currency.symbol }}{{ price.get_saving }}</strong></div>
 		      	{% endif %}
-		    	<span class="price-description">/ {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %}</span>
-		    	<span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
-
-		    	<br clear="all"/>
-				<a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_normal"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
-              </div>
+		    	
+            <div class="price-description">
+              <span class="weight">/ {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %}</span>
+              <span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
+            </div>
+				  
+              <a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_normal"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
+          </div>
 
 		      <div id="stocks"> 
 		        {% if price.stocks.count > 0 %}
@@ -738,7 +721,7 @@ ul.rss {
 		</div>
 	</div><!-- end top product info div -->	
 	
-	
+
 	<!-- START EXTRAS -->
 	<div id="extras">
 	{% if tea.map_image %}
