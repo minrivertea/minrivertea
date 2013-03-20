@@ -181,6 +181,15 @@ h1 {
   margin: 20px 0 0px 0;
   background: url('{{ static_url }}images/homepage/special1.jpg') no-repeat top left;
   height: 325px;
+  border-radius: 8px;
+}
+
+#special:hover .right h3, #special:hover .right a {
+  color: #FF6569;   
+}
+
+#special:hover {
+  box-shadow: 0 1px 4px #d1d1d1;   
 }
 
 #special .right {
@@ -518,7 +527,22 @@ ul.rss {
 
 <div class="sp">
 
+	<div id="special">
+     <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
+	   <div class="right">
+	       <h3>{{ special.name }}</h3>
+	       <p>{{ special.description }}</p>
+	       <div class="price">
+	           <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
+	           / {% convert_weights request special.price.weight %}{{ weight_unit }}
+	       </div>
+         <a href="{{ special.get_absolute_url }}" class="">{% trans 'Find out more' %} &raquo;</a>
+	   </div>
+	</div>
+
     <h1>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h1>
+    
+    
     
 	<div id="benefits">
 		<div id="teas">
@@ -554,18 +578,7 @@ ul.rss {
     {% blocktrans %}Long Jing (Dragonwell) green tea at an incredible 35% off! Limited stocks, so <a href="{{ link }}">buy your Long Jing now or find out more &raquo;</a>{% endblocktrans %}
   </div>
 	
-	<div id="special">
-     <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
-	   <div class="right">
-	       <h3>{{ special.name }}</h3>
-	       <p>{{ special.description }}</p>
-	       <div class="price">
-	           <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
-	           / {% convert_weights request special.price.weight %}{{ weight_unit }}
-	       </div>
-         <a href="{{ special.get_absolute_url }}" class="">{% trans 'Find out more' %} &raquo;</a>
-	   </div>
-	</div>
+
 
 
 	<div id="monthly">
