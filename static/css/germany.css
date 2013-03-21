@@ -52,3 +52,7 @@ a.button {
 #stocks span.not-in-stock, #price-helper .not-in-stock, #stocks {
    font-size: 12px;   
 }
+
+#special .right a {
+  font-size:17px;
+}
