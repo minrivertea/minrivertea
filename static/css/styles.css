@@ -1452,7 +1452,7 @@ span.red {
   color: red;	
 }
 
-#mtw #left div.caption {
+#mtw #left .caption {
     font-size: 13px;
     font-style: italic;
     line-height: 1.6em;

@@ -7,18 +7,6 @@
 
 {% block canonical %}<link rel="canonical" href="http://www.minrivertea.com{{ tea.get_absolute_url }}" />{% endblock %}
 
-{% block extra-head %}
-<meta property="og:title" content="{% if tea.long_name %}{{ tea.long_name|striptags }}{% else %}{{ tea.name }}{% endif %}" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://www.minrivertea.com{{ tea.get_absolute_url }}" />
-{% thumbnail tea.image thumb_medium crop="center" as im_large %}
-<meta property="og:image" content="http://static.minrivertea.com{{ im_large.url }}" />
-<meta property="og:image:width" content="240" />
-<meta property="og:image:height" content="160" />
-{% endthumbnail %}
-<meta property="og:description" content="{{ tea.description }}" />
-{% endblock %}
-
 {% block extrajs %}
 <script>
 $(function() {
