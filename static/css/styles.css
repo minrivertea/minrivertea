@@ -219,43 +219,55 @@ span.link {
 /* header styles */
 
 #messages {
-    background: none repeat scroll 0 0 #59849F;
-    border-bottom: 5px solid #396886;
-    box-shadow: 0 1px 10px #000;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    display: none;
     float: left;
     height: auto;
-    padding: 25px 0;
-    position: fixed;
-    width: 100%;
-    z-index: 30;
-    display: none;
+    margin: 10px 0 0;
+    padding: 2% 3%;
+    position: relative;
+    width: 94%;
 }
 
 #messages .message {
-    color: #EFF5F8;
-    font-family: Helvetica;
-    font-size: 20px;
+    color: #5F829A;
+    font-size: 35px;
     letter-spacing: -0.5px;
-    padding-left: 40px;
 }
 
-#messages .message a {
-  color: #fff;
-  text-shadow: none;
-  margin-left: 20px;   
+#messages .message .text {
+  float: left;
+  width: 500px;
 }
 
-#messages .message a:hover {
-  color: #ffcccd;   
+#messages .message .text h3 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight:bold;
+  font-size: 17px;
+  letter-spacing: -0.5px;
+  margin: 0;
 }
 
-#messages .message span.tick {
-  margin: 0 20px 0 0;
-  font-size: 40px; 
-  position: absolute;
-  left:0px;  
-  top: -15px;
-  color: #fff;
+#messages .message .text p {
+  padding: 0;
+  margin: 0;
+}
+
+#messages .message a.button {
+  width: auto;
+  font-size: 21px;
+}
+
+#messages span.tick {
+    display: block;
+    float: left;
+    font-size: 46px;
+    line-height: 0.5em;
+    margin: 0 20px 0 0;
+    position: relative;
+    top: 9px;
+    color:#237A2A;
 }
 
 #messages #close {
@@ -298,24 +310,6 @@ span.link {
   width: 100%;
   background-color: #fff;
   border-bottom: 10px solid #e1ecf3;
-}
-
-#header-messages {
-    font-size: 12px;
-    height: 30px;
-    margin: 0 auto;
-    width: 960px;
-}
-
-#header-messages div.hm {
-    -moz-border-radius-bottomleft: 10px;
-    -moz-border-radius-bottomright: 10px;
-    background-color: #e1e1e1;
-    width: auto;
-    float: right;
-    padding: 5px 20px 7px 20px;
-    text-align: right;
-    margin-right: 10px;
 }
 
 #logo {	 

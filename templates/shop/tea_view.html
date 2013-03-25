@@ -24,6 +24,7 @@ $(".items img").click(function() {
 	img.onload = function() {
 		wrap.fadeTo("fast", 1);
 		wrap.find("img").attr("src", url);	
+    $('.main-image .loading').toggle();
 	};
 
 	img.src = url;
@@ -37,7 +38,8 @@ $(".items img").click(function() {
 function addToBasket(idx) {
    $(idx).click( function() {
    	  
-      $('#messages').slideDown(100);
+      $('#messages').toggle();
+      $('#messages').append('<img class="loading" src="{{ static_url }}images/loading.gif"/>');
    	  $.ajax({
    	      url: $(this).attr('href'),
    	      type: "GET",
@@ -57,12 +59,9 @@ function addToBasket(idx) {
     		    $('#messages .message .num').html(parseInt($('#messages .message .num').html(), 10)+1);
    		        $('#messages .message .num').addClass('active');
     		} else {    		
-        		$('#messages .sp').append('<div class="message"><img src="{{ static_url }}images/loading.gif" /></div>');
-        		$('#messages .message img:visible').remove();
-        		$('#messages .message').append(data.message).delay(5900).queue(function() {
-        		      $(this).css('opacity', '1');
-        		      $('#messages').slideUp(200);
-        		      $('#messages .message').remove();
+        		$('#messages img:visible').remove();
+        		$('#messages').append(data.message).delay(8900).queue(function() {
+        		      $('#messages').fadeOut(800);
         		});
     		}
   		  }
@@ -349,10 +348,10 @@ div.fb-recommend {
 }
 
 .loading {
-    left: 240px;
+    left: 47%;
     position: absolute;
-    top: 160px;
-    z-index: -1;
+    top: 36%;
+    z-index: 12;
 }
 
 #recommended, #reviews {
@@ -627,6 +626,9 @@ ul.rss {
   <div class="sp">
 		
 	<h1>{% if tea.long_name %}{{ tea.long_name|safe }}{% else %}{{ tea.name }}{% endif %}</h1>
+
+  <div id="messages">
+  </div>
 
 	<div class="tea-top">
 		<div class="left">

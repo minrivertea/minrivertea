@@ -220,14 +220,14 @@ def add_to_basket(request, id):
         if item.item.weight:
             from shop.templatetags.convert_weights import convert_weights
             weight = convert_weights(request, item.item.weight)
-            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s (%(weight)s%(weight_unit)s) added to your basket! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
+            message = render_to_string('shop/snippets/added_to_basket.html', {
                     'item':item.item.parent_product, 
                     'weight': weight, 
                     'weight_unit': RequestContext(request)['weight_unit'],
                     'url': reverse('basket'),
-            }
+            })
         else:
-            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your basket! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
+            message = _('<div class="message"><span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your basket! <a href="%(url)s" class="button green"><strong>Checkout now &raquo;</strong></a></div>') % {
                     'item':item.item.parent_product, 
                     'url': reverse('basket'),
             }
