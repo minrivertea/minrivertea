@@ -37,6 +37,15 @@ def _send_email(receiver, subject_line, text, request=None, sender=None):
             fail_silently=True
     )
 
+    # temporary test, send everything to admin too.
+    send_mail(
+        subject_line,
+        text,
+        sender,
+        [sender],
+        fail_silently=True
+    )
+
 
 # sends a reminder to the owner of an INCOMPLETE order
 def order_reminder_email(request, id):
