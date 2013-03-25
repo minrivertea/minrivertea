@@ -1459,6 +1459,8 @@ span.red {
     margin-bottom: 20px;
     padding: 10px;
     width: 600px;
+    position:relative;
+    top:-15px;
 }
 
 #mtw #left div.caption.wide {
