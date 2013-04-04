@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail comments i18n convert_links %}
+{% load thumbnail i18n convert_links %}
 
 {% block metadescription %}{{ entry.summary|safe }}{% endblock %}
 {% block pagetitle %}{{ entry.title }}{% endblock %}
@@ -15,6 +15,19 @@ $(".scroll").scrollable({ circular: true }).click(function() {
 });
 });
 </script>
+
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'example'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script> 
 {% endblock %}
 
 {% block extracss %}
@@ -215,45 +228,27 @@ p.quote {
 	</div>
 
 	<div id="left">
-    	{% get_comment_count for entry as comment_count %}
     	<h1>{{ entry.title }}</h1>
-    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="#commentsa">{% blocktrans with comment_count|pluralize as plural %}{{ comment_count }} comment{{ plural }}{% endblocktrans %}</a> | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
+    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="{{ entry.get_absolute_url }}#disqus_thread">Comments</a> | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
     
     	{{ entry.content|convert_links|safe }}
     			
     			
-    	<div id="comments">
-    	<a id="commentsa"></a>
-    	{% get_comment_list for entry as comment_list %}
-    		{% if comment_list %}
-    		
-    		<h3>{% trans 'Comments on this post' %} ({{ comment_count }})</h3>
-    		<br clear="all"/>
-    		<div id="comments-list">
-    			{% for comment in comment_list %}
-    				<div class="comment">
-    					<p class="top">
-   							{% if comment.user_url %}<a href="{{ comment.user_url }}">{{ comment.user_name }}</a>
-   							{% else %}{{ comment.user_name }}{% endif %}
-   							 {% trans 'said…' %}
-    						<span class="small">({{ comment.submit_date|date:"D d M Y" }})</span>
-    				    </p>
-    					<p>{{ comment.comment }}</p>
-    				</div>
-    			{% endfor %}
-    		</div>
-    		{% endif %}
-    		{% if entry.comments_closed %}
-    		    <p><strong><em>{% trans 'Comments are closed for this entry.' %}</em></strong></p>
-    		{% else %}
-    		<div id="comment-form">
-    		<h3>{% trans 'Add your comment' %}</h3>
-    			<div id="form">
-    			 {% render_comment_form for entry %}
-    			</div>
-    		</div>
-    		{% endif %}
-    	</div>
+    	<div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'minrivertea'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
 			
 	   {% if ga_is_on %}			
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
