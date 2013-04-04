@@ -377,8 +377,6 @@ def _change_monthly_frequency(request, months):
     return HttpResponseRedirect(url)
 
 
-
-
 def weight_converter(weight):
     weight = round((weight / 28.75), 1)
     return weight

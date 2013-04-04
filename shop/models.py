@@ -310,6 +310,9 @@ class Discount(models.Model):
     discount_value = models.DecimalField(max_digits=3, decimal_places=2)
     is_active = models.BooleanField(default=False)
     
+    def __unicode__(self):
+        return self.name
+    
     
 class Order(models.Model):
     items = models.ManyToManyField(BasketItem, db_index=True)

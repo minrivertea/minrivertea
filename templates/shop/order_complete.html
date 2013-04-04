@@ -3,19 +3,28 @@
 
 {% block pagetitle %}{% trans 'Order Complete' %}{% endblock %}
 
+{% block extrajs %} 
+
+{% if cookie and order %}
+<script src="http://partners.i-affiliate.net/i_sale_third/10512/{{ order.get_amount|floatformat:'2' }}/{{ order.invoice_id }}/"></script>
+<noscript><img src="http://partners.i-affiliate.net/i_track_sale/10512/{{ order.get_amount|floatformat:'2' }}/{{ order.invoice_id }}/"></noscript>
+{% endif %}
+
+{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
 #tweetit {
   background: #fff;
   float: right; 
-  width: 450px;
+  width: 300px;
   margin: 20px 0 30px 30px;
   box-shadow: 0 1px 3px #e1e1e1;
   padding: 20px; 
+  border-radius: 8px;
 }
 
-#tweetit h3 {
+#tweetit h3, .order-details h3 {
  margin: 0px 0 0; 
  font-weight: bold;
  font-family: Helvetica, Arial, sans-serif;  
@@ -37,8 +46,24 @@
   font-weight: bold;   
 }
 
-#tweetit
+.order-details {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 8px 8px 8px 8px;
+    float: left;
+    margin: 20px 30px 20px 0;
+    padding: 2%;
+    width: 55%;
+}
 
+.order-details h3 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.notices {
+  float: right;
+  width: 340px;   
+}
 
 
 </style>
@@ -47,7 +72,7 @@
 {% block content %}
 
 
-<div id="subnav">
+<div id="subnav" class="basket">
    <div class="sp">
        <ul>
     		<li>
@@ -72,28 +97,76 @@
 
     <h1>{% trans 'Order complete!' %}</h1>
     <p class="introduction">{% trans "We've received your order and we'll send your tea immediately. We've also sent you an email confirming the details. Thank you and we really hope you enjoy your tea!" %}</p>
-    
-    
-<div id="tweetit">
-	<div class="text">
-		<h3>{% trans 'Tweet your order!' %}</h3>
-		<p>{% trans 'Please help spread the word about our great teas by tweeting:' %}</p>			
-		<img id="example" src="{{ static_url }}images/complete-tweet.jpg"/>
-	</div>
-	
-	<div class="image">
-	   <p>{% trans 'Click here to tweet' %} &raquo;</p>
-		<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com" data-text="just ordered some great Chinese #tea from" data-via="minrivertea" data-size="large" data-related="minrivertea">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-	</div>
-</div>
+  
+
+
+    <div class="order-details">
+        
+        <h3>Your order details - {{ order.invoice_id }}</h3>
+        <table>
+        <tr>
+            <td valign="top"><strong>Invoice ID</strong></td>
+            <td>{{ order.invoice_id }}</td>
+        </tr>
+        <tr>
+            <td valign="top"><strong>Date paid</strong></td>
+            <td>{{ order.date_paid|date:"d M Y" }}</td>
+        </tr>
+        <tr>
+            <td valign="top"><strong>Your name</strong></td>
+            <td valign="top">{{ order.owner.first_name }} {{ order.owner.last_name }}</td>
+        </tr>
+        <tr>
+            <td valign="top"><strong>Email address</strong></td>
+            <td valign="top">{{ order.owner.email }}</td>
+        </tr>
+        <tr>
+            <td valign="top"><strong>Delivery address</strong></td>
+            <td valign="top">{% with order.address as address %}{% include 'shop/snippets/address.html' %}{% endwith %}</td>
+        </tr>
+
+        <tr>
+            <td valign="top"><strong>Order items</strong></td>
+            <td valign="top">
+                {% for i in order.items.all %}
+                {{ i }}<br/>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td valign="top"><strong>Order amount<br/>(including postage)</strong></td>
+            <td valign="top">{{ currency.symbol }}{{ order.get_amount }} </td>
+        </tr>
+        </table>
+            
+    </div>
+
+<div class="notices">
+  
+    <div id="tweetit">
+    	<div class="text">
+    		<h3>{% trans 'Tweet your order!' %}</h3>
+    		<p>{% trans 'Please help spread the word about our great teas by tweeting:' %}</p>			
+    		<img id="example" src="{{ static_url }}images/complete-tweet.jpg"/>
+    	</div>
+    	
+    	<div class="image">
+    	   <p>{% trans 'Click here to tweet' %} &raquo;</p>
+    		<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com" data-text="just ordered some great Chinese #tea from" data-via="minrivertea" data-size="large" data-related="minrivertea">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    	</div>
+    </div>
 
 
 <p>{% trans "Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience." %}</p>
 
 
 <p>{% blocktrans %}If for any reason you need to contact us about your order, email us at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>. We try to respond to emails as soon as possible, but sometimes because of time zone differences, we might take slightly longer. Thanks for your patience!{% endblocktrans %}</p>
+</div>
 
+    
+
+    
 
   </div>
 </div>

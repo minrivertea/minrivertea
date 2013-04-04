@@ -364,7 +364,7 @@ def basket(request):
                 code = None
                 
             if code:
-               value = total_price * code.discount_value
+               value = float(total_price) * float(code.discount_value)
                percent = code.discount_value * 100
                total_price -= value
                request.session['DISCOUNT_ID'] = code.id
@@ -798,7 +798,7 @@ def order_confirm(request):
         
     # is there a discount?
     if order.discount:
-        discount = total_price * order.discount.discount_value
+        discount = float(total_price) * float(order.discount.discount_value)
         percent = order.discount.discount_value * 100
         total_price -= discount
         
@@ -856,13 +856,36 @@ def order_makewishlist(request):
     
 def order_complete(request):
 
+    # GET A SHOPPER
     try:
         shopper = get_object_or_404(Shopper, user=request.user)
     except:
         shopper = None
+    
+
+    try:
+        order = get_object_or_404(Order, id=request.session['ORDER_ID'])
+    except:
+        pass
+    
+    try:
+        cookie = request.session['ADFORCE']
+    except:
+        pass
 
     return _render(request, "shop/order_complete.html", locals())
 
+def order_complete_fake(request):
+    
+    order = Order.objects.filter(is_paid=True, is_giveaway=False).order_by('?')[0] 
+    
+    try:
+        cookie = request.session['ADFORCE']
+        request.session['ADFORCE'] = None # remove it now
+    except:
+        pass
+    
+    return _render(request, "shop/order_complete.html", locals())
 
 # the user can choose to not have their stuff tweeted
 def turn_off_twitter(request, id):

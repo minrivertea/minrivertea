@@ -1171,8 +1171,13 @@ table {
   cellspacing: 0;
   cellpadding: 10px;
   font-size: 13px;
-  font-family: Helvetica, Arial, sans-serif;
-    
+  font-family: Helvetica, Arial, sans-serif; 
+  line-height: 1.6em;  
+}
+
+table ul {
+  font-size: 13px;
+
 }
 
 table td {
