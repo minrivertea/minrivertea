@@ -102,31 +102,31 @@
 
     <div class="order-details">
         
-        <h3>Your order details - {{ order.invoice_id }}</h3>
+        <h3>{% trans 'Your order details' %} - {{ order.invoice_id }}</h3>
         <table>
         <tr>
-            <td valign="top"><strong>Invoice ID</strong></td>
+            <td valign="top"><strong>{% trans 'Invoice ID' %}</strong></td>
             <td>{{ order.invoice_id }}</td>
         </tr>
         <tr>
-            <td valign="top"><strong>Date paid</strong></td>
+            <td valign="top"><strong>{% trans 'Date paid' %}</strong></td>
             <td>{{ order.date_paid|date:"d M Y" }}</td>
         </tr>
         <tr>
-            <td valign="top"><strong>Your name</strong></td>
+            <td valign="top"><strong>{% trans 'Your name' %}</strong></td>
             <td valign="top">{{ order.owner.first_name }} {{ order.owner.last_name }}</td>
         </tr>
         <tr>
-            <td valign="top"><strong>Email address</strong></td>
+            <td valign="top"><strong>{% trans 'Your email' %} </strong></td>
             <td valign="top">{{ order.owner.email }}</td>
         </tr>
         <tr>
-            <td valign="top"><strong>Delivery address</strong></td>
+            <td valign="top"><strong>{% trans 'Delivery address' %}</strong></td>
             <td valign="top">{% with order.address as address %}{% include 'shop/snippets/address.html' %}{% endwith %}</td>
         </tr>
 
         <tr>
-            <td valign="top"><strong>Order items</strong></td>
+            <td valign="top"><strong>{% trans 'Order items' %}</strong></td>
             <td valign="top">
                 {% for i in order.items.all %}
                 {{ i }}<br/>
@@ -134,7 +134,7 @@
             </td>
         </tr>
         <tr>
-            <td valign="top"><strong>Order amount<br/>(including postage)</strong></td>
+            <td valign="top"><strong>{% trans 'Order amount' %}<br/>({% trans 'including postage' %})</strong></td>
             <td valign="top">
                 {{ currency.symbol }}{{ order.get_amount }}
                 {% if order.discount %}
