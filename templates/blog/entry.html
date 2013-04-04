@@ -4,6 +4,20 @@
 {% block metadescription %}{{ entry.summary|safe }}{% endblock %}
 {% block pagetitle %}{{ entry.title }}{% endblock %}
 
+{% block extra-head %}
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ entry.title }}" />
+<meta property="og:url" content="http://www.minrivertea.com{{ entry.get_absolute_url }}" />
+<meta property="og:description" content="{{ entry.summary|safe }}" />
+<meta property="og:site_name" content="Min River Tea" />
+{% thumbnail entry.promo_image "200x200" crop="center" as im %}
+<meta property="og:image" content="{{ im.url }}" />
+<meta name="twitter:image" content="{{ im.url }}" />
+{% endthumbnail %}
+<meta name="twitter:site" content="@minrivertea" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="{{ entry.summary|safe }}" />
+{% endblock %}
 
 {% block extrajs %}
 <script>
