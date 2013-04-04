@@ -348,7 +348,6 @@ class Order(models.Model):
     )
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
-    date_shipped = models.DateTimeField(blank=True, null=True)
     
     def get_discount(self):
         total_price = 0
@@ -570,7 +569,12 @@ def payment_flagged(sender, **kwargs):
         return
     
     order.status = Order.STATUS_PAYMENT_FLAGGED
+    order.date_paid = ipn_obj.payment_date
+    order.is_paid = True
     order.save()
+
+    from logistics.views import _create_customer_package
+    _create_customer_package(order)
 
     from emailer.views import _payment_flagged_email
     _payment_flagged_email(order)
