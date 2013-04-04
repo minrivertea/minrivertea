@@ -6,8 +6,8 @@
 {% block extrajs %} 
 
 {% if cookie and order %}
-<script src="http://partners.i-affiliate.net/i_sale_third/10512/{{ order.get_amount|floatformat:'2' }}/{{ order.invoice_id }}/"></script>
-<noscript><img src="http://partners.i-affiliate.net/i_track_sale/10512/{{ order.get_amount|floatformat:'2' }}/{{ order.invoice_id }}/"></noscript>
+<script src="http://partners.i-affiliate.net/i_sale_third/10512/{{ order.get_amount_pre_discount|floatformat:'2' }}/{{ order.invoice_id }}/"></script>
+<noscript><img src="http://partners.i-affiliate.net/i_track_sale/10512/{{ order.get_amount_pre_discount|floatformat:'2' }}/{{ order.invoice_id }}/" /></noscript>
 {% endif %}
 
 {% endblock %}
@@ -164,10 +164,10 @@
     </div>
 
 
-<p>{% trans "Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience." %}</p>
-
-
-<p>{% blocktrans %}If for any reason you need to contact us about your order, email us at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>. We try to respond to emails as soon as possible, but sometimes because of time zone differences, we might take slightly longer. Thanks for your patience!{% endblocktrans %}</p>
+    <p>{% trans "Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience." %}</p>
+    
+    
+    <p>{% blocktrans %}If for any reason you need to contact us about your order, email us at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>. We try to respond to emails as soon as possible, but sometimes because of time zone differences, we might take slightly longer. Thanks for your patience!{% endblocktrans %}</p>
 </div>
 
     

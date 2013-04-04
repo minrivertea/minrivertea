@@ -372,7 +372,7 @@ class Order(models.Model):
             ipn = None
         return ipn
     
-    def get_amount(self):
+    def get_amount(self, no_discount=False):
         
         currency = self.get_currency()
         if currency == None:
@@ -387,10 +387,16 @@ class Order(models.Model):
         else:
             amount += currency.postage_cost
         
-        if self.discount:
-            discount_amount = amount * self.discount.discount_value
-            amount -= discount_amount
+        if no_discount == False:
+            if self.discount:
+                discount_amount = amount * self.discount.discount_value
+                amount -= discount_amount
+                
         return amount
+    
+    def get_amount_pre_discount(self):
+        
+        return self.get_amount(no_discount=True)
     
     def get_currency(self):
         try:
