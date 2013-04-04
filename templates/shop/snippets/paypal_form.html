@@ -3,7 +3,13 @@
 <form id="paypal" method="post" action="{{ paypal_submit_url }}">
     
     	<div id="checkout-button">
+			
+			{% if total_price == 0 %}
+			<p class="skip"><a href="{% url fake_checkout order.id %}" class="button green">Click here to skip Paypal (for 100% discount orders)</a></p>
+			{% else %}
 			<input type="submit" value="{% trans 'Confirm and pay' %}" next="" class="button green"/>
+			{% endif %}
+			
 			<p class="checkout"><strong>{% trans "Next step" %}:</strong> <em>{% trans "pay securely via PayPal, using all major credit and debit cards or your linked Paypal account." %}</em></p>
 			<img id="ppicon" src="{{ static_url }}images/002.gif" class="paypal">
 			

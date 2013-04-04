@@ -135,7 +135,13 @@
         </tr>
         <tr>
             <td valign="top"><strong>Order amount<br/>(including postage)</strong></td>
-            <td valign="top">{{ currency.symbol }}{{ order.get_amount }} </td>
+            <td valign="top">
+                {{ currency.symbol }}{{ order.get_amount }}
+                {% if order.discount %}
+                    <br/>
+                    {{ order.discount.discount_amount }}
+                {% endif %} 
+            </td>
         </tr>
         </table>
             

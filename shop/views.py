@@ -496,7 +496,10 @@ def order_step_one(request, basket=None):
                 }
                 order = Order.objects.create(**creation_args)
                 order.save() # need to save it first, then give it an ID
-                order.invoice_id = "TEA-00%s" % (order.id)
+                if 'ADFORCE' in request.session:
+                    order.invoice_id = "TEA-00%sA" % (order.id)
+                else:
+                    order.invoice_id = "TEA-00%s" % (order.id)
             
             # DO THEY HAVE A VALID DISCOUNT CODE?
             try: 
@@ -589,7 +592,10 @@ def order_repeat(request, hash):
             status = Order.STATUS_CREATED_NOT_PAID,
             invoice_id = "TEMP",
         ) 
-        order.invoice_id = "TEA-00%s" % (order.id)       
+        if 'ADFORCE' in request.session:
+            order.invoice_id = "TEA-00%sA" % (order.id)
+        else:
+            order.invoice_id = "TEA-00%s" % (order.id)       
 
     order.save()
     
@@ -852,7 +858,30 @@ def order_makewishlist(request):
     
 
     return   
+
+# THIS IS USED AS A CHEAT FOR 100% DISCOUNT ORDERS, FOR TESTING OR WHATEVER
+def fake_checkout(request, order_id):
     
+    order = get_object_or_404(Order, pk=order_id)
+    
+    # DOUBLE CHECK THE ORDER HAS 100% DISCOUNT
+    if not order.discount or order.discount.discount_value < 1:
+        return HttpResponseRedirect(reverse('order_confirm'))
+    
+    # ORGANISE THE ORDER AS IF IT HAD BEEN PAID LIKE NORMAL
+    order.status = Order.STATUS_PAID
+    order.date_paid = datetime.now()
+    order.is_paid = True
+    order.notes = '100% discount order, not paid via paypal.'
+    order.save()    
+    
+    from emailer.views import _payment_success_email 
+    _payment_success_email(order)
+    
+    from shop.utils import _empty_basket
+    _empty_basket(request)
+
+    return HttpResponseRedirect(reverse('order_complete'))    
     
 def order_complete(request):
 
@@ -862,14 +891,15 @@ def order_complete(request):
     except:
         shopper = None
     
-
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
+        request.session['ORDER_ID'] = None
     except:
         pass
     
     try:
         cookie = request.session['ADFORCE']
+        request.session['ADFORCE'] = None # remove it now
     except:
         pass
 
@@ -877,7 +907,11 @@ def order_complete(request):
 
 def order_complete_fake(request):
     
-    order = Order.objects.filter(is_paid=True, is_giveaway=False).order_by('?')[0] 
+    order = Order.objects.filter(is_paid=True, is_giveaway=False).order_by('?')[0]
+    try:
+        request.session['ORDER_ID'] = None
+    except:
+        pass
     
     try:
         cookie = request.session['ADFORCE']
@@ -886,17 +920,6 @@ def order_complete_fake(request):
         pass
     
     return _render(request, "shop/order_complete.html", locals())
-
-# the user can choose to not have their stuff tweeted
-def turn_off_twitter(request, id):
-    try:
-        shopper = get_object_or_404(Shopper, pk=id)
-    except:
-        pass
-    
-    shopper.twitter_username = None
-    shopper.save()
-    return HttpResponseRedirect('/order/complete/')
 
 # handles the review/testimonial view
 def review_tea(request, category, slug):

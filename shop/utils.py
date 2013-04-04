@@ -89,6 +89,21 @@ def _get_basket(request):
     return basket
 
 
+def _empty_basket(request):
+    
+    try:
+        # basket = get_object_or_404(Basket, id=request.sesssion['BASKET_ID'])
+        # basket.delete()
+        request.session['BASKET_ID'] = None
+    except:
+        pass
+    
+    
+    return None
+    
+    
+
+
 def _changelang(request, code):
     
     from django.utils.translation import check_for_language, activate
