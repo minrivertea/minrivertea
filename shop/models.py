@@ -372,8 +372,9 @@ class Order(models.Model):
             ipn = None
         return ipn
     
-    def get_amount(self, no_discount=False):
+    def get_amount(self, no_discount=False, convert=None):
         
+
         currency = self.get_currency()
         if currency == None:
             currency = get_object_or_404(Currency, code='GBP')
@@ -391,12 +392,25 @@ class Order(models.Model):
             if self.discount:
                 discount_amount = amount * self.discount.discount_value
                 amount -= discount_amount
+        
+        if convert:
+            # this is so we can convert it into EUR for the affiliate scheme
+            if currency.code == 'GBP':
+                amount = float(amount) * float(1.18)
+            
+            if currency.code == 'USD':
+                amount = float(amount) * float(0.7778)
                 
+            if currency.code == 'EUR':
+                pass
+
         return amount
     
     def get_amount_pre_discount(self):
-        
         return self.get_amount(no_discount=True)
+    
+    def get_amount_eur(self):
+        return self.get_amount(convert='EUR')
     
     def get_currency(self):
         try:
