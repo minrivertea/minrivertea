@@ -113,7 +113,6 @@ INSTALLED_APPS = (
     'logistics',
     'emailer',
     'ckeditor',
-#    'django_static', # CAN BE DELETED
 #    'debug_toolbar',
 )
 
