@@ -211,6 +211,11 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 
 
+# AFFILIATE SETTINGS
+AFFILIATE_URL_VARIABLE = 'sales_adforce'
+AFFILIATE_SESSION_KEY = 'affiliate'
+
+
 
 # PAYPAL INFORMATION
 # ---------------------------------------------------

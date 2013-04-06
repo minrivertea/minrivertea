@@ -36,6 +36,13 @@ def common(request):
     context['currency'] = _get_currency(request) 
     
 
+    # AFFILIATE STUFF
+    if settings.AFFILIATE_SESSION_KEY in request.session:
+        affiliate_session = True
+    
+    if request.GET.get(settings.AFFILIATE_URL_VARIABLE):
+        context['landing_page'] = True # TODO we should change this to specify which landing page it shoudl show
+        print "TRUE!"
 
     # CHANGE THE BASE TEMPLATE FOR CHINA
     base_template = settings.BASE_TEMPLATE

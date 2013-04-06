@@ -12,14 +12,18 @@ class AffiliateTrackerMiddleware(object):
     
     def process_request(self, request):
         
-        if request.GET.get('sales_adforce'):
+        # THIS CHECKS IF THIS SESSION CAME FROM AN AFFILIATE REFERRAL
+        if request.GET.get(settings.AFFILIATE_URL_VARIABLE):
             try:
-                cookie = request.session['ADFORCE']
-                request.delete_cookie("ADFORCE")
+                cookie = request.session[settings.AFFILIATE_SESSION_KEY]
+                request.delete_cookie(settings.AFFILIATE_SESSION_KEY)
             except:
                 pass
             
-            request.session['ADFORCE'] = "1"
+            request.session[settings.AFFILIATE_SESSION_KEY] = "1"
+        
+        
+
         
         # WE RETURN NONE AND IT CONTINUES PROCESSING THE REQUEST AS NORMAL
         return None

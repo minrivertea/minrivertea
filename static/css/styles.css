@@ -1805,5 +1805,27 @@ a#harvest:hover {
 }
 
 
+/* AFFILIATE STYLES */
+
+#affiliate {
+  width: 96%;
+  margin: -20px 0 20px 0;
+  float :left;  
+  padding: 2% 2% 3%;
+  background: #fff;
+  border-radius: 5px;
+}
+
+#affiliate .text {
+  float: left;
+  width: 300px;
+  margin-top: 30px;   
+}
+
+#affiliate img.image {
+  float: left;
+  margin: 20px 0 0 90px;   
+}
+
 
 
