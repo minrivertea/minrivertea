@@ -93,6 +93,9 @@ $(document).ready( function() {
 
 
 </script>
+
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
 {% endblock %}
 
 {% block extracss %}
@@ -848,20 +851,26 @@ ul.rss {
     {% if ga_is_on %}
     <ul class="rss">
 		<li id="google">
-			<g:plusone></g:plusone>
-			<script type="text/javascript">
-			  (function() {
-			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-			    po.src = 'https://apis.google.com/js/plusone.js';
-			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-			  })();
-			</script>
+			<div class="g-plusone" data-size="medium"></div>
+			<!-- Place this tag after the last +1 button tag. -->
+            <script type="text/javascript">
+              (function() {
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/plusone.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>
 		</li>
     	<li id="facebook">
 		    <div id="fb-root"></div>
 		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
 		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 		    </fb:like>
+		</li>
+		<li id="pinterest">
+		  {% thumbnail tea.image "500x331" crop="" as im %}
+		  <a data-pin-config="beside" href="//pinterest.com/pin/create/button/?url=http://www.minrivertea.com{{ tea.get_absolute_url }}&media=http://www.minrivertea.com{{ im.url }}&description={{ tea.description }}" data-pin-do="buttonPin" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+		  {% endthumbnail %}
 		</li>
 	</ul>
 	{% endif %}

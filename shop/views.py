@@ -885,18 +885,19 @@ def fake_checkout(request, order_id):
     
 def order_complete(request):
 
-    # GET A SHOPPER
-    try:
-        shopper = get_object_or_404(Shopper, user=request.user)
-    except:
-        shopper = None
-    
+    # TRY TO GET THEIR ORDER INFORMATION FROM A COOKIE
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
         request.session['ORDER_ID'] = None
     except:
         pass
     
+    # CLEAR THEIR BASKET (EVERYTHING'S BEEN PAID FOR NOW, RIGHT?)
+    from shop.utils import _empty_basket  
+    _empty_basket(request)
+    
+    
+    # REMOVE THEIR AFFILIATE KEY SO THAT IT DOESN'T KEEP REGISTERING SALES AGAINST THIS LEAD.
     try:
         request.session[settings.AFFILIATE_SESSION_KEY] = None # remove it now
     except:

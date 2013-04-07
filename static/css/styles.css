@@ -1572,7 +1572,7 @@ ul.rss {
    right: 50px;	
    float: right;
    list-style-type: none;
-   width: 150px;
+   width: 200px;
    overflow: hidden;
    margin: 15px 0 0 0;
 }
@@ -1584,7 +1584,7 @@ ul.rss.opaque {
 }
 
 ul.rss #google {
-  width: 65px;
+  width: 60px;
   float: left;
   margin-right: 10px;
 }
@@ -1594,6 +1594,7 @@ ul.rss #facebook {
   float: left;	
   position: relative;
   top: -2px;
+  margin-right: 10px;
 }
 
 #comments {
