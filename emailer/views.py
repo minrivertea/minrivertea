@@ -103,24 +103,24 @@ def free_sampler_email(request, id):
 
 
 # send email to user asking for a review of a product
-def product_review_email(request, orderid):
+def product_review_email(orderid):
     order = get_object_or_404(Order, id=orderid)
+    if not order.hashkey:
+        order.hashkey = uuid.uuid1().hex
+        order.save()
     
     activate(order.owner.language)
-    subject_line = _("Two things you can do right now")
+    subject_line = _("Could you help us with some quick feedback?")
     receiver = order.owner.email
     
     text = render_to_string('shop/emails/text/review_email.txt', {
-        'shopper': order.owner, 
         'order': order,
+        'url': reverse('review_order', args=[order.hashkey]),
         }
     )
     
     _send_email(receiver, subject_line, text)
-    
-    order.review_email_sent = True
-    order.save()
-    
+        
     return HttpResponseRedirect('/admin-stuff')  
 
 

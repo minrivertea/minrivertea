@@ -244,6 +244,7 @@ class Review(models.Model):
     short_text = models.TextField(blank=True, null=True)
     url = models.URLField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
+    date_submitted = models.DateTimeField(blank=True, null=True)
     lang = models.CharField(max_length=5, choices=settings.LANGUAGES)
     
     def __unicode__(self):
@@ -332,8 +333,6 @@ class Order(models.Model):
         help_text="Has a sample been sent to a friend of theirs from this order?")
     reminder_email_sent = models.BooleanField(default=False, 
         help_text="Has a 3 day reminder email been sent if the order wasn't completed?")
-    review_email_sent = models.BooleanField(default=False,
-        help_text="Has a friendly review email been sent (around 1 week after order is shipped)?")
     wishlist_payee = models.CharField(max_length=200, blank=True, null=True)
     notes = models.TextField(null=True, blank=True)
     

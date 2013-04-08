@@ -4,6 +4,8 @@ from blog.models import BlogEntry
 from shop.utils import _get_country, _get_currency, _set_currency, _get_region
 from django.utils import translation
 
+from django.contrib.sites.models import get_current_site
+
 
 
 def common(request):
@@ -22,6 +24,7 @@ def common(request):
     context['thumb_small'] = settings.THUMB_SMALL
     context['monthly_discount_low'] = settings.TEABOX_LOW_DISCOUNT * 100
     context['monthly_discount_high'] = settings.TEABOX_HIGH_DISCOUNT * 100
+    context['site_url'] = get_current_site(request).domain
 
 
         

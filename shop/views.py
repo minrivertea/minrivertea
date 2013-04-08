@@ -948,6 +948,42 @@ def review_tea(request, category, slug):
         form = ReviewForm()
     return _render(request, "shop/forms/review_form.html", locals())
 
+def review_order(request, hash):
+    
+    order = get_object_or_404(Order, hashkey=hash)
+    
+    
+    if request.method == 'POST':
+        
+        form = ReviewOrderForm(request.POST)
+        if form.is_valid():
+            words = form.cleaned_data['words'] 
+            product = get_object_or_404(Product, pk=form.cleaned_data['product'])
+            first_name = order.owner.first_name
+            last_name = order.owner.last_name
+            email = order.owner.email
+            review = Review.objects.create(
+                text=words,
+                product=product,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                date_submitted = datetime.now()
+            )
+                        
+            review.save()
+            
+            if request.is_ajax():
+                data = {'words': words,}
+                json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
+                return HttpResponse(json)
+            
+            else:
+                pass
+    
+    return _render(request, 'shop/forms/review_order_form.html', locals())
+
+
 
 def review_tea_thanks(request, category, slug):
     message = _("Thanks for posting your review! It's really important to us and we will read and respond to any suggetions you've made.")

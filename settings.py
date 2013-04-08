@@ -71,11 +71,11 @@ MIDDLEWARE_CLASSES = (
 #    'django_mobile.middleware.SetFlavourMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 #    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'affiliate.AffiliateTrackerMiddleware'
+    'affiliate.AffiliateTrackerMiddleware',
+    'sites.DomainTrackerMiddleware'
 )
 
 AUTHENTICATION_BACKENDS = (
-    "emailauth.EmailBackend",
     "django.contrib.auth.backends.ModelBackend",
 )
 

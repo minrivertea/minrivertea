@@ -1,0 +1,227 @@
+{% extends base_template %}
+{% load thumbnail i18n %}
+
+
+{% block extracss %}
+<style type="text/css">
+
+div.other-reviews {
+  margin-top: 0px;
+  float: left;	
+}
+
+#positive {
+  border-top: 2px dotted #e1e1e1;
+  padding-top: 30px;   
+}
+
+#positive p.intro, #review p.intro {
+  float: left;
+  width: 200px;
+  margin: 0 30px 0 0;
+  font-family: Helvetica, Arial, sans-serif;
+  letter-spacing: -0.5px;
+  font-weight: bold; 
+  color: #237A2A;
+  font-size: 14px;  
+}
+
+#google {
+  margin-bottom: 10px;
+  float: left;
+  width: 80px;
+}
+
+form#review {
+  float: right;
+  width: 280px;   
+}
+
+#review textarea {
+  width: 100%; 
+  min-height: 300px;  
+}
+
+#review input {
+  width: auto;   
+}
+
+#boxes {
+  float: left;
+  width: 100%; 
+  margin-top: 30px;  
+}
+
+.info.tea.long {
+  width: 800px; 
+  overflow: visible; 
+  margin: 0px 0 20px; 
+}
+
+.info.tea.long:hover h3 {
+  background: #fff;
+  opacity: 1;
+  color: inherit;   
+}
+
+.info.tea:hover img {
+  opacity: 1;   
+}
+
+.info.tea.long h3 {
+    top: 10px;
+    left: 10px;
+    margin: 0px 0 0px 0px;
+    width: auto;
+    position: absolute;
+    background: #fff;
+    padding: 3px 15px 5px 10px;
+    border-radius: 4px 0 4px 0;
+    color: #5F829A;
+    font-size: 16px;
+}
+
+.info.tea .social {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    bottom: 15px;
+    float: right;
+    left: 330px;
+    margin: 10px 0 0;
+    position: absolute;
+    width: 200px;
+}
+
+.info.tea .social #facebook {
+  float: left;
+  margin-right: 10px;  
+  width: auto; 
+}
+
+.info.tea.long form {
+  float: left;
+  width: 470px;
+  margin: 0px 0 0 10px;   
+}
+
+.info.tea.long p {
+  margin: 0 0 0 10px;
+  width: 470px;   
+  float: left;
+
+}
+
+.info.tea.long .review {
+    font-size: 14px;
+    padding-bottom: 40px;
+}
+
+.info.tea.long form textarea {
+  width: 100%;
+  height: 155px;
+  margin-bottom: 10px;   
+}
+
+.info.tea.long form input.button {
+  float: right;
+  width: auto; 
+  padding: 5px 10px;
+  margin: 0;  
+}
+
+</style>
+{% endblock %}
+
+{% block extrajs %}
+
+<script type="text/javascript">
+$('#boxes form').bind('submit', function() {
+   var form = $(this);
+   $.ajax({
+       type: 'POST',
+       url: '{% url review_order order.hashkey %}',
+       data: form.serialize(),
+       dataType: 'json',
+       success: function(data) {
+          form.replaceWith('<p><strong>Your review has been saved!</strong> (<a href="" class="edit">Edit</a>)</p><p class="review">&ldquo;<em>'+data.words+'</em>&rdquo;</p>');
+       },
+   });
+   return false;  
+});
+
+</script>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+{% endblock %}
+
+{% block metadescription %}{% blocktrans with tea as t %}Write a review for {{ t }} tea{% endblocktrans %}{% endblock %}
+
+{% block pagetitle%}{% trans 'Write a review' %}{% endblock %}
+
+
+
+{% block content %}
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div id="mtw">
+  <div class="sp">
+  
+  <h1>{% blocktrans %}Review your order{% endblocktrans %}</h1>
+  
+  <p class="introduction">{% trans "Below are the items you purchased - please share any opinions you have about them with us, and don't forget to share on Facebook and Google+ by clicking the social sharing buttons!" %}</p>
+  
+  
+  
+  <div id="boxes">
+  {% for i in order.items.all %}
+  <div class="info tea long">
+        <h3>{{ i.item.parent_product.name }}</h3>
+
+    {% thumbnail i.item.parent_product.image "300" crop="" as im %}
+        <img src="{{ im.url }}" />
+    {% endthumbnail %}
+    
+    <form action="." method="post" id="">
+        <textarea name="words" id="id_words" class="clearMeFocus">{% trans 'Write something here...' %}</textarea>
+        <input type="hidden" name="product" id="id_product" value="{{ i.item.parent_product.id }}" />
+        <input type="submit" class="button green" value="Save"/ >
+    </form>
+    
+    <div class="social">
+        <div id="facebook">
+        <div class="fb-like" data-href="http://www.minrivertea.com{{ i.item.parent_product.get_absolute_url }}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+        </div>
+        <div class="g-plusone" data-size="medium" data-href="http://www.minrivertea.com{{ i.item.parent_product.get_absolute_url }}"></div>
+    </div>
+    
+
+  </div>
+  {% endfor %}
+  </div>
+  
+  <p>{% trans "We are really committed to improving our service and products as much as possible, so thanks for your feedback and comments, and for sharing our teas and teaware with your friends. We read every review, but if you'd like to contact us directly about any matter, feel free to " %}<a href="{% url page _('contact-us') %}">{% trans 'get in touch' %} &raquo;</a></p>
+  
+  </div>
+</div>
+	
+
+		
+
+    {% endblock %}

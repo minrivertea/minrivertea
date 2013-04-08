@@ -72,6 +72,11 @@ class ReviewForm(forms.Form):
     last_name = forms.CharField(required=True)
     email = forms.EmailField(required=True, error_messages={'required': '* You must give a valid email address'})
 
+
+class ReviewOrderForm(forms.Form):
+    words = forms.CharField(required=True, widget=forms.Textarea)
+    product = forms.CharField(required=True)
+
 class NotifyForm(forms.Form):
     email = forms.EmailField(required=True, error_messages={'required': 'Please enter a valid email address'})
     country = forms.ChoiceField(required=False, choices=all_countries)
@@ -90,13 +95,3 @@ class CreateSendEmailForm(forms.Form):
     subject_line = forms.CharField(required=True)
     content = forms.CharField(required=True, widget=forms.Textarea)
 
-
-
-
-class ValentinesForm(forms.Form):
-    email = forms.EmailField(error_messages={'required': '* Please give an email address', 'invalid': '* Please enter a valid e-mail address.'})
-    name = forms.CharField(max_length=200, required=True, error_messages={'required': '* Please give your surname'})
-    address_line_1 = forms.CharField(max_length=200, required=False)
-    address_line_2 = forms.CharField(max_length=200, required=False)
-    town_city = forms.CharField(max_length=200, required=False)
-    postcode = forms.CharField(max_length=200, required=False)

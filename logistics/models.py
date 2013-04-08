@@ -57,6 +57,14 @@ class CustomerPackage(models.Model):
     postage_cost = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     postage_currency = models.ForeignKey(Currency, null=True, blank=True)
     
+    
+    # EMAILS RELATED TO THE ORDER
+    shipped_email_sent = models.DateTimeField(blank=True, null=True)
+    brewing_tips_email_sent = models.DateTimeField(blank=True, null=True)
+    review_email_sent = models.DateTimeField(blank=True, null=True)
+    reorder_email_sent = models.DateTimeField(blank=True, null=True)
+    
+    
     def __unicode__(self):
         return "%s : %s" % (self.order, self.order.owner)    
     
