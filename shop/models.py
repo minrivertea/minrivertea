@@ -8,6 +8,9 @@ from datetime import datetime, timedelta
 from urlparse import urlparse
 from django.utils import translation
 from django.core.urlresolvers import reverse
+from django.contrib.sites.models import Site
+
+
 
 from slugify import smart_slugify
 from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
@@ -538,7 +541,7 @@ class Page(models.Model):
         return items
     
     def get_absolute_url(self):
-        url = "/%s/" % self.slug  
+        url = "%s/%s/" % (Site.objects.get_current().domain, self.slug) 
         return url
     
     def get_url_by_id(self):
