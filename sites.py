@@ -20,8 +20,9 @@ class DomainTrackerMiddleware(object):
             # CHANGE LANGUAGE TO GERMAN
             _changelang(request, 'de')
             
-            # CHANGE CURRENCY TO EUR
-            _set_currency(request, 'EUR')
+            if 'CURRENCY' not in request.session:
+                # CHANGE CURRENCY TO EUR
+                _set_currency(request, 'EUR')
         
         
         # WE RETURN NONE AND IT CONTINUES PROCESSING THE REQUEST AS NORMAL
