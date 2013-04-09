@@ -24,6 +24,7 @@ MANAGERS = ADMINS
 TIME_ZONE = 'Europe/London'
 SITE_ID = 1
 SITE_NAME = 'minrivertea.com'
+GERMAN_URL = 'www.minrivertea.de'
 SECRET_KEY = ''
 
 
