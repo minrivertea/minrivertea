@@ -107,7 +107,7 @@ class Product(models.Model):
         return reverse('finder', args=[self.category.slug, self.slug])
     
     def get_url_by_id(self):
-        url = "/product/%s/" % self.id
+        url = reverse('product_by_id', args=[self.id])
         return url
 
     def get_lowest_price(self, currency, exclude_sales=False):
