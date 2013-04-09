@@ -14,7 +14,7 @@ class DomainTrackerMiddleware(object):
     def process_request(self, request):
         
         # CHECK IF THE DOMAIN NAME IS .de
-        if Site.objects.get_current().domain == 'www.minrivertea.de':
+        if Site.objects.get_current().domain == 'minrivertea.de':
         
             # CHANGE LANGUAGE TO GERMAN
             _changelang(request, 'de')
