@@ -3,6 +3,8 @@
 
 {% block metadescription %}{{ entry.summary|safe }}{% endblock %}
 {% block pagetitle %}{{ entry.title }}{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ site_url }}{{ entry.get_absolute_url }}" />{% endblock %}
+
 
 {% block extra-head %}
 <meta property="og:type" content="article" />
