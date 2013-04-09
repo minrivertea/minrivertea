@@ -15,11 +15,12 @@ class DomainTrackerMiddleware(object):
         # CHECK IF THE DOMAIN NAME IS .de
         if request.get_host().endswith('.de'):
         
-            # CHANGE LANGUAGE TO GERMAN
-            _changelang(request, 'de')
-            
+            # CHANGE LANGUAGE TO GERMAN IF NO PREFERENCE ALREADY SET
+            if settings.LANGUAGE_COOKIE_NAME not in request.session:
+                _changelang(request, 'de')
+                
+            # CHANGE CURRENCY TO EUR IF NO PREFERENCE ALREADY SET        
             if 'CURRENCY' not in request.session:
-                # CHANGE CURRENCY TO EUR
                 _set_currency(request, 'EUR')
         
         

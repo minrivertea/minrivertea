@@ -158,9 +158,9 @@ if (15.00) {
                <a href="{% url page _('wholesale') %}" class="{% if page %}{% if page.slug == _('wholesale') %} selected{% endif %}{% endif %}">{% trans 'Wholesale' %}</a> |
         	   {% get_current_language as LANGUAGE_CODE %}
         	   {% if LANGUAGE_CODE == 'de' %}
-      			<a href="http://www.minrivertea.com">{% trans 'English' %}</a>
+      			<a href="http://www.minrivertea.com{% url changelang 'en' %}">{% trans 'English' %}</a>
         	   {% else %}
-      			<a href="http://www.minrivertea.de">{% trans 'German' %}</a>
+      			<a href="http://www.minrivertea.de{% url changelang 'de' %}">{% trans 'German' %}</a>
         	   {% endif %}
 
 
