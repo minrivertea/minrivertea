@@ -25,7 +25,7 @@ def common(request):
     context['monthly_discount_low'] = settings.TEABOX_LOW_DISCOUNT * 100
     context['monthly_discount_high'] = settings.TEABOX_HIGH_DISCOUNT * 100
     
-    context['site_url'] = "http://%s" % get_current_site(request).domain # the full domain
+    context['site_url'] = "http://%s" % request.get_host() # gives us the full domain
     context['site_name'] = settings.SITE_NAME # just the loose non-techy name of the site eg. minrivertea.com
 
 
