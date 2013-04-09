@@ -5,7 +5,7 @@ from shop.utils import _get_country, _get_currency, _set_currency, _get_region
 from django.utils import translation
 
 from django.contrib.sites.models import get_current_site
-from django.utils.translation import get_language()
+from django.utils.translation import get_language
 
 
 
