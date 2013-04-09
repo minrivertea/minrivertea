@@ -244,7 +244,7 @@ p.quote {
 
 	<div id="left">
     	<h1>{{ entry.title }}</h1>
-    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="{{ entry.get_absolute_url }}#disqus_thread">Comments</a> | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
+    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="{{ site_url }}{{ entry.get_absolute_url }}#disqus_thread">Comments</a> | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
     
     	{{ entry.content|convert_links|safe }}
     			
@@ -280,7 +280,7 @@ p.quote {
 	    	<li id="facebook">
 			    <div id="fb-root"></div>
 			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-			    <fb:like href="{{ site_url }}/{{ entry.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+			    <fb:like href="{{ site_url }}{{ entry.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 			    </fb:like>
 			</li>
 		</ul>

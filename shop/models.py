@@ -104,7 +104,7 @@ class Product(models.Model):
         return date
     
     def get_absolute_url(self):
-        return "/%s/%s/" % (self.category.slug, self.slug)
+        return reverse('tea_view', args=[self.category.slug, self.slug])
     
     def get_url_by_id(self):
         url = "/product/%s/" % self.id
@@ -154,7 +154,7 @@ class Category(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return "/%s/" % self.slug
+        return reverse('finder', args=[self.slug])
 
     def get_url_by_id(self):
         url = reverse('category_by_id', args=[self.id])
@@ -545,7 +545,7 @@ class Page(models.Model):
         return url
     
     def get_url_by_id(self):
-        url = "/page/%s/" % self.id
+        url = reverse('page_by_id', args=[self.id])
         return url
         
 

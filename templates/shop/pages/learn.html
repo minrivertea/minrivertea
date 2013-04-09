@@ -5,7 +5,7 @@
 
 {% block pagetitle %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ page.get_absolute_url }}" />{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ site_url }}{{ page.get_absolute_url }}" />{% endblock %}
 
 {% block extrajs %}
 <script>
