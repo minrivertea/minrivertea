@@ -1,15 +1,12 @@
-{% load i18n %}
-
-{% blocktrans with sender as s %}
-
+{% load i18n %}{% blocktrans with sender as s %}
 Hey!
 
 I wanted to let you know about this company:
 
-http://www.minrivertea.com/
+{{ site_url }}
 
 They're called Min River Tea, and they sell fresh Chinese teas direct from their base in China. Check out the website.
 
-ps. this email was send by www.minrivertea.com on behalf of {{ s }}, with their explicit permission.
+ps. this email was send by {{ site_name }} on behalf of {{ s }}, with their explicit permission.
 
 {% endblocktrans %}

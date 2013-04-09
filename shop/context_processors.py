@@ -24,7 +24,9 @@ def common(request):
     context['thumb_small'] = settings.THUMB_SMALL
     context['monthly_discount_low'] = settings.TEABOX_LOW_DISCOUNT * 100
     context['monthly_discount_high'] = settings.TEABOX_HIGH_DISCOUNT * 100
+    
     context['site_url'] = get_current_site(request).domain
+    context['site_name'] = settings.SITE_NAME
 
 
         

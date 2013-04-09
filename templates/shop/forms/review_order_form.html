@@ -206,9 +206,9 @@ $('#boxes form').bind('submit', function() {
     
     <div class="social">
         <div id="facebook">
-        <div class="fb-like" data-href="http://www.minrivertea.com{{ i.item.parent_product.get_absolute_url }}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+        <div class="fb-like" data-href="{{ site_url }}{{ i.item.parent_product.get_absolute_url }}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
         </div>
-        <div class="g-plusone" data-size="medium" data-href="http://www.minrivertea.com{{ i.item.parent_product.get_absolute_url }}"></div>
+        <div class="g-plusone" data-size="medium" data-href="{{ site_url }}{{ i.item.parent_product.get_absolute_url }}"></div>
     </div>
     
 

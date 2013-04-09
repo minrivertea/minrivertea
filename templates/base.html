@@ -19,7 +19,7 @@
 	<meta name="DC.type" content="Django Site" />
 	<meta name="robots" content="ALL" />
 	
-	<title>{% block pagetitle %}{% endblock %} | minrivertea.com</title>
+	<title>{% block pagetitle %}{% endblock %} | {{ site_name }}</title>
 	<link rel="shortcut icon" href="{{ static_url }}images/favicon.ico" type="image/x-icon">
 	{% block canonical %}{% endblock %}
 	{% block extra-head %}{% endblock %}

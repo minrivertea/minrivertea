@@ -56,7 +56,7 @@ div.text .button {
 </style>
 {% endblock %}
 
-{% block metadescription %}{% trans 'Tell your friends about www.minrivertea.com on facebook, twitter or by email and share the love about great Chinese teas.' %}{% endblock %}
+{% block metadescription %}{% blocktrans %}Tell your friends about {{ site_name }} on Facebook, Twitter or by email and share the love about great Chinese teas.{% endblocktrans %}{% endblock %}
 
 {% block pagetitle %}{% trans 'Tell a friend' %}{% endblock %}
 
@@ -95,7 +95,7 @@ div.text .button {
 		
 		<div class="info small">
 			<div class="image">
-				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com" data-text="better #tea for your mug" data-via="minrivertea" data-size="large" data-related="minrivertea">Tweet</a>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site_url }}" data-text="better #tea for your mug" data-via="minrivertea" data-size="large" data-related="minrivertea">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 			</div>
 			<div class="text">

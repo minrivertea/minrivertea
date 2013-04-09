@@ -8,9 +8,6 @@ Just reply to this email with the name and address of the person you'd like us t
 
 We'll send them the tea, totally free of charge, and let them know that it's a gift from you. 
 
-
-Chris West
-www.minrivertea.com
-
+{% include 'shop/emails/signature.txt %}
 
 ps. If you give us a friend's name and address, we will never contact or send anything else to them, other than a free tea sample. We hate spam just as much as you.

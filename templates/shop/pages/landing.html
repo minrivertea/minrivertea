@@ -7,7 +7,7 @@
 
 {% block pagetitle %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="http://www.minrivertea.com{{ page.get_absolute_url }}" />{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ page.get_absolute_url }}" />{% endblock %}
 
 {% block extrajs %}
 <script>
@@ -156,7 +156,7 @@ div.info.right {
 	    	<li id="facebook">
 			    <div id="fb-root"></div>
 			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-			    <fb:like href="http://www.minrivertea.com{{ page.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+			    <fb:like href="{{ page.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 			    </fb:like>
 			</li>
 		</ul>

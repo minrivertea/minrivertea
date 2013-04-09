@@ -5,12 +5,12 @@
 
 {% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="http://www.minrivertea.com{{ tea.get_absolute_url }}" />{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ tea.get_absolute_url }}" />{% endblock %}
 
 {% block extra-head %}
 <meta property="og:type" content="product" />
 <meta property="og:title" content="{{ tea.name }}" />
-<meta property="og:url" content="http://www.minrivertea.com{{ tea.get_absolute_url }}" />
+<meta property="og:url" content="{{ tea.get_absolute_url }}" />
 <meta property="og:description" content="{{ tea.description|safe }}" />
 <meta property="og:site_name" content="Min River Tea" />
 {% thumbnail tea.image "500x500" crop="center" as im %}
@@ -864,12 +864,12 @@ ul.rss {
     	<li id="facebook">
 		    <div id="fb-root"></div>
 		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-		    <fb:like href="http://www.minrivertea.com/teas/{{ tea.slug }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+		    <fb:like href="{{ tea.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 		    </fb:like>
 		</li>
 		<li id="pinterest">
 		  {% thumbnail tea.image "500x331" crop="" as im %}
-		  <a data-pin-config="beside" href="//pinterest.com/pin/create/button/?url=http://www.minrivertea.com{{ tea.get_absolute_url }}&media=http://www.minrivertea.com{{ im.url }}&description={{ tea.description }}" data-pin-do="buttonPin" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+		  <a data-pin-config="beside" href="//pinterest.com/pin/create/button/?url={{ tea.get_absolute_url }}&media={{ site_url }}{{ im.url }}&description={{ tea.description }}" data-pin-do="buttonPin" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
 		  {% endthumbnail %}
 		</li>
 	</ul>

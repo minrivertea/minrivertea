@@ -1,12 +1,9 @@
-{% load i18n %}
-
-{% blocktrans with order.owner.first_name as fn %}
-
+{% load i18n %}{% blocktrans with order.owner.first_name as fn %}
 Hi {{ fn }}!
 
 Have you finished your tea yet?
 
-A few months ago you ordered some tea from us at www.minrivertea.com. If you've finished it and want to order more of the same, just click this link.
+A few months ago you ordered some tea from us at {{ site_name }}. If you've finished it and want to order more of the same, just click this link.
 
 {{ url }}
 
@@ -17,6 +14,4 @@ Of course, you might want to try something different - check out our other amazi
 All the best,
 
 {% endblocktrans %}
-
-
-{% include 'emails/signature.txt' %}
+{% include 'shop/emails/signature.txt' %}

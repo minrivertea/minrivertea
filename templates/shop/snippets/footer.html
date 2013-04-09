@@ -34,7 +34,7 @@
 	
     <div class="footer-box learn">
 		<h4>{% trans 'Receive TEAMails direct to your inbox' %}</h4>
-		<p>{% trans 'Signup to get news and information about Chinese tea, tea culture and special offers from minrivertea.com' %}</p>
+		<p>{% blocktrans %}Signup to get news and information about Chinese tea, tea culture and special offers from {{ site_name }}{% endblocktrans %}</p>
 		<form action="{% url email_signup %}" method="post">
 	        <input type="text" name="email" id="id_email" title="{% trans 'Your email address' %}" class="clearMeFocus"/>
 	        <input type="submit" class="submit button" value="{% trans 'Signup' %}" />
@@ -42,7 +42,7 @@
     </div>
 
     <p class="copyright">
-        &copy; minrivertea.com | 145 - 157 St John St, London, EC1V 4PW, UK | 
+        &copy; {{ site_name }} | 145 - 157 St John St, London, EC1V 4PW, UK | 
         <a href="{% url page _('contact-us') %}">{% trans 'Contact Us' %}</a> | 
         <a href="{% url page _('terms-and-conditions') %}">{% trans 'Terms & Conditions' %}</a> | 
         <a href="{% url page _('privacy') %}">{% trans 'Privacy' %}</a> | 

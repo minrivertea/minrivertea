@@ -3,36 +3,45 @@ from datetime import datetime, timedelta
 
 # import various bits and pieces
 from shop.models import Order, Review
-from emailer.views import _order_reminder_email, _admin_cron_update
+from emailer.views import order_reminder_email, _admin_cron_update
 from datetime import datetime, timedelta
 from django.db.models import Q
 
 # this sends out the first 'review' email after the order was shipped.
 class Command(NoArgsCommand):
-    help = 'Sends out all timed emails'
+    help = 'Sends emails to people who have abandoned their cart in the last day.'
 
     def handle_noargs(self, **options):
-        # get a list of orders that have been abandoned in the last 1 day.
         
-        start_date = (datetime.now() - timedelta(days=1)) # one day ago (because the Cron runs everyday)
+        # SET A DATE RANGE OF 1 DAY
+        start_date = (datetime.now() - timedelta(days=1)) 
         end_date = datetime.now() # now
         
-        # let's do the query, getting the most recent abandoned order and filtering out duplicates (duplicate owners)
+        
         seen = {}
         items = []
-        for item in Order.objects.filter(
-                is_giveaway=False,
-                date_confirmed__range=(start_date, end_date),
-                reminder_email_sent=False,
-        ).exclude(invoice_id__startswith='WL'):
-            marker = item.owner.email
+        
+        # MAKE A LIST OF ORDERS THAT WERE MADE IN THE LAST DAY
+        orders = Order.objects.filter(
+                date_confirmed__range=(start_date, end_date)
+            ).exclude(
+                invoice_id__startswith='WL'
+            ).order_by('-date_confirmed')
+
+        # UNIQUE-IFY THE LIST AGAINST EMAIL ADDRESS SO WE ONLY HAVE THE MOST RECENT ONE
+        for o in orders:
+            marker = o.owner.email
             if marker in seen: continue
             seen[marker] = 1
-            if item.is_paid == False:
-                items.append(item) 
+            items.append(o) 
+         
+        # IF THE MOST RECENT ONE ISN'T PAID OR HASN'T RECEIVED AN EMAIL YET, THEN SEND THEM THE EMAIL
+        for i in items:
+            if i.is_paid == False and i.reminder_email_sent == False:
+                order_reminder_email(i.id)
+                #order.reminder_email_sent = True
+                #order.save()
         
-        for item in items:
-            _order_reminder_email(item.id)
         
         if items:
             _admin_cron_update(data=items, subject_line="ABANDONED BASKET emails sent today")      

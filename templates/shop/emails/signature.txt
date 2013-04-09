@@ -1,6 +1,6 @@
 {% load i18n %}{% blocktrans %}
 Chris West, 
 Founder - Min River Tea
-http://www.minrivertea.com
+{{ site_url }}
 {% endblocktrans %}
 

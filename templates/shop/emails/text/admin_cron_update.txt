@@ -3,4 +3,4 @@
 {% endfor %}
 
 
-SENT BY CRON - minrivertea.com
+SENT BY CRON - {{ site_url }}

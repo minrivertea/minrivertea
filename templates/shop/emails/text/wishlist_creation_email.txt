@@ -1,9 +1,5 @@
-{% load i18n %}
-
-{% blocktrans with wishlist.owner.first_name as fn and url as u %}
-
+{% load i18n %}{% blocktrans with wishlist.owner.first_name as fn and url as u %}
 Hi {{ fn }},
-
 
 Just in case you forget, here's your unique Chinese tea wishlist URL:
 
@@ -15,4 +11,4 @@ All the best
 
 {% endblocktrans %}
 
-{% include 'emails/signature.txt' %}
+{% include 'shop/emails/signature.txt' %}

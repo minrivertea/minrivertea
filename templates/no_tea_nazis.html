@@ -18,7 +18,7 @@
 	<meta name="DC.format" content="text/html" />
 	<meta name="DC.type" content="Django Site" />
 	<meta name="robots" content="ALL" />
-	<title>Site unavailable - The Min River Tea Farm</title>
+	<title>Site unavailable - {{ site_name }}</title>
 	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
 	
 	<script type="text/javascript" src="{% staticfile '/js/jquery-1.6.min.js' %}"></script>
@@ -135,7 +135,7 @@
         <div id="featured-small"></div>
         <div id="main-text-wide">
 
-        <a href="http://www.minrivertea.com">
+        <a href="{{ site_url }}">
         	
           <div id="soup-main">
         	<img id="soup-back" src="{% staticfile '/images/soup-back.png' %}">

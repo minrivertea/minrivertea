@@ -48,12 +48,14 @@ def _send_email(receiver, subject_line, text, request=None, sender=None):
 
 
 # sends a reminder to the owner of an INCOMPLETE order
-def order_reminder_email(request, id):
+def order_reminder_email(id):
+    
     order = get_object_or_404(Order, pk=id)
-    order.hashkey = uuid.uuid1().hex
+    
+    if not order.hashkey:
+        order.hashkey = uuid.uuid1().hex
+    
     shopper = order.owner
-    if order.reminder_email_sent:
-        return False
 
     activate(shopper.language)
    
@@ -63,10 +65,7 @@ def order_reminder_email(request, id):
     text = render_to_string('shop/emails/text/send_reminder_email.txt', locals())
     
     _send_email(receiver, subject_line, text)
-                    
-    order.reminder_email_sent = True
-    order.save()
-    
+                       
     return HttpResponseRedirect('/admin-stuff')  
 
 

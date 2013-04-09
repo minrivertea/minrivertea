@@ -23,7 +23,7 @@ ADMINS = (('Chris West', 'chris@minrivertea.com'),)
 MANAGERS = ADMINS
 TIME_ZONE = 'Europe/London'
 SITE_ID = 1
-SITE_URL = "http://www.minrivertea.com"
+SITE_NAME = 'minrivertea.com'
 SECRET_KEY = ''
 
 
