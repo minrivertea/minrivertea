@@ -541,7 +541,7 @@ class Page(models.Model):
         return items
     
     def get_absolute_url(self):
-        url = "%s/%s/" % (Site.objects.get_current().domain, self.slug) 
+        url = reverse('page', args=[self.slug]) 
         return url
     
     def get_url_by_id(self):
