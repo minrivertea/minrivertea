@@ -148,8 +148,9 @@ if (15.00) {
       		  </div>
       		</div>
 	   		
+	   		{% if '.de' in site_url %}{% else %}
         	{% include 'shop/snippets/currency.html' %}
-
+            {% endif %}
         
         	
         	<div id="learn">

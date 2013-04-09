@@ -451,6 +451,7 @@ def order_step_one(request, basket=None):
                 shopper = get_object_or_404(Shopper, user=user)
             except MultipleObjectsReturned:
                 shopper = Shopper.objects.filter(user=user)[0]
+            
             except:
                 creation_args = {
                     'user': user,

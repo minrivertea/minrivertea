@@ -202,7 +202,7 @@ def _payment_success_email(order):
     
     # CUSTOMER EMAIL
     receiver = order.owner.email
-    lang = activate(order.owner.language)
+    activate(order.owner.language)
     subject_line = _("Order confirmed - minrivertea.com")
     
     if order.address.country == 'US':
