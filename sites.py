@@ -4,7 +4,6 @@ from django.contrib.sites.models import Site
 
 from shop.utils import _changelang, _set_currency
 
-
 class DomainTrackerMiddleware(object):
     """
     This checks the current domain name and applies the 

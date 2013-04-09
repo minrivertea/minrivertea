@@ -115,6 +115,7 @@ def _changelang(request, code):
             request.session[settings.LANGUAGE_COOKIE_NAME] = lang_code
         else:
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
+    activate(code)
     return response
 
 
