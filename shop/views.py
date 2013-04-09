@@ -848,7 +848,7 @@ def order_makewishlist(request):
         
         wishlist.save()
 
-        _wishlist_confirmation_email(wishlist)
+        _wishlist_confirmation_email(request, wishlist)
   		
         html = render_to_string('shop/snippets/make_wishlist.html', {
                 'order': wishlist,

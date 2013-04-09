@@ -1,4 +1,4 @@
-{% load i18n %}{% url wishlist_url wishlist.hashkey as url %}{% blocktrans with wishlist.owner.first_name as fn %}
+{% load i18n %}{% url wishlist_url wishlist.hashkey as url %}{% blocktrans with wishlist.owner.first_name as fn and site_url as site_url %}
 Hi {{ fn }}!
 
 Here's your unique wishlist URL:

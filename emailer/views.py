@@ -123,14 +123,14 @@ def product_review_email(orderid):
     return HttpResponseRedirect('/admin-stuff')  
 
 
-def _wishlist_confirmation_email(wishlist):
+def _wishlist_confirmation_email(request, wishlist):
     
     activate(wishlist.owner.language)
     receiver = wishlist.owner.email
     subject_line = _("Your Min River Tea Wishlist!")
             
     # create email
-    text = render_to_string('shop/emails/text/wishlist_confirmation_email.txt', {'wishlist': wishlist})
+    text = render_to_string('shop/emails/text/wishlist_confirmation_email.txt', locals(), context_instance=RequestContext(request))
     
     _send_email(receiver, subject_line, text)
     
