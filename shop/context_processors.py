@@ -5,6 +5,8 @@ from shop.utils import _get_country, _get_currency, _set_currency, _get_region
 from django.utils import translation
 
 from django.contrib.sites.models import get_current_site
+from django.utils.translation import get_language()
+
 
 
 
@@ -25,7 +27,11 @@ def common(request):
     context['monthly_discount_low'] = settings.TEABOX_LOW_DISCOUNT * 100
     context['monthly_discount_high'] = settings.TEABOX_HIGH_DISCOUNT * 100
     
-    context['site_url'] = "http://%s" % request.get_host() # gives us the full domain
+    if get_language() == 'de'
+        context['site_url'] = "http://%s" % settings.GERMAN_URL # gives us the full domain
+    else:
+        context['site_url'] = "http://www.minrivertea.com"
+        
     context['site_name'] = settings.SITE_NAME # just the loose non-techy name of the site eg. minrivertea.com
 
 
