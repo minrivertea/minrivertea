@@ -11,9 +11,7 @@ class DomainTrackerMiddleware(object):
     """
     
     def process_request(self, request):
-        
-        print request.get_host()
-        
+                
         # CHECK IF THE DOMAIN NAME IS .de
         if request.get_host().endswith('.de'):
         

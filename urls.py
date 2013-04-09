@@ -7,7 +7,7 @@ from shop.models import Product, Page
 from shop.views import page, category, review_tea, review_tea_thanks, tea_view, _changelang, germany, monthly_tea_box
 from blog.views import staff
 from shop.utils import _finder, _internal_pages_list
-from shop.sitemap import ENSitemap, DESitemap
+from shop.sitemap import Sitemap, DESitemap
 from blog.models import BlogEntry
 from blog.feeds import LatestEntriesFeed
 from django.utils.translation import ugettext_lazy as _
@@ -21,8 +21,8 @@ from registration.views import register
 from django.contrib import admin
 admin.autodiscover()
 
-sitemap_en = {
-    'things': ENSitemap,    
+sitemap = {
+    'things': Sitemap,    
 }
 
 sitemap_de = {
@@ -47,7 +47,7 @@ urlpatterns = patterns('',
     (r'^paypal/ipn/', include('paypal.standard.ipn.urls')),
     
     # SITEMAPS, FEEDS AND STATICS
-    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap_en}),
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap}),
     (r'^sitemap_de\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap_de}),
     (r'^feeds/latest/$', LatestEntriesFeed()),
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
