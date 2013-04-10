@@ -63,7 +63,7 @@ def order_reminder_email(id):
     subject_line = _("Was it something we said?")
     url = reverse('order_url', args=[order.hashkey])
     text = render_to_string('shop/emails/text/send_reminder_email.txt', {
-            'url': url',
+            'url': url,
             'order': order,
             'site_name': settings.SITE_NAME,
             'site_url': 'http://www.minrivertea.com',    
