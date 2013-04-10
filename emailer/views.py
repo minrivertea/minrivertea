@@ -62,7 +62,12 @@ def order_reminder_email(id):
     receiver = order.owner.email
     subject_line = _("Was it something we said?")
     url = reverse('order_url', args=[order.hashkey])
-    text = render_to_string('shop/emails/text/send_reminder_email.txt', locals())
+    text = render_to_string('shop/emails/text/send_reminder_email.txt', {
+            'url': url',
+            'order': order,
+            'site_name': settings.SITE_NAME,
+            'site_url': 'http://www.minrivertea.com',    
+    })
     
     _send_email(receiver, subject_line, text)
                        
@@ -72,7 +77,11 @@ def order_reminder_email(id):
 
 def _tell_a_friend_email(sender, receiver):
     
-    text = render_to_string('shop/emails/text/tell_friend.txt', {'sender': sender})
+    text = render_to_string('shop/emails/text/tell_friend.txt', {
+            'sender': sender,
+            'site_name': settings.SITE_NAME,
+            'site_url': "http://www.minrivertea.com",
+    })
     subject_line = _("Check out minrivertea.com")
     
     _send_email(receiver, subject_line, text, sender=sender)    
@@ -115,6 +124,7 @@ def product_review_email(orderid):
     text = render_to_string('shop/emails/text/review_email.txt', {
         'order': order,
         'url': reverse('review_order', args=[order.hashkey]),
+        'site_url': 'http://www.minrivertea.com',
         }
     )
     
@@ -179,6 +189,8 @@ def _send_two_month_reminder_email(order):
     text = render_to_string(text_template, {
         'url': url,
         'order': order,	
+        'site_name': settings.SITE_NAME,
+        'site_url': "http://www.minrivertea.com",
     })
     
     _send_email(receiver, subject_line, text)
@@ -224,6 +236,8 @@ def _payment_success_email(order):
         'order': order,
         'items': items,
         'weight_unit': weight_unit,
+        'site_name': settings.SITE_NAME,
+        'site_url': 'http://www.minrivertea.com',
     })
     
     _send_email(receiver, subject_line, text)
@@ -240,7 +254,37 @@ def _payment_success_email(order):
 
 def _payment_flagged_email(order):
 
-    # ONLY SEND AN ADMIN EMAIL
+    # CUSTOMER GETS THEIR EMAIL AS NORMAL
+    receiver = order.owner.email
+    activate(order.owner.language)
+    subject_line = _("Order confirmed - minrivertea.com")
+    
+    if order.address.country == 'US':
+        weight_unit = 'oz'
+    else:
+        weight_unit = 'g'
+    
+    items = order.items.all()
+    for item in items:
+        if item.item.weight:
+            if order.address.country == 'US':
+                item.weight = weight_converter(item.item.weight)
+            else:
+                item.weight = item.item.weight
+        else:
+            item.weight = None
+        
+    text = render_to_string('shop/emails/text/order_confirm_customer.txt', {
+        'order': order,
+        'items': items,
+        'weight_unit': weight_unit,
+        'site_name': settings.SITE_NAME,
+        'site_url': 'http://www.minrivertea.com',
+    })
+    
+    _send_email(receiver, subject_line, text)
+
+    # ADMIN GETS WARNING ABOUT FLAGGED ORDER.
     receiver = settings.SITE_EMAIL
     text = render_to_string('shop/emails/text/order_confirm_admin.txt', {'order': order})
     subject_line = "FLAGGED ORDER - %s" % order.invoice_id 

@@ -10,5 +10,4 @@ We've received your tea order at {{ site_name }}, and we'll send it to you right
 {% endfor %}
 
 {% trans 'We hope you enjoy drinking your tea!' %}
-
 {% include 'shop/emails/signature.txt' %}
