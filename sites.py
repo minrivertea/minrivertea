@@ -13,7 +13,7 @@ class DomainTrackerMiddleware(object):
     def process_request(self, request):
                 
         # CHECK IF THE DOMAIN NAME IS .de
-        if request.get_host().endswith('.de'):
+        if request.META['SERVER_NAME'] == settings.GERMAN_URL:
         
             # CHANGE LANGUAGE TO GERMAN IF NO PREFERENCE ALREADY SET
             if settings.LANGUAGE_COOKIE_NAME not in request.session:
