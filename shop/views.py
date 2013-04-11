@@ -499,6 +499,7 @@ def order_step_one(request, basket=None):
                 order.save() # need to save it first, then give it an ID
                 if settings.AFFILIATE_SESSION_KEY in request.session:
                     order.invoice_id = "TEA-00%sA" % (order.id)
+                    order.affiliate_referrer = request.session[settings.AFFILIATE_SESSION_KEY]
                 else:
                     order.invoice_id = "TEA-00%s" % (order.id)
             
@@ -593,10 +594,7 @@ def order_repeat(request, hash):
             status = Order.STATUS_CREATED_NOT_PAID,
             invoice_id = "TEMP",
         ) 
-        if settings.AFFILIATE_SESSION_KEY in request.session:
-            order.invoice_id = "TEA-00%sA" % (order.id)
-        else:
-            order.invoice_id = "TEA-00%s" % (order.id)       
+        order.invoice_id = "TEA-00%s" % (order.id)       
 
     order.save()
     

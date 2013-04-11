@@ -19,8 +19,10 @@ class AffiliateTrackerMiddleware(object):
                 request.delete_cookie(settings.AFFILIATE_SESSION_KEY)
             except:
                 pass
+                        
+            request.session[settings.AFFILIATE_SESSION_KEY] = request.GET.get(settings.AFFILIATE_URL_VARIABLE)
             
-            request.session[settings.AFFILIATE_SESSION_KEY] = "1"
+            print request.session[settings.AFFILIATE_SESSION_KEY]
         
         
 

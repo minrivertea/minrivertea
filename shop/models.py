@@ -338,6 +338,8 @@ class Order(models.Model):
         help_text="Has a 3 day reminder email been sent if the order wasn't completed?")
     wishlist_payee = models.CharField(max_length=200, blank=True, null=True)
     notes = models.TextField(null=True, blank=True)
+    affiliate_referrer = models.CharField(max_length=200, blank=True, null=True, 
+        help_text="A referrer ID from the affiliate scheme should be stored here.")
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
     STATUS_PAID = 'paid'
