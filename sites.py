@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
 
-
 from shop.utils import _changelang, _set_currency
 
 class DomainTrackerMiddleware(object):
