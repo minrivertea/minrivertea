@@ -25,8 +25,8 @@ def common(request):
     context['thumb_small'] = settings.THUMB_SMALL
     context['monthly_discount_low'] = settings.TEABOX_LOW_DISCOUNT * 100
     context['monthly_discount_high'] = settings.TEABOX_HIGH_DISCOUNT * 100
-    
-    if translation.get_language() == 'de':
+       
+    if request.META['SERVER_NAME'] == settings.GERMAN_URL:
         context['site_url'] = "http://%s" % settings.GERMAN_URL # gives us the full domain
     else:
         context['site_url'] = "http://www.minrivertea.com"
