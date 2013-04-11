@@ -9,7 +9,12 @@
 	<meta content="{% block metadescription %}{% endblock %}" name="description" />
 	
 	<meta name="msvalidate.01" content="D72BD43A6F271B73C8F653A920B8C23C" />
-	<meta name="google-site-verification" content="obu9NY_4FNbUQMNlrvWOk59ABZ9gROs37zTql__Lglo" />
+	
+	{% if site_url == 'http://www.minrivertea.de' %}
+	   <meta name="google-site-verification" content="gGvtp94ao-hoVvFl84NwBGMe2qvyNDZUHG2gH0Zo8go" />
+    {% else %}
+    	<meta name="google-site-verification" content="obu9NY_4FNbUQMNlrvWOk59ABZ9gROs37zTql__Lglo" />
+    {% endif %}
 	<META name="y_key" content="cfd80b8d388be931" />
     <meta name="p:domain_verify" content="36c2803570cf7e09f6e5cdb1ad355c49" /> 
 	
@@ -134,7 +139,6 @@ if (15.00) {
 	   	<div id="logo">
 	   		<a title="{% trans 'Chinese tea delivered to your door - The Min River Tea Farm' %}" alt="{% trans 'the Min River Tea Farm logo - UK Chinese tea merchant '%}" href="/"></a>
 	   	</div>
-	   	
 	   	<div id="tools">
       	   	<div id="userbasket" {% if basket_quantity > 0 %}class="selected"{% endif %}>
       		  <div id="item"></div>
