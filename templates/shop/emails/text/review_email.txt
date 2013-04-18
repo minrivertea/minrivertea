@@ -1,5 +1,5 @@
-{% load i18n %}{% blocktrans with order.owner.first_name as fn %}
-Hi {{ fn|capfirst }}!
+{% load i18n %}{% blocktrans with fn|capfirst as fn %}
+Hi {{ fn }}!
 
 I hope you've had a chance to taste the tea you bought from us a few weeks ago? If so, I was wondering if you could take a couple of minutes and help either write a short review or 'Like' our products on Facebook and Google+? Just click this link to start:
 

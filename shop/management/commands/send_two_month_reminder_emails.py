@@ -10,8 +10,26 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         
-        # get all the shoppers who've never ever received a 2 month reminder
-        shoppers = Shopper.objects.exclude(reminder_email_sent__lte=datetime.now())
+        # 1. GET SHOPPERS WHO BOUGHT SOMETHING MORE THAN 2 MONTHS AGO
+        two_months_ago = (datetime.now() - timedelta(days=60))
+        old_orders = Order.objects.filter(date_paid__lte=two_months_ago, is_paid=True, is_giveaway=False)
+        new_orders = Order.objects.filter(date_paid__gte=two_months_ago, is_paid=True, is_giveaway=False)
+        
+        
+        orders = []
+        
+        
+        seen = {}
+        shoppers = []
+        
+        for o in orders:
+            marker = o.owner.email
+            if marker in seen: continue
+            seen[marker] = 1
+            shoppers.append(o.owner) 
+        
+        print shoppers
+        
         
         # set a date range of the last 2 months
         start_date = (datetime.now() - timedelta(days=60)) # two months ago

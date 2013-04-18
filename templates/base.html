@@ -54,7 +54,7 @@
     <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-9041614-4']);
+  _gaq.push(['_setAccount', {{ analytics_id }}]);
   _gaq.push(['_trackPageview']);
   
   {% if "order/complete/" in request.path %}

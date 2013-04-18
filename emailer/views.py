@@ -123,6 +123,7 @@ def product_review_email(orderid):
     
     text = render_to_string('shop/emails/text/review_email.txt', {
         'order': order,
+        'fn': order.owner.first_name,
         'url': reverse('review_order', args=[order.hashkey]),
         'site_url': 'http://www.minrivertea.com',
         }

@@ -28,8 +28,10 @@ def common(request):
        
     if request.META['SERVER_NAME'] == settings.GERMAN_URL:
         context['site_url'] = "http://%s" % settings.GERMAN_URL # gives us the full domain
+        context['analytics_id'] = settings.GERMAN_ANALYTICS_ID
     else:
         context['site_url'] = "http://www.minrivertea.com"
+        context['analytics_id'] = settings.ANALYTICS_ID
         
     context['site_name'] = settings.SITE_NAME # just the loose non-techy name of the site eg. minrivertea.com
 
