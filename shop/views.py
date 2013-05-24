@@ -31,8 +31,6 @@ from datetime import timedelta
 import uuid
 import re
 
-from fancy_cache import cache_page
-
 # APP
 from shop.models import *
 from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter
@@ -61,7 +59,6 @@ def index(request):
     return _render(request, "shop/home.html", locals())
 
 
-@cache_page(3600)
 def page(request, slug):
     page = get_object_or_404(Page, slug=slug)
     nav_tree = page.get_nav_tree()
