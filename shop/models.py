@@ -358,6 +358,13 @@ class Order(models.Model):
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
     
+    # THESE WILL STORE THE FINAL INFORMATION ONCE THE ORDER IS SOLD
+    final_amount_paid = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2)
+    final_discount_amount = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2)
+    final_currency_code = models.CharField(max_length=3, blank=True, null=True)
+    final_items_list = models.TextField(blank=True, null=True)
+    
+    
     def get_discount(self):
         total_price = 0
         for item in self.items:
@@ -562,22 +569,42 @@ def show_me_the_money(sender, **kwargs):
     if order.status == Order.STATUS_PAID:
         return
     
-    # UPDATE THE ORDER STATUS
+    # SEND THE EMAILS FIRST !IMPORTANT!
+    from emailer.views import _payment_success_email 
+    _payment_success_email(order)
+    
+    # NOW CREATE A CUSTOMER PACKAGE
+    from logistics.views import _create_customer_package
+    _create_customer_package(order)
+    
+    
+    # UPDATE THE ORDER DETAILS
     order.status = Order.STATUS_PAID
     order.date_paid = ipn_obj.payment_date
     order.is_paid = True
+    
+    # UPDATE ORDER FINAL PAYMENT INFO
+    order.final_amount_paid = ipn_obj.mc_gross
+    if order.get_amount_pre_discount() != ipn_obj.mc_gross:
+        order.final_discount_amount = order.get_amount_pre_discount() - ipn_obj.mc_gross
+    
+    item_list = ''
+    for item in order.items.all():
+        item_list.append(''.join(item, '\n'))
+        
+    order.final_items_list = item_list
+    order.final_currency_code = ipn_obj.mc_currency
     order.save()
-    
-    
-    # CREATE A CUSTOMER PACKAGE
-    from logistics.views import _create_customer_package
-    _create_customer_package(order)
     
     # IF THERE WAS A SINGLE USE DISCOUNT, UPDATE IT
     if order.discount:
         if order.discount.single_use == True:
             order.discount.is_active = False
             order.discount.save()
+    
+    # DELETE THE NOW OBSOLETE BASKET ITEMS ASSOCIATED WITH THIS ORDER
+    #for item in order.items.all():
+    #    item.delete()
     
     # if it was a WISHLIST payment...
     if order.wishlist_payee:
@@ -591,10 +618,7 @@ def show_me_the_money(sender, **kwargs):
                 pass
         
         wishlist.save()     
-    
-    from emailer.views import _payment_success_email 
-    _payment_success_email(order)
-    
+        
 payment_was_successful.connect(show_me_the_money)    
 
     
