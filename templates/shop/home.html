@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail i18n convert_weights %}
+{% load thumbnail i18n convert_weights cache %}
 
 {% block pagetitle %}{% trans 'Exceptional Chinese tea delivered to your door' %}{% endblock %}
 
@@ -522,6 +522,7 @@ ul.rss {
 
 
 {% block content %}
+{% cache 900 content %}
   </div>
 </div>
 
@@ -642,7 +643,5 @@ ul.rss {
 
 </div>
 	
-
-
-
+{% endcache %}
 {% endblock %}

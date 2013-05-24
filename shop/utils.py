@@ -14,9 +14,8 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.translation import ugettext as _
 from django.utils.translation import get_language, activate
 from django.core.exceptions import MultipleObjectsReturned
-
+from django.utils.encoding import smart_str, smart_unicode
 from django.db.models import Q
-
 
 import urllib
 import urllib2
@@ -44,6 +43,7 @@ def _render(request, template, context_dict=None, **kwargs):
         template, context_dict or {}, context_instance=RequestContext(request),
                               **kwargs
     )
+
 
 def _get_country(request):
     # this is coming from http://ipinfodb.com JSON api

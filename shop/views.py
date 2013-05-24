@@ -1,3 +1,4 @@
+# DJANGO CORE
 from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -15,7 +16,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import get_language
 from django.core.exceptions import MultipleObjectsReturned
 
-
+# PYTHON
 import urllib
 import urllib2
 import xml.etree.ElementTree as etree
@@ -30,7 +31,9 @@ from datetime import timedelta
 import uuid
 import re
 
+from fancy_cache import cache_page
 
+# APP
 from shop.models import *
 from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter
 from shop.forms import *
@@ -45,8 +48,6 @@ class BasketItemDoesNotExist(Exception):
 class BasketDoesNotExist(Exception):
     pass
     
-    
-
 # the homepage view
 def index(request):
    
@@ -60,7 +61,7 @@ def index(request):
     return _render(request, "shop/home.html", locals())
 
 
-
+@cache_page(3600)
 def page(request, slug):
     page = get_object_or_404(Page, slug=slug)
     nav_tree = page.get_nav_tree()
@@ -950,7 +951,6 @@ def review_tea(request, category, slug):
 def review_order(request, hash):
     
     order = get_object_or_404(Order, hashkey=hash)
-    
     
     if request.method == 'POST':
         

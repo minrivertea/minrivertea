@@ -192,7 +192,7 @@ $('#boxes form').bind('submit', function() {
   <div id="boxes">
   {% for i in order.items.all %}
   <div class="info tea long">
-        <h3>{{ i.item.parent_product.name }}</h3>
+    <h3>{{ i.item.parent_product.name }}</h3>
 
     {% thumbnail i.item.parent_product.image "300" crop="" as im %}
         <img src="{{ im.url }}" />

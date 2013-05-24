@@ -312,6 +312,8 @@ class Discount(models.Model):
     discount_code = models.CharField(max_length=40)
     name = models.CharField(max_length=200)
     discount_value = models.DecimalField(max_digits=3, decimal_places=2)
+    single_use = models.BooleanField(default=True)
+    expiry_date = models.DateField(blank=True, null=True)
     is_active = models.BooleanField(default=False)
     
     def __unicode__(self):
@@ -560,13 +562,22 @@ def show_me_the_money(sender, **kwargs):
     if order.status == Order.STATUS_PAID:
         return
     
+    # UPDATE THE ORDER STATUS
     order.status = Order.STATUS_PAID
     order.date_paid = ipn_obj.payment_date
     order.is_paid = True
     order.save()
     
+    
+    # CREATE A CUSTOMER PACKAGE
     from logistics.views import _create_customer_package
     _create_customer_package(order)
+    
+    # IF THERE WAS A SINGLE USE DISCOUNT, UPDATE IT
+    if order.discount:
+        if order.discount.single_use == True:
+            order.discount.is_active = False
+            order.discount.save()
     
     # if it was a WISHLIST payment...
     if order.wishlist_payee:
