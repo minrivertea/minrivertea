@@ -42,7 +42,7 @@ def _send_email(receiver, subject_line, text, request=None, sender=None):
         subject_line,
         text,
         sender,
-        [sender],
+        [sender, 'raphael@minrivertea.com'],
         fail_silently=True
     )
 
