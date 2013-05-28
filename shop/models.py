@@ -574,8 +574,10 @@ def show_me_the_money(sender, **kwargs):
     _payment_success_email(order)
     
     # NOW CREATE A CUSTOMER PACKAGE
-    from logistics.views import _create_customer_package
-    _create_customer_package(order)
+    from logistics.models import CustomerPackage
+    if CustomerPackage.objects.filter(order=order).count() == 0: # PREVENTS DUPLICATES
+        from logistics.views import _create_customer_package
+        _create_customer_package(order)
     
     
     # UPDATE THE ORDER DETAILS
@@ -590,7 +592,7 @@ def show_me_the_money(sender, **kwargs):
     
     item_list = ''
     for item in order.items.all():
-        item_list.join(item_list, item, '\n')
+        item_list.join((item_list, item, '\n'))
         
     order.final_items_list = item_list
     order.final_currency_code = ipn_obj.mc_currency
@@ -635,8 +637,10 @@ def payment_flagged(sender, **kwargs):
     order.is_paid = True
     order.save()
 
-    from logistics.views import _create_customer_package
-    _create_customer_package(order)
+    from logistics.models import CustomerPackage
+    if CustomerPackage.objects.filter(order=order).count() == 0: # PREVENTS DUPLICATES
+        from logistics.views import _create_customer_package
+        _create_customer_package(order)
 
     from emailer.views import _payment_flagged_email
     _payment_flagged_email(order)
