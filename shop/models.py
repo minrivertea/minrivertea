@@ -590,7 +590,7 @@ def show_me_the_money(sender, **kwargs):
     
     item_list = ''
     for item in order.items.all():
-        item_list.append(''.join(item, '\n'))
+        item_list.join(item_list, item, '\n')
         
     order.final_items_list = item_list
     order.final_currency_code = ipn_obj.mc_currency
