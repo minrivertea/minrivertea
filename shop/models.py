@@ -590,11 +590,15 @@ def show_me_the_money(sender, **kwargs):
     if order.get_amount_pre_discount() != ipn_obj.mc_gross:
         order.final_discount_amount = order.get_amount_pre_discount() - ipn_obj.mc_gross
     
-    item_list = ''
-    for item in order.items.all():
-        item_list.join((item_list, item, '\n'))
+    try:    
+        item_list = ''
+        for item in order.items.all():
+            item_list.join((item_list, str(item), '\n'))
+            
+        order.final_items_list = item_list
+    except:
+        pass
         
-    order.final_items_list = item_list
     order.final_currency_code = ipn_obj.mc_currency
     order.save()
     

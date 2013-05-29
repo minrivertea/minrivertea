@@ -55,7 +55,7 @@ def index(request):
     teaware = _get_products(request, cat=_('teaware'))[:3]
     special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
     special.price = special.get_lowest_price(curr)
-            
+                
     return _render(request, "shop/home.html", locals())
 
 
@@ -779,7 +779,6 @@ def order_confirm(request):
     except KeyError:
         problem = _("You don't have any items in your basket, so you can't process an order!")
         return _render(request, 'shop/order-problem.html', locals())
-        
         
     shopper = order.owner
     order_items = order.items.all() 
