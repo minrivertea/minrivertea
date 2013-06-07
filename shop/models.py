@@ -311,7 +311,8 @@ class BasketItem(models.Model):
 class Discount(models.Model):
     discount_code = models.CharField(max_length=40)
     name = models.CharField(max_length=200)
-    discount_value = models.DecimalField(max_digits=3, decimal_places=2)
+    discount_value = models.DecimalField(max_digits=3, decimal_places=2,
+        help_text="A decimal expressing the amount of discount. Eg. 0.2 = 20% off.")
     single_use = models.BooleanField(default=True)
     expiry_date = models.DateField(blank=True, null=True)
     is_active = models.BooleanField(default=False)
