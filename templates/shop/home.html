@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail i18n convert_weights cache %}
+{% load thumbnail i18n convert_weights %}
 
 {% block pagetitle %}{% trans 'Exceptional Chinese tea delivered to your door' %}{% endblock %}
 
@@ -15,10 +15,6 @@
 {% block extracss %}
 <style type="text/css">
 
-#header {
- border-bottom: ;   
-}
-
 ul#nav li a.selected:before {
  display: none;   
 }
@@ -31,64 +27,37 @@ h1 {
   color: #5f829a;
 }
 
-#benefits {
-  float: left;	
+#teas {
   position: relative;
   width: 100%;
-  margin: 15px 0 0px;
-}
-
-#benefits a#more {
-  font-size: 40px;
-  float: right;	
-  text-shadow: 1px 1px 0 #fff;
-  margin: 0px 30px 0 0;
-}
-
-#benefits h2, #teaware h2 {
-    color: #5f829a;
-    float: left;
-    font-size: 26px;
-    margin: 15px 0 15px 10px;
-    width: 100%;
-}
-#benefits h2 {
-  text-align: right;
-  font-size: 26px; 
-  margin: 0;  
-}
-
-
-#benefits #teas {
+  margin: 0px;
   float: left;
-  width: 960px;
-  margin-top: 0px;
   border-bottom: none;	
   height: auto;
 }
 
 
-#benefits .info:hover {
+#teas .info:hover {
   box-shadow: 0 1px 4px #d1d1d1;  
 }
 
-#benefits .info.tea {
-  margin: 0 0 15px 15px;   
+#teas .info.tea {
+  margin: 2px;   
 }
 
-#benefits .info.tea.first {
+#teas .info.tea.first {
   width: 390px;
   height: 405px;
   position: relative;
   margin-left: 0;
 }
 
-#benefits .first p {
+#teas .first p {
   color: #555;
   padding: 0 5px;
 }
 
-#benefits .first h3 {
+#teas .first h3 {
   float: none;
   margin: 10px 0 0 5px;
   font-size: 20px;
@@ -175,113 +144,101 @@ h1 {
 
 #special {
   float: left;
-  width: 98%;
-  border: 10px solid #fff;	
+  width: 100%;
   position: relative;
-  margin: 20px 0 0px 0;
   background: url('{{ static_url }}images/homepage/special1.jpg') no-repeat top left;
   height: 325px;
-  border-radius: 8px;
 }
+
 
 #special:hover .right h3, #special:hover .right a {
   color: #FF6569;   
 }
 
-#special:hover {
-  box-shadow: 0 1px 4px #d1d1d1;   
-}
 
-#special .right {
+#special .details {
     float: right;
-    margin: 20px;
-    padding: 0;
-    width: 250px;
+    width: 96%;
+    bottom: 10px;
+    padding: 0 2%;
+    position: absolute;
+    text-align: right;
 }
 
-#special .right h3 {
-  color: #5F829A;
-  font-size: 26px;
-  margin: 10px 0;
+#special .details h3 {
+  font-size: 20px;
+  font-weight: normal;
+  margin: 10px 0 0;
   letter-spacing: -1px;
+  text-shadow: none;
+  color: #18691E;
 }
 
-#special .right p {
-  text-shadow: 1px 1px 1px #fff; 
-  margin: 0 0 20px;  
+#special .details p {
+  font-size: 14px;
+  color: #666;
+  width: 30%;
+  float: right;
+  margin: 5px 0 0;   
 }
 
-#special .right p.small {
-  font-size: 16px;
-  color: #333;
-}
-
-#special .right .price {
-    margin: 0px 0 0px;
+#special .details .price {
+    color: #555555;
     position: absolute;
-    bottom: 17px;
-}
-
-
-#special .right a {
-    position: absolute;
-    bottom: 20px;
-    float: right;
+    top: -20px;
+    right: 20px;
     font-size: 20px;
-    right:20px;
-
+    float: right;
+    font-weight: normal;
 }
 
-#special .right .amount {
-  font-size: 32px;
-  font-family: Helvetica, Arial, sans-serif;
-  letter-spacing: -2px;
+#special .details .price .amount {
+  color: #222;
   font-weight: bold;   
 }
 
-#special .info {
-  float: left; 
-  width: 600px;
-  border-radius: 5px;
+#experts {
+  background: url('{{ static_url }}images/home-experts.jpg') no-repeat top left;  
+  height: 250px;
+  width: 100%;
+  float:left; 
+  position: relative;
 }
 
-#special .info:hover .image {
-  opacity: 0.8;
+#experts .text {
+  text-align: left;
+  position: absolute;
+  left: 20px;
+  top: 20px; 
+  width: 65%; 
+  padding: 15px;  
 }
 
-#special .info:hover h3 a, #special .info:hover h3 {
-  color: #FF6569;   
+#experts .text .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #fff;
+  opacity: 0.4; 
+  z-index: 1;  
 }
 
-#special .info .image {
-  float: left;
-  margin: 0 0 0px 0;   
+#experts h2 {
+  font-size: 22px;
+  color: #18691E;
+  position: relative;
+  z-index: 3;
 }
 
-#special .info .text {
-  float: left;
-  width: 100%;   
+#experts p {
+  font-size: 14px;
+  color: #555;
+  position: relative;
+  z-index: 3;
 }
 
-#special .info h3 {
- margin: 0;
- padding: 0;
- float: right;
- font-size: 16px;
- letter-spacing: -0.5px;
-}
-
-#special .info span.price {
-  margin-top: 0;
-  font-size: 16px;
-  letter-spacing: -0.5px; 
-  line-height: 1em;  
-}
-
-#special .info span.amount {
-  font-weight: bold;
-  color: #333;   
-}
 
 
 .tag {
@@ -522,64 +479,67 @@ ul.rss {
 
 
 {% block content %}
-{% cache 900 content %}
-  </div>
-</div>
+
 
 <div class="sp">
-
-	<div id="special">
-     <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
-	   <div class="right">
-	       <h3>{{ special.name }}</h3>
-	       <p>{{ special.description }}</p>
-	       <div class="price">
-	           <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
+    
+    <div id="special">
+        <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
+        <div class="details">
+           <h3>{{ special.name }}</h3> 
+           <p>{{ special.description }}</p>
+           <span class="price">
+                <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
 	           / {% convert_weights request special.price.weight %}{{ weight_unit }}
-	       </div>
-         <a href="{{ special.get_absolute_url }}" class="">{% trans 'Find out more' %} &raquo;</a>
-	   </div>
-	</div>
+	       </span>
+	       </h3>
+	    </div>
+    </div>
+    <!-- END OF SPECIAL -->
 
-    <h1>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h1>
+    <div class="hr"></div>
     
+    <div id="experts">
+        <div class="text">
+            <div class="back"></div>
+            <h2>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h2>
+            <p>{% blocktrans %}We are one of the only tea companies actually based in China. Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! We're able to sell better teas at lower prices because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="{% url page _('about') %}">{% trans 'Find out more about us' %} &raquo;</a></p>
+        </div>
+    </div>
     
+    <div class="hr"></div>
     
-	<div id="benefits">
-		<div id="teas">
-			  {% for t in teas %}
+
+	<div id="teas">
+        {% for t in teas %}
             {% if forloop.first %}
-			         <div class="info tea first">
-    				    <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
-    				    {% thumbnail t.image "390" crop="center" as im %}
-    					<a alt="{% blocktrans with t.name as name %}a picture of our {{ name }} Chinese tea{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
-    						<img alt="{{ t.description }}" src="{{ im.url }}"/>
-    					</a>
-    				    {% endthumbnail %}
-    				    <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a> &raquo;</h3>
-    				    <p>{{ t.description }}</p> 				       
- 				        <div id="price-helper">
- 				           <div class="stocks"><strong>{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}</strong> {% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</div>
- 				           {% if t.stocks.count > 0 %}<div class="stocks"><strong>{{ t.stocks.count }}</strong> {% trans 'in stock now!' %}</div>{% endif %}
-		                   <div><a href="{{ t.get_absolute_url }}">{% trans 'Click for more info' %} &raquo;</a></div>      
- 				        </div>
-    				</div>
-			    
-    			    {% else %}
+			    <div class="info tea first">
+                    <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+    				{% thumbnail t.image "390" crop="center" as im %}
+    				<a alt="{% blocktrans with t.name as name %}a picture of our {{ name }} Chinese tea{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
+    				<img alt="{{ t.description }}" src="{{ im.url }}"/>
+    				</a>
+    				{% endthumbnail %}
+    				
+    				<h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a> &raquo;</h3>
+    				<p>{{ t.description }}</p> 				       
+ 				    <div id="price-helper">
+ 				       <div class="stocks"><strong>{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}</strong> {% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</div>
+ 				       {% if t.stocks.count > 0 %}<div class="stocks"><strong>{{ t.stocks.count }}</strong> {% trans 'in stock now!' %}</div>{% endif %}
+ 				       <div><a href="{{ t.get_absolute_url }}">{% trans 'Click for more info' %} &raquo;</a></div>      
+ 				    </div>
+    			</div>
+			   
+    	    {% else %}
                 {% include 'shop/snippets/product_small.html' %}
-              {% endif %}
-    			{% endfor %}
-		</div>
-		<h2>{% trans 'Check out our bestsellers above' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
-	</div>	
-
-  <div id="sale">
-    <span class="red">{% trans 'On sale' %}!</span>  
-    {% url finder _('green-tea') _('long-jing-green-tea') as link %}
-    {% blocktrans %}Long Jing (Dragonwell) green tea at an incredible 35% off! Limited stocks, so <a href="{{ link }}">buy your Long Jing now or find out more &raquo;</a>{% endblocktrans %}
-  </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+	<!-- END TEAS LIST -->
 	
-
+	<h2>{% trans 'Check out our bestsellers above' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
+	</div>	
+</div>
 
 
 	<div id="monthly">
@@ -643,5 +603,4 @@ ul.rss {
 
 </div>
 	
-{% endcache %}
 {% endblock %}

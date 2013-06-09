@@ -174,24 +174,23 @@ div.product-photos-small p {
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 8px 8px 8px 8px;
     float: left;
-    margin: 20px 0 40px;
-    padding: 15px;
+    margin: 20px 0 0px;
+    padding: 0;
 }
 
 .tea-top .left {
-  width: 500px;
+  width: 600px;
   float: left;   
 }
 
 
 .tea-top .description {
-  width: 400px;
+  width: 330px;
   float: right;	
 }
 
 .tea-top div.description p {
-  font-size: 22px;
-  color: #333;	
+  font-size: 20px;
   margin: 0 0 10px 0;
   text-shadow: 2px 2px 0 #fff;
 }
@@ -207,7 +206,7 @@ div.product-photos-small p {
 
 .tea-top div#prices {
     float: right;
-    width: 400px;
+    width: 330px;
     margin: 15px 0 0;
 }
 
@@ -336,7 +335,7 @@ span.name {
     font-weight: bold;
     letter-spacing: -2.5px;
     line-height: 1em;
-    margin: 0 10px 10px;
+    margin: 0 10px 10px 0;
     position: relative;
     text-shadow: 1px 1px 0 #FFFFFF;
 }
@@ -424,7 +423,7 @@ div.fb-recommend {
 
 #image_wrap {
     display: block;
-    height: 331px;
+    height: 399px;
     width: 500px;
     float: left;
 }
@@ -450,7 +449,6 @@ div.fb-recommend {
     color: #5F829A;
     font-size: 22px;
     font-weight: normal;
-    font-family: "Times New Roman", Georgia, serif;
 }
 
 #extras {
@@ -654,7 +652,7 @@ ul.rss {
 		<div class="main-image">
 			<img class="loading" src="{{ static_url }}images/loading.gif"/>
 			<div id="image_wrap">	
-				<img src="{{ static_url }}images/blank.gif" width="500px" height="331px" /> 
+				<img src="{{ static_url }}images/blank.gif" width="600px" height="399px" /> 
 			</div>
 		
 		    <div class="product-photos-small">
@@ -741,7 +739,8 @@ ul.rss {
 		
 		</div>
 	</div><!-- end top product info div -->	
-	
+
+<div class="hr"></div>
 
 	<!-- START EXTRAS -->
 	<div id="extras">
@@ -868,7 +867,7 @@ ul.rss {
 		    </fb:like>
 		</li>
 		<li id="pinterest">
-		  {% thumbnail tea.image "500x331" crop="" as im %}
+		  {% thumbnail tea.image thumb_large crop="" as im %}
 		  <a data-pin-config="beside" href="http://pinterest.com/pin/create/button/?url={{ site_url }}{{ tea.get_absolute_url }}&media={{ site_url }}{{ im.url }}&description={{ tea.description }}" data-pin-do="buttonPin" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
 		  {% endthumbnail %}
 		</li>

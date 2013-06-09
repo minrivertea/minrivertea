@@ -134,47 +134,65 @@ if (15.00) {
 <body>	 
 
 <div id="header">
-	<div class="sp">
-	   	<div id="logo">
-	   		<a title="{% trans 'Chinese tea delivered to your door - The Min River Tea Farm' %}" alt="{% trans 'the Min River Tea Farm logo - UK Chinese tea merchant '%}" href="/"></a>
-	   	</div>
-	   	<div id="tools">
-      	   	<div id="userbasket" {% if basket_quantity > 0 %}class="selected"{% endif %}>
-      		  <div id="item"></div>
-      		  <span class="basket"></span>
-      		  <div id="quantity">
-      		    {% blocktrans count basket_quantity as bq %}<span class="q">{{ bq }}</span> item{% plural %}<span class="q">{{ bq }}</span> items{% endblocktrans %} / {{ currency.symbol }}<span class="p">{{ basket_amount|floatformat:"2" }}</span>
-      		    {% if basket_quantity > 0 %}<br/>{% endif %}
-      		    {% if basket_quantity %}
-      		        <a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>
-      		    {% endif %}
-      		  </div>
-      		</div>
-	   			   		
-        	{% include 'shop/snippets/currency.html' %}
+
+    <div class="sp">
         
+        <div id="logo">
+            <a title="{% trans 'Chinese tea delivered to your door - The Min River Tea Farm' %}" alt="{% trans 'the Min River Tea Farm logo - UK Chinese tea merchant '%}" href="/"></a>
+	   	</div>
+        
+    	<ul id="learn">
+            <li>
+          	<a href="{% url page _('about') %}" class="{% if page %}{% if page.slug == _('wholesale') %}{% else %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% endif %}{% endif %}">{% trans 'About us' %}</a>
+          	</li>
+          	<li>
+          	<a href="{% url page _('learn') %}" class="{% if page %}{% if page.get_root.slug == _('learn') %} selected{% endif %}{% else %} {% nav_selected request '^/(learn|blog)/' %}{% endif %}">{% trans 'Learn about tea' %}</a>
+          	</li>
+          	<li>
+          	<a href="{% url page _('contact-us') %}" class="{% if page %}{% if page.slug == _('contact-us') %} selected{% endif %}{% endif %}">{% trans 'Contact us' %}</a>
+          	</li>
+          	<li>
+            <a href="{% url page _('wholesale') %}" class="{% if page %}{% if page.slug == _('wholesale') %} selected{% endif %}{% endif %}">{% trans 'Wholesale' %}</a>
+            </li>
+          	{% get_current_language as LANGUAGE_CODE %}
+          	{% if LANGUAGE_CODE == 'de' %}
+          	<li><a href="http://www.minrivertea.com{% url changelang 'en' %}">{% trans 'English' %}</a></li>
+          	{% else %}
+          	<li><a href="http://www.minrivertea.de{% url changelang 'de' %}">{% trans 'German' %}</a></li>
+          	{% endif %}
+        </ul>
+    	        
+        {% include 'shop/snippets/main_navigation.html' %}
+        
+        <div class="hr"></div>
         	
-        	<div id="learn">
-        	   <a href="{% url page _('about') %}" class="{% if page %}{% if page.slug == _('wholesale') %}{% else %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% endif %}{% endif %}">{% trans 'About us' %}</a> | 
-        	   <a href="{% url page _('learn') %}" class="{% if page %}{% if page.get_root.slug == _('learn') %} selected{% endif %}{% else %} {% nav_selected request '^/(learn|blog)/' %}{% endif %}">{% trans 'Learn about tea' %}</a> | 
-        	   <a href="{% url page _('contact-us') %}" class="{% if page %}{% if page.slug == _('contact-us') %} selected{% endif %}{% endif %}">{% trans 'Contact us' %}</a> | 
-               <a href="{% url page _('wholesale') %}" class="{% if page %}{% if page.slug == _('wholesale') %} selected{% endif %}{% endif %}">{% trans 'Wholesale' %}</a> |
-        	   {% get_current_language as LANGUAGE_CODE %}
-        	   {% if LANGUAGE_CODE == 'de' %}
-      			<a href="http://www.minrivertea.com{% url changelang 'en' %}">{% trans 'English' %}</a>
-        	   {% else %}
-      			<a href="http://www.minrivertea.de{% url changelang 'de' %}">{% trans 'German' %}</a>
-        	   {% endif %}
+    </div>
+</div>
 
 
-        	</div>
+<div id="tools">
+    <div class="sp">
+
+        {% include 'shop/snippets/currency.html' %}
+        <div id="userbasket" {% if basket_quantity > 0 %}class="selected"{% endif %}>
+            <div id="item"></div>
+    		<span class="basket"></span>
+            
+            <div id="quantity">
+    	       {% blocktrans count basket_quantity as bq %}<span class="q">{{ bq }}</span> item{% plural %}<span class="q">{{ bq }}</span> items{% endblocktrans %} / {{ currency.symbol }}<span class="p">{{ basket_amount|floatformat:"2" }}</span>
+    	       {% if basket_quantity > 0 %}<br/>{% endif %}
+    	       {% if basket_quantity %}
+    	       <a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>
+    	       {% endif %}
+            </div>
         </div>
 
-    	{% include 'shop/snippets/main_navigation.html' %}
+       <div class="hr"></div>
 
-	{% block banner %}{% endblock %}
-	</div>
+    </div>
 </div>
+
+
 <!-- end header -->
 
     <!-- EXCLUDED
@@ -227,9 +245,9 @@ if (15.00) {
 		
             /// HANDLES THE CURRENCY ROLLDOWN
     		 $('#currency').hover(function() {
-    		    $(this).animate({top: '0px',}, 150);
+    		    $(this).animate({height: '50px',}, 150);
     		 }, function() {
-    		    $(this).animate({top: '-40px',}, 100);
+    		    $(this).animate({height: '15px',}, 100);
     		 });
     		 
     		/// HANDLES THE MESSAGE-CLOSE BUTTON

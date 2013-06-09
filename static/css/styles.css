@@ -5,11 +5,11 @@ html {
 }
 
 body {
-  font-family: "Times New Roman",Georgia,"STKaiti",华文楷体,serif;
+  font-family: Helvetica, "Lucida Grande", Arial,"STKaiti",华文楷体,sans-serif;
   margin: 0;
   padding: 0;
   color: #333;
-  background: url('/static/images/back.png') repeat #EFF5F8;
+  /* background: url('/static/images/back.png') repeat #EFF5F8; */
 }
 
 /* sp is the 'super' div which keeps everything centered */
@@ -19,11 +19,13 @@ body {
   position: relative;
 }
 
-img {
-  border-radius: 4px;  
-     
-}
-
+.hr {
+  height: 1px;
+  width: 100%;
+  float: left;
+  margin: 25px 0;
+  border-top: 1px dashed #c1c1c1;  
+} 
 /* typography */
 
 h1 {
@@ -98,7 +100,6 @@ div.left h4 {
 
 #right h4 {
   color: #333;
-  font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
   margin: 0px 0 5px;
   letter-spacing: -0.5px;
@@ -139,7 +140,7 @@ ol {
   font-weight: italic;	
 }
 
-.button, #comments div#comment-form input.submit-post {
+.button {
 	background-color: #f1f1f1; /* backup for older browsers */
     background: -moz-linear-gradient(100% 100% 90deg, #e6e6e6, #f1f1f1);  /* Firefox 3.6+ */ 
     /* Safari 4-5, Chrome 1-9 */ /* -webkit-gradient(<type>, <point> [, <radius>]?, <point> [, <radius>]? [, <stop>]*) */ 
@@ -151,7 +152,6 @@ ol {
     border-radius: 4px;
     font-size: 12px;
     font-weight: bold;
-    font-family: Helvetica, Arial, sans-serif;
     padding: 10px 15px;
     text-shadow: 0 1px 1px #fff;
     text-align: center;
@@ -167,10 +167,9 @@ h3 a:link, h3:visited, h4 a:link, h4 a:visited, h2 a:link, h2 a:visited {
   text-decoration: none;   
 }
 
-input.button, #comments div#comment-form input.submit-post {
+input.button {
   color: #237A2A;
   height: auto;	
-  font-family: Helvetica, sans-serif;
   font-size: 16px;
   box-shadow: 0 1px 1px #999;
 }
@@ -274,7 +273,6 @@ span.link {
     background: none repeat scroll 0 0 #A0BBCC;
     border-radius: 20px 20px 20px 20px;
     color: #3B6884;
-    font-family: Helvetica,Arial,sans-serif;
     font-size: 22px;
     padding: 5px 11px;
     position: absolute;
@@ -306,18 +304,22 @@ span.link {
 #header {
   float: left;
   height: auto;
-  padding-top: 0px;
+  padding: 20px 0px 0px;
   width: 100%;
-  background-color: #fff;
-  border-bottom: 10px solid #e1ecf3;
+  margin: 0 0 10px 0;
+  background: #fff;
+}
+
+#header .hr {
+  margin: 10px 0 0px;   
 }
 
 #logo {	 
- width: 320px;
- height: 54px;
- background: url("/static/images/logo15.jpg") no-repeat scroll top left transparent;
+ width: 200px;
+ height: 80px;
+ background: url("/static/images/logo-new2.png") no-repeat scroll top left transparent;
  float: left;
- margin: 55px 0 20px;
+ margin: 0px 0 0;
  position: relative;
 }
 
@@ -337,20 +339,55 @@ span.link {
 }
 
 #tools {
-  position: absolute;
-  right: 0;   
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
 }
 
-#language, #userbasket, #learn {
+#tools .hr {
+  margin-top: 10px;   
+}
+
+#learn {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  float: right;
+  width: auto;   
+}
+
+#learn li {
+  float: left;   
+}
+
+#learn li a {
+  float: left;
+  padding: 0 8px;
+  border-right: 1px dashed #e1e1e1;
+  font-size: 11px;
+  font-weight: bold;
+  color: #555;
+}
+
+#learn li:last-child a {
+  border-right: none;
+  padding-right: 0;
+}
+
+#learn li a:hover {
+  color: #000;
+  text-decoration: underline;   
+}
+
+#language, #userbasket {
   float: right;
   margin-right: 10px;
   width: auto;
   padding: 7px 10px 6px;   
-  background: #f1f1f1;
-  border-radius: 0 0 4px 4px;
   color: #c1c1c1;
   font-size: 11px;
-  font-family: Helvetica, Arial, sans-serif;  
 }
 
 #language a.selected, #learn a.selected {
@@ -362,8 +399,9 @@ span.link {
     color: #333333;
     font-weight: bold;
     height: 12px;
-    position: relative;
     width: auto;
+    margin-right: 70px;
+    float: right;
 }
 
 #userbasket.selected {
@@ -403,25 +441,19 @@ span.link {
   text-decoration: none;   
 }
 
-#learn a {
-  margin: 0 5px;   
-}
-
 #currency {
-    background: none repeat scroll 0 0 #F1F1F1;
     border-radius: 0 0 4px 4px;
     color: #333333;
     float: right;
-    font-family: Helvetica,Arial,sans-serif;
     font-size: 10px;
     font-weight: bold;
-    height: 55px;
+    height: 15px;
     line-height: 1.8em;
-    margin: 0 10px 0 0;
+    overflow: hidden;
     padding: 5px 10px;
-    position: relative;
-    top: -40px;
-    width: 50px;
+    position: absolute;
+    right: 0;
+    width: 40px;
 }
 
 
@@ -476,11 +508,8 @@ div#home-banner {
 
 #navigation {
   float: right;
-  margin: 0px;	
   width: auto;
-  position: relative;
-  top: 80px;
-  left: 0px;
+  margin: 40px 0 0px;	
 }
 
 ul#nav {
@@ -494,22 +523,28 @@ ul#nav li {
   float: left;
 }
 
-ul#nav li:not(:last-child) a {
-  border-right: 1px solid #E1ECF3;
+ul#nav li a, ul#nav li a:link, ul#nav li a:visited {
+    color: #18691E;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1em;
+    padding: 0 15px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
 }
 
-ul#nav li a, ul#nav li a:link, ul#nav li a:visited  {
-    display: block;
-    float: left;
-    font-family: Helvetica, Arial, sans-serif;
-    padding: 10px 13px 14px;
-    color: #237a2a;
-    font-weight: bold;
-    font-size: 14px;
-    position: relative;
-    width: auto;
-    text-decoration: none;
+ul#nav li:last-child a {
+  padding-right: 0;
+
 }
+
+ul#nav li:first-child a {
+  margin-left: 0;    
+}
+
 
 ul#nav li a.grey {
   color: #999;	
@@ -590,7 +625,6 @@ ul#nav li a.selected:before {
 
 #subnav .sp div:first-child li a {
   margin: 0px 0px 0px 0;
-  font-family: Helvetica, Arial, sans-serif;
   line-height: 1em;
 }
 
@@ -635,7 +669,6 @@ ul#nav li a.selected:before {
 #subnav li a:link, #subnav li a:visited   {
   font-size: 12px;
   text-transform: ;
-  font-family: Helvetica, Arial, sans-serif;
   font-weight: ;
   text-decoration: none;
 }
@@ -672,7 +705,6 @@ ul#right-nav li {
 ul#right-nav li a:link {
   padding: 5px 5px 5px 0px;
   display: block;
-  font-family: Helvetica, Arial, sans-serif;
   text-shadow: 1px 1px 0 #fff;
    
 }
@@ -732,7 +764,7 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
 #mtw {
   width:100%;
   float:left;
-  margin: 20px 0 0 0;
+  margin: 0px 0 0 0;
 }
 
 #mtw #left {
@@ -749,10 +781,10 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
 }
 
 p.introduction {
-    color: #5f829a;
-    font-size: 18px;
-    margin: 10px 0 0;
-    padding-bottom: 10px;
+  font-size: 18px;
+  color: #777;
+  margin: 10px 0 0;
+  padding-bottom: 10px;
 }
 
 /* right-side boxes */
@@ -761,14 +793,12 @@ p.introduction {
     background-color: #FFFFFF;
     float: left;
     margin-bottom: 15px;
-    padding: 15px;
     width: 230px;
     position: relative;
 }
 
 .info h3 {
     font-weight: bold;
-    font-family: Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	margin: 0 0 5px 0;
 }
@@ -776,7 +806,6 @@ p.introduction {
 .info span.price {
     color: #777777;
     float: left;
-    font-family: Helvetica,Arial,sans-serif;
     font-size: 13px;
     margin: 6px 0 0 5px;
 }
@@ -847,17 +876,11 @@ p.introduction {
 .info.tea {
     float: left;
     margin: 0 15px 15px 0;
-    border: none;
     width: 240px;
     background: #fff;
-    padding: 10px 10px 10px;
     position: relative;
-    border-radius: 8px;
 }
 
-.info.tea:hover {
-  box-shadow: 0 1px 5px #d1d1d1;   
-}
 
 .info.tea:hover img {
   opacity: 0.9;   
@@ -913,7 +936,6 @@ p.introduction {
 .info.tea.long h3 {
     font-size: 20px;
     font-weight: bold;
-    font-family: Helvetica, Arial, sans-serif;
     letter-spacing: -0.5px;
     margin: 0;
     float: none;
@@ -997,7 +1019,6 @@ a.atb {
   z-index: 30;
   overflow: hidden;
   height: 20px;
-  font-family: Helvetica, sans-serif;
   font-weight: normal;
   font-size: 14px;
   padding-top: 9px;
@@ -1073,7 +1094,6 @@ a.atb.large:hover span {
 
 #checkout-button a.button, #checkout-button input.button {
     float: right;
-    font-family: Helvetica,sans-serif;
     font-size: 30px;
     height: auto;
     padding: 15px;
@@ -1171,7 +1191,6 @@ table {
   cellspacing: 0;
   cellpadding: 10px;
   font-size: 13px;
-  font-family: Helvetica, Arial, sans-serif; 
   line-height: 1.6em;  
 }
 
@@ -1368,7 +1387,6 @@ div#blog-right div.box.clear h4 {
   font-weight: bold;
   border-bottom: 0;
   padding-bottom: 0;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 div#blog-right div.box.clear p {
@@ -1540,7 +1558,6 @@ span.red {
 
 #mtw #left div.did-you-know h3, div.did-you-know h3 {
     color: #439249;
-    font-family: Helvetica, Arial, sans-serif;
     font-size: 18px;
     font-weight: bold;
     margin: 0;
@@ -1597,67 +1614,6 @@ ul.rss #facebook {
   margin-right: 10px;
 }
 
-#comments {
-  border-bottom: 3px dotted #e1e1e1;
-  margin-bottom: 20px;
-  float: left;	
-  width: 100%;
-}
-
-#comments div#comment-form input.submit-post {
-  float: right;
-  margin-top: 10px;	
-}
-
-#mtw #left #comments h3 {
-    float: left;
-    font-size: 24px;
-    position: relative;
-}
-
-#comments #comments-list {
-    float: left;
-    margin-top: 20px;
-    width: 100%;
-  background: #E1ECF3;
-}
-
-#comments #comments-list div.comment {
-  border-bottom: 2px solid #EFF5F8;
-  padding: 2%;
-  float: left;	
-  width: 96%;
-}
-
-
-#comments #comments-list div.comment p {
-  margin: 0;
-  padding: 0;
-  font-size: 15px;
-}
-
-#comments #comments-list div.comment p.top {
-  font-weight: bold;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 14px;   
-}
-
-#comments div#comment-form #form {
-  	float: left;
-  	margin-top: 30px;
-}
-
-#comments div#comment-form label {
-  width: 100px;	
-}
-
-#comments div#comment-form input.submit-preview {
-  display: none;	
-}
-
-#mtw #left #comments div#comment-form p {
-  margin: 0;	
-}
 
 button.prev {
     background: url("/images/prev-arrow.png") no-repeat scroll center top transparent;
