@@ -8,10 +8,6 @@
 {% block extracss %}
 <style type="text/css">
 
-h1 {
-  margin-bottom: 20px;	
-}
-
 #mtw #left, #mtw #right  {
   margin-top: 20px;   
 }
@@ -21,16 +17,20 @@ h1 {
 }
 
 .entry h2 {
-  font-size: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    margin-bottom: 0;
+    text-decoration: none;
 }
 
 .entry {
-    border-bottom: 1px solid #E1E1E1;
+    border-bottom: 1px dashed #E1E1E1;
     float: left;
     margin-bottom: 20px;
     padding-bottom: 20px;
     position: relative;
-    width: 660px;
+    width: 600px;
 }
 
 .entry:hover h2 a {
@@ -64,13 +64,13 @@ h1 {
 
 div#mtw div#left .entry div.text p {
   margin: 0px;
-  padding-bottom: 10px;
+  font-size: 13px;
 }
 
 .entry div.text span.entry-meta {
     color: #666666;
     float: left;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 a.see-more {
@@ -139,12 +139,12 @@ img.tweets {
 {% block content %}
 
 
-{% include 'blog/snippets/sub_nav.html' %}
-
-
 <div id="mtw">
   <div class="sp">
 	
+	<h1>The Min River Tea blog</h1>
+	<p class="introduction">News, events and information from the world of Chinese tea</p>
+		
 	<div id="right">
 		
 		{% include "blog/snippets/blog-right.html" %}
