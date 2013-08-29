@@ -10,7 +10,7 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Descriptions', {
             'fields': ('description_en', 'description_de', 'meta_description_en', 'meta_description_de', 'super_short_description_en', 'super_short_description_de', 'body_text_en', 'body_text_de', 'long_description_en', 'long_description_de', 'extra_info_en', 'extra_info_de',
-            'map_image', 'map_caption_en', 'map_caption_de', 'farm_image', 'farm_caption_en', 'farm_caption_de')
+            'map_image', 'map_caption_en', 'map_caption_de', 'farm_image', 'farm_caption_en', 'farm_caption_de', 'brew_time', 'brew_weight', 'brew_temp')
         }),
         ('Images', {
             'fields': ('image', 'image_2', 'image_2_caption', 'image_3', 'image_3_caption',

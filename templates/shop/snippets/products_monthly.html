@@ -1,16 +1,50 @@
-{% load thumbnail i18n %}
+{% load thumbnail i18n convert_weights %}
 
-{% for x in products %}
-<div class="product">
-    {% thumbnail x.image thumb_medium crop="center" as im %}
-        <img src="{{ im.url }}" />
-    {% endthumbnail %}
-        <h4><a href="{{ x.get_absolute_url }}">{{ x.name }} ({{ x.price.weight }}{{ x.price.weight_unit }}) &raquo;</a></h4>
-        <p>{{ x.description }}</p>
-        <p class="price" id="price_{{ x.price.id }}">
-            <span class="amount">{{ currency.symbol }}{{ x.monthly_price|floatformat:"2" }} <span class="grey">/ {{ months }} {% trans 'months' %}</span></span>
-            <a class="up" id="{{ x.price.id }}" href="{% url add_to_basket_monthly x.price.id months %}">{% trans 'Add to TeaBox' %}</a>
-            {% if x.quantity > 0 %}<span class="quantity"><span class="num">{{ x.quantity }}</span> {% trans 'in your TeaBox!' %}</span>{% endif %}
-        </p>
+{% for p in products %}
+
+<div class="info tea">
+    
+    <div class="rollover">
+        <div class="back"></div>
+        <div class="text">{{ p.description }}</div>
+    </div>
+    
+    
+    {% thumbnail p.image "450x180" crop="center" as im %}
+	   <img alt="a picture of {{ p.name }}" title="{{ p.name }} - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
+	{% endthumbnail %}	
+
+
+	<div class="glass-text">
+      <div class="inner">
+        <div class="pricebar"> 
+
+        <a class="button" id="{{ p.price.id }}" href="{% url add_to_basket_monthly p.price.id months %}"><span class="plus">+</span></a>
+
+	     <div class="price-weight">
+	        
+	        <span class="price" id="price_{{ p.price.id }}">
+	            {{ currency.symbol }}<span class="amount">{{ p.monthly_price|floatformat:"2" }}</span>
+	        </span>
+	        <span class="weight">    
+	          / {% if p.price.weight %}{% convert_weights request p.price.weight %}{{ weight_unit }}{% else %}{{ p.price.description }}{% endif %}
+	        </span>    		        
+		 </div>
+		 
+		 <h4>
+		    <a title="{{ p.name }}" href="{{ p.get_absolute_url }}">
+		      {{ p.name }} ({{ p.price.weight }}{{ p.price.weight_unit }})
+		    </a>
+		 </h4>
+		 
+		 
+		 <div class="in-basket">
+		 {% if p.quantity > 0 %}<span class="quantity"><span class="num">{{ p.quantity }}</span> {% trans 'in your TeaBox!' %}</span>{% endif %}
+		 </div>
+		 
+	  </div>
+	</div>
+  </div>
 </div>
+
 {% endfor %}

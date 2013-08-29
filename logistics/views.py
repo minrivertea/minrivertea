@@ -196,6 +196,7 @@ def add_stocks(request):
         form = AddStocksForm(request.POST)
         if form.is_valid():
             quantity = form.cleaned_data['quantity']
+            produced = form.cleaned_data['produced']
             up = form.cleaned_data['unique_product']
             batch = form.cleaned_data['batch']
             
@@ -214,7 +215,7 @@ def add_stocks(request):
             
             url = request.META.get('HTTP_REFERER')
             return HttpResponseRedirect(url)
-    
+        
     return HttpResponse()
 
 def mark_stock_as_arrived(request, id):

@@ -9,16 +9,26 @@ $(document).ready( function() {
   });
 });
 </script>
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+{{ form.media }}
 {% endblock %}
 
 {% block extracss %}
+
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/widgets.css"/>
+
 <style type="text/css">
+
 p.filter {font-size: 13px;}
 
 #add-form {
    position: absolute;
-   left: 10%;
-   top: 10%;
+   left: 50%;
+   margin-left: -300px;
+   top: -100px;
    width: 600px;
    padding: 3% 4%;
    background: #fff;
@@ -64,6 +74,44 @@ a.transfer {
   text-decoration:none; 
   font-weight: bold;  
 }
+
+span.count {
+    color: #999999;
+    float: left;
+    font-size: 10px;
+    font-weight: bold;
+    left: 3px;
+    position: relative;
+    top: -2px;
+}
+
+span.dot {
+  float: left;
+  width: 8px;
+  height: 8px;
+  margin: 2px 2px 0 0;
+  background: #999;
+  display: block;   
+}
+
+span.dot.six {
+  background: pink;   
+}
+
+span.dot.twelve {
+  background: red;   
+}
+
+table tr td:first-child {
+  background: none;   
+  width: 200px;
+}
+
+table tr td:first-child a {
+  text-decoration: none;
+  font-weight: bold;   
+}
+
   
   
   </style>
@@ -88,32 +136,33 @@ a.transfer {
     {% for x in stocks %}
         <tr>
             <td><a href="{% url admin_product x.parent_product.id %}">{{ x }}</a></td>
-            <td><span class="{% if x.uk_stocks.count < 3 %}red{% endif %}">{{ x.uk_stocks.count }}</span></td>
+            <td width="150">
+                <span class="{% if x.uk_stocks.count < 3 %}red{% endif %}">
+                    {% for y in x.uk_stocks %}
+                        <span class="dot{% if y.months_old == 6 %} six{% endif %}{% if y.months_old == 12 %} twelve{% endif %}">&nbsp;</span>
+                    {% endfor %}
+                    <span class="count">{{ x.uk_stocks.count }}</span>
+                </span>
+            </td>
             <td><a class="transfer" href="{% url mark_stock_as_arrived x.id %}">&larr;</a></td>
-            <td>{{ x.china_stocks.count }}</td>
+            <td>
+                {% for y in x.china_stocks %}
+                <span class="dot">&nbsp;</span>
+                {% endfor %}
+            </td>
             <td>£{{ x.total_value }}</td>
             
         </tr>
     {% endfor %}
 </table>
 
-
-
-
             
 <div id="add-form">
     <form method="post" action="{% url add_stocks %}">
         <h2>Add stocks</h2>
-        <p>
-            <label for="">Which product</label><br/>
-            <select id="id_unique_product" name="unique_product">
-            {% for u in products %}
-                <option value="{{ u.id }}">{{ u }}</option>
-            {% endfor %}
-            </select>
-        </p>
-        <p><label for="quantity">How many items?</label><br/><input type="text" id="id_quantity" name="quantity" class="clearMeFocus" title="How many items?" /></p>
-        <p><label for="batch">Batch Ref:</label><br/><input type="text" name="batch" id="id_batch"/></p>
+        
+        {{ form.as_p }}
+        
         <input type="submit" class="submit button green" value="Add stocks" />
     </form>
 </div>

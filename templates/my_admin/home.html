@@ -48,16 +48,17 @@ $(document).ready( function() {
         {% if packages %}
             <h2>New orders ({{ packages.count }})</h2>
             
-            <table id="orders-table">
+            <table id="orders">
          		<thead>
          			<tr>
          			<td>Order ID</td>
-         			<td width="250px">Customer</td>
+         			<td>Customer</td>
          			<td>Items</td>
          			<td>Value</td>
-         			<td>Postage</td>
-         			<td>Paypal Cost</td>
+         			<td>Paypal</td>
          			<td>Status</td>
+         			<td>Postage</td>
+         			<td>Label</td>
          			</tr>
          		</thead>
             	{% for x in packages %}
@@ -75,7 +76,7 @@ $(document).ready( function() {
       	{% if monthly_packages %}
             <h2>Monthly orders due ({{ monthly_packages.count }})</h2>
             
-            <table id="orders-table">
+            <table id="orders">
          		<thead>
          			<tr>
          			<td>Order ID</td>

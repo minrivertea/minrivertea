@@ -4,7 +4,7 @@
 
     <div class="info tea long">
         <a title="" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
-    	{% thumbnail p.image "500x200" crop="center" as im %}
+    	{% thumbnail p.image "350" crop="center" as im %}
 		<img alt="a picture of {{ p.name }}" title="{{ p.name }} - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
 		{% endthumbnail %}		  
 		 
@@ -15,8 +15,10 @@
 			<div class="pricebar"> 
 			     
 			     <h4>
-		  			<a title="{{ p.name }} - {% trans 'find out more or order some now!' %}" href="{{ p.get_absolute_url }}">{{ p.name }}</a>
-				</h4>
+		  <a title="{{ p.name }} - {% trans 'find out more or order some now!' %}" href="{{ p.get_absolute_url }}">
+				{{ p.name }}
+		  </a>
+		</h4>
 			     
 			     <div class="price-weight">
     		        <span class="price">
@@ -34,12 +36,16 @@
            	     			<strong>{{ p.get_preorder_date|date:"d M Y" }}</strong>
            	     		</span>
     			 	{% endif %}
+    			 
 				
-					<a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" class="button small" href="{% url add_to_basket p.price.id %}" class="" id="add_to_basket_{{ p.price.id }}"><span class="plus">+</span></a>
-				
+				<a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" class="button small" href="{% url add_to_basket p.price.id %}" class="" id="add_to_basket_{{ p.price.id }}"><span class="plus">+</span></a>
+
+
 				<div class="in-basket">
-    		      {% if p.basket_quantity %}<span class="num">{{ p.basket_quantity }}</span> {% trans 'already in basket' %}{% endif %}
+    		      {% if p.basket_quantity %}{{ p.basket_quantity }} {% trans 'already in basket' %}{% endif %}
     		     </div> 
+    		     
+    		     
 		      </div>
 			
 		  </div>

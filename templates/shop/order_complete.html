@@ -14,6 +14,14 @@
 
 {% block extracss %}
 <style type="text/css">
+#tools {
+  display: none;   
+}
+
+#header {
+  margin-bottom: 30px;   
+}
+
 #tweetit {
   background: #fff;
   float: right; 
@@ -22,12 +30,6 @@
   box-shadow: 0 1px 3px #e1e1e1;
   padding: 20px; 
   border-radius: 8px;
-}
-
-#tweetit h3, .order-details h3 {
- margin: 0px 0 0; 
- font-weight: bold;
- font-family: Helvetica, Arial, sans-serif;  
 }
 
 #tweetit p {
@@ -42,22 +44,11 @@
   float: left;
   margin: 0 10px 0 0;
   color: #FF6569;
-  font-family: Helvetica, Arial, sans-serif;  
-  font-weight: bold;   
 }
 
 .order-details {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-radius: 8px 8px 8px 8px;
     float: left;
     margin: 20px 30px 20px 0;
-    padding: 2%;
-    width: 55%;
-}
-
-.order-details h3 {
-    font-weight: bold;
-    margin-bottom: 20px;
 }
 
 .notices {
@@ -71,97 +62,30 @@
 
 {% block content %}
 
-
-<div id="subnav" class="basket">
-   <div class="sp">
-       <ul>
-    		<li>
-    			<a class="completed" href="{% url basket %}">1. {% trans 'Your basket' %} &#10003;</a>
-    		</li>
-    		<li>
-    			<a class="completed" href="{% url order_step_one %}">2. {% trans 'Your details' %} &#10003;</a>
-    		</li>
-    		<li>
-    			<a href="" class="completed">3. {% trans 'Confirm and pay' %} &#10003;</a>
-    		</li>
-    		<li>
-    			<a href="" class="selected">4. {% trans 'Get your tea!' %}</a>
-    		</li>
-    	</ul>
-    </div>
-</div>
-
-
 <div id="mtw">
   <div class="sp">
 
     <h1>{% trans 'Order complete!' %}</h1>
+
+  	<ul id="steps">
+		<li>
+			<a class="completed" href="{% url basket %}">1. {% trans 'Your basket' %} &raquo;</a>
+		</li>
+		<li>
+			<a class="completed" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
+		</li>
+		<li>
+			<a class="completed" href="">3. {% trans 'Confirm and pay' %} &raquo;</a>
+		</li>
+		<li>
+			<a class="selected" href="">4. {% trans 'Get your tea!' %}</a>
+		</li>
+	</ul>
+
+
+<div class="hr"></div>
+
     <p class="introduction">{% trans "We've received your order and we'll send your tea immediately. We've also sent you an email confirming the details. Thank you and we really hope you enjoy your tea!" %}</p>
-  
-
-
-    <div class="order-details">
-        
-        <h3>{% trans 'Your order details' %} - {{ order.invoice_id }}</h3>
-        <table>
-        <tr>
-            <td valign="top"><strong>{% trans 'Invoice ID' %}</strong></td>
-            <td>{{ order.invoice_id }}</td>
-        </tr>
-        <tr>
-            <td valign="top"><strong>{% trans 'Date paid' %}</strong></td>
-            <td>{{ order.date_paid|date:"d M Y" }}</td>
-        </tr>
-        <tr>
-            <td valign="top"><strong>{% trans 'Your name' %}</strong></td>
-            <td valign="top">{{ order.owner.first_name }} {{ order.owner.last_name }}</td>
-        </tr>
-        <tr>
-            <td valign="top"><strong>{% trans 'Your email' %} </strong></td>
-            <td valign="top">{{ order.owner.email }}</td>
-        </tr>
-        <tr>
-            <td valign="top"><strong>{% trans 'Delivery address' %}</strong></td>
-            <td valign="top">{% with order.address as address %}{% include 'shop/snippets/address.html' %}{% endwith %}</td>
-        </tr>
-
-        <tr>
-            <td valign="top"><strong>{% trans 'Order items' %}</strong></td>
-            <td valign="top">
-                {% for i in order.items.all %}
-                {{ i }}<br/>
-                {% endfor %}
-            </td>
-        </tr>
-        <tr>
-            <td valign="top"><strong>{% trans 'Order amount' %}<br/>({% trans 'including postage' %})</strong></td>
-            <td valign="top">
-                {{ currency.symbol }}{{ order.get_amount }}
-                {% if order.discount %}
-                    <br/>
-                    {{ order.discount.discount_amount }}
-                {% endif %} 
-            </td>
-        </tr>
-        </table>
-            
-    </div>
-
-<div class="notices">
-  
-    <div id="tweetit">
-    	<div class="text">
-    		<h3>{% trans 'Tweet your order!' %}</h3>
-    		<p>{% trans 'Please help spread the word about our great teas by tweeting:' %}</p>			
-    		<img id="example" src="{{ static_url }}images/complete-tweet.jpg"/>
-    	</div>
-    	
-    	<div class="image">
-    	   <p>{% trans 'Click here to tweet' %} &raquo;</p>
-    		<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site_url }}" data-text="just ordered some great Chinese #tea from" data-via="minrivertea" data-size="large" data-related="minrivertea">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    	</div>
-    </div>
 
 
     <p>{% trans "Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience." %}</p>

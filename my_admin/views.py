@@ -23,12 +23,13 @@ from datetime import timedelta
 import uuid
 import re
 
-from shop.utils import _render
+from shop.utils import _render, pdf
 from shop.models import *
 from shop.forms import *
 from slugify import smart_slugify
 from emailer.views import _admin_notify_new_review, _admin_notify_contact, _get_subscriber_list
 from logistics.models import WarehouseItem, CustomerPackage
+from logistics.forms import AddStocksForm
 
 
 
@@ -72,12 +73,17 @@ def admin_shopper(request, id):
 @login_required
 def stocks(request):
        
-    stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
+    stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP').order_by('-parent_product__category')
     for x in stocks:
-        x.uk_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True, location=WarehouseItem.UK)
+        x.uk_stocks = WarehouseItem.objects.filter(
+            unique_product=x, 
+            sold__isnull=True, 
+            location=WarehouseItem.UK
+        ).order_by('produced', 'created')
         x.china_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True, location=WarehouseItem.CHINA)
         x.total_value = (x.uk_stocks.count() + x.china_stocks.count()) * x.price
     
+    form = AddStocksForm()
     products = UniqueProduct.objects.filter(currency__code='GBP', is_active=True)
     return _render(request, 'my_admin/stocks.html', locals())
 
@@ -209,3 +215,17 @@ def stats(request):
     av_order_value = (float(tvgbp) + (float(tvusd)*float(0.66)) + (float(tveur)*float(0.808))) / float(orders.count())
     
     return _render(request, 'my_admin/stats.html', locals())    
+
+
+@login_required
+def print_packing_slip(request, id):
+    order = get_object_or_404(Order, pk=id)
+    #barcode_number = sendin_request.get_barcode()
+
+    #barcode_image(barcode_number)
+    #for _each in UserAddress.objects.filter(user=sendin_request.user):
+    #    user_address = _each
+    #    break
+
+    #return _render(request, 'my_admin/print_packing_slip.html', locals())
+    return pdf('my_admin/print_packing_slip.html', locals())

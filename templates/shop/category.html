@@ -10,6 +10,52 @@
 $('#types').click(function() {
 	$('#subnav').toggle(300);
 });
+
+$('.pricebar a.button').click( function() {
+  var thisButton = $(this)
+  $.ajax({
+  	url: thisButton.attr('href'),
+	type: "GET",
+   	dataType: 'json',
+   	success: function(data) {
+   		
+   		/// increment the values in the header basket
+        if ($('#userbasket').hasClass('selected')) {} else {
+             $('#userbasket').addClass('selected'); 
+             $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+        }
+        $('#quantity .p').text(parseFloat(data.basket_quantity).toFixed(2));
+        $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+   		
+   		
+   		/// increment the values in the already in basket next to product
+   		if (thisButton.parent('.pricebar').find('.in-basket .num').length) {
+	   		var curr = thisButton.parent('.pricebar').find('.in-basket .num');
+   			curr.html(parseInt(curr.html(), 10)+1);
+   		} else {
+   		  	thisButton.parent('.pricebar').find('.in-basket').append(
+   		  	'<span class="num">1</span> {% trans "already in basket" %}');
+   		}
+   		
+   		/// animate the button
+   		thisButton.animate({
+   			'width': '200',
+   		}, 300, 
+   		
+   		/// callback when animation complete
+   		function() {
+   			thisButton.append('<span class="text">{% trans "1 added to your basket" %}</span>');
+   			thisButton.children('.text').fadeIn(200);
+   		}).delay(1000).animate({'width': '15',}, 200, function() {
+   		   thisButton.children('.text').remove();  
+   		});  
+   		
+   	},
+  });
+  return false;
+});
+
+
 </script>
 {% endblock %}
 
@@ -89,7 +135,7 @@ div.info h3 {
   font-family: Helvetica, sans-serif;
   font-size: 26px;
   font-weight: bold;
-  color: #237A2A;
+  color: #18691e;
   text-transform: ;
   letter-spacing: -1px;	
   margin: 0;
@@ -120,21 +166,18 @@ div.info h3 {
 .section {
   float: left;
   width: 100%;
-  border-bottom: 4px dotted #E1ECF3;
-  margin: 0 0 20px 0;
-  padding: 0 0 40px 0;	
 }
 
 .section .intro {
     float: right;
-    height: 225px;
-    padding: 0 0 0;
-    width: 390px;
+    height: 212px;
+    padding: 0;
+    width: 440px;
 }
 
 .intro h2 {
   margin: 0 0 5px 0;
-  color: #237A2A;	
+  color: #18691e;	
 }
 
 .intro p {
@@ -176,7 +219,7 @@ span.price .amount {
 }
 
 #special h2 {
-    color: #237A2A;
+    color: #18691e;
     font-family: Helvetica,sans-serif;
     font-size: 39px;
     font-weight: bold;
@@ -191,7 +234,7 @@ span.price .amount {
 }
 
 #special h2 {
-    color: #237A2A;
+    color: #18691e;
     font-family: Helvetica,sans-serif;
     font-size: 30px;
     font-weight: bold;
@@ -230,7 +273,7 @@ span.price .amount {
 }
 
 #special .amount {
-    color: #237A2A;
+    color: #18691e;
     float: left;
     font-family: Helvetica,Arial,sans-serif;
     font-size: 50px;
@@ -259,6 +302,10 @@ span.price .amount {
     top: -10px;
 }
 
+p.introduction {
+  color: #777;   
+}
+
 
 
 
@@ -281,42 +328,18 @@ span.price .amount {
 		
 			
 		{% if category.slug == 'teaware' %}
-		     {% include 'shop/snippets/brewer-special.html' %}
+		   {% include "shop/snippets/products_teaware.html" %}
+		{% else %}
+		   {% include "shop/snippets/products_normal.html" %}
 		{% endif %}
 
-  	     {% include "shop/snippets/products_normal.html" %}
+  	     
 	    
 	     {% if categories %}
 		    {% include "shop/snippets/products.html" %}
 		 {% endif %}
 		
-    		
-
-	</div>
-	
-	<div id="extras">
-
-		<div class="info">
-			<a href="{% url page _('tell-a-friend') %}" class="link"></a>
-			<h3>{% trans 'Be a tea hero' %} &raquo;</h3>
-			<p>{% trans 'Are your friends still drinking from cheap teabags? Save them today!' %} <br/><a href="{% url page _('tell-a-friend') %}">{% trans 'Recommend us to a friend' %} &raquo;</a></p>
-		</div>
-		<div class="info">
-			<a href="{% url page _('shipping') %}" class="link"></a>
-			<h3>{% trans 'Free delivery' %}</h3>
-			<p>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}All orders over {{ symbol }}{{ pdt }} get delivered completely free of charge. {% endblocktrans %}<br/><a href="{% url page _('shipping') %}">{% trans 'More info about shipping' %} &raquo;</a></p>
-		</div>
-		
-		<div class="info long">
-			<img src="{{ static_url }}images/packaging-square.jpg">
-			<a href="{% url page _('packaging') %}" class="link"></a>
-			<h3>{% trans 'Our packaging' %}</h3>
-			<p>{% trans "It's simple, good for the environment, and protects your tea." %} <br/>
-			<a href="{% url page _('packaging') %}">{% trans 'Find out why' %} &raquo;</a></p>
-		</div>
-
 	</div>	
-		
 	
   </div>
 </div>

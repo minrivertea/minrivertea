@@ -9,12 +9,16 @@ from shop.models import UniqueProduct, Order, Currency
 class WarehouseItem(models.Model):
     hashkey = models.CharField(max_length=100, help_text='Type "LAZY" if you want the system to auto-generate a key.')
     unique_product = models.ForeignKey(UniqueProduct)
-    batch = models.CharField(max_length=10) 
+    batch = models.CharField(max_length=10)
+    package = models.ForeignKey('CustomerPackage', blank=True, null=True) 
     
-    created = models.DateTimeField(default=datetime.now(), help_text="The date the item entered the stock system")
-    available = models.DateTimeField(blank=True, null=True, help_text="The date the item was made available to ship")
-    sold = models.DateTimeField(blank=True, null=True)
-    package = models.ForeignKey('CustomerPackage', blank=True, null=True)
+    # DATES
+    produced = models.DateTimeField(blank=True, null=True, 
+        help_text="When was the item produced? Really only relevant for tea or perishables.")
+    created = models.DateTimeField(default=datetime.now(), help_text="When did the item enter our stock system?")
+    available = models.DateTimeField(blank=True, null=True, help_text="When was the item available to sell?")
+    sold = models.DateTimeField(blank=True, null=True, help_text="When was the item sold?")
+    
         
     SOLD = 'sold'
     DESTROYED = 'destroyed'
@@ -45,6 +49,17 @@ class WarehouseItem(models.Model):
         if self.hashkey == 'LAZY':
             self.hashkey = uuid.uuid1().hex
         super(WarehouseItem, self).save(*args, **kwargs) # Call the "real" save() method.
+    
+    def months_old(self):
+        
+        if (self.produced + timedelta(weeks=52)) <= datetime.now():
+            return 12
+        
+        if (self.produced + timedelta(weeks=26)) <= datetime.now():
+            return 6
+            
+        return False
+            
 
 
 

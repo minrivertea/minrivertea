@@ -9,11 +9,37 @@
 {% block extrajs %}
 <script type="text/javascript">
 
+$(document).ready( function() {
+    /// GIVE THE ROLLOVER DIVS A HEIGHT
+    $('.rollover').each( function(item) {
+       $(this).css({
+        'width': ($('.text', this).width()+30),
+       }); 
+    });
+});
+
+    $('#teas .info.tea').hover( function() {
+        $('.rollover', this).animate({
+           'left': '0', 
+        }, 100); 
+    }, function() {
+        var h = ($('.rollover', this).width()+30);
+        $('.rollover', this).animate({
+           'left': '-'+h, 
+        }, 100);   
+    });
+
 </script>
 {% endblock %}
 
 {% block extracss %}
 <style type="text/css">
+
+#teas, #teaware, #about, #experts, #monthly, #brewing, #special {
+  float: left;
+  width: 100%;
+  position: relative;
+}
 
 ul#nav li a.selected:before {
  display: none;   
@@ -27,115 +53,49 @@ h1 {
   color: #5f829a;
 }
 
-#teas {
-  position: relative;
-  width: 100%;
-  margin: 0px;
+h2.banner {
+  font-size: 24px;
+  margin: 0 0 20px 0; 
+  color: #555;
   float: left;
+  width: 100%;  
+}
+
+#teas {
+  margin: 0px;
   border-bottom: none;	
   height: auto;
 }
 
-
-#teas .info:hover {
-  box-shadow: 0 1px 4px #d1d1d1;  
+#teas .info.tea {
+  margin: 0 20px 20px 0;
+  width: 470px; 
+  overflow: hidden;  
 }
 
-#teas .info.tea {
-  margin: 2px;   
+#teas .info.tea.right {
+  margin-right: 0;   
+}
+
+#teas .info.tea.right:last-child, #teas .info.tea.left:last-child {
+  margin-bottom: 0;
+}
+
+#teas .info.tea .glass-text {
+   float: left;
+   width: 100%;
+   border-bottom: 1px dashed #D1D1D1;
+   margin: 0;
+   position: relative;
+   z-index:20;
+   background: #fff;
 }
 
 #teas .info.tea.first {
-  width: 390px;
-  height: 405px;
-  position: relative;
-  margin-left: 0;
-}
-
-#teas .first p {
-  color: #555;
-  padding: 0 5px;
-}
-
-#teas .first h3 {
-  float: none;
-  margin: 10px 0 0 5px;
-  font-size: 20px;
-}
-
-#price-helper {
-    background: none repeat scroll 0 0 transparent;
-    color: #555555;
-    float: right;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    margin: 5px 0 0;
-    padding: 15px 5px 5px;
-    text-align: right;
-    width: 100%;
-    position: absolute;
-    bottom: 10px;
-    left: 0px;
-}
-
-#price-helper div {
-    border-right: 1px solid #E1ECF3;
-    float: left;
-    height: auto;
-    padding: 0 10px;
-    text-align: center;
-    width: auto;
-}
-
-#price-helper div:last-child {
-   border-right: none;  
-   width: 135px; 
-}
-
-#price-helper div.stocks {
-  width: auto;   
-}
-
-#price-helper div.postage-cost {
-  width: auto;   
-}
-
-#price-helper div span {
-    color: #59849F;
-    float: left;
-    font-size: 30px;
-    font-weight: bold;
-    left: -2px;
-    position: relative;
-    text-align: center;
-    top: 0;
-    width: auto;
-}
-
-
-#price-helper a {
-  font-weight: bold;
-}
-
-.first #price-helper {
-  font-size: 16px;
-}
-
-.first #price-helper div {
-  width: auto;
-  letter-spacing: -0.5px; 
+  width: 420px;
   float: right;
-  margin-right: 15px;  
 }
 
-.first #price-helper div.stocks {
-  float: left;  
-  color: #999 
-}
-
-.first #price-helper div.stocks strong {
-  color: #333;   
-}
 
 #benefits img {
   margin: 0;
@@ -158,16 +118,17 @@ h1 {
 
 #special .details {
     float: right;
-    width: 96%;
-    bottom: 10px;
-    padding: 0 2%;
+    width: 30%;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
     position: absolute;
     text-align: right;
 }
 
 #special .details h3 {
   font-size: 20px;
-  font-weight: normal;
+  font-weight: 100;
   margin: 10px 0 0;
   letter-spacing: -1px;
   text-shadow: none;
@@ -177,7 +138,6 @@ h1 {
 #special .details p {
   font-size: 14px;
   color: #666;
-  width: 30%;
   float: right;
   margin: 5px 0 0;   
 }
@@ -185,8 +145,8 @@ h1 {
 #special .details .price {
     color: #555555;
     position: absolute;
-    top: -20px;
-    right: 20px;
+    top: -10px;
+    right: 15px;
     font-size: 20px;
     float: right;
     font-weight: normal;
@@ -198,14 +158,11 @@ h1 {
 }
 
 #experts {
-  background: url('{{ static_url }}images/home-experts.jpg') no-repeat top left;  
-  height: 250px;
-  width: 100%;
-  float:left; 
-  position: relative;
+  background: url('{{ static_url }}images/homepage/home-experts.jpg') no-repeat top left;  
+  height: 279px;
 }
 
-#experts .text {
+#experts .glass-text, #monthly .glass-text {
   text-align: left;
   position: absolute;
   left: 20px;
@@ -214,32 +171,54 @@ h1 {
   padding: 15px;  
 }
 
-#experts .text .back {
+#experts .glass-text:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid transparent;     
+        border-left: 0;
+        border-top: 20px solid transparent;
+        border-right: 20px solid #fff;
+        position: absolute;
+        top: 20px;
+        left: -20px;
+        z-index: 2;
+        opacity: 0.8;
+}
+
+#experts .glass-text {
+   right: 20px;
+   bottom: 20px;
+   top: auto;
+   left: auto; 
+   width: 55%;
+   text-align: right; 
+}
+
+#experts .glass-text p {
+  color: #333;   
+}
+
+#experts .glass-text h2 {
+  font-size: 28px;  
+  margin: 0; 
+}
+
+
+#monthly .glass-text {
+    text-align: left;
+    top: 20px;
+    right: 20px;
+    left: auto;
+    width: 30%;
+}
+
+#monthly .button {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: #fff;
-  opacity: 0.4; 
-  z-index: 1;  
+  bottom: 20px;
+  right: 20px;   
 }
-
-#experts h2 {
-  font-size: 22px;
-  color: #18691E;
-  position: relative;
-  z-index: 3;
-}
-
-#experts p {
-  font-size: 14px;
-  color: #555;
-  position: relative;
-  z-index: 3;
-}
-
-
 
 .tag {
     left: 0px;
@@ -278,9 +257,9 @@ h1 {
 }
 
 ul.rss {
-    left: 280px;
+    left: 180px;
     padding: 0;
-    top: 20px;
+    top: 60px;
     width: 80px;
 }
 
@@ -333,108 +312,15 @@ ul.rss {
 }
 
 #teaware {
-  margin: 30px 0 0 0;
   float: left;
   width: 100%;   
 }
 
-
-
 #monthly {
-    background: none repeat scroll 0 0 transparent;
-    float: left;
-    height: auto;
-    margin: 10px 0 0px;
-    padding: 20px 0;
-    width: 100%;
+  background: url('{{ static_url }}images/home-monthly.jpg') no-repeat top left;  
+  height: 250px;
 }
 
-#monthly .button {
-  width: 145px;
-  font-size: 15px;
-  padding: 8px 20px;
-  text-align: center;  
-  margin: 5px 0; 
-  top: 0;
-  float: left;
-}
-
-#monthly h3 {
-    background: none repeat scroll 0 0 #59849F;
-    border-radius: 5px 0 0 5px;
-    color: #fff;
-    text-shadow: 0 1px 1px #333;
-    float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 32px;
-    font-weight: bold;
-    height: 45px;
-    letter-spacing: -1.5px;
-    margin: 0 40px 0 0;
-    padding: 25px 0 10px;
-    position: relative;
-    text-align: center;
-    width: 160px;
-}
-
-#monthly h3:before {
-    border-color: transparent -moz-use-text-color transparent #59849F;
-    border-style: solid none solid solid;
-    border-width: 40px 0 40px 20px;
-    content: " ";
-    display: block;
-    position: absolute;
-    right: -20px;
-    top: 0;
-}
-
-#monthly div {
-    display: block;
-    float: left;
-    letter-spacing: -0.2px;
-    line-height: 1.6em;
-    margin: 0;
-    padding: 0;
-    width: 450px;
-}
-
-#monthly div span {
-    color: #5f829a;
-    font-size: 21px;
-    letter-spacing: -0.5px;
-    text-shadow: 0 1px 1px #FFFFFF;
-}
-
-#monthly div.more {
-    float: right;
-    font-family: Helvetica,sans-serif;
-    font-size: 26px;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    line-height: 1em;
-    margin: 10px 20px 0 0;
-    text-align: right;
-    width: 120px;
-}
-
-#monthly img {
-  float: left;
-  margin: 0;   
-}
-
-#brewing {
-  float:left;
-  background: #fff;
-  width: 96%;
-  padding: 2%;
-  margin: 20px 0;
-  border-radius: 8px;
-}
-
-#brewing h2 {
-  color: #5f829a; 
-  margin: 10px 0 0;   
-}
 
 #brewing img {
   float: left;
@@ -496,67 +382,61 @@ ul.rss {
 	    </div>
     </div>
     <!-- END OF SPECIAL -->
-
-    <div class="hr"></div>
-    
-    <div id="experts">
-        <div class="text">
-            <div class="back"></div>
-            <h2>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h2>
-            <p>{% blocktrans %}We are one of the only tea companies actually based in China. Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! We're able to sell better teas at lower prices because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="{% url page _('about') %}">{% trans 'Find out more about us' %} &raquo;</a></p>
-        </div>
-    </div>
     
     <div class="hr"></div>
-    
 
 	<div id="teas">
+        <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
         {% for t in teas %}
-            {% if forloop.first %}
-			    <div class="info tea first">
+                <div class="info tea {% cycle 'left' 'right' %}">
                     <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
-    				{% thumbnail t.image "390" crop="center" as im %}
-    				<a alt="{% blocktrans with t.name as name %}a picture of our {{ name }} Chinese tea{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
-    				<img alt="{{ t.description }}" src="{{ im.url }}"/>
-    				</a>
-    				{% endthumbnail %}
-    				
-    				<h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a> &raquo;</h3>
-    				<p>{{ t.description }}</p> 				       
- 				    <div id="price-helper">
- 				       <div class="stocks"><strong>{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}</strong> {% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</div>
- 				       {% if t.stocks.count > 0 %}<div class="stocks"><strong>{{ t.stocks.count }}</strong> {% trans 'in stock now!' %}</div>{% endif %}
- 				       <div><a href="{{ t.get_absolute_url }}">{% trans 'Click for more info' %} &raquo;</a></div>      
- 				    </div>
-    			</div>
-			   
-    	    {% else %}
-                {% include 'shop/snippets/product_small.html' %}
-            {% endif %}
+                    
+                    <div class="rollover">
+                        <div class="back">&nbsp;</div>
+                        <div class="text">{{ t.description }}</div>
+                    </div>
+                    
+                    {% thumbnail t.image "470x180" crop="center" as im %}
+                	<a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
+                		<img alt="{{ t.description }}" src="{{ im.url }}"/>
+                	</a>
+                    {% endthumbnail %}
+                    <div class="glass-text">
+                        <div class="inner">
+                            <div class="pricebar">
+                                <div class="price-weight">
+                                    <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% endif %}</span> 
+                                    <span class="weight">{% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</span>
+                                </div>
+                                <h4><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h4>
+                             </div>
+                         </div>
+                     </div>
+                </div>
         {% endfor %}
+        
     </div>
 	<!-- END TEAS LIST -->
-	
-	<h2>{% trans 'Check out our bestsellers above' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
+		
+	<div id="teaware">
+	   <h2 class="banner">{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %}</h2>
+	       {% for t in teaware %}
+	           {% include 'shop/snippets/product_small.html' %}  
+	       {% endfor %}
 	</div>	
-</div>
-
-
-	<div id="monthly">
-	   <h3>
-	       {% trans 'TeaBoxes' %}<br/>
-	   </h3>
-	   <div class="more">
-	       <a href="{% url monthly_tea_box %}">{% trans 'Start your TeaBox' %} &raquo;</a>
-	   </div>
-	   <div class="months">
-	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name and monthly_discount_low|floatformat:"-2" as discount %}
-	       <span>Your favourite tea delivered to your door every month</span><br/>
-	       Get a monthly delivery of great teas direct to your home or office and save {{ discount }}% on the total cost (and postage is totally free too)!
-	       {% endblocktrans %}
-	   </div>
-   	   <img src="{{ static_url }}images/homepage/home-monthly2.jpg" />
-	</div>
+	    
+    <div id="experts">
+        <a href="{% url page _('about') %}"><span class="link"></span></a>
+        <div class="glass-text">
+            <div class="back"></div>
+            <div class="inner">
+            <h2>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h2>
+            <p>{% blocktrans %}We're one of the only Western tea companies actually based near farms and tea growing areas in China - we really believe you can taste the difference - {% endblocktrans %}<a href="{% url page _('about') %}">{% trans 'Find out more'%}&raquo;</a>
+            </div>
+        </div>
+    </div>
+	
+	<div class="hr"></div>
 
 
 {% get_current_language as LANGUAGE_CODE %}
@@ -568,27 +448,27 @@ ul.rss {
 	   <p>Need some <a href="/how-to-brew-chinese-tea/">brewing basics</a>? Or perhaps you're trying to find the secret to <a href="/how-to-brew-jasmine-pearls-tea/">the perfect Jasmine tea</a> - either way, we've got a full range of <a href="/brewing-guides/">detailed brewing guides for your tea</a> explaining everything you'll need to <a href="/preparing-your-tea-leaves/">prepare</a>, brew and <a href="/appreciating-your-chinese-tea/">appreciate your Chinese tea</a> to the full. That includes <a href="/what-kinds-of-cups-and-pots-do-i-need-to-use-for-chinese-tea/">what kind of cups and pots</a> you should be using, how to <a href="/water-temperature-and-quality/">get the right water temperature</a> for your tea, and the perennial question, <a href="/how-much-tea-should-i-use-to-brew-chinese-tea/">how much tea</a> you should be using for each brew. </p>
 	   {% endblocktrans %}
 	</div>
-{% endif %}	
-
-	<div id="about">
-	   <div id="text">
-	   <h2>{% blocktrans %}A big <em>ni hao</em> from China!{% endblocktrans %}</h2>
-	   <p>{% blocktrans %}We are one of the only tea companies actually based in China. Most of our competitors in the US/UK buy through large wholesalers and often have never visited a tea farm themselves! We're able to sell better teas at lower prices because we talk to farmers directly, in their language, and only buy from farms we've visited personally. {% endblocktrans %}<a href="{% url page _('about') %}">{% trans 'Find out more about us' %} &raquo;</a></p>
-       {% include 'shop/boxes/follow.html' %}
-       </div>
-       <img src="{{ static_url }}images/homepage/home-about.jpg" />
-	</div>
-
-
 	
+	<div class="hr"></div>
 	
-	<div id="teaware">
-	   <h2>{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %}</h2>
-	       {% for t in teaware %}
-	           {% include 'shop/snippets/product_small.html' %}  
-	       {% endfor %}
-	</div>
+{% endif %}
 
+
+
+	<div id="monthly">
+	   <div class="glass-text">
+	       <div class="back"></div>
+	       <div class="inner">
+    	       <h2>{% trans 'Your favourite teas delivered to your door every month' %}</h2>
+    	       <p>{% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name and monthly_discount_low|floatformat:"-2" as discount %}
+    	       Get a monthly delivery of great teas direct to your home or office and save {{ discount }}% on the total cost (and postage is totally free too)!
+    	       {% endblocktrans %}<br/>
+    	       </p>
+    	   </div>
+        </div>
+        
+       <a class="button green large" href="{% url monthly_tea_box %}">{% trans 'Start your TeaBox' %} &raquo;</a>
+	</div>	
 	
 	    {% if ga_is_on %}
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">

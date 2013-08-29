@@ -2,6 +2,13 @@
 
 {% block extracss %}
   <style type="text/css">
+    h2 {
+      float: left;
+      width: 60%;
+      margin-bottom: 40px;   
+    }
+        
+  
   </style>
 {% endblock %}
 
@@ -36,23 +43,24 @@ $(document).ready( function() {
 <h2>Orders ({{ packages.count }})</h2>
          	
          	 <div id="filters">
-                <a href="/admin-stuff/orders/?w=4">This Month</a> / 
-                <a href="/admin-stuff/orders/?w=12">3 Months</a> / 
-                <a href="/admin-stuff/orders/?w=24">6 Months</a> / 
-                <a href="/admin-stuff/orders/?w=52">12 Months</a> / 
-                <a href="/admin-stuff/orders/?w=1096">Forever</a>
+                <a class="button green" href="/admin-stuff/orders/?w=4">This Month</a> 
+                <a class="button green" href="/admin-stuff/orders/?w=12">3 Months</a>  
+                <a class="button green" href="/admin-stuff/orders/?w=24">6 Months</a>  
+                <a class="button green" href="/admin-stuff/orders/?w=52">12 Months</a> 
+                <a class="button green" href="/admin-stuff/orders/?w=1096">Forever</a>
             </div>
          	
             <table id="orders-table">
          		<thead>
          			<tr>
          			<td>Order ID</td>
-         			<td>Owner</td>
+         			<td>Customer</td>
          			<td>Items</td>
          			<td>Value</td>
-         			<td>Postage</td>
-         			<td>Paypal Fee</td>
+         			<td>Paypal</td>
          			<td>Status</td>
+         			<td>Postage</td>
+         			<td>Label</td>
          			</tr>
          		</thead>
             	{% for x in packages %}

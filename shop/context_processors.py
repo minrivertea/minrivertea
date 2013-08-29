@@ -44,6 +44,7 @@ def common(request):
     else:
         context['weight_unit'] = 'g'
     
+    
     # currency stuff
     context['currency'] = _get_currency(request) 
     
@@ -72,17 +73,24 @@ def common(request):
     
     basket_quantity = 0
     basket_amount = 0
+    monthly_amount = 0
+    monthly_items = 0
     if basket:
         basket_items = BasketItem.objects.filter(basket=basket)
         for item in basket_items:
             if item.monthly_order:
                 basket_quantity += 1
+                monthly_amount += float(item.get_price())
+                monthly_items += item.quantity
             else:
                 basket_quantity += item.quantity
             basket_amount += float(item.get_price())
     
     context['basket_quantity'] = basket_quantity
     context['basket_amount'] = basket_amount    
+    context['monthly_amount'] = monthly_amount 
+    context['monthly_items'] = monthly_items
+    
             
     return context
     

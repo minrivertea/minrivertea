@@ -15,6 +15,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.translation import ugettext as _
 from django.utils.translation import get_language
 from django.core.exceptions import MultipleObjectsReturned
+from django.db.models import Q
 
 # PYTHON
 import urllib
@@ -48,9 +49,8 @@ class BasketDoesNotExist(Exception):
     
 # the homepage view
 def index(request):
-   
     curr = _get_currency(request)
-    teas = _get_products(request)[:5]
+    teas = _get_products(request)[:6]
         
     teaware = _get_products(request, cat=_('teaware'))[:3]
     special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
@@ -64,6 +64,11 @@ def page(request, slug):
     nav_tree = page.get_nav_tree()
     if page.slug == _('contact-us'):
         form = ContactForm()
+    
+    if page.slug == _('learn'):
+        pages = Page.objects.filter(
+            parent__parent__slug=_('learn')
+        ).order_by('?')[:10]
     
     template = "shop/page.html"
     if page.template:
@@ -135,11 +140,14 @@ def tea_view(request, slug):
         added = None
        
     if added:
-        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])        
-        from shop.templatetags.convert_weights import convert_weights
-        weight = convert_weights(request, thing.item.weight)
-        message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': weight, 'unit': RequestContext(request)['weight_unit']}
-        request.session['ADDED'] = None
+        try:
+	        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])    
+	        from shop.templatetags.convert_weights import convert_weights
+	        weight = convert_weights(request, thing.item.weight)
+	        message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': weight, 'unit': RequestContext(request)['weight_unit']}
+	        request.session['ADDED'] = None
+        except:
+	        pass
     
     tea = get_object_or_404(Product, slug=slug)
     reviews = Review.objects.filter(is_published=True, product=tea, lang=get_language())[:3]
@@ -149,10 +157,13 @@ def tea_view(request, slug):
         return monthly_tea_box(request)
     
     recommended = _get_products(request, random=True, exclude=tea.id)[:3]
-    price = tea.get_lowest_price(_get_currency(request))
+    #price = tea.get_lowest_price(_get_currency(request))
+    prices = UniqueProduct.objects.filter(is_active=True, parent_product=tea, currency=_get_currency(request)).order_by('weight')
     
     try:
-        monthly_price = _get_monthly_price(price, settings.TEABOX_DEFAULT_MONTHS)
+        months = settings.TEABOX_DEFAULT_MONTHS
+        monthly_price_up = prices[0]
+        monthly_price = _get_monthly_price(monthly_price_up, months)
     except:
         monthly_price = None
 
@@ -225,7 +236,7 @@ def add_to_basket(request, id):
                     'url': reverse('basket'),
             })
         else:
-            message = _('<div class="message"><span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your basket! <a href="%(url)s" class="button green"><strong>Checkout now &raquo;</strong></a></div>') % {
+            message = _('<div class="message"><div class="text"><h3>1 x %(item)s added to your basket! <a href="%(url)s">Checkout now &raquo;</a></h3></div></div>') % {
                     'item':item.item.parent_product, 
                     'url': reverse('basket'),
             }
@@ -253,20 +264,22 @@ def add_to_basket_monthly(request, productID, months):
     item.save()
     
     if request.is_ajax():
-        if item.item.weight:
-            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s (%(weight)s%(weight_unit)s) added to your TeaBox! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
-                    'item':item.item.parent_product, 
-                    'weight': item.item.weight, 
-                    'weight_unit': RequestContext(request)['weight_unit'],
-                    'url': reverse('basket'),
-            }
-        else:
-            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your TeaBox! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
-                    'item':item.item.parent_product, 
-                    'url': reverse('basket'),
-            }
         basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
-        data = {'message': message, 'basket_quantity': basket_quantity}
+        monthly_amount = '%.2f' % float(RequestContext(request)['monthly_amount'])
+        
+        from shop.templatetags.convert_weights import convert_weights
+        weight = convert_weights(request, item.item.weight)
+        message = _('<div class="message"><div class="text"><h3>%(months)s months of %(item)s added to your Monthly TeaBox! <a href="%(monthly_url)s">Add more</a> or <a href="%(url)s">Checkout now &raquo;</a></h3></div></div>') % {
+                    'months': months,
+                    'item':item.item.parent_product, 
+                    'url': reverse('basket'),
+                    'monthly_url': reverse('monthly_tea_box'),
+            }
+        
+        
+
+        
+        data = {'basket_quantity': basket_quantity, 'monthly_amount': monthly_amount, 'message': message,}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
@@ -604,9 +617,9 @@ def order_repeat(request, hash):
     )
     
     # now we'll check for replacements/substitutions
-    currency = _get_currency(request, code=old_order.items.all()[0].item.currency.code)
+    currency = _get_currency(request, currency_code=old_order.items.all()[0].item.currency.code)
     for item in old_order.items.all():
-        if item.item.is_active == False or item.item.parent_product.coming_soon == True:
+        if item.item.is_active == False:
             # if it's not available, replace it with the closest matching UniqueProduct
             product = UniqueProduct.objects.filter(
                     parent_product=item.item.parent_product, 

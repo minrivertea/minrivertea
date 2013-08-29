@@ -50,17 +50,7 @@ s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
 {% block extracss %}
 <style type="text/css">
 h1 {
-  font-size: 34px;
-  color: #5F829A;
   margin: 0 0 15px 0;   
-}
-
-div#mtw {
-  margin-top: 30px;	
-}
-
-#right {
-  margin-top: 10px;	
 }
 
 ul.rss {
@@ -80,7 +70,13 @@ ul.rss li#google {
 
 p.meta, p.meta a {
   color: #666;
-  font-size: 14px;
+  font-size: 13px;
+}
+
+p.meta {
+   border-top: 1px dashed #e1e1e1;
+  border-bottom: 1px dashed #e1e1e1;
+  padding: 5px 0;   
 }
 
 p.meta a:hover {
@@ -233,10 +229,6 @@ p.quote {
 
 {% block content %}
 
-
-{% include 'blog/snippets/sub_nav.html' %}
-
-
 <div id="mtw">
   <div class="sp">		
 		
@@ -246,7 +238,7 @@ p.quote {
 
 	<div id="left">
     	<h1>{{ entry.title }}</h1>
-    	<p class="meta">{{ entry.date_added|date:"d M Y" }} | <a href="{{ site_url }}{{ entry.get_absolute_url }}#disqus_thread">Comments</a> | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
+    	<p class="meta">&laquo; <a href="{% url blog_home %}">back to blog home</a> | {{ entry.date_added|date:"d M Y" }} | <a href="{{ site_url }}{{ entry.get_absolute_url }}#disqus_thread">Comments</a> | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
     
     	{{ entry.content|convert_links|safe }}
     			

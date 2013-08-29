@@ -7,7 +7,7 @@
 {% block extrajs %}
 <script type="text/javascript">
 $("#link").click( function() {
-	$("#form form").toggle();
+	$("#form").toggle();
 	$(this).toggle();
 	$('#message').toggle();
 });
@@ -26,69 +26,80 @@ $(document).ready( function() {
 <style type="text/css">
 
 #basket {
-  margin-bottom: 60px;   
-}
-
-div#basket-full {
-  width: 100%;
-  float: left;
-  margin: 0 0 20px 0;	
-}
-
-div#basket-full img {
-    border: 5px solid #FFFFFF;
+  margin-bottom: 60px; 
+  padding-left: 30px;  
 }
 
 .basket-row {
-    border-bottom: 2px dotted #e1e1e1;
+    border-bottom: 1px dashed #e1e1e1;
     float: left;
     height: auto;
     margin-bottom: 0px;
     padding: 15px 0;
-    width: 100%;
+    width: 650px;
     position: relative;
+    color: #555;
+    font-size: 15px;
 }
 
-#basket-full .basket-row.postage, #basket-full .basket-row.discount {
-  min-height: 20px;   
-}
-
-#basket-full .basket-row.postage div.long {
-  width: 460px;
+.basket-row div.long {
+  width: 390px;
   float: left;
-  height: 20px;   
 }
 
-div.basket-row:first-child {
+.basket-row:first-child {
   padding-top: 0px;	
 }
 
-div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
+.basket-row.postage div.tea-weight, .basket-row.postage div.tea-total {
   padding-top: 0;	
 }
 
-.strikethrough {
-  text-decoration: line-through;	
+.basket-row div {
+  height: 50px;	
 }
+
+.basket-row.monthly div, .basket-row.postage div, .basket-row.totals div {
+  height: auto;	
+}
+
+.basket-row.discount div {
+  height: auto;	
+}
+
+.basket-row ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;	
+}
+
+.basket-row .tools ul li {
+  float: left;
+  width: 100%;	
+}
+
 
 .tea-name {
   float: left;
-  width: 80px;	
+  width: 50px;
+  margin-right: 15px;	
 }
 
 .tea-weight {
   float: left;
-  width: 380px;
+  width: 250px;
+  line-height: 1.6em;
 }
 
-.tea-weight a {
-  text-decoration: none;  
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold; 
+.tea-weight a, .tea-weight h3, .name {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 100;
+  text-transform: lowercase;  
 }
 
-.tea-weight ul {
-  padding: 0 0 0 10px;
+.strikethrough {
+  text-decoration: line-through;	
 }
 
 .tea-price {
@@ -96,51 +107,64 @@ div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
   width: 10px;
 }
 
-.tea-quantity {
+.basket-row .tea-quantity, .basket-row .tea-total {
     float: left;
+    font-size: 15px;
+    font-weight: 100;
+    height: 40px;
+    padding-top: 10px;
     text-align: center;
-    width: 160px;
+    width: 140px;
 }
 
-.tea-total {
-    float: left;
-    text-align: right;
-    width: 250px;
+.basket-row.totals .tea-total {
+  font-size: 20px;	
 }
 
-.tea-total.monthly, .tools.monthly, .tea-quantity.monthly {
-  padding-top: 35px;   
+
+.basket-row.totals {
+  color: #333;	
 }
 
-.tea-total.monthly ul, .tools ul, .tea-weight ul, .tea-quantity ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;   
+
+.basket-row.totals .tea-total {
+  padding-top: 0;
 }
 
-.tea-weight ul {
+.monthly .tea-weight ul {
   padding: 0 0 0 10px;   
 }
 
-.tools.monthly ul li {
-  float: left;
-  width: 100%;   
+.monthly .tea-weight a, .monthly .tea-quantity li {
+  font-size: 15px;	
 }
 
-.tools .remove {
-    font-family: Helvetica,Arial sans-serif;
-    font-size: 14px;
+.monthly .tea-quantity, .monthly .tea-total, .basket-row.monthly .tools{
+  padding-top: 30px;	
+}
+
+.monthly .tea-weight {
+  width: 220px;	
+}
+
+.monthly .tea-quantity {
+  width:170px;	
+}
+
+
+
+.tools a.remove {
     font-weight: bold;
-    margin: 0 3px 0 0;
-    position: relative;
-    top: 2px;
 }
 
-.tools {
+.basket-row .tools {
   float: left;
-  margin: 0 0 0 10px; 
-  width: 60px;  
+  padding-top: 10px; 
+  width: 30px;
+  height: 40px;  
+  text-align: center;
 }
+
 
 #totals {
     color: #666666;
@@ -167,14 +191,22 @@ div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
 }
 
 #checkout-button {
-  margin-right: 50px;   
+  float: left;
+  margin: 30px 0 0 220px;   
 }
 
 a.plus, a.minus, a.remove {
   display: block;
-  float: left;
-  color: #a1a1a1;
+  float: right;
+  color: #e1e1e1;
   text-decoration: none;	
+  font-size: 17px;
+}
+
+a.minus {
+  position: relative;
+  top: 2px;
+  font-size: 15px;	
 }
 
 a.plus:hover, a.minus:hover, a.remove:hover {
@@ -184,37 +216,36 @@ a.plus:hover, a.minus:hover, a.remove:hover {
 .basket-row.discount span#link {
   font-weight: bold;
   color: #439249;
-  font-family: Helvetica, Arial, sans-serif;	
 }
 
-div.basket-row.discount span#link:hover {
+.basket-row.discount span#link:hover {
   cursor: pointer;
   color: #F37679;	
 }
 
-div.basket-row.discount form {
+.basket-row.discount #form {
     display: none;	
     float: left;
     margin: 0;
 }
 
-div.basket-row.discount form input {
+.basket-row.discount form input {
   margin: 0;   
 }
 
-div.basket-row.discount form label {
+.basket-row.discount form label {
   float: left;
   width: 520px;
   margin: 0;	
 }
 
-div.discount input.button {
+.discount input.button {
     border-radius: 0 4px 4px 0;
     font-size: 15px;
     left: -3px;
-    padding: 11px;
+    padding: 10px;
     position: relative;
-    top: -1px;
+    top: 0;
     width: 160px;
 }
 
@@ -253,14 +284,28 @@ input#id_discount_code {
   width: 325px;	
 }
 
-#basket-full .coming-soon {
-    float: left;
-    color: red;
-    font-size: 13px;
+.basket-row div.coming-soon {
+    background: none repeat scroll 0 0 #FF6569;
+    color: #fff;
+    font-size: 12px;
     height: auto;
-    width: 600px;
+    padding: 10px 15px;
+    position: absolute;
+    right: -270px;
+    top: 0px;
+    width: 220px;
 }
 
+.basket-row div.coming-soon:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: -10px;
+  top:10px;
+  border-color:  transparent #FF6569 transparent -moz-use-text-color;
+  border-style: solid solid solid none;
+  border-width: 10px 10px 10px 0px;     
+}
 
 #sub-basket {
     width: 900px;
@@ -292,33 +337,30 @@ input#id_discount_code {
 
 {% block content %}
 
-<div id="subnav" class="basket">
-   <div class="sp">
-       <ul>
-    		<li>
-    			<a class="selected" href="{% url basket %}">1. {% trans 'Your basket' %} &raquo;</a>
-    		</li>
-    		<li>
-    			<a class="" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
-    		</li>
-    		<li>
-    			<a href="">3. {% trans 'Confirm and pay' %} &raquo;</a>
-    		</li>
-    		<li>
-    			<a href="">4. {% trans 'Get your tea!' %}</a>
-    		</li>
-    	</ul>
-    </div>
-</div>
-
 <div id="mtw">
   <div class="sp">
   	<h1>{% blocktrans count basket_quantity as counter %}Your basket ({{ basket_quantity }} item){% plural %}Your basket ({{ basket_quantity }} items){% endblocktrans %}</h1>
+  	
+  	<ul id="steps">
+		<li>
+			<a class="selected" href="{% url basket %}">1. {% trans 'Your basket' %} &raquo;</a>
+		</li>
+		<li>
+			<a class="" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
+		</li>
+		<li>
+			<a href="">3. {% trans 'Confirm and pay' %} &raquo;</a>
+		</li>
+		<li>
+			<a href="">4. {% trans 'Get your tea!' %}</a>
+		</li>
+	</ul>
 
 {% if basket_items or monthly_items %}
 
+    <div class="hr"></div>
+
   <div id="basket">
-    <div id="basket-full"> 
 	{% for thing in basket_items %}
 	  <div class="basket-row">
 	  
@@ -330,30 +372,23 @@ input#id_discount_code {
 		</div>
 		<div class="tea-weight">
 		  <a title="{{ thing.item.parent_product.description }}" href="{{ thing.item.parent_product.get_absolute_url }}">
-		      <strong>{% if thing.monthly_order %}Monthly TeaBox{% else %}{{ thing.item.parent_product.name }}{% endif %}</strong>
+		      {% if thing.monthly_order %}Monthly TeaBox{% else %}{{ thing.item.parent_product.name }}{% endif %}
 		  </a>
-		  {% if thing.monthly_order %}
-		      <br/>
-		      {{ thing.item.parent_product.name }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}<br/>
-		  {% else %}
 		      {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}) {% endif %}<br/>
 		      {{ currency.symbol }}{{ thing.item.price }} {% trans 'each' %}<br/>
-		  {% endif %}
 	   </div>
 	   <div class="tea-quantity">
 		  x {{ thing.quantity }}
+		  
+		  <a class="plus" href="{% url increase_quantity thing.id %}">&#x25B2;</a>
+		  {% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.id %}">&#x25BC;</a>{% endifequal %}
+		  
 		</div>
 		<div class="tea-total">
 		  {{ currency.symbol }}{{ thing.get_price }}
 		</div>
 		<div class="tools">
-		    <ul>
-		     <li>
 		      <a class="remove" title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" href="{% url remove_from_basket thing.id %}">X</a>
-		      <a class="plus" href="{% url increase_quantity thing.id %}">&#x25B2;</a>
-		      {% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.id %}">&#x25BC;</a>{% endifequal %}
-		     </li>
-		    </ul>
 		</div>
 		{% if thing.item.stocks.count == 0 or thing.item.stocks == None %}
 	    	<div class="coming-soon">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}<strong>NOTE:</strong> this item is a pre-order and will be delivered separately on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
@@ -363,7 +398,7 @@ input#id_discount_code {
 	{% endfor %}
 	
     {% if monthly_items %}
-	<div class="basket-row">
+	<div class="basket-row monthly">
 	    <div class="tea-name">
 	       <img src="" />
 	    </div>
@@ -379,29 +414,34 @@ input#id_discount_code {
                 {% endfor %}
             </ul>
         </div>
-        <div class="tea-quantity monthly">
+        <div class="tea-quantity">
             <ul>
                 {% for x in monthly_items %}
-                    <li>{{ x.months }} {% trans 'months' %} / {% convert_weights request x.item.weight %}{{ weight_unit }}</li>
+                    <li>
+                    	{{ x.months }} {% trans 'months' %} / 
+                    	{% convert_weights request x.item.weight %}{{ weight_unit }}
+                    
+                    	<a class="plus" href="{% url increase_quantity x.id %}">&#x25B2;</a>
+                    {% ifequal x.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity x.id %}">&#x25BC;</a>{% endifequal %}
+                    
+                    </li>
             {% endfor %}
            </ul>
         </div>
-        <div class="tea-total monthly">
+        <div class="tea-total">
            <ul>
             {% for x in monthly_items %}
-                <li>{{ currency.symbol }}{{ x.get_price|floatformat:"-2" }}
+                <li>{{ currency.symbol }}{{ x.get_price|floatformat:"2" }}
                 
                 </li>
             {% endfor %}
            </ul>
         </div>
-        <div class="tools monthly">
+        <div class="tools">
             <ul>
             {% for x in monthly_items %}
                 <li>
                     <a title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" class="remove" href="{% url remove_from_basket x.id %}">X</a>
-                    <a class="plus" href="{% url increase_quantity x.id %}">&#x25B2;</a>
-                    {% ifequal x.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity x.id %}">&#x25BC;</a>{% endifequal %}
                 </li>
             {% endfor %}
             </ul>
@@ -409,51 +449,52 @@ input#id_discount_code {
 	</div>
 	{% endif %}
 	
-	
-	{% if postage_discount %}
-	  <div class="basket-row postage">
-		<div class="long">
-		      <em><span class="strikethrough">{% trans 'Postage' %}</span></em>
-              <span class="small"><em>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %} | Your order is over {{ symbol }}{{ pdt }}, so there's no postage charge!{% endblocktrans %}</em></span>
+	<div class="basket-row postage">
+		<div class="tea-name">&nbsp;</div>
+		
+		{% if postage_discount %}
+	  	<div class="long">
+	  		<span class="strikethrough name">{% trans 'Postage' %}</span><br/>
+            <span class="small">{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}Your order is over {{ symbol }}{{ pdt }}, so there's no postage charge!{% endblocktrans %}</span>
         </div>  
-        <div class="tea-quantity">&nbsp;</div>    
         <div class="tea-total strikethrough">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"-2" }}</div>
-	  </div>
-	{% else %}
-	  <div class="basket-row postage">
+		{% else %}
 		<div class="long">
-		  <em>
-		      {% trans 'Postage' %} | 
-		      {% trans 'Delivered in 1-3 days' %} | {% trans 'Shipped from the UK' %}</em>
+			<span class="name">{% trans 'Postage' %}</span><br/>
+			<span class="small">{% trans 'Delivered in 1-3 days' %} | {% trans 'Shipped from the UK' %}</span>
 		</div>
-		<div class="tea-quantity">&nbsp;</div>
 		<div class="tea-total">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"-2" }}</div>
-	  </div>
-	{% endif %}
+		{% endif %}
+	</div>
 	
 	<div class="basket-row discount">
-	  {% if code %}
-	  	<div class="tea-name">&nbsp;</div>
-	  	<div class="tea-weight">{% blocktrans %}You have entered a discount code worth {{ percent|floatformat }}% off!{% endblocktrans %}</div>
-	  	<div class="tea-quantity">&nbsp;</div>
-	  	<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ value|floatformat:"-2" }}</span></div>
-	  {% else %}
-	    {% if discount_message %}<span id="message" class="red">{{ discount_message }} - </span>{% endif %}
-	  	<span id="link">{% trans 'Got a discount code?' %}</span>
-	  	<div id="form">
-			  	<form action="." method="post">
-				<input type="text" name="discount_code" id="id_discount_code" class="clearMeFocus" title="{% trans 'Enter discount code here' %}"/>
-				<input type="submit" class="button" value="{% trans 'Apply discount' %}" id="submit"/>
-				</form>
+		<div class="tea-name">&nbsp;</div>
+		  {% if code %}
+		  	
+		  	<div class="tea-weight">{% blocktrans %}You have entered a discount code worth {{ percent|floatformat }}% off!{% endblocktrans %}</div>
+		  	<div class="tea-quantity">&nbsp;</div>
+		  	<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ value|floatformat:"-2" }}</span></div>
+		  {% else %}
+		    {% if discount_message %}<span id="message" class="red">{{ discount_message }} - </span>{% endif %}
+		  	<span id="link">{% trans 'Got a discount code?' %}</span>
+		  	<div id="form">
+				  	<form action="." method="post">
+					<input type="text" name="discount_code" id="id_discount_code" class="clearMeFocus" title="{% trans 'Enter discount code here' %}"/>
+					<input type="submit" class="button green" value="{% trans 'Apply discount' %}" id="submit"/>
+					</form>
+			</div>
+		  {% endif %}
+	</div>
+	
+	<div class="basket-row totals">
+		<div class="tea-name">&nbsp;</div>
+		<div class="long">
+			<span class="name">Total</span>
 		</div>
-	  {% endif %}
+		<div class="tea-total">
+			{{ currency.symbol }}{{ total_price|floatformat:"2" }}
+		</div>
 	</div>
-
-	<div id="totals">
-		<div class="label">{% trans 'Total' %}:</div><div class="total">{{ currency.symbol }}{{ total_price|floatformat:"-2" }}</div>
-	</div>
-    </div> <!-- ENDS basket-full div -->
-
 
 	<br clear="all"/>
 	  	<div id="checkout-button">		
@@ -478,7 +519,7 @@ input#id_discount_code {
   				{% trans 'Create a wishlist from your basket' %}
   		</h3>
   		<p>{% trans 'A wishlist saves your basket so that other people can buy it for you as a gift.' %}</p>
-  		<p><a style="font-weight: bold; font-family: Helvetica, Arial, sans-serif" id="wishlist" href="#wishlist-full">{% trans 'How does it work?' %}</a></p>
+  		<p><a style="font-weight: bold;" id="wishlist" href="#wishlist-full">{% trans 'How does it work?' %}</a></p>
   		<div id="wishlist-full" style="width: 800px; padding: 30px;">
   			<h2>{% trans 'How to make a Wishlist' %}</h2>
   			   <div class="block">

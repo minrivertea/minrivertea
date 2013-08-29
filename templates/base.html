@@ -171,7 +171,7 @@ if (15.00) {
 
 
 <div id="tools">
-    <div class="sp">
+    <div class="sp">        
 
         {% include 'shop/snippets/currency.html' %}
         <div id="userbasket" {% if basket_quantity > 0 %}class="selected"{% endif %}>
@@ -180,11 +180,16 @@ if (15.00) {
             
             <div id="quantity">
     	       {% blocktrans count basket_quantity as bq %}<span class="q">{{ bq }}</span> item{% plural %}<span class="q">{{ bq }}</span> items{% endblocktrans %} / {{ currency.symbol }}<span class="p">{{ basket_amount|floatformat:"2" }}</span>
-    	       {% if basket_quantity > 0 %}<br/>{% endif %}
+    	       {% if basket_quantity > 0 %}{% endif %}
     	       {% if basket_quantity %}
     	       <a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>
     	       {% endif %}
             </div>
+        </div>
+        
+        <div id="tagline">
+            {% url page _('about') as url %}
+            {% blocktrans %}Unlike our competitors, we're actually based in China - <a href="{{ url }}">find out more &raquo;</a>{% endblocktrans %}
         </div>
 
        <div class="hr"></div>
@@ -204,11 +209,24 @@ if (15.00) {
     
 	{% block content %}{% endblock %}
 	
+	
+	<div id="social-footer">
+	   <div class="sp">
+	       <ul>
+	       <li><a title="{% trans 'Find us on Facebook' %}" href="http://www.facebook.com/minrivertea" id="facebook"></a></li>
+	       <li><a title="{% trans 'Follow us on Twitter' %}" href="http://www.twitter.com/minrivertea" id="twitter"></a></li>
+	       <li><a title="{% trans 'Check out our pins on Pinterest' %}" href="http://pinterest.com/minrivertea/" id="pinterest"></a></li>
+	       <li><a title="{% trans 'Join our Google+ Group' %}" href="https://plus.google.com/115218838272806349303" id="google"></a></li>
+	       </ul>
+	   </div>
+	</div>
+	
 	{% block footer %}
 		{% include "shop/snippets/footer.html" %} 
 	{% endblock %}
 
 </div>
+
 	{% block extrajs %}{% endblock %}
 	<script type="text/javascript">
 

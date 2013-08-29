@@ -1,10 +1,6 @@
 {% load i18n %}
 
 <div id="footer">	
-
-  <div class="sp">
-    <a id="harvest" href="/how-to-brew-chinese-tea/">{% trans 'Confused about how to brew Chinese tea? Check out our brewing guides' %} &raquo;</a>
-  </div>
     
   <div class="sp thin">
     
@@ -37,7 +33,7 @@
 		<p>{% blocktrans %}Signup to get news and information about Chinese tea, tea culture and special offers from {{ site_name }}{% endblocktrans %}</p>
 		<form action="{% url email_signup %}" method="post">
 	        <input type="text" name="email" id="id_email" title="{% trans 'Your email address' %}" class="clearMeFocus"/>
-	        <input type="submit" class="submit button" value="{% trans 'Signup' %}" />
+	        <input type="submit" class="submit button green" value="{% trans 'Signup' %}" />
         </form>
     </div>
 

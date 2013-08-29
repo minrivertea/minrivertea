@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail i18n %}
+{% load thumbnail i18n convert_weights %}
 
 {% block pagetitle %}Order (Step 2 of 3) - Confirm Order{% endblock %}
 
@@ -29,19 +29,7 @@ $(document).ready( function() {
 {% block extracss %}
 <link rel="stylesheet" href="{{ static_url }}css/fancybox/jquery.fancybox-1.3.4.css" />
 <style type="text/css">
-div#mtw {
-  margin-top: 30px;	
-}
 
-div#mtw div#left {
-  margin: 30px 0 0 20px;
-  width: 550px;	
-}
-
-
-div#mtw div#left h2 {
-    font-weight: normal;
-}
 
 div.row {
   background-image: none;	
@@ -90,20 +78,107 @@ div.row {
   color: #333;	
 }
 
-span.grey {
-    color: #999999;
-    font-size: 16px;
-    line-height: 2em;
+#items {
+  float: left;
+  width: auto;
+  border-right: 1px solid #e1e1e1;
+  padding-right: 50px;
+  margin-right: 40px;	
 }
 
-ul#steps li.selected {
-  font-size: 24px;	
+#items h2, #address h2 {
+  margin-bottom: 20px;	
 }
 
-ul#steps {
-  margin-left: 100px;	
+table {
+  font-size: 15px;
 }
 
+table td {
+  padding: 0 0 0 15px;	
+}
+
+#address {
+  float: left;	
+  line-height: 1.6em;
+}
+
+#address p.address {
+  padding-left: 15px;	
+}
+
+#checkout-button {
+  margin: 30px 0 0;	
+}
+
+p.checkout {
+    float: right;
+    font-size: 14px;
+    margin: 0 0 10px 0;
+    text-align: right;
+    width: 100%;
+}
+
+#ppicon {
+  float:right;   
+}
+
+#wishlist {
+    float: right;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 5px 30px;
+    text-align: right;
+    width: 300px;
+}
+
+#wishlist img {
+  position: relative;
+  top: 9px;	
+  right: -4px;
+}
+
+#mtw #wishlist-full {
+  display: none;
+  float: left;
+  width: 500px;
+  height: auto;
+  position: relative;	
+}
+
+#loading-wishlist {
+  position: absolute;
+  left: 300px;	
+  top: 200px;
+}
+
+#wishlist-full p.url {
+  background-color: #f1f1f1;
+  padding: 10px 15px;	
+}
+
+#wishlist-full strong {
+  color: #333;	
+}
+
+table {
+  background: none;   
+}
+
+table tr td:first-child {
+  background: none;
+  width: 300px;   
+}
+
+table td {
+  border: none;   
+}
+
+p.skip {
+  float: right;
+  width: 100%;
+  text-align: right;   
+}
 </style>
 
 {% endblock %}
@@ -119,92 +194,84 @@ ul#steps {
 
 <div id="mtw">
   <div class="sp">
-	<ul id="steps">
-		<li class="selected">
-			Hey {{ order.owner.first_name }}, welcome back! Are you ready to make this order again?<br/>
-			<span class="grey">(…or you can try something new this time - <a href="{% url teas %}">check out our other teas</a>)</span>
-		</li>
-		
-	</ul>
-	
+
+    <h1>{% blocktrans with order.owner.first_name as fn %}Hey {{ fn }} - are you ready to repeat this order?{% endblocktrans %}</h1>
+    
+    <p class="introduction">If you want to add or remove items, go ahead - visit our <a href="{% url teas %}">teas listing</a> or <a href="{% url basket %}">edit your basket</a>.</p>
+    
+    	
 	<div id="basket">
 		
-    {% include "shop/snippets/paypal_form.html" %}
-		
-		<div class="row">
-			<div class="row-label">
-				<h2>You're re-ordering…</h2>
-			</div>
-			
-			<div class="row-box">
-				<table>
-				{% for thing in order.items.all %}
+	<div id="items">
+		<h2>You're ordering...</h2>		
+		<table>
+			{% for thing in order.items.all %}
 				  <tr>				
-			    	<td width="110px" valign="top">
-			    		{% thumbnail thing.item.parent_product.image "100" as im %}
-			    			<img src="{{ im.url }}"/>
-			    		{% endthumbnail %}
+			    	<td valign="top">
+			    		{{ thing.item.parent_product.name }} 
+			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
+			    		x {{ thing.quantity }}
 			    	</td>
-			    	<td width="250px" valign="top">
-			    		{{ thing.quantity }} X {{ thing.item.parent_product.name }} {% if not thing.item.weight %}
-			    		{% else %}({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}){% endif %}
-			    	</td>
-			    	<td width="150px" valign="top">
-			    	</td>
-			    	<td>{{ currency.symbol }}{{ thing.get_price }}</td>		    				
+			    	<td valign="top">{{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}</td>		    				
 				  </tr>
-			    {% endfor %}
-			  {% if postage_discount %}
+	        {% endfor %}
+	        
+	        {% if monthly_items %}
+	        <tr>
+	           <td valign="top">
+	               <strong>Monthly Box</strong><br/>
+	                    {% for thing in monthly_items %}
+			    		&nbsp;&nbsp;{{ thing.item.parent_product.name }} 
+			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
+			    		x {{ thing.quantity }}<br/>
+			    		{% endfor %}
+			    	</td>
+			    	<td valign="top">
+			    	     &nbsp;<br/>
+			    	     {% for thing in monthly_items %}
+			    	     {{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}	<br/>
+			    	     {% endfor %}	    				
+			    	 </td>
+				  </tr>
+	        {% endif %}
+	        
+	        
+	    	{% if postage_discount %}
+	    	  <tr>
+	    	    <td colspan="2"><span class="small"><em>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}There is no postage charge, because your order is over {{ symbol }}{{ ptd }}{% endblocktrans %}</em></span></td>
+	    	  </tr>
+	    	  {% else %}
+	    	  <tr>
+	    	  	<td>{% trans 'Postage' %}</td>
+	    	  	<td>{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>		  
+	    	  </tr>
+	        {% endif %}
+	        {% if order.discount %}
+	      	  <tr>
+	      	  	<td>{% trans 'Discount' %}</td>
+	      	  	<td>-{{ currency.symbol }}{{ discount|floatformat:"2" }}</td>
+	      	  </tr>
+	      	{% endif %}
 			  <tr>
-			    <td><span class="small"><em>There is no postage charge, because your order is over {{ currency.symbol }}{{ currency.postage_discount_threshold }}</em></span></td>
-			  </tr>
-			  {% else %}
-			  <tr>
-			  	<td>&nbsp;</td>
-			  	<td>Postage</td>
-			  	<td>&nbsp;</td>
-			  	<td>{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>		  
-			  </tr>
-		  	  {% endif %}
-		  	  
-		  	  {% if postage_discount %}
-			  <tr>
-			  	<td>&nbsp;</td>
-			  	<td>Discount</td>
-			  	<td>&nbsp;</td>
-			  	<td>-{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>
-			  </tr>
-			  {% endif %}
-			  <tr>
-			  	<td>&nbsp;</td>
-			  	<td><strong>TOTAL</strong></td>
-			  	<td>&nbsp;</td>
+			  	<td><strong>{% trans 'TOTAL' %}</strong></td>
 			  	<td><strong>{{ currency.symbol }}{{ total_price|floatformat:"2" }}</strong></td>		  
 			  </tr>
-			</table>
-		</div>
+		   </table>
 	</div>
 
+	<div id="address">
 
+	   <h2>{% trans "…and we'll send your order to:" %}</h2>
+		<p class="address">
+  	   {% with order.address as address %}
+  	      {% include "shop/snippets/address.html" %}
+  	   {% endwith %}
+  	   </p>
+  	</div>
 
-	<div class="row">
-		<div class="row-label">
-			<h2>…and is this still the right address?</h2>
-		</div>
-		
-		<div class="row-box">
- 		  {{ order.owner.first_name }} {{ order.owner.last_name }}<br/>
-		  {% with order.address as address %}
-		      {% include "shop/snippets/address.html" %}
-		  {% endwith %}
-		  <a href="{% url order_step_one %}">Change your address</a>
-		</div>
-	</div>
-
-	 
-
-
+    {% include "shop/snippets/paypal_form.html" %}
 </div>
+
 
 
 <div id="wishlist">

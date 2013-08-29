@@ -15,19 +15,19 @@ DATABASES = {
 }
 
 
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-THUMBNAIL_DEBUG = False
-GA_IS_ON = True
-ADMINS = (('Chris West', 'chris@minrivertea.com'),)
-MANAGERS = ADMINS
-TIME_ZONE = 'Europe/London'
-SITE_ID = 1
-SITE_NAME = 'minrivertea.com'
-ANALYTICS_ID = 'UA-9041614-4'
-GERMAN_URL = 'www.minrivertea.de'
-GERMAN_ANALYTICS_ID = 'UA-9041614-9'
-SECRET_KEY = ''
+DEBUG =                         False
+TEMPLATE_DEBUG =                DEBUG
+THUMBNAIL_DEBUG =               False
+GA_IS_ON =                      True
+ADMINS =                        (('Chris West', 'chris@minrivertea.com'),)
+MANAGERS =                      ADMINS
+TIME_ZONE =                     'Europe/London'
+SITE_ID =                       1
+SITE_NAME =                     'minrivertea.com'
+ANALYTICS_ID =                  'UA-9041614-4'
+GERMAN_URL =                    'www.minrivertea.de'
+GERMAN_ANALYTICS_ID =           'UA-9041614-9'
+SECRET_KEY =                    ''
 
 
 
@@ -134,7 +134,7 @@ SEND_BROKEN_LINK_EMAILS = False
 
 #THUMBNAIL SIZES
 # -----------------------------------------------
-THUMB_LARGE = "600x399"
+THUMB_LARGE = "500x331"
 THUMB_HOME_LARGE = "375x240"
 THUMB_MEDIUM = "240x160"
 THUMB_SMALL = "50x50"

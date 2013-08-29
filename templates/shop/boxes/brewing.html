@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<div class="info">
+
+    <h3>{% trans 'Tea brewing guides' %}</h3>
+    <ul>
+    <li><a href="{% url page _('how-to-brew-iron-buddha-tea') %}">{% trans 'Iron Buddha' %}</a></li>
+    <li><a href="{% url page _('how-to-brew-jin-jun-mei') %}">{% trans 'Jin Jun Mei' %}</a></li>
+    <li><a href="{% url page _('how-to-brew-da-hong-pao') %}">{% trans 'The Big Red' %}</a></li>
+    <li><a href="{% url page _('how-to-brew-jasmine-pearls-tea') %}">{% trans 'Jasmine Pearls' %}</a></li>
+    <li><a href="{% url page _('how-to-brew-old-iron-tea') %}">{% trans 'Old Iron' %}</a></li> 
+    <li><a href="{% url page _('how-to-brew-silver-needle') %}">{% trans 'Silver Needle' %}</a></li>
+    <li><a href="{% url page _('how-to-brew-lapsang-souchong') %}">{% trans 'Lapsang Souchong' %}</a></li>
+    </ul>
+
+</div>

@@ -46,30 +46,34 @@
 	<td class="value" valign="top">
 			{{ order.get_amount|floatformat:"2" }} {{ order.get_currency.code }}
 	</td>
-	<td class="trans" width="180px" valign="top">
-		{% if x.postage_cost == None %}
-			<form id="postage_{{ order.id }}" action="{% url update_package x.id %}" method="post">
-				<label>Postage cost?</label><input type="text" name="postage_cost" id="id_postage_cost"/>
-                <select type="hidden" name="currency" id="id_currency">
-                    <option>GBP</option>
-                    <option>USD</option>
-                    <option>EUR</option>
-                    <option>RMB</option>
-                </select>
-				<input type="submit" style="float: right; margin-right: 20px;" value="Save" class="button"/>
-			</form>
-		{% else %}
-		    {{ x.postage_cost }} {{ x.postage_currency.code }}
-		{% endif %}
-	</td>
-	<td valign="top">
+	<td class="paypal" valign="top">
 	     {% if order.get_paypal_ipn %}
 	     {{ order.get_paypal_ipn.mc_fee }} {{ order.get_currency.code }}
 	     {% endif %}
 	</td>
 	<td class="status" valign="top">
 		<strong>{{ order.status }}</strong><br/>
-		{% if order.status == 'shipped' %}
+	</td>
+	<td class="trans" valign="top">
+		{% if x.postage_cost == None %}
+			<form id="postage_{{ order.id }}" action="{% url update_package x.id %}" method="post">
+				<input type="text" name="postage_cost" id="id_postage_cost"/>
+				<input type="submit" style="float: right; margin-right: 20px;" value="Save" class="button green small"/>                
+                <select type="hidden" name="currency" id="id_currency">
+                    <option>GBP</option>
+                    <option>USD</option>
+                    <option>EUR</option>
+                    <option>RMB</option>
+                </select>
+			</form>
+		{% else %}
+		    {{ x.postage_cost }} {{ x.postage_currency.code }}<br/>
+		    {{ x.posted|date:"d/m/Y" }}
+		{% endif %}
+	</td>
+	<td class="label" valign="top">
+	   <a href="{% url print_packing_slip order.id %}">Print Label</a><br/>
+	   {% if order.status == 'shipped' %}
 		  {% if order.review_email_sent %}
 		     review email sent
 		  {% else %}

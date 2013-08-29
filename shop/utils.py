@@ -3,10 +3,10 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.template import RequestContext
+from django.template import RequestContext, Context
 from paypal.standard.forms import PayPalPaymentsForm
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound, Http404
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
@@ -29,6 +29,8 @@ import datetime
 from datetime import timedelta
 import uuid
 import re
+import ho.pisa as pisa
+import cgi
 
 
 from shop.models import *
@@ -44,15 +46,14 @@ def _render(request, template, context_dict=None, **kwargs):
                               **kwargs
     )
 
-
 def _get_country(request):
     # this is coming from http://ipinfodb.com JSON api
     # the variables
-    apikey = settings.IPINFO_APIKEY 
-    ip = request.META.get('REMOTE_ADDR')
-    baseurl = "http://api.ipinfodb.com/v3/ip-country/?key=%s&ip=%s&format=json" % (apikey, ip)
     
     try:
+        apikey = settings.IPINFO_APIKEY 
+        ip = request.META.get('REMOTE_ADDR')
+        baseurl = "http://api.ipinfodb.com/v3/ip-country/?key=%s&ip=%s&format=json" % (apikey, ip)    
         urlobj = urllib2.urlopen(baseurl)
         # get the data
         data = urlobj.read()
@@ -115,7 +116,7 @@ def _changelang(request, code):
             request.session[settings.LANGUAGE_COOKIE_NAME] = lang_code
         else:
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
-    activate(code)
+    activate(lang_code)
     return response
 
 
@@ -126,6 +127,7 @@ def _get_region(request):
         # http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
         region = _get_country(request)['countryCode']
         request.session['REGION'] = region
+        
     return region
 
 
@@ -321,8 +323,12 @@ def _finder(request, x=None, y=None, z=None, slug=None):
     
 def _get_monthly_price(unique_product, months):
     
+    
+    
     months = int(months)
-        
+    
+    
+    
     if unique_product.parent_product.category.slug == _('teaware'):
         return None
     
@@ -365,7 +371,8 @@ def _change_monthly_frequency(request, months):
     
     # RETURN AN AJAX REPONSE   
     if request.is_ajax():
-        products = Product.objects.filter(category__parent_category__slug='teas').exclude(name__icontains="taster")
+        products = Product.objects.filter(
+            category__parent_category__slug='teas').exclude(name__icontains="taster")
         for x in products:
             x.price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
             x.monthly_price = _get_monthly_price(x.price, months)
@@ -376,12 +383,14 @@ def _change_monthly_frequency(request, months):
                 
         html = render_to_string('shop/snippets/products_monthly.html', {
                 'products': products, 
-                'thumb_medium': RequestContext(request)['thumb_medium'],
                 'months': months,
                 'currency': RequestContext(request)['currency'],
+                'request': request,
+                'weight_unit': RequestContext(request)['weight_unit'],
                 })
         basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
-        data = {'html': html, 'basket_quantity': basket_quantity}
+        monthly_amount = '%.2f' % float(RequestContext(request)['monthly_amount'])
+        data = {'html': html, 'basket_quantity': basket_quantity, 'monthly_amount': monthly_amount,}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
@@ -409,3 +418,33 @@ def _internal_pages_list(request):
     
     return _render(request, 'my_admin/internal_pages_list.html', locals())
 
+# ALL REQUIRED FOR PDF CREATION
+
+def my_link_callback(uri, relative):
+    path = os.path.join(settings.PROJECT_PATH, uri)
+    print path
+    if not os.path.isfile(path):
+        print "ARR! not a file", repr(path)
+    else:
+        return path
+
+def pdf(template_path, context):
+    """Renders a pdf using the given template and a context dict"""
+    template = get_template(template_path)
+    context = Context(context)
+    html = template.render(context)
+
+    result = StringIO()
+    pdf = pisa.pisaDocument(
+            StringIO(html.encode('UTF-8')),
+            result,
+            link_callback=my_link_callback,
+            show_error_as_pdf=True,
+            debug=True
+            )
+    #return HttpResponse(html) # for debugging
+    if not pdf.err:
+        response = HttpResponse(result.getvalue(), mimetype='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=mrt-packing-slip.pdf'
+        return response
+    return HttpResponse('HAHA %s' % cgi.escape(html))

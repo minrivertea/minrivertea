@@ -1,11 +1,9 @@
 {% load i18n %}
 <div class="message">
-    <span class="tick">&#10003;</span>    
     <div class="text">
         {% blocktrans with item as item and weight as weight and weight_unit as weight_unit and url as url %}
-        <h3><span class="num">1</span> x {{ item }} ({{ weight }}{{ weight_unit }}) added to your basket! </h3>
-        <p>Keep shopping below, or <a href="{{ url }}">visit your basket</a> to start the payment process<a href=""></a></p>
+        <h3><span class="num">1</span> x {{ weight }}{{ weight_unit }} added to your basket! <a href="{{ url }}">Checkout &raquo;</a></h3>
+        
         {% endblocktrans %}
     </div>
-    <a href="{{ url }}" class="button green"><strong>{% trans 'Checkout now' %} &raquo;</strong></a>
 </div>
