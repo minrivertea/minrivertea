@@ -49,9 +49,6 @@ s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
 
 {% block extracss %}
 <style type="text/css">
-h1 {
-  margin: 0 0 15px 0;   
-}
 
 ul.rss {
   left: -150px;
@@ -68,15 +65,16 @@ ul.rss li#google {
   width: 65px;   
 }
 
-p.meta, p.meta a {
+#left p.meta, #left p.meta a {
   color: #666;
   font-size: 13px;
 }
 
-p.meta {
+#left p.meta {
    border-top: 1px dashed #e1e1e1;
   border-bottom: 1px dashed #e1e1e1;
-  padding: 5px 0;   
+  padding: 5px 0;
+  margin: 20px 0 20px 0;   
 }
 
 p.meta a:hover {
