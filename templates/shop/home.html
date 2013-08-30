@@ -81,7 +81,7 @@ h2.banner {
   margin-bottom: 0;
 }
 
-#teas .info.tea .glass-text {
+#teas .info.tea .glass-text, #teaware .info.tea .glass-text {
    float: left;
    width: 100%;
    border-bottom: none;
@@ -314,7 +314,7 @@ ul.rss {
 #teaware {
   float: left;
   width: 100%;
-  margin: 0 0 20px 0;   
+  margin: 0;   
 }
 
 #monthly {
@@ -440,13 +440,14 @@ ul.rss {
 	
 	<div class="hr"></div>
 	
-		<div id="teaware">
+	<div id="teaware">
 	   <h2 class="banner">{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %}</h2>
-	       {% for t in teaware %}
-	           {% include 'shop/snippets/product_small.html' %}  
-	       {% endfor %}
+	   {% for t in teaware %}
+	       {% include 'shop/snippets/product_small.html' %}  
+	   {% endfor %}
 	</div>	
 
+    <div class="hr"></div>
 
 {% get_current_language as LANGUAGE_CODE %}
 {% if LANGUAGE_CODE == 'en' %}	
