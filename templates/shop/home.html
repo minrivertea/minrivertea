@@ -62,7 +62,7 @@ h2.banner {
 }
 
 #teas {
-  margin: 0px;
+  margin: 0;
   border-bottom: none;	
   height: auto;
 }
@@ -171,7 +171,7 @@ h2.banner {
   padding: 15px;  
 }
 
-#experts .glass-text:before {
+#experts .glass-text:before, #monthly .glass-text:before {
         content: " ";
         display: block;
         width: 0;
@@ -187,31 +187,27 @@ h2.banner {
         opacity: 0.8;
 }
 
-#experts .glass-text {
+#experts .glass-text, #monthly .glass-text {
    right: 20px;
    bottom: 20px;
    top: auto;
    left: auto; 
-   width: 55%;
+   width: 50%;
    text-align: right; 
 }
 
-#experts .glass-text p {
+#experts .glass-text p, #monthly .glass-text p {
   color: #333;   
 }
 
-#experts .glass-text h2 {
-  font-size: 28px;  
+#experts .glass-text h2, #monthly .glass-text h2 {
+  font-size: 24px;  
   margin: 0; 
 }
 
 
 #monthly .glass-text {
-    text-align: left;
-    top: 20px;
-    right: 20px;
-    left: auto;
-    width: 30%;
+    width: 55%;
 }
 
 #monthly .button {
@@ -313,7 +309,8 @@ ul.rss {
 
 #teaware {
   float: left;
-  width: 100%;   
+  width: 100%;
+  margin: 0 0 20px 0;   
 }
 
 #monthly {
@@ -327,8 +324,14 @@ ul.rss {
   margin: 0 20px 0 0;   
 }
 
+#brewing h2 {
+  font-size: 24px; 
+  margin-top: 10px; 
+} 
+
 #brewing p {
-  padding-right: 30px;   
+  padding-right: 30px;
+  margin-top: 0;   
 }
 
 #sale {
@@ -417,13 +420,6 @@ ul.rss {
         
     </div>
 	<!-- END TEAS LIST -->
-		
-	<div id="teaware">
-	   <h2 class="banner">{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %}</h2>
-	       {% for t in teaware %}
-	           {% include 'shop/snippets/product_small.html' %}  
-	       {% endfor %}
-	</div>	
 	    
     <div id="experts">
         <a href="{% url page _('about') %}"><span class="link"></span></a>
@@ -431,12 +427,19 @@ ul.rss {
             <div class="back"></div>
             <div class="inner">
             <h2>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h2>
-            <p>{% blocktrans %}We're one of the only Western tea companies actually based near farms and tea growing areas in China - we really believe you can taste the difference - {% endblocktrans %}<a href="{% url page _('about') %}">{% trans 'Find out more'%}&raquo;</a>
+            <p>{% blocktrans %}We're one of the only Western tea companies actually based near farms and tea growing areas in China - we really believe you can taste the difference - {% endblocktrans %}</a>
             </div>
         </div>
     </div>
 	
 	<div class="hr"></div>
+	
+		<div id="teaware">
+	   <h2 class="banner">{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %}</h2>
+	       {% for t in teaware %}
+	           {% include 'shop/snippets/product_small.html' %}  
+	       {% endfor %}
+	</div>	
 
 
 {% get_current_language as LANGUAGE_CODE %}
@@ -456,19 +459,18 @@ ul.rss {
 
 
 	<div id="monthly">
+	   <a href="{% url monthly_tea_box %}"><span class="link"></span></a>
 	   <div class="glass-text">
 	       <div class="back"></div>
 	       <div class="inner">
     	       <h2>{% trans 'Your favourite teas delivered to your door every month' %}</h2>
     	       <p>{% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name and monthly_discount_low|floatformat:"-2" as discount %}
-    	       Get a monthly delivery of great teas direct to your home or office and save {{ discount }}% on the total cost (and postage is totally free too)!
+    	       Get a monthly delivery of great teas direct to your home or office and save {{ discount }}% on the total cost (and postage is totally free too)! Click to start your monthly TeaBox!
     	       {% endblocktrans %}<br/>
     	       </p>
     	   </div>
         </div>
-        
-       <a class="button green large" href="{% url monthly_tea_box %}">{% trans 'Start your TeaBox' %} &raquo;</a>
-	</div>	
+   	</div>	
 	
 	    {% if ga_is_on %}
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
