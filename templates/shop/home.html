@@ -115,7 +115,7 @@ h2.banner {
   opacity: 0.9;   
 }
 
-#special:hover .right h3, #special:hover .right a {
+#special:hover .details h3, #special:hover .details a {
   color: #FF6569;   
 }
 
@@ -136,7 +136,7 @@ h2.banner {
   margin: 10px 0 0;
   letter-spacing: -1px;
   text-shadow: none;
-  color: #18691E;
+  color: #2a8531;
 }
 
 #special .details p {
@@ -441,7 +441,7 @@ ul.rss {
 	<div class="hr"></div>
 	
 	<div id="teaware">
-	   <h2 class="banner">{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %}</h2>
+	   <h2 class="banner">{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %} - <a href="{% url teaware %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
 	   {% for t in teaware %}
 	       {% include 'shop/snippets/product_small.html' %}  
 	   {% endfor %}

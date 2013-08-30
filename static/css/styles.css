@@ -108,7 +108,7 @@ a {
 }
 
 a:link, a:visited {
-  color: #18691e;
+  color: #2a8531; 
   text-decoration: underline;
 }
 
@@ -159,7 +159,7 @@ h3 a:link, h3:visited, h4 a:link, h4 a:visited, h2 a:link, h2 a:visited {
 }
 
 input.button {
-  color: #18691e;
+  color: #2A8531;
   height: auto;	
   font-size: 16px;
   box-shadow: 0 1px 1px #999;
@@ -167,7 +167,7 @@ input.button {
 
 
 .button.green {
-    background: #18691e; 
+    background: #2A8531; 
     border: none;
     text-shadow: none;
     box-shadow: none;
@@ -252,7 +252,7 @@ span.link {
     margin: 0 20px 0 0;
     position: relative;
     top: 9px;
-    color:#18691e;
+    color:#2A8531;
 }
 
 #messages #close {
@@ -537,9 +537,9 @@ ul#nav li {
 }
 
 ul#nav li a, ul#nav li a:link, ul#nav li a:visited {
-    color: #18691E;
+    color: #2A8531;
     float: left;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 100;
     text-transform: lowercase;
     line-height: 1em;
@@ -681,7 +681,7 @@ ul#nav li a.selected {
 }
 
 #subnav li a.completed {
-  color: #18691e;   
+  color: #2A8531;   
 }
 
 /* right navigation styles */
@@ -814,7 +814,7 @@ p.introduction, #left p.introduction {
 
 .glass-text h2 {
   font-size: 22px;
-  color: #18691E;
+  color: #2A8531;
   position: relative;
   z-index: 3;    
 }
@@ -1000,7 +1000,7 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea.long a.button {
-    background: none repeat scroll 0 0 #18691E;
+    background: none repeat scroll 0 0 #2A8531;
     border: medium none;
     border-radius: 2px 2px 2px 2px;
     bottom: 10px;
@@ -1054,15 +1054,15 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea.long .pricebar .not-in-stock {
-    bottom: 40px;
     background: none repeat scroll 0 0 #C30000;
     color: #fff;
     padding: 3px 5px;
     font-weight: bold;
     font-size: 11px;
     border-radius: 4px;
-    position: absolute;
-    left: 30px;
+    position: relative;
+    top: 5px;
+    left: -2px;
 }
 
 .info.tea .rollover {
@@ -1228,7 +1228,7 @@ a.atb strong {
 }
 
 a.atb:hover {
-  color: #18691e;   
+  color: #2A8531;   
 }
 
 a.atb.large {
@@ -1886,7 +1886,7 @@ button.next:hover {
 }
 
 #steps li a.selected:link, #steps li a.selected:visited {
-  background:#18691e;
+  background:#2A8531;
   color: #fff; 
   position: relative;  
 }
@@ -1897,14 +1897,14 @@ button.next:hover {
   position: absolute;
   bottom: -15px;
   left: 40%;
-  border-color: #18691e transparent -moz-use-text-color;
+  border-color: #2A8531 transparent -moz-use-text-color;
   border-style: solid solid none;
   border-width: 15px 15px 0px;   
 }
 
 
 #steps li a.completed:link, #steps li a.completed:visited {
-  background: #18691e;
+  background: #2A8531;
   color: #fff;   
 }
 
