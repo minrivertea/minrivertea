@@ -71,7 +71,7 @@ h4 {
 
 p {
     font-size: 15px;
-    font-weight: 200;
+    font-weight: normal;
     line-height: 1.6em;
     letter-spacing: -0.2px;
 }
@@ -368,7 +368,7 @@ span.link {
     border-right: 1px dashed #E1E1E1;
     color: #888888;
     float: left;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: normal;
     padding: 0 8px;
     text-transform: lowercase;
@@ -466,6 +466,7 @@ span.link {
     z-index: 40;
     right: 0;
     width: 40px;
+    background: #fff;
 }
 
 
@@ -819,7 +820,7 @@ p.introduction, #left p.introduction {
 }
 
 .glass-text p {
-  font-size: 14px;
+  font-size: 13px;
   color: #555;
   position: relative;
   z-index: 3;
@@ -835,16 +836,14 @@ p.introduction, #left p.introduction {
   font-size: 15px;
   letter-spacing: -0.5px;  
   text-align: right; 
+  line-height: 1em;
 }
 
 .pricebar h4 {
   text-shadow: none;
-  font-weight: 100;
   width: auto; 
   margin: 0;
   padding: 0;
-  text-transform: lowercase;
-  font-size: 18px;
 }
 
 .pricebar .price-weight {
@@ -905,7 +904,7 @@ p.introduction, #left p.introduction {
 .info p {
   margin: 0;
   padding: 0;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 /* DIFFERENT VARIATIONS OF BOXES */
@@ -978,9 +977,9 @@ p.introduction, #left p.introduction {
 
 .info.tea.long .glass-text {
   float: right;
-  width: 330px;
+  width: 355px;
   padding-left: 20px;
-  height: 200px;
+  height: 190px;
   border-bottom: none;
 }
 
@@ -1000,10 +999,6 @@ p.introduction, #left p.introduction {
   text-align: left;
 }
 
-.info.tea.long .pricebar p {
-  font-weight: 100;   
-}
-
 .info.tea.long a.button {
     background: none repeat scroll 0 0 #18691E;
     border: medium none;
@@ -1011,17 +1006,17 @@ p.introduction, #left p.introduction {
     bottom: 10px;
     box-shadow: none;
     color: #FFFFFF;
+    font-size: 15px;
+    height: 20px;
     left: 30px;
-    padding: 0 6px;
+    padding: 4px 6px 0;
     position: absolute;
+    text-align: center;
     text-decoration: none;
     text-shadow: none;
     z-index: 20;
-    text-align: left;
-    font-size: 15px;
-    text-align: center;
-    height: 23px;
 }
+
 
 .info.tea.long a.button span.plus {
   font-size: 22px;
@@ -1059,9 +1054,16 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea.long .pricebar .not-in-stock {
-  color: #FF6569;   
+    bottom: 40px;
+    background: none repeat scroll 0 0 #C30000;
+    color: #fff;
+    padding: 3px 5px;
+    font-weight: bold;
+    font-size: 11px;
+    border-radius: 4px;
+    position: absolute;
+    left: 30px;
 }
-
 
 .info.tea .rollover {
   position: absolute;
@@ -1979,8 +1981,7 @@ ul#social a#google:hover {
 
 #footer p, #footer ul  {
   margin-top: 0;
-  font-size: 87%;
-  font-weight: normal;
+  font-size: 13px;
 }
 
 #footer a:link, #footer a:visited {
@@ -2090,9 +2091,8 @@ a#harvest:hover {
 .tooltip {
     display:none;
     background:#333;
-    font-size:12px;
+    font-size:11px;
     height:auto;
-    max-width:100px;
     width: auto;
     padding:7px 10px;
     color:#eee;

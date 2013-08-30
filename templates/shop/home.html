@@ -62,14 +62,14 @@ h2.banner {
 }
 
 #teas {
-  margin: 0;
+  margin: 0 0 ;
   border-bottom: none;	
   height: auto;
 }
 
 #teas .info.tea {
-  margin: 0 20px 20px 0;
-  width: 470px; 
+  margin: 0 10px 10px 0;
+  width: 475px; 
   overflow: hidden;  
 }
 
@@ -84,9 +84,10 @@ h2.banner {
 #teas .info.tea .glass-text {
    float: left;
    width: 100%;
-   border-bottom: 1px dashed #D1D1D1;
+   border-bottom: none;
    margin: 0;
-   position: relative;
+   position: absolute;
+   opacity: 0.8;
    z-index:20;
    background: #fff;
 }
@@ -110,6 +111,9 @@ h2.banner {
   height: 325px;
 }
 
+#special:hover {
+  opacity: 0.9;   
+}
 
 #special:hover .right h3, #special:hover .right a {
   color: #FF6569;   
@@ -127,7 +131,7 @@ h2.banner {
 }
 
 #special .details h3 {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 100;
   margin: 10px 0 0;
   letter-spacing: -1px;
@@ -136,7 +140,7 @@ h2.banner {
 }
 
 #special .details p {
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
   float: right;
   margin: 5px 0 0;   
@@ -145,9 +149,9 @@ h2.banner {
 #special .details .price {
     color: #555555;
     position: absolute;
-    top: -10px;
+    top: -5px;
     right: 15px;
-    font-size: 20px;
+    font-size: 18px;
     float: right;
     font-weight: normal;
 }
@@ -399,7 +403,7 @@ ul.rss {
                         <div class="text">{{ t.description }}</div>
                     </div>
                     
-                    {% thumbnail t.image "470x180" crop="center" as im %}
+                    {% thumbnail t.image "475x190" crop="center" as im %}
                 	<a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
                 		<img alt="{{ t.description }}" src="{{ im.url }}"/>
                 	</a>
@@ -420,6 +424,8 @@ ul.rss {
         
     </div>
 	<!-- END TEAS LIST -->
+	
+	<div class="hr"></div>
 	    
     <div id="experts">
         <a href="{% url page _('about') %}"><span class="link"></span></a>

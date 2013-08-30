@@ -4,7 +4,7 @@
 
     <div class="info tea long">
         <a title="" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
-    	{% thumbnail p.image "500x200" crop="center" as im %}
+    	{% thumbnail p.image "475x190" crop="center" as im %}
 		<img alt="a picture of {{ p.name }}" title="{{ p.name }} - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
 		{% endthumbnail %}		  
 		 
@@ -30,8 +30,7 @@
     			 <p>{{ p.description }}</p>
     			 	{% if p.price.stocks.count < 0 %}
            	     		<span class="not-in-stock">
-           	     			{% trans 'Available for preorder. Delivery on' %} 
-           	     			<strong>{{ p.get_preorder_date|date:"d M Y" }}</strong>
+           	     			{% trans "Order now and we'll deliver this before" %} {{ p.get_preorder_date|date:"d M Y" }}
            	     		</span>
     			 	{% endif %}
 				

@@ -135,9 +135,6 @@ h2 {
   
     <h1>Learn about tea</h1>
   	
-  	<p class="introduction">{% trans 'Appreciate your fine Chinese tea more with our guides to <a href="/how-to-brew-chinese-tea/">brewing</a> and tasting your tea, as well as information about the <a href="/about-chinese-tea/">growing, history and culture of tea</a> drinking in China.' %}</p>
-  	
-  	<div class="hr"></div>
   	
   	<div id="right"> 
   	     {% include 'shop/boxes/brewing.html' %}
@@ -145,6 +142,8 @@ h2 {
   	</div>
   	    
   	<div id="left">
+  	
+  	<p class="introduction">{% trans 'Appreciate your fine Chinese tea more with our guides to <a href="/how-to-brew-chinese-tea/">brewing</a> and tasting your tea, as well as information about the <a href="/about-chinese-tea/">growing, history and culture of tea</a> drinking in China.' %}</p>
   	
             <ul id="blog">
                 {% for x in latestblogs %}

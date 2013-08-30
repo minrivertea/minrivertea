@@ -26,7 +26,7 @@
 {% block extrajs %}
 <script>
 
-$("#instructions div[title]").tooltip({
+$(".warning span[title]").tooltip({
   offset: [-8, 2],   
 });
 
@@ -138,10 +138,6 @@ $(document).ready( function() {
   letter-spacing: -1px;
 }
 
-h1 {
-  margin: 10px 0px;
-}
-
 h1 span {
   font-size: 30px;
   color: #999;
@@ -234,7 +230,8 @@ h1 span {
 
 .tea-top .left {
   width: 500px;
-  float: left;   
+  float: left;
+  margin: 5px 0 0 0;   
 }
 
 
@@ -244,7 +241,7 @@ h1 span {
 }
 
 .tea-top div.description p {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 200;
   margin: 0 0 10px 0;
   text-shadow: 2px 2px 0 #fff;
@@ -343,14 +340,18 @@ h1 span {
 }
 
 #prices .price .warning {
+    background: #c30000;
+    border-radius: 4px 4px 4px 4px;
     bottom: 10px;
-    color: #FF6569;
+    color: #fff;
     float: left;
-    font-size: 12px;
-    left: 95px;
+    font-size: 11px;
+    font-weight: bold;
+    left: 109px;
+    padding: 3px 5px;
     position: absolute;
     text-align: center;
-    width: 200px;
+    width: auto;
 }
 
 a.button.green {
@@ -469,14 +470,13 @@ span.name {
 }
 
 .price .weight {
-    color: #333;
+    bottom: 11px;
+    color: #555555;
     float: left;
+    font-size: 13px;
     font-weight: 100;
+    left: 50px;
     position: absolute;
-    bottom: 10px;
-    left: 60px;
-    font-weight: 100;
-    font-size: 12px;
     width: auto;
 }
 
@@ -785,7 +785,7 @@ ul.rss {
 		    <div class="price-inner">	
               <div class="price-description">
                 <span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
-                <span class="weight"> {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %} 
+                <span class="weight"> / {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %} 
                 </span>
                 
                 {% if price.is_sale_price or price.stocks.count < 1 %}
@@ -795,7 +795,7 @@ ul.rss {
             	{% endif %}
             	
             	{% if price.stocks.count < 1 %}
-            	   {% trans 'Preorder for delivery on:' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong>
+            	   <span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Preorder Only' %}</span>
             	{% endif %}
             </span>  
             {% endif %}
