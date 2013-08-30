@@ -29,12 +29,12 @@
 	</div>
 	
     <div class="footer-box learn">
-		<h4>{% trans 'Receive TEAMails direct to your inbox' %}</h4>
-		<p>{% blocktrans %}Signup to get news and information about Chinese tea, tea culture and special offers from {{ site_name }}{% endblocktrans %}</p>
+		
 		<form action="{% url email_signup %}" method="post">
 	        <input type="text" name="email" id="id_email" title="{% trans 'Your email address' %}" class="clearMeFocus"/>
 	        <input type="submit" class="submit button green" value="{% trans 'Signup' %}" />
         </form>
+        <p>{% blocktrans %}Signup to get news and information about Chinese tea, tea culture and special offers from {{ site_name }}{% endblocktrans %}</p>
     </div>
 
     <p class="copyright">
@@ -44,6 +44,13 @@
         <a href="{% url page _('privacy') %}">{% trans 'Privacy' %}</a> | 
         <a href="{% url page _('imprint') %}">{% trans 'Imprint' %}</a>
     </p>
+    
+    <ul id="social">
+	       <li><a title="{% trans 'Find us on Facebook' %}" href="http://www.facebook.com/minrivertea" id="facebook"></a></li>
+	       <li><a title="{% trans 'Follow us on Twitter' %}" href="http://www.twitter.com/minrivertea" id="twitter"></a></li>
+	       <li><a title="{% trans 'Check out our pins on Pinterest' %}" href="http://pinterest.com/minrivertea/" id="pinterest"></a></li>
+	       <li><a title="{% trans 'Join our Google+ Group' %}" href="https://plus.google.com/115218838272806349303" id="google"></a></li>
+	    </ul>
 
 
   </div>	

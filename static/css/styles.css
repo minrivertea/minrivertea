@@ -8,7 +8,7 @@ body {
   font-family: Helvetica, "Lucida Grande", Arial,"STKaiti",华文楷体,sans-serif;
   margin: 0;
   padding: 0;
-  color: #555;
+  color: #333;
   /* background: url('/static/images/back.png') repeat #EFF5F8; */
 }
 
@@ -71,13 +71,14 @@ h4 {
 
 p {
     font-size: 15px;
+    font-weight: 200;
     line-height: 1.6em;
     letter-spacing: -0.2px;
 }
 
 #left p {
   margin: 0 0 20px;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 #mtw #left h3 {
@@ -777,13 +778,12 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
 }
 
 p.introduction, #left p.introduction {
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: -0.5px;
-  font-weight: 400;
+  font-weight: 100;
   color: #333;
   margin: 10px 0;
   padding-bottom: 10px;
-  line-height: 1.8em;
 }
 
 
@@ -1908,29 +1908,24 @@ button.next:hover {
 
 /* FOOTER STYLES */
 
-#social-footer {
-  background: #e9e9e9;
-  padding: 15px 0;
-  width: 100%;
-  float: left;
-  margin: 40px 0 0 0;   
-}
 
-#social-footer ul {
+#footer ul#social {
   list-style-type: none;
-  margin: 0;
+  margin: 40px 0 0 0;
   padding: 0; 
   text-align: center; 
   line-height: 1em; 
+  width: 100%;
+  float: left;
 }
 
-#social-footer ul li {
+#footer ul#social li {
   display: inline-table;
   margin: 0;   
 }
 
 
-#social-footer a {
+ul#social li a {
     background: url("/static/images/logo16.jpg") no-repeat scroll -232px -35px transparent;
     float: left;
     height: 52px;
@@ -1938,40 +1933,41 @@ button.next:hover {
     margin: 0 30px 0 0;
 }
 
-#social-footer a:hover {
+ul#social a:hover {
   background-position: -232px -87px;   
 }
 
-#social-footer a#facebook {
+ul#social a#facebook {
   background-position: -336px -35px;   
 }
 
-#social-footer a#facebook:hover {
+ul#social a#facebook:hover {
   background-position: -336px -87px;   
 }
 
-#social-footer a#twitter {
+ul#social a#twitter {
   background-position: -283px -35px;   
 }
 
-#social-footer a#twitter:hover {
+ul#social a#twitter:hover {
   background-position: -283px -87px;   
 }
 
-#social-footer a#google {
+ul#social a#google {
   background-position: -387px -35px;   
 }
 
-#social-footer a#google:hover {
+ul#social a#google:hover {
   background-position: -387px -87px;   
 }
 
 #footer {
     background-color: #F6F6F6;
     float: left;
-    font-size: 90%;
+    font-size: 87%;
     height: 300px;
-    margin: 0px 0 0 0;
+    margin: 40px 0 0 0;
+    border-top: 10px solid #f1f1f1;
     padding: 20px 0 180px;
     position: relative;
     width: 100%;
@@ -1981,9 +1977,10 @@ button.next:hover {
   width: 960px;	
 }
 
-#footer p {
+#footer p, #footer ul  {
   margin-top: 0;
-  font-size: 14px;
+  font-size: 87%;
+  font-weight: normal;
 }
 
 #footer a:link, #footer a:visited {
@@ -1993,13 +1990,14 @@ button.next:hover {
 #footer p.copyright {
  float: left;
  width: 100%;
+ text-align: center;
  margin: 30px 0 0 0;
  font-size: 13px;   
 }
 
 .footer-box {
   margin-right: 40px;
-  margin-top: 0px;
+  margin-top: 20px;
   float: left;
   width: 240px;
 }
@@ -2024,7 +2022,7 @@ button.next:hover {
   font-family: Helvetica, Arial, sans-serif;
   letter-spacing: -1px;
   font-weight: bold;
-  margin-bottom: 0;
+  margin: 0;
   color:#FF6569;
 }
 
@@ -2036,7 +2034,6 @@ button.next:hover {
   color: #EE6464;
   margin-bottom: 5px;
   list-style-type: square;
-  font-size: 14px;
 }
 
 #email-signup img.loading {
