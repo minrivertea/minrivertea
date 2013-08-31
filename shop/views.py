@@ -562,8 +562,11 @@ def order_step_one(request, basket=None):
     return _render(request, 'shop/forms/order_step_one.html', locals())
 
 
+def order_url_friend(request, hash):
+    return order_url(request, hash, friend=True)
 
-def order_url(request, hash):
+
+def order_url(request, hash, friend=None):
     
     order = get_object_or_404(Order, hashkey=hash)    
     
