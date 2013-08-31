@@ -46,7 +46,7 @@ h1 {
 
 h2 {
     color: #333333;
-    font-size: 30px;
+    font-size: 24px;
     letter-spacing: -1px;
     margin: 0 0 5px;
     padding-bottom: 0;
@@ -78,7 +78,6 @@ p {
 
 #left p {
   margin: 0 0 20px;
-  font-size: 15px;
 }
 
 #mtw #left h3 {
@@ -408,7 +407,7 @@ span.link {
 }
 
 #userbasket.selected {
-  font-size: 16px;
+  font-size: 15px;
   height: auto;   
 }
 
@@ -1288,10 +1287,9 @@ a.atb.large:hover span {
 
 #checkout-button a.button, #checkout-button input.button {
     float: right;
-    font-size: 30px;
-    height: auto;
-    padding: 15px;
-    width: 400px;
+    font-size: 18px;
+    padding: 10px 25px;
+    width: auto;
 }
 
 #checkout-button a.button span, #checkout-button input.button span {
@@ -1444,9 +1442,9 @@ input, div.row-box input {
     margin: 0 0 15px 0;
     padding: 10px 15px;
     width: 460px;
-    font-weight: 100;
+    font-weight: normal;
     font-family: Helvetica, sans-serif;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 textarea {
@@ -1455,8 +1453,7 @@ textarea {
 
 input:focus, div.row-box input:focus, textarea:focus {
   border: 1px solid #6acc75;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 3px #C1C1C1 inset;
+  box-shadow: 0 1px 5px #f1f1f1 inset;
 }
 
 input#id_captcha_1 {
@@ -1847,13 +1844,13 @@ button.next:hover {
 /* BASKET STYLES */
 
 #basket {
+    width: 820px;
     float: left;
-    width: 960px;
     position: relative;
     min-height: 300px;
-    margin: 30px 0 30px 0;
-    padding-bottom: 30px;
-    border-bottom: 2px dotted #e1e1e1;
+    background: #f6f6f6;
+    padding: 10px 15px;
+    margin: 20px 0 0; 
 }	
 
 #steps {
@@ -1863,7 +1860,7 @@ button.next:hover {
     padding: 0;
     width: auto;
     position: absolute;
-    right: 0;
+    right: 110px;
     top: 0;
 }
 
@@ -1876,8 +1873,8 @@ button.next:hover {
   text-decoration: none;
   padding: 8px 15px;
   background: #f1f1f1;
-  font-size: 12px; 
-  color: #555;
+  font-size: 11px; 
+  color: #999;
   font-weight: bold;
 }
 
@@ -1904,8 +1901,8 @@ button.next:hover {
 
 
 #steps li a.completed:link, #steps li a.completed:visited {
-  background: #2A8531;
-  color: #fff;   
+  color: #2A8531; 
+  background: #d9ecdb;  
 }
 
 /* FOOTER STYLES */

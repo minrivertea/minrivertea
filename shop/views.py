@@ -358,8 +358,6 @@ def basket(request):
                 
     
     currency = _get_currency(request)
-    
-    
     if total_price > currency.postage_discount_threshold or monthly == True:
         postage_discount = True
     else:
@@ -384,7 +382,6 @@ def basket(request):
             return _render(request, "shop/basket.html", locals())
     
     form = UpdateDiscountForm()
-        
     return _render(request, "shop/basket.html", locals())
 
 
@@ -496,6 +493,9 @@ def order_step_one(request, basket=None):
             # CREATE OR FIND THE ORDER
             try:
                 order = get_object_or_404(Order, id=request.session['ORDER_ID'])
+                if not order.hashkey:
+                    order.hashkey = uuid.uuid1().hex
+                    order.save()
                 
             except:
                 creation_args = {
@@ -504,7 +504,8 @@ def order_step_one(request, basket=None):
                     'address': address,
                     'owner': shopper,
                     'status': Order.STATUS_CREATED_NOT_PAID,
-                    'invoice_id': "TEMP"   
+                    'invoice_id': "TEMP",
+                    'hashkey': uuid.uuid1().hex, 
                 }
                 order = Order.objects.create(**creation_args)
                 order.save() # need to save it first, then give it an ID
@@ -563,21 +564,29 @@ def order_step_one(request, basket=None):
 
 
 def order_url(request, hash):
-    order = get_object_or_404(Order, hashkey=hash)
-    shopper = order.owner
-    basket_items = order.items.all()
-    order_items = basket_items
+    
+    order = get_object_or_404(Order, hashkey=hash)    
+    
+    regular_items = order.items.exclude(monthly_order=True)
+    monthly_items = order.items.filter(monthly_order=True)
     
     total_price = 0
-    for item in basket_items:
-        price = item.quantity * item.item.price
-        total_price += price
+    monthly = False
+    
+    for item in chain(regular_items, monthly_items):
+        price = float(item.get_price())
+        total_price += float(price)
+        if item.monthly_order:
+            if item.months >= 6:
+                monthly = True
+                
     
     currency = _get_currency(request)
-    if total_price > currency.postage_discount_threshold:
+    if total_price > currency.postage_discount_threshold or monthly == True:
         postage_discount = True
     else:
         total_price += currency.postage_cost
+    
     
     if order.discount:
         value = total_price * order.discount.discount_value

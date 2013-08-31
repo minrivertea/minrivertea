@@ -19,7 +19,7 @@ fieldset {
  width: 450px;  
  position: relative;
  border-right: 1px dashed #e1e1e1;
- margin: 0 0 30px 100px; 
+ margin: 10px 0 0px 20px; 
  float: left;
  padding-right: 30px;
 }
@@ -44,6 +44,7 @@ legend {
     text-align: left;
     font-weight: bold;
     font-size: 13px;
+    color: #555;
 }
 
 span.mandatory {
@@ -205,13 +206,13 @@ input[type="email"] {
    background: transparent;
    width: 340px;
    padding: 9px 10px 9px 15px;
-   font-size: 16px;
+   font-size: 13px;
    line-height: 1;
    border: 0;
    border-radius: 0;
    height: 36px;
    font-family: Helvetica, Arial, sans-serif;
-   color: #999;
+   color: #777;
 }
 
 .styled-select select:hover {
@@ -264,9 +265,7 @@ input[type="email"] {
     			<a href="">4. {% trans 'Get your tea!' %}</a>
     		</li>
     	</ul>
-   
-   <div class="hr"></div>
-   
+      
    <div id="basket">
 
       <form method="post" action="."> 	 
@@ -322,7 +321,7 @@ input[type="email"] {
 
     	
     	<fieldset>
-    	   <legend>{% trans 'Where should we send your tea? Please provide your address here' %}:</legend>	
+    	   <legend>{% trans 'Where should we send your tea? Please provide the address we should send your tea to' %}</legend>	
 
           <p>
           	<span class="mandatory">*</span>
@@ -369,7 +368,7 @@ input[type="email"] {
 	{% endif %}
 
 	<div id="checkout-button">
-		<input type="submit" value="{% trans 'Confirm your details' %} &raquo;" next="" class="button green"/>
+		<input type="submit" value="{% trans 'Save your details' %} &raquo;" next="" class="button green"/>
 	</div>
 		
 	</form>

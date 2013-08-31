@@ -30,24 +30,80 @@ $(document).ready( function() {
 <link rel="stylesheet" href="{{ static_url }}css/fancybox/jquery.fancybox-1.3.4.css" />
 <style type="text/css">
 
+#bottom {
+  float: left;
+  width: 100%;
+  margin: 40px 0 0 0;   
+}
+
+#bottom .info {
+  border-right: 1px dashed #e1e1e1;
+  padding: 0 20px; 
+  width: 220px  
+}
+
+#bottom .info:first-child {
+}
+
+#bottom .info:last-child {
+  padding-right: 0;
+  border-right: none; 
+  width: 310px;  
+}
+
+#bottom .info input {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  font-size: 13px;   
+}
+
+#bottom .info #order-url {
+    font-family: Courier;
+    font-size: 11px;
+    margin-top: 5px;
+    overflow: hidden;
+    width: 90%;
+    padding-left: 5px;
+}
+
+#bottom .info #order-url:hover {
+  overflow: auto; 
+   
+}
+
+#bottom .info #order-url span {
+  width: 550px;
+  float: left;
+  padding: 5px 0;    
+}
+
 #items {
   float: left;
-  width: auto;
-  border-right: 1px solid #e1e1e1;
-  padding-right: 50px;
-  margin-right: 40px;	
+  width: 450px;
+  padding: 10px;
+  margin-right: 50px;	
 }
+
+
 
 #items h2, #address h2 {
   margin-bottom: 20px;	
 }
 
-table {
-  font-size: 15px;
+table td {
+  padding: 0px;	
+  border: none;
 }
 
-table td {
-  padding: 0 0 0 15px;	
+#items table td {
+  border-bottom: 1px dashed #e1e1e1;
+  padding: 5px 0;   
+}
+
+#items table tr:last-child td {
+  border-bottom: none;
+  padding-bottom: 0;   
 }
 
 #address {
@@ -56,23 +112,22 @@ table td {
 }
 
 #address p.address {
-  padding-left: 15px;	
+  font-size: 13px;
+  margin-left: 10px;
 }
 
 #checkout-button {
-  margin: 30px 0 0;	
+  position: absolute;
+  bottom: 0px;
+  right: 20px;	
 }
 
 p.checkout {
-    float: right;
-    font-size: 14px;
+    float: left;
+    font-size: 13px;
     margin: 0 0 10px 0;
-    text-align: right;
-    width: 100%;
-}
-
-#ppicon {
-  float:right;   
+    text-align: left;
+    width: auto;
 }
 
 #wishlist {
@@ -119,11 +174,12 @@ table {
 
 table tr td:first-child {
   background: none;
-  width: 300px;   
+  width: 320px;   
 }
 
-table td {
-  border: none;   
+table tr td:last-child {
+  width: 50px;
+  text-align: right;   
 }
 
 p.skip {
@@ -162,18 +218,16 @@ p.skip {
     		</li>
     	</ul>
    
-	<div class="hr"></div>  
 	<div id="basket">
 				
 	<div id="items">
-		<h2>You're ordering...</h2>		
 		<table>
 			{% for thing in regular_items %}
 				  <tr>				
 			    	<td valign="top">
-			    		{{ thing.item.parent_product.name }} 
+			    		<strong>{{ thing.item.parent_product.name }}
 			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
-			    		x {{ thing.quantity }}
+			    		x {{ thing.quantity }}</strong>
 			    	</td>
 			    	<td valign="top">{{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}</td>		    				
 				  </tr>
@@ -182,9 +236,9 @@ p.skip {
 	        {% if monthly_items %}
 	        <tr>
 	           <td valign="top">
-	               <strong>Monthly Box</strong><br/>
+	               <strong>{% trans 'Monthly Box' %}</strong><br/>
 	                    {% for thing in monthly_items %}
-			    		&nbsp;&nbsp;{{ thing.item.parent_product.name }} 
+			    		&nbsp;&nbsp;&nbsp;&nbsp;{{ thing.item.parent_product.name }} 
 			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
 			    		x {{ thing.quantity }}<br/>
 			    		{% endfor %}
@@ -224,30 +278,38 @@ p.skip {
 
 	<div id="address">
 
-	   <h2>{% trans "…and we'll send your order to:" %}</h2>
 		<p class="address">
   	   {% with order.address as address %}
+  	      <strong>{{ order.owner.first_name }} {{ order.owner.last_name }}</strong><br/>
+  	      {{ order.owner.email }}<br/>
   	      {% include "shop/snippets/address.html" %}
   	   {% endwith %}
   	   </p>
   	</div>
 
     {% include "shop/snippets/paypal_form.html" %}
+    
 </div>
 
+<div id="bottom">
 
-<div id="wishlist">
-	<a id="wishlist-link" href="#wishlist-full">{% trans 'Turn this basket into a wishlist!' %} <img src="{{ static_url }}images/gift_small.png"></a>
-	<div id="wishlist-full" style="width: 650px; height: 400px; padding: 30px;">
-		<img id="loading-wishlist" src="{{ static_url }}images/loading.gif"/>
-	</div>
-</div>
-	
-<div id="left">
-	<h2>{% trans 'Problems or questions?' %}</h2>
-    <p>{% blocktrans %}We aim to offer first class customer service - if you have ANY problems or questions, contact Chris West, the owner, directly on email at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> - I'll respond normally within a few hours to every email.{% endblocktrans %}</p>
+    <div class="info">
+        <h3>{% trans 'Safe and secure payment' %}</h3>
+      	<p>{% trans 'We accept all major credit and debit cards through Paypal' %}</p>
+      	<div style="margin: 10px 0 0 0;background-image: url('/static/images/logo16.jpg');background-position: 0px -33px; height: 52px; width: 202px;"></div>
+    </div>
+    
+    <div class="info">
+        <h3>{% trans 'Ask a friend to pay' %}</h3>
+        <p>{% trans 'Send a friend this link and they can pay for this order for you' %}</p>
+        <div id="order-url"><span>{{ site_url }}{% url order_url order.hashkey %}</span></div>
+    </div>
+    
+    <div class="info">
+        <h3>{% trans 'Problems or questions?' %}</h3>
+        <p>{% blocktrans %}We aim to offer first class customer service - if you have ANY problems or questions, contact us immediately by email at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> - we'll respond as quickly as possible, usually within a few hours.{% endblocktrans %}</p>
+    </div>
 
-</div>
 
 </div>
 
