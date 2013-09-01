@@ -56,10 +56,9 @@ h2 {
 
 h3 {
     color: #333;
-    font-weight: normal;
+    font-weight: 400;
     margin: 0 0 5px;
     font-size: 24px;
-    font-weight: 100;
     text-transform: lowercase;
 }
 
@@ -78,6 +77,8 @@ p {
 
 #left p {
   margin: 0 0 20px;
+  font-size: 13px;
+  line-height: 1.8em;
 }
 
 #mtw #left h3 {
@@ -934,14 +935,14 @@ p.introduction, #left p.introduction {
   width: 100px;
   height: auto;
   padding: 6px 8px 2px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
   margin: 5px 0 0;
   float: right;	
 }
 
 .info.email-signup p {
-  font-size: 14px;
+  font-size: 13px;
   margin: 0 0 5px 0;	
 }
 
@@ -1221,7 +1222,7 @@ a.atb {
   overflow: hidden;
   height: 20px;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 13px;
   padding-top: 9px;
   color: #888;
   display: none;   
@@ -1470,7 +1471,7 @@ input#id_captcha_1 {
 div.row-box label {
     color: #555555;
     float: left;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.2em;
     margin: 0 0px 3px 10px;
     text-align: left;
@@ -1639,7 +1640,6 @@ div.like div.image {
 
 div#blog-right div.box.clear div.like p.description {
   color: #666;	
-  line-height: 14px;
   font-size: 12px;
 }
 
@@ -1676,7 +1676,8 @@ span.red {
     padding: 5px 10px;
     position: relative;
     top: -5px;
-    width: 570px;
+    width: 500px;
+    border-radius: 5px;
     position: relative;
 }
 
@@ -1696,7 +1697,7 @@ span.red {
 }
 
 #mtw #left div.caption.wide {
-    width: 640px;
+    width: 590px;
 }
 
 #mtw #left img.about {
@@ -1781,7 +1782,7 @@ span.red {
 
 #mtw #left div.did-you-know h3 span.grey, div.did-you-know h3 span.grey {
   text-align: right;
-  font-size: 14px;
+  font-size: 13px;
   padding-left: 10px;	
 }
 
