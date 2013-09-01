@@ -1161,7 +1161,7 @@ p.introduction, #left p.introduction {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  font-size: 14px;	
+  font-size: 13px;	
 }
 
 .info.blogs ul li {
@@ -1542,7 +1542,6 @@ img.map {
 }
 
 div.left p.caption, div.flatpage p.caption {
-  font-size: 0.8em;
   padding-left: 10px;
   color: #000;
   
@@ -1668,14 +1667,32 @@ span.red {
 }
 
 #mtw #left .caption {
-    font-size: 13px;
+    background: none repeat scroll 0 0 #E1E1E1;
+    color: #555;
+    font-size: 11px;
     font-style: italic;
     line-height: 1.6em;
     margin-bottom: 20px;
-    padding: 10px;
-    width: 600px;
-    position:relative;
-    top:-15px;
+    padding: 5px 10px;
+    position: relative;
+    top: -5px;
+    width: 570px;
+    position: relative;
+}
+
+#mtw #left .caption:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 10px solid #e1e1e1;     
+        border-top: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        position: absolute;
+        top: -10px;
+        left: 30px;
+        z-index: 2;
 }
 
 #mtw #left div.caption.wide {
