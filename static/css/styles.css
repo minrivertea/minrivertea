@@ -780,7 +780,8 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
 p.introduction, #left p.introduction {
   font-size: 18px;
   letter-spacing: -0.5px;
-  font-weight: 100;
+  font-weight: normal;
+  line-height: 1.8em;
   color: #333;
   margin: 10px 0;
   padding-bottom: 10px;

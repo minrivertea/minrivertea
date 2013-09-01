@@ -10,6 +10,12 @@ h1 {
   font-size: 38px;
 }
 
+#left p {
+  font-size: 13px;
+  line-height: 1.8em;
+  letter-spacing: 0;   
+}
+
 h1.fimage {
   position: absolute;
   top: 20px;
