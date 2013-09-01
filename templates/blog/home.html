@@ -8,10 +8,6 @@
 {% block extracss %}
 <style type="text/css">
 
-#mtw #left, #mtw #right  {
-  margin-top: 20px;   
-}
-
 .entry-list {
     float: left;
 }
@@ -142,8 +138,7 @@ img.tweets {
 <div id="mtw">
   <div class="sp">
 	
-	<h1>The Min River Tea blog</h1>
-	<p class="introduction">News, events and information from the world of Chinese tea</p>
+	
 		
 	<div id="right">
 		
@@ -151,6 +146,10 @@ img.tweets {
 	</div>
 
 	<div id="left">
+	
+        <h1>{% trans 'The Min River Tea blog' %}</h1>
+        <p class="introduction">{% trans 'News, events and information from the world of Chinese tea' %}</p>
+	
 		{% if entries.has_previous %}
 			<div id="next-previous">
 			<div class="next">
