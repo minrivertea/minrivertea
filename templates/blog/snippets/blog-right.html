@@ -1,15 +1,13 @@
 
-{% include 'shop/boxes/who.html' %}
 
 {% include 'shop/boxes/follow.html' %}
+{% include 'shop/boxes/who.html' %}
 
 {% for t in teas %}
 {% include 'shop/snippets/product_small.html' %}
 {% endfor %}
 
-
 {% include 'shop/boxes/email.html' %}
-
 
 {% if other_entries %}
 {% include 'shop/boxes/blogs.html' %}

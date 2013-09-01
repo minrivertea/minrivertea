@@ -12,11 +12,11 @@
   	{% endif %}
 
   	<div class="text{% if not thing.promo_image %} long{% endif %}">
-  		<h2>
+  		<h3>
   		<a alt="{{ thing.title }}" title="{{ thing.title }}" href="{% url blog_entry thing.slug %}">{{ thing.title }}</a>
-  	    </h2>
+  	    </h3>
   		<p>{{ thing.summary }}</p>
-  		<span class="entry-meta">{% if thing.blogger %}By {{ thing.blogger }} | {% endif %}{{ thing.date_added|date:"d M Y" }}
+  		<p><span class="entry-meta">{% if thing.blogger %}By {{ thing.blogger }} | {% endif %}{{ thing.date_added|date:"d M Y" }}
   		</p>
 	</div> 
   </div>
