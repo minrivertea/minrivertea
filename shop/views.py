@@ -204,8 +204,7 @@ def contact_form_submit(request, xhr=None):
         form = ContactForm(request.POST)
         if form.is_valid():
             _admin_notify_contact(form.cleaned_data)
-            message = _("Thanks! Your message has been sent and we'll get back to you as soon as we can.")
-            return _render(request, 'shop/forms/contact_form.html', locals())
+            return _render(request, 'shop/forms/contact_form_thanks.html', locals())
         else:
             page = get_object_or_404(Page, slug='contact-us')
             return _render(request, 'shop/forms/contact_form.html', locals())            

@@ -71,6 +71,10 @@ $(document).ready( function() {
     font-size: 15px;
 }
 
+.basket-row:first-child {
+  padding-top: 0;   
+}
+
 .basket-row.totals {
   padding: 20px 0px;
   line-height: 1em;
@@ -654,7 +658,7 @@ div#discount {
     </div>  	
     
     <div class="info">
-		<h3>{% trans "No Questions Returns" %}</h3>
+		<h3>{% trans "No Questions Askedf" %}</h3>
 		<p>{% url page _('contact-us') as contact_url %}{% blocktrans %}We operate a 'no questions asked' returns policy. If you're not happy, just return your tea and we'll refund your payment in full.</a>{% endblocktrans %}</p>
 	</div>
 

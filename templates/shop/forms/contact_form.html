@@ -174,11 +174,8 @@ img#loading-contact {
 		
 		  				<p class="introduction">
 				    <strong>Nǐ hǎo {% blocktrans %}(that's <em>hello</em> in Chinese!){% endblocktrans %}</strong>
-				{% trans "If you have questions about tea or about our service, please get in touch and we will do our best to help. The best way to get in touch is to drop me an email - you'll always get a quick response." %}</p>
+				{% trans "If you have questions about tea or about our service, please get in touch and we will do our best to help. The best way to get in touch is to send us an email at <a href='mailto:mail@minrivertea.com'>mail@minrivertea.com</a> - you'll always get a quick response." %}</p>
 			
-				<ul>
-					<li><strong>{% trans 'Email' %}:</strong> <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> </li>
-				</ul>
 			<div id="form">	
 				{% if message %}
 					{% include 'shop/forms/contact_form_message_snippet.html' %}
@@ -186,7 +183,6 @@ img#loading-contact {
 	
 				<img id="loading-contact" src="{{ static_url }}images/loading.gif"/>
 				<form action="{% url contact_form_submit %}" method="post" id="contact-form">
-					<h3>{% trans "Send us a message" %}</h2>
 					<p>{% trans "Use our online contact form to send us a message. We respond to all messages within 12 hours." %}</p>			
 					<textarea id="id_your_message" name="your_message" title="{% trans 'Write your message here...' %}" class="clearMeFocus{% if form.your_message.errors %} error{% endif %}" cols="40" rows="10"></textarea>
 					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus{% if form.your_name.errors %} error{% endif %}" title="{% trans 'Your name' %}" value=""/>
