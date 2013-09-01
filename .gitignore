@@ -9,6 +9,7 @@ static/images/blog-photos/
 static/images/likes/
 static/images/maps/
 static/images/wishlist-photos/
+static/images/debug_social.jpg
 locale/
 static/cache/
 TODOLIST
@@ -17,6 +18,8 @@ sorl/
 static/js/jquery.tools.min.js
 modeltranslation/
 modeltranslation_wrapper/
+debug_toolbar/
+
 
 
 
