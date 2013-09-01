@@ -18,28 +18,32 @@
 		  			<a title="{{ p.name }} - {% trans 'find out more or order some now!' %}" href="{{ p.get_absolute_url }}">{{ p.name }}</a>
 				</h4>
 			     
-			     <div class="price-weight">
+			    <div class="price-weight">
     		        <span class="price">
     		            {{ currency.symbol }}{{ p.price.price|floatformat:"-2" }}
     		        </span>
     		        <span class="weight">    
     		          / {% if p.price.weight %}{% convert_weights request p.price.weight %}{{ weight_unit }}{% else %}{{ p.price.description }}{% endif %}
     		        </span>    		        
-    			 </div>
+    			</div>
     			 
-    			 <p>{{ p.description }}</p>
-    			 	{% if p.price.stocks.count < 0 %}
-           	     		<span class="not-in-stock">
-           	     			{% trans "Order now and we'll deliver this before" %} {{ p.get_preorder_date|date:"d M Y" }}
-           	     		</span>
-    			 	{% endif %}
+    			<p>{{ p.description }}</p>
+    			 
+    			{% if p.price.stocks.count < 0 %}
+           	     	<span class="not-in-stock" title="{{ p.get_preorder_date|date:'d M Y' }}">
+           	     		{% trans "Preorder only" %}
+           	        </span>
+                {% endif %}
 				
-					<a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" class="button small" href="{% url add_to_basket p.price.id %}" class="" id="add_to_basket_{{ p.price.id }}"><span class="plus">+</span></a>
+                <a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" class="button small" href="{% url add_to_basket p.price.id %}" class="" id="add_to_basket_{{ p.price.id }}"><span class="plus">Add to basket</span></a>
 				
+				{% if p.basket_quantity %}
 				<div class="in-basket">
-    		      {% if p.basket_quantity %}<span class="num">{{ p.basket_quantity }}</span> {% trans 'already in basket' %}{% endif %}
-    		     </div> 
-		      </div>
+    		      <span class="num">{{ p.basket_quantity }}</span> {% trans 'in basket' %}
+    		    </div> 
+    		    {% endif %} 
+            </div>
+                
 			
 		  </div>
 	</div>

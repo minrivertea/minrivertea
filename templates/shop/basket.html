@@ -164,7 +164,7 @@ $(document).ready( function() {
 
 .basket-row .tea-total {
   float: right;
-  right: 30px;
+  right: 5px;
   color: #333; 
   font-weight: bold;
   font-size: 13px;
@@ -421,16 +421,16 @@ div#discount {
 
 .basket-row .preorder {
     background: none repeat scroll 0 0 #C30000;
-    color: #fff;
+    color: #FFFFFF;
     font-size: 11px;
+    font-weight: bold;
     height: auto;
+    letter-spacing: -0.3px;
     padding: 5px 5px 5px 10px;
     position: absolute;
     right: -140px;
-    top: 10px;
-    width: 130px;
-    font-weight: bold;
-    letter-spacing: -0.3px;
+    top: 5px;
+    width: 100px;
 }
 
 .basket-row .preorder:before {
@@ -438,7 +438,7 @@ div#discount {
   display: block;
   position: absolute;
   left: -10px;
-  top:10px;
+  top:15px;
   border-color:  transparent #C30000 transparent -moz-use-text-color;
   border-style: solid solid solid none;
   border-width: 10px 10px 10px 0px;     
@@ -524,7 +524,7 @@ div#discount {
 		  <a class="remove" title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" href="{% url remove_from_basket thing.id %}">Remove</a>
 		</div>
 		{% if thing.item.stocks.count == 0 or thing.item.stocks == None %}
-	    	<div class="preorder">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}This is a pre-order and will be delivered separately on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
+	    	<div class="preorder">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}This is a pre-order and will be sent separately on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
 	    {% endif %}
 	    <div class="tea-total">
 		  {{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}

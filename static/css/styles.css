@@ -1001,14 +1001,15 @@ p.introduction, #left p.introduction {
 .info.tea.long a.button {
     background: none repeat scroll 0 0 #2A8531;
     border: medium none;
-    border-radius: 2px 2px 2px 2px;
+    border-radius: 3px 3px 3px 3px;
     bottom: 10px;
     box-shadow: none;
     color: #FFFFFF;
     font-size: 15px;
-    height: 20px;
+    height: auto;
     left: 30px;
-    padding: 4px 6px 0;
+    line-height: 1em;
+    padding: 4px 6px 2px;
     position: absolute;
     text-align: center;
     text-decoration: none;
@@ -1018,8 +1019,8 @@ p.introduction, #left p.introduction {
 
 
 .info.tea.long a.button span.plus {
-  font-size: 22px;
-  font-weight: 100;  
+  font-size: 11px;
+  font-weight: bold;  
   letter-spacing: 0;
   float: left;
 }
@@ -1036,32 +1037,36 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea.long .glass-text .in-basket, .info.tea .glass-text .in-basket {
-  position: absolute;
-  left: 30px;
-  bottom: 45px;   
-  font-size: 13px;
-  font-weight: bold;
-  color: #FF6569;
+    background: none repeat scroll 0 0 #f1f1f1;
+    border-radius: 3px 3px 3px 3px;
+    bottom: 40px;
+    color: #666;
+    font-size: 11px;
+    font-weight: bold;
+    left: 30px;
+    padding: 4px 8px 2px;
+    position: absolute;
+    text-shadow: none;
 }
     
 
 .info.tea.long .pricebar .price-weight {
-    bottom: 12px;
+    bottom: 11px;
     float: none;
-    left: 70px;
+    left: 125px;
     position: absolute;
 }
 
 .info.tea.long .pricebar .not-in-stock {
     background: none repeat scroll 0 0 #C30000;
-    color: #fff;
-    padding: 3px 5px;
-    font-weight: bold;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
     font-size: 11px;
-    border-radius: 4px;
-    position: relative;
-    top: 5px;
-    left: -2px;
+    font-weight: bold;
+    padding: 3px 5px 2px;
+    position: absolute;
+    right: 0;
+    top: 7px;
 }
 
 .info.tea .rollover {

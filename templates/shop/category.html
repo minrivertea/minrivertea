@@ -29,26 +29,14 @@ $('.pricebar a.button').click( function() {
    		
    		
    		/// increment the values in the already in basket next to product
-   		if (thisButton.parent('.pricebar').find('.in-basket .num').length) {
+   		
+   		if (thisButton.parent('.pricebar').find('.in-basket').length) {
 	   		var curr = thisButton.parent('.pricebar').find('.in-basket .num');
    			curr.html(parseInt(curr.html(), 10)+1);
    		} else {
-   		  	thisButton.parent('.pricebar').find('.in-basket').append(
-   		  	'<span class="num">1</span> {% trans "already in basket" %}');
+   		  	thisButton.parent('.pricebar').append('<div class="in-basket"><span class="num">1</span> {% trans "in basket" %}</div>');
    		}
-   		
-   		/// animate the button
-   		thisButton.animate({
-   			'width': '200',
-   		}, 300, 
-   		
-   		/// callback when animation complete
-   		function() {
-   			thisButton.append('<span class="text">{% trans "1 added to your basket" %}</span>');
-   			thisButton.children('.text').fadeIn(200);
-   		}).delay(1000).animate({'width': '15',}, 200, function() {
-   		   thisButton.children('.text').remove();  
-   		});  
+   		  
    		
    	},
   });
