@@ -1847,7 +1847,6 @@ button.next:hover {
     width: 820px;
     float: left;
     position: relative;
-    min-height: 300px;
     background: #f6f6f6;
     padding: 10px 15px;
     margin: 20px 0 0; 
