@@ -390,7 +390,8 @@ def _change_monthly_frequency(request, months):
                 })
         basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
         monthly_amount = '%.2f' % float(RequestContext(request)['monthly_amount'])
-        data = {'html': html, 'basket_quantity': basket_quantity, 'monthly_amount': monthly_amount,}
+        data = {'html': html, 'basket_quantity': basket_quantity, 
+            'monthly_amount': monthly_amount, 'months': months,}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     

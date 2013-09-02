@@ -83,6 +83,7 @@ function changeMonths() {
             $('#products').html(data.html);
             $('#userbasket #quantity .p').html(data.basket_quantity);
             $('#subtotal .amount .num').html(data.monthly_amount);
+            $('#subtotal .items .months').html(data.months);
             $('#loading').remove();
             $('.pricebar a.button').bind('click', addToBasket);
          }
@@ -178,19 +179,18 @@ h1 span {
 
 
 .tea-top .description {
-  width: 430px;
-  float: right;	
+  width: 750px;
+  float: left;	
 }
 
 .tea-top div.description p {
   font-size: 20px;
-  font-weight: 200;
+  font-weight: 100;
   margin: 0 0 10px 0;
-  text-shadow: 2px 2px 0 #fff;
 }
 
 .tea-top div.description p.small {
-  font-size: 16px;	
+  font-size: 13px;	
 }
 
 .tea-top div.main-image {
@@ -490,7 +490,7 @@ div.fb-recommend {
 }
 
 
-#monthly, #choose-months {
+#monthly {
     background: none repeat scroll 0 0 transparent;
     float: left;
     height: auto;
@@ -499,16 +499,21 @@ div.fb-recommend {
     width: 100%;
 }
 
-#choose-months, #subtotal {
+#choose-months {
   border-bottom: none; 
-  width: 430px;
-  float: right;  
+  width: 350px;
+  float: left;  
+}
+
+#subtotal {
+  float: left;
+  width: 400px;   
 }
 
 #choose-months h3, #subtotal h3 {
   font-size: 15px;
   color: #FF6569;
-  margin: 0 0 15px 0;   
+  margin: 10px 0 15px 0;   
 }
 
 #choose-months ul {
@@ -608,7 +613,7 @@ div.fb-recommend {
    width: 100%;
 }
 
-#monthly #guide {
+#monthly #guidelink {
   float: right;
   width: auto;
   margin: 0;
@@ -617,11 +622,6 @@ div.fb-recommend {
   font-weight: 100;
   line-height: 1em;
   text-transform: lowercase;
-}
-
-#choose-months h3 {
-  position: relative;
-  top: 3px;
 }
 
 #monthly .info.tea {
@@ -816,18 +816,8 @@ div.fb-recommend {
 	<h1>{% if product.long_name %}{{ product.long_name|safe }}{% else %}{{ product.name }}{% endif %}</h1>
 
 	<div class="tea-top">
-		<div class="left">
-		<div class="main-image">
-			<img class="loading" src="{{ static_url }}images/loading.gif"/>
-			<div id="image_wrap">
-			    {% thumbnail product.image thumb_large crop="center" as im %}
-					<img class="product-small" alt="{{ im.url }}" title="{{ product.description }}" src="{{ im.url }}"/></a>
-				{% endthumbnail %}	
-			</div>
-		</div><!-- end main image div -->
-		</div>
-		
 		<div class="description">{{ product.body_text|safe }}</div>
+		<br clear="all"/>
 		<div id="choose-months">
     	   <h3>{% trans 'Choose how many months you would like' %}:</h3>
     	   <ul>
@@ -846,7 +836,7 @@ div.fb-recommend {
     	<div id="subtotal">
     	   <h3>{% trans 'Your TeaBox subtotal is' %}</h3>
     	   <div class="amount">{{ currency.symbol }}<span class="num">{{ monthly_amount|floatformat:"2" }}</span></div>
-    	   <div class="items"><span class="num">{{ monthly_items }}</span> {% trans 'items' %} / {{ months }} {% trans 'months' %}</div>    	   
+    	   <div class="items"><span class="num">{{ monthly_items }}</span> {% trans 'items' %} / <span class="months">{{ months }}</span> {% trans 'months' %}</div>    	   
     	</div>
     	
     	
@@ -857,7 +847,7 @@ div.fb-recommend {
 				
 	<div id="monthly">
 
-	   <p id="guide"><a href="#guide">{% trans 'How it works and FAQs' %} &raquo;</a></p>
+	   <p id="guidelink"><a href="#guide">{% trans 'How it works and FAQs' %} &raquo;</a></p>
 
 	   <h3>
 	       {% trans 'Choose which teas to add to your TeaBox' %} &raquo;<br/>
