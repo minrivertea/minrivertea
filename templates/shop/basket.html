@@ -30,6 +30,11 @@ $(document).ready( function() {
 <link rel="stylesheet" href="{{ static_url }}/css/fancybox/jquery.fancybox-1.3.4.css" />
 <style type="text/css">
 
+#basket p.introduction {
+  margin: 0;
+  padding: 0;   
+}
+
 #tools  {
   display: none;   
 }
@@ -659,7 +664,7 @@ div#discount {
     </div>  	
     
     <div class="info">
-		<h3>{% trans "No Questions Askedf" %}</h3>
+		<h3>{% trans "No Questions Asked" %}</h3>
 		<p>{% url page _('contact-us') as contact_url %}{% blocktrans %}We operate a 'no questions asked' returns policy. If you're not happy, just return your tea and we'll refund your payment in full.</a>{% endblocktrans %}</p>
 	</div>
 
@@ -674,13 +679,8 @@ div#discount {
 
 {% else %}
   <div id="basket">
-	<p>{% trans "There's nothing in your basket - add something, quick! " %}<br/><a href="{% url teas %}">&raquo; {% trans 'Browse our selection of Chinese teas here.' %}</a></p>
+	<p class="introduction">{% trans "There's nothing in your basket - add something, quick! " %} - <a href="{% url teas %}">&raquo; {% trans 'Browse our selection of Chinese teas here.' %}</a></p>
   </div>
-	<div class="did-you-know">
-	<a href="/suggestions/"><span class="link"></span></a>
-	<h3>{% trans 'Need some help choosing a tea?' %} <span class="grey">{% trans 'Let us help you' %} &raquo;</span></h3>
-	</div>
-
 {% endif %}
 
   </div>

@@ -68,11 +68,15 @@ h2.banner {
 }
 
 #teas .info.tea {
-  margin: 0px 10px 10px 0;
+  margin: 0px 10px 20px 0;
   width: 475px;
-  padding-bottom: 10px; 
+  padding-bottom: 20px; 
   overflow: hidden;
   border-bottom: 1px dashed #e1e1e1;  
+}
+
+#teas .info.tea:hover .glass-text h3 a {
+  color: #FF6569;
 }
 
 #teas .info.tea.right {
@@ -83,7 +87,30 @@ h2.banner {
   margin-bottom: 0;
 }
 
-#teas .info.tea .glass-text, #teaware .info.tea .glass-text {
+#teas .info.tea .glass-text {
+    border-bottom: medium none;
+    float: left;
+    height: 160px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 210px;
+    text-align: left; 
+}
+
+#teas .info.tea .glass-text p {
+  font-size: 11px;   
+}
+
+#teas .info a.imagelink {
+  margin-right: 10px;   
+}
+
+#teas .info.tea .glass-text .price-weight {
+  margin: 5px 0;   
+}
+
+#teaware .info.tea .glass-text {
    float: left;
    width: 100%;
    border-bottom: none;
@@ -94,12 +121,6 @@ h2.banner {
    background: #fff;
    bottom: 10px;
 }
-
-#teas .info.tea.first {
-  width: 420px;
-  float: right;
-}
-
 
 #benefits img {
   margin: 0;
@@ -369,9 +390,30 @@ ul.rss {
   text-shadow: 0 1px 1px #bd0000;
 }
 
-.pricebar h4 {
-  font-weight: 100;
-  text-transform: lowercase;   
+#teas .info.tea .glass-text h3 {
+    color: #FF6569;
+    float: left;
+    font-weight: 100;
+    letter-spacing: -0.5px;
+    margin: 0 0 5px;
+    position: relative;
+    width: auto;
+    width: 100%;
+}
+
+#teas .info.tea .glass-text .pricebar {
+  text-align: left;
+  padding: 15px 0 5px;   
+}
+
+#teas .info.tea a.button {
+    bottom: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2px 5px;
+    position: absolute;
+    right: 0;
+    z-index: 20;
 }
 
 
@@ -403,33 +445,29 @@ ul.rss {
 	<div id="teas">
         <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
         {% for t in teas %}
-                <div class="info tea {% cycle 'left' 'right' %}">
-                    <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+            <div class="info tea {% cycle 'left' 'right' %}">
+                <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+                
+                {% thumbnail t.image "240x160" crop="center" as im %}
+                <a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
+                	<img alt="{{ t.description }}" src="{{ im.url }}"/>
+                </a>
+                {% endthumbnail %}
                     
-                    <div class="rollover">
-                        <div class="back">&nbsp;</div>
-                        <div class="text">{{ t.description }}</div>
-                    </div>
-                    
-                    {% thumbnail t.image "475x190" crop="center" as im %}
-                	<a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
-                		<img alt="{{ t.description }}" src="{{ im.url }}"/>
-                	</a>
-                    {% endthumbnail %}
-                    <div class="glass-text">
-                        <div class="inner">
-                            <div class="pricebar">
-                                <div class="price-weight">
-                                    <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% endif %}</span> 
-                                    <span class="weight">{% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</span>
-                                </div>
-                                <h4><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h4>
-                             </div>
-                         </div>
+                <div class="glass-text">
+                    <div class="inner">
+                        <div class="pricebar">
+                            <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
+                            <p>{{ t.description }}</p>
+                            <div class="price-weight">
+                                <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% endif %}</span> 
+                                <span class="weight">{% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</span>
+                            </div>
+                        </div>                            
                      </div>
                 </div>
+            </div>
         {% endfor %}
-        
     </div>
 	<!-- END TEAS LIST -->
 	    

@@ -893,7 +893,8 @@ p.introduction, #left p.introduction {
 }
 
 .info .glass-text .inner {
-  padding: 10px;   
+  padding: 0px;
+  height: 100%;   
 }
 
 .info h3 {
