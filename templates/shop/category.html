@@ -11,7 +11,7 @@ $('#types').click(function() {
 	$('#subnav').toggle(300);
 });
 
-$('.pricebar a.button').click( function() {
+$('.info.tea a.button').click( function() {
   var thisButton = $(this)
   $.ajax({
   	url: thisButton.attr('href'),
@@ -30,14 +30,12 @@ $('.pricebar a.button').click( function() {
    		
    		/// increment the values in the already in basket next to product
    		
-   		if (thisButton.parent('.pricebar').find('.in-basket').length) {
-	   		var curr = thisButton.parent('.pricebar').find('.in-basket .num');
+   		if (thisButton.parent('.info.tea').find('.in-basket').length) {
+	   		var curr = thisButton.parent('.info.tea').find('.in-basket .num');
    			curr.html(parseInt(curr.html(), 10)+1);
    		} else {
-   		  	thisButton.parent('.pricebar').append('<div class="in-basket"><span class="num">1</span> {% trans "in basket" %}</div>');
-   		}
-   		  
-   		
+   		  	thisButton.parent('.info.tea').find('.pricebar').append('<div class="in-basket"><span class="num">1</span> {% trans "in basket" %}</div>');
+   		}   		
    	},
   });
   return false;
@@ -114,30 +112,6 @@ div.info.photo img {
 
 {% if categories %}
 
-.info.tea {
-  margin: 0px 10px 20px 0;
-  width: 475px;
-  padding-bottom: 20px; 
-  overflow: hidden;
-  border-bottom: 1px dashed #e1e1e1;  
-}
-
-.info.tea.right {
-  margin-right: 0;   
-}
-
-.info.tea img {
-  float: left;
-  margin-right: 10px;  
-} 
-
-.info.tea .glass-text {
-  float: left;
-  width: 210px;
-  height: 160px;
-  border-bottom: none;
-  text-align: left;   
-}
 
 .info .glass-text .inner {
   height: 100%;   
@@ -188,7 +162,11 @@ div.info.photo img {
   	     
 	    
 	     {% if categories %}
-		    {% include "shop/snippets/products.html" %}
+		    {% for c in categories %}
+		      {% with c.products as teas %}
+		          {% include 'shop/snippets/products_long.html' %}
+		      {% endwith %}
+		    {% endfor %}
 		 {% endif %}
 		
 	</div>	

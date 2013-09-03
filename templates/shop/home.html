@@ -9,25 +9,35 @@
 {% block extrajs %}
 <script type="text/javascript">
 
-$(document).ready( function() {
-    /// GIVE THE ROLLOVER DIVS A HEIGHT
-    $('.rollover').each( function(item) {
-       $(this).css({
-        'width': ($('.text', this).width()+30),
-       }); 
-    });
+$('.info.tea a.button').click( function() {
+  var thisButton = $(this)
+  $.ajax({
+  	url: thisButton.attr('href'),
+	type: "GET",
+   	dataType: 'json',
+   	success: function(data) {
+   		
+   		/// increment the values in the header basket
+        if ($('#userbasket').hasClass('selected')) {} else {
+             $('#userbasket').addClass('selected'); 
+             $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+        }
+        $('#quantity .p').text(parseFloat(data.basket_quantity).toFixed(2));
+        $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+   		
+   		
+   		/// increment the values in the already in basket next to product
+   		
+   		if (thisButton.parent('.info.tea').find('.in-basket').length) {
+	   		var curr = thisButton.parent('.info.tea').find('.in-basket .num');
+   			curr.html(parseInt(curr.html(), 10)+1);
+   		} else {
+   		  	thisButton.parent('.info.tea').find('.pricebar').append('<div class="in-basket"><span class="num">1</span> {% trans "in basket" %}</div>');
+   		}   		
+   	},
+  });
+  return false;
 });
-
-    $('#teas .info.tea').hover( function() {
-        $('.rollover', this).animate({
-           'left': '0', 
-        }, 100); 
-    }, function() {
-        var h = ($('.rollover', this).width()+30);
-        $('.rollover', this).animate({
-           'left': '-'+h, 
-        }, 100);   
-    });
 
 </script>
 {% endblock %}
@@ -67,59 +77,8 @@ h2.banner {
   height: auto;
 }
 
-#teas .info.tea {
-  margin: 0px 10px 20px 0;
-  width: 475px;
-  padding-bottom: 20px; 
-  overflow: hidden;
-  border-bottom: 1px dashed #e1e1e1;  
-}
-
-#teas .info.tea:hover .glass-text h3 a {
-  color: #FF6569;
-}
-
-#teas .info.tea.right {
-  margin-right: 0;   
-}
-
 #teas .info.tea.right:last-child, #teas .info.tea.left:last-child {
   margin-bottom: 0;
-}
-
-#teas .info.tea .glass-text {
-    border-bottom: medium none;
-    float: left;
-    height: 160px;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    width: 210px;
-    text-align: left; 
-}
-
-#teas .info.tea .glass-text p {
-  font-size: 11px;   
-}
-
-#teas .info a.imagelink {
-  margin-right: 10px;   
-}
-
-#teas .info.tea .glass-text .price-weight {
-  margin: 5px 0;   
-}
-
-#teaware .info.tea .glass-text {
-   float: left;
-   width: 100%;
-   border-bottom: none;
-   margin: 0;
-   position: absolute;
-   opacity: 0.8;
-   z-index:20;
-   background: #fff;
-   bottom: 10px;
 }
 
 #benefits img {
@@ -390,31 +349,6 @@ ul.rss {
   text-shadow: 0 1px 1px #bd0000;
 }
 
-#teas .info.tea .glass-text h3 {
-    color: #FF6569;
-    float: left;
-    font-weight: 100;
-    letter-spacing: -0.5px;
-    margin: 0 0 5px;
-    position: relative;
-    width: auto;
-    width: 100%;
-}
-
-#teas .info.tea .glass-text .pricebar {
-  text-align: left;
-  padding: 15px 0 5px;   
-}
-
-#teas .info.tea a.button {
-    bottom: 8px;
-    font-size: 13px;
-    font-weight: bold;
-    padding: 2px 5px;
-    position: absolute;
-    right: 0;
-    z-index: 20;
-}
 
 
 </style>
@@ -444,30 +378,7 @@ ul.rss {
 
 	<div id="teas">
         <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
-        {% for t in teas %}
-            <div class="info tea {% cycle 'left' 'right' %}">
-                <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
-                
-                {% thumbnail t.image "240x160" crop="center" as im %}
-                <a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
-                	<img alt="{{ t.description }}" src="{{ im.url }}"/>
-                </a>
-                {% endthumbnail %}
-                    
-                <div class="glass-text">
-                    <div class="inner">
-                        <div class="pricebar">
-                            <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
-                            <p>{{ t.description }}</p>
-                            <div class="price-weight">
-                                <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% endif %}</span> 
-                                <span class="weight">{% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</span>
-                            </div>
-                        </div>                            
-                     </div>
-                </div>
-            </div>
-        {% endfor %}
+        {% include 'shop/snippets/products_long.html' %}
     </div>
 	<!-- END TEAS LIST -->
 	    
@@ -486,9 +397,9 @@ ul.rss {
 	
 	<div id="teaware">
 	   <h2 class="banner">{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %} - <a href="{% url teaware %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
-	   {% for t in teaware %}
-	       {% include 'shop/snippets/product_small.html' %}  
-	   {% endfor %}
+	   {% with teaware as teas %}
+	       {% include 'shop/snippets/products_long.html' %}  
+	   {% endwith %}
 	</div>	
 
     <div class="hr"></div>

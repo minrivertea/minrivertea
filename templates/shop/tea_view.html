@@ -61,7 +61,7 @@ function addToBasket(obj) {
    	  var thisPrice = $(this).parent('.price-inner');
    	  
    	  thisPrice.css({'opacity': '0.4'});
-   	  thisPrice.prepend('<img src="{{ static_url }}images/loading.gif" id="loading"/>');
+   	  $('#prices').prepend('<img src="{{ static_url }}images/loading.gif" id="loading"/>');
    	 
    	  $.ajax({
    	      url: $(this).attr('href'),
@@ -145,9 +145,11 @@ h1 span {
 
 .product-photos-small {
     float: left;
-    margin: 0px 0 0px;
+    margin: 0px 0 0px 5px;
     text-align: right;
     width: 50px;
+    position: relative;
+    left: 5px;
 }
 
 .product-photos-small img {
@@ -229,7 +231,7 @@ h1 span {
 }
 
 .tea-top .left {
-  width: 500px;
+  width: 560px;
   float: left;
   margin: 0px 0 0 0;   
 }
@@ -257,7 +259,7 @@ h1 span {
 
 .tea-top div.main-image {
     float: left;
-    width: 550px;
+    width: 555px;
     position: relative;
 }
 
@@ -270,7 +272,7 @@ h1 span {
 
 #prices #loading {
     float: left;
-    left: 35%;
+    left: 40%;
     margin: 0;
     position: absolute;
     top: 20px;
@@ -278,31 +280,29 @@ h1 span {
 }
 
 #prices .message {
-  float: left;
-  position: absolute;
-  top: -0px;
-  width: 400px;
-  margin: 0 0 15px 0;	
-  display: none;
-  background: none repeat scroll 0 0 #165a1a;
-  padding: 10px 15px;
-  text-align: center;
-  color: #fff;
+    background: none repeat scroll 0 0 #F1F1F1;
+    border-radius: 5px 5px 5px 5px;
+    display: none;
+    float: left;
+    left: -5px;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: -30px;
+    width: 360px;
+    z-index: 30;
 }
 
-
-
 #prices .message h3 {
-    color: #fff;
-    font-size: 13fpx;
+    color: #333;
+    font-size: 13px;
     font-weight: bold;
     margin: 0;
     text-transform: none;
-    text-shadow: 0 1px 1px #333;
+    text-shadow: none;
 }
 
 #prices .message h3 a {
-  color: #c1f4c5;   
 }
 
 #prices .message h3 a:hover {
@@ -321,17 +321,6 @@ h1 span {
 
 #prices .price:first-child {
   border-top: none;   
-}
-
-.tea-top .message:before {
-    border-color: #165a1a transparent -moz-use-text-color transparent ;
-    border-style: solid solid none solid;
-    border-width: 15px 15px 0 15px;
-    content: " ";
-    position: absolute;
-    bottom: -15px;
-    left: 40%;
-    display: block;
 }
 
 .tea-top .price .price-inner {
@@ -630,13 +619,6 @@ div.fb-recommend {
   margin: 0;   
 }
 
-#shipping p, #safe p {
-  font-weight: bold;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  color: #777; 
-  padding-left: 10px;  
-}
 
 
 {% if reviews %}
@@ -906,9 +888,9 @@ ul.rss {
 	
 	<div id="recommended">
 	   <h3 class="title">{% trans 'Also recommended...' %}</h3>
-	   {% for t in recommended %}
-            {% include 'shop/snippets/product_small.html' %}		  
-	   {% endfor %}
+	   {% with recommended as teas %}
+            {% include 'shop/snippets/products_long.html' %}		  
+	   {% endwith %}
 	</div>
 
     {% if ga_is_on %}

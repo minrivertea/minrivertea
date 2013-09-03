@@ -51,8 +51,8 @@ class BasketDoesNotExist(Exception):
 def index(request):
     curr = _get_currency(request)
     teas = _get_products(request)[:4]
-        
-    teaware = _get_products(request, cat=_('teaware'))[:3]
+            
+    teaware = _get_products(request, cat=_('teaware'))[:4]
     special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
     special.price = special.get_lowest_price(curr)
                 
@@ -156,7 +156,7 @@ def tea_view(request, slug):
     if tea.slug == _('monthly-tea-box'):
         return monthly_tea_box(request)
     
-    recommended = _get_products(request, random=True, exclude=tea.id)[:3]
+    recommended = _get_products(request, random=True, exclude=tea.id)[:4]
     #price = tea.get_lowest_price(_get_currency(request))
     prices = UniqueProduct.objects.filter(is_active=True, parent_product=tea, currency=_get_currency(request)).order_by('weight')
     

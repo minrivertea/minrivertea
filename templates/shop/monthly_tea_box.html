@@ -30,7 +30,7 @@ $("#choose-months a[title]").tooltip({
   offset: [-8, 2],   
 });
 
-$('.pricebar a.button').bind('click', addToBasket);
+$('.info.tea a.button').bind('click', addToBasket);
 
 function addToBasket() {
 	  
@@ -56,12 +56,12 @@ function addToBasket() {
             $('#subtotal .items .num').html(parseInt($('#subtotal .items .num').html(), 10)+1);
             
             /// increment the values in the already in basket next to product
-        		if (thisButton.parent('.pricebar').find('.in-basket .num').length) {
-    	   		var curr = thisButton.parent('.pricebar').find('.in-basket .num');
-        			curr.html(parseInt(curr.html(), 10)+1);
+        		if (thisButton.parent('.info.tea').find('.in-basket').length) {
+    	   		  var curr = thisButton.parent('.info.tea').find('.in-basket .num');
+        		  curr.html(parseInt(curr.html(), 10)+1);
         		} else {
-        		  	thisButton.parent('.pricebar').find('.in-basket').append(
-        		  	'<span class="quantity"><span class="num">1</span> {% trans "in your TeaBox!" %}</span>');
+        		  	thisButton.parent('.info.tea').find('.pricebar').append(
+        		  	'<div class="in-basket"><span class="quantity"><span class="num">1</span> {% trans "in your TeaBox!" %}</span></div>');
         		}
 
 		  } /// END SUCCESS FUNCTION
@@ -619,13 +619,6 @@ div.fb-recommend {
   text-transform: lowercase;
 }
 
-#monthly .info.tea {
-    margin: 0 40px 20px 0;
-    width: 460px;
-    border-bottom: 1px dashed #e1e1e1;
-    padding-bottom: 20px;
-}
-
 #monthly .info.tea.right {
   margin: 0 0 20px 0;   
 }
@@ -642,7 +635,6 @@ div.fb-recommend {
    color: #FF6569;   
 }
 
-
 #monthly .info.tea .glass-text {
     float: left;
     width: 210px;
@@ -650,7 +642,6 @@ div.fb-recommend {
     margin: 0;
     position: relative;
     padding: 0;
-    z-index: 20;
     border-bottom: none;
 }
 
@@ -666,25 +657,9 @@ div.fb-recommend {
 }
 
 .info.tea a.button {
-    background: none repeat scroll 0 0 #2A8531;
-    border-radius: 3px;
-    box-shadow: none;
-    border: none;
-    color: #FFFFFF;
-    padding: 2px 5px;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: none;
-    z-index: 20;
-    font-size: 13px;
-    font-weight: bold;
     position: absolute;
-    bottom: 0px;
+    bottom: 22px;
     right: 0;
-}
-
-.info.tea a.button:hover {
-  background: #FF6569;   
 }
 
 .info.tea img {
@@ -838,8 +813,6 @@ div.fb-recommend {
     	   <div class="items"><span class="num">{{ monthly_items }}</span> {% trans 'items' %} / <span class="months">{{ months }}</span> {% trans 'months' %}</div>    	   
     	</div>
     	
-    	
-		
 	</div><!-- end top product info div -->
 	
 	<div class="hr"></div>
@@ -847,19 +820,16 @@ div.fb-recommend {
 	<div id="monthly">
 
 	   <p id="guidelink"><a href="#guide">{% trans 'How it works and FAQs' %} &raquo;</a></p>
-
-	   <h3>
-	       {% trans 'Choose which teas to add to your TeaBox' %} &raquo;<br/>
-	   </h3>
-	   
+	   <h3>{% trans 'Choose which teas to add to your TeaBox' %} &raquo;</h3>	   
 	   <div id="products">
-	           {% include 'shop/snippets/products_monthly.html' %}
+	       {% with products as teas %}
+	           {% include 'shop/snippets/products_long.html' %}
+	       {% endwith %}
 	   </div>
 	</div>
 	
 	<div id="right">
 	   {% include 'shop/boxes/follow.html' %}
-	   
        {% include 'shop/boxes/who.html' %}
 	</div>
 	

@@ -92,6 +92,7 @@ p {
   font-size: 13px;
   margin: 0px 0 5px;
   letter-spacing: -0.5px;
+  float: right;
 }
 
 
@@ -182,6 +183,12 @@ input.button {
 
 .button.large {
   font-size: 20px;   
+}
+
+.button.small {
+  font-size: 11px;
+  padding: 3px 5px 2px;  
+  font-weight: bold; 
 }
 
 .underline {
@@ -813,13 +820,6 @@ p.introduction, #left p.introduction {
     position: relative;
 }
 
-.glass-text h2 {
-  font-size: 22px;
-  color: #2A8531;
-  position: relative;
-  z-index: 3;    
-}
-
 .glass-text p {
   font-size: 13px;
   color: #555;
@@ -834,9 +834,10 @@ p.introduction, #left p.introduction {
 
 .pricebar {
   width: 100%;
+  height: 100%;
   font-size: 15px;
   letter-spacing: -0.5px;  
-  text-align: right; 
+  text-align: left; 
   line-height: 1em;
   padding: 10px 0;
 }
@@ -848,19 +849,34 @@ p.introduction, #left p.introduction {
   padding: 0;
 }
 
-.pricebar .price-weight {
+.price-weight {
     float: left;
     text-align: left;
     width: auto;
+    position: absolute;
+    bottom: 0;
 }
 
-.pricebar .price-weight .price {
+#right .price-weight {
+  position: static;
+  font-size: 13px;
+     
+}
+
+.price-weight .price {
   font-weight: bold;
   color: #333;   
 }
 
-.pricebar .price-weight .weight {
+.price-weight .weight {
   color: #777;   
+}
+
+.pricebar .button {
+  position: absolute;
+  bottom: 2px;
+  right: 0; 
+  z-index: 30;  
 }
 
 /* base info box */
@@ -880,7 +896,9 @@ p.introduction, #left p.introduction {
 }
 
 .info a.imagelink {
-  float: left;   
+  float: left;
+  margin-right: 10px;
+  width: 240px;   
 }
 
 .info .glass-text {
@@ -895,18 +913,29 @@ p.introduction, #left p.introduction {
 
 .info .glass-text .inner {
   padding: 0px;
+  height: 160px;
+}
+
+.info.tea.long .glass-text .inner {
+  height: 190px;   
 }
 
 .info h3 {
-	font-size: 18px;
-	margin: 0 0 5px 0;
+  font-size: 18px;
+  font-weight: 100;
+  margin: 0 0 5px 0;
   text-shadow: none;
+  width: 100%;
 }
 
 .info p {
   margin: 0;
   padding: 0;
   font-size: 13px;
+}
+
+#right .info img {
+  margin: 0 0 10px 0;
 }
 
 /* DIFFERENT VARIATIONS OF BOXES */
@@ -961,6 +990,17 @@ p.introduction, #left p.introduction {
   overflow: hidden;   
 }
 
+.info.tea.half {
+  width: 460px;
+  margin: 0 30px 20px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #E1E1E1;   
+}
+
+.info.tea.half.right {
+  margin-right: 0;   
+}
+
 .info.tea.long {
   width: 850px;
   overflow: hidden;
@@ -985,16 +1025,6 @@ p.introduction, #left p.introduction {
   border-bottom: none;
 }
 
-.info.tea.long .glass-text .inner {
-  position: static;   
-}
-
-.info.tea.long h4 {
-    font-size: 20px;
-    font-weight: 100;
-    text-transform: lowercase;
-    margin-bottom: 5px;
-}
 
 .info.tea.long .glass-text .pricebar {
   float: left;
@@ -1002,23 +1032,15 @@ p.introduction, #left p.introduction {
   padding: 10px 0;
 }
 
-.info.tea.long a.button {
-    background: none repeat scroll 0 0 #2A8531;
-    border: medium none;
-    border-radius: 3px 3px 3px 3px;
-    bottom: 10px;
-    box-shadow: none;
-    color: #FFFFFF;
-    font-size: 15px;
-    height: auto;
-    right: 30px;
-    line-height: 1em;
-    padding: 4px 6px 2px;
+.info.tea a.button {
+    bottom: 20px;
+    right: 0px;
     position: absolute;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: none;
     z-index: 20;
+}
+
+.info.tea a.button:hover {
+  background: #FF6569;   
 }
 
 
@@ -1043,11 +1065,10 @@ p.introduction, #left p.introduction {
 .info.tea.long .glass-text .in-basket, .info.tea .glass-text .in-basket {
     background: none repeat scroll 0 0 #f1f1f1;
     border-radius: 3px 3px 3px 3px;
-    bottom: 40px;
+    bottom: 30px;
     color: #666;
     font-size: 11px;
     font-weight: bold;
-    left: 20px;
     padding: 4px 8px 2px;
     position: absolute;
     text-shadow: none;
@@ -1055,9 +1076,8 @@ p.introduction, #left p.introduction {
     
 
 .info.tea.long .pricebar .price-weight {
-    bottom: 10px;
-    float: none;
-    left: 20px;
+    bottom: 0px;
+    left: 0px;
     position: absolute;
 }
 
@@ -1073,46 +1093,24 @@ p.introduction, #left p.introduction {
     top: 7px;
 }
 
-.info.tea .rollover {
-  position: absolute;
-  width: auto;
-  height: 100%; 
-  float: left;
-  left: -150px; 
+.info.tea:hover .glass-text h3 a {
+  color: #FF6569;
 }
-
-.info.tea .rollover .back {
-  background: #fff;
-  opacity: 0.8;
-  position: absolute;
-  top: 0;
-  left: 0;
-  float: left;
-  height: 100%;
-  width: 100%;
-  z-index: 2;  
-}
-
-.info.tea .rollover .text {
-  padding: 10px 3%;
-  position: absolute;
-  float: left;
-  padding: 10px 15px;
-  z-index: 3;
-  width: 120px;
-  height: 100%; 
-  color: #333;
-  font-size: 12px;
-  line-height: 1.3em;
-}
-
 
 /* RIGHT HAND SIDE BOXES */
 
 #right .info {
   margin: 20px 0 0px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 1px dashed #d1d1d1;   
+}
+
+#right .info:hover img {
+  opacity: 0.8;   
+}
+
+#right .info:hover h4 a {
+  color: #FF6569;    
 }
 
 #right .info.tea {
@@ -1130,27 +1128,27 @@ p.introduction, #left p.introduction {
     width: 240px;
     background: #fff;
     position: relative;
+    border-bottom: 1px dashed #e1e1e1;
 }
 
 .info.tea .glass-text {
    float: left;
-   width: 100%;
-   border-bottom: 1px dashed #D1D1D1;
+   width: 210px;
    margin: 0;
    position: relative;
+   height: 160px;
 }
-
 
 .info.tea:hover img {
   opacity: 0.9;   
 }
 
-.info.tea:hover .glass-text .back {
-  opacity: 0.9;   
-}
-
 .info.tea:hover h4 a {
   color: #FF6569;
+}
+
+.info.tea .glass-text p {
+  font-size: 11px;   
 }
 
 /* LONG PRODUCT BOX */
