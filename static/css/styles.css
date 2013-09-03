@@ -838,6 +838,7 @@ p.introduction, #left p.introduction {
   letter-spacing: -0.5px;  
   text-align: right; 
   line-height: 1em;
+  padding: 10px 0;
 }
 
 .pricebar h4 {
@@ -999,6 +1000,7 @@ p.introduction, #left p.introduction {
 .info.tea.long .glass-text .pricebar {
   float: left;
   text-align: left;
+  padding: 10px 0;
 }
 
 .info.tea.long a.button {
@@ -1010,7 +1012,7 @@ p.introduction, #left p.introduction {
     color: #FFFFFF;
     font-size: 15px;
     height: auto;
-    left: 30px;
+    right: 30px;
     line-height: 1em;
     padding: 4px 6px 2px;
     position: absolute;
@@ -1022,7 +1024,7 @@ p.introduction, #left p.introduction {
 
 
 .info.tea.long a.button span.plus {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;  
   letter-spacing: 0;
   float: left;
@@ -1046,7 +1048,7 @@ p.introduction, #left p.introduction {
     color: #666;
     font-size: 11px;
     font-weight: bold;
-    left: 30px;
+    left: 20px;
     padding: 4px 8px 2px;
     position: absolute;
     text-shadow: none;
@@ -1054,9 +1056,9 @@ p.introduction, #left p.introduction {
     
 
 .info.tea.long .pricebar .price-weight {
-    bottom: 11px;
+    bottom: 10px;
     float: none;
-    left: 125px;
+    left: 20px;
     position: absolute;
 }
 
