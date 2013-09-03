@@ -44,7 +44,6 @@ $(function() {
     	img.onload = function() {
     		wrap.fadeTo("fast", 1);
     		wrap.find("img").attr("src", url);	
-        $('.main-image .loading').toggle();
     	};
     
     	img.src = url;
@@ -146,15 +145,16 @@ h1 span {
 
 .product-photos-small {
     float: left;
-    margin: 15px 0 0px;
+    margin: 0px 0 0px;
     text-align: right;
-    width: auto;
+    width: 50px;
 }
 
 .product-photos-small img {
     float: left;
-    margin: 0 5px 0px 0;
+    margin: 0 0px 5px 0;
     opacity: 0.6;
+    border: 1px solid #e1e1e1;
 }
 
 .product-photos-small img:last-child {
@@ -164,7 +164,7 @@ h1 span {
 .product-photos-small img:hover {
   cursor: pointer;
   opacity: 0.8;	
-  box-shadow: 0 1px 3px #999;
+  border-color: #d1d1d1;
 }
 
 .product-photos-small img.active {
@@ -236,7 +236,7 @@ h1 span {
 
 
 .tea-top .description {
-  width: 430px;
+  width: 380px;
   float: right;	
 }
 
@@ -244,8 +244,6 @@ h1 span {
   font-size: 18px;
   font-weight: 100;
   margin: 0 0 10px 0;
-  text-shadow: 2px 2px 0 #fff;
-  text-align: right;
 }
 
 .tea-top .description p:last-child {
@@ -259,13 +257,13 @@ h1 span {
 
 .tea-top div.main-image {
     float: left;
-    width: 500px;
+    width: 550px;
     position: relative;
 }
 
 .tea-top #prices {
     float: right;
-    width: 430px;
+    width: 380px;
     margin: 10px 0 0;
     position: relative;
 }
@@ -311,18 +309,18 @@ h1 span {
   text-decoration: underline;   
 }
 
-.tea-top .price {
+#prices .price {
     float: left;
     margin: 0;
     padding: 10px 0;
     position: relative;
     width: 100%;
     height: 25px;
-    border-bottom: 1px dashed #e1e1e1;
+    border-top: 1px dashed #e1e1e1;
 }
 
-.tea-top .price:last-child {
-  border-bottom: none;   
+#prices .price:first-child {
+  border-top: none;   
 }
 
 .tea-top .message:before {
@@ -342,31 +340,27 @@ h1 span {
 }
 
 #prices .price .warning {
-    background: #c30000;
+    background: none repeat scroll 0 0 #C30000;
     border-radius: 4px 4px 4px 4px;
-    bottom: 10px;
-    color: #fff;
+    color: #FFFFFF;
     float: left;
     font-size: 11px;
     font-weight: bold;
-    left: 109px;
-    padding: 3px 5px 2px;
-    position: absolute;
-    text-align: center;
+    padding: 2px 5px 1px;
     width: auto;
+    position: relative;
+    top: -2px;
 }
 
 a.button.green {
     background: none repeat scroll 0 0 #22932A;
     float: right;
-    font-size: 17px;
-    margin: 0;
-    padding: 5px 4%;
-    position: absolute;
-    bottom: 7px;
-    right: 0;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 10px 0 0;
+    padding: 5px 3%;
     width: auto;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
 }
 
 .tea-top div.tea-description {
@@ -390,14 +384,11 @@ a.button.green {
 }
 
 #stocks {
-    background: none repeat scroll 0 0 #F6F6F6;
     float: left;
     border-radius: 4px;
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 11px;
+    font-weight: ;
     margin: 10px 0 10px;
-    padding: 5px 2%;
-    width: 96%;
 }
 
 #stocks div {
@@ -457,29 +448,27 @@ span.name {
   letter-spacing: -0.2px;
   font-size: 13px;
   line-height: 1em;
+  position: relative;
+  top: 7px;
 }
 
 #prices .amount {
-    color: #18691E;
+    color: #333;
     float: left;
-    font-size: 24px;
-    font-weight: 100;
+    font-size: 18px;
+    font-weight: bold;
     letter-spacing: -0.5px;
-    position: absolute;
-    bottom: 12px;
-    left: 5px;
     width: auto;
+    margin: 0 5px 0 0;
 }
 
 .price .weight {
-    bottom: 11px;
     color: #555555;
     float: left;
     font-size: 13px;
     font-weight: 100;
-    left: 50px;
-    position: absolute;
     width: auto;
+    margin: 0 10px 0 0;
 }
 
 .price .weight span {
@@ -496,11 +485,11 @@ div.fb-recommend {
   width: 80px;
 }
 
-.loading {
+#loading {
     left: 47%;
     position: absolute;
     top: 36%;
-    z-index: 12;
+    z-index: 5;
 }
 
 #recommended, #reviews, #delivery, #payment, #monthly {
@@ -711,7 +700,6 @@ ul.rss {
 	<div class="tea-top">
 		<div class="left">
 		<div class="main-image">
-			<img class="loading" src="{{ static_url }}images/loading.gif"/>
 			<div id="image_wrap">	
 				<img src="{{ static_url }}images/blank.gif" width="500px" height="331px" /> 
 			</div>
@@ -777,11 +765,7 @@ ul.rss {
     
     <div id="prices">
       {% if tea.is_active %}
-        <div id="stocks"> 
-		  <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
-		</div>
-        
-        
+
         {% for price in prices %}
           <div id="price_{{ price.id }}" class="price{% if price.is_sale_price %} sale{% endif %}{% if price.stocks.count < 1 %} out-of-stock{% endif %}">
 		    <div class="price-inner">	
@@ -810,6 +794,10 @@ ul.rss {
           
           </div>           
 	    {% endfor %}
+	    
+	  <div id="stocks"> 
+		  <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
+		</div>
 	    
 			
       {% else %}
