@@ -112,170 +112,52 @@ div.info.photo img {
   margin-right: 20px;	
 }
 
-p.introduction {
-  width: 800px;   
-}
-
 {% if categories %}
 
-#teas {
-  border-bottom: none;	
-}
-
-.tea-promo div.image {
-  margin: 0 0 10px 0;   
-}
-
-.tea-promo h3 {
-  font-size: 14px;   
-}
-
-.tea-promo {
-  margin: 0 15px 15px 0;   
-  background: #fff;
-  border: none;
-  padding: 10px;
-  width: 240px;
-}
-
-.section {
-  float: left;
-  width: 100%;
-}
-
-.section .intro {
-    float: right;
-    height: 212px;
-    padding: 0;
-    width: 440px;
-}
-
-.intro h2 {
-  margin: 0 0 5px 0;
-  color: #18691e;	
-}
-
-.intro p {
-  margin: 0;	
-}
-
-span.price {
-    color: #777777;
-    float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 13px;
-    margin: 0px 0 0 5px;
-}
-
-span.price .amount {
-  color: #333;
-  font-weight: bold;   
-}
-
-{% else %}
-
-.tea-promo h3 {
-  float: none;
-}
-
-{% endif %}
-
-
-
-#special {
-  float: left;	
-  width: 920px;
-  padding: 20px;
-  box-shadow: 0 1px 3px #e1e1e1;
-  background-color: #fff;
-  position: relative;
+.info.tea {
+  margin: 0px 10px 20px 0;
+  width: 475px;
+  padding-bottom: 20px; 
   overflow: hidden;
-  margin: 0px 0 30px 0;
+  border-bottom: 1px dashed #e1e1e1;  
 }
 
-#special h2 {
-    color: #18691e;
-    font-family: Helvetica,sans-serif;
-    font-size: 39px;
-    font-weight: bold;
-    letter-spacing: -2px;
-    margin: 10px 0;
+.info.tea.right {
+  margin-right: 0;   
 }
 
-{% if category.slug == 'teaware' %}
+.info.tea img {
+  float: left;
+  margin-right: 10px;  
+} 
 
-#special h2 span {
-  color: #999;   
+.info.tea .glass-text {
+  float: left;
+  width: 210px;
+  height: 160px;
+  border-bottom: none;
+  text-align: left;   
 }
 
-#special h2 {
-    color: #18691e;
-    font-family: Helvetica,sans-serif;
-    font-size: 30px;
-    font-weight: bold;
-    letter-spacing: -2px;
-    margin: 10px 0;
-    position: relative;
-    top: 60px;
+.info .glass-text .inner {
+  height: 100%;   
+}
+
+.info.tea .glass-text .pricebar {
+  text-align: left;   
+}
+
+.info.tea .glass-text p {
+  font-size: 11px;   
+}
+
+.info.tea .glass-text .price-weight {
+  position: absolute;
+  bottom: 2px;
+  left: 0;   
 }
 
 {% endif %}
-
-#special p {
-  margin: 0;   
-  font-size: 16px;
-}
-
-#special p.tea-desc {
-  margin: 0 0 10px;	
-}
-
-#special img {
-  float: left;
-  margin-right: 10px;	
-}
-
-#special p.price {
-  float: left;
-  width: 410px;
-  margin: 30px 0 0px;	
-}
-
-#special p.more {
-  text-align: right;
-  font-size: 15px;
-  padding-right: 20px;	
-}
-
-#special .amount {
-    color: #18691e;
-    float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 50px;
-    font-weight: bold;
-    letter-spacing: -5px;
-    margin-right: 10px;
-}
-
-#special .description {
-  font-size: 12px;
-  color: #666;
-  width: 80px;
-  position: relative;
-  top: -5px;	
-  float: left;
-  line-height: 1.3em;
-  margin: 0 20px 0 0;
-}
-
-#special .button {
-    float: right;
-    font-size: 22px;
-    padding: 10px 26px 5px;
-    position: relative;
-    right: 10px;
-    top: -10px;
-}
 
 
 

@@ -1,4 +1,4 @@
-{% load thumbnail i18n %}
+{% load thumbnail i18n convert_weights %}
 
 
     {% include "shop/snippets/fo-shou-special.html" %}
@@ -6,20 +6,36 @@
 
 {% for c in categories %}
 <div class="section">
-
-	<div class="intro">
-		<a id="{{ s.slug }}"></a>
-		<h2>&laquo; {{ c.name }}</h2>
-		<p>{{ c.short_description }}</p>
-	</div>
 	
-	   {% for t in c.products %}
-	       {% include 'shop/snippets/product_small.html' %}
-	   {% endfor %}
+	{% for t in c.products %}
+	    <div class="info tea {% cycle 'left' 'right' %}">
+    
+    <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+    
+    {% thumbnail t.image "240x160" crop="center" as im %}
+	
+	<a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
+		<img alt="{{ t.description }}" src="{{ im.url }}"/>
+	</a>
+    {% endthumbnail %}
+    
+    <div class="glass-text">
+        <div class="inner">
+            <div class="pricebar">
+                <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
+                <p>{{ t.description }}</p>
+                
+                <div class="price-weight">
+                    <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% endif %}</span> 
+                    <span class="weight">{% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</span>
+                </div>                
+             </div>
+         </div>
+     </div>
+</div>
+	{% endfor %}
 
 </div>
-
-<div class="hr"></div>
 {% endfor %}
 	        
    
