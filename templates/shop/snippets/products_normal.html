@@ -8,7 +8,7 @@
 		<img alt="a picture of {{ p.name }}" title="{{ p.name }} - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
 		{% endthumbnail %}		  
 		 
-		<a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" class="button green small" href="{% url add_to_basket p.price.id %}" id="add_to_basket_{{ p.price.id }}"><span class="plus">Add to basket</span></a>
+		<a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" class="button green small" href="{% url add_to_basket p.price.id %}" id="add_to_basket_{{ p.price.id }}">{% trans 'Add to basket' %}</span></a>
 		
 		<div class="glass-text">
 		  <div class="inner">

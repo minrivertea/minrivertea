@@ -69,12 +69,17 @@ h2.banner {
   color: #555;
   float: left;
   width: 100%;  
+  text-align: right;
 }
 
 #teas {
   margin: 0 0 ;
   border-bottom: none;	
   height: auto;
+}
+
+#teas h2 {
+  text-align: right;   
 }
 
 #teas .info.tea.right:last-child, #teas .info.tea.left:last-child {
@@ -377,8 +382,9 @@ ul.rss {
     <div class="hr"></div>
 
 	<div id="teas">
-        <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
+        
         {% include 'shop/snippets/products_long.html' %}
+        <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
     </div>
 	<!-- END TEAS LIST -->
 	    
@@ -396,10 +402,11 @@ ul.rss {
 	<div class="hr"></div>
 	
 	<div id="teaware">
-	   <h2 class="banner">{% trans 'The perfect way to enjoy your favourite pot of Chinese tea' %} - <a href="{% url teaware %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
 	   {% with teaware as teas %}
 	       {% include 'shop/snippets/products_long.html' %}  
 	   {% endwith %}
+	   
+	   <h2 class="banner">{% trans 'Enjoy your Chinese tea in style' %} - <a href="{% url teaware %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
 	</div>	
 
     <div class="hr"></div>
