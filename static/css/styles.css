@@ -204,6 +204,10 @@ span.link {
   z-index: 10;	
 }
 
+span.link:hover {
+  cursor: pointer;   
+}
+
 /* typography */
 
 
@@ -582,7 +586,8 @@ ul#nav li a.selected:hover {
 }
 
 ul#nav li a.selected {
-    color: #333;
+    color: #555;
+    font-weight:400;
 }
 
 /* SUBNAVIGATION STYLES */
@@ -859,8 +864,19 @@ p.introduction, #left p.introduction {
 
 #right .price-weight {
   position: static;
-  font-size: 13px;
-     
+  font-size: 13px;    
+}
+
+#right .info.tea p {
+  display: none;   
+}
+
+#right .info.tea .glass-text .inner, #right .info.tea .glass-text {
+  height: 45px;   
+}
+
+#right .info.tea .pricebar {
+  padding: 0;   
 }
 
 .price-weight .price {
@@ -2057,11 +2073,15 @@ ul#social a#google:hover {
   list-style-type: square;
 }
 
-#email-signup img.loading {
+#email-signup img.loading, #loading {
   position: absolute;
-  top: 30%;
-  left: 40%;
-  display: none;	
+  height: 32px;
+  width: 32px;
+  top: 0;
+  left: 0;
+  bottom:0;
+  right: 0;
+  margin: auto;   
 }
 
 /* END FOOTER STYLES */

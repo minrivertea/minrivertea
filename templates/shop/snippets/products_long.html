@@ -7,7 +7,7 @@
         {% if months %}
             <a class="button green small" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.price.id months %}">Add to TeaBox</a>
         {% else %}
-            <a title="{% trans 'Add 1 x ' %} {{ t.name }} {% if t.price.weight %}({% convert_weights request t.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" href="{% url add_to_basket t.price.id %}" class="button green small" id="add_to_basket_{{ t.price.id }}"><span class="plus">Add to basket</span></a>
+            <a title="{% trans 'Add 1 x ' %} {{ t.name }} {% if t.price.weight %}({% convert_weights request t.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" href="{% url add_to_basket t.price.id %}" class="button green small" id="add_to_basket_{{ t.price.id }}"><span class="plus">{% trans 'Add to basket' %}</span></a>
         {% endif %}
         
         {% thumbnail t.image "240x160" crop="center" as im %}
@@ -28,8 +28,12 @@
                     
                     {% if t.quantity > 0 %}
                     <div class="in-basket">
-		                  <span class="quantity"><span class="num">{{ t.quantity }}</span> 
-		                  {% trans 'in your TeaBox!' %}</span>
+		                  <span class="quantity">
+		                      <span class="num">{{ t.quantity }}</span> 
+		                      {% if months %}{% trans 'in your TeaBox!' %}
+		                      {% else %}{% trans 'in your basket' %}
+		                      {% endif %}
+		                  </span>
 		            </div>
                     {% endif %}                    
                 </div>                            

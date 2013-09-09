@@ -13,6 +13,11 @@ $('#types').click(function() {
 
 $('.info.tea a.button').click( function() {
   var thisButton = $(this)
+  
+  thisButton.parent('.info.tea').css({'opacity':'0.5'});
+  thisButton.parent('.info.tea').append('<img src="{{ static_url }}images/loading.gif" id="loading" />');
+
+  
   $.ajax({
   	url: thisButton.attr('href'),
 	type: "GET",
@@ -35,7 +40,10 @@ $('.info.tea a.button').click( function() {
    			curr.html(parseInt(curr.html(), 10)+1);
    		} else {
    		  	thisButton.parent('.info.tea').find('.pricebar').append('<div class="in-basket"><span class="num">1</span> {% trans "in basket" %}</div>');
-   		}   		
+   		}   
+   		
+   		//thisButton.parent('.info.tea').find('#loading').remove();
+   		//thisButton.parent('.info.tea').css({'opacity':'1'});		
    	},
   });
   return false;
@@ -49,6 +57,11 @@ $('.info.tea a.button').click( function() {
 <link rel="stylesheet" type="text/css" href="{{ static_url }}css/teas.css"/>
 <style type="text/css">
 
+.category {
+  float: left;
+  width: 100%;   
+  margin: 0 0 40px 0;
+}
 
 #price-helper {
     border-top: medium none;
@@ -138,10 +151,6 @@ div.info.photo img {
 </style>
 {% endblock %}
 
-{% block currency %}
-	{% include 'shop/snippets/currency.html' %}
-{% endblock %}
-
 {% block content %}
 		
 <div id="mtw">
@@ -163,9 +172,12 @@ div.info.photo img {
 	    
 	     {% if categories %}
 		    {% for c in categories %}
+		      
+		      <div class="category">
 		      {% with c.products as teas %}
 		          {% include 'shop/snippets/products_long.html' %}
 		      {% endwith %}
+		      </div>
 		    {% endfor %}
 		 {% endif %}
 		

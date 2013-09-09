@@ -85,7 +85,7 @@ def page_by_id(request, id):
 # the product listing page
 def category(request, slug):
     curr = _get_currency(request)
-    if slug == _('teas'):
+    if slug == _('teas') or slug == _('teaware'):
         products = None
         category = get_object_or_404(Category, slug=slug)
         special = get_object_or_404(UniqueProduct, parent_product__slug=_('buddhas-hand-oolong-tea'), currency=curr)
@@ -159,13 +159,6 @@ def tea_view(request, slug):
     recommended = _get_products(request, random=True, exclude=tea.id)[:4]
     #price = tea.get_lowest_price(_get_currency(request))
     prices = UniqueProduct.objects.filter(is_active=True, parent_product=tea, currency=_get_currency(request)).order_by('weight')
-    
-    try:
-        months = settings.TEABOX_DEFAULT_MONTHS
-        monthly_price_up = prices[0]
-        monthly_price = _get_monthly_price(monthly_price_up, months)
-    except:
-        monthly_price = None
 
     return _render(request, "shop/tea_view.html", locals())
 
