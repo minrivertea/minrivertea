@@ -1,0 +1,118 @@
+{% load i18n %}
+
+<style type="text/css">
+
+#jasmine-special {
+  height: auto;
+  float: left;
+  width: 100%;
+  position: relative;  background: none;   
+}
+
+.four-teas {
+  float: left;
+  width: 680px;
+  z-index: 30;   
+}
+
+.four-teas div {
+  width: 120px;
+  float: left;
+  margin: 0 0px 0px 0px;
+  position: relative;   
+}
+
+.four-teas div h3 {
+  width: 100%;
+  text-align: center; 
+  font-size: 13px;
+  font-weight: bold; 
+  margin: 0 0 5px 0; 
+}
+
+.four-teas div:hover h3 a {
+  color: #FF6569;  
+}
+
+.four-teas div:hover img {
+  opacity: 0.8;   
+}
+
+.four-teas div .price-weight {
+    font-size: 13px;
+    margin: 0;
+    text-align: center;
+    position: static;
+}
+
+#jasmine-special .details {
+  width: 275px; 
+    float: right;
+    position: relative;
+    top: 15px;
+    padding: 0;
+    text-align: right;  
+}
+
+#jasmine-special .details h2 {
+  color: #FF6569;
+  font-size: 18px;
+  margin-bottom: 0;
+  letter-spacing: -0.3px;   
+}
+
+#jasmine-special .details p {
+  margin-top: 0; 
+  color: #777;
+  font-size: 13px;  
+}
+
+</style>
+
+
+<div id="jasmine-special">
+	
+	<div class="four-teas">
+	   <div>
+    	   <a href="/123/"><span class="link"></span></a>
+    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
+    	   <h3><a href="">{% trans 'Jasmine Red' %}</a></h3>
+    	   <div class="price-weight"><span class="price">£6</span><span class="weight"> / 25g</span></div>
+	   </div>
+	   <div>
+    	   <a href="/456/"><span class="link"></span></a>
+    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
+    	   <h3><a href="">{% trans 'Jasmine Oolong' %}</a></h3>
+    	   <div class="price-weight"><span class="price">£6</span><span class="weight"> / 25g</span></div>
+	   </div>
+	   <div>
+    	   <a href="/567/"><span class="link"></span></a>
+    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
+    	   <h3><a href="">{% trans 'White Jasmine' %}</a></h3>
+    	   <div class="price-weight"><span class="price">£6</span><span class="weight"> / 25g</span></div>
+	   </div>
+	   <div>
+    	   <a href="/123/"><span class="link"></span></a>
+    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
+    	   <h3><a href="">{% trans 'Jasmine Pearls' %}</a></h3>
+    	   <div class="price-weight"><span class="price">£6</span><span class="weight"> / 25g</span></div>
+	   </div>
+	   <div>
+    	   <a href="/123/"><span class="link"></span></a>
+    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
+    	   <h3><a href="">{% trans 'Buy the full set' %}</a></h3>
+    	   <div class="price-weight"><span class="price">£22</span><span class="weight"> / 100g</span></div>
+	   </div>
+	</div>
+	
+	
+	<div class="details">
+    	<h2>{% trans "We've gone a bit Jasmine crazy..." %}</h2>
+    	<p>{% trans "The freshest Jasmine teas are available right now. Choose your favourite, order the full set for just £22, or read more in our blog post" %}</p>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+</script>
