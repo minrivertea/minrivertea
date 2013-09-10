@@ -165,14 +165,17 @@ div.info.photo img {
 		{% if category.slug == 'teaware' %}
 		   {% include "shop/snippets/products_teaware.html" %}
 		{% else %}
-		   {% include "shop/snippets/products_normal.html" %}
+		   {% if teas.count > 5 %}
+		      {% include 'shop/snippets/products_long.html' %}
+		   {% else %}
+    		   {% include "shop/snippets/products_normal.html" %}
+    	{% endif %}
 		{% endif %}
 
   	     
 	    
 	     {% if categories %}
 		    {% for c in categories %}
-		      
 		      <div class="category">
 		      {% with c.products as teas %}
 		          {% include 'shop/snippets/products_long.html' %}
