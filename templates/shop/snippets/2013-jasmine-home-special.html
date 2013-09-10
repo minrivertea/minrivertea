@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n thumbnail convert_weights %}
 
 <style type="text/css">
 
@@ -73,36 +73,16 @@
 <div id="jasmine-special">
 	
 	<div class="four-teas">
+	   {% for x in jasmine_special_products %}
 	   <div>
-    	   <a href="/123/"><span class="link"></span></a>
-    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
-    	   <h3><a href="">{% trans 'Jasmine Red' %}</a></h3>
-    	   <div class="price-weight"><span class="price">£6</span><span class="weight"> / 25g</span></div>
+    	   <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
+    	   {% thumbnail x.image "120x70" crop="center" as im %}
+    	   <a href=""><img src="{{ im.url }}"/></a>
+    	   {% endthumbnail %}
+    	   <h3><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></h3>
+    	   <div class="price-weight"><span class="price">{{ currency.symbol }}{{ x.get_lowest_price.price }}</span><span class="weight"> / {% convert_weights request x.get_lowest_price.weight %}{{ weight_unit }}</span></div>
 	   </div>
-	   <div>
-    	   <a href="/456/"><span class="link"></span></a>
-    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
-    	   <h3><a href="">{% trans 'Jasmine Oolong' %}</a></h3>
-    	   <div class="price-weight"><span class="price">£6</span><span class="weight"> / 25g</span></div>
-	   </div>
-	   <div>
-    	   <a href="/567/"><span class="link"></span></a>
-    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
-    	   <h3><a href="">{% trans 'White Jasmine' %}</a></h3>
-    	   <div class="price-weight"><span class="price">£6</span><span class="weight"> / 25g</span></div>
-	   </div>
-	   <div>
-    	   <a href="/123/"><span class="link"></span></a>
-    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
-    	   <h3><a href="">{% trans 'Jasmine Pearls' %}</a></h3>
-    	   <div class="price-weight"><span class="price">£6</span><span class="weight"> / 25g</span></div>
-	   </div>
-	   <div>
-    	   <a href="/123/"><span class="link"></span></a>
-    	   <a href=""><img src="{{ static_url }}images/homepage/special-jasmine-small.jpg"/></a>
-    	   <h3><a href="">{% trans 'Buy the full set' %}</a></h3>
-    	   <div class="price-weight"><span class="price">£22</span><span class="weight"> / 100g</span></div>
-	   </div>
+	   {% endfor %}
 	</div>
 	
 	

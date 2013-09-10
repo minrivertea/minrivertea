@@ -51,7 +51,11 @@ class BasketDoesNotExist(Exception):
 def index(request):
     curr = _get_currency(request)
     teas = _get_products(request)[:4]
-            
+    
+    jasmine_special_products = Product.objects.filter(slug__icontains="jasmine")
+    
+    # Product.objects.filter(slug__in=[_(''),4,7])
+         
     teaware = _get_products(request, cat=_('teaware'))[:4]
     special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
     special.price = special.get_lowest_price(curr)
