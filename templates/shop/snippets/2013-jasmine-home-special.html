@@ -80,7 +80,7 @@
     	   <a href=""><img src="{{ im.url }}"/></a>
     	   {% endthumbnail %}
     	   <h3><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></h3>
-    	   <div class="price-weight"><span class="price">{{ currency.symbol }}{{ x.price.price }}</span>{% if x.price.weight %}<span class="weight"> / {% convert_weights request x.get_lowest_price.weight %}{{ weight_unit }}</span>{% endif %}</div>
+    	   <div class="price-weight"><span class="price">{{ currency.symbol }}{{ x.price.price }}</span>{% if x.price.weight %}<span class="weight"> / {% convert_weights request x.price.weight %}{{ weight_unit }}</span>{% endif %}</div>
 	   </div>
 	   {% endfor %}
 	</div>
