@@ -42,15 +42,22 @@
         <a href="{% url page _('contact-us') %}">{% trans 'Contact Us' %}</a> | 
         <a href="{% url page _('terms-and-conditions') %}">{% trans 'Terms & Conditions' %}</a> | 
         <a href="{% url page _('privacy') %}">{% trans 'Privacy' %}</a> | 
-        <a href="{% url page _('imprint') %}">{% trans 'Imprint' %}</a>
+        <a href="{% url page _('imprint') %}">{% trans 'Imprint' %}</a> <br/>
+        <span class="languages">
+            <strong>{% trans 'Available languages' %}</strong>: 
+            <a href="{% url changelang 'en' %}">{% trans 'English' %}</a> | 
+            <a href="{% url changelang 'de' %}">{% trans 'German' %}</a> | 
+            <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a>
+        </span>
     </p>
     
     <ul id="social">
-	       <li><a title="{% trans 'Find us on Facebook' %}" href="http://www.facebook.com/minrivertea" id="facebook"></a></li>
-	       <li><a title="{% trans 'Follow us on Twitter' %}" href="http://www.twitter.com/minrivertea" id="twitter"></a></li>
-	       <li><a title="{% trans 'Check out our pins on Pinterest' %}" href="http://pinterest.com/minrivertea/" id="pinterest"></a></li>
-	       <li><a title="{% trans 'Join our Google+ Group' %}" href="https://plus.google.com/115218838272806349303" id="google"></a></li>
-	    </ul>
+       <li><a title="{% trans 'Find us on Facebook' %}" href="http://www.facebook.com/minrivertea" id="facebook"></a></li>
+       <li><a title="{% trans 'Follow us on Twitter' %}" href="http://www.twitter.com/minrivertea" id="twitter"></a></li>
+       <li><a title="{% trans 'Check out our pins on Pinterest' %}" href="http://pinterest.com/minrivertea/" id="pinterest"></a></li>
+       <li><a title="{% trans 'Join our Google+ Group' %}" href="https://plus.google.com/115218838272806349303" id="google"></a></li>
+	</ul>
+	
 
 
   </div>	

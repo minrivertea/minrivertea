@@ -52,7 +52,12 @@ def index(request):
     curr = _get_currency(request)
     teas = _get_products(request)[:4]
     
-    jasmine_special_products = Product.objects.filter(slug__icontains="jasmine")
+    try:
+        jasmine_special_products = Product.objects.filter(slug__icontains=_("jasmine"))
+        for x in jasmine_special_products:
+            x.price = x.get_lowest_price(currency=curr)
+    except:
+        pass
     
     # Product.objects.filter(slug__in=[_(''),4,7])
          

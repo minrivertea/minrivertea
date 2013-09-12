@@ -2032,6 +2032,10 @@ ul#social a#google:hover {
  font-size: 13px;   
 }
 
+#footer span.languages {
+  font-size: 11px;   
+}
+
 .footer-box {
   margin-right: 40px;
   margin-top: 20px;

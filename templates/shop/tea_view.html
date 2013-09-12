@@ -863,6 +863,8 @@ ul.rss {
   <div id="payment">
     <h3>{% trans 'Easy and secure payment with' %}</h3>
     <span class="image"></span>
+    {% url page _('terms-and-conditions') as tcurl %}
+    {% url page _('returns') as rturl %}
     <p>{% blocktrans %}Read our <a href="{{ tcurl }}">T&Cs</a> and <a href="{{ rturl }}">Returns</a> policies{% endblocktrans %}</p>
   </div>
   
