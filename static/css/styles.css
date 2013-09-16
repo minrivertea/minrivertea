@@ -38,7 +38,6 @@ h1 {
     color: #FF6569;
     font-size: 34px;
     font-weight: 100;
-    text-transform: lowercase;
     letter-spacing: -1px;
     margin: 10px 0 0 0;
     padding-bottom: 0;
@@ -51,7 +50,6 @@ h2 {
     margin: 0 0 5px;
     padding-bottom: 0;
     font-weight: 100;
-    text-transform: lowercase;
 }
 
 h3 {
@@ -59,13 +57,11 @@ h3 {
     font-weight: 400;
     margin: 0 0 5px;
     font-size: 24px;
-    text-transform: lowercase;
 }
 
 h4 {
   margin-bottom: 10px;
   padding-bottom: 5px;
-  text-shadow: 1px 1px 1px #fff;
 }
 
 p {
