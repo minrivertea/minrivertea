@@ -97,3 +97,7 @@ a.button {
     margin: 5px 0 0;
     width: 100%;
 }
+
+#experts .glass-text h2, #monthly .glass-text h2 {
+  font-size: 22px;   
+}
