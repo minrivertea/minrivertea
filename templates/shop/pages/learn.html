@@ -132,8 +132,6 @@ h2 {
 
 <div id="mtw">
   <div class="sp">
-  
-    <h1>Learn about tea</h1>
   	
   	
   	<div id="right"> 
@@ -143,7 +141,11 @@ h2 {
   	    
   	<div id="left">
   	
-  	<p class="introduction">{% trans 'Appreciate your fine Chinese tea more with our guides to <a href="/how-to-brew-chinese-tea/">brewing</a> and tasting your tea, as well as information about the <a href="/about-chinese-tea/">growing, history and culture of tea</a> drinking in China.' %}</p>
+  	<h1>{% trans 'Learn about tea' %}</h1>
+  	
+  	{% url page _('how-to-brew-chinese-tea') as brew_url %}
+  	{% url page _('about-chinese-tea') as about_tea_url %}
+  	<p class="introduction">{% blocktrans %}Appreciate your fine Chinese tea more with our guides to <a href="{{ brew_url }}">brewing</a> and tasting your tea, as well as information about the <a href="{{ about_tea_url }}">growing, history and culture of tea</a> drinking in China.{% endblocktrans %}</p>
   	
             <ul id="blog">
                 {% for x in latestblogs %}

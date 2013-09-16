@@ -97,7 +97,6 @@ def _empty_basket(request):
     except:
         pass
     
-    
     return None
     
     
