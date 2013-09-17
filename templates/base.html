@@ -168,9 +168,9 @@ if (15.00) {
             </li>
           	{% get_current_language as LANGUAGE_CODE %}
           	{% if LANGUAGE_CODE == 'de' %}
-          	<li><a href="{% url changelang 'en' %}">{% trans 'English' %}</a></li>
+          	<li><a href="http://www.minrivertea.com/changelang/en/">{% trans 'English' %}</a></li>
           	{% else %}
-          	<li><a href="{% url changelang 'de' %}">{% trans 'German' %}</a></li>
+          	<li><a href="http://www.minrivertea.de/changelang/de/">{% trans 'German' %}</a></li>
           	{% endif %}
         </ul>
     	        

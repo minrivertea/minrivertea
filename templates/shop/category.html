@@ -42,8 +42,8 @@ $('.info.tea a.button').click( function() {
    		  	thisButton.parent('.info.tea').find('.pricebar').append('<div class="in-basket"><span class="num">1</span> {% trans "in basket" %}</div>');
    		}   
    		
-   		//thisButton.parent('.info.tea').find('#loading').remove();
-   		//thisButton.parent('.info.tea').css({'opacity':'1'});		
+   		thisButton.parent('.info.tea').find('#loading').remove();
+   		thisButton.parent('.info.tea').css({'opacity':'1'});		
    	},
   });
   return false;
