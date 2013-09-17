@@ -246,14 +246,13 @@ h2.banner {
   text-align: center;
   color: #fff;
   font-weight: bold;
-  font-size: 14px;
-  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
 }
 
 ul.rss {
-    left: 180px;
+    left: 225px;
     padding: 0;
-    top: 60px;
+    top: 10px;
     width: 80px;
 }
 
@@ -315,7 +314,6 @@ ul.rss {
   background: url('{{ static_url }}images/homepage/home-monthly.jpg') no-repeat top left;  
   height: 250px;
 }
-
 
 #brewing img {
   float: left;
@@ -523,10 +521,9 @@ ul.rss {
 	    {% if ga_is_on %}
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
 	    	<li id="facebook">
-			    <div id="fb-root"></div>
-			    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-			    <fb:like href="http://www.facebook.com/minrivertea" send="false" layout="button_count" width="80" show_faces="false" font="">
-			    </fb:like>
+			    <!-- FACEBOOK LIKE -->
+	   	<div class="fb-like" data-href="http://www.facebook.com/minrivertea" data-width="120" data-layout="button_count" data-show-faces="false" data-send="false"></div>
+	   	       <!-- END FACEBOOK LIKE -->
 			</li>
 		</ul>
         {% endif %}
