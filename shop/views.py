@@ -15,6 +15,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.translation import ugettext as _
 from django.utils.translation import get_language
 from django.core.exceptions import MultipleObjectsReturned
+from django.db.models import Q
 
 # PYTHON
 import urllib
@@ -48,11 +49,19 @@ class BasketDoesNotExist(Exception):
     
 # the homepage view
 def index(request):
-   
     curr = _get_currency(request)
-    teas = _get_products(request)[:5]
-        
-    teaware = _get_products(request, cat=_('teaware'))[:3]
+    teas = _get_products(request)[:4]
+    
+    try:
+        jasmine_special_products = Product.objects.filter(slug__icontains=_("jasmine"))
+        for x in jasmine_special_products:
+            x.price = x.get_lowest_price(currency=curr)
+    except:
+        pass
+    
+    # Product.objects.filter(slug__in=[_(''),4,7])
+         
+    teaware = _get_products(request, cat=_('teaware'))[:4]
     special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
     special.price = special.get_lowest_price(curr)
                 
@@ -61,9 +70,14 @@ def index(request):
 
 def page(request, slug):
     page = get_object_or_404(Page, slug=slug)
-    nav_tree = page.get_nav_tree()
+    # nav_tree = page.get_nav_tree()
     if page.slug == _('contact-us'):
         form = ContactForm()
+    
+    if page.slug == _('learn'):
+        pages = Page.objects.filter(
+            parent__parent__slug=_('learn')
+        ).order_by('?')[:10]
     
     template = "shop/page.html"
     if page.template:
@@ -80,7 +94,7 @@ def page_by_id(request, id):
 # the product listing page
 def category(request, slug):
     curr = _get_currency(request)
-    if slug == _('teas'):
+    if slug == _('teas') or slug == _('teaware'):
         products = None
         category = get_object_or_404(Category, slug=slug)
         special = get_object_or_404(UniqueProduct, parent_product__slug=_('buddhas-hand-oolong-tea'), currency=curr)
@@ -135,11 +149,14 @@ def tea_view(request, slug):
         added = None
        
     if added:
-        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])        
-        from shop.templatetags.convert_weights import convert_weights
-        weight = convert_weights(request, thing.item.weight)
-        message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': weight, 'unit': RequestContext(request)['weight_unit']}
-        request.session['ADDED'] = None
+        try:
+	        thing = get_object_or_404(BasketItem, id=request.session['ADDED'])    
+	        from shop.templatetags.convert_weights import convert_weights
+	        weight = convert_weights(request, thing.item.weight)
+	        message = _("1 x %(weight)s%(unit)s added to your basket!") % {'weight': weight, 'unit': RequestContext(request)['weight_unit']}
+	        request.session['ADDED'] = None
+        except:
+	        pass
     
     tea = get_object_or_404(Product, slug=slug)
     reviews = Review.objects.filter(is_published=True, product=tea, lang=get_language())[:3]
@@ -148,13 +165,9 @@ def tea_view(request, slug):
     if tea.slug == _('monthly-tea-box'):
         return monthly_tea_box(request)
     
-    recommended = _get_products(request, random=True, exclude=tea.id)[:3]
-    price = tea.get_lowest_price(_get_currency(request))
-    
-    try:
-        monthly_price = _get_monthly_price(price, settings.TEABOX_DEFAULT_MONTHS)
-    except:
-        monthly_price = None
+    recommended = _get_products(request, random=True, exclude=tea.id)[:4]
+    #price = tea.get_lowest_price(_get_currency(request))
+    prices = UniqueProduct.objects.filter(is_active=True, parent_product=tea, currency=_get_currency(request)).order_by('weight')
 
     return _render(request, "shop/tea_view.html", locals())
 
@@ -193,8 +206,7 @@ def contact_form_submit(request, xhr=None):
         form = ContactForm(request.POST)
         if form.is_valid():
             _admin_notify_contact(form.cleaned_data)
-            message = _("Thanks! Your message has been sent and we'll get back to you as soon as we can.")
-            return _render(request, 'shop/forms/contact_form.html', locals())
+            return _render(request, 'shop/forms/contact_form_thanks.html', locals())
         else:
             page = get_object_or_404(Page, slug='contact-us')
             return _render(request, 'shop/forms/contact_form.html', locals())            
@@ -225,7 +237,7 @@ def add_to_basket(request, id):
                     'url': reverse('basket'),
             })
         else:
-            message = _('<div class="message"><span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your basket! <a href="%(url)s" class="button green"><strong>Checkout now &raquo;</strong></a></div>') % {
+            message = _('<div class="message"><div class="text"><h3>1 x %(item)s added to your basket! <a href="%(url)s">Checkout now &raquo;</a></h3></div></div>') % {
                     'item':item.item.parent_product, 
                     'url': reverse('basket'),
             }
@@ -253,20 +265,22 @@ def add_to_basket_monthly(request, productID, months):
     item.save()
     
     if request.is_ajax():
-        if item.item.weight:
-            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s (%(weight)s%(weight_unit)s) added to your TeaBox! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
-                    'item':item.item.parent_product, 
-                    'weight': item.item.weight, 
-                    'weight_unit': RequestContext(request)['weight_unit'],
-                    'url': reverse('basket'),
-            }
-        else:
-            message = _('<span class="tick">&#10003;</span><span class="num">1</span> x %(item)s added to your TeaBox! <a href="%(url)s"><strong>Checkout now &raquo;</strong></a>') % {
-                    'item':item.item.parent_product, 
-                    'url': reverse('basket'),
-            }
         basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
-        data = {'message': message, 'basket_quantity': basket_quantity}
+        monthly_amount = '%.2f' % float(RequestContext(request)['monthly_amount'])
+        
+        from shop.templatetags.convert_weights import convert_weights
+        weight = convert_weights(request, item.item.weight)
+        message = _('<div class="message"><div class="text"><h3>%(months)s months of %(item)s added to your Monthly TeaBox! <a href="%(monthly_url)s">Add more</a> or <a href="%(url)s">Checkout now &raquo;</a></h3></div></div>') % {
+                    'months': months,
+                    'item':item.item.parent_product, 
+                    'url': reverse('basket'),
+                    'monthly_url': reverse('monthly_tea_box'),
+            }
+        
+        
+
+        
+        data = {'basket_quantity': basket_quantity, 'monthly_amount': monthly_amount, 'message': message,}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
@@ -345,8 +359,6 @@ def basket(request):
                 
     
     currency = _get_currency(request)
-    
-    
     if total_price > currency.postage_discount_threshold or monthly == True:
         postage_discount = True
     else:
@@ -371,7 +383,6 @@ def basket(request):
             return _render(request, "shop/basket.html", locals())
     
     form = UpdateDiscountForm()
-        
     return _render(request, "shop/basket.html", locals())
 
 
@@ -483,6 +494,9 @@ def order_step_one(request, basket=None):
             # CREATE OR FIND THE ORDER
             try:
                 order = get_object_or_404(Order, id=request.session['ORDER_ID'])
+                if not order.hashkey:
+                    order.hashkey = uuid.uuid1().hex
+                    order.save()
                 
             except:
                 creation_args = {
@@ -491,7 +505,8 @@ def order_step_one(request, basket=None):
                     'address': address,
                     'owner': shopper,
                     'status': Order.STATUS_CREATED_NOT_PAID,
-                    'invoice_id': "TEMP"   
+                    'invoice_id': "TEMP",
+                    'hashkey': uuid.uuid1().hex, 
                 }
                 order = Order.objects.create(**creation_args)
                 order.save() # need to save it first, then give it an ID
@@ -548,23 +563,34 @@ def order_step_one(request, basket=None):
     return _render(request, 'shop/forms/order_step_one.html', locals())
 
 
+def order_url_friend(request, hash):
+    return order_url(request, hash, friend=True)
 
-def order_url(request, hash):
-    order = get_object_or_404(Order, hashkey=hash)
-    shopper = order.owner
-    basket_items = order.items.all()
-    order_items = basket_items
+
+def order_url(request, hash, friend=None):
+    
+    order = get_object_or_404(Order, hashkey=hash)    
+    
+    regular_items = order.items.exclude(monthly_order=True)
+    monthly_items = order.items.filter(monthly_order=True)
     
     total_price = 0
-    for item in basket_items:
-        price = item.quantity * item.item.price
-        total_price += price
+    monthly = False
+    
+    for item in chain(regular_items, monthly_items):
+        price = float(item.get_price())
+        total_price += float(price)
+        if item.monthly_order:
+            if item.months >= 6:
+                monthly = True
+                
     
     currency = _get_currency(request)
-    if total_price > currency.postage_discount_threshold:
+    if total_price > currency.postage_discount_threshold or monthly == True:
         postage_discount = True
     else:
         total_price += currency.postage_cost
+    
     
     if order.discount:
         value = total_price * order.discount.discount_value
@@ -604,9 +630,9 @@ def order_repeat(request, hash):
     )
     
     # now we'll check for replacements/substitutions
-    currency = _get_currency(request, code=old_order.items.all()[0].item.currency.code)
+    currency = _get_currency(request, currency_code=old_order.items.all()[0].item.currency.code)
     for item in old_order.items.all():
-        if item.item.is_active == False or item.item.parent_product.coming_soon == True:
+        if item.item.is_active == False:
             # if it's not available, replace it with the closest matching UniqueProduct
             product = UniqueProduct.objects.filter(
                     parent_product=item.item.parent_product, 

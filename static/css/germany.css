@@ -1,7 +1,8 @@
 
 
 ul#nav li a, ul#nav li a:link, ul#nav li a:visited {
-  font-size: 12px;   
+  font-size: 15px;
+  padding: 0 10px;   
 }
 
 h1 {
@@ -55,4 +56,48 @@ a.button {
 
 #special .right a {
   font-size:17px;
+}
+
+/* 2013 JASMINE SPECIAL */
+
+#jasmine-special .four-teas {
+    float: left;
+    width: 655px;
+    z-index: 30;
+}
+
+#jasmine-special .details {
+    float: right;
+    padding: 0;
+    position: relative;
+    text-align: right;
+    top: 15px;
+    width: 300px;
+}
+
+#jasmine-special .details h2 {
+    color: #FF6569;
+    font-size: 16px;
+    letter-spacing: -0.3px;
+    margin-bottom: 5px;
+}
+
+#jasmine-special .details p {
+    color: #777777;
+    font-size: 11px;
+    margin-top: 0;
+}
+
+/* END JASMINE SPECIAL STYLES */
+
+#delivery p, #payment p, #reviews p, #monthly p {
+    color: #999999;
+    float: left;
+    font-size: 13px;
+    margin: 5px 0 0;
+    width: 100%;
+}
+
+#experts .glass-text h2, #monthly .glass-text h2 {
+  font-size: 22px;   
 }

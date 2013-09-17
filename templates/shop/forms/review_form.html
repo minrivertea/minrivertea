@@ -20,12 +20,13 @@ textarea {
   float: left;
   width: 920px;
   margin: 30px 0 0 0;
-  border-bottom: 2px dotted #e1e1e1;
 }
 
 #positive {
   border-top: 2px dotted #e1e1e1;
-  padding-top: 30px;   
+  padding-top: 30px; 
+  margin-top: 0;
+  border-bottom: 2px dotted #e1e1e1;  
 }
 
 #positive p.intro, #review p.intro {
@@ -102,16 +103,16 @@ textarea {
             <p class="intro">{% trans 'Firstly, if you liked your tea, please tell your friends!' %} &raquo;</p>
                     	
           	<div id="facebook">
-      		    <iframe src="//www.facebook.com/plugins/like.php?href=http://www.minrivertea.com{{ tea.get_absolute_url }}&amp;send=false&amp;layout=box_count&amp;width=450&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=recommend&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:90px;" allowTransparency="true"></iframe>
+      		    <iframe src="//www.facebook.com/plugins/like.php?href={{ site_url }}{{ tea.get_absolute_url }}&amp;send=false&amp;layout=box_count&amp;width=450&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=recommend&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:90px;" allowTransparency="true"></iframe>
       		</div>
       		
       		<div id="facebook">
-      		  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.minrivertea.com{{ tea.get_absolute_url }}" data-text="If you like tea, try some @minrivertea {{ tea.name }}" data-size="large">Tweet</a>
+      		  <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site_url }}{{ tea.get_absolute_url }}" data-text="If you like tea, try some @minrivertea {{ tea.name }}" data-size="large">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
       		</div>
       		
       		<div id="facebook">
-                <div class="g-plusone" href="http://www.minrivertea.com{{ tea.get_absolute_url }}"></div>
+                <div class="g-plusone" href="{{ site_url }}{{ tea.get_absolute_url }}"></div>
       		</div>
       		
         </div>

@@ -152,39 +152,25 @@ ul.rss #facebook p {
 {% block content %}
 
 
-{% include 'shop/snippets/page_sub_nav.html' %}
-
 
 <div id="mtw">
   <div class="sp">
-	<h1>{{ page.title }}</h1>
-  	
-  			<div class="top">
-		
-			<img title="{% trans 'This is me, Chris West, owner of the Min River Tea Farm' %}" src="{{ static_url }}images/chris.jpg" style="float:left;margin-right: 30px;">
-			
-			<div class="white">
-				<p class="nihao">{% trans "We sell exceptional quality Chinese teas, direct from China" %}</p>
-				
-				<p>{% blocktrans %}I moved to China in 2007 and instantly fell in love with tea. Tea in China is a way of life, a daily comfort and an exquisite treat - I want to share that with friends and family and with you as well.</p><br/><p>Because we're based in China full time, we can be immensely selective about the teas we sell - it's why <a class="underline" href="/teas/">our teas</a> simply taste better. {% endblocktrans %}</p>
-				
-				<p>{% blocktrans %}<strong>Chris West, founder</strong> (<a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>){% endblocktrans %}</p>
-				
-	 		</div>
-	 	</div>
-
-
-	<div id="right">
+  
+  	<div id="right">
 		{% include 'shop/boxes/follow.html' %}
-		{% include 'shop/boxes/email.html' %}
 		{% for t in teas %}
 		  {% include 'shop/snippets/product_small.html' %}
 		{% endfor %}	
 	</div>
-
+	
 	<div id="left">
+  
+	<h1>{{ page.title }}</h1>
+  	
+	<p class="introduction">{% blocktrans %}I moved to China in 2007 and instantly fell in love with tea. Tea in China is a way of life, a daily comfort and an exquisite treat - I want to share that with friends and family and with you as well.</p>
+	<p>Because we're based in China full time, we can be immensely selective about the teas we sell - it's why <a class="underline" href="/teas/">our teas</a> simply taste better. {% endblocktrans %}</p>
+	
 		{{ page.content|convert_links|safe }}
-	</div>
 
   	    {% if ga_is_on %} 
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">

@@ -6,3 +6,6 @@ django-simple-captcha
 django-rosetta
 mysql-python
 django-registration
+pisa
+reportlab
+html5lib

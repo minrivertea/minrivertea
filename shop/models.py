@@ -69,7 +69,7 @@ class Product(models.Model):
         help_text="Appears as the really short description in right-box product listings")
     body_text = models.TextField(
         help_text="The introduction paragraph at the top-right of the main product page")
-    long_description = models.TextField(blank=True, null=True)
+    long_description = RichTextField(blank=True, null=True)
     extra_info = models.TextField(blank=True, null=True,
         help_text="This is normally the 'tasting notes' section. Add an 'h3' as the title.")
     image = models.ImageField(upload_to='images/product-photos')
@@ -94,6 +94,14 @@ class Product(models.Model):
     
     farm_image = models.ImageField(upload_to='images/product-photos', blank=True, null=True)
     farm_caption = models.CharField(max_length=200, blank=True, null=True)
+    
+    # for the tea brewing
+    brew_time = models.IntegerField(blank=True, null=True,
+        help_text="Give time in seconds")
+    brew_weight = models.IntegerField(blank=True, null=True,
+        help_text="The amount to use per brew in grams")
+    brew_temp = models.IntegerField(blank=True, null=True,
+        help_text="The temperature of water to use in degrees celsius")
     
         
     def __unicode__(self):
@@ -423,6 +431,7 @@ class Order(models.Model):
     def get_amount_pre_discount(self):
         return self.get_amount(no_discount=True)
     
+    # THIS IS FOR THE AFFILIATE SCHEME, THEY REQUIRE EURO AMOUNTS
     def get_amount_eur(self):
         return self.get_amount(convert='EUR')
     
@@ -634,7 +643,7 @@ def payment_flagged(sender, **kwargs):
     order = get_object_or_404(Order, invoice_id=ipn_obj.invoice)
     
     # PREVENTS DUPLICATES
-    if order.status == Order.STATUS_PAYMENT_FLAGGED:
+    if order.status == Order.STATUS_PAYMENT_FLAGGED or order.status == Order.STATUS_PAID:
         return
     
     order.status = Order.STATUS_PAYMENT_FLAGGED

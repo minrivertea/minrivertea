@@ -10,6 +10,46 @@
 $('#types').click(function() {
 	$('#subnav').toggle(300);
 });
+
+$('.info.tea a.button').click( function() {
+  var thisButton = $(this)
+  
+  thisButton.parent('.info.tea').css({'opacity':'0.5'});
+  thisButton.parent('.info.tea').append('<img src="{{ static_url }}images/loading.gif" id="loading" />');
+
+  
+  $.ajax({
+  	url: thisButton.attr('href'),
+	type: "GET",
+   	dataType: 'json',
+   	success: function(data) {
+   		
+   		/// increment the values in the header basket
+        if ($('#userbasket').hasClass('selected')) {} else {
+             $('#userbasket').addClass('selected'); 
+             $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+        }
+        $('#quantity .p').text(parseFloat(data.basket_quantity).toFixed(2));
+        $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+   		
+   		
+   		/// increment the values in the already in basket next to product
+   		
+   		if (thisButton.parent('.info.tea').find('.in-basket').length) {
+	   		var curr = thisButton.parent('.info.tea').find('.in-basket .num');
+   			curr.html(parseInt(curr.html(), 10)+1);
+   		} else {
+   		  	thisButton.parent('.info.tea').find('.pricebar').append('<div class="in-basket"><span class="num">1</span> {% trans "in basket" %}</div>');
+   		}   
+   		
+   		//thisButton.parent('.info.tea').find('#loading').remove();
+   		//thisButton.parent('.info.tea').css({'opacity':'1'});		
+   	},
+  });
+  return false;
+});
+
+
 </script>
 {% endblock %}
 
@@ -17,13 +57,10 @@ $('#types').click(function() {
 <link rel="stylesheet" type="text/css" href="{{ static_url }}css/teas.css"/>
 <style type="text/css">
 
-h1 {
-  margin-bottom: 0px;
-  font-size: 36px;	
-}
-
-p.introduction {
-  width: 700px;  
+.category {
+  float: left;
+  width: 100%;   
+  margin: 0 0 40px 0;
 }
 
 #price-helper {
@@ -74,7 +111,6 @@ p.introduction {
 
 div.info {
   margin-right: 20px;
-  padding: 15px 20px;
   position: relative;	
 }
 
@@ -87,190 +123,32 @@ div.info.photo img {
   margin-right: 20px;	
 }
 
-
-
-div.info h3 {
-  font-family: Helvetica, sans-serif;
-  font-size: 26px;
-  font-weight: bold;
-  color: #237A2A;
-  text-transform: ;
-  letter-spacing: -1px;	
-  margin: 0;
-}
-
 {% if categories %}
 
-#teas {
-  border-bottom: none;	
+
+.info .glass-text .inner {
+  height: 100%;   
 }
 
-.tea-promo div.image {
-  margin: 0 0 10px 0;   
+.info.tea .glass-text .pricebar {
+  text-align: left;   
 }
 
-.tea-promo h3 {
-  font-size: 14px;   
+.info.tea .glass-text p {
+  font-size: 11px;   
 }
 
-.tea-promo {
-  margin: 0 15px 15px 0;   
-  background: #fff;
-  border: none;
-  padding: 10px;
-  width: 240px;
-}
-
-.section {
-  float: left;
-  width: 100%;
-  border-bottom: 4px dotted #E1ECF3;
-  margin: 0 0 20px 0;
-  padding: 0 0 40px 0;	
-}
-
-.section .intro {
-    float: right;
-    height: 225px;
-    padding: 0 0 0;
-    width: 390px;
-}
-
-.intro h2 {
-  margin: 0 0 5px 0;
-  color: #237A2A;	
-}
-
-.intro p {
-  margin: 0;	
-}
-
-span.price {
-    color: #777777;
-    float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 13px;
-    margin: 0px 0 0 5px;
-}
-
-span.price .amount {
-  color: #333;
-  font-weight: bold;   
-}
-
-{% else %}
-
-.tea-promo h3 {
-  float: none;
+.info.tea .glass-text .price-weight {
+  position: absolute;
+  bottom: 2px;
+  left: 0;   
 }
 
 {% endif %}
-
-
-
-#special {
-  float: left;	
-  width: 920px;
-  padding: 20px;
-  box-shadow: 0 1px 3px #e1e1e1;
-  background-color: #fff;
-  position: relative;
-  overflow: hidden;
-  margin: 0px 0 30px 0;
-}
-
-#special h2 {
-    color: #237A2A;
-    font-family: Helvetica,sans-serif;
-    font-size: 39px;
-    font-weight: bold;
-    letter-spacing: -2px;
-    margin: 10px 0;
-}
-
-{% if category.slug == 'teaware' %}
-
-#special h2 span {
-  color: #999;   
-}
-
-#special h2 {
-    color: #237A2A;
-    font-family: Helvetica,sans-serif;
-    font-size: 30px;
-    font-weight: bold;
-    letter-spacing: -2px;
-    margin: 10px 0;
-    position: relative;
-    top: 60px;
-}
-
-{% endif %}
-
-#special p {
-  margin: 0;   
-  font-size: 16px;
-}
-
-#special p.tea-desc {
-  margin: 0 0 10px;	
-}
-
-#special img {
-  float: left;
-  margin-right: 10px;	
-}
-
-#special p.price {
-  float: left;
-  width: 410px;
-  margin: 30px 0 0px;	
-}
-
-#special p.more {
-  text-align: right;
-  font-size: 15px;
-  padding-right: 20px;	
-}
-
-#special .amount {
-    color: #237A2A;
-    float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 50px;
-    font-weight: bold;
-    letter-spacing: -5px;
-    margin-right: 10px;
-}
-
-#special .description {
-  font-size: 12px;
-  color: #666;
-  width: 80px;
-  position: relative;
-  top: -5px;	
-  float: left;
-  line-height: 1.3em;
-  margin: 0 20px 0 0;
-}
-
-#special .button {
-    float: right;
-    font-size: 22px;
-    padding: 10px 26px 5px;
-    position: relative;
-    right: 10px;
-    top: -10px;
-}
-
 
 
 
 </style>
-{% endblock %}
-
-{% block currency %}
-	{% include 'shop/snippets/currency.html' %}
 {% endblock %}
 
 {% block content %}
@@ -280,34 +158,35 @@ span.price .amount {
   
     <h1>{{ category.name }}</h1>
     <p class="introduction">{{ category.short_description|striptags }}</p>
-  
+    
 	<div id="teas">
 		
 			
 		{% if category.slug == 'teaware' %}
-		     {% include 'shop/snippets/brewer-special.html' %}
+		   {% include "shop/snippets/products_teaware.html" %}
+		{% else %}
+		   {% if products.count > 5 %}
+		      {% with products as teas %}
+		      {% include 'shop/snippets/products_long.html' %}
+		      {% endwith %}
+		   {% else %}
+    		   {% include "shop/snippets/products_normal.html" %}
+    	{% endif %}
 		{% endif %}
 
-  	     {% include "shop/snippets/products_normal.html" %}
+  	     
 	    
 	     {% if categories %}
-		    {% include "shop/snippets/products.html" %}
+		    {% for c in categories %}
+		      <div class="category">
+		      {% with c.products as teas %}
+		          {% include 'shop/snippets/products_long.html' %}
+		      {% endwith %}
+		      </div>
+		    {% endfor %}
 		 {% endif %}
 		
-    		
-
-	</div>
-	
-	<div id="extras">
-
-<div class="info">
-			<a href="{% url page _('shipping') %}" class="link"></a>
-			<h3>{% trans 'Free delivery' %}</h3>
-			<p>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}All orders over {{ symbol }}{{ pdt }} get delivered completely free of charge. {% endblocktrans %}<br/><a href="{% url page _('shipping') %}">{% trans 'More info about shipping' %} &raquo;</a></p>
-		</div>
-		
-			
-	
+    </div>	
   </div>
 </div>
 

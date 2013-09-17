@@ -11,36 +11,62 @@
 
 {% endblock %}
 
-
 {% block extrajs %}
-<script>
+<script type="text/javascript">
+
+
+    $('.info.tea').hover( function() {
+        $('.rollover', this).animate({
+           'left': '0', 
+        }, 100); 
+    }, function() {
+        var h = ($('.rollover', this).width()+30);
+        $('.rollover', this).animate({
+           'left': '-'+h, 
+        }, 100);   
+    });
+
+$("#choose-months a[title]").tooltip({
+  offset: [-8, 2],   
+});
+
+$('.info.tea a.button').bind('click', addToBasket);
 
 function addToBasket() {
-   $('a.up').click( function() {
-   	  var idx = $(this).attr('id');
-   	  $('#price_'+idx).css('opacity', '0.5');
-   	  $.ajax({
-   	      url: '/basket/add/'+idx+'/monthly/12/',
-   	      type: "GET",
-   	      dataType: 'json',
-   	      success: function(data){
-              if ($('#userbasket').hasClass('selected')) {} else {
-                 $('#userbasket').addClass('selected');
-                 $('#userbasket #quantity').append('<br/><a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
-              }
-              $('#quantity .p').text(parseFloat(data.basket_quantity).toFixed(2));
-              $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
-              if ($('#price_'+idx+' .quantity').length) {
-                $('#price_'+idx+' .quantity .num').html(parseInt($('#price_'+idx+' .quantity .num').html(), 10)+1);
-              } else {
-                 $('#price_'+idx).append('<span class="quantity"><span class="num">1</span> {% trans "in basket!" %}</span>');
-              }
-              $('#price_'+idx).animate({'opacity': '1'}, 200);
-              $('#'+idx+' .quantity').addClass('flash').delay(3900).queue(function() {$(this).removeClass('flash')});
-  		  }
-   	  })
-   	  return false;
-   });	
+	  
+	  var thisButton = $(this)
+	  var idx = $(this).attr('id');
+
+	  $.ajax({
+	      url: thisButton.attr('href'),
+	      type: "GET",
+	      dataType: 'json',
+	      success: function(data){
+            
+            /// increment the header userbasket
+            if ($('#userbasket').hasClass('selected')) {} else {
+                $('#userbasket').addClass('selected');
+                $('#userbasket #quantity').append('<br/><a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+            }
+            $('#quantity .p').text(parseFloat(data.basket_quantity).toFixed(2));
+            $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+            
+            /// increment the monthly-box-total
+            $('#subtotal .amount .num').html(data.monthly_amount);
+            $('#subtotal .items .num').html(parseInt($('#subtotal .items .num').html(), 10)+1);
+            
+            /// increment the values in the already in basket next to product
+        		if (thisButton.parent('.info.tea').find('.in-basket').length) {
+    	   		  var curr = thisButton.parent('.info.tea').find('.in-basket .num');
+        		  curr.html(parseInt(curr.html(), 10)+1);
+        		} else {
+        		  	thisButton.parent('.info.tea').find('.pricebar').append(
+        		  	'<div class="in-basket"><span class="quantity"><span class="num">1</span> {% trans "in your TeaBox!" %}</span></div>');
+        		}
+
+		  } /// END SUCCESS FUNCTION
+	  });
+	  return false;
 }
 
 function changeMonths() {
@@ -56,8 +82,10 @@ function changeMonths() {
             obj.addClass('selected');
             $('#products').html(data.html);
             $('#userbasket #quantity .p').html(data.basket_quantity);
+            $('#subtotal .amount .num').html(data.monthly_amount);
+            $('#subtotal .items .months').html(data.months);
             $('#loading').remove();
-            addToBasket();
+            $('.pricebar a.button').bind('click', addToBasket);
          }
         
        }) 
@@ -67,7 +95,13 @@ function changeMonths() {
 
 $(document).ready( function() {
     changeMonths();
-    addToBasket();
+    
+    /// GIVE THE ROLLOVER DIVS A HEIGHT
+    $('.rollover').each( function(item) {
+       $(this).css({
+        'width': ($('.text', this).width()+30),
+       }); 
+    });
 });
 
 
@@ -78,13 +112,6 @@ $(document).ready( function() {
 <link rel="stylesheet" href="{{ static_url }}css/teas.css"/>
 <style type="text/css">
 
-#mtw #left {
-  background: #fff;
-  border: 10px solid #E1ECF3;
-  padding: 55px 15px 15px;
-  width: 910px;
-  position: relative;   
-}
 
 #mtw #left h2 {
   background: #E1ECF3;
@@ -100,8 +127,7 @@ $(document).ready( function() {
 }
 
 h1 {
-  font-size: 40px;	
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 h1 span {
@@ -110,92 +136,74 @@ h1 span {
   margin-left: 10px;	
 }
 
-div.product-photos-small {
+.product-photos-small {
     float: left;
-    margin: 0px 0 0px 15px;
+    margin: 15px 0 0px;
     text-align: right;
-    width: 50px;
+    width: auto;
 }
 
-.tea-top .left {
+.product-photos-small img {
     float: left;
-    height: auto;
-    margin-right: 30px;
-    width: 500px;
-}
-
-.tea-top div.main-image div.product-photos-small img {
-    float: left;
-    margin: 0 0px 10px 0;
+    margin: 0 5px 0px 0;
     opacity: 0.6;
 }
 
-.tea-top div.main-image div.product-photos-small img:last-child {
+.product-photos-small img:last-child {
   margin-right: 0;	
 }
 
-.tea-top div.main-image div.product-photos-small img:hover {
+.product-photos-small img:hover {
   cursor: pointer;
   opacity: 0.8;	
   box-shadow: 0 1px 3px #999;
 }
 
-.tea-top div.main-image div.product-photos-small img.active {
+.product-photos-small img.active {
   opacity: 1;	
 }
 
-div.product-photos-small p {
+.tea-top {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 8px 8px 8px 8px;
     float: left;
-    font-size: 13px;
-    line-height: 1.3em;
-    margin-top: 20px;
-    text-align: right;
-    width: 100px;
+    margin: 15px 0 0px;
+    padding: 0;
+    width: 100%;
 }
 
-.tea-top {
-    float: left;
-    margin: 10px 0 30px;
-    padding-bottom: 10px;
+.tea-top .left {
+  width: 500px;
+  float: left;   
 }
+
 
 .tea-top .description {
-  width: 430px;
-  float: right;	
+  width: 750px;
+  float: left;	
 }
 
 .tea-top div.description p {
   font-size: 20px;
-  color: #333;	
+  font-weight: 100;
   margin: 0 0 10px 0;
-  text-shadow: 2px 2px 0 #fff;
 }
 
 .tea-top div.description p.small {
-  font-size: 16px;	
+  font-size: 13px;	
 }
 
 .tea-top div.main-image {
     float: left;
-    width: 500px;
-}
-
-
-a.button {
-    float: right;
-    font-size: 18px;
-    margin: 0;
+    width: 600px;
     position: relative;
-    width: 170px;
-    top: -5px;
-    padding: 11px 20px 9px;
-    text-align: right;
 }
 
-.price.big a.button {
-   float: left;
+.tea-top #prices {
+    float: right;
+    width: 330px;
+    margin: 15px 0 0;
 }
-
 
 
 .tea-top div.tea-description {
@@ -205,18 +213,6 @@ a.button {
   margin-bottom: 0px;
 }
 
-div.price-text {
-    color: #EE6464;
-    float: left;
-    font-size: 28px;
-    font-weight: bold;
-    height: 23px;
-    letter-spacing: -1px;
-    margin: 0;
-    position: relative;
-    top: -4px;
-    width: 200px;
-}
 
 div.message {
     background-color: #FFFFFF;
@@ -376,7 +372,6 @@ div.fb-recommend {
 
 #recommended h3 {
   font-size: 24px;
-  font-family: Helvetica, Arial, sans-serif;
   font-weight:bold;  
   margin: 0 0 20px 0; 
   color: #FF6569;
@@ -431,6 +426,7 @@ div.fb-recommend {
     width: 500px;
     float: left;
 }
+
 
 
 #long-description, #brew {
@@ -494,234 +490,229 @@ div.fb-recommend {
 }
 
 
-#monthly, #choose-months {
+#monthly {
     background: none repeat scroll 0 0 transparent;
-    border-bottom: 3px dotted #E1E1E1;
-    border-top: 3px dotted #E1E1E1;
     float: left;
     height: auto;
-    margin: 0px 0 20px;
-    padding: 20px 0;
+    margin: 0px;
+    padding: 0;
     width: 100%;
-    min-height: 100px;
 }
 
 #choose-months {
-  border-bottom: none;   
+  border-bottom: none; 
+  width: 350px;
+  float: left;  
+}
+
+#subtotal {
+  float: left;
+  width: 400px;   
+}
+
+#choose-months h3, #subtotal h3 {
+  font-size: 15px;
+  color: #FF6569;
+  margin: 10px 0 15px 0;   
 }
 
 #choose-months ul {
   float: left;
   list-style-type: none;
-  margin: 0;
-  padding: 0;   
+  margin: 0 0 15px;
+  padding: 0; 
+  width: 330px;  
 }
 
 #choose-months ul li {
-  float: left;
   font-size: 13px;
   color: #59849F;
-  padding-left: 10px;
-  line-height: 1.2em;  
+  float: left;
 }
 
 #choose-months ul li a {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-radius: 2px;
-    float: left;
-    font-size: 24px;
-    margin: 0 20px 10px -10px;
-    padding: 10px 20px;
+    background: #e6e6e6;
+    padding: 10px;
+    margin: 0 10px 0 0;
+    border-right: 1px solid #E1E1E1;
+    font-size: 15px;
+    letter-spacing: -0.2px;
+    text-align: center;
     text-decoration: none;
-    font-family: Helvetica, sans-serif;
-    letter-spacing: -0.5px;
-    font-weight:bold;
-    text-shadow: none;
-  line-height: 1.6em;  
+    color: #555;
+    position: relative;
+    width: 20px;
+    float: left;
+}
 
+#choose-months ul li a .tick {
+  display: none;   
+}
+
+#choose-months ul li:last-child a {
+    border-right: none;
+    margin-right: 0;
 }
 
 #choose-months ul li a:hover {
-  box-shadow: 0 1px 3px #d1d1d1;   
+  color: #FF6569;   
 }
 
 #choose-months ul li a.selected {
-  background: #237A2A;  
-  color: #fff; 
+  font-weight: bold;
+  background: #18691E;
+  color: #fff;  
+}
+
+#choose-months ul li a.selected:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  bottom: -10px;
+  left: 10px;
+  border-color: #18691E transparent -moz-use-text-color;
+  border-style: solid solid none;
+  border-width: 10px 10px 0px; 
+}
+
+
+#choose-months ul li a.selected .tick {
+    display: inherit;
+    margin-right: 5px;
 }
 
 #choose-months ul li a.selected:hover {
-  background: #FF6569;
-  color: #fff;   
+  background: #FF6569;   
 }
 
-#monthly .button {
-  width: 130px;
-  font-size: 15px;
-  padding: 5px 20px;
-  text-align: center;  
-  margin: 5px 0 0; 
-  top: 0;
-  float: left;
+#choose-months ul li a.selected:hover:before {
+  border-color: #FF6569 transparent -moz-use-text-color;   
 }
 
-#monthly h3, #choose-months h3 {
+#subtotal .amount {
+  font-size: 30px;
+  color: #18691E;   
+}
+
+#subtotal .items {
+  color: #999;   
+}
+
+
+#monthly .info.tea h3 {
     float: left;
-    font-family: Helvetica,arial,sans-serif;
-    font-size: 20px;
-    font-weight: bold;
+    font-weight: 100;
     letter-spacing: -0.5px;
-    line-height: 1em;
-    margin: 0 20px 0 0;
+    margin: 0 0px 5px 0;
     position: relative;
-    top: -5px;
     color: #FF6569;
-    width: 210px;
+    width: 100%;
 }
 
-#choose-months h3 {
-  position: relative;
-  top: 3px;
-}
-
-#monthly div {
-  display: block;
-  float: left;
-  width: 500px;
-  margin: 0 30px 0 0;
-  font-size: 14px; 
-  padding: 15px 0 0;  
-}
-
-#monthly .price {
-  width: 180px; 
+#monthly #guidelink {
+  float: right;
+  width: auto;
   margin: 0;
-  padding-top: 10px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  letter-spacing: -0.5px;
-  color: #555;  
-}
-
-#monthly div.price span.grey {
-    color: #777777;
-    font-size: 13px;
-    font-weight: normal;
-}
-
-#monthly div#products {
-  width: 730px;
-  padding: 0;
-  margin: 0;   
-}
-
-#monthly #products .product {
-    background: none repeat scroll 0 0 #FFFFFF;
-    float: left;
-    height: auto;
-    margin: 0 0px 15px 0;
-    padding: 1.5%;
-    position: relative;
-    width: 97%;
-}
-
-#monthly #products .product:hover {
-  box-shadow: 0 1px 5px #d1d1d1;   
-}
-
-#monthly #products img {
-  float: left;
-  margin: 0 30px 0 0;
-}
-
-#monthly #products h4 {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  float: left;
-  margin: 5px 0 0;
-  padding: 0;
-  color: #237A2A;
-  width: 438px;
-  letter-spacing: -0.5px;   
-}
-
-#monthly #products p {
-  float: left;
-  width: 438px;
-  padding: 0;
-  margin: 0;
-}
-
-#monthly #products .product .price {
-    bottom: 15px;
-    float: left;
-    font-size: 14px;
-    left: 285px;
-    margin: 0;
-    position: absolute;
-    width: 438px;
-}
-
-#monthly p.price span.amount {
+  padding: 0;  
+  font-size: 15px; 
   font-weight: bold;
-  color: #333;
-  font-size: 18px; 
+  text-transform: lowercase;
 }
 
-#monthly p.price a.up {
-    background: none repeat scroll 0 0 #237A2A;
-    border-radius: 4px 4px 4px 4px;
-    bottom: 0;
-    color: #FFFFFF;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 2px 10px;
+#monthly .info.tea.right {
+  margin: 0 0 20px 0;   
+}
+
+#monthly .info.tea:hover img {
+    opacity: 1;
+}
+
+#monthly .info.tea:hover h4 a {
+  color: #18691E;   
+}
+
+#monthly .info.tea h4 a:hover {
+   color: #FF6569;   
+}
+
+#monthly .info.tea .glass-text {
+    float: left;
+    width: 210px;
+    height: 160px;
+    margin: 0;
+    position: relative;
+    padding: 0;
+    border-bottom: none;
+}
+
+#products {
+  width: 100%;
+  float: left;
+  padding: 0;
+  margin: 20px 0 0;   
+}
+
+.info.tea p {
+  font-size: 11px;   
+}
+
+.info.tea a.button {
     position: absolute;
-    right: 10px;
-    text-decoration: none;
+    bottom: 22px;
+    right: 0;
 }
 
-#monthly p.price a.up:hover {
-   background: #FF6569;
-   cursor: pointer;   
+.info.tea img {
+  float: right;   
 }
 
-#monthly p.price span.quantity {
-    background: none repeat scroll 0 0 #E1ECF3;
-    border-radius: 3px 3px 3px 3px;
-    color: #59849F;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    padding: 0 10px;
+.info .glass-text .inner {
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  float: left;   
+}
+
+.info.tea .glass-text .in-basket {
+    bottom: 35px;
+    color: #555;
+    font-size: 11px;
+    left: 0px;
+    background: none;
+    padding: 0;
+}
+
+.info.tea .glass-text .in-basket .quantity:before {
+    border-color: #f1f1f1 transparent -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 10px 10px 0;
+    bottom: -12px;
+    content: " ";
+    display: block;
+    left: 15px;
     position: absolute;
-    right: 10px;
-    text-align: center;
-    text-shadow: 0 1px 1px #FFFFFF;
-    top: -33px;
-    width: 105px;
 }
 
-#monthly p.price span.num {
-   color: inherit;
-   font: inherit;   
+.info.tea .glass-text .in-basket .quantity {
+  background: #f1f1f1;
+  padding: 5px 10px;
 }
 
-#monthly p.price span.quantity.flash {
-  background: #fff;   
+.pricebar {
+  text-align: left; 
+  padding: 5px 0;  
 }
 
+.pricebar p {
+  float: left;  
+} 
 
-#monthly p.price span.quantity.flash:before {
-   border-color: transparent #fff transparent -moz-use-text-color;
-}
-
-
-#monthly p.price span.amount span.grey {
-    color: #777777;
-    font-size: 14px;
-    font-weight: normal;
-    letter-spacing: -0.5px;
+.pricebar .price-weight {
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  float: left;
+  width: 100%;
 }
 
 #help {
@@ -799,69 +790,72 @@ div.fb-recommend {
 	<h1>{% if product.long_name %}{{ product.long_name|safe }}{% else %}{{ product.name }}{% endif %}</h1>
 
 	<div class="tea-top">
-		<div class="left">
-		<div class="main-image">
-			<img class="loading" src="{{ static_url }}images/loading.gif"/>
-			<div id="image_wrap">
-			    {% thumbnail product.image thumb_large crop="center" as im %}
-					<img class="product-small" alt="{{ im.url }}" title="{{ product.description }}" src="{{ im.url }}"/></a>
-				{% endthumbnail %}	
-			</div>
-		</div><!-- end main image div -->
-		</div>
-		
 		<div class="description">{{ product.body_text|safe }}</div>
-		
+		<br clear="all"/>
+		<div id="choose-months">
+    	   <h3>{% trans 'Choose how many months you would like' %}:</h3>
+    	   <ul>
+    	       <li>
+    	           <a href="{% url change_monthly_frequency 3 %}" class="changemonths{% if months == 3 %} selected{% endif %}">3</a>
+    	       </li>
+    	       <li>
+    	           <a title="{% trans 'Free postage' %}" href="{% url change_monthly_frequency 6 %}" class="changemonths{% if months == 6 %} selected{% endif %}">6 </a>
+    	       </li>
+    	       <li>
+    	           <a title="{% trans 'Free postage' %}<br/>{{ monthly_discount_low|floatformat }}% {% trans 'discount' %}" href="{% url change_monthly_frequency 12 %}" class="changemonths{% if months == 12 %} selected{% endif %}">12</a>
+    	       </li>
+    	   </ul>
+    	</div>
+    	
+    	<div id="subtotal">
+    	   <h3>{% trans 'Your TeaBox subtotal is' %}</h3>
+    	   <div class="amount">{{ currency.symbol }}<span class="num">{{ monthly_amount|floatformat:"2" }}</span></div>
+    	   <div class="items"><span class="num">{{ monthly_items }}</span> {% trans 'items' %} / <span class="months">{{ months }}</span> {% trans 'months' %}</div>    	   
+    	</div>
+    	
 	</div><!-- end top product info div -->
 	
-	<br clear="all"/>
-	
-	<div id="choose-months">
-	   <h3>{% trans 'How many months would you like?' %} &raquo;</h3>
-	   <ul>
-	       <li>
-	           <a href="{% url change_monthly_frequency 3 %}" class="changemonths{% if months == 3 %} selected{% endif %}">3 {% trans 'months' %}</a>
-	       </li>
-	       <li>
-	           <a href="{% url change_monthly_frequency 6 %}" class="changemonths{% if months == 6 %} selected{% endif %}">6 {% trans 'months' %}</a>
-	           <br/>&#10003; {% trans 'Free postage' %}
-	       </li>
-	       <li>
-	           <a href="{% url change_monthly_frequency 12 %}" class="changemonths{% if months == 12 %} selected{% endif %}">12 {% trans 'months' %}</a>
-	           <br/>&#10003; {% trans 'Free postage' %}
-	           <br/>&#10003; {{ monthly_discount_low|floatformat }}% {% trans 'discount' %}
-	       </li>
-	   </ul>
-	</div>
-	
+	<div class="hr"></div>
+				
 	<div id="monthly">
-	   <h3>
-	       {% trans 'Choose which teas to add to your TeaBox' %} &raquo;<br/>
-	   </h3>
-	   
+
+	   <p id="guidelink"><a href="#guide">{% trans 'How it works and FAQs' %} &raquo;</a></p>
+	   <h3>{% trans 'Choose which teas to add to your TeaBox' %} &raquo;</h3>	   
 	   <div id="products">
-	           {% include 'shop/snippets/products_monthly.html' %}
+	       {% with products as teas %}
+	           {% include 'shop/snippets/products_long.html' %}
+	       {% endwith %}
 	   </div>
 	</div>
 	
-	<div class="left">
+	<div id="right">
+	   {% include 'shop/boxes/follow.html' %}
+       {% include 'shop/boxes/who.html' %}
+	</div>
+	
+	<div id="left">
+	   <a id="guide"></a>
 	   {{ product.long_description|safe }}
 	</div>
 
 	
-	{% if region == 'CN' %}
-	{% else %}
 	{% if ga_is_on %}
     <ul class="rss">
 		<li id="google">
-			<g:plusone></g:plusone>
-			<script type="text/javascript">
-			  (function() {
-			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-			    po.src = 'https://apis.google.com/js/plusone.js';
-			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-			  })();
-			</script>
+			<div class="g-plusone" data-size="medium"></div>
+			<!-- Place this tag after the last +1 button tag. -->
+            <script type="text/javascript">
+              (function() {
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/plusone.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>
+		</li>
+		<li id="twitter">
+		      <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site_url }}{{ product.get_absolute_url }}" data-text="If you like tea, try some @minrivertea {{ product.name }}" data-size="small">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		
 		</li>
     	<li id="facebook">
 		    <div id="fb-root"></div>
@@ -869,8 +863,14 @@ div.fb-recommend {
 		    <fb:like href="{{ site_url }}{{ product.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 		    </fb:like>
 		</li>
+		<li id="pinterest">
+		  {% thumbnail tea.image thumb_large crop="" as im %}
+		  <a data-pin-config="beside" href="http://pinterest.com/pin/create/button/?url={{ site_url }}{{ product.get_absolute_url }}&media={{ site_url }}{{ im.url }}&description={{ product.description }}" data-pin-do="buttonPin" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+		  {% endthumbnail %}
+		</li>
 	</ul>
-	{% endif %}
+	{% else %}
+	<ul class="rss"><li><img src="{{ static_url }}images/debug_social.jpg" /></li></ul>
 	{% endif %}
 
 

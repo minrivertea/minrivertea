@@ -25,37 +25,44 @@
 
 {% block extrajs %}
 <script>
-$(function() {
 
-$(".scrollable").scrollable();
-
-$(".items img").click(function() {
-
-	if ($(this).hasClass("active")) { return; }
-	var url = $(this).attr("alt");
-	var wrap = $("#image_wrap").fadeTo("medium", 0.2);
-
-	var img = new Image();
-    
-	img.onload = function() {
-		wrap.fadeTo("fast", 1);
-		wrap.find("img").attr("src", url);	
-    $('.main-image .loading').toggle();
-	};
-
-	img.src = url;
-
-	$(".items img").removeClass("active");
-	$(this).addClass("active");
-
-}).filter(":first").click();
+$(".warning span[title]").tooltip({
+  offset: [-8, 2],   
 });
 
-function addToBasket(idx) {
-   $(idx).click( function() {
+$(function() {
+
+    $(".scrollable").scrollable();
+    $(".items img").click(function() {
+    
+    	if ($(this).hasClass("active")) { return; }
+    	var url = $(this).attr("alt");
+    	var wrap = $("#image_wrap").fadeTo("medium", 0.2);
+    
+    	var img = new Image();
+        
+    	img.onload = function() {
+    		wrap.fadeTo("fast", 1);
+    		wrap.find("img").attr("src", url);	
+    	};
+    
+    	img.src = url;
+    
+    	$(".items img").removeClass("active");
+    	$(this).addClass("active");
+    
+    }).filter(":first").click();
+});
+
+
+function addToBasket(obj) {
+
+    $(obj).click(function() {   	 
+   	  var thisPrice = $(this).parent('.price-inner');
    	  
-      $('#messages').toggle();
-      $('#messages').append('<img class="loading" src="{{ static_url }}images/loading.gif"/>');
+   	  thisPrice.css({'opacity': '0.4'});
+   	  $('#prices').prepend('<img src="{{ static_url }}images/loading.gif" id="loading"/>');
+   	 
    	  $.ajax({
    	      url: $(this).attr('href'),
    	      type: "GET",
@@ -65,36 +72,43 @@ function addToBasket(idx) {
             /// increment the values in the header basket
             if ($('#userbasket').hasClass('selected')) {} else {
                  $('#userbasket').addClass('selected'); 
-                 $('#userbasket #quantity').append('<br/><a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+                 $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
             }
             $('#quantity .p').text(parseFloat(data.basket_quantity).toFixed(2));
             $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
     		
-    		/// add the message
-    		if ($('#messages .message').length) {
-    		    $('#messages .message .num').html(parseInt($('#messages .message .num').html(), 10)+1);
-   		        $('#messages .message .num').addClass('active');
-    		} else {    		
-        		$('#messages img:visible').remove();
-        		$('#messages').append(data.message).delay(8900).queue(function() {
-        		      $('#messages').fadeOut(800);
-        		});
-    		}
+    		/// remove loading icon and return opacity to normal
+    		$('#prices #loading').remove();
+    		thisPrice.css({'opacity': '1'});
+    		
+    		/// check if there's an existing message and remove it
+    		if ($('#prices .message').length ) {
+    		   $('#prices .message').remove();
+    		} 
+    		
+    		/// add the confirmation
+    		$('#prices').prepend(data.message).delay(8000).queue(function() {
+    			$('#prices .message').fadeOut(300);	
+    			$('#prices .message').remove();
+    		});
+    		$('#prices .message').fadeIn(300);    		
   		  }
    	  })
    	  return false;
-   });	
+  });
 }
 
 $(document).ready( function() {
-    addToBasket('#add_normal');
-    addToBasket('#monthly_add');
+    addToBasket('.price a.button');
 });
 
 
 </script>
 
+
+{% if ga_is_on %}
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+{% endif %}
 
 {% endblock %}
 
@@ -123,127 +137,219 @@ $(document).ready( function() {
   letter-spacing: -1px;
 }
 
-h1 {
-  font-size: 40px;	
-  margin-bottom: 0px;
-}
-
 h1 span {
   font-size: 30px;
   color: #999;
   margin-left: 10px;	
 }
 
-div.product-photos-small {
+.product-photos-small {
     float: left;
-    margin: 15px 0 0px;
+    margin: 0px 0 0px 5px;
     text-align: right;
-    width: 500px;
+    width: 50px;
+    position: relative;
+    left: 5px;
 }
 
-.tea-top div.main-image div.product-photos-small img {
+.product-photos-small img {
     float: left;
-    margin: 0 5px 0px 0;
+    margin: 0 0px 5px 0;
     opacity: 0.6;
+    border: 1px solid #e1e1e1;
 }
 
-.tea-top div.main-image div.product-photos-small img:last-child {
+.product-photos-small img:last-child {
   margin-right: 0;	
 }
 
-.tea-top div.main-image div.product-photos-small img:hover {
+.product-photos-small img:hover {
   cursor: pointer;
   opacity: 0.8;	
-  box-shadow: 0 1px 3px #999;
+  border-color: #d1d1d1;
 }
 
-.tea-top div.main-image div.product-photos-small img.active {
+.product-photos-small img.active {
   opacity: 1;	
 }
 
-div.product-photos-small p {
-    float: left;
-    font-size: 13px;
-    line-height: 1.3em;
-    margin-top: 20px;
-    text-align: right;
-    width: 100px;
+#instructions {
+  position: absolute;
+  bottom: 0;
+  right: 0;	
+  display:none;
+}
+
+#instructions div {
+  float: right;
+  height: 50px;
+  width: 50px;
+  margin: 0 0 0 5px;
+  background: #f1f1f1;
+  position: relative;
+}
+
+#instructions div span.title {
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: -0.5px;
+  color: #b1b1b1;
+  float: left;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  text-transform: lowercase;	
+}
+
+#instructions div span.num {
+  font-size: 20px;
+  font-weight: 100;
+  letter-spacing: -0.5px;
+  position: absolute;
+  top: 22px;
+  color: #777;
+  width: 100%;
+  text-align: center;	
+}
+
+#instructions div:hover span.num {
+  color: #18691E;   
+}
+
+#instructions div:hover span.title {
+  color: #555;   
 }
 
 .tea-top {
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 8px 8px 8px 8px;
     float: left;
-    margin: 20px 0 40px;
-    padding: 15px;
+    margin: 15px 0 0px;
+    padding: 0;
 }
 
 .tea-top .left {
-  width: 500px;
-  float: left;   
+  width: 560px;
+  float: left;
+  margin: 0px 0 0 0;   
 }
 
 
 .tea-top .description {
-  width: 400px;
+  width: 380px;
   float: right;	
 }
 
 .tea-top div.description p {
-  font-size: 22px;
-  color: #333;	
+  font-size: 18px;
+  font-weight: 100;
   margin: 0 0 10px 0;
-  text-shadow: 2px 2px 0 #fff;
+}
+
+.tea-top .description p:last-child {
+  margin-bottom: 0;   
 }
 
 .tea-top div.description p.small {
-  font-size: 16px;	
+  font-size: 13px;
+  font-weight: normal;	
 }
 
 .tea-top div.main-image {
     float: left;
-    width: 500px;
+    width: 555px;
+    position: relative;
 }
 
-.tea-top div#prices {
+.tea-top #prices {
     float: right;
-    width: 400px;
-    margin: 15px 0 0;
+    width: 380px;
+    margin: 10px 0 0;
+    position: relative;
 }
 
-.tea-top .price {
+#prices #loading {
     float: left;
-    margin: 0 0 10px;
+    left: 40%;
+    margin: 0;
+    position: absolute;
+    top: 20px;
+    z-index: 30;
+}
+
+#prices .message {
+    background: none repeat scroll 0 0 #F1F1F1;
+    border-radius: 5px 5px 5px 5px;
+    display: none;
+    float: left;
+    left: -5px;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: -30px;
+    width: 360px;
+    z-index: 30;
+}
+
+#prices .message h3 {
+    color: #333;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0;
+    text-transform: none;
+    text-shadow: none;
+}
+
+#prices .message h3 a {
+}
+
+#prices .message h3 a:hover {
+  text-decoration: underline;   
+}
+
+#prices .price {
+    float: left;
+    margin: 0;
+    padding: 10px 0;
     position: relative;
     width: 100%;
+    height: 25px;
+    border-top: 1px dashed #e1e1e1;
 }
 
-.tea-top #original {
-  float: left;
-  width: 360px;
-  font-family: Helvetica,Arial,sans-serif;
-  font-size: 13px; 
-  margin: 0 0 30px 0;
+#prices .price:first-child {
+  border-top: none;   
 }
 
-.tea-top #original span {
-    background: none repeat scroll 0 0 red;
-    border-radius: 5px 5px 5px 5px;
+.tea-top .price .price-inner {
+  width: 100%;
+  float: left;   
+}
+
+#prices .price .warning {
+    background: none repeat scroll 0 0 #C30000;
+    border-radius: 4px 4px 4px 4px;
     color: #FFFFFF;
+    float: left;
+    font-size: 11px;
     font-weight: bold;
-    letter-spacing: -0.5px;
-    margin-right: 10px;
-    padding: 6px 10px;
+    padding: 2px 5px 1px;
+    width: auto;
+    position: relative;
+    top: -2px;
 }
 
-a.button {
+a.button.green {
+    background: none repeat scroll 0 0 #22932A;
     float: right;
-    font-size: 18px;
-    margin: 0;
-    position: relative;
-    width: 170px;
-    padding: 11px 20px 9px;
-    text-align: right;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 10px 0 0;
+    padding: 5px 3%;
+    width: auto;
+    letter-spacing: -0.3px;
 }
 
 .tea-top div.tea-description {
@@ -253,7 +359,7 @@ a.button {
   margin-bottom: 0px;
 }
 
-div.price-text {
+.price-text {
     color: #EE6464;
     float: left;
     font-size: 28px;
@@ -267,20 +373,17 @@ div.price-text {
 }
 
 #stocks {
-  float: left;
-  width: 100%;
-  padding: 15px 0 0 0;
-  border-top: 1px solid #e1e1e1; 
-  font-family: Helvetica, arial, sans-serif;
-  font-size: 13px;
-  text-align: right;  
+    float: left;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: ;
+    margin: 10px 0 10px;
 }
 
 #stocks div {
   float: left;
   width: auto;
   text-align: center;
-  padding: 0 10px;
   color: #555; 
   border-right: 1px solid #e1e1e1;   
 }
@@ -289,8 +392,17 @@ div.price-text {
   border-right: none;   
 }
 
-#stocks div strong {
-  color: #32607d;   
+#stocks strong {
+  color: #444;  
+}
+
+#monthly.price {
+}
+
+#monthly.price .weight {
+    color: #666666;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 table.details {
@@ -313,43 +425,39 @@ table.details td a {
 table.details td.left {
   padding-right: 10px;
   background-color: #E1ECF3;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 14px;
 }
 
 span.name {
-  font-family: Helvetica, sans-serif;
   font-weight: bold;
   font-size: 14px;   
 }
 
 .price-description {
   float:left;
-  width:auto;
+  letter-spacing: -0.2px;
+  font-size: 13px;
+  line-height: 1em;
+  position: relative;
+  top: 7px;
 }
 
 #prices .amount {
-    color: #237A2A;
-    float: right;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 40px;
+    color: #333;
+    float: left;
+    font-size: 18px;
     font-weight: bold;
-    letter-spacing: -2.5px;
-    line-height: 1em;
-    margin: 0 10px 10px;
-    position: relative;
-    text-shadow: 1px 1px 0 #FFFFFF;
+    letter-spacing: -0.5px;
+    width: auto;
+    margin: 0 5px 0 0;
 }
 
 .price .weight {
-    color: #777777;
-    float: right;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    margin: 0;
-    position: relative;
+    color: #555555;
+    float: left;
+    font-size: 13px;
+    font-weight: 100;
     width: auto;
-    max-width: 110px;
+    margin: 0 10px 0 0;
 }
 
 .price .weight span {
@@ -361,19 +469,19 @@ div.fb-recommend {
   float: left;	
 }
 
-#facebook, #google {
+#facebook, #google, #twitter {
   float: left;
   width: 80px;
 }
 
-.loading {
+#loading {
     left: 47%;
     position: absolute;
     top: 36%;
-    z-index: 12;
+    z-index: 5;
 }
 
-#recommended, #reviews {
+#recommended, #reviews, #delivery, #payment, #monthly {
   float: left;
   width: 100%;
   margin: 0px 0 0 0;   
@@ -381,9 +489,7 @@ div.fb-recommend {
 
 #reviews {
   background: #fff;
-  padding: 2%;
-  width: 96%;
-  margin: 10px 0 10px;
+  margin: 0px;
   position: relative;  
 }
 
@@ -391,10 +497,10 @@ div.fb-recommend {
   height: 180px;   
 }
 
-#recommended h3.title, #reviews h3 {
+#recommended h3 {
     color: #5F829A;
-    font-size: 22px;
     margin: 0 0 10px;
+    font-size: 17px;
 }
 
 #reviews a.add-review {
@@ -411,15 +517,12 @@ div.fb-recommend {
 }
 
 #reviews ul li {
-  float: left;
-  width: 290px;
-  margin: 0 30px 0px 0;
-  font-size: 14px;
-  letter-spacing: -0.2px;
-}
-
-#reviews ul li strong {
-  font-family: Helvetica, Arial, sans-serif; 
+    float: left;
+    font-size: 13px;
+    letter-spacing: -0.2px;
+    margin: 0 30px 0 0;
+    padding: 10px 15px;
+    width: 260px;
 }
 
 #image_wrap {
@@ -432,25 +535,13 @@ div.fb-recommend {
 #description, #brewing {
   background: none;
   padding: 0;
-  width: 300px;  
+  width: 100%;  
   margin: 0 30px 0 0; 
 }
 
 #brewing {
   margin-right: 0;
   width: 345px;   
-}
-
-#description p, #brewing p, #map p {
-  margin: 0 0 20px 0;
-  font-size: 14px;  
-}
-
-#description h3, #brewing h3 {
-    color: #5F829A;
-    font-size: 22px;
-    font-weight: normal;
-    font-family: "Times New Roman", Georgia, serif;
 }
 
 #extras {
@@ -464,7 +555,40 @@ div.fb-recommend {
 }
 
 #extras .info {
-  float: left;   
+  float: left;
+  width: 100%;   
+}
+
+#description .info img {
+  float: left; 
+  margin: 0 30px 20px 0;  
+}
+
+#description .info .text {
+  float: left;
+  background: #f1f1f1;
+  padding: 20px; 
+  width: 290px; 
+  position: relative;
+}
+
+#description .info .text h4 {
+  margin: 0;   
+}
+
+#description .info .text p {
+  font-size: 13px;   
+}
+
+#description .info .text:before {
+    border-color: transparent #f1f1f1 transparent -moz-use-text-color;
+    border-style: solid solid solid none;
+    border-width: 20px 20px 20px 0;
+    content: " ";
+    display: block;
+    position: absolute;
+    left: -20px;
+    top: 20px;     
 }
 
 #map {
@@ -495,134 +619,40 @@ div.fb-recommend {
   margin: 0;   
 }
 
-#shipping p, #safe p {
-  font-weight: bold;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  color: #777; 
-  padding-left: 10px;  
-}
 
-#monthly {
-    background: none repeat scroll 0 0 transparent;
-    border-bottom: 3px dotted #E1E1E1;
-    float: left;
-    height: auto;
-    margin: 30px 0 40px;
-    padding: 0px 0 20px;
-    width: 100%;
-}
-
-{% if not reviews %}
-#monthly {
-  padding-top: 30px;
-  border-top: 3px dotted #e1e1e1;   
-}
-{% endif %}
-
-#monthly img.teabox {
-    float: left;
-    margin: 0 0px 0 0;
-    position: relative;
-    top: -5px;
-}
-
-#monthly .button {
-    float: right;
-    font-size: 18px;
-    margin: 10px 0 5px;
-    padding: 8px 15px;
-    text-align: center;
-    top: 0;
-}
-
-#monthly h3 {
-    background: none repeat scroll 0 0 #59849F;
-    border-radius: 5px 0 0 5px;
-    color: #FFFFFF;
-    float: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 28px;
-    font-weight: bold;
-    height: 45px;
-    letter-spacing: -1.5px;
-    margin: 0 40px 0 0;
-    padding: 20px 0 0;
-    position: relative;
-    text-align: center;
-    text-shadow: 0 1px 1px #333333;
-    width: 120px;
-}
-
-#monthly h3:before {
-    border-color: transparent -moz-use-text-color transparent #59849F;
-    border-style: solid none solid solid;
-    border-width: 33px 0 33px 19px;
-    content: " ";
-    display: block;
-    position: absolute;
-    right: -19px;
-    top: 0;
-}
-
-#monthly div {
-    display: block;
-    float: left;
-    font-size: 14px;
-    margin: 0 10px 0 0;
-    padding: 0;
-    width: 280px;
-    line-height: 1.6em;
-    letter-spacing: -0.2px;
-}
-
-#monthly div span {
-  font-size: 17px;
-  font-family: Helvetica, Arial, sans-serif;   
-  font-weight: bold;
-  letter-spacing: -0.5px;
-}
-
-#monthly div.price {
-    float: right;
-    margin: 0;
-    padding-top: 0px;
-    text-align: right;
-    width: 350px;
-}
-
-#monthly div.price span {
-  float: left;
-  width: 120px;
-  text-align: center;
-}
-
-#monthly div.price a.add-more {
-  font-size: 13px;
-  float: right;
-  margin: 0;
-}
-
-#monthly div.price span.grey {
-    color: #555555;
-    font-size: 15px;
-    font-weight: normal;
-    float: left;
-}
-
-#monthly div.price span.amount {
-  float: left; 
-  color: #237A2A;
-  font-size: 34px;
-  padding-top: 15px;  
-}
 
 {% if reviews %}
 ul.rss { 
-  top: 10px;   
+    right: 0;
+    top: -5px;
 }
 {% endif %}
 
+
+#delivery h3, #payment h3, #reviews h3, #extras h3, #monthly h3 {
+  margin: 0;
+  float: left;
+  color: #5F829A;
+}
+
+#reviews h3 {
+  margin-bottom: 5px;   
+}
+
+#delivery p, #payment p, #reviews p, #monthly p {
+  margin: 5px 0 0 20px;
+  float: left;
+  font-size: 13px;
+  color: #999;
+}
+
+#payment span.image {
+    background: url("/static/images/logo16.jpg") no-repeat scroll -164px -145px transparent;
+    float: left;
+    height: 36px;
+    width: 284px;
+    margin: -5px 0 0 20px;
+}
 
 </style>
 {% endblock %}
@@ -652,7 +682,6 @@ ul.rss {
 	<div class="tea-top">
 		<div class="left">
 		<div class="main-image">
-			<img class="loading" src="{{ static_url }}images/loading.gif"/>
 			<div id="image_wrap">	
 				<img src="{{ static_url }}images/blank.gif" width="500px" height="331px" /> 
 			</div>
@@ -702,150 +731,168 @@ ul.rss {
       		  </div>
       		</div>
 		</div><!-- end product photos small -->
-		</div><!-- end main image div -->
+		
+		{% if tea.brew_time %}
+		<div id="instructions">
+			<div title="{% blocktrans with tea.brew_weight as bw %}Use {{ bw }}g of this tea per cup{% endblocktrans %}"><span class="title">TEA</span><span class="num">{{ tea.brew_weight }}g</span></div>
+			<div title="{% blocktrans with tea.brew_temp as bt %}The perfect temperature is {{ bt }} degrees Celsius{% endblocktrans %}"><span class="title">TEMP</span><span class="num">{{ tea.brew_temp }}</span></div>
+			<div title="{% blocktrans with tea.brew_time as bt %}Steep for {{ bt }} minutes before removing the leavesP{% endblocktrans %}"><span class="title">TIME</span><span class="num">{{ tea.brew_time }}s</span></div>
 		</div>
-		
-		<div class="description">{{ tea.body_text|safe }}</div>
-		
-		<div id="prices">
-	 	{% if tea.is_active %}
-		      <div id="price_{{ price.id }}" class="price">
-		      	{% if price.is_sale_price %}
-		      	   <div id="original"><span>On Sale Now!</span> Was <strong>{{ currency.symbol }}{{ price.old_price|floatformat:"-2" }}</strong>, save <strong>{{ currency.symbol }}{{ price.get_saving }}</strong></div>
-		      	{% endif %}
-		    	
-            <div class="price-description">
-              <span class="weight">/ {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %}</span>
-              <span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
-            </div>
-				  
-              <a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="add_normal"><span class="basket"></span>{% trans 'Add 1 to basket' %}</a>
-          </div>
-
-		      <div id="stocks"> 
-		        {% if price.stocks.count > 0 %}
-		          <div class="stocks">{% blocktrans with price.stocks.count as tsc %}<strong>{{ tsc }}</strong> in stock{% endblocktrans %}</div>
-		          <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
-        	    {% else %}
-       	          <span class="not-in-stock">{% trans 'Order now and get this on' %} <strong>{{ tea.get_preorder_date|date:"d M Y" }}</strong></span>
-        	      <br/>{% trans "We're restocking, so delivery will take longer than usual." %}</a>
-			   {% endif %}
-		      </div>
-
-
-		{% else %}
-    		  <div id="stocks">        
-            	<span class="not-in-stock">{% trans 'This product is not currently available for sale.' %}</span>
-    		  </div>	
 		{% endif %}
+		
+		</div><!-- end main image div -->
+	</div>
+		
+	<div class="description">{{ tea.body_text|safe }}</div>
+    
+    <div id="prices">
+      {% if tea.is_active %}
+
+        {% for price in prices %}
+          <div id="price_{{ price.id }}" class="price{% if price.is_sale_price %} sale{% endif %}{% if price.stocks.count < 1 %} out-of-stock{% endif %}">
+		    <div class="price-inner">	
+              <div class="price-description">
+                <span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
+                <span class="weight"> / {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %} 
+                </span>
+                
+                {% if price.is_sale_price or price.stocks.count < 1 %}
+            <span class="warning">
+            	{% if price.is_sale_price %}
+            		Was {{ currency.symbol }}{{ price.old_price|floatformat:"-2" }}, save {{ currency.symbol }}{{ price.get_saving|floatformat:"-2" }} {% if price.stocks.count < 1 %}<br/>{% endif %}
+            	{% endif %}
+            	
+            	{% if price.stocks.count < 1 %}
+            	   <span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Preorder Only' %}</span>
+            	{% endif %}
+            </span>  
+            {% endif %}
+                
+                
+              </div>
+            
+              <a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="{{ price.id }}">{% trans 'Add to basket' %}</a>
+            </div>
+          
+          </div>           
+	    {% endfor %}
+	    
+	  <div id="stocks"> 
+		  <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
+		</div>
+	    
+			
+      {% else %}
+        <div id="stocks">        
+          	<span class="not-in-stock">{% trans 'This product is not currently available for sale.' %}</span>
+    	</div>	
+	  {% endif %}
 		
 		</div>
 	</div><!-- end top product info div -->	
-	
 
-	<!-- START EXTRAS -->
-	<div id="extras">
-	{% if tea.map_image %}
-    <div id="map" class="info">  
-              {% thumbnail tea.map_image "255x120" crop="center" as im %}
-                <img src="{{ im.url }}"/>
-              {% endthumbnail %}
-              {% if tea.map_caption %}<p>{{ tea.map_caption|safe }}</p>{% endif %}
-                    
-          {% if tea.farm_image %}
-              {% thumbnail tea.farm_image "255x120" crop="center" as im %}
-                  <img src="{{ im.url }}"/>
-              {% endthumbnail %}
-              {% if tea.farm_caption %}<p>{{ tea.farm_caption|safe }}</p>{% endif %}
-          {% endif %}
-    </div>
-	{% endif  %}
-	
-	{% if tea.long_description %}
-	<div id="description" class="info">
-	   <h3>{% trans 'More about this product' %}</h3>
-	   {{ tea.long_description|safe }}
-	</div>
-	{% endif %}
-	
-	{% if tea.extra_info %}
-	<div id="brewing" class="info">
-	   {{ tea.extra_info|safe }}
-	</div>
-	{% endif %}
-	
-	{% if tea.extra_info or tea.long_description or tea.map_image %}
-	<div class="box">
-	<div id="safe" class="info">
-	   <img src="{{ static_url }}images/005.jpg"/>
-	   {% url page _('terms-and-conditions') as tcurl %}
-	   {% url page _('returns') as rturl %}
-	   <p>{% blocktrans %}Read our <a href="{{ tcurl }}">T&Cs</a> and <a href="{{ rturl }}">Returns</a> policies{% endblocktrans %}</p>
-	</div>
-	
-	<div id="shipping" class="info">
-	   <img src="{{ static_url }}images/free-delivery.jpg" />
-	   {% url page _('shipping') as shipurl %}
-	   <p>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold|floatformat:"-2" as ptd %}Orders over {{ symbol }}{{ ptd }} get free worldwide shipping.<br/>
-	   Read more info about <a href="{{ shipurl }}">shipping</a>{% endblocktrans %}
-	   </p>
-	</div>
-	</div>
-	{% endif %}
-	</div>
-	<!-- END EXTRAS -->
-	<br clear="all"/>	
+    <div class="hr"></div>
 
     {% if reviews %}
-    </div>
     <div id="reviews">
         <div class="sp">
-       <h3>{% blocktrans %}What do customers say about {{ tea }}?{% endblocktrans %}</h3>
-       <a class="add-review" href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review of this tea' %} &raquo;</a>
+       <h3>{% blocktrans %}What do customers say about {{ tea }}?{% endblocktrans %} <a href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review' %} &raquo;</a></h3>
            <ul>
            {% for r in reviews %}
                <li>
-                   &ldquo;{{ r.short_text }}&rdquo;<br/>
+                   &ldquo;<em>{{ r.short_text }}</em>&rdquo;<br/>
                    <strong>{{ r.first_name }} {{ r.last_name }}</strong>{% if r.url %} (<a href="{{ r.url }}">view original</a>){% endif %}
                </li>
            {% endfor %}
             </ul>
             
         </div>
-    </div>
-    <div class="sp">
+    </div>    
+    
+    <div class="hr"></div>    
     {% endif %}
 
-   {% if monthly_price %}
-   <div id="monthly">
-	   <h3>
-	       {% trans 'TeaBox' %}<br/>
-	   </h3>
-	   <div class="months">
-	       {% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name %}
-	       <span>Start a monthly TeaBox!</span><br/>
-	       Save time and money with a monthly delivery of {{ tea_name }} direct to your home or office.
-	       {% endblocktrans %}
-	   </div>
-	   <img class="teabox" src="{{ static_url }}images/homepage/home-monthly2.jpg"/>
-	   <div class="price">
-         <span>
-             <span class="amount">{{ currency.symbol }}{{ monthly_price|floatformat:"-2" }}</span>
-             <span class="grey">{% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% endif %} / {% trans '6 months' %} </span> 
-         </span>  
-           
-	       <a href="{% url add_to_basket_monthly price.id 6 %}" id="monthly_add" class="button green">{% trans 'Add to your TeaBox' %}</a><br/>
-	       <a href="{% url monthly_tea_box %}" class="add-more">{% trans 'Add more teas to your TeaBox' %} &raquo;</a>
-	   </div>
+	<!-- START EXTRAS -->
+	{% if tea.long_description %}
+	<div id="extras">
+      	{% comment %}
+        	{% if tea.map_image %}
+            <div id="map" class="info">  
+                        {% thumbnail tea.map_image "255x120" crop="center" as im %}
+                        <img src="{{ im.url }}"/>
+                        {% endthumbnail %}
+                        {% if tea.map_caption %}<p>{{ tea.map_caption|safe }}</p>{% endif %}
+                            
+                    {% if tea.farm_image %}
+                        {% thumbnail tea.farm_image "255x120" crop="center" as im %}
+                            <img src="{{ im.url }}"/>
+                        {% endthumbnail %}
+                        {% if tea.farm_caption %}<p>{{ tea.farm_caption|safe }}</p>{% endif %}
+                    {% endif %}
+            </div>
+        	{% endif  %}
+        	
+        		
+        	{% if tea.extra_info %}
+        	<div id="brewing" class="info">
+        	   {{ tea.extra_info|safe }}
+        	</div>
+        	{% endif %}
+      	{% endcomment %}
+	
+      	<div id="description" class="info">
+      	   
+      	   {{ tea.long_description|safe }}
+      	</div>
+	
+	</div>
+	{% endif %}
+	<!-- END EXTRAS -->
+
+  
+  <div class="hr"></div>
+  <div id="delivery">
+    <h3>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}Free delivery on orders over {{ symbol }}{{ ptd }}{% endblocktrans %}</h3>
+    {% url page _('shipping') as shipurl %}
+	<p>{% blocktrans %}Read more info about our <a href="{{ shipurl }}">FREE worldwide shipping</a>{% endblocktrans %}
+	 </p>
   </div>
-  {% endif %}
+  
+  <div class="hr"></div>
+  
+  <div id="payment">
+    <h3>{% trans 'Easy and secure payment with' %}</h3>
+    <span class="image"></span>
+    {% url page _('terms-and-conditions') as tcurl %}
+    {% url page _('returns') as rturl %}
+    <p>{% blocktrans %}Read our <a href="{{ tcurl }}">T&Cs</a> and <a href="{{ rturl }}">Returns</a> policies{% endblocktrans %}</p>
+  </div>
+  
+    <div class="hr"></div>
+  
+    {% if not reviews %}
+        <div id="reviews">
+            <h3>{% url review_tea tea.category.slug tea.slug as url %}{% blocktrans %}Do you want to <a href="{{ url }}" style="color: #FF6569;">add a review</a> of this tea?{% endblocktrans %}</h3>
+            <p>{% trans 'Adding your views helps us improve, and lets other customers make better choices' %}</p>        
+        </div>     
+    
+    <div class="hr"></div>
+    {% endif %}
+    
+    {% if monthly_price %}
+        <div id="monthly">
+            <h3>{% trans 'Want your tea delivered monthly to your door?' %}</h3>
+            <p>{% trans 'Setup a monthly TeaBox and never miss your tea time again' %} - <a href="{% url monthly_tea_box %}">{% trans 'find out more' %}&raquo;</a></p>
+        </div>
+    <div class="hr"></div>
+    {% endif %}
 	
 	
 	<div id="recommended">
 	   <h3 class="title">{% trans 'Also recommended...' %}</h3>
-	   {% for t in recommended %}
-            {% include 'shop/snippets/product_small.html' %}		  
-	   {% endfor %}
+	   {% with recommended as teas %}
+            {% include 'shop/snippets/products_long.html' %}		  
+	   {% endwith %}
 	</div>
 
     {% if ga_is_on %}
@@ -861,6 +908,11 @@ ul.rss {
               })();
             </script>
 		</li>
+		<li id="twitter">
+		      <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site_url }}{{ tea.get_absolute_url }}" data-text="If you like tea, try some @minrivertea {{ tea.name }}" data-size="small">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		
+		</li>
     	<li id="facebook">
 		    <div id="fb-root"></div>
 		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
@@ -868,11 +920,13 @@ ul.rss {
 		    </fb:like>
 		</li>
 		<li id="pinterest">
-		  {% thumbnail tea.image "500x331" crop="" as im %}
+		  {% thumbnail tea.image thumb_large crop="" as im %}
 		  <a data-pin-config="beside" href="http://pinterest.com/pin/create/button/?url={{ site_url }}{{ tea.get_absolute_url }}&media={{ site_url }}{{ im.url }}&description={{ tea.description }}" data-pin-do="buttonPin" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
 		  {% endthumbnail %}
 		</li>
 	</ul>
+	{% else %}
+	<ul class="rss"><li><img src="{{ static_url }}images/debug_social.jpg" /></li></ul>
 	{% endif %}
 
 </div>

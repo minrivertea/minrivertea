@@ -1,0 +1,146 @@
+{% extends 'print.html' %}
+{% block extracss %}
+<style type="text/css">
+#printblock {
+  width: 600px;
+  padding:10px;
+  font-size: 1.5em;
+}
+
+* {
+	border: none;
+}
+
+h1 {
+	font-size: 2em;
+	font-weight: normal;
+	border-bottom: 1px solid #000;
+	width: 100%;
+	padding-bottom: 0;
+}
+
+code {
+	font-size: 1em;
+}
+
+p {
+	margin: 0;
+	padding: 0 0 0 10px;
+}
+
+.bigger { font-size: 1.3em; }
+.right { margin-left: 4em; font-size:1.2em; }
+
+table#items tr td:last-child {
+  text-align: right;   
+}
+
+#items td {
+  padding: 0 10px;   
+}
+
+#label {
+  width: 800px;
+}
+
+table#label tr td.address {
+  width: 500px;  
+  padding: 0 0 0 20px; 
+}
+
+table#label tr td.title {
+  text-align: right;
+  font-size: 15px;
+  padding: 0 20px 0 0;
+}
+
+table#label tr td.title p {
+  padding: 0;
+  margin: 0; 
+  font-size: 0.8em;  
+}
+
+table#label tr td.title h3 {
+  margin-bottom: 0px;
+}
+
+
+
+</style>
+{% endblock %}
+
+{% block main %}
+
+<div id="printblock">
+    <br/>
+    <table id="label">
+		<tr>
+		  <td valign="top" class="address">
+		      {% with order.address as address %}
+		          {{ order.owner.first_name|capfirst }} {{ order.owner.last_name|capfirst }}<br/>
+		          {% include 'shop/snippets/address.html' %}
+		      {% endwith %}
+		  </td>
+		  <td valign="top" class="title">
+		      <p style="float: right;"><img src="static/images/logo-new2.gif" height="80" width="156" /></p>
+		      <h3>Receipt - {{ order.invoice_id }}</h3>
+		      <p>Thanks for your order! If you have any questions, problems or suggestions, please get in touch with us - email chris@minrivertea.com</p>
+		  </td>
+		</tr>
+	</table>
+	<br/>
+    <h1>Your details</h1>
+	<table>
+		<tr>
+			<td>
+				<p><strong>Order date:</strong> {% now "jS F Y H:i" %}</p>
+				<p><strong>Order ID:</strong> {{ order.invoice_id }}</p>
+				<p>
+				    <strong>Name/Email:</strong> 
+				    {{ order.owner.first_name|capfirst }} {{ order.owner.last_name|capfirst }} {{ order.owner.email }})</p>
+			</td>
+			<td>
+                
+            
+            <!-- VERY IMPORTANT TO PUT WIDHT AND HEIGHT FOR pisa NOT TO BARF ON THE CSS ABOVE FOR THE IMAGE -->
+				<p style="float: right;"><img src="barcode-{{ barcode_number }}.png" alt="{{ barcode_number }}" width="103" height="65"/></p>
+			</td>
+		</tr>
+	</table>
+	
+    <h1>Your items</h1>
+	<table id="items">
+	   {% for x in order.items.all %}
+		<tr>
+		  <td width="60">
+		      {{ x.quantity }} x 
+		  </td>
+		  <td>
+	          {{ x.item }}		      
+		  </td>
+		  <td>
+		      {{ x.get_price|floatformat:"2" }} {{ order.get_currency.code }}
+		  </td>
+		</tr>
+		{% endfor %}
+		{% if order.discount %}
+		<tr>
+		  <td>&nbsp;</td>
+		  <td>Discount</td>
+		  <td>{{ order.discount.get_discount|floatformat:"2" }} {{ order.get_currency.code }}</td>
+		</tr>
+		{% endif %}
+		<tr>
+		  <td>&nbsp;</td>
+		  <td>Postage</td>
+		  <td>{{ order.get_currency.postage_cost|floatformat:"2" }} {{ order.get_currency.code }}</td>
+		</tr>
+		<tr>
+		  <td>&nbsp;</td>
+		  <td><strong>Total</strong></td>
+		  <td><strong>{{ order.get_amount|floatformat:"2" }} {{ order.get_currency.code }}</strong></td>
+		</tr>
+	</table>
+
+</div>
+{% endblock %}

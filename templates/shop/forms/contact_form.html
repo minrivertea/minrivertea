@@ -4,10 +4,6 @@
 {% block extracss %}
 <style type="text/css">
 
-h1 {
-  margin: 0 0 20px 0;   
-}
-
 #mtw div#left form p {
   margin: 0px 0 10px 0;	
 }
@@ -29,11 +25,11 @@ form input.button {
 
 
 div#mtw div#left p.help-text {
-  float: left;
-  margin-left: 0px;
-  font-size: 15px;
-  width: 100%;
-  color: #777;
+    color: #333333;
+    float: left;
+    font-size: 13px;
+    margin-left: 0;
+    width: 100%;
 }
 
 div#mtw div#left p.help-text.red {
@@ -160,28 +156,10 @@ img#loading-contact {
 
 <div id="mtw">
   <div class="sp">	
-        <h1>{% trans 'Contact us' %}</h1>			
-		<div class="top">
-		
-			<img src="{{ static_url }}images/chris.jpg" style="float:left;margin-right: 30px;">
-		
-			<div class="white">
-				<p class="nihao"><strong>Nǐ hǎo {% blocktrans %}(that's <em>hello</em> in China!){% endblocktrans %}</strong></p>
-				<p>{% trans "I'm Chris, the owner of the Min River Tea Farm. If you have questions about tea or about us, I will do everything I can to help you out. The best way to get in touch is to drop me an email - you'll always get a quick response." %}</p>
-			
-				<ul>
-					<li><strong>{% trans 'Email' %}:</strong> <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> </li>
-				</ul>
-				
-	 		</div>
-	 	</div>
-
+    <h1>{% trans 'Contact us' %}</h1>			
+	
         <div id="right">
             {% include 'shop/boxes/follow.html' %}
-		 	<div class="info">
-				<h3>{% trans "Looking for a phone number?" %}</h3>
-				<p>{% trans "Sorry - because we're based in China we keep getting calls in the middle of the night! If you send us a message with your information, we will call you back." %}</p>
-			</div>
 		 	<div class="info"> 		
 			 	<h3><a href="{% url page _('returns') %}">{% trans 'Returns' %} &raquo;</a></h3>
 			 	<p>{% trans "If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked." %}</p>
@@ -193,6 +171,11 @@ img#loading-contact {
         </div>
 		
 		<div id="left">
+		
+		  				<p class="introduction">
+				    <strong>Nǐ hǎo {% blocktrans %}(that's <em>hello</em> in Chinese!){% endblocktrans %}</strong>
+				{% trans "If you have questions about tea or about our service, please get in touch and we will do our best to help. The best way to get in touch is to send us an email at <a href='mailto:mail@minrivertea.com'>mail@minrivertea.com</a> - you'll always get a quick response." %}</p>
+			
 			<div id="form">	
 				{% if message %}
 					{% include 'shop/forms/contact_form_message_snippet.html' %}
@@ -200,7 +183,6 @@ img#loading-contact {
 	
 				<img id="loading-contact" src="{{ static_url }}images/loading.gif"/>
 				<form action="{% url contact_form_submit %}" method="post" id="contact-form">
-					<h3>{% trans "Send us a message" %}</h2>
 					<p>{% trans "Use our online contact form to send us a message. We respond to all messages within 12 hours." %}</p>			
 					<textarea id="id_your_message" name="your_message" title="{% trans 'Write your message here...' %}" class="clearMeFocus{% if form.your_message.errors %} error{% endif %}" cols="40" rows="10"></textarea>
 					<input type="text" name="your_name" id="id_your_name" class="clearMeFocus{% if form.your_name.errors %} error{% endif %}" title="{% trans 'Your name' %}" value=""/>

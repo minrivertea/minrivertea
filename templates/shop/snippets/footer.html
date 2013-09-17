@@ -1,10 +1,6 @@
 {% load i18n %}
 
 <div id="footer">	
-
-  <div class="sp">
-    <a id="harvest" href="/how-to-brew-chinese-tea/">{% trans 'Confused about how to brew Chinese tea? Check out our brewing guides' %} &raquo;</a>
-  </div>
     
   <div class="sp thin">
     
@@ -33,12 +29,12 @@
 	</div>
 	
     <div class="footer-box learn">
-		<h4>{% trans 'Receive TEAMails direct to your inbox' %}</h4>
-		<p>{% blocktrans %}Signup to get news and information about Chinese tea, tea culture and special offers from {{ site_name }}{% endblocktrans %}</p>
+		
 		<form action="{% url email_signup %}" method="post">
 	        <input type="text" name="email" id="id_email" title="{% trans 'Your email address' %}" class="clearMeFocus"/>
-	        <input type="submit" class="submit button" value="{% trans 'Signup' %}" />
+	        <input type="submit" class="submit button green" value="{% trans 'Signup' %}" />
         </form>
+        <p>{% blocktrans %}Signup to get news and information about Chinese tea, tea culture and special offers from {{ site_name }}{% endblocktrans %}</p>
     </div>
 
     <p class="copyright">
@@ -46,8 +42,22 @@
         <a href="{% url page _('contact-us') %}">{% trans 'Contact Us' %}</a> | 
         <a href="{% url page _('terms-and-conditions') %}">{% trans 'Terms & Conditions' %}</a> | 
         <a href="{% url page _('privacy') %}">{% trans 'Privacy' %}</a> | 
-        <a href="{% url page _('imprint') %}">{% trans 'Imprint' %}</a>
+        <a href="{% url page _('imprint') %}">{% trans 'Imprint' %}</a> <br/>
+        <span class="languages">
+            <strong>{% trans 'Available languages' %}</strong>: 
+            <a href="{% url changelang 'en' %}">{% trans 'English' %}</a> | 
+            <a href="{% url changelang 'de' %}">{% trans 'German' %}</a> | 
+            <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a>
+        </span>
     </p>
+    
+    <ul id="social">
+       <li><a title="{% trans 'Find us on Facebook' %}" href="http://www.facebook.com/minrivertea" id="facebook"></a></li>
+       <li><a title="{% trans 'Follow us on Twitter' %}" href="http://www.twitter.com/minrivertea" id="twitter"></a></li>
+       <li><a title="{% trans 'Check out our pins on Pinterest' %}" href="http://pinterest.com/minrivertea/" id="pinterest"></a></li>
+       <li><a title="{% trans 'Join our Google+ Group' %}" href="https://plus.google.com/115218838272806349303" id="google"></a></li>
+	</ul>
+	
 
 
   </div>	

@@ -4,9 +4,9 @@
 }
 
 #logo {	 
- width: 450px;
- height: 42px;
- background: url("/static/images/logo-admin.jpg") no-repeat scroll top left transparent;
+ width: 200px;
+ height: 100px;
+ background: url("/static/images/logo-new2.png") no-repeat scroll top left transparent;
  float: left;
  margin: 20px 0 15px 0px;
  position: relative;
@@ -21,52 +21,97 @@ h2 {
 
   	  ul.nav {margin-top: -95px;font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none;  padding: 0; width: 100%;float: left;}
   	  ul.nav li {float: left; margin-right: 50px;}
-      table {font-family: helvetica,sans-serif;font-size: 12px;}
+
+table {
+    font-size: 12px;
+    float: left;
+    width: 100%;
+}
+
       tr.white td {background-color: #fff;}
-      tr.new td {background-color: #DBF2DA;}
-      td { padding:10px 10px; background-color: #f1f1f1;}
+      tr.new td {background: none;}
+      td { padding:10px 10px; background-color: none;}
 td.id {
   font-weight: bold;
   width: 50px;
 }
 
-td.owner {
-  width: 150px;   
+table#orders tr td:first-child {
+  width: 80px;   
 }
 
 td.items {
   width: 150px;   
 }
 
+table tr td:first-child {
+  background: none;   
+  width: 200px;
+}
+
+
+td.owner {
+  width: 130px;   
+}
+
 td.value {
-  width: 50px;   
+  width: 65px;   
+}
+
+td.paypal {
+  width: 65px;   
 }
 
 td.status {
   width: 50px;   
 }
 
-td.trans {
-  width: 50px;   
+td.label {
+  width: 120px;   
 }
+
+td.trans {
+  width: 180px;
+}
+
+td.trans .button {
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 10px;   
+}
+
       td ul {padding:0; margin:0;}
       td ul li {list-style-type:none; font-size: 12px; line-height: 1em;}
-      thead td {font-weight: bold; background-color: #666; color: #fff;}
+
+table td {
+   border-bottom: 1px dashed #d1d1d1;   
+}
+
+
+thead td {
+    color: #333333;
+    font-weight: bold;
+}
       tr.new td.trans {background-color: transparent;}
       td.trans a.button {font-size: 16px; padding: 10px 25px 8px}
       div.small-box {background-color: #F1F1F1; float: left; margin: 20px 10px 0 0; padding: 15px 20px; width: 200px; -moz-border-radius: 10px;}
       div.small-box h3 {margin-top: 0px;}
 
         
-      table input {width: 180px; height: auto;}
+table input {
+  width: 50%; 
+  height: auto;
+  padding: 5px ;
+}
       input.button {width: auto; float: left; padding:5px 15px 3px;}
       
       #create_send input, textarea {width: 600px;float:left;}
       #create_send input.button {float: left; margin-top: 20px; padding: 11px 20px 9px; font-size: 18px;}
       .email-example {background-color: #fff; padding: 20px 25px; border: 1px solid #e1e1e1; line-height: 1.6em; margin: 30px 0 20px 0;}
-      #filters {
-        width: 100%;
-        float: left;
-        margin: 10px 0; 
-        font-size: 12px;
-      }
+
+#filters {
+    float: right;
+    font-size: 12px;
+    margin: 30px 0 10px;
+    width: auto;
+}

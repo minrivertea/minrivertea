@@ -15,19 +15,19 @@ DATABASES = {
 }
 
 
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-THUMBNAIL_DEBUG = False
-GA_IS_ON = True
-ADMINS = (('Chris West', 'chris@minrivertea.com'),)
-MANAGERS = ADMINS
-TIME_ZONE = 'Europe/London'
-SITE_ID = 1
-SITE_NAME = 'minrivertea.com'
-ANALYTICS_ID = 'UA-9041614-4'
-GERMAN_URL = 'www.minrivertea.de'
-GERMAN_ANALYTICS_ID = 'UA-9041614-9'
-SECRET_KEY = ''
+DEBUG =                         False
+TEMPLATE_DEBUG =                DEBUG
+THUMBNAIL_DEBUG =               False
+GA_IS_ON =                      True
+ADMINS =                        (('Chris West', 'chris@minrivertea.com'),)
+MANAGERS =                      ADMINS
+TIME_ZONE =                     'Europe/London'
+SITE_ID =                       1
+SITE_NAME =                     'minrivertea.com'
+ANALYTICS_ID =                  'UA-9041614-4'
+GERMAN_URL =                    'www.minrivertea.de'
+GERMAN_ANALYTICS_ID =           'UA-9041614-9'
+SECRET_KEY =                    ''
 
 
 
@@ -194,11 +194,13 @@ gettext = lambda s: s
 LANGUAGES = (
     ('en', gettext('English')),
     ('de', gettext('German')),
+    ('it', gettext('Italian')),
 )
 
 MODEL_LANGUAGES = (
     ('en', gettext('English')),
     ('de', gettext('German')),
+    ('it', gettext('Italian')),
 )
 
 LOCALE_PATHS = (

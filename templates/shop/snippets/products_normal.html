@@ -3,40 +3,55 @@
 {% for p in products %}
 
     <div class="info tea long">
-      	 <a title="" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
-      	  <div class="image">
-      	  	{% thumbnail p.image thumb_medium crop="center" as im %}
-			<img alt="a picture of {{ p.name }}" title="{{ p.name }} - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
-			{% endthumbnail %}
-		  </div>
-		  <div class="text">
-			<h3>
-				<a title="{{ p.name }} - {% trans 'find out more or order some now!' %}" href="{{ p.get_absolute_url }}">
-				{{ p.name }}
-				</a>
-			</h3> 
-			<p>{{ p.description }}</p>
+        <a title="" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
+    	{% thumbnail p.image "475x190" crop="center" as im %}
+		<img alt="a picture of {{ p.name }}" title="{{ p.name }} - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
+		{% endthumbnail %}		  
+		 
+		<a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" class="button green small" href="{% url add_to_basket p.price.id %}" id="add_to_basket_{{ p.price.id }}">{% trans 'Add to basket' %}</span></a>
+		
+		<div class="glass-text">
+		  <div class="inner">
 			
-			<div id="price-helper"> 
-		        {% if p.price.stocks.count > 0 %}
-		          <div class="stocks"><strong>{{ currency.symbol }}{{ p.price.price|floatformat:"-2" }}</strong> / {% if p.price.weight %}{% convert_weights request p.price.weight %}{{ weight_unit }}{% else %}{{ p.price.description }}{% endif %}</div>
-		          <div class="price">
-		              <a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" href="{% url add_to_basket p.price.id %}" class="" id="add_to_basket_{{ p.price.id }}">{% trans 'Add 1 to basket' %} +</a><br/>
-		              {% if p.basket_quantity %}{{ p.basket_quantity }} {% trans 'already in basket' %}{% endif %}
-		          </div> 
-		          <div><a href="{% url tea_view p.slug %}">{% trans 'Read more' %} &raquo;</a></div>      
-        	    {% else %}
-       	          <span class="not-in-stock">{% trans 'Order now and get this on' %} <strong>{{ p.get_preorder_date|date:"d M Y" }}</strong></span>
-        	      <br/>{% trans "We're restocking, so delivery will take longer than usual." %}</a>
-			   {% endif %}
-		      </div>
+			<div class="pricebar"> 
+			     
+			     <h3>
+		  			<a title="{{ p.name }} - {% trans 'find out more or order some now!' %}" href="{{ p.get_absolute_url }}">{{ p.name }}</a>
+				</h3>
+			     
+			    <div class="price-weight">
+    		        <span class="price">
+    		            {{ currency.symbol }}{{ p.price.price|floatformat:"-2" }}
+    		        </span>
+    		        <span class="weight">    
+    		          / {% if p.price.weight %}{% convert_weights request p.price.weight %}{{ weight_unit }}{% else %}{{ p.price.description }}{% endif %}
+    		        </span>    		        
+    			</div>
+    			 
+    			<p>{{ p.description }}</p>
+    			 
+    			{% if p.price.stocks.count < 0 %}
+           	     	<span class="not-in-stock" title="{{ p.get_preorder_date|date:'d M Y' }}">
+           	     		{% trans "Preorder only" %}
+           	        </span>
+                {% endif %}                
+				
+				{% if p.basket_quantity %}
+				<div class="in-basket">
+    		      <span class="num">{{ p.basket_quantity }}</span> {% trans 'in basket' %}
+    		    </div> 
+    		    {% endif %} 
+            </div>
+                
 			
 		  </div>
-		    {% if p.tag_text %}
-    			<span class="tag" style="background: {% if p.tag_color %}{{ p.tag_color }}{% else %}#1f7dc5{% endif %};">
-    			     <span class="tagtext">{{ p.tag_text }}</span>
-    			</span>
-			{% endif %}
 	</div>
+	
+	{% if p.tag_text %}
+      	<span class="tag" style="background: {% if p.tag_color %}{{ p.tag_color }}{% else %}#1f7dc5{% endif %};">
+      	     <span class="tagtext">{{ p.tag_text }}</span>
+      	</span>
+      {% endif %}
 
+</div>
 {% endfor %}

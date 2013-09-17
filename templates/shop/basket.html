@@ -7,9 +7,14 @@
 {% block extrajs %}
 <script type="text/javascript">
 $("#link").click( function() {
-	$("#form form").toggle();
+	$("#discount form").toggle();
 	$(this).toggle();
 	$('#message').toggle();
+});
+
+$('#cancel').click( function() {
+   $('#discount form').toggle();
+   $('#discount #link').toggle(); 
 });
 
 $(document).ready( function() {
@@ -25,122 +30,238 @@ $(document).ready( function() {
 <link rel="stylesheet" href="{{ static_url }}/css/fancybox/jquery.fancybox-1.3.4.css" />
 <style type="text/css">
 
-#basket {
-  margin-bottom: 60px;   
+#basket p.introduction {
+  margin: 0;
+  padding: 0;   
 }
 
-div#basket-full {
-  width: 100%;
+#tools  {
+  display: none;   
+}
+
+#bottom {
   float: left;
-  margin: 0 0 20px 0;	
+  width: 100%;
+  margin: 40px 0 0 0;   
 }
 
-div#basket-full img {
-    border: 5px solid #FFFFFF;
+#bottom .info {
+  border-right: 1px dashed #e1e1e1;
+  padding: 0 20px; 
+  width: 209px  
+}
+
+#bottom .info:last-child {
+  padding-right: 0;
+  border-right: none;   
+}
+
+#bottom .info input {
+  width: 100%;
+  padding: 5px;
+  font-size: 13px;   
 }
 
 .basket-row {
-    border-bottom: 2px dotted #e1e1e1;
     float: left;
     height: auto;
-    margin-bottom: 0px;
-    padding: 15px 0;
-    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e1e1e1;
+    width: 790px;
     position: relative;
+    color: #555;
+    font-size: 15px;
 }
 
-#basket-full .basket-row.postage, #basket-full .basket-row.discount {
-  min-height: 20px;   
+.basket-row:first-child {
+  padding-top: 0;   
 }
 
-#basket-full .basket-row.postage div.long {
-  width: 460px;
+.basket-row:first-child .tea-weight {
+  height: 55%;
+}
+
+.basket-row.totals {
+  padding: 20px 0px;
+  line-height: 1em;
+  border-bottom: none;   
+}
+
+.basket-row div.long {
+  width: 390px;
   float: left;
-  height: 20px;   
 }
 
-div.basket-row:first-child {
-  padding-top: 0px;	
+.basket-row.postage {
+  border-bottom: 1px dashed #e1e1e1;
+  padding-bottom: 10px;   
 }
 
-div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
+.basket-row.monthly h3 {
+  float: left;
+  width: 90%;
+  font-size: 15px;
+  font-weight: bold;   
+  position: relative;
+  top: 3px;
+}
+
+.basket-row.monthly > div {
+  position: relative;
+  left: 0;
+}
+
+.basket-row.monthly > div.tea-name {
+  margin-bottom: 30px;   
+}
+
+.basket-row.postage div.tea-weight {
   padding-top: 0;	
+}
+
+.basket-row div {
+  height: 50px;	
+  font-size: 13px;
+  float: left;
+}
+
+.basket-row.postage div {
+  height: auto;   
+}
+
+.basket-row.discount div {
+  height: auto;	
+}
+
+.basket-row ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  float: left;	
+}
+
+.tea-name {
+  width: 50px;
+  margin-right: 15px;	
+}
+
+.tea-weight {
+  width: 280px;
+}
+
+.tea-weight a, .tea-weight h3, .name {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: lowercase;
+  letter-spacing: -0.5px; 
+  margin: 0; 
 }
 
 .strikethrough {
   text-decoration: line-through;	
 }
 
-.tea-name {
+.basket-row .tea-total, .basket-row .tea-weight, .basket-row.postage .tea-total, .basket-row.totals .tea-total, .basket-row .weight, .basket-row .tools, .basket-row .tea-quantity {
   float: left;
-  width: 80px;	
+  display: block;
+  height: 30%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;   
 }
 
-.tea-weight {
-  float: left;
-  width: 380px;
+.basket-row .tea-total {
+  float: right;
+  right: 5px;
+  color: #333; 
+  font-weight: bold;
+  font-size: 13px;
+  height: 15%;  
 }
 
-.tea-weight a {
-  text-decoration: none;  
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold; 
+.basket-row .tea-weight {
+  left: 65px;
+  height: 40%;   
 }
 
-.tea-weight ul {
-  padding: 0 0 0 10px;
+.basket-row .tools {
+  right: 210px;
+  height: 15%;   
 }
 
-.tea-price {
-  float: left;
-  width: 10px;
+.basket-row .tea-quantity {
+  right: 350px;
+  text-align: right;
+  height:20%;
 }
 
-.tea-quantity {
-    float: left;
-    text-align: center;
-    width: 160px;
+.basket-row.monthly .tea-name, .basket-row.monthly .tea-quantity, .basket-row.monthly .tea-weight, .basket-row.monthly .tools, .basket-row.monthly .tea-total {
+  height: auto; 
 }
 
-.tea-total {
-    float: left;
-    text-align: right;
-    width: 250px;
+.basket-row.totals div {
+  height: auto;  
+} 
+
+.basket-row.totals .tea-total, .basket-row.totals .name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333; 
+  text-transform: none;  
 }
 
-.tea-total.monthly, .tools.monthly, .tea-quantity.monthly {
-  padding-top: 35px;   
+.basket-row.monthly .tea-total {
+  height: 15%;   
+  right: 5px;
+  left: auto;
 }
 
-.tea-total.monthly ul, .tools ul, .tea-weight ul, .tea-quantity ul {
-  padding: 0;
+.monthly .tea-total ul li {
+  color: #333;
+  text-align: right; 
+  font-size: 13px;  
+}
+
+.monthly ul {
+  padding: 0px;
   margin: 0;
-  list-style-type: none;   
+  float: left;  
 }
 
-.tea-weight ul {
-  padding: 0 0 0 10px;   
+.monthly .tea-weight ul {
+  padding: 0 0 0 20px;   
 }
 
-.tools.monthly ul li {
-  float: left;
-  width: 100%;   
+.monthly .tea-weight a, .monthly .tea-quantity li {
+  font-size: 13px;
+  letter-spacing: 0;
+  font-weight: normal;	
 }
 
-.tools .remove {
-    font-family: Helvetica,Arial sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0 3px 0 0;
-    position: relative;
-    top: 2px;
+.monthly .tea-weight a {
+  color: #555;   
 }
 
-.tools {
-  float: left;
-  margin: 0 0 0 10px; 
-  width: 60px;  
+.monthly .tea-weight {
+  width: 285px;
+  height: 65%;	
 }
+
+.monthly .tea-quantity {
+  margin-right: 38px;   
+}
+
+.tools a.remove {
+  font-size: 11px;
+}
+
+.monthly .tools a.remove {
+  top: -3px;
+  position: relative;
+}
+
 
 #totals {
     color: #666666;
@@ -167,58 +288,110 @@ div.basket-row.postage div.tea-weight, div.basket-row.postage div.tea-total {
 }
 
 #checkout-button {
-  margin-right: 50px;   
+  float: right;
+  margin: 10px 0px 10px 0;
 }
 
-a.plus, a.minus, a.remove {
+div.updown {
+    float: left;
+    height: auto;
+    position: relative;
+    top: -4px;
+    width: 50px;
+    margin: 0 10px 0 0;
+}
+
+.monthly div.updown {
+  top: 0;  
+} 
+
+a.plus, a.minus {
   display: block;
+  background: #e9e9e9;
+  color: #2A8531;
+  padding: 6px;
   float: left;
-  color: #a1a1a1;
   text-decoration: none;	
+  position: relative;
+  height: 8px;
+  width: 8px;
+  margin: 0 3px 0px 0;
+}
+
+a.plus span, a.minus span {
+    font-size: 15px;
+    left: 6px;
+    position: absolute;
+    top: 2px;
+}
+
+.monthly a.plus span, .monthly a.minus span {
+  top: -2px;   
+}
+
+a.minus span {
+  left:8px;
 }
 
 a.plus:hover, a.minus:hover, a.remove:hover {
   color: #FF6569;   
 }
 
-.basket-row.discount span#link {
-  font-weight: bold;
-  color: #439249;
-  font-family: Helvetica, Arial, sans-serif;	
+#discount span#link {
+  color: #2A8531;
+  font-size: 13px;
 }
 
-div.basket-row.discount span#link:hover {
+#discount span#link:hover {
   cursor: pointer;
-  color: #F37679;	
+  text-decoration: underline;   
 }
 
-div.basket-row.discount form {
+.basket-row.discount span#link:hover {
+  cursor: pointer;
+  color: #FF6569;	
+}
+
+#discount #cancel {
+  font-size: 11px;   
+}
+
+#discount form {
     display: none;	
     float: left;
     margin: 0;
+    width: 335px;
 }
 
-div.basket-row.discount form input {
+.basket-row.discount form input {
   margin: 0;   
 }
 
-div.basket-row.discount form label {
+.basket-row.discount form label {
   float: left;
   width: 520px;
   margin: 0;	
 }
 
-div.discount input.button {
-    border-radius: 0 4px 4px 0;
-    font-size: 15px;
-    left: -3px;
-    padding: 11px;
-    position: relative;
-    top: -1px;
-    width: 160px;
+div#discount {
+  float: left;
+  width: 400px;
+  margin-left: 70px;
+  padding: 20px 0 10px;
 }
 
-div.discount span.red {
+#discount input.button {
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+    left: -3px;
+    padding: 5px;
+    margin-bottom: 5px;
+    position: relative;
+    top: 0;
+    width: 110px;
+}
+
+.basket-row.discount span.red {
   padding-bottom: 10px;	
 }
 
@@ -249,18 +422,37 @@ div.discount span.red {
     margin-right: 0;
 }
 
-input#id_discount_code {
-  width: 325px;	
+#discount input#id_discount_code {
+  width: 225px;
+  padding: 5px;
+  font-size: 13px;
+  margin-bottom: 5px;	
 }
 
-#basket-full .coming-soon {
-    float: left;
-    color: red;
-    font-size: 13px;
+.basket-row .preorder {
+    background: none repeat scroll 0 0 #C30000;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: bold;
     height: auto;
-    width: 600px;
+    letter-spacing: -0.3px;
+    padding: 5px 5px 5px 10px;
+    position: absolute;
+    right: -140px;
+    top: 5px;
+    width: 100px;
 }
 
+.basket-row .preorder:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: -10px;
+  top:15px;
+  border-color:  transparent #C30000 transparent -moz-use-text-color;
+  border-style: solid solid solid none;
+  border-width: 10px 10px 10px 0px;     
+}
 
 #sub-basket {
     width: 900px;
@@ -285,42 +477,32 @@ input#id_discount_code {
 {% endblock %}
 
 
-{% block currency %}
-	{% include 'shop/snippets/currency.html' %}
-{% endblock %}
-
-
 {% block content %}
-
-<div id="subnav" class="basket">
-   <div class="sp">
-       <ul>
-    		<li>
-    			<a class="selected" href="{% url basket %}">1. {% trans 'Your basket' %} &raquo;</a>
-    		</li>
-    		<li>
-    			<a class="" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
-    		</li>
-    		<li>
-    			<a href="">3. {% trans 'Confirm and pay' %} &raquo;</a>
-    		</li>
-    		<li>
-    			<a href="">4. {% trans 'Get your tea!' %}</a>
-    		</li>
-    	</ul>
-    </div>
-</div>
 
 <div id="mtw">
   <div class="sp">
   	<h1>{% blocktrans count basket_quantity as counter %}Your basket ({{ basket_quantity }} item){% plural %}Your basket ({{ basket_quantity }} items){% endblocktrans %}</h1>
+  	
+  	<ul id="steps">
+		<li>
+			<a class="selected" href="{% url basket %}">1. {% trans 'Your basket' %} &raquo;</a>
+		</li>
+		<li>
+			<a class="" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
+		</li>
+		<li>
+			<a href="">3. {% trans 'Confirm and pay' %} &raquo;</a>
+		</li>
+		<li>
+			<a href="">4. {% trans 'Tea time!' %}</a>
+		</li>
+	</ul>
 
 {% if basket_items or monthly_items %}
 
   <div id="basket">
-    <div id="basket-full"> 
 	{% for thing in basket_items %}
-	  <div class="basket-row">
+	  <div class="basket-row{% if thing.item.stocks.count == 0 or thing.item.stocks == None %} preorder{% endif %}">
 	  
 		<div class="tea-name">
 			{% thumbnail thing.item.parent_product.image thumb_small crop="center" as im %}
@@ -330,198 +512,170 @@ input#id_discount_code {
 		</div>
 		<div class="tea-weight">
 		  <a title="{{ thing.item.parent_product.description }}" href="{{ thing.item.parent_product.get_absolute_url }}">
-		      <strong>{% if thing.monthly_order %}Monthly TeaBox{% else %}{{ thing.item.parent_product.name }}{% endif %}</strong>
+		      {% if thing.monthly_order %}Monthly TeaBox{% else %}{{ thing.item.parent_product.name }}{% endif %}
 		  </a>
-		  {% if thing.monthly_order %}
-		      <br/>
-		      {{ thing.item.parent_product.name }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}<br/>
-		  {% else %}
 		      {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}) {% endif %}<br/>
-		      {{ currency.symbol }}{{ thing.item.price }} {% trans 'each' %}<br/>
-		  {% endif %}
-	   </div>
-	   <div class="tea-quantity">
+		      {{ currency.symbol }}{{ thing.item.price|floatformat:"2" }} {% trans 'each' %}<br/>
+	    </div>
+        
+        <div class="tea-quantity">
 		  x {{ thing.quantity }}
-		</div>
-		<div class="tea-total">
-		  {{ currency.symbol }}{{ thing.get_price }}
-		</div>
+        </div>
 		<div class="tools">
-		    <ul>
-		     <li>
-		      <a class="remove" title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" href="{% url remove_from_basket thing.id %}">X</a>
-		      <a class="plus" href="{% url increase_quantity thing.id %}">&#x25B2;</a>
-		      {% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.id %}">&#x25BC;</a>{% endifequal %}
-		     </li>
-		    </ul>
+          <div class="updown">
+		      <a class="plus" href="{% url increase_quantity thing.id %}"><span>+</span></a>
+		      {% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.id %}"><span>-</span></a>{% endifequal %}
+		  </div>
+		  <a class="remove" title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" href="{% url remove_from_basket thing.id %}">Remove</a>
 		</div>
 		{% if thing.item.stocks.count == 0 or thing.item.stocks == None %}
-	    	<div class="coming-soon">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}<strong>NOTE:</strong> this item is a pre-order and will be delivered separately on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
+	    	<div class="preorder">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}This is a pre-order and will be sent separately on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
 	    {% endif %}
+	    <div class="tea-total">
+		  {{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}
+		</div>
 		
 	  </div>
 	{% endfor %}
 	
     {% if monthly_items %}
-	<div class="basket-row">
+	<div class="basket-row monthly">
 	    <div class="tea-name">
 	       <img src="" />
 	    </div>
+	    
+	    <h3><a href="{% url monthly_tea_box %}">{% trans 'Monthly Box' %}</a></h3>
+	    
 	    <div class="tea-weight">
-    	    <h3>{% trans 'Monthly Box' %}</h3>
             <ul>
                 {% for x in monthly_items %}
 	               <li>
-	                   <a href="{% url tea_view x.item.parent_product.slug %}">
+	                   <a href="{{ x.item.parent_product.get_absolute_url }}">
 	                       {{ x.item.parent_product }}
 	                   </a> 
 	               </li>
                 {% endfor %}
             </ul>
         </div>
-        <div class="tea-quantity monthly">
+        <div class="tea-quantity">
             <ul>
-                {% for x in monthly_items %}
-                    <li>{{ x.months }} {% trans 'months' %} / {% convert_weights request x.item.weight %}{{ weight_unit }}</li>
-            {% endfor %}
-           </ul>
+              {% for x in monthly_items %}
+                <li>
+                  	{{ x.months }} {% trans 'months' %} / 
+                 	{% convert_weights request x.item.weight %}{{ weight_unit }}
+                </li>
+              {% endfor %}
+            </ul>
         </div>
-        <div class="tea-total monthly">
+        <div class="tools">
+            <ul>
+            {% for x in monthly_items %}
+                <li>
+                    <div class="updown">
+                    	<a class="plus" href="{% url increase_quantity x.id %}"><span>+</span></a>
+                    {% ifequal x.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity x.id %}"><span>-</span></a>{% endifequal %}
+                    </div>
+                    <a title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" class="remove" href="{% url remove_from_basket x.id %}">Remove</a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="tea-total">
            <ul>
             {% for x in monthly_items %}
-                <li>{{ currency.symbol }}{{ x.get_price|floatformat:"-2" }}
+                <li>{{ currency.symbol }}{{ x.get_price|floatformat:"2" }}
                 
                 </li>
             {% endfor %}
            </ul>
         </div>
-        <div class="tools monthly">
-            <ul>
-            {% for x in monthly_items %}
-                <li>
-                    <a title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" class="remove" href="{% url remove_from_basket x.id %}">X</a>
-                    <a class="plus" href="{% url increase_quantity x.id %}">&#x25B2;</a>
-                    {% ifequal x.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity x.id %}">&#x25BC;</a>{% endifequal %}
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
+
 	</div>
 	{% endif %}
 	
-	
-	{% if postage_discount %}
-	  <div class="basket-row postage">
-		<div class="long">
-		      <em><span class="strikethrough">{% trans 'Postage' %}</span></em>
-              <span class="small"><em>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %} | Your order is over {{ symbol }}{{ pdt }}, so there's no postage charge!{% endblocktrans %}</em></span>
+	<div class="basket-row postage">
+		<div class="tea-name">&nbsp;</div>
+		
+		{% if postage_discount %}
+	  	<div class="long">
+	  		<span class="strikethrough name">{% trans 'Postage' %}</span>
+            <span class="small">{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}Your order is over {{ symbol }}{{ pdt }}, so there's no postage charge!{% endblocktrans %}</span>
         </div>  
-        <div class="tea-quantity">&nbsp;</div>    
-        <div class="tea-total strikethrough">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"-2" }}</div>
-	  </div>
-	{% else %}
-	  <div class="basket-row postage">
+        <div class="tea-total strikethrough">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>
+		{% else %}
 		<div class="long">
-		  <em>
-		      {% trans 'Postage' %} | 
-		      {% trans 'Delivered in 1-3 days' %} | {% trans 'Shipped from the UK' %}</em>
+			<span class="name">{% trans 'Postage' %}</span><br/>
+			<span class="">{% trans 'Delivered in 1-3 days' %} | {% trans 'Shipped from the UK' %}</span>
 		</div>
-		<div class="tea-quantity">&nbsp;</div>
-		<div class="tea-total">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"-2" }}</div>
-	  </div>
-	{% endif %}
+		<div class="tea-total">{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</div>
+		{% endif %}
+	</div>
 	
+	{% if code %}
 	<div class="basket-row discount">
-	  {% if code %}
-	  	<div class="tea-name">&nbsp;</div>
-	  	<div class="tea-weight">{% blocktrans %}You have entered a discount code worth {{ percent|floatformat }}% off!{% endblocktrans %}</div>
-	  	<div class="tea-quantity">&nbsp;</div>
-	  	<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ value|floatformat:"-2" }}</span></div>
-	  {% else %}
-	    {% if discount_message %}<span id="message" class="red">{{ discount_message }} - </span>{% endif %}
-	  	<span id="link">{% trans 'Got a discount code?' %}</span>
-	  	<div id="form">
-			  	<form action="." method="post">
-				<input type="text" name="discount_code" id="id_discount_code" class="clearMeFocus" title="{% trans 'Enter discount code here' %}"/>
-				<input type="submit" class="button" value="{% trans 'Apply discount' %}" id="submit"/>
-				</form>
+		<div class="tea-name">&nbsp;</div>
+		  
+		  	<div class="tea-weight">{% blocktrans %}You have entered a discount code worth {{ percent|floatformat }}% off!{% endblocktrans %}</div>
+		  	<div class="tea-quantity">&nbsp;</div>
+		  	<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ value|floatformat:"-2" }}</span></div>
+		  
+		    {% if discount_message %}<span id="message" class="red">{{ discount_message }} - </span>{% endif %}
+	</div>
+    {% endif %}
+	
+	<div class="basket-row totals">
+		<div class="tea-name">&nbsp;</div>
+		<div class="long">
+			<span class="name">Total</span>
 		</div>
-	  {% endif %}
+		<div class="tea-total">
+			{{ currency.symbol }}{{ total_price|floatformat:"2" }}
+		</div>
 	</div>
-
-	<div id="totals">
-		<div class="label">{% trans 'Total' %}:</div><div class="total">{{ currency.symbol }}{{ total_price|floatformat:"-2" }}</div>
-	</div>
-    </div> <!-- ENDS basket-full div -->
-
 
 	<br clear="all"/>
-	  	<div id="checkout-button">		
-		<a class="button green" href="{% url order_step_one %}">
-		  {% trans 'Start checkout now' %} &raquo;
-		  <span><strong>{% trans 'Next step' %}:</strong> {% trans 'Your details (no login or registration required)' %}</span>
-		</a>
+	
+    <div id="discount">
+        <span id="link">{% trans 'Got a discount code?' %}</span>
+        <form action="." method="post">
+            <input type="text" name="discount_code" id="id_discount_code" class="clearMeFocus" title="{% trans 'Enter discount code here' %}"/>
+            <input type="submit" class="button green" value="{% trans 'Apply discount' %}" id="submit"/>
+            <a href="" id="cancel">Cancel</a>
+		</form>
 	</div>
 	
-  </div>
-  
-  
-  <div id="right">
-   	<div class="info">
-      <h3 class="small"><img src="{{ static_url }}images/lock.gif"> {% trans 'Safe and secure payment' %}</h3>
-      	<p>{% trans 'We accept all major credit and debit cards through Paypal' %}</p>
-      	<div style="margin: 10px 0 0 0;background-image: url('{{ static_url }}images/logo15.jpg');background-position: 0px -94px; height: 60px; width: 240px;"></div>
-      </div>  	
-  	<div class="info">
-  		<h3>
-  	 	  <img style="float:right; margin-left: 5px; position:relative; top: -8px; left: 4px;" src="{{ static_url }}images/gift.png"/>
-  				{% trans 'Create a wishlist from your basket' %}
-  		</h3>
-  		<p>{% trans 'A wishlist saves your basket so that other people can buy it for you as a gift.' %}</p>
-  		<p><a style="font-weight: bold; font-family: Helvetica, Arial, sans-serif" id="wishlist" href="#wishlist-full">{% trans 'How does it work?' %}</a></p>
-  		<div id="wishlist-full" style="width: 800px; padding: 30px;">
-  			<h2>{% trans 'How to make a Wishlist' %}</h2>
-  			   <div class="block">
-  				 <h3>1. {% trans 'Choose the teas you want' %}</h3>
-  				 <p>{% trans 'Choose the teas and other products that you want to have - add them to your basket as normal, and go through the checkout.' %}</p>
-  			   </div>
-  			   <div class="block">
-  				 <h3>2. {% trans 'We give you a unique URL' %}</h3>
-  				 <p>{% trans "At the final stage of the order, click the 'Create Wishlist' link, and we'll give you a unique URL. Share it with friends and relatives." %}</p>
-  			   </div>
-  			   <div class="block last">
-  				 <h3>3. {% trans 'Friends can buy items for you' %}</h3>
-  				 <p>{% trans "Using your unique URL, friends and family can buy items from your wishlist for you. We'll deliver them direct to the address you provided." %}</p>
-  			   </div>
-			   <img src="{{ static_url }}images/wishlist-screenshot.jpg">
-		</div>
-  	</div>
- </div>
-  	
-
-	<div id="left">
-
-		<h2>{% trans 'Buyer protection' %}</h2>
-		<p>{% trans 'Your online safety is extremely important to us too. Your purchase has these guarantees:' %}</p>
-		<ul>
-		  <li><strong>{% trans "Returns policy" %}</strong> {% trans "we operate a 'no questions asked' returns policy. If you're not happy with your order, just get in touch." %}</li>
-		  <li><strong>{% trans 'Safe payments' %}:</strong> {% trans 'payments are taken via Paypal. We never see your credit card details, and your online payment is secured by the highest standard industry technology.' %}</li>
-		  <li><strong>{% trans 'Customer services' %}:</strong> {% trans 'if you need to contact us about anything, you can email us directly at' %} <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>. </li>
-		</ul>
-
+ 	<div id="checkout-button">		
+    	<a class="button green" href="{% url order_step_one %}">{% trans 'Start checkout now' %} &raquo;</a>
 	</div>
+	
+</div>
+
+<div id="bottom">
+	
+   	<div class="info">
+      <h3>{% trans 'Safe and secure payment' %}</h3>
+      	<p>{% trans 'We accept all major credit and debit cards through Paypal' %}</p>
+      	<div style="margin: 10px 0 0 0;background-image: url('/static/images/logo16.jpg');background-position: 0px -33px; height: 52px; width: 202px;"></div>
+    </div>  	
+    
+    <div class="info">
+		<h3>{% trans "No Questions Asked" %}</h3>
+		<p>{% url page _('contact-us') as contact_url %}{% blocktrans %}We operate a 'no questions asked' returns policy. If you're not happy, just return your tea and we'll refund your payment in full.</a>{% endblocktrans %}</p>
+	</div>
+
+    <div class="info">
+        <h3>{% trans 'Customer services' %}</h3>
+        <p>{% blocktrans %}If you have any questions, you can <a href="{{ contact_url }}">contact us</a> at any time and we'll do our best to answer your enquiry.{% endblocktrans %}</p>
+	</div>
+
+</div>
 
  
 
 {% else %}
   <div id="basket">
-	<p>{% trans "There's nothing in your basket - add something, quick! " %}<br/><a href="{% url teas %}">&raquo; {% trans 'Browse our selection of Chinese teas here.' %}</a></p>
+	<p class="introduction">{% trans "There's nothing in your basket - add something, quick! " %} - <a href="{% url teas %}">&raquo; {% trans 'Browse our selection of Chinese teas here.' %}</a></p>
   </div>
-	<div class="did-you-know">
-	<a href="/suggestions/"><span class="link"></span></a>
-	<h3>{% trans 'Need some help choosing a tea?' %} <span class="grey">{% trans 'Let us help you' %} &raquo;</span></h3>
-	</div>
-
 {% endif %}
 
   </div>

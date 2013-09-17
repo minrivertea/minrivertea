@@ -1,12 +1,19 @@
 {% load thumbnail i18n convert_weights %}
 
-{% for tea in teas %}
-	{% thumbnail tea.image thumb_medium crop="center" as im %}
-	<div class="info tea">
-	   <img src="{{ im.url }}"/>
-		<a href="{{ tea.get_absolute_url }}"><span class="link"></span></a>
-	    <span class="price"><strong>{{ tea.price.currency.symbol }}{{ tea.price.price|floatformat:"-2" }}</strong> / {% if tea.price.weight %}{% convert_weights request tea.price.weight %}{{ weight_unit }}{% else %}{{ tea.price.description }}{% endif %}</span>
-	    <h3><a href="{{ tea.get_absolute_url }}">{{ tea.name|safe }} &raquo;</a></h3>
+{% for t in teas %}
+	
+	<div class="info">
+	   <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+	   {% thumbnail t.image thumb_medium crop="center" as im %}
+    	   <img src="{{ im.url }}"/>
+	   {% endthumbnail %}
+	   <h4><a href="{{ t.get_absolute_url }}">{{ t.name|safe }}</a></h4>
+	   <div class="price-weight">
+    	   <span class="price">
+	          <strong>{{ t.price.currency.symbol }}{{ t.price.price|floatformat:"-2" }}</strong>
+	       </span>
+	       <span class="weight">{% if t.price.weight %} / {% convert_weights request t.price.weight %}{{ weight_unit }}{% else %}{{ t.price.description }}{% endif %}</span>
+	   </div>
 	</div>
-	{% endthumbnail %}
+	
 {% endfor %}

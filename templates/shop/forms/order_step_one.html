@@ -6,27 +6,25 @@
 {% block extracss %}
 <style type="text/css">
 
-div#mtw div#left {
-  margin-top: 20px;	
-}
-
-div#mtw div#right {
-  margin-top: 30px;	
+#tools {
+  display: none;   
 }
 
 fieldset {
  border: none;
- width: 500px;  
+ width: 450px;  
  position: relative;
- border-left: 3px solid #E1ECF3;
- margin-bottom: 30px; 
- float: right;
- margin-right: 40px;
- padding-left: 30px;
+ border-right: 1px dashed #e1e1e1;
+ margin: 10px 0 0px 20px; 
+ float: left;
+ padding-right: 30px;
 }
 
 fieldset p {
-  margin: 0;   
+  margin: 0; 
+  position: relative;
+  display: block;
+  float: left;  
 }
 
 fieldset p:last-child input {
@@ -37,12 +35,20 @@ legend {
     display: block;
     float: right;
     position: absolute;
-    left: -280px;
+    right: -280px;
     width: 250px;
-    text-align: right;
-    font-weight: normal;
-    color: #444;
-    font-size: 16px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 13px;
+    color: #555;
+}
+
+span.mandatory {
+  position: absolute;
+  left: -25px;
+  top: 15px;
+  font-size: 30px;
+  color: #FF6569;   
 }
 
 div#mtw div#left h3 {
@@ -196,13 +202,13 @@ input[type="email"] {
    background: transparent;
    width: 340px;
    padding: 9px 10px 9px 15px;
-   font-size: 16px;
+   font-size: 13px;
    line-height: 1;
    border: 0;
    border-radius: 0;
    height: 36px;
    font-family: Helvetica, Arial, sans-serif;
-   color: #999;
+   color: #777;
 }
 
 .styled-select select:hover {
@@ -229,16 +235,15 @@ input[type="email"] {
 
 {% endblock %}
 
-{% block currency %}
-	{% include 'shop/snippets/currency.html' %}
-{% endblock %}
-
 {% block content %}
 
 
-<div id="subnav" class="basket">
-   <div class="sp">
-       <ul>
+<div id="mtw">
+  <div class="sp">
+	
+	   <h1>{% trans 'Your details' %}</h1>
+	   
+       <ul id="steps">
     		<li>
     			<a class="completed" href="{% url basket %}">1. {% trans 'Your basket' %} &#10003;</a>
     		</li>
@@ -249,15 +254,11 @@ input[type="email"] {
     			<a href="">3. {% trans 'Confirm and pay ' %} &raquo;</a>
     		</li>
     		<li>
-    			<a href="">4. {% trans 'Get your tea!' %}</a>
+    			<a href="">4. {% trans 'Tea time!' %}</a>
     		</li>
     	</ul>
-    </div>
-</div>
-
-<div id="mtw">
-  <div class="sp">
-	<div id="basket">
+      
+   <div id="basket">
 
       <form method="post" action="."> 	 
 
@@ -294,14 +295,17 @@ input[type="email"] {
         <fieldset>
             <legend>{% trans 'This just takes 1 minute - your name and email please!' %}</legend>
     		<p>
+    			<span class="mandatory">*</span>
     			<label for="id_first_name"><span class="red">*</span> {% trans 'First name' %}</label>
     			<input  class="clearMeFocus {% if form.first_name.errors %}error{% endif %}" type="text" title="{% trans 'First name' %}" name="first_name" id="id_first_name" value="{{ first_name }}"/>
     		</p>
     		<p>
+    			<span class="mandatory">*</span>
     			<label for="id_last_name"><span class="red">*</span> {% trans 'Surname' %}</label>
     			<input class="clearMeFocus {% if form.last_name.errors %}error{% endif %}" title="{% trans 'Last name' %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
     		</p>
     		<p>
+    			<span class="mandatory">*</span>
     			<label for="id_email"><span class="red">*</span> {% trans 'Email address' %}</label>
     			<input class="clearMeFocus {% if form.email.errors %}error{% endif %}" title="{% trans 'Email address' %}" type="email" name="email" id="id_email" value="{{ email }}"/>
     		</p>	
@@ -309,9 +313,10 @@ input[type="email"] {
 
     	
     	<fieldset>
-    	   <legend>{% trans 'Where should we send your tea? Please provide your address here' %}:</legend>	
+    	   <legend>{% trans 'Where should we send your tea? Please provide the address we should send your tea to' %}</legend>	
 
           <p>
+          	<span class="mandatory">*</span>
           	<label for="id_house_name_number"><span class="red">*</span> {% trans 'House name number' %}:</label>
           	<input class="clearMeFocus {% if form.house_name_number.errors %}error{% endif %}" title="{% trans 'Your address...' %}" id="id_house_name_number" type="text" name="house_name_number" value="{{ house_name_number }}"/>
           </p>
@@ -327,6 +332,7 @@ input[type="email"] {
           	</p>
       
           <p>
+          	<span class="mandatory">*</span>
           	<label for="id_town_city">{% trans 'Town / City' %}:</label>
           	<input class="clearMeFocus {% if form.town_city.errors %}error{% endif %}" title="{% trans 'Town or city' %}" id="id_town_city" type="text" name="town_city" value="{{ town_city }}"/> 
           </p>
@@ -338,6 +344,7 @@ input[type="email"] {
             </p>
           {% endif %}
           <p>
+          	<span class="mandatory">*</span>
           	<label for="id_postcode"><span class="red">*</span> {% trans 'Post / ZIP code' %}:</label>
           	<input class="clearMeFocus {% if form.postcode.errors %}error{% endif %}" title="{% trans 'Post / ZIP code' %}" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
           	</p>
@@ -353,7 +360,7 @@ input[type="email"] {
 	{% endif %}
 
 	<div id="checkout-button">
-		<input type="submit" value="{% trans 'Confirm your details' %} &raquo;" next="" class="button green"/>
+		<input type="submit" value="{% trans 'Save your details' %} &raquo;" next="" class="button green"/>
 	</div>
 		
 	</form>

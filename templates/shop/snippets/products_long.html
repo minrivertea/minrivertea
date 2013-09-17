@@ -1,0 +1,43 @@
+{% load i18n thumbnail convert_weights %}
+
+{% for t in teas %}
+    <div class="info tea half {% cycle 'left' 'right' %}">
+        <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+        
+        {% if months %}
+            <a class="button green small" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.price.id months %}">Add to TeaBox</a>
+        {% else %}
+            <a title="{% trans 'Add 1 x ' %} {{ t.name }} {% if t.price.weight %}({% convert_weights request t.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" href="{% url add_to_basket t.price.id %}" class="button green small" id="add_to_basket_{{ t.price.id }}"><span class="plus">{% trans 'Add to basket' %}</span></a>
+        {% endif %}
+        
+        {% thumbnail t.image "240x160" crop="center" as im %}
+        <a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
+        	<img alt="{{ t.description }}" src="{{ im.url }}"/>
+        </a>
+        {% endthumbnail %}
+            
+        <div class="glass-text">
+            <div class="inner">
+                <div class="pricebar">
+                    <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
+                    <p>{{ t.description }}</p>
+                    <div class="price-weight">
+                        <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% endif %}</span> 
+                        <span class="weight">{% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</span>
+                    </div>
+                    
+                    {% if t.quantity > 0 %}
+                    <div class="in-basket">
+		                  <span class="quantity">
+		                      <span class="num">{{ t.quantity }}</span> 
+		                      {% if months %}{% trans 'in your TeaBox!' %}
+		                      {% else %}{% trans 'in your basket' %}
+		                      {% endif %}
+		                  </span>
+		            </div>
+                    {% endif %}                    
+                </div>                            
+                </div>
+        </div>
+    </div>
+{% endfor %}
