@@ -94,7 +94,7 @@ def page_by_id(request, id):
 # the product listing page
 def category(request, slug):
     curr = _get_currency(request)
-    if slug == _('teas') or slug == _('teaware'):
+    if slug == _('teas'):
         products = None
         category = get_object_or_404(Category, slug=slug)
         special = get_object_or_404(UniqueProduct, parent_product__slug=_('buddhas-hand-oolong-tea'), currency=curr)
@@ -114,6 +114,7 @@ def category(request, slug):
             if basket_item.count() > 0:
                 x.basket_quantity = basket_item[0].quantity
             
+    print products
     return _render(request, "shop/category.html", locals())
 
 def category_by_id(request, id):

@@ -162,29 +162,33 @@ div.info.photo img {
 	<div id="teas">
 		
 			
-		{% if category.slug == 'teaware' %}
-		   {% include "shop/snippets/products_teaware.html" %}
+    {% if categories %}
+        {% for c in categories %}
+		    <div class="category">
+                {% with c.products as teas %}
+		          {% include 'shop/snippets/products_long.html' %}
+		        {% endwith %}
+            </div>
+		{% endfor %}
+    {% else %}
+		
+		{% if category.slug == _('teaware') %}
+		  {% include 'shop/snippets/products_teaware.html' %}
 		{% else %}
-		   {% if products.count > 5 %}
-		      {% with products as teas %}
-		      {% include 'shop/snippets/products_long.html' %}
-		      {% endwith %}
-		   {% else %}
-    		   {% include "shop/snippets/products_normal.html" %}
-    	{% endif %}
-		{% endif %}
-
+    		{% if products.count > 5 %}
+    		      {% with products as teas %}
+    		          {% include 'shop/snippets/products_long.html' %}
+    		      {% endwith %}
+    		{% else %}
+        		   {% with products as teas %}
+        		      {% include "shop/snippets/products_normal.html" %}
+        		   {% endwith %}
+    		{% endif %}
+        {% endif %}
+    {% endif %}
   	     
 	    
-	     {% if categories %}
-		    {% for c in categories %}
-		      <div class="category">
-		      {% with c.products as teas %}
-		          {% include 'shop/snippets/products_long.html' %}
-		      {% endwith %}
-		      </div>
-		    {% endfor %}
-		 {% endif %}
+
 		
 	</div>	
 	
