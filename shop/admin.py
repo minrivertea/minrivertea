@@ -3,6 +3,7 @@ from django.contrib import admin
 
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+    list_display = ('name', 'slug')
     list_filter = ('category',)
     fieldsets = (
         ('Name', {

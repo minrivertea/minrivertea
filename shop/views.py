@@ -70,7 +70,7 @@ def index(request):
 
 def page(request, slug):
     page = get_object_or_404(Page, slug=slug)
-    nav_tree = page.get_nav_tree()
+    # nav_tree = page.get_nav_tree()
     if page.slug == _('contact-us'):
         form = ContactForm()
     
