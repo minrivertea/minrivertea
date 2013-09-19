@@ -158,7 +158,7 @@ h3 a:link, h3:visited, h4 a:link, h4 a:visited, h2 a:link, h2 a:visited {
 input.button {
   color: #2A8531;
   height: auto;	
-  font-size: 16px;
+  font-size: 15px;
   box-shadow: 0 1px 1px #999;
 }
 
@@ -1439,7 +1439,7 @@ textarea {
   padding: 10px 15px;
   border: 1px solid #d1d1d1;
   border-radius: 4px;
-  font: 16px arial,helvetica,clean,sans-serif;
+  font: 15px helvetica,clean,sans-serif;
   color: #999;
   margin: 0 0 20px 0;
 }
@@ -1799,7 +1799,7 @@ span.red {
 }
 
 #mtw #left div.did-you-know p {
-    font-size: 16px;
+    font-size: 15px;
     margin: 5px 0 0 0;
 }
 
@@ -2056,8 +2056,7 @@ ul#social a#google:hover {
 }
 
 #footer h4 {
-  font-family: Helvetica, Arial, sans-serif;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
   font-weight: bold;
   margin: 0;
   color:#FF6569;

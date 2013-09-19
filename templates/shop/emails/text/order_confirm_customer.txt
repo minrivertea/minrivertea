@@ -1,4 +1,4 @@
-{% load i18n %}{% blocktrans with order.owner.first_name as fn and order.invoice_id as id %}
+{% load i18n %}{% blocktrans with order.owner.first_name|capfirst as fn and order.invoice_id as id %}
 Hi {{ fn }}!
 
 Your tea break is about to get a whole lot better!
