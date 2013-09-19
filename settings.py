@@ -24,6 +24,7 @@ MANAGERS =                      ADMINS
 TIME_ZONE =                     'Europe/London'
 SITE_ID =                       1
 SITE_NAME =                     'minrivertea.com'
+SITE_URL =                      'http://www.minrivertea.com'
 ANALYTICS_ID =                  'UA-9041614-4'
 GERMAN_URL =                    'www.minrivertea.de'
 GERMAN_ANALYTICS_ID =           'UA-9041614-9'

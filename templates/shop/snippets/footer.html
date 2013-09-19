@@ -46,8 +46,8 @@
         <span class="languages">
             <strong>{% trans 'Available languages' %}</strong>: 
             <a href="{% url changelang 'en' %}">{% trans 'English' %}</a> | 
-            <a href="{% url changelang 'de' %}">{% trans 'German' %}</a> | 
-            <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a>
+            <a href="{% url changelang 'de' %}">{% trans 'German' %}</a>  
+            {% if request.user.is_superuser %} | <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a>{% endif %}
         </span>
     </p>
     

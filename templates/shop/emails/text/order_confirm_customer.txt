@@ -1,13 +1,15 @@
-{% load i18n %}{% blocktrans with order.owner.first_name|capfirst as fn and order.invoice_id as id %}
+{% load i18n %}{% blocktrans with order.owner.first_name|capfirst as fn %}
 Hi {{ fn }}!
 
 Your tea break is about to get a whole lot better!
 
-We've received your tea order at {{ site_name }}, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote this order ID: {{ id }}.{% endblocktrans %}
+We've received your tea order at {{ site_name }}, and we'll send it to you right away. If you have any questions at all, just get in touch (you can reply to this email) and quote your order ID.{% endblocktrans %}
 
 {% for item in items %}
 	* {{ item.quantity }} x {{ item.item.parent_product }} {% if item.weight %}({{ item.weight }}{{ weight_unit }}){% endif %}
 {% endfor %}
+    * {% trans 'TOTAL AMOUNT' %}: {{ order.get_amount }} {{ order.get_currency.code }}
+    * {% trans 'ORDER ID' %}: {{ order.invoice_id }}
+    * {% trans 'ORDER DATE' %}: {{ order.date_confirmed|date:"D d M Y" }}
 
-{% trans 'We hope you enjoy drinking your tea!' %}
 {% include 'shop/emails/signature.txt' %}

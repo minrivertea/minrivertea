@@ -149,7 +149,7 @@ def _wishlist_confirmation_email(request, wishlist):
 
 def _admin_notify_new_review(tea, review):
     
-    text = "%s %s just posted a review of %s" % (review.first_name, review.last_name, tea.name)              
+    text = "%s %s just posted a review of %s - %s" % (review.first_name, review.last_name, tea.name, settings.SITE_URL)              
     subject_line = "New Review Posted - %s" % tea.name 
     receiver = settings.SITE_EMAIL
     _send_email(receiver, subject_line, text)

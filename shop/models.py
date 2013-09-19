@@ -138,6 +138,16 @@ class Product(models.Model):
             price = None
         return price
     
+    def get_root_category(self):
+        
+        if self.category.parent_category:
+            category = self.category.parent_category
+        else: 
+            category = self.category
+        
+        print category
+        return category
+    
     def get_reviews(self):
         reviews = Review.objects.filter(product=self, is_published=True)
         return reviews    
