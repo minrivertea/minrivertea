@@ -1834,6 +1834,11 @@ ul.rss #google {
   margin-right: 10px;
 }
 
+iframe[id^="oauth2relay"] { 
+    left: auto !important; 
+    right: 0px !important; 
+}
+
 ul.rss #facebook {
   width: 75px;
   float: left;	
@@ -1998,7 +2003,6 @@ ul#social a#google:hover {
 #footer {
     background-color: #F6F6F6;
     float: left;
-    font-size: 87%;
     height: 300px;
     margin: 40px 0 0 0;
     border-top: 10px solid #f1f1f1;

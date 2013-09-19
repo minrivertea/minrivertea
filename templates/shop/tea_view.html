@@ -107,7 +107,7 @@ $(document).ready( function() {
 
 
 {% if ga_is_on %}
-<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<script type="text/javascript" src="http://assets.pinterest.com/js/pinit.js"></script>
 {% endif %}
 
 {% endblock %}
@@ -900,6 +900,7 @@ ul.rss {
 		<li id="google">
 			<div class="g-plusone" data-size="medium"></div>
 			<!-- Place this tag after the last +1 button tag. -->
+            <div style="display: none; width: 0;">
             <script type="text/javascript">
               (function() {
                 var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -907,6 +908,7 @@ ul.rss {
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
               })();
             </script>
+            </div>
 		</li>
 		<li id="twitter">
 		      <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site_url }}{{ tea.get_absolute_url }}" data-text="If you like tea, try some @minrivertea {{ tea.name }}" data-size="small">Tweet</a>
