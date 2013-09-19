@@ -60,6 +60,9 @@ function addToBasket(obj) {
     $(obj).click(function() {   	 
    	  var thisPrice = $(this).parent('.price-inner');
    	  
+   	  // clear any existing messages
+   	  $('#prices .message').remove();
+   	  
    	  thisPrice.css({'opacity': '0.4'});
    	  $('#prices').prepend('<img src="{{ static_url }}images/loading.gif" id="loading"/>');
    	 
@@ -88,11 +91,16 @@ function addToBasket(obj) {
     		
     		/// add the confirmation
     		$('#prices').prepend(data.message).delay(8000).queue(function() {
-    			$('#prices .message').fadeOut(300);	
-    			$('#prices .message').remove();
+    			$('#prices .message').fadeOut(300).delay(400).queue(function() {	    
+        			$('#prices .message').remove();
+    			});
     		});
-    		$('#prices .message').fadeIn(300);    		
-  		  }
+    		$('#prices .message').fadeIn(300);
+    		
+    		
+    		// SLIDEDOWN ANY AVAILABLE DEALS
+    		// $('#deals').delay(1000).slideDown(200);
+    	  }
    	  })
    	  return false;
   });
@@ -171,6 +179,57 @@ h1 span {
 
 .product-photos-small img.active {
   opacity: 1;	
+}
+
+#deals {
+ float: left;
+ width: 100%;  
+ border-top: 1px dashed #e1e1e1;
+ padding: 10px 0;
+ text-align: left;
+ margin: 0px 0 0 0;
+ display: none;
+}
+
+#deals p {
+ margin: 0; 
+ font-size: 15px;  
+}
+
+#deals p .title {
+  color: #FF6569;
+}
+
+#deals img {
+  float: left;
+  margin: 0 10px 0 0;
+  border: 1px solid #e1e1e1;   
+}
+
+#deals .item {
+  width: 50px;
+  height: 70px; 
+  float: left;
+  display: block;  
+  text-align: center; 
+  font-size: 11px; 
+}
+
+#deals .item img {
+  float: left;
+  margin: 0 0 5px; 
+  height: 50px;
+  border: 1px solid #e1e1e1;  
+}
+
+#deals span.text {
+  position: relative;
+  float: left;
+  width: 25px;
+  top: 15px;
+  text-align: center;
+  color: #999;
+  font-size: 22px;   
 }
 
 #instructions {
@@ -268,6 +327,7 @@ h1 span {
     width: 380px;
     margin: 10px 0 0;
     position: relative;
+    border-top: 1px dashed #e1e1e1;
 }
 
 #prices #loading {
@@ -284,18 +344,18 @@ h1 span {
     border-radius: 5px 5px 5px 5px;
     display: none;
     float: left;
-    left: -5px;
-    padding: 10px;
+    padding: 40px 30px;
     position: absolute;
+    right: -5px;
     text-align: center;
-    top: -30px;
-    width: 360px;
+    top: -110px;
+    width: 340px;
     z-index: 30;
 }
 
 #prices .message h3 {
     color: #333;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     margin: 0;
     text-transform: none;
@@ -316,12 +376,9 @@ h1 span {
     position: relative;
     width: 100%;
     height: 25px;
-    border-top: 1px dashed #e1e1e1;
+    border-bottom: 1px dashed #e1e1e1;
 }
 
-#prices .price:first-child {
-  border-top: none;   
-}
 
 .tea-top .price .price-inner {
   width: 100%;
@@ -493,10 +550,6 @@ div.fb-recommend {
   position: relative;  
 }
 
-#reviews .sp {
-  height: 180px;   
-}
-
 #recommended h3 {
     color: #5F829A;
     margin: 0 0 10px;
@@ -513,15 +566,17 @@ div.fb-recommend {
 #reviews ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;   
+  margin: 0; 
+  float: left;
+  width: 100%;  
 }
 
 #reviews ul li {
     float: left;
     font-size: 13px;
     letter-spacing: -0.2px;
-    margin: 0 30px 0 0;
-    padding: 10px 15px;
+    margin: 10px 30px 0 0;
+    padding: 0 15px;
     width: 260px;
 }
 
@@ -665,12 +720,6 @@ ul.rss {
 
 {% block content %}
 
-
-{% if tea.category.parent_category.slug == 'teas' %}
-    {% include 'shop/snippets/teas_sub_nav.html' %}
-{% endif %}
-
-
 <div id="mtw">
   <div class="sp">
 		
@@ -782,21 +831,33 @@ ul.rss {
 		</div>
 	    
 			
-      {% else %}
-        <div id="stocks">        
-          	<span class="not-in-stock">{% trans 'This product is not currently available for sale.' %}</span>
-    	</div>	
-	  {% endif %}
+        {% else %}
+          <div id="stocks">        
+            	<span class="not-in-stock">{% trans 'This product is not currently available for sale.' %}</span>
+      	  </div>	
+  	    {% endif %}
+		
+		{% if tea.get_root_category.slug == _('teaware') %}
+		<div id="deals">
+		   {% thumbnail tea.image thumb_small crop="center" as im %}
+		   <img src="{{ im.url }}" />
+		   {% endthumbnail %}
+		   <p><span class="title"><strong>Save 10% if you buy any tea with this teapot</span><br/>
+		   <a href="">Browse our teas</a> or <a href="">find out more</a></strong></p>
+		</div>
+		{% endif %}
 		
 		</div>
-	</div><!-- end top product info div -->	
+	</div><!-- END PRODUCT TOP -->	
 
     <div class="hr"></div>
 
+
+    <!-- START REVIEWS -->
     {% if reviews %}
     <div id="reviews">
         <div class="sp">
-       <h3>{% blocktrans %}What do customers say about {{ tea }}?{% endblocktrans %} <a href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review' %} &raquo;</a></h3>
+       <h3>{% trans 'What do our customers say?' %} <a href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review' %} &raquo;</a></h3>
            <ul>
            {% for r in reviews %}
                <li>
@@ -808,49 +869,23 @@ ul.rss {
             
         </div>
     </div>    
-    
     <div class="hr"></div>    
     {% endif %}
+    <!-- END REVIEW -->
 
 	<!-- START EXTRAS -->
 	{% if tea.long_description %}
 	<div id="extras">
-      	{% comment %}
-        	{% if tea.map_image %}
-            <div id="map" class="info">  
-                        {% thumbnail tea.map_image "255x120" crop="center" as im %}
-                        <img src="{{ im.url }}"/>
-                        {% endthumbnail %}
-                        {% if tea.map_caption %}<p>{{ tea.map_caption|safe }}</p>{% endif %}
-                            
-                    {% if tea.farm_image %}
-                        {% thumbnail tea.farm_image "255x120" crop="center" as im %}
-                            <img src="{{ im.url }}"/>
-                        {% endthumbnail %}
-                        {% if tea.farm_caption %}<p>{{ tea.farm_caption|safe }}</p>{% endif %}
-                    {% endif %}
-            </div>
-        	{% endif  %}
-        	
-        		
-        	{% if tea.extra_info %}
-        	<div id="brewing" class="info">
-        	   {{ tea.extra_info|safe }}
-        	</div>
-        	{% endif %}
-      	{% endcomment %}
 	
       	<div id="description" class="info">
-      	   
       	   {{ tea.long_description|safe }}
       	</div>
 	
 	</div>
+	<div class="hr"></div>
 	{% endif %}
 	<!-- END EXTRAS -->
 
-  
-  <div class="hr"></div>
   <div id="delivery">
     <h3>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}Free delivery on orders over {{ symbol }}{{ ptd }}{% endblocktrans %}</h3>
     {% url page _('shipping') as shipurl %}
