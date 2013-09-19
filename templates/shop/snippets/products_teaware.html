@@ -1,63 +1,33 @@
 {% load thumbnail i18n %}
 
-{% for p in products %}
+{% for t in products %}
 
-    <div class="info tea long">
-        <a title="{{ p.long_title|striptags }}" href="{{ p.get_absolute_url }}"><span class="link"></span></a>	
-    	    	
-    	{% thumbnail p.image "350" crop="center" as im %}
-		<img alt="a picture of {{ p.name }}" title="{{ p.name }} - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
-		{% endthumbnail %}		  
-		 
-		
-		<div class="glass-text">
-		  <div class="inner">
-			<div class="pricebar"> 
-                
-                <h3>
-        		  <a title="{{ p.name }} - {% trans 'find out more or order some now!' %}" href="{{ p.get_absolute_url }}">{{ p.name }}</a>
-                </h3>
-			     
-			    <div class="price-weight">
-    		    
-    		        <span class="price">
-    		            {{ currency.symbol }}{{ p.price.price|floatformat:"-2" }}
-    		        </span>
-    		    
-    		        <span class="weight">    
-    		          / {{ p.price.description }}
-    		        </span>    		        
-    			</div>
-    			 
-    			<p>{{ p.description }}</p>
-    			
-    			{% if p.price.stocks.count < 0 %}
-           	        <span class="not-in-stock">
-                        {% trans 'Available for preorder. Delivery on' %} 
-           	     		<strong>{{ p.get_preorder_date|date:"d M Y" }}</strong>
-           	     	</span>
-                {% endif %}
-				
-				<a title="{% trans 'Add 1 x ' %} {{ p.name }} {% trans 'to your basket' %}" class="button green small" href="{% url add_to_basket p.price.id %}" id="add_to_basket_{{ p.price.id }}"><span class="plus">{% trans 'Add to basket' %}</span></a>
-
-
-                {% if p.basket_quantity %}
-				<div class="in-basket">
-    		      {{ p.basket_quantity }} {% trans 'already in basket' %}
-    		    </div> 
-    		    {% endif %}
-    		     
-    		     
-		      </div>
-			
-		  </div>
-	</div>
+<div class="info tea half {% cycle 'left' 'right' %}">
+    
+    <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+    
+    {% thumbnail t.image "240x160" crop="center" as im %}
 	
-	{% if p.tag_text %}
-      	<span class="tag" style="background: {% if p.tag_color %}{{ p.tag_color }}{% else %}#1f7dc5{% endif %};">
-      	     <span class="tagtext">{{ p.tag_text }}</span>
-      	</span>
-      {% endif %}
-
+	<a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
+		<img alt="{{ t.description }}" src="{{ im.url }}"/>
+	</a>
+    {% endthumbnail %}
+    
+    <div class="glass-text">
+        <div class="inner">
+            <div class="pricebar">
+                <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
+                <p>{{ t.description }}</p>
+                
+                <div class="price-weight">
+                    <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% endif %}</span> 
+                    <span class="weight"></span>
+                </div>
+                
+             </div>
+         </div>
+     </div>
 </div>
+    
+    
 {% endfor %}

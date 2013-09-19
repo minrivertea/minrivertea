@@ -1,19 +1,12 @@
-{% if order.wishlist_payee %}
-	THIS ORDER IS A WISHLIST! The payee is {{ order.wishlist_payee }} but the tea should be delivered to the person below:
-{% else %}
-
-	New order from {{ order.owner.email }}
-	{% if order.notes %}CHECK THESE NOTES CAREFULLY: {{ order.notes }}{% endif %}
-
-{% endif %}
 
 {% for item in order.items.all %}
 	{{ item }}
 {% endfor %}
 
 INVOICE ID: {{ order.invoice_id }}
-
 ORDER STATUS: {{ order.status }}
+ORDER VALUE: {{ order.get_amount|floatformat:"-2" }} {{ order.get_currency.code }}
+PRINT PACKING SLIP: http://www.minrivertea.com{% url print_packing_slip order.id %}
 
 ADDRESS:
 

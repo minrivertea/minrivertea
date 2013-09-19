@@ -62,16 +62,17 @@ class Product(models.Model):
     meta_title = models.CharField(max_length=200, blank=True, null=True,
         help_text="A longer and more descriptive title that might appear in Google's search results")		
     description = models.TextField(
-        help_text="The short description appearing in product listings - no HTML")
+        help_text="Description that shows in product lists (eg. /teas/). No HTML please!")
     meta_description = models.TextField(blank=True, null=True,
-        help_text="Customized search description that might appear in Google's search results")
+        help_text="Description for SEO that might appear in Google's search results. No HTML please!")
     super_short_description = models.CharField(max_length=200,
-        help_text="Appears as the really short description in right-box product listings")
+        help_text="A really short description that appears when space is limited. No HTML please!")
     body_text = models.TextField(
-        help_text="The introduction paragraph at the top-right of the main product page")
-    long_description = RichTextField(blank=True, null=True)
+        help_text="The introduction paragraph at the top-right of the main product page. HTML is OK.")
+    long_description = RichTextField(blank=True, null=True,
+        help_text="The main product information. HTML is OK. Use &lt;div class='info'&gt;&lt;img&gt;&lt;div class='text'&gt;&lt;/div&gt;&lt;/div&gt; to display nice photos and text next to it. Images should be 600x300.")
     extra_info = models.TextField(blank=True, null=True,
-        help_text="This is normally the 'tasting notes' section. Add an 'h3' as the title.")
+        help_text="Deprecated, do not use.") # CAN BE REMOVED
     image = models.ImageField(upload_to='images/product-photos')
     image_2 = models.ImageField(upload_to='images/product-photos', blank=True, null=True)
     image_2_caption = models.CharField(max_length=200, blank=True)
