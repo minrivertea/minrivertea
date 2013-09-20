@@ -168,7 +168,8 @@ class Category(models.Model):
     meta_description = models.TextField(help_text="No HTML please!")
     short_description = models.TextField(help_text="Goes under the title on the page, HTML is OK.")
     parent_category = models.ForeignKey('self', blank=True, null=True)
-    # is_navigation_item = models.BooleanField(default=False)
+    is_navigation_item = models.BooleanField(default=False)
+    list_order = models.IntegerField(default=1, blank=True, null=True)
     
     def __unicode__(self):
         return self.name
@@ -494,10 +495,12 @@ class Page(models.Model):
     meta_description = models.TextField(blank=True, null=True)
     parent = models.ForeignKey('self', blank=True, null=True)
     content = RichTextField()
-    promo_image = models.ImageField(upload_to='images/learn', blank=True, null=True)
-    feature_image = models.ImageField(upload_to='images/learn', blank=True, null=True)
+    # promo_image = models.ImageField(upload_to='images/learn', blank=True, null=True)
+    # feature_image = models.ImageField(upload_to='images/learn', blank=True, null=True)
     template = models.CharField(max_length=200, blank=True, null=True)
-    right_side_boxes = models.CharField(max_length=200, blank=True, null=True)
+    # right_side_boxes = models.CharField(max_length=200, blank=True, null=True)
+    is_top_nav = models.BooleanField(default=False)
+    list_order = models.IntegerField(default=1, blank=True, null=True)
     
     def __unicode__(self):
         return self.title
@@ -574,7 +577,7 @@ class Page(models.Model):
         return items
     
     def get_absolute_url(self):
-        url = reverse('page', args=[self.slug]) 
+        url = reverse('finder', args=[self.slug]) 
         return url
     
     def get_url_by_id(self):

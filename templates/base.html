@@ -154,18 +154,12 @@ if (15.00) {
 	   		   	
         
     	<ul id="learn">
-            <li>
-          	<a href="{% url page _('about') %}" class="{% if page %}{% if page.slug == _('wholesale') %}{% else %}{% if page.get_root.slug == 'about' %}selected{% endif %}{% endif %}{% endif %}">{% trans 'About us' %}</a>
-          	</li>
-          	<li>
-          	<a href="{% url page _('learn') %}" class="{% if page %}{% if page.get_root.slug == _('learn') %} selected{% endif %}{% else %} {% nav_selected request '^/(learn|blog)/' %}{% endif %}">{% trans 'Learn about tea' %}</a>
-          	</li>
-          	<li>
-          	<a href="{% url page _('contact-us') %}" class="{% if page %}{% if page.slug == _('contact-us') %} selected{% endif %}{% endif %}">{% trans 'Contact us' %}</a>
-          	</li>
-          	<li>
-            <a href="{% url page _('wholesale') %}" class="{% if page %}{% if page.slug == _('wholesale') %} selected{% endif %}{% endif %}">{% trans 'Wholesale' %}</a>
-            </li>
+            {% for x in top_nav %}
+              <li>
+                <a href="{{ x.get_absolute_url }}">{{ x.title }}</a>
+              </li>
+            {% endfor %}
+            
           	{% get_current_language as LANGUAGE_CODE %}
           	{% if LANGUAGE_CODE == 'de' %}
           	<li><a href="http://www.minrivertea.com/changelang/en/">{% trans 'English' %}</a></li>

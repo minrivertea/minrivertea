@@ -221,18 +221,12 @@ def _get_products(request, cat=None, random=False, exclude=None):
     return products   
 
 
-def _finder(request, x=None, y=None, z=None, slug=None, category=None):
+def _finder(request, x=None, y=None, z=None, slug=None):
     
     current_lang = get_language()
     products = []
     categories = []
-    pages = []
-    
-    if category:
-        from shop.views import category
-        return category(request, slug=slug)
-        
-
+    pages = []            
 
     #  PRODUCTS - IF IT HAS 2 PARTS TO THE URL IT COULD BE A PRODUCT
     if z and slug and not y:
@@ -263,8 +257,6 @@ def _finder(request, x=None, y=None, z=None, slug=None, category=None):
         else:
             pass
 
-
-
     # CATEGORIES - DOES THE SLUG MATCH A CATEGORY?
     for l in settings.LANGUAGES:
         try:
@@ -292,7 +284,6 @@ def _finder(request, x=None, y=None, z=None, slug=None, category=None):
         
     else:
         pass
-    
      
     
     # PAGES - LAST ONE, TRY TO FIND A MATCHING PAGE

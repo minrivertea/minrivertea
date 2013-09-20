@@ -5,13 +5,13 @@
   <div class="sp thin">
     
 	<div class="footer-box about">
-	  <h4><a href="{% url page _('about') %}">{% trans 'About the Min River Tea Farm &raquo;' %}</a></h4>
+	  <h4><a href="{% url finder _('about') %}">{% trans 'About the Min River Tea Farm &raquo;' %}</a></h4>
 	  <p>{% trans "We're a UK tea company selling fine quality Chinese teas across the world." %}</p>
 	  
 	  <ul>
-	    <li><a href="{% url page _('about') %}">{% trans 'About us' %}</a></li>
-	  	<li><a href="{% url page _('shipping') %}">{% trans 'Shipping information' %}</a></li>
-        <li><a href="{% url page _('about-fujian-province') %}">{% trans 'Where does our tea come from?' %}</a></li>
+	    <li><a href="{% url finder _('about') %}">{% trans 'About us' %}</a></li>
+	  	<li><a href="{% url finder _('shipping') %}">{% trans 'Shipping information' %}</a></li>
+        <li><a href="{% url finder _('about-fujian-province') %}">{% trans 'Where does our tea come from?' %}</a></li>
 	  </ul>
 	  
 	</div>
@@ -39,10 +39,10 @@
 
     <p class="copyright">
         &copy; {{ site_name }} | 145 - 157 St John St, London, EC1V 4PW, UK | 
-        <a href="{% url page _('contact-us') %}">{% trans 'Contact Us' %}</a> | 
-        <a href="{% url page _('terms-and-conditions') %}">{% trans 'Terms & Conditions' %}</a> | 
-        <a href="{% url page _('privacy') %}">{% trans 'Privacy' %}</a> | 
-        <a href="{% url page _('imprint') %}">{% trans 'Imprint' %}</a> <br/>
+        <a href="{% url finder _('contact-us') %}">{% trans 'Contact Us' %}</a> | 
+        <a href="{% url finder _('terms-and-conditions') %}">{% trans 'Terms & Conditions' %}</a> | 
+        <a href="{% url finder _('privacy') %}">{% trans 'Privacy' %}</a> | 
+        <a href="{% url finder _('imprint') %}">{% trans 'Imprint' %}</a> <br/>
         <span class="languages">
             <strong>{% trans 'Available languages' %}</strong>: 
             <a href="{% url changelang 'en' %}">{% trans 'English' %}</a> | 

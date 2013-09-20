@@ -3,34 +3,10 @@
 <div id="navigation">
   
   <ul id="nav">
+    {% for x in main_nav %}
     <li>
-      <a class="{% nav_selected request '^/oolong-tea/' %}" href="{% url category _('oolong-tea') %}" title="{% trans 'Buy oolong teas direct from farms in China' %}" alt="{% trans 'Buy oolong teas direct from farms in China' %}">{% trans 'Oolong tea' %}</a> 
+        <a class="{% nav_selected request x.slug %}" href="{% url finder x.slug %}" title="{{ x.short_description|striptags }}" alt="{{ x.short_description|striptags }}">{{ x.name }}</a>
     </li>
-    
-    <li>
-      <a class="{% nav_selected request '^/red-tea/' %}" href="{% url category _('red-tea') %}" title="{% trans 'Buy red teas direct from farms in China' %}" alt="{% trans 'Buy red teas direct from farms in China' %}">{% trans 'Red tea' %}</a> 
-    </li>
-
-    <li>
-      <a class="{% nav_selected request '^/green-tea/' %}" href="{% url category _('green-tea') %}" title="{% trans 'Buy green teas direct from farms in China' %}" alt="{% trans 'Buy green teas direct from farms in China' %}">{% trans 'Green tea' %}</a> 
-    </li>
-
-    <li>
-      <a class="{% nav_selected request '^/white-tea/' %}" href="{% url white_tea %}" title="{% trans 'Buy white teas direct from farms in China' %}" alt="{% trans 'Buy white teas direct from farms in China' %}">{% trans 'White tea' %}</a> 
-    </li>
-
-    <li>
-      <a class="{% nav_selected request '^/scented-tea/' %}" href="{% url scented_tea %}" title="{% trans 'Buy white teas direct from farms in China' %}" alt="{% trans 'Buy white teas direct from farms in China' %}">{% trans 'Scented tea' %}</a> 
-    </li>
-    
-    <li>
-      <a class="{% nav_selected request '^/teaware/' %}" href="{% url teaware %}" title="{% trans 'Teacups, teapots and accessories for your Chinese tea experience' %}" alt="{% trans 'Teacups, teapots and accessories for your Chinese tea experience' %}">{% trans 'TeaWare' %}</a>
-    </li>
-
-    {% if request.user.is_superuser %}
-    <li>
-      <a class="{% nav_selected request '^/gifts-and-boxes/' %}" href="" title="" alt="">{% trans 'Gifts and boxes' %}</a>
-    </li>
-    {% endif %}
+    {% endfor %}
   </ul>
 </div>
