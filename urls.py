@@ -68,6 +68,8 @@ urlpatterns = patterns('',
     
     url(_(r'^tea-boxes/monthly-tea-box/$'), monthly_tea_box, name="monthly_tea_box"),
 
+    # category
+    url(r'^(?P<slug>[\w-]+)/$', _finder, {'category': True}, name="category"),
     
     
     # Category + Page resolver
