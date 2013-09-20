@@ -77,24 +77,7 @@ urlpatterns = patterns('',
     url(r'^(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
     
-    
-    
-    # urls for the products/categories
-    
-    url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    url(_(r'^teaware/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-    url(_(r'^oolong-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-    url(_(r'^red-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(_(r'^green-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^white-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^scented-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^tea-gifts/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-
-    url(_(r'^teas/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
         
     # urls for the pages
     url(r'^(?P<x>[\w-]+)/(?P<y>[\w-]+)/(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', page, name="sub_sub_sub_page"),
