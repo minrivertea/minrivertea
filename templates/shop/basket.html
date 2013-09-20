@@ -674,7 +674,7 @@ div#discount {
 
 {% else %}
   <div id="basket">
-	<p class="introduction">{% trans "There's nothing in your basket - add something, quick! " %} - <a href="{% url teas %}">&raquo; {% trans 'Browse our selection of Chinese teas here.' %}</a></p>
+	<p class="introduction">{% trans "There's nothing in your basket - add something, quick! " %} - <a href="{% url finder _('teas') %}">&raquo; {% trans 'Browse our selection of Chinese teas here.' %}</a></p>
   </div>
 {% endif %}
 
