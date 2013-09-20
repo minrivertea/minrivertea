@@ -68,10 +68,7 @@ urlpatterns = patterns('',
     
     url(_(r'^tea-boxes/monthly-tea-box/$'), monthly_tea_box, name="monthly_tea_box"),
 
-    # category
-    url(r'^(?P<slug>[\w-]+)/$', _finder, {'category': True}, name="category"),
-    
-    
+
     # Category + Page resolver
     url(r'^(?P<slug>[\w-]+)/$', _finder, name="finder"),
     url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
@@ -83,31 +80,20 @@ urlpatterns = patterns('',
     
     
     # urls for the products/categories
-
-    url(_(r'^tea-boxes/$'), category, name="tea_boxes"),
     
-    url(r'^tasters/$', category, name="tasters"),
     url(r'^tasters/(?P<slug>[\w-]+)/$', tea_view, name="tea_view"),
-    url(_(r'^teaware/$'), category, name="teaware"),
     url(_(r'^teaware/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-    url(_(r'^oolong-tea/$'), category, name="oolong_tea"),
     url(_(r'^oolong-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
-    url(_(r'^red-tea/$'), category, name="red_tea"),
     url(_(r'^red-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(_(r'^green-tea/$'), category, name="green_tea"),
     url(_(r'^green-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(_(r'^white-tea/$'), category, name="white_tea"),
     url(_(r'^white-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(_(r'^scented-tea/$'), category, name="scented_tea"),
     url(_(r'^scented-tea/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(_(r'^tea-gifts/$'), category, name="tea_gifts"),
     url(_(r'^tea-gifts/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
 
-    url(_(r'^teas/$'), category, name="teas"),
     url(_(r'^teas/(?P<slug>[\w-]+)/$'), tea_view, name="tea_view"),
         
     # urls for the pages

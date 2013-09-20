@@ -462,12 +462,12 @@ ul.rss {
 	<div id="teas">
         
         {% include 'shop/snippets/products_long.html' %}
-        <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url teas %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
+        <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url finder _('teas') %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
     </div>
 	<!-- END TEAS LIST -->
 	    
     <div id="experts">
-        <a href="{% url page _('about') %}"><span class="link"></span></a>
+        <a href="{% url finder _('about') %}"><span class="link"></span></a>
         <div class="glass-text">
             <div class="back"></div>
             <div class="inner">
@@ -484,7 +484,7 @@ ul.rss {
 	       {% include 'shop/snippets/products_long.html' %}  
 	   {% endwith %}
 	   
-	   <h2 class="banner">{% trans 'Enjoy your Chinese tea in style' %} - <a href="{% url teaware %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
+	   <h2 class="banner">{% trans 'Enjoy your Chinese tea in style' %} - <a href="{% url finder _('teaware') %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
 	</div>	
 
     <div class="hr"></div>
