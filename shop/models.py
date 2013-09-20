@@ -330,8 +330,10 @@ class BasketItem(models.Model):
 
     
 class Discount(models.Model):
-    discount_code = models.CharField(max_length=40)
-    name = models.CharField(max_length=200)
+    discount_code = models.CharField(max_length=40, 
+        help_text="The code the customer will enter - no spaces or special characters please!")
+    name = models.CharField(max_length=200,
+        help_text="Give the code a name to remind you who/what it's for (eg. 'Discount for Mum')")
     discount_value = models.DecimalField(max_digits=3, decimal_places=2,
         help_text="A decimal expressing the amount of discount. Eg. 0.2 = 20% off.")
     single_use = models.BooleanField(default=True)

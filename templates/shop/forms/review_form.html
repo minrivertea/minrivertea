@@ -96,11 +96,11 @@ textarea {
 <div id="mtw">
   <div class="sp">
   
-  <h1>{% blocktrans with tea as t %}Write a review for {{ t }} tea{% endblocktrans %}</h1>
+  <h1>{% trans 'Write a review' %}</h1>
   	<p class="introduction">{% trans "Thanks for taking the time to write a review. Quality is extremely important to us, so feel free to write down any thoughts, positive or negative, about your tea." %}</p>
 
         <div id="positive">
-            <p class="intro">{% trans 'Firstly, if you liked your tea, please tell your friends!' %} &raquo;</p>
+            <p class="intro">{% trans 'Firstly, if you liked your tea (or teaware), please tell your friends!' %} &raquo;</p>
                     	
           	<div id="facebook">
       		    <iframe src="//www.facebook.com/plugins/like.php?href={{ site_url }}{{ tea.get_absolute_url }}&amp;send=false&amp;layout=box_count&amp;width=450&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=recommend&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:90px;" allowTransparency="true"></iframe>
@@ -126,7 +126,7 @@ textarea {
     			<input type="text" name="last_name" id="id_last_name" class="clearMeFocus" title="{% trans 'Last name' %}" />
     			<input type="email" name="email" id="id_email" class="clearMeFocus" title="{% trans 'Your email address' %}" />
     			<p class="help">* <em>{% trans "we may publish this review on our website - by submitting your review, you give us permission to do so." %}</em></p>
-    			<input class="button green" value="Submit your review &raquo;" type="submit">
+    			<input class="button green" value="{% trans 'Submit your review' %} &raquo;" type="submit">
     		</form>		
         </div>
 

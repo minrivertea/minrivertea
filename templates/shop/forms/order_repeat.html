@@ -191,13 +191,13 @@ p.skip {
 
     <h1>{% blocktrans with order.owner.first_name as fn %}Hey {{ fn }} - are you ready to repeat this order?{% endblocktrans %}</h1>
     
-    <p class="introduction">If you want to add or remove items, go ahead - visit our <a href="{% url teas %}">teas listing</a> or <a href="{% url basket %}">edit your basket</a>.</p>
+    <p class="introduction">If you want to add or remove items, go ahead - visit our <a href="{% url finder _('teas') %}">teas listing</a> or <a href="{% url basket %}">edit your basket</a>.</p>
     
     	
 	<div id="basket">
 		
 	<div id="items">
-		<h2>You're ordering...</h2>		
+		<h2>{% trans "You're ordering" %}...</h2>		
 		<table>
 			{% for thing in order.items.all %}
 				  <tr>				
@@ -213,7 +213,7 @@ p.skip {
 	        {% if monthly_items %}
 	        <tr>
 	           <td valign="top">
-	               <strong>Monthly Box</strong><br/>
+	               <strong>{% trans 'Monthly Box' %}</strong><br/>
 	                    {% for thing in monthly_items %}
 			    		&nbsp;&nbsp;{{ thing.item.parent_product.name }} 
 			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
@@ -255,7 +255,7 @@ p.skip {
 
 	<div id="address">
 
-	   <h2>{% trans "…and we'll send your order to:" %}</h2>
+	   <h2>...{% trans "we'll send your order to:" %}</h2>
 		<p class="address">
   	   {% with order.address as address %}
   	      {% include "shop/snippets/address.html" %}
@@ -267,19 +267,6 @@ p.skip {
 </div>
 
 
-
-<div id="wishlist">
-	<a id="wishlist-link" href="#wishlist-full">Turn this basket into a wishlist! <img src="{{ static_url }}images/gift_small.png"></a>
-	<div id="wishlist-full" style="width: 550px; height: 300px; padding: 30px;">
-		<img id="loading" src="{{ static_url }}images/loading.gif"/>
-	</div>
-</div>
-	
-<div id="left">
-	<h2>Problems or questions?</h2>
-    <p>We aim to offer first class customer service - if you have ANY problems or questions, contact Chris West, the owner, directly on email at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a> - I'll respond normally within a few hours to every email.</p>
-
-</div>
 
 </div>
 

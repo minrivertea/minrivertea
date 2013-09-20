@@ -33,6 +33,9 @@ class ReviewAdmin(admin.ModelAdmin):
 class PageAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'parent')
 
+class DiscountAdmin(admin.ModelAdmin):
+    list_display = ('discount_code', 'name', 'discount_value')
+
 class UniqueProductAdmin(admin.ModelAdmin):
     list_display = ('parent_product', 'weight', 'price', 'is_sale_price', 'is_active', 'currency')
     list_filter = ('is_active', 'currency')
@@ -45,7 +48,7 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Shopper)
 admin.site.register(UniqueProduct, UniqueProductAdmin)
 admin.site.register(Order, OrderAdmin)
-admin.site.register(Discount)
+admin.site.register(Discount, DiscountAdmin)
 admin.site.register(Wishlist)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Review, ReviewAdmin)
