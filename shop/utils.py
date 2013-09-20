@@ -221,13 +221,19 @@ def _get_products(request, cat=None, random=False, exclude=None):
     return products   
 
 
-def _finder(request, x=None, y=None, z=None, slug=None):
+def _finder(request, x=None, y=None, z=None, slug=None, category=None):
     
     current_lang = get_language()
     products = []
     categories = []
     pages = []
     
+    if category:
+        from shop.views import category
+        return category(request, slug=slug)
+        
+
+
     #  PRODUCTS - IF IT HAS 2 PARTS TO THE URL IT COULD BE A PRODUCT
     if z and slug and not y:
         

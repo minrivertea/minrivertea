@@ -62,8 +62,11 @@ def index(request):
     # Product.objects.filter(slug__in=[_(''),4,7])
          
     teaware = _get_products(request, cat=_('teaware'))[:4]
-    special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
-    special.price = special.get_lowest_price(curr)
+    try:
+        special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
+        special.price = special.get_lowest_price(curr)
+    except:
+        pass
                 
     return _render(request, "shop/home.html", locals())
 

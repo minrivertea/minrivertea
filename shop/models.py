@@ -168,6 +168,7 @@ class Category(models.Model):
     meta_description = models.TextField(help_text="No HTML please!")
     short_description = models.TextField(help_text="Goes under the title on the page, HTML is OK.")
     parent_category = models.ForeignKey('self', blank=True, null=True)
+    # is_navigation_item = models.BooleanField(default=False)
     
     def __unicode__(self):
         return self.name

@@ -3,20 +3,16 @@
 <div id="navigation">
   
   <ul id="nav">
-    <!--<li>
-      <a class="grey {% nav_selected request '^/$' %}" href="{% url home %}">{% trans 'Home' %}</a>
-    </li>
-    -->
     <li>
-      <a class="{% nav_selected request '^/oolong-tea/' %}" href="{% url oolong_tea %}" title="{% trans 'Buy oolong teas direct from farms in China' %}" alt="{% trans 'Buy oolong teas direct from farms in China' %}">{% trans 'Oolong tea' %}</a> 
+      <a class="{% nav_selected request '^/oolong-tea/' %}" href="{% url category _('oolong-tea') %}" title="{% trans 'Buy oolong teas direct from farms in China' %}" alt="{% trans 'Buy oolong teas direct from farms in China' %}">{% trans 'Oolong tea' %}</a> 
     </li>
     
     <li>
-      <a class="{% nav_selected request '^/red-tea/' %}" href="{% url red_tea %}" title="{% trans 'Buy red teas direct from farms in China' %}" alt="{% trans 'Buy red teas direct from farms in China' %}">{% trans 'Red tea' %}</a> 
+      <a class="{% nav_selected request '^/red-tea/' %}" href="{% url category _('red-tea') %}" title="{% trans 'Buy red teas direct from farms in China' %}" alt="{% trans 'Buy red teas direct from farms in China' %}">{% trans 'Red tea' %}</a> 
     </li>
 
     <li>
-      <a class="{% nav_selected request '^/green-tea/' %}" href="{% url green_tea %}" title="{% trans 'Buy green teas direct from farms in China' %}" alt="{% trans 'Buy green teas direct from farms in China' %}">{% trans 'Green tea' %}</a> 
+      <a class="{% nav_selected request '^/green-tea/' %}" href="{% url category _('green-tea') %}" title="{% trans 'Buy green teas direct from farms in China' %}" alt="{% trans 'Buy green teas direct from farms in China' %}">{% trans 'Green tea' %}</a> 
     </li>
 
     <li>
