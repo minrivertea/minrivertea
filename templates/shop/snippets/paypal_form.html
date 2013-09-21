@@ -5,7 +5,7 @@
     	<div id="checkout-button">
 			
 			{% if total_price == 0 %}
-			<p class="skip"><a href="{% url fake_checkout order.id %}" class="button green">Click here to skip Paypal (for 100% discount orders)</a></p>
+			<p class="skip"><a href="{% url fake_checkout order.id %}" class="button green">{% trans 'Click here to skip Paypal (for 100% discount orders)' %}</a></p>
 			{% else %}
 			<input type="submit" value="{% trans 'Confirm and pay' %}" next="" class="button green"/>
 			{% endif %}			
