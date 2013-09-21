@@ -526,7 +526,7 @@ div#discount {
 		      <a class="plus" href="{% url increase_quantity thing.id %}"><span>+</span></a>
 		      {% ifequal thing.quantity 1 %}{% else %} <a class="minus" href="{% url reduce_quantity thing.id %}"><span>-</span></a>{% endifequal %}
 		  </div>
-		  <a class="remove" title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" href="{% url remove_from_basket thing.id %}">Remove</a>
+		  <a class="remove" title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" href="{% url remove_from_basket thing.id %}">{% trans 'Remove' %}</a>
 		</div>
 		{% if thing.item.stocks.count == 0 or thing.item.stocks == None %}
 	    	<div class="preorder">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}This is a pre-order and will be sent separately on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
@@ -626,7 +626,7 @@ div#discount {
 	<div class="basket-row totals">
 		<div class="tea-name">&nbsp;</div>
 		<div class="long">
-			<span class="name">Total</span>
+			<span class="name">{% trans 'Total' %}</span>
 		</div>
 		<div class="tea-total">
 			{{ currency.symbol }}{{ total_price|floatformat:"2" }}
@@ -640,7 +640,7 @@ div#discount {
         <form action="." method="post">
             <input type="text" name="discount_code" id="id_discount_code" class="clearMeFocus" title="{% trans 'Enter discount code here' %}"/>
             <input type="submit" class="button green" value="{% trans 'Apply discount' %}" id="submit"/>
-            <a href="" id="cancel">Cancel</a>
+            <a href="" id="cancel">{% trans 'Cancel' %}</a>
 		</form>
 	</div>
 	
