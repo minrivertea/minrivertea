@@ -143,9 +143,7 @@ h2 {
   	
   	<h1>{% trans 'Learn about tea' %}</h1>
   	
-  	{% url page _('how-to-brew-chinese-tea') as brew_url %}
-  	{% url page _('about-chinese-tea') as about_tea_url %}
-  	<p class="introduction">{% blocktrans %}Appreciate your fine Chinese tea more with our guides to <a href="{{ brew_url }}">brewing</a> and tasting your tea, as well as information about the <a href="{{ about_tea_url }}">growing, history and culture of tea</a> drinking in China.{% endblocktrans %}</p>
+  	<p class="introduction">{% blocktrans %}Appreciate your fine Chinese tea more with our guides to brewing and tasting your tea, as well as information about the growing, history and culture of tea drinking in China.{% endblocktrans %}</p>
   	
             <ul id="blog">
                 {% for x in latestblogs %}
