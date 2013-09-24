@@ -111,7 +111,7 @@ def category(request, slug):
     
     if slug == _('teaware') and request.user.is_superuser:
         category = get_object_or_404(Category, slug=slug)
-        products = Product.objects.filter(parent_category=category)
+        products = Product.objects.filter(category=category)
     
     basket = _get_basket(request)
     if basket and products:
