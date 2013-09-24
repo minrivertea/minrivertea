@@ -109,6 +109,10 @@ def category(request, slug):
         category = get_object_or_404(Category, slug=slug)
         products = _get_products(request, category.slug)
     
+    if slug == _('teaware') and request.user.is_superuser:
+        category = get_object_or_404(Category, slug=slug)
+        products = Product.objects.filter(parent_category=category)
+    
     basket = _get_basket(request)
     if basket and products:
         for x in products: 
