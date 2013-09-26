@@ -149,6 +149,7 @@ table tr td:first-child a {
                 {% for y in x.china_stocks %}
                 <span class="dot">&nbsp;</span>
                 {% endfor %}
+                <span class="count">{{ x.china_stocks.count }}</span>
             </td>
             <td>£{{ x.total_value }}</td>
             
