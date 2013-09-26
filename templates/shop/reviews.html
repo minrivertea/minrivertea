@@ -57,7 +57,7 @@
 		      </div>
 		      <p>{{ review.short_text }}<br/>
 		          <span class="name">{{ review.first_name }} {% if review.url %}from <a title="{% trans 'Read the full review here' %}" href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} {% trans 'talking about our' %}
-		          <a href="{% url tea_view review.product.slug %}">{{ review.product }}</a></span>
+		          <a href="{% url finder review.product.category review.product.slug %}">{{ review.product }}</a></span>
 		      </p>
 		   </div>
 		{% endfor %}

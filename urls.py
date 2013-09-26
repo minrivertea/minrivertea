@@ -69,7 +69,7 @@ urlpatterns = patterns('',
     url(_(r'^tea-boxes/monthly-tea-box/$'), monthly_tea_box, name="monthly_tea_box"),
 
 
-    # Category + Page resolver
+    # Category + Page + Tea resolver
     url(r'^(?P<slug>[\w-]+)/$', _finder, name="finder"),
     url(r'^(?P<z>[\w-]+)/(?P<slug>[\w-]+)/$', _finder, name="finder"),
     url(r'^(?P<category>[\w-]+)/(?P<slug>[\w-]+)/review/$', review_tea, name="review_tea"),
