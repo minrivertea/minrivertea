@@ -58,7 +58,8 @@ def common(request):
     if request.GET.get(settings.AFFILIATE_URL_VARIABLE):
         context['landing_page'] = True # TODO we should change this to specify which landing page it shoudl show
 
-    # CHANGE THE BASE TEMPLATE FOR CHINA
+
+    # CHANGE THE BASE TEMPLATE FOR ADMIN
     base_template = settings.BASE_TEMPLATE
     if '/admin-stuff/' in request.path:
         base_template = settings.BASE_TEMPLATE_ADMIN

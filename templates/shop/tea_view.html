@@ -116,7 +116,6 @@ $(document).ready( function() {
 {% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{{ static_url }}css/teas.css"/>
 <style type="text/css">
 
 #mtw #left {
@@ -697,7 +696,7 @@ ul.rss {
 }
 
 #payment span.image {
-    background: url("/static/images/logo16.jpg") no-repeat scroll -164px -145px transparent;
+    background: url("{{ static_url }}images/logo16.jpg") no-repeat scroll -164px -145px transparent;
     float: left;
     height: 36px;
     width: 284px;
