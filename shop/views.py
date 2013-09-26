@@ -49,7 +49,7 @@ class BasketDoesNotExist(Exception):
     
 # the homepage view
 def index(request):
-    curr = _get_currency(request)
+    curr = RequestContext(request)['currency']
     teas = _get_products(request)[:4]
     
     try:
@@ -73,14 +73,12 @@ def index(request):
 
 def page(request, slug):
     page = get_object_or_404(Page, slug=slug)
-    # nav_tree = page.get_nav_tree()
+
     if page.slug == _('contact-us'):
         form = ContactForm()
     
     if page.slug == _('learn'):
-        pages = Page.objects.filter(
-            parent__parent__slug=_('learn')
-        ).order_by('?')[:10]
+        pages = Page.objects.filter(parent__parent__slug=_('learn')).order_by('?')[:10]
     
     template = "shop/page.html"
     if page.template:

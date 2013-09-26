@@ -1286,6 +1286,49 @@ a.atb.large:hover span {
 /* tea listing styles */
 
 
+
+.tag {
+    left: 0px;
+    margin: 0;
+    position: absolute;
+    text-decoration: none;
+    z-index: 0;
+}
+
+.tag {
+  width: 300px;
+  height: 10px; 
+  -webkit-transform: rotate(-45deg); 
+  -moz-transform: rotate(-45deg); 
+  -o-transform: rotate(-45deg); 
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  background: #1e70cb;
+  display: block;
+  position: absolute;
+  top: 49px;
+  left: -101px;
+  padding: 6px 6px 8px;
+}
+
+.tag.pink {
+   background: #ff0054;   
+}
+
+.tag.red {
+   background: red;   
+}
+
+.tagtext {
+  position: absolute;
+  width: 100%;
+  display: block;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+
 /* tea page styles */
 
 .small {
