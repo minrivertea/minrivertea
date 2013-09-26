@@ -55,6 +55,7 @@
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '{{ analytics_id }}']);
+  _gaq.push(['_setDomainName', 'www.minrivertea.com']); 
   _gaq.push(['_trackPageview']);
   
   {% if "order/complete/" in request.path %}
@@ -62,7 +63,7 @@
 
   _gaq.push(['_addTrans',
     '{{ order.invoice_id }}',           // order ID - required
-    'Min River Tea Farm',  // affiliation or store name
+    'Min River Tea',  // affiliation or store name
     '{{ order.get_amount }}',          // total - required
     '',           // tax
     '',              // shipping
