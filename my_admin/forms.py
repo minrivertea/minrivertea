@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from minriver.countries import all_countries, COUNTRY_CHOICES
 
         
-          
 class PostageCostForm(forms.Form):
     cost = forms.DecimalField(required=True) 
     order = forms.CharField(required=True)

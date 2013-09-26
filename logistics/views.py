@@ -203,7 +203,7 @@ def add_stocks(request):
             
             while quantity > 0:
                 new_item = WarehouseItem.objects.create(
-                    unique_product = UniqueProduct.objects.get(id=up),
+                    unique_product = up,
                     hashkey=uuid.uuid1().hex,
                     batch=batch, 
                     created=datetime.datetime.now(),
