@@ -34,9 +34,11 @@ class WarehouseItem(models.Model):
     reason = models.CharField(max_length=20, choices=REMOVALS, blank=True, null=True)
     
     CHINA = 'china'
+    IN_TRANSIT = 'in_transit'
     UK = 'uk'
     LOCATIONS = (
         (CHINA, u"China"),
+        (IN_TRANSIT, u"In Transit"),
         (UK, u"United Kingdom"), 
     )
     
