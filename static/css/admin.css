@@ -3,15 +3,9 @@
   width: 1060px;   
 }
 
-#logo {	 
- width: 200px;
- height: 100px;
- background: url("/static/images/logo-new2.png") no-repeat scroll top left transparent;
- float: left;
- margin: 20px 0 15px 0px;
- position: relative;
+#navigation {
+  margin-top: 60px;   
 }
-
 
 
 /* ADMIN SPECIFIC STYLES */

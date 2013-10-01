@@ -63,7 +63,10 @@ span.red {
 }
 
 #add-stocks {
-  float: right;   
+    float: right;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 #mtw {
@@ -133,7 +136,8 @@ table tr td:first-child a {
 {% block content %}
 
 
-<h3>Stocks</h3>
+<h1>Stocks</h1>
+<p class="introduction">Total stock value = £{{ total_stock_value }}</p>
 <a href="#" class="button green" id="add-stocks">Add stocks</a>
 
 <table>
