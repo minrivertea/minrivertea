@@ -74,6 +74,7 @@ def admin_shopper(request, id):
 def stocks(request):
        
     stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP').order_by('-parent_product__category')
+    total_stock_value = 0
     for x in stocks:
         x.uk_stocks = WarehouseItem.objects.filter(
             unique_product=x, 
@@ -84,6 +85,7 @@ def stocks(request):
         x.in_transit_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True,
             location=WarehouseItem.IN_TRANSIT)
         x.total_value = (x.uk_stocks.count() + x.china_stocks.count()) * x.price
+        total_stock_value += x.total_value
     
     form = AddStocksForm()
     products = UniqueProduct.objects.filter(currency__code='GBP', is_active=True)
