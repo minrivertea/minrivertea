@@ -218,14 +218,25 @@ def add_stocks(request):
         
     return HttpResponse()
 
-def mark_stock_as_arrived(request, id):
+def update_stock_location(request, id):
     up = get_object_or_404(UniqueProduct, pk=id)
 
-    stock_in_transit = WarehouseItem.objects.filter(unique_product=up, sold__isnull=True, location=WarehouseItem.CHINA)
-    for x in stock_in_transit:
-        x.available = datetime.datetime.now()
-        x.location = WarehouseItem.UK
-        x.save()
+    location = request.GET.get('location', None)
+
+    if location == 'uk':
+        stock = WarehouseItem.objects.filter(unique_product=up, sold__isnull=True, 
+            location=WarehouseItem.IN_TRANSIT)
+        for x in stock:        
+            x.available = datetime.datetime.now()
+            x.location = WarehouseItem.UK
+            x.save()
+    
+    if location == 'transit':
+        stock = WarehouseItem.objects.filter(unique_product=up, sold__isnull=True, 
+            location=WarehouseItem.CHINA)
+        for x in stock:
+            x.location = WarehouseItem.IN_TRANSIT
+            x.save()
     
     url = request.META.get('HTTP_REFERER')
     return HttpResponseRedirect(url)

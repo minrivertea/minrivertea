@@ -71,8 +71,19 @@ span.red {
 }
 
 a.transfer {
-  text-decoration:none; 
-  font-weight: bold;  
+    background: none repeat scroll 0 0 #2A8531;
+    border-radius: 2px 2px 2px 2px;
+    color: #FFFFFF;
+    float: left;
+    font-weight: bold;
+    line-height: 1em;
+    margin: 0 5px 0 0;
+    padding: 1px 3px;
+    text-decoration: none;
+}
+
+a.transfer:hover {
+  background: #FF6569;   
 }
 
 span.count {
@@ -144,8 +155,14 @@ table tr td:first-child a {
                     <span class="count">{{ x.uk_stocks.count }}</span>
                 </span>
             </td>
-            <td><a class="transfer" href="{% url mark_stock_as_arrived x.id %}">&larr;</a></td>
-            <td>
+            <td width="150">
+                <a class="transfer" href="{% url update_stock_location x.id %}?location=uk">&larr;</a>
+                {% for y in x.in_transit_stocks %}
+                    <span class="dot">&nbsp;</span>
+                {% endfor %}
+            </td>
+            <td width="150">
+                <a class="transfer" href="{% url update_stock_location x.id %}?location=transit">&larr;</a>
                 {% for y in x.china_stocks %}
                 <span class="dot">&nbsp;</span>
                 {% endfor %}

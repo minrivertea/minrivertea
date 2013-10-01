@@ -81,6 +81,8 @@ def stocks(request):
             location=WarehouseItem.UK
         ).order_by('produced', 'created')
         x.china_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True, location=WarehouseItem.CHINA)
+        x.in_transit_stocks = WarehouseItem.objects.filter(unique_product=x, sold__isnull=True,
+            location=WarehouseItem.IN_TRANSIT)
         x.total_value = (x.uk_stocks.count() + x.china_stocks.count()) * x.price
     
     form = AddStocksForm()
