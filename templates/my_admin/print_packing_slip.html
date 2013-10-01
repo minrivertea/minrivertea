@@ -3,7 +3,7 @@
 <style type="text/css">
 #printblock {
   width: 600px;
-  padding:10px;
+  padding: 10px 10px 10px 10px;
   font-size: 1.5em;
 }
 
@@ -45,7 +45,7 @@ table#items tr td:last-child {
 
 table#label tr td.address {
   width: 500px;  
-  padding: 0 0 0 20px; 
+  padding: 50px 0 0 20px; 
 }
 
 table#label tr td.title {
@@ -65,7 +65,9 @@ table#label tr td.title h3 {
   text-align: right;
 }
 
-
+#weburl {
+  font-size: 11px;   
+}
 
 </style>
 {% endblock %}
@@ -81,9 +83,13 @@ table#label tr td.title h3 {
 		          {{ order.owner.first_name|capfirst }} {{ order.owner.last_name|capfirst }}<br/>
 		          {% include 'shop/snippets/address.html' %}
 		      {% endwith %}
+		      
+		      <br/><br/>
+		      <img src="static/images/logo-new2.gif" height="80" width="156" />
+		      <span id="weburl">Exceptional Chinese teas from www.minrivertea.com</span>
 		  </td>
 		  <td valign="top" class="title">
-		      <p style="float: right;"><img src="static/images/logo-new2.gif" height="80" width="156" /></p>
+		      <p style="float: right;"></p>
 		      <h3>Receipt - {{ order.invoice_id }}</h3>
 		      <p>Thanks for your order! If you have any questions, problems or suggestions, please get in touch with us - email chris@minrivertea.com</p>
 		  </td>
