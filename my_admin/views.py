@@ -189,16 +189,15 @@ def stats(request):
         p = o.postage_cost
         if o.postage_currency != None:
             if o.postage_currency.code == 'EUR':
-                p = p * 0.808
+                p = float(p) * float(0.808)
             if o.postage_currency.code == 'RMB':
-                p = p * 0.1
+                p = float(p) * float(0.1)
             if o.postage_currency.code == 'USD':
-                p = p * 0.66
+                p = float(p) * float(0.66)
         
-            postage_cost += p
+            postage_cost += float(p)
         
         if o.order.address.country in german_countries:
-            print o.order
             amount = o.order.get_amount()
             
             if code == 'EUR':
@@ -211,7 +210,7 @@ def stats(request):
             
     
     raph = float(german_orders_total_value) * float(0.1)
-    total_extra_costs = pp_cost + postage_cost
+    total_extra_costs = float(pp_cost) + float(postage_cost)
     shoppers = len(shoppers)
     
     av_paypal = pp_cost / orders.count()
