@@ -11,17 +11,10 @@ class DomainTrackerMiddleware(object):
     
     def process_request(self, request):
                 
-        # CHECK IF THE DOMAIN NAME IS .de
-        if request.META['SERVER_NAME'] == settings.GERMAN_URL:
+        if request.META['SERVER_NAME'] == settings.GERMAN_URL: # CHECK IF THE DOMAIN NAME IS .de
+            _changelang(request, 'de') # CHANGE LANGUAGE TO GERMAN
+            if 'CURRENCY' not in request.session: 
+                _set_currency(request, 'EUR') # CHANGE CURRENCY TO EUR IF NO PREFERENCE ALREADY SET
         
-            # CHANGE LANGUAGE TO GERMAN
-            _changelang(request, 'de')
-                
-            # CHANGE CURRENCY TO EUR IF NO PREFERENCE ALREADY SET        
-            if 'CURRENCY' not in request.session:
-                _set_currency(request, 'EUR')
-        
-        
-        # WE RETURN NONE AND IT CONTINUES PROCESSING THE REQUEST AS NORMAL
         return None
     
