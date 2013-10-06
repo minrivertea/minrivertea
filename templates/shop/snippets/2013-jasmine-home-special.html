@@ -1,25 +1,26 @@
 {% load i18n thumbnail convert_weights %}
 
-
 <div id="jasmine-special">
 	
 	<div class="four-teas">
-	   {% for x in jasmine_special_products %}
+	   
+	   {% for x in jasmine_products %}
 	   <div>
-    	   <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
-    	   {% thumbnail x.image "120x70" crop="center" as im %}
-    	   <a href=""><img src="{{ im.url }}"/></a>
+    	   {% thumbnail x.image "150x90" crop="center" as im %}
+    	       <a href=""><img src="{{ im.url }}"/></a>
     	   {% endthumbnail %}
-    	   <h3><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></h3>
-    	   <div class="price-weight"><span class="price">{{ currency.symbol }}{{ x.price.price }}</span>{% if x.price.weight %}<span class="weight"> / {% convert_weights request x.price.weight %}{{ weight_unit }}</span>{% endif %}</div>
+    	   <h3>{{ x.name }}</h3>
 	   </div>
 	   {% endfor %}
+	   
+	   
 	</div>
 	
 	
 	<div class="details">
-    	<h2>{% trans "We've gone a bit Jasmine crazy" %}</h2>
-    	<p>{% trans 'The freshest Jasmine teas are available right now. Choose your favourite, order the full set or read more in our blog post' %}</p>
+    	<h2>{% trans "Four exceptional Jasmine teas" %}</h2>
+    	<p>{% trans "Try our full range of unique and delicious Jasmine teas, all fresh from the 2013 harvest. " %}</p>
+    	<a href="{{ jasmine_taster.get_absolute_url }}" class="button green">{% trans 'Find out more and buy' %} &raquo;</a>
     </div>
 </div>
 

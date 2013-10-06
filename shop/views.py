@@ -53,8 +53,9 @@ def index(request):
     teas = _get_products(request)[:4]
     
     try:
-        jasmine_special_products = Product.objects.filter(slug__icontains=_("jasmine"))
-        for x in jasmine_special_products:
+        jasmine_products = Product.objects.filter(slug__icontains=_('jasmine')).exclude(id=44)
+        jasmine_taster = Product.objects.get(id=44)
+        for x in jasmine_products:
             x.price = x.get_lowest_price(currency=curr)
     except:
         pass
