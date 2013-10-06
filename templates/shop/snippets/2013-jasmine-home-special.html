@@ -7,7 +7,7 @@
 	   {% for x in jasmine_products %}
 	   <div>
     	   {% thumbnail x.image "150x90" crop="center" as im %}
-    	       <a href=""><img src="{{ im.url }}"/></a>
+    	       <img src="{{ im.url }}"/>
     	   {% endthumbnail %}
     	   <h3>{{ x.name }}</h3>
 	   </div>

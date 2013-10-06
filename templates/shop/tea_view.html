@@ -26,7 +26,7 @@
 {% block extrajs %}
 <script>
 
-$(".warning span[title]").tooltip({
+$(".price span[title]").tooltip({
   offset: [-8, 2],   
 });
 
@@ -389,18 +389,26 @@ h1 span {
     padding: 2px 5px 1px;
     width: auto;
     position: relative;
-    top: -2px;
+    top: -3px;
 }
 
-a.button.green {
+a.button.green, a.button.red {
     background: none repeat scroll 0 0 #22932A;
     float: right;
     font-size: 11px;
     font-weight: bold;
     margin: 0 10px 0 0;
-    padding: 3px 8px;
+    padding: 5px 8px;
     width: auto;
     letter-spacing: -0.3px;
+}
+
+a.button.red {
+  background: #C30000;   
+}
+
+a.button.red:hover {
+  background: #df4646;   
 }
 
 .tea-top div.tea-description {
@@ -703,6 +711,14 @@ ul.rss {
     margin: -5px 0 0 20px;
 }
 
+.out-of-stock {
+  font-weight: bold;
+  font-size: 13px;
+  float: right;
+  color: red;
+  padding-top: 5px;   
+}
+
 .not-in-stock {
     font-size: 15px;
     font-weight: bold;
@@ -795,8 +811,8 @@ ul.rss {
 	<div class="description">{{ tea.body_text|safe }}</div>
     
     <div id="prices">
+      
       {% if tea.is_active %}
-
         {% for price in prices %}
           <div id="price_{{ price.id }}" class="price{% if price.is_sale_price %} sale{% endif %}{% if price.stocks.count < 1 %} out-of-stock{% endif %}">
 		    <div class="price-inner">	
@@ -805,37 +821,46 @@ ul.rss {
                 <span class="weight"> / {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %} 
                 </span>
                 
-                {% if price.is_sale_price or price.stocks.count < 1 %}
-            <span class="warning">
-            	{% if price.is_sale_price %}
-            		Was {{ currency.symbol }}{{ price.old_price|floatformat:"-2" }}, save {{ currency.symbol }}{{ price.get_saving|floatformat:"-2" }} {% if price.stocks.count < 1 %}<br/>{% endif %}
-            	{% endif %}
-            	
-            	{% if price.stocks.count < 1 %}
-            	   <span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Preorder Only' %}</span>
-            	{% endif %}
-            </span>  
-            {% endif %}
-                
-                
+                {% if price.is_sale_price %}
+                    <span class="warning">
+            		      Was {{ currency.symbol }}{{ price.old_price|floatformat:"-2" }}, save {{ currency.symbol }}{{ price.get_saving|floatformat:"-2" }} {% if price.stocks.count < 1 %}<br/>{% endif %}
+                    </span>  
+                {% endif %}   
               </div>
             
-              <a title="{% trans 'Add 1 x ' %} {{ tea.name }} {% if price.weight %}({% convert_weights request price.weight %}{{ weight_unit }}){% endif %} to your basket" href="{% url add_to_basket price.id %}" class="button green" id="{{ price.id }}">{% trans 'Add to basket' %}</a>
+              {% if price.stocks.out_of_stock %}
+                <span class="out-of-stock">Out of stock!</span>
+              {% endif %}
+              
+              {% if price.stocks.preorder %}
+                 <a class="button red small" id="{{ price.id }}" href="{% url add_to_basket price.id %}"><span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Preorder Now' %}</span></a>
+              {% endif %}
+              
+              {% if price.stocks.available %}
+                    <a href="{% url add_to_basket price.id %}" class="button green" id="{{ price.id }}">{% trans 'Add to basket' %}</a>
+              {% endif %}
+              
+            
+              
+            
             </div>
-          
           </div>           
 	    {% endfor %}
 	    
-	  <div id="stocks"> 
+	    <div id="stocks"> 
+		
 		  <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
+		
 		</div>
 	    
 			
-        {% else %}
-          <div id="stocks">        
-            	<span class="not-in-stock">{% trans 'This product is not currently available for sale.' %}</span>
-      	  </div>	
-  	    {% endif %}
+      {% else %}
+        <div id="stocks">        
+         	<span class="not-in-stock">{% trans 'This product is not currently available for sale.' %}</span>
+        </div>	
+  	  {% endif %}
+  	  
+  	  
 		
 		{% if tea.get_root_category.slug == _('teaware') %}
 		<div id="deals">

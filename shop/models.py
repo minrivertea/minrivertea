@@ -145,7 +145,6 @@ class Product(models.Model):
         else: 
             category = self.category
         
-        print category
         return category
     
     def get_reviews(self):
@@ -207,20 +206,31 @@ class UniqueProduct(models.Model):
             return "%s (%s%s)" % (self.parent_product, self.weight, self.weight_unit)
         else: 
             return "%s" % self.parent_product  
-    
+        
     def stocks(self):
         from logistics.models import WarehouseItem
         # how many items match this product, this weight, and are in the UK, and not sold?
-        stocks = WarehouseItem.objects.filter(
+        items = WarehouseItem.objects.filter(
             unique_product__parent_product=self.parent_product, 
             unique_product__weight=self.weight,
             sold__isnull=True, 
-            location=WarehouseItem.UK,
-            unique_product__currency__code='GBP')
-        if len(stocks) > 0:
-            return stocks 
-        else:
-            return None
+            unique_product__currency__code='GBP'
+        )
+
+        available_stocks = items.filter(location=WarehouseItem.UK)
+        preorder_stocks = items.filter(location=WarehouseItem.IN_TRANSIT)
+        
+        if len(available_stocks) > 0:
+            items.available = True
+            return items 
+        
+        if len(available_stocks) == 0 and len(preorder_stocks) > 0:
+            items.preorder = True
+            return items
+        
+        if len(available_stocks) == 0 and len(preorder_stocks) == 0:
+            items.out_of_stock = True
+            return items
     
     def get_saving(self):
         if self.is_sale_price:
@@ -277,6 +287,14 @@ class Review(models.Model):
     def show_url(self):
         url = urlparse(self.url)
         return url.netloc     
+
+
+#class Deal(models.Model):
+#    product = models.ForeignKey(Product)
+#    discount_percent
+#    discount_amount
+    
+
             
 class Address(models.Model):
     owner = models.ForeignKey(Shopper)
