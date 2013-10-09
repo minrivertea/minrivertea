@@ -8,7 +8,18 @@
 		<img alt="a picture of {{ p.name }}" title="{{ p.name }} - {% trans 'click to view more details' %}" class="" src="{{ im.url }}"/>
 		{% endthumbnail %}		  
 		 
-		<a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" class="button green small" href="{% url add_to_basket p.price.id %}" id="add_to_basket_{{ p.price.id }}">{% trans 'Add to basket' %}</span></a>
+		{% if p.price.stocks.available %}
+		<a title="{% trans 'Add 1 x ' %} {{ p.name }} {% if p.price.weight %}({% convert_weights request p.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" class="button green small" href="{% url add_to_basket p.price.id %}" id="add_to_basket_{{ p.price.id }}">{% trans 'Add to basket' %}</a>
+		{% endif %}
+		
+		{% if p.price.stocks.preorder %}
+		<a class="button red small" href="{% url add_to_basket p.price.id %}" id="add_to_basket_{{ p.price.id }}"><span title="{% trans 'Order now and receive this on' %} {{ p.get_preorder_date|date:'d M Y' }}">{% trans 'Preorder now' %}</span></a>
+		{% endif %}
+		
+	    {% if p.price.stocks.out_of_stock %}
+            <span class="out-of-stock">Out of stock!</span>
+        {% endif %}
+        
 		
 		<div class="glass-text">
 		  <div class="inner">

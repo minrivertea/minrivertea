@@ -833,7 +833,7 @@ ul.rss {
               {% endif %}
               
               {% if price.stocks.preorder %}
-                 <a class="button red small" id="{{ price.id }}" href="{% url add_to_basket price.id %}"><span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Preorder Now' %}</span></a>
+                 <a class="button red small" id="{{ price.id }}" href="{% url add_to_basket price.id %}"><span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Click to Preorder Now' %}</span></a>
               {% endif %}
               
               {% if price.stocks.available %}

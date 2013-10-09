@@ -7,6 +7,13 @@
 
 {% block extrajs %}
 <script type="text/javascript">
+
+
+$(".info .button span[title]").tooltip({
+  offset: [-8, 2],   
+});
+
+
 $('#types').click(function() {
 	$('#subnav').toggle(300);
 });

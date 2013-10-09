@@ -120,7 +120,6 @@ def category(request, slug):
             if basket_item.count() > 0:
                 x.basket_quantity = basket_item[0].quantity
             
-    print products
     return _render(request, "shop/category.html", locals())
 
 def category_by_id(request, id):
