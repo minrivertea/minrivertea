@@ -1118,6 +1118,20 @@ p.introduction, #left p.introduction {
   color: #FF6569;
 }
 
+.info.tea .out-of-stock {
+  font-size: 13px;
+  color: #C30000;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-weight: bold;   
+}
+
+.info.tea.long .out-of-stock {
+  right: 0;
+  bottom: 20px;   
+}
+
 /* RIGHT HAND SIDE BOXES */
 
 #right .info {

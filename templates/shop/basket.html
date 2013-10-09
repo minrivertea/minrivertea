@@ -502,7 +502,7 @@ div#discount {
 
   <div id="basket">
 	{% for thing in basket_items %}
-	  <div class="basket-row{% if thing.item.stocks.count == 0 or thing.item.stocks == None %} preorder{% endif %}">
+	  <div class="basket-row {% if thing.item.stocks.preorder %} preorder{% endif %}">
 	  
 		<div class="tea-name">
 			{% thumbnail thing.item.parent_product.image thumb_small crop="center" as im %}
@@ -528,8 +528,8 @@ div#discount {
 		  </div>
 		  <a class="remove" title="{% trans 'Remove from basket' %}" alt="{% trans 'Remove from basket' %}" href="{% url remove_from_basket thing.id %}">{% trans 'Remove' %}</a>
 		</div>
-		{% if thing.item.stocks.count == 0 or thing.item.stocks == None %}
-	    	<div class="preorder">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}This is a pre-order and will be sent separately on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
+		{% if thing.item.stocks.preorder %}
+	    	<div class="preorder">{% blocktrans with thing.item.parent_product.get_preorder_date|date:"d M Y" as pod %}This item has been pre-ordered and will be sent on <strong>{{ pod }}</strong>{% endblocktrans %}</div>
 	    {% endif %}
 	    <div class="tea-total">
 		  {{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}

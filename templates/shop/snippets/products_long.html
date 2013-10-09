@@ -5,9 +5,22 @@
         <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
         
         {% if months %}
-            <a class="button green small" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.price.id months %}">Add to TeaBox</a>
+            <a class="button green small" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.price.id months %}">{% trans 'Add to TeaBox' %}</a>
         {% else %}
+        
+            {% if t.price.stocks.preorder %}
+                <a href="{% url add_to_basket t.price.id %}" class="button red small"><span title="{% trans 'Order now and receive this on' %} {{ t.get_preorder_date|date:'d M Y' }}" id="add_to_basket_{{ t.price.id }}">{% trans 'Preorder now' %}</span></a>
+            {% endif %} 
+            
+            {% if t.price.stocks.out_of_stock %}
+                <span class="out-of-stock">{% trans 'Out of stock!' %}</span>
+            {% endif %}
+              
+            {% if t.price.stocks.available %}
             <a title="{% trans 'Add 1 x ' %} {{ t.name }} {% if t.price.weight %}({% convert_weights request t.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" href="{% url add_to_basket t.price.id %}" class="button green small" id="add_to_basket_{{ t.price.id }}"><span class="plus">{% trans 'Add to basket' %}</span></a>
+            {% endif %}
+        
+        
         {% endif %}
         
         {% thumbnail t.image "240x160" crop="center" as im %}
