@@ -200,7 +200,7 @@ def _get_price(request, items):
     return total_price
     
 
-def _get_products(request, cat=None, random=False, exclude=None):
+def _get_products(request, cat=None, random=False, exclude=None, featured=False):
     
     if cat:
         products = Product.objects.filter(category__slug=cat, is_active=True).order_by('-list_order')
@@ -210,8 +210,11 @@ def _get_products(request, cat=None, random=False, exclude=None):
     if exclude:
         products = products.exclude(pk=exclude)
         
-    if random == True:
+    if random:
         products = products.order_by('?')
+    
+    if featured:
+        products = products.filter(is_featured=True)
         
     
     currency = _get_currency(request)
