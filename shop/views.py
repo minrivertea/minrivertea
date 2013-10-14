@@ -50,8 +50,11 @@ class BasketDoesNotExist(Exception):
 # the homepage view
 def index(request):
     curr = RequestContext(request)['currency']
-    teas = _get_products(request)[:4]
     
+    teas = Product.objects.filter(is_active=True, is_featured=True, category__parent_category__slug=_('teas'))[:4]
+    for t in teas:
+        t.price = t.get_lowest_price(currency=curr)
+        
     try:
         jasmine_products = Product.objects.filter(slug__icontains=_('jasmine')).exclude(id=44)
         jasmine_taster = Product.objects.get(id=44)
@@ -59,10 +62,8 @@ def index(request):
             x.price = x.get_lowest_price(currency=curr)
     except:
         pass
-    
-    # Product.objects.filter(slug__in=[_(''),4,7])
-         
-    teaware = _get_products(request, cat=_('teaware'))[:4]
+             
+    teaware = _get_products(request, cat=_('teaware'), featured=True)[:4]
     try:
         special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
         special.price = special.get_lowest_price(curr)
@@ -172,8 +173,8 @@ def tea_view(request, slug):
         return monthly_tea_box(request)
     
     recommended = _get_products(request, random=True, exclude=tea.id)[:4]
-    #price = tea.get_lowest_price(_get_currency(request))
-    prices = UniqueProduct.objects.filter(is_active=True, parent_product=tea, currency=_get_currency(request)).order_by('weight')
+    prices = UniqueProduct.objects.filter(is_active=True, parent_product=tea, 
+        currency=_get_currency(request)).order_by('weight')
 
     return _render(request, "shop/tea_view.html", locals())
 
