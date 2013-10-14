@@ -2,7 +2,7 @@
 
 {% for c in categories %}
 <div class="section">
-	
+	<h2>{{ c.name }}</h2>
 	{% for t in c.products %}
 	    <div class="info tea {% cycle 'left' 'right' %}">
     
