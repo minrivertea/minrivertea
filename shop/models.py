@@ -289,12 +289,6 @@ class Review(models.Model):
         return url.netloc     
 
 
-#class Deal(models.Model):
-#    product = models.ForeignKey(Product)
-#    discount_percent
-#    discount_amount
-    
-
             
 class Address(models.Model):
     owner = models.ForeignKey(Shopper)
@@ -363,27 +357,28 @@ class Discount(models.Model):
     
     
 class Order(models.Model):
+    # CORE ITEMS
+    owner = models.ForeignKey(Shopper)
+    invoice_id = models.CharField(max_length=20)
+    discount = models.ForeignKey(Discount, null=True, blank=True)    
     items = models.ManyToManyField(BasketItem, db_index=True)
-    is_confirmed_by_user = models.BooleanField(default=False)
+    address = models.ForeignKey(Address, null=True)
+    
+    # DATES
+    is_confirmed_by_user = models.BooleanField(default=False) # deprecated, can delete
     date_confirmed = models.DateTimeField()
     is_paid = models.BooleanField(default=False)
     is_giveaway = models.BooleanField(default=False)
     date_paid = models.DateTimeField(null=True)
-    address = models.ForeignKey(Address, null=True)
-    owner = models.ForeignKey(Shopper)
-    discount = models.ForeignKey(Discount, null=True, blank=True)
-    invoice_id = models.CharField(max_length=20)
+        
+    # OTHER INFORMATION
     hashkey = models.CharField(max_length=200, blank=True, null=True)
-    sampler_email_sent = models.BooleanField(default=False, 
-        help_text="Has an email been sent to the order customer about a free sample?")
-    sampler_sent = models.BooleanField(default=False, 
-        help_text="Has a sample been sent to a friend of theirs from this order?")
     reminder_email_sent = models.BooleanField(default=False, 
         help_text="Has a 3 day reminder email been sent if the order wasn't completed?")
-    wishlist_payee = models.CharField(max_length=200, blank=True, null=True)
     notes = models.TextField(null=True, blank=True)
     affiliate_referrer = models.CharField(max_length=200, blank=True, null=True, 
         help_text="A referrer ID from the affiliate scheme should be stored here.")
+    
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
     STATUS_PAID = 'paid'
@@ -397,27 +392,26 @@ class Order(models.Model):
             (STATUS_ADDRESS_PROBLEM, u"Address problem"),
             (STATUS_PAYMENT_FLAGGED, u"Payment flagged"),     
     )
-    
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
     
     # THESE WILL STORE THE FINAL INFORMATION ONCE THE ORDER IS SOLD
-    final_amount_paid = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2)
+    final_amount_paid = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2,
+        help_text="Note that this includes any discount and postage fee.")
     final_discount_amount = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2)
     final_currency_code = models.CharField(max_length=3, blank=True, null=True)
     final_items_list = models.TextField(blank=True, null=True)
     
     
     def get_discount(self):
-        total_price = 0
-        for item in self.items:
-            price = item.quantity * item.item.price
-            total_price += price
-        discount_amount = total_price * self.discount.discount_value
+        total_price = self.get_amount_pre_discount()
+        if self.discount:
+            discount_amount = total_price * self.discount.discount_value
+        else:
+            discount_amount = 0
         return discount_amount
     
     def __unicode__(self):
         return self.invoice_id
-    
     
     def get_paypal_ipn(self):
         from paypal.standard.ipn.models import PayPalIPN
@@ -429,7 +423,6 @@ class Order(models.Model):
     
     def get_amount(self, no_discount=False, convert=None):
         
-
         currency = self.get_currency()
         if currency == None:
             currency = get_object_or_404(Currency, code='GBP')
@@ -451,13 +444,10 @@ class Order(models.Model):
         if convert:
             # this is so we can convert it into EUR for the affiliate scheme
             if currency.code == 'GBP':
-                amount = float(amount) * float(1.18)
+                amount = float(amount) * float(1.26667)
             
             if currency.code == 'USD':
                 amount = float(amount) * float(0.7778)
-                
-            if currency.code == 'EUR':
-                pass
 
         return amount
     
@@ -656,19 +646,7 @@ def show_me_the_money(sender, **kwargs):
     # DELETE THE NOW OBSOLETE BASKET ITEMS ASSOCIATED WITH THIS ORDER
     #for item in order.items.all():
     #    item.delete()
-    
-    # if it was a WISHLIST payment...
-    if order.wishlist_payee:
-        # get the owner's wishlist (remember, they can only have 1 wishlist)
-        wishlist = get_object_or_404(Wishlist, owner=order.owner)
-        for item in order.items.all():
-            try:
-                # remove all the paid items from the wishlist
-                wishlist.wishlist_items.remove(item)
-            except:
-                pass
         
-        wishlist.save()     
         
 payment_was_successful.connect(show_me_the_money)    
 

@@ -507,7 +507,6 @@ def order_step_one(request, basket=None):
                 
             except:
                 creation_args = {
-                    'is_confirmed_by_user': True,
                     'date_confirmed': datetime.now(),
                     'address': address,
                     'owner': shopper,
@@ -618,7 +617,6 @@ def order_repeat(request, hash):
             order.items.remove(i)
     except:
         order = Order.objects.create(
-            is_confirmed_by_user = True,
             date_confirmed = datetime.now(),
             address = old_order.address,
             owner = old_order.owner,
@@ -705,7 +703,6 @@ def wishlist_select_items(request):
                 owner=wishlist.owner,
                 address=wishlist.address,
                 date_confirmed=datetime.now(),
-                is_confirmed_by_user=True,
                 status = Order.STATUS_CREATED_NOT_PAID,
             )
             order.invoice_id = "WL-00%s" % (order.id)
@@ -852,41 +849,7 @@ def order_confirm(request):
 
     return _render(request, 'shop/forms/order_confirm.html', locals())
    
- 
-def order_makewishlist(request):
-    
-    if request.GET.get('xhr'):
-        order = get_object_or_404(Order, id=request.GET.get('order'))
-        
-        # check if this person already has a wishlist before creating a new one...
-        if Wishlist.objects.filter(owner=order.owner):
-            objects = Wishlist.objects.filter(owner=order.owner)
-            wishlist = objects[0]
-            
-        else:
-            wishlist = Wishlist.objects.create(
-                owner = order.owner,
-                hashkey = uuid.uuid1().hex,
-                address = order.address,
-            )
-         
-        for item in order.items.all():
-            wishlist.wishlist_items.add(item)
-        
-        
-        wishlist.save()
 
-        _wishlist_confirmation_email(request, wishlist)
-  		
-        html = render_to_string('shop/snippets/make_wishlist.html', {
-                'order': wishlist,
-        }, context_instance=RequestContext(request))
-        
-        json = simplejson.dumps(html, cls=DjangoJSONEncoder)
-        return HttpResponse(json, mimetype='application/json')
-    
-
-    return   
 
 # THIS IS USED AS A CHEAT FOR 100% DISCOUNT ORDERS, FOR TESTING OR WHATEVER
 def fake_checkout(request, order_id):
@@ -925,10 +888,9 @@ def order_complete(request):
     from shop.utils import _empty_basket  
     _empty_basket(request)
     
-    
     # REMOVE THEIR AFFILIATE KEY SO THAT IT DOESN'T KEEP REGISTERING SALES AGAINST THIS LEAD.
     try:
-        request.session[settings.AFFILIATE_SESSION_KEY] = None # remove it now
+        request.session[settings.AFFILIATE_SESSION_KEY] = None 
     except:
         pass
 

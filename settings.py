@@ -16,6 +16,7 @@ DATABASES = {
 
 
 DEBUG =                         False
+GA_IS_ON =                      True
 TEMPLATE_DEBUG =                DEBUG
 THUMBNAIL_DEBUG =               False
 GA_IS_ON =                      True
