@@ -515,7 +515,9 @@ div#discount {
 		      {% if thing.monthly_order %}Monthly TeaBox{% else %}{{ thing.item.parent_product.name }}{% endif %}
 		  </a>
 		      {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}) {% endif %}<br/>
-		      {{ currency.symbol }}{{ thing.item.price|floatformat:"2" }} {% trans 'each' %}<br/>
+		      {{ currency.symbol }}{{ thing.item.price|floatformat:"2" }} 
+		      {% if thing.item.special_shipping_price %} (+ {{ currency.symbol }}{{ thing.item.special_shipping_price }} {% trans 'shipping charge' %}){% endif %}
+		      {% trans 'each' %}<br/>
 	    </div>
         
         <div class="tea-quantity">

@@ -196,6 +196,10 @@ class UniqueProduct(models.Model):
     currency = models.ForeignKey(Currency)
     parent_product = models.ForeignKey(Product)
     description = models.TextField(blank=True, null=True)
+    special_shipping_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
+        help_text="If the object carries a special shipping price, then put it here.")
+    special_shipping_time = models.IntegerField(blank=True, null=True,
+        help_text="If the shipping will take longer, put in the number of days here.")
     is_active = models.BooleanField(default=True)
     is_sale_price = models.BooleanField(default=False)
     old_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
@@ -329,7 +333,9 @@ class BasketItem(models.Model):
             price = _get_monthly_price(self.item, self.months)
         else:
             price = self.item.price
-            
+            if self.item.special_shipping_price:
+                price += self.item.special_shipping_price
+                
         total = self.quantity * price
         return total
         
