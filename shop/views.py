@@ -34,6 +34,7 @@ import re
 
 # APP
 from shop.models import *
+from blog.models import BlogEntry
 from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter
 from shop.forms import *
 from slugify import smart_slugify
@@ -51,7 +52,12 @@ class BasketDoesNotExist(Exception):
 def index(request):
     curr = RequestContext(request)['currency']
     
-    teas = Product.objects.filter(is_active=True, is_featured=True, category__parent_category__slug=_('teas'))[:4]
+    teas = Product.objects.filter(
+            is_active=True, 
+            is_featured=True,     
+            category__parent_category__slug=_('teas')
+            )[:4]
+            
     for t in teas:
         t.price = t.get_lowest_price(currency=curr)
         
@@ -62,7 +68,9 @@ def index(request):
             x.price = x.get_lowest_price(currency=curr)
     except:
         pass
-             
+     
+    blog_entries = BlogEntry.objects.filter(is_promoted=True, is_draft=False)[:3]
+            
     teaware = _get_products(request, cat=_('teaware'), featured=True)[:4]
     try:
         special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
