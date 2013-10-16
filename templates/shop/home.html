@@ -158,6 +158,7 @@ h2.banner {
 #experts {
   background: url('{{ static_url }}images/homepage/home-experts.jpg') no-repeat top left;  
   height: 279px;
+  margin-bottom: 20px;
 }
 
 #experts .glass-text, #monthly .glass-text {
@@ -435,7 +436,8 @@ ul.rss {
 }
 
 #jasmine-special .details a.button {
-  margin-top: 20px;   
+  margin-top: 20px; 
+  padding: 6px 12px;  
 }
 
 #jasmine-special .plus {
@@ -444,6 +446,43 @@ ul.rss {
   margin: 0;
   text-align: center;
   padding-top: 67px;   
+}
+
+#blogs {
+  float: left;
+  width: 100%;   
+}
+
+#blogs .blog {
+  float: left;
+  width: 310px;
+  margin-right: 15px;
+  height: auto; 
+  position: relative;  
+}
+
+#blogs .blog:last-child {
+  margin-right: 0;   
+}
+
+#blogs .blog .image {
+  height: 240px;
+  float: left; 
+  margin: 0 0 10px 0;  
+}
+
+#blogs .blog .text {
+  float: left;
+  width: 100%;
+}
+
+#blogs .blog .text h3 {
+  font-size: 13px;
+  position: relative;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  z-index: 20;
+  margin: 0;
 }
 
 </style>
@@ -481,7 +520,7 @@ ul.rss {
         <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url finder _('teas') %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
     </div>
 	<!-- END TEAS LIST -->
-	    
+
     <div id="experts">
         <a href="{% url finder _('about') %}"><span class="link"></span></a>
         <div class="glass-text">
@@ -492,18 +531,37 @@ ul.rss {
             </div>
         </div>
     </div>
-	
-	<div class="hr"></div>
+
+    {% if blog_entries %}
+    <div id="blogs">
+        {% for x in blog_entries %}
+            <div class="blog">
+                <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
+                <div class="image">
+                {% thumbnail x.promo_image "310x240" crop="center" as im %}
+                    <img src="{{ im.url }}" />
+                {% endthumbnail %}
+                </div>
+                <div class="text">
+                    <div class="back"></div>
+                    <h3><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></h3>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="hr"></div> 
+    {% endif %}
+    
 	
 	<div id="teaware">
 	   {% with teaware as teas %}
 	       {% include 'shop/snippets/products_long.html' %}  
-	   {% endwith %}
-	   
-	   <h2 class="banner">{% trans 'Enjoy your Chinese tea in style' %} - <a href="{% url finder _('teaware') %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
-	</div>	
+	   {% endwith %}	   
+   	   <h2 class="banner">{% trans 'Enjoy your Chinese tea in style' %} - <a href="{% url finder _('teaware') %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
 
-    <div class="hr"></div>
+	</div>	
+	<div class="hr"></div>
+
 
 {% get_current_language as LANGUAGE_CODE %}
 {% if LANGUAGE_CODE == 'en' %}	
@@ -517,8 +575,6 @@ ul.rss {
 	
 	<div class="hr"></div>
 {% endif %}
-
-
 
 	<div id="monthly">
 	   <a href="{% url monthly_tea_box %}"><span class="link"></span></a>
