@@ -620,22 +620,35 @@ def show_me_the_money(sender, **kwargs):
     order.date_paid = ipn_obj.payment_date
     order.is_paid = True
     
-    # UPDATE ORDER FINAL PAYMENT INFO
-    order.final_amount_paid = ipn_obj.mc_gross
-    if order.get_amount_pre_discount() != ipn_obj.mc_gross:
-        order.final_discount_amount = order.get_amount_pre_discount() - ipn_obj.mc_gross
+    # UPDATE THE FINAL ITEMS LIST
+    items_list = ''
+    for x in order.items.all():                
+        items_list += "%s, %s%s, %s, %s \n" % (
+            x.item.parent_product, 
+            x.item.weight, 
+            x.item.weight_unit, 
+            x.quantity, 
+            x.item.price,
+        )
+    order.final_items_list = items_list
+
+    # UPDATE THE FINAL CURRENCY
+    try:
+        order.final_currency_code = order.get_currency().code
+    except:
+        order.final_currency_code = 'GBP'
     
-    try:    
-        item_list = ''
-        for item in order.items.all():
-            item_list.join((item_list, str(item), '\n'))
-            
-        order.final_items_list = item_list
+    # UPDATE THE FINAL AMOUNT PAID
+    try:
+        order.final_amount_paid = ipn_obj.mc_gross
     except:
         pass
-        
-    order.final_currency_code = ipn_obj.mc_currency
+    
+    # UPDATE ANY DISCOUNT
+    order.final_discount_amount = order.get_discount() 
+                     
     order.save()
+    
     
     # IF THERE WAS A SINGLE USE DISCOUNT, UPDATE IT
     if order.discount:
