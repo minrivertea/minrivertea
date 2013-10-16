@@ -25,31 +25,28 @@ table {
       tr.white td {background-color: #fff;}
       tr.new td {background: none;}
       td { padding:10px 10px; background-color: none;}
+
 td.id {
   font-weight: bold;
-  width: 50px;
-}
-
-table#orders tr td:first-child {
-  width: 80px;   
 }
 
 td.items {
-  width: 150px;   
+  width: 150px; 
+  font-size: 11px;  
 }
 
 table tr td:first-child {
-  background: none;   
-  width: 200px;
+  background: none; 
+  width: 90px;  
 }
 
 
 td.owner {
-  width: 130px;   
+  width: 180px;   
 }
 
 td.value {
-  width: 65px;   
+  width: 85px;   
 }
 
 td.paypal {
@@ -61,11 +58,11 @@ td.status {
 }
 
 td.label {
-  width: 120px;   
+  width: 180px;   
 }
 
 td.trans {
-  width: 180px;
+  width: 120px;
 }
 
 td.trans .button {
