@@ -23,6 +23,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+    list_display = ('name', 'parent_category', 'slug')
    
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('invoice_id', 'is_paid', 'owner', 'notes',)

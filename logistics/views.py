@@ -171,6 +171,7 @@ def update_package(request, id):
         form = UpdateCustomerPackageForm(request.POST)
         if form.is_valid():
             
+            # THIS UPDATES THE PACKAGE
             package = CustomerPackage.objects.get(pk=id)
             package.postage_cost = request.POST['postage_cost']
             package.currency = Currency.objects.get(code=request.POST['currency'])
@@ -179,6 +180,9 @@ def update_package(request, id):
             
             package.order.status = Order.STATUS_SHIPPED
             package.order.save()
+            
+            # AT THE SAME TIME, LET'S DELETE THOSE OLD BASKET ITEMS
+             
             
             if request.is_ajax():
                 html = '%s%s' % (package.currency.symbol, package.postage_cost)
