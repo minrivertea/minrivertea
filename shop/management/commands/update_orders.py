@@ -22,7 +22,7 @@ class Command(NoArgsCommand):
                     x.item.weight, 
                     x.item.weight_unit, 
                     x.quantity, 
-                    x.item.price,
+                    (x.quantity * x.item.price),
                 )
             o.final_items_list = items_list
 
