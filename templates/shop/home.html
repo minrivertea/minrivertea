@@ -475,11 +475,27 @@ ul.rss {
     float: left;
     left: 10px;
     max-width: 70%;
-    padding: 10px;
+    padding: 6px 10px;
     position: absolute;
     text-align: left;
     top: 10px;
     width: auto;
+}
+
+#blogs .blog .text:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;     
+        border-bottom: 0;
+        border-top: 15px solid #fff;
+        border-right: 15px solid transparent;
+        position: absolute;
+        bottom: -15px;
+        left: 20px;
+        z-index: 2;
+        opacity: 0.8;    
 }
 
 #blogs .blog .text .back {
@@ -499,6 +515,10 @@ ul.rss {
     margin: 0;
     position: relative;
     z-index: 20;
+    line-height: 1.4em;
+}
+
+#blogs .blog .text h3 a {
 }
 
 </style>
