@@ -51,7 +51,7 @@
 		{% for review in reviews %}
 		  <div class="review">
     		  <div class="image">
-	   	       {% thumbnail review.product.image "180x120" crop="center" as im %}
+	   	       {% thumbnail review.product.image "240x160" crop="center" as im %}
 	   	       <img src="{{ im.url }}">
 	   	       {% endthumbnail %}
 		      </div>
