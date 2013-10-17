@@ -45,7 +45,7 @@
 <div id="mtw">
   <div class="sp">
   
-  	<h1>{% trans 'What our customers are saying' %}</h1>
+  	<h1>{% trans 'What our customers are saying about minrivertea.com' %}</h1>
 
 	<div id="left">
 		{% for review in reviews %}
@@ -57,31 +57,13 @@
 		      </div>
 		      <p>{{ review.short_text }}<br/>
 		          <span class="name">{{ review.first_name }} {% if review.url %}from <a title="{% trans 'Read the full review here' %}" href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} {% trans 'talking about our' %}
-		          <a href="{% url finder review.product.category review.product.slug %}">{{ review.product }}</a></span>
+		          <a href="{{ review.product.get_absoluteurl }}">{{ review.product }}</a></span>
 		      </p>
 		   </div>
 		{% endfor %}
-	<div class="did-you-know">
-	<a href="/teas/jasmine-pearls/"><span class="link"></span></a>
-	<h3>{% trans 'Looking for a birthday gift?' %}</h3>
-	<p>{% trans 'Our Jasmine Pearls tea makes a great present for friends and relatives. It has a beautiful and memorable fragrance, and the distinct flavour agrees with all different tastes.' %}</p>
-	</div>
 	
 	</div>
-	
-	<div id="right">
-		<div class="user-photos">
-			{% for p in photos %}
-				<div class="a-user-photo">
-					<div class="photo">
-						{% thumbnail p.photo "90x90" crop="center" as im %}
-						<img title="{{ p.shopper.first_name }} {% trans 'drinks' %} {{ p.related_product.name }} tea" src="{{ im.url }}">
-						{% endthumbnail %}
-					</div>
-				</div>
-			{% endfor %}
-		</div>
-	</div>
+
   </div>
 </div>
 {% endblock %}

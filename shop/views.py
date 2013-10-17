@@ -990,7 +990,7 @@ def review_tea_thanks(request, category, slug):
 
 # view for the photo wall
 def reviews(request):
-    reviews = Review.objects.filter(is_published=True).order_by('product')
+    reviews = Review.objects.filter(is_published=True).order_by('-date_submitted')
     return _render(request, 'shop/reviews.html', locals())
 
 
