@@ -2,7 +2,7 @@ from django.core.management.base import NoArgsCommand, CommandError
 from datetime import datetime, timedelta
 
 from logistics.models import CustomerPackage
-from emailer.views import product_review_email, _admin_cron_update
+from emailer.views import product_review, _admin_cron_update
 
 
 class Command(NoArgsCommand):
@@ -21,7 +21,7 @@ class Command(NoArgsCommand):
         ):
              
             # SEND THE EMAIL AND UPDATE THE PACKAGE 
-            product_review_email(package.order.id)
+            product_review(package.order.id)
             package.review_email_sent = datetime.now()
             package.save()
             items.append(package)

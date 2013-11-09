@@ -32,15 +32,6 @@ TAG_COLORS = (
     (RED, u'Red'),
 )
 
-
-GLOBAL = 'global'
-CHINA = 'china'
-SITES = (
-    (GLOBAL, u'Global'),
-    (CHINA, u'China'),
-)
-
-
 class Currency(models.Model):
     code = models.CharField(max_length=5)
     symbol = models.CharField(max_length=5)
@@ -71,8 +62,6 @@ class Product(models.Model):
         help_text="The introduction paragraph at the top-right of the main product page. HTML is OK.")
     long_description = RichTextField(blank=True, null=True,
         help_text="The main product information. HTML is OK. Use &lt;div class='info'&gt;&lt;img&gt;&lt;div class='text'&gt;&lt;/div&gt;&lt;/div&gt; to display nice photos and text next to it. Images should be 600x300.")
-    extra_info = models.TextField(blank=True, null=True,
-        help_text="Deprecated, do not use.") # CAN BE REMOVED
     image = models.ImageField(upload_to='images/product-photos')
     image_2 = models.ImageField(upload_to='images/product-photos', blank=True, null=True)
     image_2_caption = models.CharField(max_length=200, blank=True)
@@ -201,7 +190,7 @@ class UniqueProduct(models.Model):
     special_shipping_time = models.IntegerField(blank=True, null=True,
         help_text="If the shipping will take longer, put in the number of days here.")
     is_active = models.BooleanField(default=True)
-    is_sale_price = models.BooleanField(default=False)
+    is_sale_price = models.NullBooleanField(default=False, null=True, blank=True)
     old_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
         help_text="If it's a sale item, what was the old price?")
     
@@ -302,7 +291,8 @@ class Address(models.Model):
     town_city = models.CharField(max_length=200)
     province_state = models.CharField(max_length=200, blank=True, null=True)
     postcode = models.CharField(max_length=200)
-    country = models.CharField(max_length=200, choices=COUNTRY_CHOICES, db_index=True)
+    country = models.CharField(max_length=200, choices=COUNTRY_CHOICES, 
+        db_index=True, null=True, blank=True)
     phone = models.CharField(max_length=80, blank=True, null=True)
     
     def __unicode__(self):
@@ -373,13 +363,13 @@ class Order(models.Model):
     # DATES
     is_confirmed_by_user = models.BooleanField(default=False) # deprecated, can delete
     date_confirmed = models.DateTimeField()
-    is_paid = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False) # deprecated, just use the date field
     is_giveaway = models.BooleanField(default=False)
     date_paid = models.DateTimeField(null=True)
         
     # OTHER INFORMATION
     hashkey = models.CharField(max_length=200, blank=True, null=True)
-    reminder_email_sent = models.BooleanField(default=False, 
+    reminder_email_sent = models.NullBooleanField(default=False, null=True, blank=True,
         help_text="Has a 3 day reminder email been sent if the order wasn't completed?")
     notes = models.TextField(null=True, blank=True)
     affiliate_referrer = models.CharField(max_length=200, blank=True, null=True, 
@@ -488,19 +478,6 @@ class Order(models.Model):
         else:
             sampler = False
         return sampler
-
-
-class Wishlist(models.Model):
-    wishlist_items = models.ManyToManyField(BasketItem)
-    owner = models.ForeignKey(Shopper, db_index=True)
-    address = models.ForeignKey(Address)
-    hashkey = models.CharField(max_length=200, blank=True, null=True)
-    date_created = models.DateTimeField(default=datetime.now())
-    views = models.IntegerField(default="0", blank=True, null=True)
-    times_purchased = models.IntegerField(default="0", blank=True, null=True)
-    
-    def __unicode__(self):
-        return self.owner.email
         
 
 
@@ -610,9 +587,14 @@ def show_me_the_money(sender, **kwargs):
     if order.status == Order.STATUS_PAID:
         return
     
-    # SEND THE EMAILS FIRST !IMPORTANT!
-    from emailer.views import _payment_success_email 
-    _payment_success_email(order)
+    if ipn_obj.flag == True:
+        # SEND THE EMAILS FIRST !IMPORTANT!
+        from emailer.views import _payment_success_email 
+        _payment_success_email(order)
+    else:
+        from emailer.views import _payment_flagged_email
+        _payment_flagged_email(order)
+        
     
     # NOW CREATE A CUSTOMER PACKAGE
     from logistics.models import CustomerPackage
@@ -667,31 +649,8 @@ def show_me_the_money(sender, **kwargs):
     #    item.delete()
         
         
-payment_was_successful.connect(show_me_the_money)    
-
-    
-def payment_flagged(sender, **kwargs):
-    ipn_obj = sender
-    order = get_object_or_404(Order, invoice_id=ipn_obj.invoice)
-    
-    # PREVENTS DUPLICATES
-    if order.status == Order.STATUS_PAYMENT_FLAGGED or order.status == Order.STATUS_PAID:
-        return
-    
-    order.status = Order.STATUS_PAYMENT_FLAGGED
-    order.date_paid = ipn_obj.payment_date
-    order.is_paid = True
-    order.save()
-
-    from logistics.models import CustomerPackage
-    if CustomerPackage.objects.filter(order=order).count() == 0: # PREVENTS DUPLICATES
-        from logistics.views import _create_customer_package
-        _create_customer_package(order)
-
-    from emailer.views import _payment_flagged_email
-    _payment_flagged_email(order)
-
-payment_was_flagged.connect(payment_flagged)
+payment_was_successful.connect(show_me_the_money)  
+payment_was_flagged.connect(show_me_the_money)  
 
 
 

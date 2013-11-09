@@ -1,0 +1,13 @@
+{% load i18n %}{% blocktrans with order.owner.first_name as fn %}
+Hi {{ fn }},
+
+We noticed that you got halfway through an order yesterday on {{ site_name }}, but then didn't complete your purchase. Was there something wrong that we can help with?
+
+If you want to finish your order, use this link to jump straight to the order confirmation page (no need to fill in your details again):
+ 
+{{ site_url }}{{ url }}
+
+If you have any questions at all, just reply to this email and we'll do our best to resolve any problems as quickly as possible.
+
+{% endblocktrans %}
+{% include 'emailer/email_signature.txt' %}

@@ -13,7 +13,6 @@ class ProductTranslationOptions(TranslationOptions):
         'super_short_description', 
         'long_description',
         'body_text',
-        'extra_info',
         'tag_text',
         'map_caption',
         'farm_caption',

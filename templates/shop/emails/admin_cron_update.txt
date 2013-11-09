@@ -1,0 +1,6 @@
+{% for item in data %}
+ * {{ item }}
+{% endfor %}
+
+
+SENT BY CRON - {{ site_url }}

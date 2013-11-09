@@ -1,0 +1,17 @@
+{% load i18n %}{% blocktrans with order.owner.first_name as fn %}
+Hi {{ fn }}!
+
+Have you finished your tea yet?
+
+A few months ago you ordered some tea from us at {{ site_name }}. If you've finished it and want to order more of the same, just click this link.
+
+{{ url }}
+
+You'll be taken straight to the confirmation page, and can skip all the hassle of filling in your details again.
+
+Of course, you might want to try something different - check out our other amazing teas and see if you find something you like.
+
+All the best,
+
+{% endblocktrans %}
+{% include 'shop/emails/signature.txt' %}

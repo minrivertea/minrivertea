@@ -50,7 +50,6 @@ admin.site.register(Shopper)
 admin.site.register(UniqueProduct, UniqueProductAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Discount, DiscountAdmin)
-admin.site.register(Wishlist)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Review, ReviewAdmin)
 

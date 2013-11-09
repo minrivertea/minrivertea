@@ -534,10 +534,11 @@ ul.rss {
 
 <div class="sp">
     
-    {% if request.user.is_superuser %}
-        {% include 'shop/snippets/2013-jasmine-home-special.html' %}
-        <div class="hr"></div>
-    {% endif %}
+    
+    {% include 'shop/snippets/2013-jasmine-home-special.html' %}
+    <div class="hr"></div>
+
+
     <div id="special">
         <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
         <div class="details">
@@ -600,35 +601,7 @@ ul.rss {
    	   <h2 class="banner">{% trans 'Enjoy your Chinese tea in style' %} - <a href="{% url finder _('teaware') %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
 
 	</div>	
-	<div class="hr"></div>
 
-
-{% get_current_language as LANGUAGE_CODE %}
-{% if LANGUAGE_CODE == 'en' %}	
-	<div id="brewing">
-	   <img src="{{ static_url }}images/jasmine-brew-3.jpg"/>
-	   <h2>{% trans 'Looking for brewing instructions?' %}</h2>
-	   {% blocktrans %}
-	   <p>Need some <a href="/how-to-brew-chinese-tea/">brewing basics</a>? Or perhaps you're trying to find the secret to <a href="/how-to-brew-jasmine-pearls-tea/">the perfect Jasmine tea</a> - either way, we've got a full range of <a href="/brewing-guides/">detailed brewing guides for your tea</a> explaining everything you'll need to <a href="/preparing-your-tea-leaves/">prepare</a>, brew and <a href="/appreciating-your-chinese-tea/">appreciate your Chinese tea</a> to the full. That includes <a href="/what-kinds-of-cups-and-pots-do-i-need-to-use-for-chinese-tea/">what kind of cups and pots</a> you should be using, how to <a href="/water-temperature-and-quality/">get the right water temperature</a> for your tea, and the perennial question, <a href="/how-much-tea-should-i-use-to-brew-chinese-tea/">how much tea</a> you should be using for each brew. </p>
-	   {% endblocktrans %}
-	</div>
-	
-	<div class="hr"></div>
-{% endif %}
-
-	<div id="monthly">
-	   <a href="{% url monthly_tea_box %}"><span class="link"></span></a>
-	   <div class="glass-text">
-	       <div class="back"></div>
-	       <div class="inner">
-    	       <h2>{% trans 'Your favourite teas delivered to your door every month' %}</h2>
-    	       <p>{% blocktrans with price.weight as weight and price.weight_unit as weight_unit and tea.name as tea_name and monthly_discount_low|floatformat:"-2" as discount %}
-    	       Get a monthly delivery of great teas direct to your home or office and save {{ discount }}% on the total cost (and postage is totally free too)! Click to start your monthly TeaBox!
-    	       {% endblocktrans %}<br/>
-    	       </p>
-    	   </div>
-        </div>
-   	</div>	
 	
 	    {% if ga_is_on %}
 		<ul class="rss {% if page.feature_image %}opaque{% endif %}">

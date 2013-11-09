@@ -9,3 +9,4 @@ django-registration
 pisa
 reportlab
 html5lib
+premailer

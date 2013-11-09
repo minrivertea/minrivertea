@@ -1,0 +1,10 @@
+{% load i18n %}{% blocktrans with order.owner.first_name|capfirst as fn %}
+Hi {{ fn }},
+
+It will take only a couple of clicks and under a minute to let us know if we've done a good job with your recent order from {{ site_name }} - click the link below to start:
+
+{{ site_url }}{{ url }}
+
+Remember, if you're unhappy with absolutely anything you purchased from us, just reply to this email - we'll do our best to resolve any problems as quickly as possible.
+{% endblocktrans %}
+{% include 'emailer/email_signature.txt' %}

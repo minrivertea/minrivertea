@@ -1,0 +1,5 @@
+{% load i18n %}{% blocktrans %}All the best,
+
+
+Chris West
+Founder of {{ site_name }}{% endblocktrans %}

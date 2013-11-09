@@ -35,11 +35,10 @@ import re
 # APP
 from shop.models import *
 from blog.models import BlogEntry
-from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter
+from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, \
+    _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter
 from shop.forms import *
 from slugify import smart_slugify
-from emailer.views import _admin_notify_new_review, _admin_notify_contact, _wishlist_confirmation_email, _get_subscriber_list, _tell_a_friend_email
-
 
 
 class BasketItemDoesNotExist(Exception):
@@ -105,10 +104,9 @@ def page_by_id(request, id):
 # the product listing page
 def category(request, slug):
     curr = _get_currency(request)
-    if slug == _('teas'):
+    if slug == _('teas') or slug == _('teaware'):
         products = None
         category = get_object_or_404(Category, slug=slug)
-        special = get_object_or_404(UniqueProduct, parent_product__slug=_('buddhas-hand-oolong-tea'), currency=curr)
         categories = Category.objects.filter(parent_category__slug=slug)
         for c in categories:
             c.products = _get_products(request, c.slug)
@@ -116,10 +114,6 @@ def category(request, slug):
     else:
         category = get_object_or_404(Category, slug=slug)
         products = _get_products(request, category.slug)
-    
-    if slug == _('teaware') and request.user.is_superuser:
-        category = get_object_or_404(Category, slug=slug)
-        products = Product.objects.filter(category=category)
     
     basket = _get_basket(request)
     if basket and products:
@@ -275,7 +269,8 @@ def add_to_basket_monthly(request, productID, months):
         item = get_object_or_404(BasketItem, basket=basket, item=uproduct, monthly_order=True, months=months)
         item.quantity += 1
     except:
-        item = BasketItem.objects.create(item=uproduct, quantity=1, basket=basket, monthly_order=True, months=months)
+        item = BasketItem.objects.create(
+            item=uproduct, quantity=1, basket=basket, monthly_order=True, months=months)
         
     item.save()
     
@@ -384,7 +379,9 @@ def basket(request):
         form = UpdateDiscountForm(request.POST)
         if form.is_valid():
             try:
-                code = Discount.objects.get(discount_code=form.cleaned_data['discount_code'], is_active=True)
+                code = get_object_or_404(Discount,
+                    discount_code=form.cleaned_data['discount_code'], 
+                    is_active=True)
             except:
                 code = None
                 
@@ -875,8 +872,8 @@ def fake_checkout(request, order_id):
     order.notes = '100% discount order, not paid via paypal.'
     order.save()    
     
-    from emailer.views import _payment_success_email 
-    _payment_success_email(order)
+    from emailer.views import _payment_success
+    _payment_success(order)
     
     from shop.utils import _empty_basket
     _empty_basket(request)

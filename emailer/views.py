@@ -1,7 +1,7 @@
 # this collects together all of the 'send email' functions just for ease of reference
 
 from django.conf import settings
-from django.template import RequestContext
+from django.template import RequestContext, TemplateDoesNotExist
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template.loader import render_to_string
@@ -24,159 +24,151 @@ from shop.forms import CreateSendEmailForm
 
 
 
-def _send_email(receiver, subject_line, text, request=None, sender=None):
-    
-    if not sender:
-        sender = settings.SITE_EMAIL
-    
-    send_mail(
-            subject_line, 
-            text, 
-            sender,
-            [receiver], 
-            fail_silently=True
+def _send_email(recipient, subject_line, template, extra_context=None, sender=None, admin=False):
+     
+    # CREATE THE MESSAGE BODY FROM THE TEMPLATE AND CONTEXT
+    extra_context = extra_context or {}
+    email_signature = render_to_string(
+        'emailer/email_signature.txt', 
+        {'site_name': settings.SITE_NAME, 'site_url': settings.SITE_URL,}
     )
-
-    # temporary test, send everything to admin too.
-    send_mail(
-        subject_line,
-        text,
-        sender,
-        [sender, 'raphael@minrivertea.com'],
-        fail_silently=True
+    html_email_signature = render_to_string(
+        'emailer/email_signature.html', 
+        {'site_name': settings.SITE_NAME, 'site_url': settings.SITE_URL,}
     )
+    context = {
+        'EMAIL_SIGNATURE': email_signature,
+        'HTML_EMAIL_SIGNATURE': html_email_signature,
+        'SITE_NAME': settings.SITE_NAME,
+        'site_name': settings.SITE_NAME,
+        'SITE_URL': settings.SITE_URL,
+        'site_url': settings.SITE_URL,
+        'SUBJECT_LINE': subject_line,
+        'email_base_template': settings.EMAIL_BASE_HTML_TEMPLATE
+    }
+    
+    context = dict(context.items() + extra_context.items())
+    
+    # MODIFY THE RECIPIENTS IF ITS AN ADMIN EMAIL
+    if admin:
+        recipient = [x[1] for x in settings.NOTIFICATIONS_GROUP]
+    else:
+        recipient = [recipient]
+        
+    # WHO IS SENDING IT?
+    if sender:
+        sender = sender
+    else:
+        sender = settings.DEFAULT_FROM_EMAIL
+        
+    # CHECK IF THERE'S AN HTML TEMPLATE?
+    text_content = render_to_string(template, context)
+    html_content = None
+    try:
+        html_template_name = template.replace('.txt', '.html')
+        html_content = render_to_string(html_template_name, context)
+    except TemplateDoesNotExist:
+        pass
+    
+    msg = EmailMultiAlternatives(subject_line, text_content, sender, recipient)
+    
+    if html_content:
+        # USING PREMAILER TO PUT STYLES INLINE FOR CRAPPY YAHOO AND AOL WHO STRIP STYLES
+        from premailer import transform
+        html_content = transform(html_content)
+        msg.attach_alternative(html_content, "text/html")
+        # msg.content_subtype = "html"
+    
+    msg.send()
+    return True
 
 
-# sends a reminder to the owner of an INCOMPLETE order
-def order_reminder_email(id):
+
+def abandoned_basket(orderid):
+    """
+    This sends a reminder to someone who abandoned their order 
+    halfway through. This means they gave us their details, and
+    then just stopped ordering. So, we're emailing them as a reminder
+    and giving them a 1-click link.
+    """
     
-    order = get_object_or_404(Order, pk=id)
-    
+    order = get_object_or_404(Order, pk=orderid)
     if not order.hashkey:
         order.hashkey = uuid.uuid1().hex
     
     shopper = order.owner
-
     activate(shopper.language)
    
-    receiver = order.owner.email
-    subject_line = _("Was it something we said?")
+    recipient = order.owner.email
+    template = 'shop/emails/abandoned_basket.txt'
+    subject_line = _("Do you want to finish your order on %s?") % settings.SITE_NAME
     url = reverse('order_url', args=[order.hashkey])
-    text = render_to_string('shop/emails/text/send_reminder_email.txt', {
+    extra_context = {
             'url': url,
             'order': order,
-            'site_name': settings.SITE_NAME,
-            'site_url': 'http://www.minrivertea.com',    
-    })
+    }
     
-    _send_email(receiver, subject_line, text)
-                       
-    return HttpResponseRedirect('/admin-stuff')  
-
-
-
-def _tell_a_friend_email(sender, receiver):
+    _send_email(recipient, subject_line, template, extra_context)
+    return True 
     
-    text = render_to_string('shop/emails/text/tell_friend.txt', {
-            'sender': sender,
-            'site_name': settings.SITE_NAME,
-            'site_url': "http://www.minrivertea.com",
-    })
-    subject_line = _("Check out minrivertea.com")
-    
-    _send_email(receiver, subject_line, text, sender=sender)    
+
+def product_review(orderid):
+    """
+    Sent roughly 2 weeks after someone completes an order
+    and asks the customer to review their purchases.
+    """
         
-    return
-
-# sends an email to a completed order owner, asking them if they want to send a sample to a friend
-def free_sampler_email(request, id):
-    order = get_object_or_404(Order, pk=id)
-    shopper = order.owner
-    if order.sampler_email_sent:
-        return False
-
-    activate(shopper.language)
-    receiver = shopper.email
-    subject_line = _("Give a tea gift to a friend, courtesy of the Min River Tea Farm")
-            
-    # create email
-    text = render_to_string('shop/emails/text/send_sample_to_friend_email.txt', {'shopper': shopper})
-    
-    _send_email(request, receiver, subject_line, text)
-        
-    order.sampler_email_sent = True
-    order.save()
-    
-    return HttpResponseRedirect('/admin-stuff')
-
-
-# send email to user asking for a review of a product
-def product_review_email(orderid):
+    # GET AND PREPARE THE ORDER
     order = get_object_or_404(Order, id=orderid)
     if not order.hashkey:
         order.hashkey = uuid.uuid1().hex
         order.save()
-    
     activate(order.owner.language)
-    subject_line = _("Could you help us with some quick feedback?")
-    receiver = order.owner.email
-    
-    text = render_to_string('shop/emails/text/review_email.txt', {
+
+    # PREPARE THE EMAIL CONTEXT
+    subject_line = _("Please review your purchase at %s") % settings.SITE_NAME
+    recipient = order.owner.email
+    template = 'shop/emails/review_order.txt'
+    extra_context = {
         'order': order,
-        'fn': order.owner.first_name,
         'url': reverse('review_order', args=[order.hashkey]),
-        'site_url': 'http://www.minrivertea.com',
-        }
-    )
+     }
     
-    _send_email(receiver, subject_line, text)
-        
-    return HttpResponseRedirect('/admin-stuff')  
+    _send_email(recipient, subject_line, template, extra_context)
+    return True
 
-
-def _wishlist_confirmation_email(request, wishlist):
-    
-    activate(wishlist.owner.language)
-    receiver = wishlist.owner.email
-    subject_line = _("Your Min River Tea Wishlist!")
-            
-    # create email
-    text = render_to_string('shop/emails/text/wishlist_confirmation_email.txt', locals(), context_instance=RequestContext(request))
-    
-    _send_email(receiver, subject_line, text)
-    
-    return
 
 def _admin_notify_new_review(tea, review):
     
-    text = "%s %s just posted a review of %s - %s" % (review.first_name, review.last_name, tea.name, settings.SITE_URL)              
-    subject_line = "New Review Posted - %s" % tea.name 
-    receiver = settings.SITE_EMAIL
-    _send_email(receiver, subject_line, text)
+    extra_context = {'text': "%s %s just posted a review of %s - %s" % (review.first_name, review.last_name, tea.name, settings.SITE_URL), }              
+    subject_line = "New Review Posted - %s - %s" % (tea.name, settings.SITE_NAME) 
+    recipient = settings.SITE_EMAIL
+    template = 'shop/emails/blank.txt'
     
+    _send_email(recipient, subject_line, template, extra_context, admin=True)    
     return
 
 
 def _admin_notify_contact(data):
 
-    text = render_to_string('shop/emails/text/contact_template.txt', {
+    recipient = settings.SITE_EMAIL
+    subject_line = "%s - Website Contact Submission" % settings.SITE_NAME
+    template = 'shop/emails/contact_template.txt'
+    extra_context = {
     	 'message': data['your_message'],
       	 'your_email': data['your_email'],
       	 'your_name': data['your_name'],
-    })
-    
-    receiver = settings.SITE_EMAIL
-    subject_line = "MINRIVERTEA.COM - WEBSITE CONTACT SUBMISSION"
-    _send_email(receiver, subject_line, text)
-    
+    }
+
+    _send_email(recipient, subject_line, template, extra_context, admin=True)    
     return
 
 
 
-def _send_two_month_reminder_email(order):
+def _two_month_reminder(order):
 
     activate(order.owner.language)
-    text_template = "shop/emails/text/two_month_reminder.txt"
+    text_template = "shop/emails/two_month_reminder.txt"
 
     receiver = order.owner.email
     subject_line = _("Have you finished your tea yet?")
@@ -203,26 +195,39 @@ def _send_two_month_reminder_email(order):
 
 
 def _admin_cron_update(data, subject_line):
-    text = render_to_string('shop/emails/text/admin_cron_update.txt', {
-        'data': data,	
-    })
-    receiver = settings.SITE_EMAIL
+    
     subject_line = subject_line
-    _send_email(receiver, subject_line, text)
+    recipient = settings.SITE_EMAIL
+    template = 'shop/emails/admin_cron_update.txt'
+    extra_context = {
+        'data': data,	
+    }
+        
+    _send_email(recipient, subject_line, template, extra_context, admin=True)
 
 
-def _payment_success_email(order):
+def _payment_success(order):
+    """
+    Sends an email to a customer immediately after they successfully complete
+    an order on the site. Also sends a confirmation email to the Admins
+    """
     
-    # CUSTOMER EMAIL
-    receiver = order.owner.email
+    # PREPARE THE EMAIL INFORMATION
+    recipient = order.owner.email
     activate(order.owner.language)
-    subject_line = _("Order confirmed - minrivertea.com")
+    subject_line = _("Order Confirmed - %(id)s - %(site)s") % {
+        'id':order.invoice_id, 
+        'site': settings.SITE_NAME,
+    }
+    template = 'shop/emails/order_confirm_customer.txt'
     
+    
+    # PREPARE THE ORDER
     if order.address.country == 'US':
         weight_unit = 'oz'
     else:
         weight_unit = 'g'
-    
+            
     items = order.items.all()
     for item in items:
         if item.item.weight:
@@ -233,32 +238,43 @@ def _payment_success_email(order):
         else:
             item.weight = None
         
-    text = render_to_string('shop/emails/text/order_confirm_customer.txt', {
+    extra_context = {
         'order': order,
         'items': items,
         'weight_unit': weight_unit,
         'site_name': settings.SITE_NAME,
         'site_url': 'http://www.minrivertea.com',
-    })
+    }
     
-    _send_email(receiver, subject_line, text)
+    _send_email(recipient, subject_line, template, extra_context)
     
      
     # ADMIN EMAIL (reset some of the values!!)
-    receiver = settings.SITE_EMAIL
+    recipient = settings.SITE_EMAIL
     lang = activate('en')
     subject_line = "NEW ORDER - %s" % order.invoice_id 
-    text = render_to_string('shop/emails/text/order_confirm_admin.txt', {'order': order})
-    _send_email(receiver, subject_line, text)
-
+    template = 'shop/emails/order_confirm_admin.txt'
+    extra_context = {'order': order}
+    _send_email(recipient, subject_line, template, extra_context, admin=True)
+    
     return True
 
-def _payment_flagged_email(order):
 
+
+def _payment_flagged(order):
+    """
+    Does the same as a normal payment email, but sends a 
+    flagged order notification to the admin. The customer 
+    doesn't see anything different, but admin gets a chance
+    to check the order for irregularities.
+    """
     # CUSTOMER GETS THEIR EMAIL AS NORMAL
-    receiver = order.owner.email
+    recipient = order.owner.email
     activate(order.owner.language)
-    subject_line = _("Order confirmed - minrivertea.com")
+    subject_line = _("Order confirmed - %(id)s - %(site)s") % {
+        'id': order.invoice_id, 
+        'site': settings.SITE_NAME
+    }
     
     if order.address.country == 'US':
         weight_unit = 'oz'
@@ -275,23 +291,22 @@ def _payment_flagged_email(order):
         else:
             item.weight = None
         
-    text = render_to_string('shop/emails/text/order_confirm_customer.txt', {
+    template = 'shop/emails/order_confirm_customer.txt'
+    extra_context = {
         'order': order,
         'items': items,
         'weight_unit': weight_unit,
-        'site_name': settings.SITE_NAME,
-        'site_url': 'http://www.minrivertea.com',
-    })
+    }
     
-    _send_email(receiver, subject_line, text)
+    _send_email(recipient, subject_line, template, extra_context)
 
     # ADMIN GETS WARNING ABOUT FLAGGED ORDER.
-    receiver = settings.SITE_EMAIL
-    text = render_to_string('shop/emails/text/order_confirm_admin.txt', {'order': order})
+    recipient = settings.SITE_EMAIL
+    template = 'shop/emails/order_confirm_admin.txt'
+    extra_context = {'order': order}
     subject_line = "FLAGGED ORDER - %s" % order.invoice_id 
       
-    _send_email(receiver, subject_line, text)
-    
+    _send_email(recipient, subject_line, template, extra_context, admin=True)
     return
     
 
@@ -325,93 +340,6 @@ def email_signup(request):
     url = request.META.get('HTTP_REFERER','/')
     return HttpResponseRedirect(url)
     
-    
-
-def email_unsubscribe(request, key):
-    subscriber = get_object_or_404(Subscriber, hashkey=key)
-    subscriber.date_unsubscribed = datetime.now()
-    subscriber.save()
-    
-    return _render(request, 'shop/emails/unsubscribe_confirmed.html', locals())
-
-
-@login_required
-def create_email(request, id=None):
-    if not request.user.is_superuser:
-        return Http404
-    
-    if request.method == 'POST':
-        form = CreateSendEmailForm(request.POST)
-        if form.is_valid():
-            try:
-                email_object = get_object_or_404(Newsletter, subject_line=form.cleaned_data['subject_line'])
-                email_object.text_version = form.cleaned_data['content']
-                
-            except:
-                email_object = Newsletter.objects.create(
-                    subject_line = form.cleaned_data['subject_line'],
-                    text_version = form.cleaned_data['content'],
-                    is_draft = False,
-                )
-                        
-            email_object.save()
-            recipients_list = _get_subscriber_list()
-            recipients_count = len(recipients_list)
-            
-            des = Subscriber.objects.filter(language='de')
-            de_cus = Shopper.objects.filter(language='de')
-            from itertools import chain
-            de_recipients = chain(des, de_cus)
-            
-            return _render(request, 'shop/emails/create_send_email.html', locals())
-    
-    else:
-        if id:
-            email_object = get_object_or_404(Newsletter, pk=id)
-            data = {'subject_line': email_object.subject_line, 'content': email_object.text_version}
-        else:
-            data = None
-        
-        
-        form = CreateSendEmailForm(initial=data)
-    
-    return _render(request, 'shop/emails/create_send_email.html', locals())
-
-
-@login_required
-def send_email(request, id):
-    
-    
-    email_object = get_object_or_404(Newsletter, pk=id)
-    if email_object.date_sent:
-        message = "That email message has already been sent"
-        return HttpResponse(message)
-        
-    email_object.date_sent = datetime.now()
-    email_object.is_draft = False
-    email_object.save()
-    
-    recipients_list = _get_subscriber_list()
-        
-    for r in recipients_list:
-        receiver = r.email
-        subject_line = email_object.subject_line
-        try:
-            link = reverse('email_unsubscribe', args=[r.slug])
-        except:
-            try:
-                link = reverse('email_unsubscribe', args=[r.hashkey])
-            except:
-                r.hashkey = uuid.uuid1().hex
-                r.save()
-                link = reverse('email_unsubscribe', args=[r.hashkey])
-            
-        text = render_to_string('shop/emails/newsletter_template.txt', {'content': email_object.text_version, 'link':link})
-        
-        _send_email(receiver, subject_line, text)
-    
-    return _render(request, 'shop/emails/email_sent_confirmation.html', locals()) 
-
 
 
 def _get_subscriber_list():

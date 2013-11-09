@@ -1,0 +1,16 @@
+{% load i18n %}{% blocktrans with order.owner.first_name|capfirst as fn and order.invoice_id as order_id %}
+Hi {{ fn }},
+
+This is your order confirmation. Keep it for your records and just in case you need to contact us later about your order. Your order ID is {{ order_id }}{% endblocktrans %}
+
+----------------------------------------------------------------------------------
+{% for item in items %}
+    {{ item.quantity }} x {{ item.item.parent_product }} {% if item.weight %}({{ item.weight }}{{ weight_unit }}){% endif %}
+{% endfor %}
+----------------------------------------------------------------------------------
+    {% trans 'TOTAL' %}                     {{ order.get_amount }} {{ order.get_currency.code }}
+----------------------------------------------------------------------------------
+
+Your order will be going in the post immediately - if you have any questions, just reply to this email and we'll usually respond within a few hours.
+
+{% include 'emailer/email_signature.txt' %}
