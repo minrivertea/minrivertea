@@ -282,8 +282,33 @@ class Review(models.Model):
         return url.netloc     
 
 
-
+class Deal(models.Model):
+    """ 
+    The idea of this object is that it stores a list of UniqueProducts that
+    match a particular deal. When we want to calculate costs on the basket
+    page or order pages, we hand the Deal object a list of items and it
+    returns either None or the matching items and prices.
+    """
     
+    THREE_FOR_TWO = '1'
+    BOGOF = '2'
+    TEA_PLUS_TEAWARE = '3'
+    CHEAPEST_FREE = '4'
+    DEAL_TYPES = (
+        (THREE_FOR_TWO, u"3 for 2"),
+        (BOGOF, u"Buy one get one free"),
+        (TEA_PLUS_TEAWARE, u"Tea and teaware combo"),
+        (CHEAPEST_FREE, u"Cheapest item free"),
+    )
+    
+    name = models.CharField(max_length="200", 
+        help_text="Give it a name, just so we know what this one is", blank=True, null=True)
+    items = models.ManyToManyField(UniqueProduct, null=True, blank=True, db_index=True)
+    is_active = models.BooleanField(default=False)
+    deal_type = models.CharField(max_length="3", choices=DEAL_TYPES)
+    
+    def __unicode__(self):
+        return self.name
     
 
             
