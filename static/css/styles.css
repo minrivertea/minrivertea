@@ -12,6 +12,7 @@ body {
   /* background: url('/static/images/back.png') repeat #EFF5F8; */
 }
 
+
 /* sp is the 'super' div which keeps everything centered */
 .sp {
   width: 960px;
@@ -35,7 +36,7 @@ body {
 /* typography */
 
 h1 {
-    color: #FF6569;
+    color: #d30000;
     font-size: 34px;
     font-weight: 100;
     letter-spacing: -1px;
@@ -110,7 +111,7 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-  color: #FF6569;
+  color: #d30000;
 }
 
 ul {
@@ -147,7 +148,7 @@ ol {
 }
 
 .button:hover {
-  background: #FF6569;	
+  background: #d30000;	
 }
 
 h3 a:link, h3:visited, h4 a:link, h4 a:visited, h2 a:link, h2 a:visited {
@@ -173,7 +174,7 @@ input.button {
 }
 
 .button.green:hover, input.button.green:hover {
-  background: #FF6569;
+  background: #d30000;
 }
 
 .button.red {
@@ -309,7 +310,6 @@ span.link:hover {
   padding: 15px 0px 0px;
   width: 100%;
   margin: 0 0 10px 0;
-  background: #fff;
 }
 
 #header .hr {
@@ -453,7 +453,7 @@ span.link:hover {
 
 #userbasket a {
     border-left: 1px solid #D1D1D1;
-    color: #FF6569;
+    color: #d30000;
     font-weight: bold;
     margin-left: 5px;
     padding-left: 8px;
@@ -582,12 +582,12 @@ ul#nav li a.grey {
 
 ul#nav li a:hover {
   text-decoration: underline;
-  color: #FF6569;
+  color: #d30000;
 }
 
 
 ul#nav li a.selected:hover {
-    color: #FF6569;	
+    color: #d30000;	
 }
 
 ul#nav li a.selected {
@@ -903,7 +903,6 @@ p.introduction, #left p.introduction {
 /* base info box */
 
 .info {
-    background-color: #FFFFFF;
     float: left;
     margin-bottom: 15px;
     width: 230px;
@@ -1061,7 +1060,7 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea a.button:hover {
-  background: #FF6569;   
+  background: #d30000;   
 }
 
 
@@ -1080,7 +1079,7 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea.long a.button:hover {
-  background: #FF6569;
+  background: #d30000;
 }
 
 .info.tea.long .glass-text .in-basket, .info.tea .glass-text .in-basket {
@@ -1115,7 +1114,7 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea:hover .glass-text h3 a {
-  color: #FF6569;
+  color: #d30000;
 }
 
 .info.tea .out-of-stock {
@@ -1145,7 +1144,7 @@ p.introduction, #left p.introduction {
 }
 
 #right .info:hover h4 a {
-  color: #FF6569;    
+  color: #d30000;    
 }
 
 #right .info.tea {
@@ -1161,7 +1160,6 @@ p.introduction, #left p.introduction {
     float: left;
     margin: 0 15px 15px 0;
     width: 240px;
-    background: #fff;
     position: relative;
     border-bottom: 1px dashed #e1e1e1;
 }
@@ -1179,7 +1177,7 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea:hover h4 a {
-  color: #FF6569;
+  color: #d30000;
 }
 
 .info.tea .glass-text p {
@@ -2129,7 +2127,7 @@ ul#social a#google:hover {
   letter-spacing: -0.5px;
   font-weight: bold;
   margin: 0;
-  color:#FF6569;
+  color:#d30000;
 }
 
 #footer ul {
@@ -2170,7 +2168,7 @@ a#harvest {
 
 a#harvest:hover {
  text-decoration: underline;
- color: #FF6569;   
+ color: #d30000;   
 }
 
 

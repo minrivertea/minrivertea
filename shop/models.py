@@ -282,6 +282,10 @@ class Review(models.Model):
         return url.netloc     
 
 
+
+    
+    
+
             
 class Address(models.Model):
     owner = models.ForeignKey(Shopper)

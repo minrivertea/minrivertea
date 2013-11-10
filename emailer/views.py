@@ -271,7 +271,7 @@ def _payment_flagged(order):
     # CUSTOMER GETS THEIR EMAIL AS NORMAL
     recipient = order.owner.email
     activate(order.owner.language)
-    subject_line = _("Order confirmed - %(id)s - %(site)s") % {
+    subject_line = _("Order Confirmed - %(id)s - %(site)s") % {
         'id': order.invoice_id, 
         'site': settings.SITE_NAME
     }
