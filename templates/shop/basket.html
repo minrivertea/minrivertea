@@ -480,10 +480,7 @@ div#discount {
 			<a class="" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
 		</li>
 		<li>
-			<a href="">3. {% trans 'Confirm and pay' %} &raquo;</a>
-		</li>
-		<li>
-			<a href="">4. {% trans 'Tea time!' %}</a>
+			<a href="">3. {% trans 'Confirm and pay' %}</a>
 		</li>
 	</ul>
 
@@ -624,9 +621,7 @@ div#discount {
 	<div class="basket-row discount">
 		<div class="tea-name">&nbsp;</div>
 		<div class="long">{% blocktrans with basket.discount_percent|floatformat:"-2" as percent %}You have entered a discount code worth {{ percent }}% off!{% endblocktrans %}</div>
-		<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}</span></div>
-		  
-		    {% if discount_message %}<span id="message" class="red">{{ basket.discount_message }} - </span>{% endif %}
+		<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}</span></div>    
 	</div>
     {% endif %}
 	
@@ -644,6 +639,7 @@ div#discount {
 	
 	{% if not basket.discount %}
     <div id="discount">
+        <span class="small">{% if discount_error_message %}<span id="message" class="red">{{ discount_error_message }} - </span>{% endif %}</span>
         <span id="link">{% trans 'Got a discount code?' %}</span>
         <form action="." method="post">
             <input type="text" name="discount_code" id="id_discount_code" class="clearMeFocus" title="{% trans 'Enter discount code here' %}"/>
