@@ -367,7 +367,7 @@ def basket(request):
     
     # GET THE VALUE OF THE BASKET 
     
-    
+    discount = None
     if request.method == 'POST':
         form = UpdateDiscountForm(request.POST)
         if form.is_valid():
