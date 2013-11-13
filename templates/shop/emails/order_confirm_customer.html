@@ -17,11 +17,11 @@
     {% endfor %}
     <tr>
         <td><strong>{% trans 'Postage' %}</strong></td>
-        <td>{{ order.get_currency.symbol }}{{ order.get_currency.postage_cost }}</td>
+        <td>{{ order.get_currency.symbol }}{{ order.get_currency.postage_cost|floatformat:"-2" }}</td>
     </tr>
     <tr>
         <td><strong>{% trans 'TOTAL' %}</strong></td>
-        <td>{{ order.get_currency.symbol }}{{ order.get_amount }}</td>
+        <td>{{ order.get_currency.symbol }}{{ order.get_amount|floatformat:"-2" }}</td>
     </tr>
 </table>
                                     

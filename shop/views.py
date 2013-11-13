@@ -70,7 +70,12 @@ def index(request):
      
     blog_entries = BlogEntry.objects.filter(is_promoted=True, is_draft=False)[:3]
             
-    teaware = _get_products(request, cat=_('teaware'), featured=True)[:4]
+    teaware = Product.objects.filter(
+        is_active=True,
+        is_featured=True,
+        category__parent_category__slug=_('teaware'),
+    )[:4]
+    
     try:
         special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
         special.price = special.get_lowest_price(curr)
