@@ -117,6 +117,12 @@ def _empty_basket(request):
         request.session['DISCOUNT_ID'] = None
     except:
         pass
+        
+    # REMOVE THEIR AFFILIATE KEY SO THAT IT DOESN'T KEEP REGISTERING SALES AGAINST THIS LEAD.
+    try:
+        request.session[settings.AFFILIATE_SESSION_KEY] = None 
+    except:
+        pass
     
     return None
 
@@ -484,13 +490,9 @@ def _finder(request, x=None, y=None, z=None, slug=None):
     
     
 def _get_monthly_price(unique_product, months):
-    
-    
-    
+        
     months = int(months)
-    
-    
-    
+        
     if unique_product.parent_product.category.slug == _('teaware'):
         return None
     
@@ -508,7 +510,6 @@ def _get_monthly_price(unique_product, months):
     
     if months == 12:
         discount = float(unique_product.price) * float(settings.TEABOX_LOW_DISCOUNT)
-
 
     price = float(unique_product.price) - float(discount)
     total_price = float(price) * months

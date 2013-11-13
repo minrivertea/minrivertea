@@ -52,7 +52,7 @@ function addToBasket() {
             $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
             
             /// increment the monthly-box-total
-            $('#subtotal .amount .num').html(data.monthly_amount);
+            $('#subtotal .amount .num').html(data.monthly_price);
             $('#subtotal .items .num').html(parseInt($('#subtotal .items .num').html(), 10)+1);
             
             /// increment the values in the already in basket next to product
@@ -82,7 +82,7 @@ function changeMonths() {
             obj.addClass('selected');
             $('#products').html(data.html);
             $('#userbasket #quantity .p').html(data.basket_amount);
-            $('#subtotal .amount .num').html(data.monthly_amount);
+            $('#subtotal .amount .num').html(data.monthly_price);
             $('#subtotal .items .months').html(data.months);
             $('#loading').remove();
             $('.pricebar a.button').bind('click', addToBasket);

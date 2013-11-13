@@ -35,7 +35,7 @@
                     <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
                     <p>{{ t.description }}</p>
                     <div class="price-weight">
-                        <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% endif %}</span> 
+                        <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}{% else %}{% if months %}{{ currency.symbol }}{{ t.price|floatformat:"2" }}{% endif %}{% endif %}</span> 
                         <span class="weight">{% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</span>
                     </div>
                     
