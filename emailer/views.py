@@ -17,7 +17,7 @@ import uuid
 import re
 
 from shop.models import *
-from shop.utils import _render, weight_converter
+from shop.utils import _render, weight_converter, _check_offers
 from emailer.models import Subscriber, Newsletter
 from emailer.forms import EmailSignupForm
 from shop.forms import CreateSendEmailForm
@@ -221,14 +221,47 @@ def _payment_success(order):
     }
     template = 'shop/emails/order_confirm_customer.txt'
     
-    
     # PREPARE THE ORDER
     if order.address.country == 'US':
         weight_unit = 'oz'
     else:
         weight_unit = 'g'
-            
+    
+    
+    
+    # WORK OUT THE TOTAL PRICE
+    total_price = 0
+    monthly_price = 0
+    monthly = False
     items = order.items.all()
+    for item in items:
+        price = float(item.get_price())
+        total_price += float(price)
+        
+        if item.monthly_order:
+            item.item.weight = item.item.weight * item.quantity
+            monthly_price += float(item.get_price())
+            if item.months >= 6:
+                monthly = True        
+    
+    _check_offers(items)
+    
+    # APPLY THE POSTAGE COSTS
+    currency = order.get_currency()
+    if total_price > currency.postage_discount_threshold or monthly == True:
+        postage_discount = True
+    else:
+        total_price += currency.postage_cost
+        postage_discount = False
+    
+    
+    # WORK OUT ANY DISCOUNTS
+    if order.discount:
+        discount_value = float(total_price) * float(order.discount.discount_value)
+        discount_percent = float(order.discount.discount_value * 100)
+        total_price -= discount_value            
+            
+    
     for item in items:
         if item.item.weight:
             if order.address.country == 'US':
@@ -241,9 +274,11 @@ def _payment_success(order):
     extra_context = {
         'order': order,
         'items': items,
+        'currency': currency,
+        'total_price': total_price,
+        'discount_value': discount_value,
+        'postage_discount': postage_discount,
         'weight_unit': weight_unit,
-        'site_name': settings.SITE_NAME,
-        'site_url': 'http://www.minrivertea.com',
     }
     
     _send_email(recipient, subject_line, template, extra_context)

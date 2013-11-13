@@ -27,7 +27,6 @@ from shop.utils import _render, pdf
 from shop.models import *
 from shop.forms import *
 from slugify import smart_slugify
-from emailer.views import _get_subscriber_list
 from logistics.models import WarehouseItem, CustomerPackage
 from logistics.forms import AddStocksForm
 

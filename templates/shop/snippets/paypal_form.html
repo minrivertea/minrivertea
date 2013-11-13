@@ -4,7 +4,7 @@
     
     	<div id="checkout-button">
 			
-			{% if total_price == 0 %}
+			{% if basket.total_price == 0 %}
 			<p class="skip"><a href="{% url fake_checkout order.id %}" class="button green">{% trans 'Click here to skip Paypal (for 100% discount orders)' %}</a></p>
 			{% else %}
 			<input type="submit" value="{% trans 'Confirm and pay' %}" next="" class="button green"/>
@@ -45,7 +45,7 @@
         {% endif %}
 
         {% if discount %}
-        <input type="hidden" name=" discount_amount_cart" value="{{ discount|floatformat:"2" }}" id="id_discount_amount" >
+        <input type="hidden" name=" discount_amount_cart" value="{{ basket.discount_value|floatformat:"2" }}" id="id_discount_amount" >
         {% endif %}
 
 		<input type="hidden" name="invoice" value="{{ order.invoice_id }}" id="id_invoice" >

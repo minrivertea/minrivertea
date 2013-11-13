@@ -263,7 +263,7 @@ input[type="email"] {
       <form method="post" action="."> 	 
 
 		{% if shopper %}
-	  		<h2>{% trans 'Are these your details? Please check carefully!' %}</h2>
+	  		<h3>{% trans 'Are these your details? Please check carefully!' %}</h3>
 			{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">{% trans 'not you?' %}</a>
 		
 			{% for address in shopper.get_addresses %}
@@ -287,6 +287,7 @@ input[type="email"] {
 	    			<input type="text" name="postcode" id="id_postcode" value="{{ order.address.postcode }}"/>
 	    			<input type="text" name="country" id="id_country" value="{{ order.address.country }}"/>
 	 			</div>
+	 			
 		{% else %}
 
     		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
@@ -360,7 +361,7 @@ input[type="email"] {
 	{% endif %}
 
 	<div id="checkout-button">
-		<input type="submit" value="{% trans 'Save your details' %} &raquo;" next="" class="button green"/>
+		<input type="submit" value="{% trans 'Continue' %} &raquo;" next="" class="button green"/>
 	</div>
 		
 	</form>

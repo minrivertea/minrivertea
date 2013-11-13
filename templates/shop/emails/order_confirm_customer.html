@@ -10,18 +10,41 @@
     {% for x in items %}
     <tr>
         <td>
-            <strong>{{ item.quantity }} x {{ item.item.parent_product }} {% if item.weight %}({{ item.weight }}{{ weight_unit }}){% endif %}</strong><br/>{{ item.item.currency.symbol }}{{ item.item.price }} {% trans 'each' %}
+            <strong>{{ x.quantity }} x {{ x.item.parent_product }} {% if x.weight %}({{ x.weight }}{{ weight_unit }}){% endif %}</strong><br/>{{ x.item.currency.symbol }}{{ x.item.price }} {% trans 'each' %}
         </td>
-        <td>{{ item.item.currency.symbol }}{{ item.get_price }}</td>
+        <td>{{ x.item.currency.symbol }}{{ x.get_price }}</td>
     </tr>
     {% endfor %}
+    
+    
     <tr>
-        <td><strong>{% trans 'Postage' %}</strong></td>
-        <td>{{ order.get_currency.symbol }}{{ order.get_currency.postage_cost|floatformat:"-2" }}</td>
+        <td>
+            {% if postage_discount %}
+                {% blocktrans with order.get_currency.symbol as symbol and order.get_currency.postage_discount_threshold as ptd %}There is no postage charge, because your order is over {{ symbol }}{{ ptd }}{% endblocktrans %}
+            {% else %}
+                <strong>{% trans 'Postage' %}</strong>
+            {% endif %}
+        </td>
+        <td>
+            {% if postage_discount %}
+                {{ order.get_currency.symbol }}0.00
+            {% else %}
+                {{ order.get_currency.symbol }}{{ order.get_currency.postage_cost|floatformat:"2" }}
+            {% endif %}
+        </td>
     </tr>
+    
+    {% if order.discount %}
+    <tr>
+        <td><strong>{% trans 'Discount' %}</strong></td>
+        <td>-{{ order.currency.symbol }}{{ discount_value|floatformat:"2" }}</td>
+    
+    </tr>
+    {% endif %}
+   
     <tr>
         <td><strong>{% trans 'TOTAL' %}</strong></td>
-        <td>{{ order.get_currency.symbol }}{{ order.get_amount|floatformat:"-2" }}</td>
+        <td>{{ order.get_currency.symbol }}{{ total_price|floatformat:"2" }}</td>
     </tr>
 </table>
                                     
