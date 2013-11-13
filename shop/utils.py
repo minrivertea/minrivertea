@@ -104,8 +104,12 @@ def _empty_basket(request):
         pass
         
     try:
-        request.session['BASKET_QUANTITY'] = basket_quantity
-        request.session['BASKET_AMOUNT'] = total_price
+        request.session['BASKET_QUANTITY'] = 0
+    except:
+        pass
+    
+    try:
+        request.session['BASKET_AMOUNT'] = 0
     except:
         pass
     
