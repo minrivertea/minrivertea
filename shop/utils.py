@@ -224,6 +224,7 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
         discount_value = float(total_price) * float(discount.discount_value)
         discount_percent = float(discount.discount_value * 100)
         total_price -= discount_value
+        request.session['DISCOUNT_ID'] = discount.pk
     
     
     # LASTLY, STORE SIMPLE VARIABLES IN SESSION
