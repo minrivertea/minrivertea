@@ -9,7 +9,7 @@ from urlparse import urlparse
 from django.utils import translation
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
-
+from django.utils.translation import ugettext as _
 
 
 from slugify import smart_slugify

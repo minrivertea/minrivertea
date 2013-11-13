@@ -36,7 +36,7 @@ import re
 from shop.models import *
 from blog.models import BlogEntry
 from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, \
-    _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter
+    _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter, _get_basket_value
 from shop.forms import *
 from slugify import smart_slugify
 
@@ -188,7 +188,8 @@ def product_by_id(request, id):
 def monthly_tea_box(request):
     
     product = get_object_or_404(Product, slug=_('monthly-tea-box'))
-    products = Product.objects.filter(category__parent_category__slug=_('teas'), is_active=True).exclude(name__icontains=_("taster"))
+    products = Product.objects.filter(category__parent_category__slug=_('teas'), 
+        is_active=True).exclude(name__icontains=_("taster"))
     basket_items = BasketItem.objects.filter(basket=_get_basket(request))
     
     try:
@@ -196,16 +197,23 @@ def monthly_tea_box(request):
     except:
         months = settings.TEABOX_DEFAULT_MONTHS
     
+    total_quantity = 0
+    
     for x in products:
-        x.price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
+        x.single_price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
+        
         try:
-            x.monthly_price = _get_monthly_price(x.price, months)
+            x.monthly_price = _get_monthly_price(x.single_price, months)
         except:
             x.monthly_price = None
+            
         x.quantity = 0
         for y in basket_items:
-            if x.price == y.item:
-                x.quantity += y.quantity 
+            if x.single_price == y.item:
+                x.quantity += y.quantity
+                total_quantity += 1
+        
+        
     
     return _render(request, 'shop/monthly_tea_box.html', locals())
     
@@ -236,6 +244,7 @@ def add_to_basket(request, id):
     item.save()
 
     if request.is_ajax():
+        
         if item.item.weight:
             from shop.templatetags.convert_weights import convert_weights
             weight = convert_weights(request, item.item.weight)
@@ -250,8 +259,10 @@ def add_to_basket(request, id):
                     'item':item.item.parent_product, 
                     'url': reverse('basket'),
             }
-        basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
-        data = {'message': message, 'basket_quantity': basket_quantity}
+        
+        basket_amount = '%.2f' % float(_get_basket_value(request)['total_price'])
+        basket_quantity = '%.2f' % float(_get_basket_value(request)['basket_quantity'])
+        data = {'message': message, 'basket_quantity': basket_quantity, 'basket_amount': basket_amount}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
@@ -353,27 +364,9 @@ def increase_quantity(request, basket_item):
 
 
 def basket(request):
-           
-    basket_items = BasketItem.objects.filter(basket=_get_basket(request)).exclude(monthly_order=True)
-    monthly_items = BasketItem.objects.filter(basket=_get_basket(request), monthly_order=True)
     
-    total_price = 0
-    monthly = False
-    for item in chain(basket_items, monthly_items):
-        price = float(item.get_price())
-        total_price += float(price)
-        if item.monthly_order:
-            item.item.weight = item.item.weight * item.quantity
-            if item.months >= 6:
-                monthly = True
-                
-    
-    currency = _get_currency(request)
-    if total_price > currency.postage_discount_threshold or monthly == True:
-        postage_discount = True
-    else:
-        total_price += currency.postage_cost
-        
+    # GET THE VALUE OF THE BASKET 
+    basket = _get_basket_value(request)
     
     if request.method == 'POST':
         form = UpdateDiscountForm(request.POST)
@@ -386,13 +379,14 @@ def basket(request):
                 code = None
                 
             if code:
-               value = float(total_price) * float(code.discount_value)
+               value = float(basket['total_price']) * float(code.discount_value)
                percent = code.discount_value * 100
                total_price -= value
                request.session['DISCOUNT_ID'] = code.id
             else:
                 discount_message = _("Sorry, that's not a valid discount code!")
             return _render(request, "shop/basket.html", locals())
+    
     
     form = UpdateDiscountForm()
     return _render(request, "shop/basket.html", locals())
@@ -582,32 +576,12 @@ def order_url(request, hash, friend=None):
     
     order = get_object_or_404(Order, hashkey=hash)    
     
-    regular_items = order.items.exclude(monthly_order=True)
-    monthly_items = order.items.filter(monthly_order=True)
-    
-    total_price = 0
-    monthly = False
-    
-    for item in chain(regular_items, monthly_items):
-        price = float(item.get_price())
-        total_price += float(price)
-        if item.monthly_order:
-            if item.months >= 6:
-                monthly = True
-                
-    
-    currency = _get_currency(request)
-    if total_price > currency.postage_discount_threshold or monthly == True:
-        postage_discount = True
-    else:
-        total_price += currency.postage_cost
+    basket = _get_basket_value(request, order=order)
+    single_items = basket['single_items']
+    monthly_items = basket['monthly_items']
+    total_price = basket['total_price']
     
     
-    if order.discount:
-        value = total_price * order.discount.discount_value
-        percent = order.discount.discount_value * 100
-        total_price -= value
-
     return _render(request, 'shop/forms/order_confirm.html', locals())
 
 
@@ -633,7 +607,8 @@ def order_repeat(request, hash):
     order.save()
     
     # it looks silly, but we'll also create a basket for them.
-    # because IF they want to add something else to the order, they'll need a basket.   
+    # because IF they want to add something else to the order, 
+    # they'll need a basket.   
     basket = Basket.objects.create(
         date_modified = datetime.now(),
         owner = order.owner,
@@ -662,117 +637,16 @@ def order_repeat(request, hash):
     request.session['BASKET_ID'] = basket.id
     request.session['ORDER_ID'] = order.id
     
-    total_price = 0
-    for item in order.items.all():
-        price = item.quantity * item.item.price
-        total_price += price
-    
-    
-    if total_price > currency.postage_discount_threshold:
-        postage_discount = True
-    else:
-        total_price += currency.postage_cost
+        
+    # FINALLY, GET THE VALUES ETC.
+    basket_value = _get_basket_value(request)
+    single_items = basket_value['single_items']
+    monthly_items = basket_value['monthly_items']
+    total_price = basket_value['total_price']
     
     return _render(request, 'shop/forms/order_repeat.html', locals())
 
     
-def wishlist_url(request, hash):
-    wishlist = get_object_or_404(Wishlist, hashkey=hash)
-    shopper = wishlist.owner
-    basket_items = wishlist.wishlist_items.all()
-    order_items = basket_items
-
-    total_price = 0
-    for item in order_items:
-        price = item.quantity * item.item.price
-        total_price += price
-            
-    if total_price > 50:
-        postage_discount = True
-    else: 
-        total_price += 3
-    
-    select_items_form = SelectWishlistItemsForm()
-        
-    return _render(request, 'shop/forms/wishlist_confirm.html', locals())
-
-def wishlist_select_items(request):
- 
-    if request.method == 'POST':
-        form = SelectWishlistItemsForm(request.POST)
-        if form.is_valid():
-            wishlist = get_object_or_404(Wishlist, hashkey=request.POST['hashkey'])
-            
-            # create an order object and save it:
-            order = Order.objects.create(
-                owner=wishlist.owner,
-                address=wishlist.address,
-                date_confirmed=datetime.now(),
-                status = Order.STATUS_CREATED_NOT_PAID,
-            )
-            order.invoice_id = "WL-00%s" % (order.id)
-            for item in request.POST.getlist(u'items'):
-                order.items.add(BasketItem.objects.get(id=item))
-            
-            order.save()
-            
-            # work out the price to display on the page
-            total_price = 0
-            for item in order.items.all():
-                price = item.quantity * item.item.price
-                total_price += price
-            
-            if total_price > 50:
-                postage_discount = True
-            else: 
-                total_price += 3
-                postage_discount = False
-            
-            # create the HTML to send back via AJAX    
-            html = render_to_string('shop/snippets/wishlist_order_form.html', {
-            	    'order': order,
-            	    'postage_discount': postage_discount,
-            	    'total_price': total_price,
-            	    })
-            
-            # return the AJAX	    
-            return HttpResponse(html, mimetype="text/html")
-    
-    return HttpResponse()
-
-def wishlist_submit_email(request):
-    if request.method == 'POST':
-        form = WishlistSubmitEmailForm(request.POST)
-        if form.is_valid():
-            order = get_object_or_404(Order, id=request.POST['order'])
-            # create an order here:
-            order.wishlist_payee = request.POST['email']
-            order.save()
-            total_price = 0
-            for item in order.items.all():
-                price = item.quantity * item.item.price
-                total_price += price
-            
-            currency = _get_currency(request)
-            if total_price > currency.postage_discount_threshold:
-                postage_discount = True
-            else: 
-                total_price += currency.postage_cost
-                postage_discount = False
-                
-            html = render_to_string('shop/snippets/wishlist_complete_form.html', {
-            	    'order': order, 
-            	    'postage_discount': postage_discount,
-            	    'total_price': total_price,
-            	    'paypal_submit_url': settings.PAYPAL_SUBMIT_URL,
-            	    'paypal_return_url': settings.PAYPAL_RETURN_URL,
-            	    'paypal_notify_url': settings.PAYPAL_NOTIFY_URL,
-            	    'paypal_receiver_email': settings.PAYPAL_RECEIVER_EMAIL,
-            	    })
-            return HttpResponse(html, mimetype="text/html")
-    
-    return HttpResponse()
-
 # the view for 'logging out' if you're logged in with the wrong account   
 def not_you(request):
 
@@ -802,12 +676,7 @@ def not_you(request):
     
 # the view for the order step 3 - confirming your order
 def order_confirm(request):
-    
-    try:
-        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-    except KeyError:
-        problem = _("You don't have any items in your basket, so you can't process an order!")
-        return _render(request, 'shop/order-problem.html', locals())
+   
         
     try:
         order = Order.objects.get(id=request.session['ORDER_ID'])
@@ -817,28 +686,13 @@ def order_confirm(request):
         
     shopper = order.owner
     order_items = order.items.all() 
+        
+    basket = _get_basket_value(request, order=order)
+    single_items = basket['single_items']
+    monthly_items = basket['monthly_items']
+    total_price = basket['total_price']
     
-    regular_items = order.items.exclude(monthly_order=True)
-    monthly_items = order.items.filter(monthly_order=True)
-        
-    # work out the price
-    total_price = 0
-    for item in order_items:
-        total_price += float(item.get_price())
-        
-    currency = _get_currency(request)
     
-    if total_price > currency.postage_discount_threshold:
-        postage_discount = True
-    else:
-        total_price += currency.postage_cost
-        
-    # is there a discount?
-    if order.discount:
-        discount = float(total_price) * float(order.discount.discount_value)
-        percent = order.discount.discount_value * 100
-        total_price -= discount
-        
     if request.method == 'POST': 
         form = OrderCheckDetailsForm(request.POST)
         basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])

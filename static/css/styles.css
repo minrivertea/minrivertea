@@ -178,7 +178,7 @@ input.button {
 }
 
 .button.red {
-   background: #C30000; 
+   background: #D30000; 
    border: none;
    text-shadow: none;
    box-shadow: none;
@@ -1337,7 +1337,7 @@ a.atb.large:hover span {
 }
 
 .tag.red {
-   background: red;   
+   background: #D30000;   
 }
 
 .tagtext {
@@ -1510,7 +1510,7 @@ textarea {
 
 ul.errorlist {
   list-style-type: none;
-  color: red;
+  color: #D30000;
   font-size: 0.9em;
   margin: 0;
   padding: 0;
@@ -1558,7 +1558,7 @@ input.error, div.row-box input.error {
   border: 1px solid #c06b6b;
   box-shadow: inset 0 1px 9px #f2d4d4; 
   background-color: #faf5f5; 
-  color: red; 
+  color: #D30000; 
 }
 
 input.error:focus, div.row-box input.error:focus {
@@ -1739,7 +1739,7 @@ div.like div.text {
 }
 
 span.red {
-  color: red;	
+  color: #D30000;	
 }
 
 #mtw #left .caption {

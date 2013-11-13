@@ -5,7 +5,7 @@
         <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
         
         {% if months %}
-            <a class="button green small" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.price.id months %}">{% trans 'Add to TeaBox' %}</a>
+            <a class="button green small" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.single_price.id months %}">{% trans 'Add to TeaBox' %}</a>
         {% else %}
         
             {% if t.price.stocks.preorder %}

@@ -146,14 +146,13 @@ $(document).ready( function() {
 }
 
 .tea-weight {
-  width: 280px;
+  width: 340px;
 }
 
 .tea-weight a, .tea-weight h3, .name {
   text-decoration: none;
   font-size: 15px;
   font-weight: bold;
-  text-transform: lowercase;
   letter-spacing: -0.5px; 
   margin: 0; 
 }
@@ -188,7 +187,7 @@ $(document).ready( function() {
 
 .basket-row .tools {
   right: 210px;
-  height: 15%;   
+  height: 20%;   
 }
 
 .basket-row .tea-quantity {
@@ -213,7 +212,6 @@ $(document).ready( function() {
 }
 
 .basket-row.monthly .tea-total {
-  height: 15%;   
   right: 5px;
   left: auto;
 }
@@ -245,7 +243,7 @@ $(document).ready( function() {
 }
 
 .monthly .tea-weight {
-  width: 285px;
+  width: 275px;
   height: 65%;	
 }
 
@@ -326,7 +324,7 @@ a.plus span, a.minus span {
 }
 
 .monthly a.plus span, .monthly a.minus span {
-  top: -2px;   
+  top: 0px;   
 }
 
 a.minus span {
@@ -498,10 +496,10 @@ div#discount {
 		</li>
 	</ul>
 
-{% if basket_items or monthly_items %}
+{% if basket.single_items or basket.monthly_items %}
 
   <div id="basket">
-	{% for thing in basket_items %}
+	{% for thing in basket.single_items %}
 	  <div class="basket-row {% if thing.item.stocks.preorder %} preorder{% endif %}">
 	  
 		<div class="tea-name">
@@ -515,10 +513,28 @@ div#discount {
 		      {% if thing.monthly_order %}Monthly TeaBox{% else %}{{ thing.item.parent_product.name }}{% endif %}
 		  </a>
 		      {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}) {% endif %}<br/>
-		      {{ currency.symbol }}{{ thing.item.price|floatformat:"2" }} 
-		      {% if thing.item.special_shipping_price %} (+ {{ currency.symbol }}{{ thing.item.special_shipping_price }} {% trans 'shipping charge' %}){% endif %}
-		      {% trans 'each' %}<br/>
+		      
+
+
+		      {% if thing.deal == '342' and thing.deal_target %}
+	               <span class="red small"><strong>Merry Xmas! A free {{ thing.item }}</strong></span>
+	          {% endif %}
+	               
+	          {% if thing.deal == 'tnt' and thing.deal_target %}
+	               <span class="red small"><strong>Merry Xmas! You've got 15% off a {{ thing.item }} </strong></span>
+	          {% endif %}
+	          
+	          {% if not thing.deal_target %}
+     	          {{ currency.symbol }}{{ thing.item.price|floatformat:"2" }} 		      
+     		      {% if thing.item.special_shipping_price %} (+ {{ currency.symbol }}{{ thing.item.special_shipping_price }} {% trans 'shipping charge' %}){% endif %}
+     		      {% trans 'each' %}
+     		  {% endif %}
+	          
 	    </div>
+	    
+	    
+        
+        
         
         <div class="tea-quantity">
 		  x {{ thing.quantity }}
@@ -540,7 +556,7 @@ div#discount {
 	  </div>
 	{% endfor %}
 	
-    {% if monthly_items %}
+    {% if basket.monthly_items %}
 	<div class="basket-row monthly">
 	    <div class="tea-name">
 	       <img src="" />
@@ -561,7 +577,7 @@ div#discount {
         </div>
         <div class="tea-quantity">
             <ul>
-              {% for x in monthly_items %}
+              {% for x in basket.monthly_items %}
                 <li>
                   	{{ x.months }} {% trans 'months' %} / 
                  	{% convert_weights request x.item.weight %}{{ weight_unit }}
@@ -571,7 +587,7 @@ div#discount {
         </div>
         <div class="tools">
             <ul>
-            {% for x in monthly_items %}
+            {% for x in basket.monthly_items %}
                 <li>
                     <div class="updown">
                     	<a class="plus" href="{% url increase_quantity x.id %}"><span>+</span></a>
@@ -584,7 +600,7 @@ div#discount {
         </div>
         <div class="tea-total">
            <ul>
-            {% for x in monthly_items %}
+            {% for x in basket.monthly_items %}
                 <li>{{ currency.symbol }}{{ x.get_price|floatformat:"2" }}
                 
                 </li>
@@ -598,7 +614,7 @@ div#discount {
 	<div class="basket-row postage">
 		<div class="tea-name">&nbsp;</div>
 		
-		{% if postage_discount %}
+		{% if basket.postage_discount %}
 	  	<div class="long">
 	  		<span class="strikethrough name">{% trans 'Postage' %}</span>
             <span class="small">{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}Your order is over {{ symbol }}{{ pdt }}, so there's no postage charge!{% endblocktrans %}</span>
@@ -631,7 +647,7 @@ div#discount {
 			<span class="name">{% trans 'Total' %}</span>
 		</div>
 		<div class="tea-total">
-			{{ currency.symbol }}{{ total_price|floatformat:"2" }}
+			{{ currency.symbol }}{{ basket.total_price|floatformat:"2" }}
 		</div>
 	</div>
 
