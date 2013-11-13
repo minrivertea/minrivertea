@@ -129,12 +129,12 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
         monthly_items = BasketItem.objects.filter(basket=basket, monthly_order=True)
    
     
+    has_offers = False
     if settings.DEBUG == True:
     
         # VARIABLES FOR THE DEALS
         tea_count = 0
         teaware_count = 0
-        has_offers = False
         
         # FIRST WE COUNT EACH ITEM    
         for x in single_items:
