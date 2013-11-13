@@ -445,9 +445,9 @@ ul.rss {
 
 <div class="sp">
     
-    
+    {% if request.LANGUAGE_CODE == 'en' %}
     {% include 'shop/snippets/2013-jasmine-home-special.html' %}
-    
+    {% endif %}
 
     <div id="special">
         <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>

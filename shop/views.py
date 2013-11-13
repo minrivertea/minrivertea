@@ -300,8 +300,10 @@ def add_to_basket_monthly(request, productID, months):
     item.save()
     
     if request.is_ajax():
-        basket_quantity = '%.2f' % float(_get_basket_value(request)['basket_quantity'])
-        monthly_price = '%.2f' % float(_get_basket_value(request)['monthly_price'])
+        basket = _get_basket_value(request)
+        basket_quantity = '%.2f' % float(basket['basket_quantity'])
+        monthly_price = '%.2f' % float(basket['monthly_price'])
+        basket_value = '%.2f' % float(basket['total_price'])
         
         from shop.templatetags.convert_weights import convert_weights
         weight = convert_weights(request, item.item.weight)
@@ -313,9 +315,11 @@ def add_to_basket_monthly(request, productID, months):
             }
         
         
-
-        
-        data = {'basket_quantity': basket_quantity, 'monthly_price': monthly_price, 'message': message,}
+        data = {
+            'basket_quantity': basket_quantity, 
+            'monthly_price': monthly_price, 
+            'message': message,
+            'basket_value': basket_value,}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
