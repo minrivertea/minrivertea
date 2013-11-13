@@ -1,7 +1,7 @@
 from django.conf import settings
 from shop.models import *
 from blog.models import BlogEntry
-from shop.utils import _get_country, _get_currency, _set_currency, _get_region
+from shop.utils import _get_country, _get_currency, _set_currency, _get_region, _get_basket_value
 from django.utils import translation
 
 from django.contrib.sites.models import get_current_site
@@ -74,25 +74,17 @@ def common(request):
     except:
         basket = None
     
-    basket_quantity = 0
-    basket_amount = 0
-    monthly_amount = 0
-    monthly_items = 0
-    if basket:
-        basket_items = BasketItem.objects.filter(basket=basket)
-        for item in basket_items:
-            if item.monthly_order:
-                basket_quantity += 1
-                monthly_amount += float(item.get_price())
-                monthly_items += item.quantity
-            else:
-                basket_quantity += item.quantity
-            basket_amount += float(item.get_price())
     
-    context['basket_quantity'] = basket_quantity
-    context['basket_amount'] = basket_amount    
-    context['monthly_amount'] = monthly_amount 
-    context['monthly_items'] = monthly_items
+    try:
+        context['basket_quantity'] = request.session['BASKET_QUANTITY']
+        context['basket_amount'] = request.session['BASKET_AMOUNT']
+    except:
+        basket = _get_basket_value(request)
+        context['basket_quantity'] = basket['basket_quantity']
+        context['basket_amount'] = basket['total_price']  
+        context['monthly_price'] = basket['monthly_price'] 
+        context['monthly_items'] = basket['monthly_items']
+        context['monthly_items_count'] = basket['monthly_items'].count()
     
             
     return context

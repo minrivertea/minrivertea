@@ -22,6 +22,10 @@ THUMBNAIL_DEBUG =               False
 GA_IS_ON =                      True
 ADMINS =                        (('Chris West', 'chris@minrivertea.com'),)
 MANAGERS =                      ADMINS
+NOTIFICATIONS_GROUP =           (
+                                    ('Chris West', 'chris@minrivertea.com'), 
+                                    ('Raphael Henkes', 'raphael@minrivertea.com'),
+                                )
 TIME_ZONE =                     'Europe/London'
 SITE_ID =                       1
 SITE_NAME =                     'minrivertea.com'
@@ -42,7 +46,6 @@ STATIC_URL = 'http://static.minrivertea.com/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'static'),
 )
-
 
 
 TEMPLATE_LOADERS = (
@@ -75,7 +78,6 @@ MIDDLEWARE_CLASSES = (
 #    'django_mobile.middleware.MobileDetectionMiddleware',
 #    'django_mobile.middleware.SetFlavourMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-#    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'affiliate.AffiliateTrackerMiddleware',
     'sites.DomainTrackerMiddleware'
 )
@@ -103,6 +105,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'shop',
     'blog',
+    'emailer',
     'sorl.thumbnail',
     'paypal.standard.ipn',
     'registration',
@@ -110,7 +113,6 @@ INSTALLED_APPS = (
 #    'django_mobile',
     'south',
     'my_admin',
-    'my_comments',
     'captcha',
     'rosetta',
     'modeltranslation_wrapper',
@@ -118,7 +120,7 @@ INSTALLED_APPS = (
     'logistics',
     'emailer',
     'ckeditor',
-#    'debug_toolbar',
+    'premailer',
 )
 
 
@@ -133,6 +135,7 @@ EMAIL_PORT = ''
 SERVER_EMAIL = 'chris@minrivertea.com'
 SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
 SEND_BROKEN_LINK_EMAILS = False
+EMAIL_BASE_HTML_TEMPLATE = 'emailer/email_base.html'
 
 #THUMBNAIL SIZES
 # -----------------------------------------------
@@ -152,7 +155,6 @@ BASE_TEMPLATE_ADMIN = 'base_admin.html'
 
 # DJANGO-CAPTCHA
 # -----------------------------------------------
-COMMENTS_APP = 'my_comments'
 CAPTCHA_FONT_SIZE = 35
 CAPTCHA_LETTER_ROTATION = None
 
@@ -218,6 +220,7 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 
 # AFFILIATE SETTINGS
+# ---------------------------------------------------
 AFFILIATE_URL_VARIABLE = 'sales_adforce'
 AFFILIATE_SESSION_KEY = 'affiliate'
 

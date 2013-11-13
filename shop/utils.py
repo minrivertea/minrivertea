@@ -21,6 +21,8 @@ import urllib
 import urllib2
 import xml.etree.ElementTree as etree
 from django.utils import simplejson
+from itertools import chain
+
 
 from PIL import Image
 from cStringIO import StringIO
@@ -99,7 +101,124 @@ def _empty_basket(request):
     
     return None
     
+ 
+def _get_basket_value(request, simple=False, order=None):
     
+    
+    if simple:
+        try:
+            basket_quantity = request.session['BASKET_QUANTITY']
+            total_price = request.session['BASKET_AMOUNT']
+            return locals()
+        except:
+            pass
+        
+    # GET THE ITEMS IN THIS BASKET
+    if order:
+        single_items = order.items.exclude(monthly_order=True)
+        monthly_items = order.items.filter(monthly_order=True)
+    else:
+        basket = _get_basket(request)
+        single_items = BasketItem.objects.filter(basket=basket).exclude(monthly_order=True).order_by(
+            'item__parent_product__category', 'item__price'
+        )
+        monthly_items = BasketItem.objects.filter(basket=basket, monthly_order=True)
+   
+    
+    if settings.DEBUG == True:
+    
+        # VARIABLES FOR THE DEALS
+        tea_count = 0
+        teaware_count = 0
+        
+        # FIRST WE COUNT EACH ITEM    
+        for x in single_items:
+            if x.item.parent_product.get_root_category().slug == _('teas'):
+                tea_count += x.quantity
+            
+            if x.item.parent_product.get_root_category().slug == _('teaware'):
+                teaware_count += x.quantity
+        
+        
+        # NOW WE CHECK EACH OFFER:
+        
+        offer1 = 0 # tea plus teaware
+        while tea_count > 0 and teaware_count > 0:
+            offer1 += 1
+            tea_count -= 1
+            teaware_count -= 1
+                
+        
+        offer2 = 0 # three for two 
+        while tea_count > 2:
+            offer2 += 1
+            tea_count -= 3
+            
+            
+        # NOW ACTUALLY APPLY THE OFFERS
+        for x in single_items:
+            if x.item.parent_product.get_root_category().slug == _('teas'):
+                
+                # HANDLES TEA + TEAWARE
+                if offer1 > 0:
+                    x.deal = 'tnt'
+                    x.deal_target = True
+                    pr = x.item.price
+                    q = x.quantity                        
+                    x.item.price = (float(pr)/q) * (0.85+(q-1))
+                    offer1 -= 1
+                    continue
+                
+                # HANDLES THREE FOR TWO
+                if offer2 > 0:
+                    x.deal = '342'                       
+                    x.deal_target = True
+                    if x.quantity == 1:
+                        x.item.price = 0
+                    else:
+                        x.item.price = (x.item.price / x.quantity) * (x.quantity-1)                        
+                    offer2 -= 1
+                    continue
+
+    
+    # WORK OUT THE TOTAL PRICE
+    total_price = 0
+    monthly_price = 0
+    monthly = False
+    basket_quantity = 0
+    for item in chain(single_items, monthly_items):
+        price = float(item.get_price())
+        total_price += float(price)
+        
+        if item.monthly_order:
+            item.item.weight = item.item.weight * item.quantity
+            monthly_price += float(item.get_price())
+            if item.months >= 6:
+                monthly = True
+        
+        basket_quantity += item.quantity
+    
+    # APPLY THE POSTAGE COSTS
+    if single_items.count() > 0:
+        currency = _get_currency(request)
+        if total_price > currency.postage_discount_threshold or monthly == True:
+            postage_discount = True
+        else:
+            total_price += currency.postage_cost
+            
+        
+    # IS THERE ANY DISCOUNT?
+    #if order.discount:
+    #    value = total_price * order.discount.discount_value
+    #    percent = order.discount.discount_value * 100
+    #    total_price -= value
+    
+    
+    # LASTLY, STORE SIMPLE VARIABLES IN SESSION
+    request.session['BASKET_QUANTITY'] = basket_quantity
+    request.session['BASKET_AMOUNT'] = total_price
+    
+    return locals() 
 
 
 def _changelang(request, code):
@@ -370,27 +489,42 @@ def _change_monthly_frequency(request, months):
     
     # RETURN AN AJAX REPONSE   
     if request.is_ajax():
+        
         products = Product.objects.filter(
             category__parent_category__slug='teas').exclude(name__icontains="taster")
+        
+        total_quantity = 0
         for x in products:
-            x.price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
-            x.monthly_price = _get_monthly_price(x.price, months)
+            
+            x.single_price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
+            
+            x.price = _get_monthly_price(x.single_price, months)
+            
             x.quantity = 0
+            
             for y in BasketItem.objects.filter(basket=basket, monthly_order=True):
-                if x.price == y.item:
-                    x.quantity += y.quantity 
+                if x.single_price == y.item:
+                    x.quantity += y.quantity
+            
+            total_quantity += x.quantity 
                 
-        html = render_to_string('shop/snippets/products_monthly.html', {
-                'products': products, 
-                'months': months,
-                'currency': RequestContext(request)['currency'],
-                'request': request,
-                'weight_unit': RequestContext(request)['weight_unit'],
-                })
-        basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
-        monthly_amount = '%.2f' % float(RequestContext(request)['monthly_amount'])
-        data = {'html': html, 'basket_quantity': basket_quantity, 
-            'monthly_amount': monthly_amount, 'months': months,}
+        html = render_to_string('shop/snippets/products_long.html', {
+            'teas': products, 
+            'months': months,
+            'currency': RequestContext(request)['currency'],
+            'request': request,
+            'weight_unit': RequestContext(request)['weight_unit'],
+        })
+        total_quantity = '%s' % total_quantity
+        monthly_price = '%.2f' % float(RequestContext(request)['monthly_price'])
+        basket_amount = '%.2f' % float(RequestContext(request)['basket_amount'])
+        data = {
+            'html': html, 
+            'total_quantity': total_quantity, 
+            'monthly_amount': monthly_price, 
+            'months': months,
+            'basket_amount': basket_amount,
+        }
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
@@ -401,7 +535,10 @@ def _change_monthly_frequency(request, months):
 
 
 def weight_converter(weight):
-    weight = round((weight / 28.75), 1)
+    try:
+        weight = round((weight / 28.75), 1)
+    except TypeError:
+        pass
     return weight
     
 
@@ -422,7 +559,6 @@ def _internal_pages_list(request):
 
 def my_link_callback(uri, relative):
     path = os.path.join(settings.PROJECT_PATH, uri)
-    print path
     if not os.path.isfile(path):
         print "ARR! not a file", repr(path)
     else:

@@ -1,0 +1,73 @@
+{% load i18n thumbnail convert_weights %}
+
+<style type="text/css">
+
+.hr.xmas {
+  margin: 15px 0 20px 0   
+}
+
+#xmas {
+  padding: 0px 0 0 0; 
+  float: left;
+  width: 100%;  
+}
+
+#xmas .image {
+  float: left;  
+  margin: 0 40px 0 0; 
+}
+
+#xmas .text {
+  float: left;
+  margin: 0px 0 0 0;   
+}
+
+#xmas .text h2 {
+  color: #c01212;
+  font-size: 30px;   
+}
+
+#xmas .text .deal {
+  float: left;
+  width: 220px;
+  background: #e1e1e1;
+  height: 115px;
+  margin: 0 15px 0 0;   
+}
+
+#xmas .text .deal:last-child {
+  margin-right: 0;   
+}
+
+</style>
+
+
+<div id="xmas">
+	
+	<div class="image">
+	<img src="{{ static_url }}images/homepage/santa.jpg" />	
+	</div>
+	
+	
+	<div class="text">
+	
+	   <h2>{% trans 'Christmas deals' %}</h2>
+    
+        <div class="deal">
+        
+        </div>
+    
+        <div class="deal">
+        
+        </div>
+        
+        <div class="deal">
+        
+        </div>
+    
+    </div>
+    
+</div>
+
+<div class="hr xmas"></div>
+

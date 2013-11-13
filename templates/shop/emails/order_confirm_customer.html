@@ -1,0 +1,30 @@
+{% extends email_base_template %}
+{% load i18n %}
+
+{% block content %}
+{% blocktrans with order.owner.first_name|capfirst as fn and order.invoice_id as order_id %}
+<h1>Order confirmation</h1>
+<p><strong>Hi {{ fn }}</strong> - this is your order confirmation. Keep it for your records and just in case you need to contact us later about your order. Your order ID is: {{ order_id }}</p>{% endblocktrans %}
+                                                                
+<table id="details">
+    {% for x in items %}
+    <tr>
+        <td>
+            <strong>{{ item.quantity }} x {{ item.item.parent_product }} {% if item.weight %}({{ item.weight }}{{ weight_unit }}){% endif %}</strong><br/>{{ item.item.currency.symbol }}{{ item.item.price }} {% trans 'each' %}
+        </td>
+        <td>{{ item.item.currency.symbol }}{{ item.get_price }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td><strong>{% trans 'Postage' %}</strong></td>
+        <td>{{ order.get_currency.symbol }}{{ order.get_currency.postage_cost }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans 'TOTAL' %}</strong></td>
+        <td>{{ order.get_currency.symbol }}{{ order.get_amount }}</td>
+    </tr>
+</table>
+                                    
+<p>{% trans "Your order will be going in the post immediately! If you have any questions, just reply to this email and we'll usually respond within a few hours." %}</p>
+
+{% endblock %}

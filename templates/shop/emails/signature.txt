@@ -1,6 +1,0 @@
-{% load i18n %}{% blocktrans %}
-Chris West, 
-Founder - Min River Tea
-{{ site_url }}
-{% endblocktrans %}
-

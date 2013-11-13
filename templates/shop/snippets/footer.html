@@ -30,10 +30,8 @@
 	
     <div class="footer-box learn">
 		
-		<form action="{% url email_signup %}" method="post">
-	        <input type="text" name="email" id="id_email" title="{% trans 'Your email address' %}" class="clearMeFocus"/>
-	        <input type="submit" class="submit button green" value="{% trans 'Signup' %}" />
-        </form>
+		{% include 'shop/snippets/footer_email_signup.html' %}
+		
         <p>{% blocktrans %}Signup to get news and information about Chinese tea, tea culture and special offers from {{ site_name }}{% endblocktrans %}</p>
     </div>
 

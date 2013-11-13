@@ -81,7 +81,7 @@ function changeMonths() {
             $('a.changemonths').removeClass('selected');
             obj.addClass('selected');
             $('#products').html(data.html);
-            $('#userbasket #quantity .p').html(data.basket_quantity);
+            $('#userbasket #quantity .p').html(data.basket_amount);
             $('#subtotal .amount .num').html(data.monthly_amount);
             $('#subtotal .items .months').html(data.months);
             $('#loading').remove();
@@ -374,7 +374,7 @@ div.fb-recommend {
   font-size: 24px;
   font-weight:bold;  
   margin: 0 0 20px 0; 
-  color: #FF6569;
+  color: #D30000;
 }
 
 #recommended .text .price {
@@ -512,7 +512,7 @@ div.fb-recommend {
 
 #choose-months h3, #subtotal h3 {
   font-size: 15px;
-  color: #FF6569;
+  color: #D30000;
   margin: 10px 0 15px 0;   
 }
 
@@ -555,7 +555,7 @@ div.fb-recommend {
 }
 
 #choose-months ul li a:hover {
-  color: #FF6569;   
+  color: #D30000;   
 }
 
 #choose-months ul li a.selected {
@@ -582,11 +582,11 @@ div.fb-recommend {
 }
 
 #choose-months ul li a.selected:hover {
-  background: #FF6569;   
+  background: #D30000;   
 }
 
 #choose-months ul li a.selected:hover:before {
-  border-color: #FF6569 transparent -moz-use-text-color;   
+  border-color: #D30000 transparent -moz-use-text-color;   
 }
 
 #subtotal .amount {
@@ -605,7 +605,7 @@ div.fb-recommend {
     letter-spacing: -0.5px;
     margin: 0 0px 5px 0;
     position: relative;
-    color: #FF6569;
+    color: #D30000;
     width: 100%;
 }
 
@@ -632,7 +632,7 @@ div.fb-recommend {
 }
 
 #monthly .info.tea h4 a:hover {
-   color: #FF6569;   
+   color: #D30000;   
 }
 
 #monthly .info.tea .glass-text {
@@ -809,8 +809,8 @@ div.fb-recommend {
     	
     	<div id="subtotal">
     	   <h3>{% trans 'Your TeaBox subtotal is' %}</h3>
-    	   <div class="amount">{{ currency.symbol }}<span class="num">{{ monthly_amount|floatformat:"2" }}</span></div>
-    	   <div class="items"><span class="num">{{ monthly_items }}</span> {% trans 'items' %} / <span class="months">{{ months }}</span> {% trans 'months' %}</div>    	   
+    	   <div class="amount">{{ currency.symbol }}<span class="num">{{ monthly_price|floatformat:"2" }}</span></div>
+    	   <div class="items"><span class="num">{{ total_quantity }}</span> {% trans 'items' %} / <span class="months">{{ months }}</span> {% trans 'months' %}</div>    	   
     	</div>
     	
 	</div><!-- end top product info div -->

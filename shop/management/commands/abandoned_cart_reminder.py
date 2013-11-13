@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 # import various bits and pieces
 from shop.models import Order, Review
-from emailer.views import order_reminder_email, _admin_cron_update
+from emailer.views import abandoned_basket, _admin_cron_update
 from datetime import datetime, timedelta
 from django.db.models import Q
 
@@ -23,9 +23,7 @@ class Command(NoArgsCommand):
         
         # MAKE A LIST OF ORDERS THAT WERE MADE IN THE LAST DAY
         orders = Order.objects.filter(
-                date_confirmed__range=(start_date, end_date)
-            ).exclude(
-                invoice_id__startswith='WL'
+                date_confirmed__range=(start_date, end_date),
             ).order_by('-date_confirmed')
 
         # UNIQUE-IFY THE LIST AGAINST EMAIL ADDRESS SO WE ONLY HAVE THE MOST RECENT ONE
@@ -37,10 +35,10 @@ class Command(NoArgsCommand):
          
         # IF THE MOST RECENT ONE ISN'T PAID OR HASN'T RECEIVED AN EMAIL YET, THEN SEND THEM THE EMAIL
         for i in items:
-            if i.is_paid == False and i.reminder_email_sent == False:
-                order_reminder_email(i.id)
-                #order.reminder_email_sent = True
-                #order.save()
+            if not i.date_paid and i.reminder_email_sent == False:
+                abandoned_basket(i.id)
+                i.reminder_email_sent = True
+                i.save()
         
         
         if items:

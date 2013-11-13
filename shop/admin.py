@@ -28,6 +28,14 @@ class CategoryAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('invoice_id', 'is_paid', 'owner', 'notes',)
 
+class DealAdmin(admin.ModelAdmin):
+    filter_horizontal = ('items',)
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "items":
+             kwargs["queryset"] = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
+        return super(DealAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
+
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('product', 'email', 'is_published')
     
@@ -45,12 +53,12 @@ class UniqueProductAdmin(admin.ModelAdmin):
 admin.site.register(Currency)    
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Address)
+admin.site.register(Deal, DealAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Shopper)
 admin.site.register(UniqueProduct, UniqueProductAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Discount, DiscountAdmin)
-admin.site.register(Wishlist)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Review, ReviewAdmin)
 
