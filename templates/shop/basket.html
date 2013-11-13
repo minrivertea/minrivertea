@@ -92,11 +92,6 @@ $(document).ready( function() {
   float: left;
 }
 
-.basket-row.postage {
-  border-bottom: 1px dashed #e1e1e1;
-  padding-bottom: 10px;   
-}
-
 .basket-row.monthly h3 {
   float: left;
   width: 90%;
@@ -125,12 +120,8 @@ $(document).ready( function() {
   float: left;
 }
 
-.basket-row.postage div {
+.basket-row.postage div, .basket-row.discount div {
   height: auto;   
-}
-
-.basket-row.discount div {
-  height: auto;	
 }
 
 .basket-row ul {
@@ -161,7 +152,7 @@ $(document).ready( function() {
   text-decoration: line-through;	
 }
 
-.basket-row .tea-total, .basket-row .tea-weight, .basket-row.postage .tea-total, .basket-row.totals .tea-total, .basket-row .weight, .basket-row .tools, .basket-row .tea-quantity {
+.basket-row .tea-total, .basket-row .tea-weight, .basket-row.postage .tea-total, .basket-row.totals .tea-total, .basket-row .weight, .basket-row .tools, .basket-row .tea-quantity, .basket-row.discount .tea-total {
   float: left;
   display: block;
   height: 30%;
@@ -629,15 +620,13 @@ div#discount {
 		{% endif %}
 	</div>
 	
-	{% if code %}
+	{% if discount %}
 	<div class="basket-row discount">
 		<div class="tea-name">&nbsp;</div>
+		<div class="long">{% blocktrans with basket.discount_percent|floatformat:"-2" as percent %}You have entered a discount code worth {{ percent }}% off!{% endblocktrans %}</div>
+		<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}</span></div>
 		  
-		  	<div class="tea-weight">{% blocktrans %}You have entered a discount code worth {{ percent|floatformat }}% off!{% endblocktrans %}</div>
-		  	<div class="tea-quantity">&nbsp;</div>
-		  	<div class="tea-total"><span class="red">-{{ currency.symbol }}{{ value|floatformat:"-2" }}</span></div>
-		  
-		    {% if discount_message %}<span id="message" class="red">{{ discount_message }} - </span>{% endif %}
+		    {% if discount_message %}<span id="message" class="red">{{ basket.discount_message }} - </span>{% endif %}
 	</div>
     {% endif %}
 	
@@ -653,6 +642,7 @@ div#discount {
 
 	<br clear="all"/>
 	
+	{% if not discount %}
     <div id="discount">
         <span id="link">{% trans 'Got a discount code?' %}</span>
         <form action="." method="post">
@@ -661,6 +651,7 @@ div#discount {
             <a href="" id="cancel">{% trans 'Cancel' %}</a>
 		</form>
 	</div>
+	{% endif %}
 	
  	<div id="checkout-button">		
     	<a class="button green" href="{% url order_step_one %}">{% trans 'Start checkout now' %} &raquo;</a>
