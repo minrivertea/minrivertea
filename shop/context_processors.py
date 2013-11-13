@@ -78,6 +78,8 @@ def common(request):
     try:
         context['basket_quantity'] = request.session['BASKET_QUANTITY']
         context['basket_amount'] = request.session['BASKET_AMOUNT']
+        ontext['monthly_price'] = basket['monthly_price'] 
+        context['monthly_items'] = basket['monthly_items']
     except:
         basket = _get_basket_value(request)
         context['basket_quantity'] = basket['basket_quantity']

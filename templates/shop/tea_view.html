@@ -458,13 +458,19 @@ a.button.red:hover {
 #stocks div {
   float: left;
   width: auto;
-  text-align: center;
+  padding: 0 10px;
+  text-align: left;
   color: #555; 
   border-right: 1px solid #e1e1e1;   
 }
 
+#stocks div:first-child {
+  padding-left: 0;   
+}
+
 #stocks div:last-child {
-  border-right: none;   
+  border-right: none; 
+  padding-right: 0;  
 }
 
 #stocks strong {
@@ -884,7 +890,12 @@ ul.rss {
 	    
 	    <div id="stocks"> 
 		
-		  <div class="postage-cost">{% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}</div>       
+		  <div class="postage-cost">
+		      {% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}
+		  </div>
+		  <div>
+		      <a href="{% url monthly_tea_box %}">{% trans 'Want your tea delivered monthly?' %}</a>
+		  </div>       
 		
 		</div>
 	    

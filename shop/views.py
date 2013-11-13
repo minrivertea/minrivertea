@@ -191,32 +191,39 @@ def product_by_id(request, id):
 
 
 def monthly_tea_box(request):
-    
+        
     product = get_object_or_404(Product, slug=_('monthly-tea-box'))
+    
     products = Product.objects.filter(category__parent_category__slug=_('teas'), 
         is_active=True).exclude(name__icontains=_("taster"))
+        
     basket_items = BasketItem.objects.filter(basket=_get_basket(request))
+    
     
     try:
         months = int(request.session['MONTHS'])
     except:
         months = settings.TEABOX_DEFAULT_MONTHS
     
-    total_quantity = 0
     
+    total_quantity = 0    
     for x in products:
+        
         x.single_price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
         
         try:
-            x.monthly_price = _get_monthly_price(x.single_price, months)
+            x.price = _get_monthly_price(x.single_price, months)
         except:
-            x.monthly_price = None
+            x.price = None
+        
             
         x.quantity = 0
         for y in basket_items:
             if x.single_price == y.item:
                 x.quantity += y.quantity
                 total_quantity += 1
+        
+        
         
         
     
@@ -279,6 +286,7 @@ def add_to_basket(request, id):
 
 
 def add_to_basket_monthly(request, productID, months):
+    
     uproduct = get_object_or_404(UniqueProduct, id=productID)
     basket = _get_basket(request)
    
@@ -292,8 +300,8 @@ def add_to_basket_monthly(request, productID, months):
     item.save()
     
     if request.is_ajax():
-        basket_quantity = '%.2f' % float(RequestContext(request)['basket_amount'])
-        monthly_amount = '%.2f' % float(RequestContext(request)['monthly_amount'])
+        basket_quantity = '%.2f' % float(_get_basket_value(request)['basket_quantity'])
+        monthly_price = '%.2f' % float(_get_basket_value(request)['monthly_price'])
         
         from shop.templatetags.convert_weights import convert_weights
         weight = convert_weights(request, item.item.weight)
@@ -307,7 +315,7 @@ def add_to_basket_monthly(request, productID, months):
         
 
         
-        data = {'basket_quantity': basket_quantity, 'monthly_amount': monthly_amount, 'message': message,}
+        data = {'basket_quantity': basket_quantity, 'monthly_price': monthly_price, 'message': message,}
         json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
         return HttpResponse(json)
     
@@ -729,7 +737,6 @@ def order_complete(request):
     # TRY TO GET THEIR ORDER INFORMATION FROM A COOKIE
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
-        request.session['ORDER_ID'] = None
     except:
         pass
     
@@ -737,12 +744,6 @@ def order_complete(request):
     from shop.utils import _empty_basket  
     _empty_basket(request)
     
-    # REMOVE THEIR AFFILIATE KEY SO THAT IT DOESN'T KEEP REGISTERING SALES AGAINST THIS LEAD.
-    try:
-        request.session[settings.AFFILIATE_SESSION_KEY] = None 
-    except:
-        pass
-
     return _render(request, "shop/order_complete.html", locals())
 
 def order_complete_fake(request):
