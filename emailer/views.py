@@ -59,7 +59,7 @@ def _send_email(recipient, subject_line, template, extra_context=None, sender=No
     if sender:
         sender = sender
     else:
-        sender = settings.DEFAULT_FROM_EMAIL
+        sender = settings.SITE_EMAIL
         
     # CHECK IF THERE'S AN HTML TEMPLATE?
     text_content = render_to_string(template, context)
