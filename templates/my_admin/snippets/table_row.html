@@ -72,10 +72,6 @@
 	   {% if order.status == 'shipped' %}
 		  {% if order.review_email_sent %}
 		     review email sent
-		  {% else %}
-		    {% if order.ready_to_send_review %}
-			     <a href="{% url send_review_email order.id %}">Send review email</a>
-			    {% endif %}
 		  {% endif %}
 		{% endif %}
 		<br/>
