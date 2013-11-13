@@ -48,7 +48,7 @@ function addToBasket() {
                 $('#userbasket').addClass('selected');
                 $('#userbasket #quantity').append('<br/><a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
             }
-            $('#quantity .p').text(parseFloat(data.basket_quantity).toFixed(2));
+            $('#quantity .p').text(parseFloat(data.basket_value).toFixed(2));
             $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
             
             /// increment the monthly-box-total
