@@ -620,7 +620,7 @@ div#discount {
 		{% endif %}
 	</div>
 	
-	{% if discount %}
+	{% if basket.discount %}
 	<div class="basket-row discount">
 		<div class="tea-name">&nbsp;</div>
 		<div class="long">{% blocktrans with basket.discount_percent|floatformat:"-2" as percent %}You have entered a discount code worth {{ percent }}% off!{% endblocktrans %}</div>
@@ -642,7 +642,7 @@ div#discount {
 
 	<br clear="all"/>
 	
-	{% if not discount %}
+	{% if not basket.discount %}
     <div id="discount">
         <span id="link">{% trans 'Got a discount code?' %}</span>
         <form action="." method="post">
