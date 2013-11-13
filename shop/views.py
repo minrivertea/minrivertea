@@ -222,6 +222,7 @@ def contact_form_submit(request, xhr=None):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
+            from emailer.views import _admin_notify_contact
             _admin_notify_contact(form.cleaned_data)
             return _render(request, 'shop/forms/contact_form_thanks.html', locals())
         else:
