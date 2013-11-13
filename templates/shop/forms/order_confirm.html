@@ -238,7 +238,7 @@ p.skip {
 				
 	<div id="items">
 		<table>
-			{% for thing in single_items %}
+			{% for thing in basket.single_items %}
 				  <tr>				
 			    	<td valign="top">
 			    		<strong>{{ thing.item.parent_product.name }}
@@ -249,11 +249,11 @@ p.skip {
 				  </tr>
 	        {% endfor %}
 	        
-	        {% if monthly_items %}
+	        {% if basket.monthly_items %}
 	        <tr>
 	           <td valign="top">
 	               <strong>{% trans 'Monthly Box' %}</strong><br/>
-	                    {% for thing in monthly_items %}
+	                    {% for thing in basket.monthly_items %}
 			    		&nbsp;&nbsp;&nbsp;&nbsp;{{ thing.item.parent_product.name }} 
 			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
 			    		x {{ thing.quantity }}<br/>
@@ -261,7 +261,7 @@ p.skip {
 			    	</td>
 			    	<td valign="top">
 			    	     &nbsp;<br/>
-			    	     {% for thing in monthly_items %}
+			    	     {% for thing in basket.monthly_items %}
 			    	     {{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}	<br/>
 			    	     {% endfor %}	    				
 			    	 </td>
@@ -282,12 +282,12 @@ p.skip {
 	        {% if order.discount %}
 	      	  <tr>
 	      	  	<td>{% trans 'Discount' %}</td>
-	      	  	<td>-{{ currency.symbol }}{{ discount|floatformat:"2" }}</td>
+	      	  	<td>-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}</td>
 	      	  </tr>
 	      	{% endif %}
 			  <tr>
 			  	<td><strong>{% trans 'TOTAL' %}</strong></td>
-			  	<td><strong>{{ currency.symbol }}{{ total_price|floatformat:"2" }}</strong></td>		  
+			  	<td><strong>{{ currency.symbol }}{{ basket.total_price|floatformat:"2" }}</strong></td>		  
 			  </tr>
 		   </table>
 	</div>

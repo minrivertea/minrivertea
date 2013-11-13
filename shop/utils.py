@@ -98,8 +98,87 @@ def _empty_basket(request):
         request.session['BASKET_ID'] = None
     except:
         pass
+    try:
+        request.session['ORDER_ID'] = None
+    except:
+        pass
+        
+    try:
+        request.session['BASKET_QUANTITY'] = basket_quantity
+        request.session['BASKET_AMOUNT'] = total_price
+    except:
+        pass
+    
+    try:
+        request.session['DISCOUNT_ID'] = None
+    except:
+        pass
     
     return None
+
+
+def _check_offers(items):
+    """ 
+    Accepts a list of BasketItems, and returns a list of items
+    probably with altered prices.
+    """
+        
+    # VARIABLES FOR THE DEALS
+    tea_count = 0
+    teaware_count = 0
+    
+    # FIRST WE COUNT EACH ITEM    
+    for x in items:
+        if x.item.parent_product.get_root_category().slug == _('teas'):
+            tea_count += x.quantity
+        
+        if x.item.parent_product.get_root_category().slug == _('teaware'):
+            teaware_count += x.quantity
+    
+    
+    # NOW WE CHECK EACH OFFER:
+    
+    offer1 = 0 # tea plus teaware
+    while tea_count > 0 and teaware_count > 0:
+        offer1 += 1
+        tea_count -= 1
+        teaware_count -= 1
+            
+    
+    offer2 = 0 # three for two 
+    while tea_count > 2:
+        offer2 += 1
+        tea_count -= 3
+        
+        
+    # NOW ACTUALLY APPLY THE OFFERS
+    for x in items:
+        if x.item.parent_product.get_root_category().slug == _('teas'):
+            
+            # HANDLES TEA + TEAWARE
+            if offer1 > 0:
+                x.deal = 'tnt'
+                x.deal_target = True
+                pr = x.item.price
+                q = x.quantity                        
+                x.item.price = (float(pr)/q) * (0.85+(q-1))
+                offer1 -= 1
+                has_offers = True
+                continue
+            
+            # HANDLES THREE FOR TWO
+            if offer2 > 0:
+                x.deal = '342'                       
+                x.deal_target = True
+                if x.quantity == 1:
+                    x.item.price = 0
+                else:
+                    x.item.price = (x.item.price / x.quantity) * (x.quantity-1)                        
+                offer2 -= 1
+                has_offers = True
+                continue
+                
+    return items
     
  
 def _get_basket_value(request, simple=False, order=None, discount=None):
@@ -130,62 +209,10 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
    
     
     has_offers = False
-    if settings.DEBUG == True:
     
-        # VARIABLES FOR THE DEALS
-        tea_count = 0
-        teaware_count = 0
-        
-        # FIRST WE COUNT EACH ITEM    
-        for x in single_items:
-            if x.item.parent_product.get_root_category().slug == _('teas'):
-                tea_count += x.quantity
-            
-            if x.item.parent_product.get_root_category().slug == _('teaware'):
-                teaware_count += x.quantity
-        
-        
-        # NOW WE CHECK EACH OFFER:
-        
-        offer1 = 0 # tea plus teaware
-        while tea_count > 0 and teaware_count > 0:
-            offer1 += 1
-            tea_count -= 1
-            teaware_count -= 1
-                
-        
-        offer2 = 0 # three for two 
-        while tea_count > 2:
-            offer2 += 1
-            tea_count -= 3
-            
-            
-        # NOW ACTUALLY APPLY THE OFFERS
-        for x in single_items:
-            if x.item.parent_product.get_root_category().slug == _('teas'):
-                
-                # HANDLES TEA + TEAWARE
-                if offer1 > 0:
-                    x.deal = 'tnt'
-                    x.deal_target = True
-                    pr = x.item.price
-                    q = x.quantity                        
-                    x.item.price = (float(pr)/q) * (0.85+(q-1))
-                    offer1 -= 1
-                    has_offers = True
-                    continue
-                
-                # HANDLES THREE FOR TWO
-                if offer2 > 0:
-                    x.deal = '342'                       
-                    x.deal_target = True
-                    if x.quantity == 1:
-                        x.item.price = 0
-                    else:
-                        x.item.price = (x.item.price / x.quantity) * (x.quantity-1)                        
-                    offer2 -= 1
-                    has_offers = True
-                    continue
+    # CHECK FOR OFFERS
+    if settings.DEBUG == False:
+        _check_offers(single_items)
     
     # WORK OUT THE TOTAL PRICE
     total_price = 0

@@ -5,10 +5,17 @@ This is your order confirmation. Keep it for your records and just in case you n
 
 ----------------------------------------------------------------------------------
 {% for item in items %}
-    {{ item.quantity }} x {{ item.item.parent_product }} {% if item.weight %}({{ item.weight }}{{ weight_unit }}){% endif %}
+    {{ item.quantity }} x {{ item.item.parent_product }} {% if item.weight %}({{ item.weight }}{{ weight_unit }}){% endif %}               
+    {{ item.item.price|floatformat:"2" }}
 {% endfor %}
+    {% if postage_discount %}{% blocktrans with order.get_currency.symbol as symbol and order.get_currency.postage_discount_threshold as ptd %}There is no postage charge, because your order is over {{ symbol }}{{ ptd }}{% endblocktrans %}{% else %}{% trans 'Postage' %}
+    {{ order.get_currency.symbol }}{{ order.get_currency.postage_cost|floatformat:"2" }}
+    {% endif %}
+    {% if order.discount %}{% trans 'Discount' %}
+    -{{ order.currency.symbol }}{{ discount_value|floatformat:"2" }}
+    {% endif %}
 ----------------------------------------------------------------------------------
-    {% trans 'TOTAL' %}                     {{ order.get_amount }} {{ order.get_currency.code }}
+    {% trans 'TOTAL' %}                     {{ order.get_amount|floatformat:"2" }} {{ order.get_currency.code }}
 ----------------------------------------------------------------------------------
 
 Your order will be going in the post immediately - if you have any questions, just reply to this email and we'll usually respond within a few hours.

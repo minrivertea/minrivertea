@@ -692,23 +692,8 @@ def order_confirm(request):
     order_items = order.items.all() 
         
     basket = _get_basket_value(request, order=order)
-    single_items = basket['single_items']
-    monthly_items = basket['monthly_items']
-    total_price = basket['total_price']
     
-    
-    if request.method == 'POST': 
-        form = OrderCheckDetailsForm(request.POST)
-        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
-        basket.delete()
-        new_basket = Basket.objects.create(owner=shopper, date_modified=datetime.now())
-        request.session['BASKET_ID'] = new_basket.id
-        
-        return False
-        
-        
-    else:
-        form = PayPalPaymentsForm()
+    form = PayPalPaymentsForm()
 
     return _render(request, 'shop/forms/order_confirm.html', locals())
    
@@ -735,6 +720,7 @@ def fake_checkout(request, order_id):
     
     from shop.utils import _empty_basket
     _empty_basket(request)
+    
 
     return HttpResponseRedirect(reverse('order_complete'))    
     

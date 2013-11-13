@@ -617,12 +617,12 @@ def show_me_the_money(sender, **kwargs):
         return
     
     if ipn_obj.flag == True:
-        # SEND THE EMAILS FIRST !IMPORTANT!
-        from emailer.views import _payment_success_email 
-        _payment_success_email(order)
+        from emailer.views import _payment_flagged
+        _payment_flagged(order)
     else:
-        from emailer.views import _payment_flagged_email
-        _payment_flagged_email(order)
+        from emailer.views import _payment_success 
+        _payment_success(order)
+        
         
     
     # NOW CREATE A CUSTOMER PACKAGE
