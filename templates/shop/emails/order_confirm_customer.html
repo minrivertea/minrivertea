@@ -37,7 +37,7 @@
     {% if order.discount %}
     <tr>
         <td><strong>{% trans 'Discount' %}</strong></td>
-        <td>-{{ order.currency.symbol }}{{ discount_value|floatformat:"2" }}</td>
+        <td>-{{ order.get_currency.symbol }}{{ discount_value|floatformat:"2" }}</td>
     
     </tr>
     {% endif %}
