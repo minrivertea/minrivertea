@@ -221,7 +221,7 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
     has_offers = False
     
     # CHECK FOR OFFERS
-    if settings.DEBUG == False:
+    if settings.DEBUG == True:
         _check_offers(single_items)
     
     # WORK OUT THE TOTAL PRICE
