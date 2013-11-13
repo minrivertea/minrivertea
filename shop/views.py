@@ -683,8 +683,8 @@ def order_confirm(request):
    
         
     try:
-        order = Order.objects.get(id=request.session['ORDER_ID'])
-    except KeyError:
+        order = get_object_or_404(Order, id=request.session['ORDER_ID'])
+    except:
         problem = _("You don't have any items in your basket, so you can't process an order!")
         return _render(request, 'shop/order-problem.html', locals())
         

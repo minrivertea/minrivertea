@@ -12,7 +12,7 @@ This is your order confirmation. Keep it for your records and just in case you n
     {{ order.get_currency.symbol }}{{ order.get_currency.postage_cost|floatformat:"2" }}
     {% endif %}
     {% if order.discount %}{% trans 'Discount' %}
-    -{{ order.currency.symbol }}{{ discount_value|floatformat:"2" }}
+    -{{ order.get_currency.symbol }}{{ discount_value|floatformat:"2" }}
     {% endif %}
 ----------------------------------------------------------------------------------
     {% trans 'TOTAL' %}                     {{ order.get_amount|floatformat:"2" }} {{ order.get_currency.code }}
