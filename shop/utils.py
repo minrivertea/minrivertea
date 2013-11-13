@@ -102,7 +102,7 @@ def _empty_basket(request):
     return None
     
  
-def _get_basket_value(request, simple=False, order=None):
+def _get_basket_value(request, simple=False, order=None, discount=None):
     
     
     if simple:
@@ -117,6 +117,10 @@ def _get_basket_value(request, simple=False, order=None):
     if order:
         single_items = order.items.exclude(monthly_order=True)
         monthly_items = order.items.filter(monthly_order=True)
+        try:
+            discount = order.discount
+        except:
+            pass
     else:
         basket = _get_basket(request)
         single_items = BasketItem.objects.filter(basket=basket).exclude(monthly_order=True).order_by(
@@ -130,6 +134,7 @@ def _get_basket_value(request, simple=False, order=None):
         # VARIABLES FOR THE DEALS
         tea_count = 0
         teaware_count = 0
+        has_offers = False
         
         # FIRST WE COUNT EACH ITEM    
         for x in single_items:
@@ -167,6 +172,7 @@ def _get_basket_value(request, simple=False, order=None):
                     q = x.quantity                        
                     x.item.price = (float(pr)/q) * (0.85+(q-1))
                     offer1 -= 1
+                    has_offers = True
                     continue
                 
                 # HANDLES THREE FOR TWO
@@ -178,8 +184,8 @@ def _get_basket_value(request, simple=False, order=None):
                     else:
                         x.item.price = (x.item.price / x.quantity) * (x.quantity-1)                        
                     offer2 -= 1
+                    has_offers = True
                     continue
-
     
     # WORK OUT THE TOTAL PRICE
     total_price = 0
@@ -205,13 +211,19 @@ def _get_basket_value(request, simple=False, order=None):
             postage_discount = True
         else:
             total_price += currency.postage_cost
-            
-        
-    # IS THERE ANY DISCOUNT?
-    #if order.discount:
-    #    value = total_price * order.discount.discount_value
-    #    percent = order.discount.discount_value * 100
-    #    total_price -= value
+    
+    # WORK OUT ANY DISCOUNTS
+    if discount == None:
+        try:
+            discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
+        except:
+            pass
+                    
+    
+    if discount and has_offers == False:
+        discount_value = float(total_price) * float(discount.discount_value)
+        discount_percent = float(discount.discount_value * 100)
+        total_price -= discount_value
     
     
     # LASTLY, STORE SIMPLE VARIABLES IN SESSION

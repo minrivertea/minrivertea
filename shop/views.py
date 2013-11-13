@@ -366,28 +366,26 @@ def increase_quantity(request, basket_item):
 def basket(request):
     
     # GET THE VALUE OF THE BASKET 
-    basket = _get_basket_value(request)
+    
     
     if request.method == 'POST':
         form = UpdateDiscountForm(request.POST)
         if form.is_valid():
             try:
-                code = get_object_or_404(Discount,
+                discount = get_object_or_404(Discount,
                     discount_code=form.cleaned_data['discount_code'], 
                     is_active=True)
             except:
-                code = None
+                discount = None
                 
-            if code:
-               value = float(basket['total_price']) * float(code.discount_value)
-               percent = code.discount_value * 100
-               total_price -= value
-               request.session['DISCOUNT_ID'] = code.id
+            if discount:
+               request.session['DISCOUNT_ID'] = discount.id
             else:
-                discount_message = _("Sorry, that's not a valid discount code!")
-            return _render(request, "shop/basket.html", locals())
+                discount_error_message = _("Sorry, that's not a valid discount code!")
     
     
+    basket = _get_basket_value(request, discount=discount)
+       
     form = UpdateDiscountForm()
     return _render(request, "shop/basket.html", locals())
 
