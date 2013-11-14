@@ -51,8 +51,7 @@
 		<input type="hidden" name="invoice" value="{{ order.invoice_id }}" id="id_invoice" >
 		
 		
-		{% if postage_discount %}
-		{% else %}
+		{% if not basket.postage_discount %}
 		<input type="hidden" name="item_name_1" value="{% trans 'Postage Standard Rate' %}"> 
 		<input type="hidden" name="quantity_1" value="1">
 		<input type="hidden" name="amount_1" value="{{ currency.postage_cost|floatformat:'2' }}">
