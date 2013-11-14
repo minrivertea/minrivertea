@@ -242,11 +242,12 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
         basket_quantity += item.quantity
     
     # APPLY THE POSTAGE COSTS
-    currency = _get_currency(request)
-    if total_price > currency.postage_discount_threshold:
-        postage_discount = True
-    else:
-        total_price += currency.postage_cost
+    if total_price > 0:
+        currency = _get_currency(request)
+        if total_price > currency.postage_discount_threshold:
+            postage_discount = True
+        else:
+            total_price += currency.postage_cost
     
     # WORK OUT ANY DISCOUNTS
     if discount == None:

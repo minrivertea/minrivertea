@@ -135,11 +135,10 @@
 				/*@editable*/ background-color:#fff;
 			}
 
-			/**
-			* @tab Header
-			* @section header text
-			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
-			*/
+a:link, a:visited, a {
+  color: #2A8531;   
+}
+			
 .headerContent {
     border-bottom: 1px dashed #E1E1E1;
     color: #202020;
@@ -177,15 +176,11 @@
   color: #D30000;   
 }
 
-			/**
-			* @tab Header
-			* @section header link
-			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
-			*/
-			.headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
+
+.headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
    			   color: #2A8531;
-				/*@editable*/ font-weight:200;
-				/*@editable*/ text-decoration:none;
+			   font-weight:200;
+			   text-decoration:none;
 			}
 			
 			.headerContent a:hover, .headerContent a:active {
@@ -209,13 +204,6 @@
                 text-transform: uppercase;
             }
 
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: MAIN BODY /\/\/\/\/\/\/\/\/\/\ */
-
-			/**
-			* @tab Body
-			* @section body style
-			* @tip Set the background color for your email's body area.
-			*/
 			#templateContainer, .bodyContent{
 				/*@editable*/ background-color:#FFFFFF;
 				margin-top: 40px;
@@ -266,12 +254,7 @@
 			  padding: 5px 0 0;
 			}
 
-			/**
-			* @tab Body
-			* @section body text
-			* @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
-			* @theme main
-			*/
+
 			.bodyContent div{
 				/*@editable*/ color:#505050;
 				/*@editable*/ font-family:Arial;
@@ -280,22 +263,13 @@
 				/*@editable*/ text-align:left;
 			}
 
-			/**
-			* @tab Body
-			* @section body link
-			* @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
-			*/
 			.bodyContent div a:link, .bodyContent div a:visited, /* Yahoo! Mail Override */ .bodyContent div a .yshortcuts /* Yahoo! Mail Override */{
 				/*@editable*/ color: #2A8531;
 				/*@editable*/ font-weight:normal;
 				/*@editable*/ text-decoration:none;
 			}
 
-			/**
-			* @tab Body
-			* @section button style
-			* @tip Set the styling for your email's button. Choose a style that draws attention.
-			*/
+
 			.templateButton{
 				-moz-border-radius:3px;
 				-webkit-border-radius:3px;
@@ -305,11 +279,7 @@
 				border-radius:3px;
 			}
 
-			/**
-			* @tab Body
-			* @section button style
-			* @tip Set the styling for your email's button. Choose a style that draws attention.
-			*/
+
 			.templateButton, .templateButton a:link, .templateButton a:visited, /* Yahoo! Mail Override */ .templateButton a .yshortcuts /* Yahoo! Mail Override */{
 				/*@editable*/ color:#FFFFFF;
 				/*@editable*/ font-family:Arial;
@@ -327,14 +297,6 @@
 				height:auto;
 			}
 
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: FOOTER /\/\/\/\/\/\/\/\/\/\ */
-
-			/**
-			* @tab Footer
-			* @section footer style
-			* @tip Set the background color and top border for your email's footer area.
-			* @theme footer
-			*/
 			#templateFooter{
 				/*@editable*/ background-color:#fff;
 				/*@editable*/ border-top: 1px dashed #e1e1e1;
@@ -353,12 +315,7 @@
 			  color: #FF6569;
 			}
 
-			/**
-			* @tab Footer
-			* @section footer text
-			* @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
-			* @theme footer
-			*/
+
 			.footerContent div{
 				/*@editable*/ color:#707070;
 				/*@editable*/ font-family:Arial;
@@ -367,11 +324,6 @@
 				/*@editable*/ text-align:center;
 			}
 
-			/**
-			* @tab Footer
-			* @section footer link
-			* @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
-			*/
 			.footerContent div a:link, .footerContent div a:visited, /* Yahoo! Mail Override */ .footerContent div a .yshortcuts /* Yahoo! Mail Override */{
 				/*@editable*/ color:#E9886C;
 				/*@editable*/ font-weight:normal;
@@ -382,22 +334,13 @@
 				display:inline;
 			}
 
-			/**
-			* @tab Footer
-			* @section utility bar style
-			* @tip Set the background color and border for your email's footer utility bar.
-			* @theme footer
-			*/
+
 			#utility{
 				/*@editable*/ background-color:#FFFFFF;
 				/*@editable*/ border:0;
 			}
 
-			/**
-			* @tab Footer
-			* @section utility bar style
-			* @tip Set the background color and border for your email's footer utility bar.
-			*/
+
 			#utility div{
 				/*@editable*/ text-align:center;
 			}
@@ -430,7 +373,7 @@
                                             
                                                 <ul>
                                                     <li>
-                                                        <a href="{% url finder _('teas') %}">
+                                                        <a style="font-size:18px;font-weight: normal; color: #2A8531;" href="{% url finder _('teas') %}">
                                                             {% trans 'Chinese teas' %}
                                                         </a>
                                                     </li>
