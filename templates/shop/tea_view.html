@@ -837,19 +837,18 @@ ul.rss {
       {% if tea.is_active %}
         {% for price in prices %}
           <div id="price_{{ price.id }}" class="price{% if price.is_sale_price %} sale{% endif %}{% if price.stocks.count < 1 %} out-of-stock{% endif %}">
-		    <div class="price-inner">	
+          
+		    <div class="price-inner">
+		    	
               <div class="price-description">
-                <span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span> 
-                <span class="weight"> / {% if price.weight %}{% convert_weights request price.weight %}{{ weight_unit }}{% else %}{{ price.description }}{% endif %} 
+                <span class="amount">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span>                 
+                <span class="weight">{% if price.weight %} / {% convert_weights request price.weight %}{{ weight_unit }}{% else %} / {{ price.description }}{% endif %} 
                 </span>
-                
                 {% if price.is_sale_price %}
                     <span class="warning">
             		      Was {{ currency.symbol }}{{ price.old_price|floatformat:"-2" }}, save {{ currency.symbol }}{{ price.get_saving|floatformat:"-2" }} {% if price.stocks.count < 1 %}<br/>{% endif %}
                     </span>  
-                {% endif %}   
-             
-              
+                {% endif %}                
               </div>
               
               
@@ -858,9 +857,11 @@ ul.rss {
                 <span class="out-of-stock">Out of stock!</span>
               {% endif %}
               
+              
               {% if price.stocks.preorder %}
                  <a class="button red small" id="{{ price.id }}" href="{% url add_to_basket price.id %}"><span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Click to Preorder Now' %}</span></a>
               {% endif %}
+              
               
               {% if price.stocks.available %}
                     <a href="{% url add_to_basket price.id %}" class="button green" id="{{ price.id }}">{% trans 'Add to basket' %}</a>
@@ -868,17 +869,16 @@ ul.rss {
               
               
               {% if price.special_shipping_time %}
-              
-              <p class="special-shipping-time">
-              {% blocktrans with price.special_shipping_time as sst %}
-              Please note, shipping this item takes <strong>{{ sst }} days
-              {% endblocktrans %}
-              {% if price.special_shipping_price %}
-              {% blocktrans with price.special_shipping_price as ssp and currency.symbol as curr %}
-              </strong> and carries an extra <strong>{{ curr }}{{ ssp }}</strong> shipping charge.
-              {% endblocktrans %}
-              {% endif %}
-              </p>
+                <p class="special-shipping-time">
+                {% blocktrans with price.special_shipping_time as sst %}
+                Please note, shipping this item takes <strong>{{ sst }} days
+                {% endblocktrans %}
+                {% if price.special_shipping_price %}
+                {% blocktrans with price.special_shipping_price as ssp and currency.symbol as curr %}
+                </strong> and carries an extra <strong>{{ curr }}{{ ssp }}</strong> shipping charge.
+                {% endblocktrans %}
+                {% endif %}
+                </p>
               {% endif %}
               
             
