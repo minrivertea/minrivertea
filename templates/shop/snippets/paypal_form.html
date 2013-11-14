@@ -58,7 +58,7 @@
 		<input type="hidden" name="amount_1" value="{{ currency.postage_cost|floatformat:'2' }}">
 		{% endif %}
 		 
-		 {% if postage_discount %}
+		 {% if basket.postage_discount %}
 	 		 {% for thing in order_items %}
 				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{% if thing.monthly_order %}(Monthly Box : {{ thing.months }} months) {% endif %}{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %} x {{ thing.quantity }}"> 
 				<input type="hidden" name="quantity_{{ forloop.counter }}" value="1">

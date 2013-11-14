@@ -704,7 +704,7 @@ def order_confirm(request):
     order_items = order.items.all() 
         
     basket = _get_basket_value(request, order=order)
-    
+   
     form = PayPalPaymentsForm()
 
     return _render(request, 'shop/forms/order_confirm.html', locals())
