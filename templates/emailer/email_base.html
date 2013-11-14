@@ -357,20 +357,14 @@ a {
                                         <tr>
                                             <td class="headerContent">
                                             
+                                                
+                                            
+                                            
                                             	<!-- // Begin Module: Standard Header Image \\ -->
                                             	<img src="{{ site_url }}/static/images/logo_email.jpg" style="max-width:600px;" id="headerImage campaign-icon" alt="{{ site_name }}" />
                                             	<!-- // End Module: Standard Header Image \\ --> 
                                             
-                                                <ul>
-                                                    <li>
-                                                        <a href="{% url finder _('teas') %}">
-                                                            {% trans 'Chinese teas' %}
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="{% url finder _('teaware') %}">{% trans 'Teaware' %}</a></li>
-                                                    <li><a href="{% url finder _('about') %}">{% trans 'About us' %}</a></li>
-                                                </ul>
-                                            
+                                                
                                             </td>
                                             
                                             
@@ -414,8 +408,11 @@ a {
                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateFooter">
                                    <tr>
                                    <td style="">
-                                    &copy; 2013 <a href="{{ site_url }}">{{ site_name }}</a>
-                                   
+                                    &copy; 2013 <a href="{{ site_url }}">{{ site_name }}</a> | 
+                                    <a href="{% url finder _('teas') %}">{% trans 'Chinese teas' %}</a> | 
+                                    <a href="{% url finder _('teaware') %}">{% trans 'Teaware' %}</a> | 
+                                    <a href="{% url finder _('about') %}">{% trans 'About us' %}</a>
+                                                                       
                                    </td>
                                     </tr>
                                     </table>
