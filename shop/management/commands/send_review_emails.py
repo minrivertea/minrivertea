@@ -13,17 +13,19 @@ class Command(NoArgsCommand):
         # GET ALL CUSTOMER PACKAGES THAT HAVE BEEN SHIPPED BETWEEN 
         # 2-4 WEEKS AGO AND HAVEN'T RECEIVED A REVIEW EMAIL YET
         items = []
-        two_weeks = (datetime.now() - timedelta(days=14))        
+        three_weeks = (datetime.now() - timedelta(days=21))        
         four_weeks = (datetime.now() - timedelta(days=28))
-        for package in CustomerPackage.objects.filter(
-            posted__range=(four_weeks, two_weeks),
+        packages = CustomerPackage.objects.filter(
+            posted__range=(four_weeks, three_weeks),
             review_email_sent__isnull=True,
-        ):
+        )
+                
+        for p in packages:
              
             # SEND THE EMAIL AND UPDATE THE PACKAGE 
-            product_review(package.order.id)
-            package.review_email_sent = datetime.now()
-            package.save()
+            product_review(p.order)
+            p.review_email_sent = datetime.now()
+            p.save()
             items.append(package)
         
         # SEND A LIST OF REVIEW EMAILS SENT TO ADMIN
