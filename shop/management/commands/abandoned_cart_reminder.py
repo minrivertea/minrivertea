@@ -15,17 +15,17 @@ class Command(NoArgsCommand):
         
         # SET A DATE RANGE OF 1 DAY
         start_date = (datetime.now() - timedelta(days=1)) 
-        end_date = datetime.now() # now
-        
-        
+        end_date = datetime.now()
+                
         seen = {}
         items = []
         
-        # MAKE A LIST OF ORDERS THAT WERE MADE IN THE LAST DAY
+        # MAKE A LIST OF ORDERS THAT WERE MADE IN THE LAST DAY (PAID OR NOT, WE DON'T CARE)
         orders = Order.objects.filter(
-                date_confirmed__range=(start_date, end_date),
-            ).order_by('-date_confirmed')
+            date_confirmed__range=(start_date, end_date),
+        ).order_by('-date_confirmed')
 
+        
         # UNIQUE-IFY THE LIST AGAINST EMAIL ADDRESS SO WE ONLY HAVE THE MOST RECENT ONE
         for o in orders:
             marker = o.owner.email
@@ -33,16 +33,26 @@ class Command(NoArgsCommand):
             seen[marker] = 1
             items.append(o) 
          
-        # IF THE MOST RECENT ONE ISN'T PAID OR HASN'T RECEIVED AN EMAIL YET, THEN SEND THEM THE EMAIL
+                
+        # NOW WE HAVE THE MOST RECENT ORDER. IF IT ISN'T PAID, AND HASNT ALREADY 
+        # HAD AN EMAIL, LET'S EMAIL THEM.
+        sent = []
         for i in items:
-            if not i.date_paid and i.reminder_email_sent == False:
-                abandoned_basket(i.id)
-                i.reminder_email_sent = True
-                i.save()
+            
+            if i.date_paid: 
+                continue
+                        
+            if i.reminder_email_sent == True: 
+                continue
+
+            abandoned_basket(i) # send the email
+            i.reminder_email_sent = True # update the order
+            i.save()
+            sent.append(i) 
         
         
-        if items:
-            _admin_cron_update(data=items, subject_line="ABANDONED BASKET emails sent today")      
+        if sent:
+            _admin_cron_update(data=sent, subject_line="ABANDONED BASKET emails sent today")      
                     
 
 
@@ -52,11 +62,8 @@ class Command(NoArgsCommand):
  2. Make sure that customer has not had or made any other contact with us since
  3. Send the customer a reminder and URL to continue their order.
  
- The really important thing here is to make sure we never send a reminder if:
+ The really important thing here is to make sure we NEVER send a reminder if:
  
   * the customer has bought something since
-  * the customer has contacted us since
-  * the customer has bought something before
-  * 
  
 """

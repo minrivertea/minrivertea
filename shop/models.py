@@ -394,7 +394,7 @@ class Order(models.Model):
     date_confirmed = models.DateTimeField()
     is_paid = models.BooleanField(default=False) # deprecated, just use the date field
     is_giveaway = models.BooleanField(default=False)
-    date_paid = models.DateTimeField(null=True)
+    date_paid = models.DateTimeField(null=True, blank=True)
         
     # OTHER INFORMATION
     hashkey = models.CharField(max_length=200, blank=True, null=True)
