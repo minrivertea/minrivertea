@@ -1,0 +1,18 @@
+{% extends email_base_template %}
+{% load i18n %}
+
+{% block content %}
+{% blocktrans with order.owner.first_name as fn %}
+
+<h1>Do you want to order again?</h1>
+<p><strong>Hi {{ fn }},</strong> a few months ago you ordered some tea from us at {{ site_name }}. If you've finished it and want to order more of the same, just click this link.</p>
+
+<p><a href="{{ url }}">Click here to repeat your order (or start a new one)</a></p>
+
+<p>You'll be taken straight to the confirmation page, and can skip all the hassle of filling in your details again.</p>
+
+<p>Of course, you might want to try something different - check out our other amazing teas and see if you find something you like.</p>
+
+{% endblocktrans %}
+{% include 'emailer/email_signature.html' %}
+{% endblock %}
