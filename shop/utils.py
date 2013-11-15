@@ -536,7 +536,7 @@ def _change_monthly_frequency(request, months):
     if request.is_ajax():
         
         products = Product.objects.filter(
-            category__parent_category__slug='teas').exclude(name__icontains="taster")
+            category__parent_category__slug=_('teas')).exclude(name__icontains=_("taster"))
         
         total_quantity = 0
         for x in products:
@@ -553,12 +553,13 @@ def _change_monthly_frequency(request, months):
             
             total_quantity += x.quantity 
                 
-        html = render_to_string('shop/snippets/products_long.html', {
+        html = render_to_string('shop/snippets/products_monthly.html', {
             'teas': products, 
             'months': months,
             'currency': RequestContext(request)['currency'],
             'request': request,
             'weight_unit': RequestContext(request)['weight_unit'],
+            'thumb_small': RequestContext(request)['thumb_small'],
         })
         total_quantity = '%s' % total_quantity
         monthly_price = '%.2f' % float(RequestContext(request)['monthly_price'])

@@ -195,7 +195,7 @@ def monthly_tea_box(request):
     product = get_object_or_404(Product, slug=_('monthly-tea-box'))
     
     products = Product.objects.filter(category__parent_category__slug=_('teas'), 
-        is_active=True).exclude(name__icontains=_("taster"))
+        is_active=True)
         
     basket_items = BasketItem.objects.filter(basket=_get_basket(request))
     
@@ -206,26 +206,29 @@ def monthly_tea_box(request):
         months = settings.TEABOX_DEFAULT_MONTHS
     
     
+    excluded = []
     total_quantity = 0    
     for x in products:
         
         x.single_price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
+        
+        if not x.single_price.stocks():
+            excluded.append(x.id)
+            continue
+            # weird... the above thing doesn't work.
         
         try:
             x.price = _get_monthly_price(x.single_price, months)
         except:
             x.price = None
         
-            
         x.quantity = 0
         for y in basket_items:
             if x.single_price == y.item:
                 x.quantity += y.quantity
                 total_quantity += 1
-        
-        
-        
-        
+    
+    products.exclude(id__in=excluded, name__icontains=_("taster"))   
     
     return _render(request, 'shop/monthly_tea_box.html', locals())
     
@@ -333,6 +336,24 @@ def remove_from_basket(request, id):
     basket_item.delete()
     return HttpResponseRedirect('/basket/')
 
+def reduce_quantity_monthly(request, id):
+    uproduct = get_object_or_404(UniqueProduct, pk=id)
+    basket = _get_basket(request)
+    basket_items = BasketItem.objects.filter(basket=basket)
+    
+    for x in basket_items:
+        if x.item == uproduct:
+            if x.quantity == 1:
+                x.delete()
+            else:
+                x.quantity -= 1
+                x.save()
+            break
+    
+    url = request.META.get('HTTP_REFERER','/')
+    return HttpResponseRedirect(url) 
+                
+
 
 def monthly_order_save(request):
 
@@ -369,8 +390,7 @@ def reduce_quantity(request, basket_item):
         basket_item.save()
     else:
         pass
-    
-    return HttpResponseRedirect('/basket/') # Redirect after POST
+    return HttpResponseRedirect(reverse('basket'))
 
 
 # function for increasing the quantity of an item in your basket
@@ -840,33 +860,5 @@ def reviews(request):
     return _render(request, 'shop/reviews.html', locals())
 
 
- 
-# view for the tell_a_friend form      
-def tell_a_friend(request):
-        
-    if request.method == 'POST':
-        form = TellAFriendForm(request.POST)
-        if form.is_valid():
-            
-            # get cleaned data from form submission
-            sender = form.cleaned_data['sender']
-            receiver = form.cleaned_data['recipient']
-            
-            _tell_a_friend_email(sender, receiver)
-
-            message = _("We've sent an email to %s letting them know about minrivertea.com - thanks for your help!") % receiver
-            # then send them back to the tell a friend page
-            return _render(request, "shop/forms/tell_a_friend.html", locals())
-
-        else:
-            if form.non_field_errors():
-                non_field_errors = form.non_field_errors()
-            else:
-                errors = form.errors
-             
-    else:
-        form = TellAFriendForm()
-    return _render(request, 'shop/forms/tell_a_friend.html', locals())
-    
     
        
