@@ -101,7 +101,7 @@ def abandoned_basket(order):
    
     recipient = order.owner.email
     template = 'shop/emails/abandoned_basket.txt'
-    subject_line = _("Do you want to finish your order on %s?") % settings.SITE_NAME
+    subject_line = _("%s - do you want to finish your order?") % settings.SITE_NAME
     
     url = reverse('order_url', args=[order.hashkey])
     extra_context = {
@@ -113,21 +113,22 @@ def abandoned_basket(order):
     return True 
     
 
-def product_review(orderid):
+def product_review(order):
     """
-    Sent roughly 2 weeks after someone completes an order
+    Sent roughly 3 weeks after someone completes an order
     and asks the customer to review their purchases.
     """
         
     # GET AND PREPARE THE ORDER
-    order = get_object_or_404(Order, id=orderid)
     if not order.hashkey:
         order.hashkey = uuid.uuid1().hex
         order.save()
+    
+    # MAKE SURE IT'S THE CORRECT LANGUAGE
     activate(order.owner.language)
 
-    # PREPARE THE EMAIL CONTEXT
-    subject_line = _("Please review your purchase at %s") % settings.SITE_NAME
+    # NOW PREPARE THE EMAIL CONTEXT
+    subject_line = _("%s - please give us your thoughts!") % settings.SITE_NAME
     recipient = order.owner.email
     template = 'shop/emails/review_order.txt'
     extra_context = {
@@ -166,31 +167,25 @@ def _admin_notify_contact(data):
 
 
 
-def _two_month_reminder(order):
+def _reorder_email(order):
 
     activate(order.owner.language)
-    text_template = "shop/emails/two_month_reminder.txt"
 
-    receiver = order.owner.email
-    subject_line = _("Have you finished your tea yet?")
-    
     if not order.hashkey:
         order.hashkey = uuid.uuid1().hex
         order.save()
             
+    template = "shop/emails/reorder_email.txt"
+    recipient = order.owner.email
+    subject_line = _("Have you finished your tea yet?")
     
-    url = "http://www.minrivertea.com/order/repeat/%s" % order.hashkey
-    text = render_to_string(text_template, {
+    url = "".join((settings.SITE_URL, reverse('order_repeat', args=[order.hashkey])))
+    extra_context = {
         'url': url,
         'order': order,	
-        'site_name': settings.SITE_NAME,
-        'site_url': "http://www.minrivertea.com",
-    })
+    }
     
-    _send_email(receiver, subject_line, text)
-    order.owner.reminder_email_sent = datetime.now()
-    order.owner.save()
-    
+    _send_email(recipient, subject_line, template, extra_context)    
     return True # important, make sure this returns True
 
 
