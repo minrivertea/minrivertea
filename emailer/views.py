@@ -84,7 +84,7 @@ def _send_email(recipient, subject_line, template, extra_context=None, sender=No
 
 
 
-def abandoned_basket(orderid):
+def abandoned_basket(order):
     """
     This sends a reminder to someone who abandoned their order 
     halfway through. This means they gave us their details, and
@@ -92,9 +92,9 @@ def abandoned_basket(orderid):
     and giving them a 1-click link.
     """
     
-    order = get_object_or_404(Order, pk=orderid)
     if not order.hashkey:
         order.hashkey = uuid.uuid1().hex
+        order.save()
     
     shopper = order.owner
     activate(shopper.language)
@@ -102,6 +102,7 @@ def abandoned_basket(orderid):
     recipient = order.owner.email
     template = 'shop/emails/abandoned_basket.txt'
     subject_line = _("Do you want to finish your order on %s?") % settings.SITE_NAME
+    
     url = reverse('order_url', args=[order.hashkey])
     extra_context = {
             'url': url,
