@@ -1137,6 +1137,7 @@ p.introduction, #left p.introduction {
   margin: 20px 0 0px;
   padding-bottom: 10px;
   border-bottom: 1px dashed #d1d1d1;   
+  float: right;
 }
 
 #right .info:hover img {
@@ -2219,3 +2220,114 @@ a#harvest:hover {
 }
 
 
+/* XMAS 2013 STYLES */
+
+#santa {
+  background: #fff;
+  float: left;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px 0;
+  position: relative;
+  border-top: 1px dashed #e1e1e1;  
+  border-bottom: 1px dashed #e1e1e1;  
+}
+
+#santa img {
+  float: left;
+  margin: 0 20px 0 0;   
+}
+
+#santa img:last-child {
+  float: right;
+  margin: 0 0px 0 0;   
+}
+
+#santa .text {
+  float: left;
+  margin: 0px 0 0;
+}
+
+#santa .others {
+  float: left;
+  min-width: 400px;   
+}
+
+#santa .others p {
+  margin: 0px 0 0;
+  padding: 0 px;
+  font-size: 13px;   
+}
+
+#santa h3 {
+    color: #D30000;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 13px 10px 0 0;
+}
+
+#santa h3 span {
+  font-weight: bold; 
+  text-transform: uppercase;  
+}
+
+#santa h3 a {
+  color: #fff;
+  text-decoration: underline;  
+} 
+
+#santa h3 a:hover {
+  color: #f1f1f1;   
+}
+
+.info.xmas .deal {
+  background: url('/static/images/homepage/christmas-1.jpg') no-repeat top left; 
+  height: 80px; 
+  margin: 0 0 10px 0;
+  position: relative; 
+}
+
+.info.xmas .deal:hover {
+  opacity: 0.9;   
+}
+
+.info.xmas .deal.two {
+  background: url('/static/images/homepage/christmas-2.jpg') no-repeat top left; 
+}
+
+.info.xmas .deal.three {
+  background: url('/static/images/homepage/christmas-3.jpg') no-repeat top left; 
+}
+
+
+.info.xmas h3 {
+  color: #D30000; 
+  font-size: 16px;  
+}
+
+.info.xmas .deal .inner {
+  padding: 20px;   
+  text-align: center;
+  
+}
+
+.info.xmas .deal .inner h3 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  margin: 0px 0 0px 0; 
+  color: #fff;  
+}
+
+.info.xmas .deal .deal:hover .inner h3 {
+  color: #2A8531;   
+}
+
+.info.xmas .deal p {
+  color: #fff;
+  font-size: 13px;   
+}
+
+/* END XMAS STYLES */

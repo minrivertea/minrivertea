@@ -24,15 +24,52 @@
 
 #xmas .text h2 {
   color: #c01212;
-  font-size: 30px;   
+  font-size: 24px;
+  margin: 0 0 10px 0;   
 }
 
 #xmas .text .deal {
   float: left;
   width: 220px;
-  background: #e1e1e1;
+  background: url('{{ static_url }}images/homepage/christmas-1.jpg') top left no-repeat #e1e1e1;
   height: 115px;
-  margin: 0 15px 0 0;   
+  margin: 0 15px 0 0;
+  position: relative; 
+  color: #fff;  
+}
+
+#xmas .text .deal.two {
+  background: url('{{ static_url }}images/homepage/christmas-2.jpg') top left no-repeat #e1e1e1;    
+}
+
+#xmas .text .deal.three {
+  background: url('{{ static_url }}images/homepage/christmas-3.jpg') top left no-repeat #e1e1e1;    
+}
+
+#xmas .text .deal:hover {
+  background-position: 0 -115px;
+  color: #333;  
+  cursor: pointer;  
+}
+
+#xmas .text .deal .inner {
+  padding: 20px;   
+  text-align: center;
+  
+}
+
+
+#xmas .text .deal .inner h3 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 28px;
+  letter-spacing: -0.5px;
+  margin: 10px 0 5px 0; 
+  color: #fff;  
+}
+
+#xmas .text .deal:hover .inner h3 {
+  color: #2A8531;   
 }
 
 #xmas .text .deal:last-child {
@@ -51,18 +88,27 @@
 	
 	<div class="text">
 	
-	   <h2>{% trans 'Christmas deals' %}</h2>
+	   <h2>{% trans 'Check out our Christmas deals' %}</h2>
     
         <div class="deal">
-        
+            <a href="{% url finder _('teas') %}"><span class="link"></span></a>
+            <div class="inner">
+            <h3>{% trans 'Three for two' %}</h3>
+            </div>
         </div>
     
-        <div class="deal">
-        
+        <div class="deal two">
+            <a href="{% url finder _('teaware') %}"><span class="link"></span></a>
+            <div class="inner">
+            <h3>{% trans 'Tea + Teaware' %}</h3>
+            </div>
         </div>
         
-        <div class="deal">
-        
+        <div class="deal three">
+            <a href="{% url monthly_tea_box %}"><span class="link"></span></a>
+            <div class="inner">
+            <h3>{% trans 'Monthly orders' %}</h3>
+            </div>
         </div>
     
     </div>

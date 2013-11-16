@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<div class="info xmas">
+    <h3>{% trans 'Check out our Christmas deals' %}</h3>
+    <div class="deal">
+        <a href="{% url finder _('teas') %}"><span class="link"></span></a>
+        <div class="inner">
+        <h3>{% trans 'Three for two' %}</h3>
+        <p>{% trans 'on all our teas' %}</p>
+        </div>
+    </div>
+    
+    <div class="deal two">
+        <a href="{% url finder _('teaware') %}"><span class="link"></span></a>
+        <div class="inner">
+        <h3>{% trans 'Tea + Teaware' %}</h3>
+        <p>{% trans '15% off any tea with teaware' %}</p>
+        </div>
+    </div>
+    
+    <div class="deal three">
+        <a href="{% url monthly_tea_box %}"><span class="link"></span></a>
+        <div class="inner">
+        <h3>{% trans 'Monthly TeaBox' %}</h3>
+        <p>{% trans 'Special gift with each order' %}</p>
+        </div>
+    </div>
+</div>

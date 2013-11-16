@@ -819,14 +819,6 @@ ul.rss {
       		</div>
 		</div><!-- end product photos small -->
 		
-		{% if tea.brew_time %}
-		<div id="instructions">
-			<div title="{% blocktrans with tea.brew_weight as bw %}Use {{ bw }}g of this tea per cup{% endblocktrans %}"><span class="title">TEA</span><span class="num">{{ tea.brew_weight }}g</span></div>
-			<div title="{% blocktrans with tea.brew_temp as bt %}The perfect temperature is {{ bt }} degrees Celsius{% endblocktrans %}"><span class="title">TEMP</span><span class="num">{{ tea.brew_temp }}</span></div>
-			<div title="{% blocktrans with tea.brew_time as bt %}Steep for {{ bt }} minutes before removing the leavesP{% endblocktrans %}"><span class="title">TIME</span><span class="num">{{ tea.brew_time }}s</span></div>
-		</div>
-		{% endif %}
-		
 		</div><!-- end main image div -->
 	</div>
 		
@@ -881,9 +873,7 @@ ul.rss {
                 </p>
               {% endif %}
               
-            
-              
-            
+                        
             </div>
           </div>           
 	    {% endfor %}
@@ -920,8 +910,16 @@ ul.rss {
 		
 		</div>
 	</div><!-- END PRODUCT TOP -->	
-
-    <div class="hr"></div>
+    
+    <div id="santa">
+	   <img src="{{ static_url }}images/homepage/santa-small.jpg"/>
+	   <div class="text">
+	   <h3><span>{% trans 'Merry Xmas!' %}</span> {% blocktrans %}Order any three teas and the third one is completely free. {% endblocktrans %}</h3>
+	   </div>
+	   <div class="others">
+	   <p>You can also <a href="{% url finder _('teaware') %}">get 15% off any tea</a> with any teaware item, and our <a href="{% url monthly_tea_box %}">monthly TeaBoxes</a> come with a special gift!</p>
+	   </div>
+	</div>
 
 
     <!-- START REVIEWS -->

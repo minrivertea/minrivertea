@@ -63,21 +63,6 @@
 
     <h1>{% trans 'Order complete!' %}</h1>
 
-  	<ul id="steps">
-		<li>
-			<a class="completed" href="{% url basket %}">1. {% trans 'Your basket' %} &raquo;</a>
-		</li>
-		<li>
-			<a class="completed" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
-		</li>
-		<li>
-			<a class="completed" href="">3. {% trans 'Confirm and pay' %} &raquo;</a>
-		</li>
-		<li>
-			<a class="selected" href="">4. {% trans 'Tea time!' %}</a>
-		</li>
-	</ul>
-
     <div id="basket">
 
     <p class="introduction">{% trans "We've received your order and we'll send your tea immediately. We've also sent you an email confirming the details. Thank you and we really hope you enjoy your tea!" %}</p>
