@@ -136,6 +136,9 @@ h2 {
   	
   	<div id="right"> 
   	     {% include 'shop/boxes/brewing.html' %}
+  	     {% if request.LANGUAGE_CODE == 'en' %}
+  	     {% include 'shop/boxes/2013-christmas.html' %}
+  	     {% endif %}
   	     {% include 'shop/boxes/tea.html' %}   
   	</div>
   	    

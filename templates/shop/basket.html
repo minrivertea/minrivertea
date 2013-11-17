@@ -505,11 +505,11 @@ div#discount {
 
 
 		      {% if thing.deal == '342' and thing.deal_target %}
-	               <span class="red small"><strong>Merry Xmas! A free {{ thing.item }}</strong></span>
+	               <span class="red small"><strong>{% trans 'Merry Xmas! You get a free' %} {{ thing.item }}</strong></span>
 	          {% endif %}
 	               
 	          {% if thing.deal == 'tnt' and thing.deal_target %}
-	               <span class="red small"><strong>Merry Xmas! You've got 15% off a {{ thing.item }} </strong></span>
+	               <span class="red small"><strong>{% trans "Merry Xmas! You've got 15% off a" %} {{ thing.item }} </strong></span>
 	          {% endif %}
 	          
 	          {% if not thing.deal_target %}

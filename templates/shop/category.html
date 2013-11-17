@@ -69,6 +69,12 @@ $('.info.tea a.button').click( function() {
   margin: 0 0 40px 0;
 }
 
+#teas {
+  float: left;
+  width: 100%;
+  margin-top: 0px;   
+}
+
 #price-helper {
     border-top: medium none;
     bottom: 15px;
@@ -188,6 +194,15 @@ div.info.photo img {
 {% endif %}
 
 
+p.introduction, #left p.introduction {
+  margin-bottom: 0;
+  padding-bottom: 0;   
+}
+
+#santa {
+  margin-bottom: 20px;   
+}
+
 
 </style>
 {% endblock %}
@@ -201,6 +216,38 @@ div.info.photo img {
     <h1>{{ category.name }}</h1>
     <p class="introduction">{{ category.short_description|striptags }}</p>
     {% endif %}
+    
+    
+    
+    {% if category.parent_category.slug == _('teas') or category.slug == _('teas') %}
+    <div id="santa" {% if categories %}style="border-top: none;margin: -10px 0 0;padding-top: 0;"{% endif %}>
+	   <img src="{{ static_url }}images/homepage/santa-small.jpg"/>
+	   <div class="text">
+	   <h3><span>{% trans 'Merry Xmas!' %}</span> {% blocktrans %}Order any three teas and the third one is completely free. {% endblocktrans %}</h3>
+	   </div>
+	   <div class="others">
+	   <p>You can also <a href="{% url finder _('teaware') %}">get 15% off any tea</a> with any teaware item, and our <a href="{% url monthly_tea_box %}">monthly TeaBoxes</a> come with a special gift!</p>
+	   </div>
+	</div>
+    {% endif %}
+    
+    
+    
+    
+    {% if category.parent_category.slug == _('teaware') or category.slug == _('teaware') %}
+    <div id="santa" {% if categories %}style="border-top: none;margin: -10px 0 0;padding-top: 0;"{% endif %}>
+	   <img src="{{ static_url }}images/homepage/santa-small.jpg"/>
+	   <div class="text">
+	   <h3><span>{% trans 'Merry Xmas!' %}</span> {% blocktrans %}Order any teaware and get a 15% off any bag of Chinese tea{% endblocktrans %}</h3>
+	   </div>
+        <div class="others">
+	   <p>Get <a href="{% url finder _('teas') %}">three-for-two on any of our teas</a>, or buy a <a href="{% url monthly_tea_box %}">monthly TeaBox</a> and receive a special Christmas gift!</p>
+	   </div>
+	</div>
+    {% endif %}
+    
+    
+    
     
 	<div id="teas">
 		
