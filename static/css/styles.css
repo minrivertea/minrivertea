@@ -1083,13 +1083,14 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea.long .glass-text .in-basket, .info.tea .glass-text .in-basket {
-    background: none repeat scroll 0 0 #f1f1f1;
-    border-radius: 3px 3px 3px 3px;
-    bottom: 30px;
-    color: #666;
+    background: none repeat scroll 0 0 #F1F1F1;
+    border-radius: 3px;
+    bottom: 20px;
+    color: #555555;
     font-size: 11px;
     font-weight: bold;
-    padding: 4px 8px 2px;
+    left: 0;
+    padding: 3px 8px 2px;
     position: absolute;
     text-shadow: none;
 }

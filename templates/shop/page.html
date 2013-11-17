@@ -48,7 +48,9 @@ $(function() {
 	<div id="right">
 		
 		{% include 'shop/boxes/who.html' %}
+		{% if request.LANGUAGE_CODE == 'en' %}
 		{% include 'shop/boxes/2013-christmas.html' %}
+		{% endif %}
 		{% include 'shop/boxes/tea.html' %}
 		{% include 'shop/boxes/follow.html' %}
 	</div>

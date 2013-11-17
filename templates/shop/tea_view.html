@@ -911,6 +911,7 @@ ul.rss {
 		</div>
 	</div><!-- END PRODUCT TOP -->	
     
+    {% if request.LANGUAGE_CODE == 'en' %}
     <div id="santa">
 	   <img src="{{ static_url }}images/homepage/santa-small.jpg"/>
 	   <div class="text">
@@ -920,6 +921,7 @@ ul.rss {
 	   <p>You can also <a href="{% url finder _('teaware') %}">get 15% off any tea</a> with any teaware item, and our <a href="{% url monthly_tea_box %}">monthly TeaBoxes</a> come with a special gift!</p>
 	   </div>
 	</div>
+	{% endif %}
 
 
     <!-- START REVIEWS -->

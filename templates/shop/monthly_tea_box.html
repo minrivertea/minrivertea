@@ -514,6 +514,7 @@ $(document).ready( function() {
     	
 	</div><!-- end top product info div -->
 
+	{% if request.LANGUAGE_CODE == 'en' %}
 	<div id="santa">
 	   <img src="{{ static_url }}images/homepage/santa-small.jpg"/>
 	   <div class="text">
@@ -524,6 +525,7 @@ $(document).ready( function() {
 	   </div>
 	   <img style="position: absolute;top: 0px; right:60px" src="{{ static_url }}images/homepage/christmas-teashaker.jpg"/>
 	</div>
+	{% endif %}
 								
 	<div id="monthly">	   
 	   
