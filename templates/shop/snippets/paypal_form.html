@@ -58,16 +58,26 @@
 		{% endif %}
 		 
 		 {% if basket.postage_discount %}
-	 		 {% for thing in order_items %}
+	 		 {% for thing in basket.single_items %}
+				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{% if thing.monthly_order %}(Monthly Box : {{ thing.months }} months) {% endif %}{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %} x {{ thing.quantity }}"> 
+				<input type="hidden" name="quantity_{{ forloop.counter }}" value="1">
+				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.get_price|floatformat:'2' }}"> 
+			 {% endfor %}
+			 {% for thing in basket.monthly_items %}
 				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{% if thing.monthly_order %}(Monthly Box : {{ thing.months }} months) {% endif %}{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %} x {{ thing.quantity }}"> 
 				<input type="hidden" name="quantity_{{ forloop.counter }}" value="1">
 				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.get_price|floatformat:'2' }}"> 
 			 {% endfor %}
 		{% else %}
-			 {% for thing in order_items %}
-				<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{% if thing.monthly_order %}(Monthly Box : {{ thing.months }} months) {% endif %}{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %} x {{ thing.quantity }}"> 
-				<input type="hidden" name="quantity_{{ forloop.counter|add:"1" }}" value="1">
-				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.get_price|floatformat:'2' }}"> 
+			 {% for thing in basket.single_items %}
+				<input type="hidden" name="item_name_{{ forloop.counter|add:'1' }}" value="{% if thing.monthly_order %}(Monthly Box : {{ thing.months }} months) {% endif %}{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %} x {{ thing.quantity }}"> 
+				<input type="hidden" name="quantity_{{ forloop.counter|add:'1' }}" value="1">
+				<input type="hidden" name="amount_{{ forloop.counter|add:'1' }}" value="{{ thing.get_price|floatformat:'2' }}"> 
+			 {% endfor %}
+			 {% for thing in basket.monthly_items %}
+				<input type="hidden" name="item_name_{{ forloop.counter|add:'1' }}" value="{% if thing.monthly_order %}(Monthly Box : {{ thing.months }} months) {% endif %}{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %} x {{ thing.quantity }}"> 
+				<input type="hidden" name="quantity_{{ forloop.counter|add:'1' }}" value="1">
+				<input type="hidden" name="amount_{{ forloop.counter|add:'1' }}" value="{{ thing.get_price|floatformat:'2' }}"> 
 			 {% endfor %}
 		{% endif %}
 
