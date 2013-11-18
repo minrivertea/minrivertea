@@ -605,18 +605,14 @@ def order_step_one(request, basket=None):
 
 
 def order_url_friend(request, hash):
+    
     return order_url(request, hash, friend=True)
 
 
 def order_url(request, hash, friend=None):
     
     order = get_object_or_404(Order, hashkey=hash)    
-    
     basket = _get_basket_value(request, order=order)
-    single_items = basket['single_items']
-    monthly_items = basket['monthly_items']
-    total_price = basket['total_price']
-    
     
     return _render(request, 'shop/forms/order_confirm.html', locals())
 

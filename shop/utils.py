@@ -257,22 +257,16 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
             total_price += currency.postage_cost
     
     # WORK OUT ANY DISCOUNTS
-    if discount == None:
-        if has_offers:
+    if has_offers == False:
+        try:
+            discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
+            discount_value = float(total_price) * float(discount.discount_value)
+            discount_percent = float(discount.discount_value * 100)
+            total_price -= discount_value
+            request.session['DISCOUNT_ID'] = discount.pk
+        except:
             pass
-        else:
-            try:
-                discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
-            except:
-                pass
-                    
-    
-    if discount and has_offers == False:
-        discount_value = float(total_price) * float(discount.discount_value)
-        discount_percent = float(discount.discount_value * 100)
-        total_price -= discount_value
-        request.session['DISCOUNT_ID'] = discount.pk
-    
+                            
     
     # LASTLY, STORE SIMPLE VARIABLES IN SESSION
     request.session['BASKET_QUANTITY'] = basket_quantity

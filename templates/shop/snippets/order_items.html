@@ -43,7 +43,8 @@
 	    	  </tr>
 	        {% endif %}
 	        
-	        {% if order.discount and has_offers == False %}
+	        
+	        {% if discount %}
 	      	  <tr>
 	      	  	<td>{% trans 'Discount' %}</td>
 	      	  	<td>-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}</td>
