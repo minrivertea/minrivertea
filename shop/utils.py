@@ -229,9 +229,16 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
     monthly_price = 0
     monthly = False
     basket_quantity = 0
+    has_offers = False
     for item in chain(single_items, monthly_items):
         price = float(item.get_price())
         total_price += float(price)
+        try:
+            deal = item.deal
+            has_offers = True
+        except:
+            pass
+        
         
         if item.monthly_order:
             item.item.weight = item.item.weight * item.quantity
@@ -251,10 +258,13 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
     
     # WORK OUT ANY DISCOUNTS
     if discount == None:
-        try:
-            discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
-        except:
+        if has_offers:
             pass
+        else:
+            try:
+                discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
+            except:
+                pass
                     
     
     if discount and has_offers == False:
