@@ -1,0 +1,55 @@
+{% load convert_weights i18n %}
+
+<table>
+			{% for thing in basket.single_items %}
+				  <tr>				
+			    	<td valign="top">
+			    		<strong>{{ thing.item.parent_product.name }}
+			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
+			    		x {{ thing.quantity }}</strong>
+			    	</td>
+			    	<td valign="top">{{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}</td>		    				
+				  </tr>
+	        {% endfor %}
+	        
+	        {% if basket.monthly_items %}
+	        <tr>
+	           <td valign="top">
+	               <strong>{% trans 'Monthly Box' %}</strong><br/>
+	                    {% for thing in basket.monthly_items %}
+			    		&nbsp;&nbsp;&nbsp;&nbsp;{{ thing.item.parent_product.name }} 
+			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
+			    		x {{ thing.quantity }}<br/>
+			    		{% endfor %}
+			    	</td>
+			    	<td valign="top">
+			    	     &nbsp;<br/>
+			    	     {% for thing in basket.monthly_items %}
+			    	     {{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}	<br/>
+			    	     {% endfor %}	    				
+			    	 </td>
+				  </tr>
+	        {% endif %}
+	        
+	        
+	    	{% if basket.postage_discount %}
+	    	  <tr>
+	    	    <td colspan="2"><span class="small"><em>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}There is no postage charge, because your order is over {{ symbol }}{{ ptd }}{% endblocktrans %}</em></span></td>
+	    	  </tr>
+	    	  {% else %}
+	    	  <tr>
+	    	  	<td>{% trans 'Postage' %}</td>
+	    	  	<td>{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>		  
+	    	  </tr>
+	        {% endif %}
+	        {% if order.discount %}
+	      	  <tr>
+	      	  	<td>{% trans 'Discount' %}</td>
+	      	  	<td>-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}</td>
+	      	  </tr>
+	      	{% endif %}
+			  <tr>
+			  	<td><strong>{% trans 'TOTAL' %}</strong></td>
+			  	<td><strong>{{ currency.symbol }}{{ basket.total_price|floatformat:"2" }}</strong></td>		  
+			  </tr>
+		   </table>
