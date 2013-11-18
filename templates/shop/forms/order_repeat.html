@@ -198,59 +198,9 @@ p.skip {
 		
 	<div id="items">
 		<h2>{% trans "You're ordering" %}...</h2>		
-		<table>
-			{% for thing in order.items.all %}
-				  <tr>				
-			    	<td valign="top">
-			    		{{ thing.item.parent_product.name }} 
-			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
-			    		x {{ thing.quantity }}
-			    	</td>
-			    	<td valign="top">{{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}</td>		    				
-				  </tr>
-	        {% endfor %}
-	        
-	        {% if monthly_items %}
-	        <tr>
-	           <td valign="top">
-	               <strong>{% trans 'Monthly Box' %}</strong><br/>
-	                    {% for thing in monthly_items %}
-			    		&nbsp;&nbsp;{{ thing.item.parent_product.name }} 
-			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
-			    		x {{ thing.quantity }}<br/>
-			    		{% endfor %}
-			    	</td>
-			    	<td valign="top">
-			    	     &nbsp;<br/>
-			    	     {% for thing in monthly_items %}
-			    	     {{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}	<br/>
-			    	     {% endfor %}	    				
-			    	 </td>
-				  </tr>
-	        {% endif %}
-	        
-	        
-	    	{% if postage_discount %}
-	    	  <tr>
-	    	    <td colspan="2"><span class="small"><em>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}There is no postage charge, because your order is over {{ symbol }}{{ ptd }}{% endblocktrans %}</em></span></td>
-	    	  </tr>
-	    	  {% else %}
-	    	  <tr>
-	    	  	<td>{% trans 'Postage' %}</td>
-	    	  	<td>{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>		  
-	    	  </tr>
-	        {% endif %}
-	        {% if order.discount %}
-	      	  <tr>
-	      	  	<td>{% trans 'Discount' %}</td>
-	      	  	<td>-{{ currency.symbol }}{{ discount|floatformat:"2" }}</td>
-	      	  </tr>
-	      	{% endif %}
-			  <tr>
-			  	<td><strong>{% trans 'TOTAL' %}</strong></td>
-			  	<td><strong>{{ currency.symbol }}{{ total_price|floatformat:"2" }}</strong></td>		  
-			  </tr>
-		   </table>
+		
+		{% include 'shop/snippets/order_items.html' %}
+		
 	</div>
 
 	<div id="address">
