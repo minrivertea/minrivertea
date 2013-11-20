@@ -5,7 +5,7 @@
     	<div id="checkout-button">
 			
 			{% if basket.total_price == 0 %}
-			<p class="skip"><a href="{% url fake_checkout order.id %}" class="button green">{% trans 'Click here to skip Paypal (for 100% discount orders)' %}</a></p>
+			<p class="skip"><a href="{% url fake_checkout basket.order.id %}" class="button green">{% trans 'Click here to skip Paypal (for 100% discount basket.orders)' %}</a></p>
 			{% else %}
 			<input type="submit" value="{% trans 'Confirm and pay' %}" next="" class="button green"/>
 			{% endif %}			
@@ -20,18 +20,18 @@
 		<input type="hidden" name="address_override" value="1">
 		
 		
-		<input type="hidden" name="first_name" value="{{ order.owner.first_name }}">
-		<input type="hidden" name="last_name" value="{{ order.owner.last_name }}">
-		<input type="hidden" name="email" value="{{ order.owner.email }}">
+		<input type="hidden" name="first_name" value="{{ basket.order.owner.first_name }}">
+		<input type="hidden" name="last_name" value="{{ basket.order.owner.last_name }}">
+		<input type="hidden" name="email" value="{{ basket.order.owner.email }}">
 		
 		
-		<input type="hidden" name="address2" value="{{ order.address.address_line_2 }}">
-		<input type="hidden" name="address1" value="{{ order.address.house_name_number }}, {{ order.address.address_line_1 }}">		
-		<input type="hidden" name="address2" value="{{ order.address.address_line_2 }}">
-		<input type="hidden" name="city" value="{{ order.address.town_city }}">
-		{% if order.address.province_state %}<input type="hidden" name="state" value="{{ order.address.province_state }}">{% endif %}
-		<input type="hidden" name="country" value="{{ order.address.country }}">
-		<input type="hidden" name="zip" value="{{ order.address.postcode }}">
+		<input type="hidden" name="address2" value="{{ basket.order.address.address_line_2 }}">
+		<input type="hidden" name="address1" value="{{ basket.order.address.house_name_number }}, {{ basket.order.address.address_line_1 }}">		
+		<input type="hidden" name="address2" value="{{ basket.order.address.address_line_2 }}">
+		<input type="hidden" name="city" value="{{ basket.order.address.town_city }}">
+		{% if basket.order.address.province_state %}<input type="hidden" name="state" value="{{ basket.order.address.province_state }}">{% endif %}
+		<input type="hidden" name="country" value="{{ basket.order.address.country }}">
+		<input type="hidden" name="zip" value="{{ basket.order.address.postcode }}">
 		<input TYPE="hidden" NAME="return" value="{{ paypal_return_url }}">
 		<input TYPE="hidden" NAME="cancel" value="{{ paypal_notify_url }}">
 		<input TYPE="hidden" NAME="notify_url" value="{{ paypal_notify_url }}">
@@ -48,7 +48,7 @@
         <input type="hidden" name=" discount_amount_cart" value="{{ basket.discount_value|floatformat:"2" }}" id="id_discount_amount" >
         {% endif %}
 
-		<input type="hidden" name="invoice" value="{{ order.invoice_id }}" id="id_invoice" >
+		<input type="hidden" name="invoice" value="{{ basket.order.invoice_id }}" id="id_invoice" >
 		
 		
 		{% if not basket.postage_discount %}

@@ -618,36 +618,32 @@ def order_url(request, hash, friend=None):
 
 
 def order_repeat(request, hash):
-    # reuse an old unpaid order object, or create a new one
+
+    # THE PREVIOUS ORDER ITEM
     old_order = get_object_or_404(Order, hashkey=hash)
     
-    try:
-        order = Order.objects.filter(owner=old_order.owner, is_paid=False)[0]
-        # we're reusing an old object, so lets clear it...
-        for i in order.items.all():
-            order.items.remove(i)
-    except:
-        order = Order.objects.create(
+    new_order = Order.objects.create(
             date_confirmed = datetime.now(),
             address = old_order.address,
             owner = old_order.owner,
             status = Order.STATUS_CREATED_NOT_PAID,
             invoice_id = "TEMP",
-        ) 
-        order.invoice_id = "TEA-00%s" % (order.id)       
-
-    order.save()
+            ) 
+    new_order.invoice_id = "TEA-00%s" % (new_order.id)       
+    new_order.save()
     
     # it looks silly, but we'll also create a basket for them.
     # because IF they want to add something else to the order, 
     # they'll need a basket.   
     basket = Basket.objects.create(
         date_modified = datetime.now(),
-        owner = order.owner,
+        owner = new_order.owner,
     )
     
     # now we'll check for replacements/substitutions
-    currency = _get_currency(request, currency_code=old_order.items.all()[0].item.currency.code)
+    currency = _get_currency(request)
+    
+        
     for item in old_order.items.all():
         if item.item.is_active == False:
             # if it's not available, replace it with the closest matching UniqueProduct
@@ -658,23 +654,22 @@ def order_repeat(request, hash):
                     is_active=True,
                     ).order_by('-price')[0]
             basket_item = BasketItem.objects.create(item=product, quantity=item.quantity, basket=basket)
-            order.items.add(basket_item)
+            new_order.items.add(basket_item)
         else:
-            order.items.add(item)
+            new_order.items.add(item)
     
-    for item in order.items.all():
+    for item in new_order.items.all():
         item.basket = basket
         item.save()
         
     request.session['BASKET_ID'] = basket.id
-    request.session['ORDER_ID'] = order.id
+    request.session['ORDER_ID'] = new_order.id
     
         
     # FINALLY, GET THE VALUES ETC.
-    basket_value = _get_basket_value(request)
-    single_items = basket_value['single_items']
-    monthly_items = basket_value['monthly_items']
-    total_price = basket_value['total_price']
+    basket = _get_basket_value(request, order=new_order)
+    
+    print basket['order']
     
     return _render(request, 'shop/forms/order_repeat.html', locals())
 

@@ -252,6 +252,7 @@ def _payment_success(order):
     
     
     # WORK OUT ANY DISCOUNTS
+    discount_value = 0
     if order.discount:
         discount_value = float(total_price) * float(order.discount.discount_value)
         discount_percent = float(order.discount.discount_value * 100)

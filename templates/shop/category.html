@@ -241,7 +241,9 @@ p.introduction, #left p.introduction {
 	   <h3><span>{% trans 'Merry Xmas!' %}</span> {% blocktrans %}Order any teaware and get a 15% off any bag of Chinese tea{% endblocktrans %}</h3>
 	   </div>
         <div class="others">
-	   <p>Get <a href="{% url finder _('teas') %}">three-for-two on any of our teas</a>, or buy a <a href="{% url monthly_tea_box %}">monthly TeaBox</a> and receive a special Christmas gift!</p>
+        {% url finder _('teas') as url%}
+        {% url monthly_tea_box as monthly_url %}
+	   <p>{% blocktrans %}Get <a href="{{ url }}">three-for-two on any of our teas</a>, or buy a <a href="{{ monthly_url }}">monthly TeaBox</a> and receive a special Christmas gift!{% endblocktrans %}</p>
 	   </div>
 	</div>
     {% endif %}
