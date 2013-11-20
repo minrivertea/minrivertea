@@ -266,7 +266,6 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
             request.session['DISCOUNT_ID'] = discount.pk
         except:
             pass
-                            
     
     # LASTLY, STORE SIMPLE VARIABLES IN SESSION
     request.session['BASKET_QUANTITY'] = basket_quantity

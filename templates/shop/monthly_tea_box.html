@@ -521,7 +521,9 @@ $(document).ready( function() {
 	   <h3><span>{% trans 'Merry Xmas!' %}</span>{% url finder _('glassware') _('the-tea-shaker') as shaker_url %} {% blocktrans %}Order a Monthly Box before 25th December 2013 and get a free <a href="{{ shaker_url }}">Teashaker</a>{% endblocktrans %}</h3>
 	   </div>
         <div class="others">
-	   <p>You can also <a href="{% url finder _('teaware') %}">get 15% off any tea</a> with any teaware item, or take advantage of our <a href="{% url finder _('teas') %}">three-for-two deal on any Chinese tea</a>.</p>
+        {% url finder _('teaware') as url %}
+        {% url finder _('teas') as url_two %}
+	   <p>{% blocktrans %}You can also <a href="{{ url }}">get 15% off any tea</a> with any teaware item, or take advantage of our <a href="{{ url_two }}">three-for-two deal on any Chinese tea</a>.{% endblocktrans %}</p>
 	   </div>
 	   <img style="position: absolute;top: 0px; right:60px" src="{{ static_url }}images/homepage/christmas-teashaker.jpg"/>
 	</div>
