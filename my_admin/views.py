@@ -133,6 +133,22 @@ def postage_cost_update(request, id):
             url = request.META.get('HTTP_REFERER')
             return HttpResponseRedirect(url)
     return HttpResponseRedirect('/admin-stuff')
+
+
+@login_required
+def export_emails(request):
+    emails = Subcriber.objects.filter(language='en', date_unsubscribed__isnull=True)
+    import csv
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="mrt_emails.csv"'
+
+    writer = csv.writer(response)
+    for x in emails:
+        writer.writerow([x.email, x.date_signed_up])
+
+    return response
+
     
 @login_required
 def stats(request):

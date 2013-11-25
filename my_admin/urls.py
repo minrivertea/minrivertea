@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^stocks/(\w+)$', views.admin_product, name="admin_product"),
     url(r'^orders/$', views.orders, name="admin_orders"),
     url(r'^orders/(\w+)$', views.admin_order, name="admin_order"),
+    url(r'^export-emails/$', views.export_emails, name="export_emails"),
     url(r'^print_packing_slip/(\w+)$', views.print_packing_slip, name="print_packing_slip"),
 )
 
