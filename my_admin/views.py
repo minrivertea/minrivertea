@@ -26,6 +26,7 @@ import re
 from shop.utils import _render, pdf
 from shop.models import *
 from shop.forms import *
+from emailer.models import Subscriber
 from slugify import smart_slugify
 from logistics.models import WarehouseItem, CustomerPackage
 from logistics.forms import AddStocksForm
@@ -137,8 +138,7 @@ def postage_cost_update(request, id):
 
 @login_required
 def export_emails(request):
-    from emailer.models import Subscriber
-    emails = Subcriber.objects.filter(language='en', date_unsubscribed__isnull=True)
+    emails = Subscriber.objects.filter(language='en', date_unsubscribed__isnull=True)
     import csv
     
     response = HttpResponse(content_type='text/csv')
