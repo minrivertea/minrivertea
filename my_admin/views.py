@@ -72,6 +72,25 @@ def admin_shopper(request, id):
 
 @login_required
 def stocks(request):
+    
+    if request.GET.get('date'):
+        
+        my_date = datetime.strptime(request.GET.get('date'), "%Y-%M-%d")
+
+        # shows all objects created before this date, but excludes ones sold before
+        in_stock = WarehouseItem.objects.filter(created__lte=my_date).exclude(sold__lt=my_date)
+        
+        import csv
+    
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=MRT_STOCKS.csv'
+
+        writer = csv.writer(response)
+        for x in in_stock:
+            writer.writerow([x.unique_product, x.unique_product.price, x.unique_product.currency])
+    
+        return response
+    
        
     stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP').order_by('-parent_product__category')
     total_stock_value = 0

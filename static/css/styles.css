@@ -1913,6 +1913,10 @@ ul.rss #facebook {
   margin-right: 10px;
 }
 
+ul.rss #twitter {
+  float: left;    
+}
+
 
 button.prev {
     background: url("/images/prev-arrow.png") no-repeat scroll center top transparent;
