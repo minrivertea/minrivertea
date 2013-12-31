@@ -32,14 +32,16 @@
 		{% endif %}
 	</td>
 	<td class="items" valign="top">
-        <pre>{{ order.final_items_list|safe }}</pre>
+        {% for i in x.get_items %}
+            {{ i.unique_product }}<br/>
+        {% endfor %}
 		
 		{% if x.is_preorder %}
             <span class="red"><strong>This is a preorder.</strong></span>
         {% endif %}
 	</td>
 	<td class="value" valign="top">
-			{{ order.final_amount_paid }} {{ order.final_currency_code }}
+			{{ x.get_final_value }} {{ x.get_final_currency }}
 	</td>
 	<td class="paypal" valign="top">
 	     

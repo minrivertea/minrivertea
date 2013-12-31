@@ -130,7 +130,7 @@ def _empty_basket(request):
 def _check_offers(items):
     """ 
     Accepts a list of BasketItems, and returns a list of items
-    probably with altered prices.
+    with altered prices if there are offers running.
     """
     
     return items
@@ -161,7 +161,7 @@ def _check_offers(items):
     #while tea_count > 2:
     #    offer2 += 1
     #    tea_count -= 3
-        
+    #    
         
     # NOW ACTUALLY APPLY THE OFFERS
     #for x in items:
@@ -173,6 +173,7 @@ def _check_offers(items):
     #            x.deal_target = True
     #            pr = x.item.price
     #            q = x.quantity                        
+    #            x.item.original_price = x.item.get_price()
     #            x.item.price = (float(pr)/q) * (0.85+(q-1))
     #            offer1 -= 1
     #            has_offers = True
@@ -182,6 +183,7 @@ def _check_offers(items):
     #        if offer2 > 0:
     #            x.deal = '342'                       
     #            x.deal_target = True
+    #            x.item.original_price = x.item.get_price()
     #            if x.quantity == 1:
     #                x.item.price = 0
     #            else:
@@ -190,7 +192,7 @@ def _check_offers(items):
     #            has_offers = True
     #            continue
                 
-    #return items
+    # return items
     
  
 def _get_basket_value(request, simple=False, order=None, discount=None):
@@ -223,8 +225,8 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
     
     # NO OFFERS CURRENTLY
     has_offers = False
-    #if request.LANGUAGE_CODE == 'en':
-    #    _check_offers(single_items)
+    if request.LANGUAGE_CODE == 'en':
+        _check_offers(single_items)
     
     
     

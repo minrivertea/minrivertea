@@ -11,6 +11,7 @@ import uuid
 from logistics.models import CustomerPackage, WarehouseItem
 from logistics.forms import UpdateCustomerPackageForm, AddStocksForm
 from shop.models import Currency, UniqueProduct, Order
+from shop.utils import _check_offers
 
 
 def add_months(sourcedate,months):
@@ -28,22 +29,16 @@ def _create_customer_package(order):
     are out of stock, then this function should create new stocks and 
     a seperate Customer Package and mark it as a pre-order
     """
-    
-        
-    package = CustomerPackage.objects.get_or_create(
-            order=order, 
-            is_preorder=False
-            )
-    preorder_package = CustomerPackage.objects.get_or_create(
-            order=order, 
-            is_preorder=True
-            )
-            
+                
     next_date = datetime.datetime.now()
     
     
+    # RUN THE ITEMS THROUGH THE OFFERS FILTER, JUST TO CHECK
+    items = _check_offers(order.items.filter(monthly_order=False))
+    
+    
     # GO THROUGH EACH SINGLE ITEM, GET/CREATE A WAREHOUSE ITEM, AND ADD IT TO A PACKAGE
-    for x in order.items.filter(monthly_order=False):
+    for x in items:
                 
         loop = x.quantity
         while loop >= 1:
@@ -59,7 +54,10 @@ def _create_customer_package(order):
                 
                 wh_item.sold = datetime.datetime.now()
                 wh_item.reason = WarehouseItem.SOLD
-                wh_item.package = package
+                wh_item.package = CustomerPackage.objects.get_or_create(
+                        order=order, 
+                        is_preorder=False,
+                        )
                 wh_item.save()
             
             except: 
@@ -76,16 +74,39 @@ def _create_customer_package(order):
                     created=datetime.datetime.now(),
                     batch='TEMP',
                 )
-                wh_item.package = preorder_package
+                wh_item.package = CustomerPackage.objects.get_or_create(
+                        order=order, 
+                        is_preorder=True,
+                        )
                 wh_item.save()
-            
+                        
             
             # UPDATE THE FINAL FIGURES FOR POSTERITY
             wh_item.sale_currency = x.item.item.currency
-            wh_item.list_price = x.item.item.price
+            wh_item.list_price = x.item.item.original_price
             wh_item.sale_price = x.item.item.get_price()
             
             loop -= 1
+
+
+    # APPLY THE DISCOUNT/POSTAGE COSTS TO ONLY 1 PACKAGE
+    try:
+        package = CustomerPackage.objects.filter(order=order)[0]
+        package.discount_amount = order.get_discount()
+        
+        amount = 0
+        for x in order.items.filter(monthly_order=False):
+            amount += x.item.price
+        
+        if amount > order.get_currency().postage_discount_threshold:
+            postage_amount = 0
+        else:
+            postage_amount = order.get_currency().postage_cost
+                
+        package.postage_paid = postage_amount
+        package.save()
+    except:
+        pass
 
 
     # NOTE: WE AREN'T SELLING MONTHLY ITEMS NOW!
