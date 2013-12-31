@@ -513,7 +513,7 @@ div#discount {
 	          {% endif %}
 	          
 	          {% if not thing.deal_target %}
-     	          {{ currency.symbol }}{{ thing.item.price|floatformat:"2" }} 		      
+     	          {{ currency.symbol }}{{ thing.item.get_price|floatformat:"2" }} 		      
      		      {% if thing.item.special_shipping_price %} (+ {{ currency.symbol }}{{ thing.item.special_shipping_price }} {% trans 'shipping charge' %}){% endif %}
      		      {% trans 'each' %}
      		  {% endif %}

@@ -143,7 +143,7 @@ def germany(request):
 
 def sale(request):
     category = get_object_or_404(Category, slug=_('sale'))
-    ups = UniqueProduct.objects.filter(is_active=True, is_sale_price=True, currency=_get_currency(request))
+    ups = UniqueProduct.objects.filter(is_active=True, sale_price__isnull=False, currency=_get_currency(request))
     products = []
     for x in ups:
         p = x.parent_product
@@ -649,7 +649,7 @@ def order_repeat(request, hash):
             # if it's not available, replace it with the closest matching UniqueProduct
             product = UniqueProduct.objects.filter(
                     parent_product=item.item.parent_product, 
-                    is_sale_price=False, 
+                    sale_price__isnull=True, 
                     currency=currency,
                     is_active=True,
                     ).order_by('-price')[0]

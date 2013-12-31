@@ -46,7 +46,7 @@ class DiscountAdmin(admin.ModelAdmin):
     list_display = ('discount_code', 'name', 'discount_value')
 
 class UniqueProductAdmin(admin.ModelAdmin):
-    list_display = ('parent_product', 'weight', 'price', 'is_sale_price', 'is_active', 'currency')
+    list_display = ('parent_product', 'weight', 'price', 'sale_price', 'is_active', 'currency')
     list_filter = ('is_active', 'currency')
     
 
