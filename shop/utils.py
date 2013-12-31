@@ -219,10 +219,9 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
    
     
     has_offers = False
-    
-    # CHECK FOR OFFERS
-    if request.LANGUAGE_CODE == 'en':
-        _check_offers(single_items)
+    # NO OFFERS CURRENTLY
+    #if request.LANGUAGE_CODE == 'en':
+    #    _check_offers(single_items)
     
     # WORK OUT THE TOTAL PRICE
     total_price = 0

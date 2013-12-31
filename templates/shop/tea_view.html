@@ -911,20 +911,6 @@ ul.rss {
 		</div>
 	</div><!-- END PRODUCT TOP -->	
     
-    {% if request.LANGUAGE_CODE == 'en' %}
-    <div id="santa">
-	   <img src="{{ static_url }}images/homepage/santa-small.jpg"/>
-	   <div class="text">
-	   <h3><span>{% trans 'Merry Xmas!' %}</span> {% blocktrans %}Order any three teas and the third one is completely free. {% endblocktrans %}</h3>
-	   </div>
-	   <div class="others">
-	   {% url finder _('teaware') as url %}
-	   {% url monthly_tea_box as monthly_url %}
-	   <p>{% blocktrans %}You can also <a href="{{ url }}">get 15% off any tea</a> with any teaware item, and our <a href="{{ monthly_url }}">monthly TeaBoxes</a> come with a special gift!{% endblocktrans %}</p>
-	   </div>
-	</div>
-	{% endif %}
-
 
     <!-- START REVIEWS -->
     {% if reviews %}
