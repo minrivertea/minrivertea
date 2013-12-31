@@ -70,7 +70,7 @@
 		{% endif %}
 	</td>
 	<td class="label" valign="top">
-	   <a href="{% url print_packing_slip order.id %}">Print Label</a><br/>
+	   <a href="{% url print_packing_slip x.id %}">Print Label</a><br/>
 	   {% if order.status == 'shipped' %}
 		  {% if order.review_email_sent %}
 		     review email sent

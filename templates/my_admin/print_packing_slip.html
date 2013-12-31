@@ -79,8 +79,8 @@ table#label tr td.title h3 {
     <table id="label">
 		<tr>
 		  <td valign="top" class="address">
-		      {% with order.address as address %}
-		          {{ order.owner.first_name|capfirst }} {{ order.owner.last_name|capfirst }}<br/>
+		      {% with package.order.address as address %}
+		          {{ package.order.owner.first_name|capfirst }} {{ package.order.owner.last_name|capfirst }}<br/>
 		          {% include 'shop/snippets/address.html' %}
 		      {% endwith %}
 		      
@@ -90,7 +90,7 @@ table#label tr td.title h3 {
 		  </td>
 		  <td valign="top" class="title">
 		      <p style="float: right;"></p>
-		      <h3>Receipt - {{ order.invoice_id }}</h3>
+		      <h3>Receipt - {{ package.order.invoice_id }}</h3>
 		      <p>Thanks for your order! If you have any questions, problems or suggestions, please get in touch with us - email chris@minrivertea.com</p>
 		  </td>
 		</tr>
@@ -102,10 +102,10 @@ table#label tr td.title h3 {
 		<tr>
 			<td>
 				<p><strong>Order shipped:</strong> {% now "jS F Y H:i" %}</p>
-				<p><strong>Order ID:</strong> {{ order.invoice_id }}</p>
+				<p><strong>Order ID:</strong> {{ package.order.invoice_id }}</p>
 				<p>
 				    <strong>Name/Email:</strong> 
-				    {{ order.owner.first_name|capfirst }} {{ order.owner.last_name|capfirst }} ({{ order.owner.email }})</p>
+				    {{ package.order.owner.first_name|capfirst }} {{ package.order.owner.last_name|capfirst }} ({{ package.order.owner.email }})</p>
 			</td>
 			<td>
                 
@@ -119,35 +119,35 @@ table#label tr td.title h3 {
 	
     <h1>Your items</h1>
 	<table id="items">
-	   {% for x in order.items.all %}
+	   {% for x in package.get_items %}
 		<tr>
-		  <td width="60">
-		      {{ x.quantity }} x 
+		  <td>
+	          {{ x.unique_product }}		      
 		  </td>
 		  <td>
-	          {{ x.item }}		      
-		  </td>
-		  <td>
-		      {{ x.get_price|floatformat:"2" }} {{ order.get_currency.code }}
+		      {{ x.sale_price|floatformat:"2" }} {{ x.sale_currency.code }}
 		  </td>
 		</tr>
 		{% endfor %}
-		{% if order.discount %}
+		
+		{% if package.discount_amount %}
 		<tr>
-		  <td>&nbsp;</td>
 		  <td>Discount</td>
-		  <td>{{ order.discount.get_discount|floatformat:"2" }} {{ order.get_currency.code }}</td>
+		  <td>{{ package.discount_amount|floatformat:"2" }} {{ package.get_final_currency.code }}</td>
 		</tr>
 		{% endif %}
+		
+		
 		<tr>
-		  <td width="60">1 x</td>
 		  <td>Postage</td>
-		  <td>{{ order.get_currency.postage_cost|floatformat:"2" }} {{ order.get_currency.code }}</td>
+		  <td>
+		      {{ package.postage_paid|floatformat:"2" }} {{ package.get_final_currency.code }}
+	      </td>
 		</tr>
+		
 		<tr>
-		  <td>&nbsp;</td>
 		  <td><strong>Total</strong></td>
-		  <td><strong>{{ order.get_amount|floatformat:"2" }} {{ order.get_currency.code }}</strong></td>
+		  <td><strong>{{ package.get_final_value|floatformat:"2" }} {{ package.get_final_currency.code }}</strong></td>
 		</tr>
 	</table>
 

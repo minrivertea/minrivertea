@@ -261,7 +261,10 @@ def stats(request):
 
 @login_required
 def print_packing_slip(request, id):
-    order = get_object_or_404(Order, pk=id)
+    
+    
+    package = CustomerPackage.objects.get(pk=id) 
+    
     #barcode_number = sendin_request.get_barcode()
 
     #barcode_image(barcode_number)
