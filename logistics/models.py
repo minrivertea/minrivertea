@@ -83,11 +83,13 @@ class CustomerPackage(models.Model):
         help_text="The postage cost we actually paid to ship the item.")
     postage_currency = models.ForeignKey(Currency, null=True, blank=True)
     
+    
     # RELATED TO FINAL AMOUNTS
     postage_paid = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True,
         help_text="The postage cost the customer paid to us.")
     discount_amount = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
         help_text="The actual amount awarded as a discount (eg. 5.12) that was deducated from the final bill")
+
     
     # EMAILS RELATED TO THE ORDER
     shipped_email_sent = models.DateTimeField(blank=True, null=True)
