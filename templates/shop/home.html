@@ -331,34 +331,6 @@ ul.rss {
   margin-top: 0;   
 }
 
-#sale {
-  float: left;
-  width: 88%;
-  padding:10px 2% 10px 10%;
-  background: #fff;
-  color: #999;
-  border-radius:5px;
-  font-family:Helvetica, Arial, sans-serif;
-  font-size:14px;
-  font-weight: bold;
-  margin: 10px 0 20px 0;
-  position: relative;
-  display:none;
-}
-
-#sale .red {
-  color: #fff;
-  background:red;
-  position: absolute;
-  padding: 8px 10px;
-  border-radius: 5px 0 0 5px;
-  left: 0;
-  top: 0;
-  letter-spacing:-0.5px;
-  font-size:18px;
-  text-shadow: 0 1px 1px #bd0000;
-}
-
 #blogs {
   float: left;
   width: 100%;   
@@ -444,10 +416,6 @@ ul.rss {
 
 
 <div class="sp">
-    
-    {% if request.LANGUAGE_CODE == 'en' %}
-        {% include 'shop/snippets/2013-christmas.html' %}
-    {% endif %}
 
     <div id="special">
         <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
