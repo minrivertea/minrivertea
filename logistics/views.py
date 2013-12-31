@@ -23,142 +23,141 @@ def add_months(sourcedate,months):
 
 def _create_customer_package(order):
     """
-    Given an order that has been paid for, create
-    a customer package and assign the appropriate 
-    stocks to that package. If the items are out 
-    of stock, then this function should create new 
-    stocks and a seperate Customer Package and mark 
-    it as a pre-order
+    Given an order that has been paid for, create a customer package 
+    and assign the appropriate stocks to that package. If the items 
+    are out of stock, then this function should create new stocks and 
+    a seperate Customer Package and mark it as a pre-order
     """
     
-    package = None
-    preorder_package = None
+        
+    package = CustomerPackage.objects.get_or_create(
+            order=order, 
+            is_preorder=False
+            )
+    preorder_package = CustomerPackage.objects.get_or_create(
+            order=order, 
+            is_preorder=True
+            )
+            
     next_date = datetime.datetime.now()
     
-    for x in order.items.all():
-        
-        # IF AN ITEM IS A MONTHLY ORDER
-        if x.monthly_order:
-            
-            # CREATE PACKAGES FOR EACH OF THE MONTHS
-            months = x.months  
-            while months >= 1:
+    
+    # GO THROUGH EACH SINGLE ITEM, GET/CREATE A WAREHOUSE ITEM, AND ADD IT TO A PACKAGE
+    for x in order.items.filter(monthly_order=False):
                 
-                # IF ITS THE FIRST MONTH:
-                if months == x.months:
-                    
-                    if not package:
-                        monthly_package = CustomerPackage.objects.create(
-                            order=order,
-                            created=datetime.datetime.now(),
-                        )
-                        package = monthly_package
-                    else:
-                        monthly_package = package
-                        
-                    # TAKE THESE ITEMS OUT OF CURRENT AVAILABLE STOCK
-                    quantity = x.quantity
-                    while quantity >= 1:
-                        try:
-                            wh_item = WarehouseItem.objects.filter(
-                                unique_product__parent_product=x.item.parent_product, 
-                                unique_product__weight=x.item.weight,
-                                unique_product__currency__code='GBP',
-                                sold__isnull=True,
-                            )[0]
-                        except:
-                            wh_item = WarehouseItem.objects.create(
-                                unique_product=x.item,
-                                hashkey=uuid.uuid1().hex,
-                                created=datetime.datetime.now(),
-                                batch='TEMP',
-                            )
-                            
-                            wh_item.sold = datetime.datetime.now()
-                            wh_item.reason = WarehouseItem.SOLD
-                            wh_item.package = monthly_package
-                            wh_item.save()                       
-                        
-                # IF IT'S NOT THE FIRST MONTH:
-                else:
+        loop = x.quantity
+        while loop >= 1:
+            
+            try:
+                # GET A WAREHOUSE ITEM THAT MATCHES THE CURRENCY PARENT_PRODUCT, WEIGHT AND CURRENCY
+                wh_item = WarehouseItem.objects.filter(
+                    unique_product__parent_product=x.item.parent_product, 
+                    unique_product__weight=x.item.weight,
+                    unique_product__currency__code='GBP',
+                    sold__isnull=True,
+                )[0]
+                
+                wh_item.sold = datetime.datetime.now()
+                wh_item.reason = WarehouseItem.SOLD
+                wh_item.package = package
+                wh_item.save()
+            
+            except: 
+                # IF THERE'S NONE IN STOCK, CREATE A NEW ITEM AND MARK THE PACKAGE AS A PREORDER              
+                up = get_object_or_404(UniqueProduct, 
+                    currency__code='GBP', 
+                    parent_product=x.item.parent_product,
+                    weight=x.item.weight,    
+                )
+                
+                wh_item = WarehouseItem.objects.create(
+                    unique_product=up,
+                    hashkey=uuid.uuid1().hex,
+                    created=datetime.datetime.now(),
+                    batch='TEMP',
+                )
+                wh_item.package = preorder_package
+                wh_item.save()
+            
+            
+            # UPDATE THE FINAL FIGURES FOR POSTERITY
+            wh_item.sale_currency = x.item.item.currency
+            wh_item.list_price = x.item.item.price
+            wh_item.sale_price = x.item.item.get_price()
+            
+            loop -= 1
+
+
+    # NOTE: WE AREN'T SELLING MONTHLY ITEMS NOW!
+    # NOW DEAL WITH THE MONTHLY ITEMS
+    for x in order.items.filter(monthly_order=True):
+                
+        months = x.months  
+        while months >= 1:
+            
+            # THIS WILL CREATE THE FIRST PACKAGE TO BE SENT (ie. THE FIRST MONTH)
+            if months == x.months:
+                
+                
+                # CREATE A MONTHLY PACKAGE IF ONE DOESN"T ALREADY EXIST
+                if not monthly_package:
                     monthly_package = CustomerPackage.objects.create(
                             order=order,
                             created=datetime.datetime.now(),
-                            shipping_due_date=next_date
                     )
                 
-                    # ADD ITEMS AS PREORDER ITEMS, NOT FROM CURRENT STOCK
-                    quantity = x.quantity
-                    while quantity >= 1:
+                    
+                # TAKE THESE ITEMS OUT OF CURRENT AVAILABLE STOCK
+                quantity = x.quantity
+                while quantity >= 1:
+                    try:
+                        wh_item = WarehouseItem.objects.filter(
+                            unique_product__parent_product=x.item.parent_product, 
+                            unique_product__weight=x.item.weight,
+                            unique_product__currency__code='GBP',
+                            sold__isnull=True,
+                        )[0]
+                    except:
                         wh_item = WarehouseItem.objects.create(
                             unique_product=x.item,
                             hashkey=uuid.uuid1().hex,
                             created=datetime.datetime.now(),
                             batch='TEMP',
-                        ) 
-                                            
+                        )
+                        
                         wh_item.sold = datetime.datetime.now()
                         wh_item.reason = WarehouseItem.SOLD
-                        wh_item.package = monthly_package
-                        wh_item.save()
-                        
-                        quantity -= 1
-                
-                next_date = add_months(next_date, 1)
-                months -= 1
+                        wh_item.package = package
+                        wh_item.save()                       
+                    
+            # FOR ALL OTHER MONTHS
+            else:
+                monthly_package = CustomerPackage.objects.create(
+                        order=order,
+                        created=datetime.datetime.now(),
+                        shipping_due_date=next_date
+                )
             
-            
-        else:
-            loop = x.quantity
-            while loop >= 1:
-                try:
-                    # get a WarehouseItem that matches the parent_product, weight and currency=GBP
-                    wh_item = WarehouseItem.objects.filter(
-                        unique_product__parent_product=x.item.parent_product, 
-                        unique_product__weight=x.item.weight,
-                        unique_product__currency__code='GBP',
-                        sold__isnull=True,
-                    )[0]
-                    
-                    if not package:
-                        package = CustomerPackage.objects.create(
-                            order=order,
-                            created=datetime.datetime.now(),
-                        )
-                    package.save()
-                    
-                    wh_item.sold = datetime.datetime.now()
-                    wh_item.reason = WarehouseItem.SOLD
-                    wh_item.package = package
-                    wh_item.save()
-                
-                except: 
-                    # otherwise, create a warehouse item (because there's none in stock)               
-                    up = get_object_or_404(UniqueProduct, 
-                        currency__code='GBP', 
-                        parent_product=x.item.parent_product,
-                        weight=x.item.weight,    
-                    )
-                    
+                # ADD ITEMS AS PREORDER ITEMS, NOT FROM CURRENT STOCK
+                quantity = x.quantity
+                while quantity >= 1:
                     wh_item = WarehouseItem.objects.create(
-                        unique_product=up,
+                        unique_product=x.item,
                         hashkey=uuid.uuid1().hex,
                         created=datetime.datetime.now(),
                         batch='TEMP',
-                    )
-                    
-                    if not preorder_package:
-                        preorder_package = CustomerPackage.objects.create(
-                            order=order,
-                            created=datetime.datetime.now(),
-                            is_preorder=True,
-                        )
-    
-                    preorder_package.save()
-                    wh_item.package = preorder_package
+                    ) 
+                                        
+                    wh_item.sold = datetime.datetime.now()
+                    wh_item.reason = WarehouseItem.SOLD
+                    wh_item.package = monthly_package
                     wh_item.save()
-                
-                loop -= 1
+                    
+                    quantity -= 1
+            
+            next_date = add_months(next_date, 1)
+            months -= 1
+
 
     return
     
@@ -181,16 +180,12 @@ def update_package(request, id):
             package.order.status = Order.STATUS_SHIPPED
             package.order.save()
             
-            # AT THE SAME TIME, LET'S DELETE THOSE OLD BASKET ITEMS
-             
-            
             if request.is_ajax():
                 html = '%s%s' % (package.currency.symbol, package.postage_cost)
                 return HttpResponse(html)
             
             url = request.META.get('HTTP_REFERER')
             return HttpResponseRedirect(url)
-    
     
     return HttpResponseRedirect(reverse('admin_home'))
 

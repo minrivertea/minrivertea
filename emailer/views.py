@@ -224,7 +224,6 @@ def _payment_success(order):
         weight_unit = 'g'
     
     
-    
     # WORK OUT THE TOTAL PRICE
     total_price = 0
     monthly_price = 0

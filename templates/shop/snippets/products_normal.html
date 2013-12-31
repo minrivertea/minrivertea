@@ -32,7 +32,7 @@
 			     
 			    <div class="price-weight">
     		        <span class="price">
-    		            {{ currency.symbol }}{{ p.price.price|floatformat:"-2" }}
+    		            {{ currency.symbol }}{{ p.price.get_price|floatformat:"-2" }}
     		        </span>
     		        <span class="weight">    
     		          / {% if p.price.weight %}{% convert_weights request p.price.weight %}{{ weight_unit }}{% else %}{{ p.price.description }}{% endif %}

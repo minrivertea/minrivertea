@@ -19,7 +19,15 @@ class WarehouseItem(models.Model):
     available = models.DateTimeField(blank=True, null=True, help_text="When was the item available to sell?")
     sold = models.DateTimeField(blank=True, null=True, help_text="When was the item sold?")
     
-        
+    # PRICES
+    list_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
+        help_text="The original list price at the time.")
+    sale_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
+        help_text="The actual sale price (eg. accounting for any discounts or promotions).", )
+    sale_currency = models.ForeignKey(Currency, blank=True, null=True)
+    
+    
+    # STATUSES    
     SOLD = 'sold'
     DESTROYED = 'destroyed'
     GIVEAWAY = 'giveaway'
@@ -71,9 +79,17 @@ class CustomerPackage(models.Model):
     is_preorder = models.BooleanField(default=False)
     shipping_due_date = models.DateField(blank=True, null=True, help_text="Only used for monthly order packages")
     posted = models.DateTimeField(blank=True, null=True)
-    postage_cost = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    postage_cost = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True,
+        help_text="The postage cost we actually paid to ship the item.")
     postage_currency = models.ForeignKey(Currency, null=True, blank=True)
     
+    
+    # RELATED TO FINAL AMOUNTS
+    postage_paid = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True,
+        help_text="The postage cost the customer paid to us.")
+    discount_amount = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
+        help_text="The actual amount awarded as a discount (eg. 5.12) that was deducated from the final bill")
+
     
     # EMAILS RELATED TO THE ORDER
     shipped_email_sent = models.DateTimeField(blank=True, null=True)
@@ -88,6 +104,22 @@ class CustomerPackage(models.Model):
     def get_items(self):
         items = WarehouseItem.objects.filter(package=self)
         return items
+    
+    def get_final_value(self):
+        final_amount = 0
+        for x in self.get_items():
+            final_amount += x.sale_price
+        final_amount += self.postage_paid
+        return final_amount
+    
+    def get_final_currency(self):
+        
+        currency = Currency.objects.get(code='GBP')
+        for x in self.get_items():
+            currency = x.sale_currency
+            break 
+            
+        return currency
     
     def repeat_order(self):
         if CustomerPackage.objects.filter(order=self.order).count() > 1:

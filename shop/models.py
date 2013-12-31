@@ -185,14 +185,16 @@ class UniqueProduct(models.Model):
     currency = models.ForeignKey(Currency)
     parent_product = models.ForeignKey(Product)
     description = models.TextField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    
+    
+    # SPECIAL PRICING
+    sale_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
+        help_text="If this is on sale, what's the sale price?")
     special_shipping_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
         help_text="If the object carries a special shipping price, then put it here.")
     special_shipping_time = models.IntegerField(blank=True, null=True,
         help_text="If the shipping will take longer, put in the number of days here.")
-    is_active = models.BooleanField(default=True)
-    is_sale_price = models.NullBooleanField(default=False, null=True, blank=True)
-    old_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,
-        help_text="If it's a sale item, what was the old price?")
     
     def __unicode__(self):
         if self.weight:
@@ -225,11 +227,17 @@ class UniqueProduct(models.Model):
             items.out_of_stock = True
             return items
     
-    def get_saving(self):
-        if self.is_sale_price:
-            return (self.old_price - self.price)
+    def get_price(self):
+        if self.sale_price:
+            return self.sale_price
         else:
-            return None       
+            return self.price
+    
+    def get_saving(self):
+        if self.sale_price:
+            return (self.price - self.sale_price)
+        else:
+            return 0       
 
 class Shopper(models.Model):
     user = models.ForeignKey(User)
@@ -351,7 +359,7 @@ class BasketItem(models.Model):
             from utils import _get_monthly_price
             price = _get_monthly_price(self.item, self.months)
         else:
-            price = self.item.price
+            price = self.item.get_price()
             if self.item.special_shipping_price:
                 price += self.item.special_shipping_price
                 
@@ -419,7 +427,8 @@ class Order(models.Model):
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
     
-    # THESE WILL STORE THE FINAL INFORMATION ONCE THE ORDER IS SOLD
+    
+    # DEPRECATED! EVERYTHING IS STORED AGAINST THE WAREHOUSE ITEM NOW, WHICH IS KEPT PERMANENTLY
     final_amount_paid = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2,
         help_text="Note that this includes any discount and postage fee.")
     final_discount_amount = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2)
@@ -616,6 +625,8 @@ def show_me_the_money(sender, **kwargs):
     if order.status == Order.STATUS_PAID:
         return
     
+    
+    # SEND THE EMAILS
     if ipn_obj.flag == True:
         from emailer.views import _payment_flagged
         _payment_flagged(order)
@@ -626,45 +637,14 @@ def show_me_the_money(sender, **kwargs):
         
     
     # NOW CREATE A CUSTOMER PACKAGE
-    from logistics.models import CustomerPackage
-    if CustomerPackage.objects.filter(order=order).count() == 0: # PREVENTS DUPLICATES
-        from logistics.views import _create_customer_package
-        _create_customer_package(order)
+    from logistics.views import _create_customer_package
+    _create_customer_package(order)
     
     
     # UPDATE THE ORDER DETAILS
     order.status = Order.STATUS_PAID
     order.date_paid = ipn_obj.payment_date
     order.is_paid = True
-    
-    # UPDATE THE FINAL ITEMS LIST
-    items_list = ''
-    for x in order.items.all():                
-        items_list += "%s, %s%s, %s, %s \n" % (
-            x.item.parent_product, 
-            x.item.weight, 
-            x.item.weight_unit, 
-            x.quantity, 
-            x.item.price,
-        )
-    order.final_items_list = items_list
-
-    # UPDATE THE FINAL CURRENCY
-    try:
-        order.final_currency_code = order.get_currency().code
-    except:
-        order.final_currency_code = 'GBP'
-    
-    # UPDATE THE FINAL AMOUNT PAID
-    try:
-        order.final_amount_paid = ipn_obj.mc_gross
-    except:
-        pass
-    
-    # UPDATE ANY DISCOUNT
-    order.final_discount_amount = order.get_discount() 
-                     
-    order.save()
     
     
     # IF THERE WAS A SINGLE USE DISCOUNT, UPDATE IT
