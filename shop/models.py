@@ -429,11 +429,11 @@ class Order(models.Model):
     
     
     # DEPRECATED! EVERYTHING IS STORED AGAINST THE WAREHOUSE ITEM NOW, WHICH IS KEPT PERMANENTLY
-    final_amount_paid = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2,
-        help_text="Note that this includes any discount and postage fee.")
-    final_discount_amount = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2)
-    final_currency_code = models.CharField(max_length=3, blank=True, null=True)
-    final_items_list = models.TextField(blank=True, null=True)
+    #final_amount_paid = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2,
+    #    help_text="Note that this includes any discount and postage fee.")
+    #final_discount_amount = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2)
+    #final_currency_code = models.CharField(max_length=3, blank=True, null=True)
+    #final_items_list = models.TextField(blank=True, null=True)
     
     
     def get_discount(self):

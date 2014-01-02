@@ -76,6 +76,9 @@ def index(request):
         category__parent_category__slug=_('teaware'),
     )[:4]
     
+    for t in teaware:
+        t.price = t.get_lowest_price(currency=curr)
+    
     try:
         special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
         special.price = special.get_lowest_price(curr)
