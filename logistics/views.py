@@ -54,10 +54,12 @@ def _create_customer_package(order):
                 
                 wh_item.sold = datetime.datetime.now()
                 wh_item.reason = WarehouseItem.SOLD
-                wh_item.package = CustomerPackage.objects.get_or_create(
+                package = CustomerPackage.objects.get_or_create(
                         order=order, 
                         is_preorder=False,
                         )
+
+                wh_item.package = package               
                 wh_item.save()
             
             except: 
@@ -74,10 +76,13 @@ def _create_customer_package(order):
                     created=datetime.datetime.now(),
                     batch='TEMP',
                 )
-                wh_item.package = CustomerPackage.objects.get_or_create(
+                
+                package = CustomerPackage.objects.get_or_create(
                         order=order, 
                         is_preorder=True,
                         )
+                
+                wh_item.package = package
                 wh_item.save()
                         
             
