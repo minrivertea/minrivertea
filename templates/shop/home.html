@@ -450,8 +450,19 @@ ul.rss {
             </div>
         </div>
     </div>
+    
+    <div class="hr"></div> 
+	
+	<div id="teaware">
+	   {% with teaware as teas %}
+	       {% include 'shop/snippets/products_long.html' %}  
+	   {% endwith %}	   
+   	   <h2 class="banner">{% trans 'Enjoy your Chinese tea in style' %} - <a href="{% url finder _('teaware') %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
+
+	</div>
 
     {% if blog_entries %}
+    <div class="hr"></div>
     <div id="blogs">
         {% for x in blog_entries %}
             <div class="blog">
@@ -470,15 +481,7 @@ ul.rss {
     </div>
     {% endif %}
     
-    <div class="hr"></div> 
-	
-	<div id="teaware">
-	   {% with teaware as teas %}
-	       {% include 'shop/snippets/products_long.html' %}  
-	   {% endwith %}	   
-   	   <h2 class="banner">{% trans 'Enjoy your Chinese tea in style' %} - <a href="{% url finder _('teaware') %}">{% trans 'see our full range of teaware' %} &raquo;</a></h2>
-
-	</div>	
+    	
 
 	
 	    {% if ga_is_on %}
