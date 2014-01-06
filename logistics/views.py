@@ -54,22 +54,17 @@ def _create_customer_package(order):
                 
                 wh_item.sold = datetime.datetime.now()
                 wh_item.reason = WarehouseItem.SOLD
-                package = CustomerPackage.objects.get_or_create(
-                        order=order, 
-                        is_preorder=False,
-                        )
-
-                wh_item.package = package               
-                wh_item.save()
+                preorder = False                
             
             except: 
                 # IF THERE'S NONE IN STOCK, CREATE A NEW ITEM AND MARK THE PACKAGE AS A PREORDER              
-                up = get_object_or_404(UniqueProduct, 
+                up = UniqueProduct.objects.filter( 
                     currency__code='GBP', 
                     parent_product=x.item.parent_product,
                     weight=x.item.weight,
-                    sale_price__isnull=True,   
-                )
+                    sale_price__isnull=True,
+                    is_active=True,   
+                )[0]
                 
                 wh_item = WarehouseItem.objects.create(
                     unique_product=up,
@@ -77,20 +72,26 @@ def _create_customer_package(order):
                     created=datetime.datetime.now(),
                     batch='TEMP',
                 )
+                preorder = True
                 
-                package = CustomerPackage.objects.get_or_create(
+            try:
+                package = CustomerPackage.objects.get(
                         order=order, 
-                        is_preorder=True,
+                        is_preorder=preorder,
                         )
-                
-                wh_item.package = package
-                wh_item.save()
-                        
+            except:
+                package = CustomerPackage.objects.create(
+                        order=order,
+                        is_preorder=preorder
+                        )
+
+            wh_item.package = package               
             
             # UPDATE THE FINAL FIGURES FOR POSTERITY
-            wh_item.sale_currency = x.item.item.currency
-            wh_item.list_price = x.item.item.original_price
-            wh_item.sale_price = x.item.item.get_price()
+            wh_item.sale_currency = x.item.currency
+            wh_item.list_price = x.item.price
+            wh_item.sale_price = x.item.get_price()
+            wh_item.save()
             
             loop -= 1
 
