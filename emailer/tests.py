@@ -17,7 +17,7 @@ from emailer.models import Subscriber
 
 class EmailsTestCase(TestCase):
     
-    fixtures = ['testdata.json']
+    fixtures = ['testdata2.json']
     
     def test_abandoned_basket_email(self):
         """ Make sure the abandoned basket email is being sent correctly"""
