@@ -622,7 +622,7 @@ def show_me_the_money(sender, **kwargs):
     order = get_object_or_404(Order, invoice_id=ipn_obj.invoice)
     
     # PREVENTS DUPLICATES
-    if order.status == Order.STATUS_PAID:
+    if order.status == Order.STATUS_PAID or order.status == Order.STATUS_PAYMENT_FLAGGED:
         return
     
     

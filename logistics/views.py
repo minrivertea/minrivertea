@@ -67,7 +67,8 @@ def _create_customer_package(order):
                 up = get_object_or_404(UniqueProduct, 
                     currency__code='GBP', 
                     parent_product=x.item.parent_product,
-                    weight=x.item.weight,    
+                    weight=x.item.weight,
+                    sale_price__isnull=True,   
                 )
                 
                 wh_item = WarehouseItem.objects.create(
