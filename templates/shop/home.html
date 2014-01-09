@@ -101,12 +101,19 @@ h2.banner {
   float: left;
   width: 100%;
   position: relative;
-  background: url('{{ static_url }}images/homepage/special1.jpg') no-repeat top left;
+  background: url('{{ static_url }}images/homepage/special-jasmine-2014.jpg') no-repeat top left;
   height: 325px;
 }
 
 #special:hover {
   opacity: 0.9;   
+}
+
+#special .button {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100;   
 }
 
 #special:hover .details h3, #special:hover .details a {
@@ -115,9 +122,9 @@ h2.banner {
 
 #special .details {
     float: right;
-    width: 30%;
-    bottom: 10px;
-    right: 30px;
+    width: 40%;
+    bottom: 60px;
+    right: 20px;
     padding: 0;
     position: absolute;
     text-align: right;
@@ -424,10 +431,11 @@ ul.rss {
            <p>{{ special.description }}</p>
            <span class="price">
                 <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
-	           / {% convert_weights request special.price.weight %}{{ weight_unit }}
+	           {% if special.price.weight %}/ {% convert_weights request special.price.weight %}{{ weight_unit }}{% else %}/ {{ special.price.description }}{% endif %}
 	       </span>
-	       </h3>
 	    </div>
+	    <a href="{% url add_to_basket special.price.id %}" class="button green">Add to basket now</a>
+
     </div>
     <!-- END OF SPECIAL -->
     
