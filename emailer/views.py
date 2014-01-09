@@ -266,9 +266,10 @@ def _payment_success(order):
                 item.weight = item.item.weight
         else:
             item.weight = None
-        
+            
     extra_context = {
         'order': order,
+        'customer_package': customer_package,
         'items': items,
         'currency': currency,
         'total_price': total_price,
