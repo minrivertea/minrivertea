@@ -60,14 +60,6 @@ def index(request):
     for t in teas:
         t.price = t.get_lowest_price(currency=curr)
         
-    try:
-        jasmine_products = Product.objects.filter(slug__icontains=_('jasmine')).exclude(id=44)
-        jasmine_taster = Product.objects.get(id=44)
-        for x in jasmine_products:
-            x.price = x.get_lowest_price(currency=curr)
-    except:
-        pass
-     
     blog_entries = BlogEntry.objects.filter(is_promoted=True, is_draft=False)[:3]
             
     teaware = Product.objects.filter(
@@ -80,7 +72,7 @@ def index(request):
         t.price = t.get_lowest_price(currency=curr)
     
     try:
-        special = get_object_or_404(Product, slug=_('tai-ping-monkey-king'))
+        special = get_object_or_404(Product, id=44)
         special.price = special.get_lowest_price(curr)
     except:
         pass
