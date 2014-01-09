@@ -196,12 +196,10 @@ def product_by_id(request, id):
 def monthly_tea_box(request):
         
     product = get_object_or_404(Product, slug=_('monthly-tea-box'))
-    
     products = Product.objects.filter(category__parent_category__slug=_('teas'), 
         is_active=True)
         
     basket_items = BasketItem.objects.filter(basket=_get_basket(request))
-    
     
     try:
         months = int(request.session['MONTHS'])
@@ -209,29 +207,30 @@ def monthly_tea_box(request):
         months = settings.TEABOX_DEFAULT_MONTHS
     
     
-    excluded = []
-    total_quantity = 0    
-    for x in products:
+    if product.is_active:
+        excluded = []
+        total_quantity = 0    
+        for x in products:
+            
+            x.single_price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
+            
+            if not x.single_price.stocks():
+                excluded.append(x.id)
+                continue
+                # weird... the above thing doesn't work.
+            
+            try:
+                x.price = _get_monthly_price(x.single_price, months)
+            except:
+                x.price = None
+            
+            x.quantity = 0
+            for y in basket_items:
+                if x.single_price == y.item:
+                    x.quantity += y.quantity
+                    total_quantity += 1
         
-        x.single_price = x.get_lowest_price(_get_currency(request), exclude_sales=True)
-        
-        if not x.single_price.stocks():
-            excluded.append(x.id)
-            continue
-            # weird... the above thing doesn't work.
-        
-        try:
-            x.price = _get_monthly_price(x.single_price, months)
-        except:
-            x.price = None
-        
-        x.quantity = 0
-        for y in basket_items:
-            if x.single_price == y.item:
-                x.quantity += y.quantity
-                total_quantity += 1
-    
-    products.exclude(id__in=excluded, name__icontains=_("taster"))   
+        products.exclude(id__in=excluded, name__icontains=_("taster"))   
     
     return _render(request, 'shop/monthly_tea_box.html', locals())
     
