@@ -269,7 +269,6 @@ def _payment_success(order):
             
     extra_context = {
         'order': order,
-        'customer_package': customer_package,
         'items': items,
         'currency': currency,
         'total_price': total_price,
