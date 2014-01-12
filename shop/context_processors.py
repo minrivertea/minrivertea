@@ -25,13 +25,21 @@ def common(request):
     context['thumb_small'] = settings.THUMB_SMALL
     context['monthly_discount_low'] = settings.TEABOX_LOW_DISCOUNT * 100
     context['monthly_discount_high'] = settings.TEABOX_HIGH_DISCOUNT * 100
-       
+    
+    
+    # STUFF RELATED TO COUNTRY SPECIFIC SITES
+    context['site_url'] = "http://www.minrivertea.com"
+    context['analytics_id'] = settings.ANALYTICS_ID
+    context['mailchimp_list_id'] = settings.MAILCHIMP_LIST_ID       
     if request.META['SERVER_NAME'] == settings.GERMAN_URL:
         context['site_url'] = "http://%s" % settings.GERMAN_URL # gives us the full domain
         context['analytics_id'] = settings.GERMAN_ANALYTICS_ID
-    else:
-        context['site_url'] = "http://www.minrivertea.com"
-        context['analytics_id'] = settings.ANALYTICS_ID
+        context['mailchimp_list_id'] = settings.GERMAN_MAILCHIMP_LIST_ID
+    elif request.META['SERVER_NAME'] == settings.GERMAN_URL:
+        context['site_url'] = "http://%s" % settings.ITALIAN_URL # gives us the full domain
+        context['analytics_id'] = settings.ITALIAN_ANALYTICS_ID
+        context['mailchimp_list_id'] = settings.ITALIAN_MAILCHIMP_LIST_ID
+        
         
     context['site_name'] = settings.SITE_NAME # just the loose non-techy name of the site eg. minrivertea.com
 

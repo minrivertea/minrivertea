@@ -16,5 +16,12 @@ class DomainTrackerMiddleware(object):
             if 'CURRENCY' not in request.session: 
                 _set_currency(request, 'EUR') # CHANGE CURRENCY TO EUR IF NO PREFERENCE ALREADY SET
         
+        
+        if request.META['SERVER_NAME'] == settings.ITALIAN_URL: # CHECK IF THE DOMAIN NAME IS .de
+            _changelang(request, 'it') # CHANGE LANGUAGE TO GERMAN
+            if 'CURRENCY' not in request.session: 
+                _set_currency(request, 'EUR') # CHANGE CURRENCY TO EUR IF NO PREFERENCE ALREADY SET
+        
+        
         return None
     

@@ -15,7 +15,7 @@ class Sitemap(Sitemap):
         activate(get_language())
         entries = BlogEntry.objects.filter(is_draft=False, title__isnull=False).exclude(title__exact="None")
         products = Product.objects.filter(is_active=True)
-        pages = Page.objects.filter(title__isnull=False, content_de__isnull=False)
+        pages = Page.objects.filter(title__isnull=False, content__isnull=False)
         result_list = list(chain(entries, products, pages))
         return result_list
 
@@ -29,5 +29,17 @@ class DESitemap(Sitemap):
         entries = BlogEntry.objects.filter(is_draft=False, title__isnull=False, content__isnull=False).exclude(title__exact="None")
         products = Product.objects.filter(is_active=True)
         pages = Page.objects.filter(title__isnull=False, content_de__isnull=False)
+        result_list = list(chain(entries, products, pages))
+        return result_list
+        
+class ITSitemap(Sitemap):
+    changefreq = "weekly"
+    priority = 0.6
+
+    def items(self):
+        activate('it')
+        entries = BlogEntry.objects.filter(is_draft=False, title__isnull=False, content__isnull=False).exclude(title__exact="None")
+        products = Product.objects.filter(is_active=True)
+        pages = Page.objects.filter(title__isnull=False, content_it__isnull=False)
         result_list = list(chain(entries, products, pages))
         return result_list
