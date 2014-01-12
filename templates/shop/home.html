@@ -434,7 +434,7 @@ ul.rss {
 	           {% if special.price.weight %}/ {% convert_weights request special.price.weight %}{{ weight_unit }}{% else %}/ {{ special.price.description }}{% endif %}
 	       </span>
 	    </div>
-	    <a href="{% url add_to_basket special.price.id %}" class="button green">Add to basket now</a>
+	    <a href="{% url add_to_basket special.price.id %}" class="button green">{% trans 'Add to basket' %}</a>
 
     </div>
     <!-- END OF SPECIAL -->
