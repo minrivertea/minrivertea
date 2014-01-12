@@ -31,8 +31,13 @@ SITE_ID =                       1
 SITE_NAME =                     'minrivertea.com'
 SITE_URL =                      'http://www.minrivertea.com'
 ANALYTICS_ID =                  'UA-9041614-4'
+MAILCHIMP_LIST_ID =             'cde5cb0d9e'
 GERMAN_URL =                    'www.minrivertea.de'
 GERMAN_ANALYTICS_ID =           'UA-9041614-9'
+GERMAN_MAILCHIMP_LIST_ID =      '9fd8b080b7'
+ITALIAN_URL =                   'www.minrivertea.it'
+ITALIAN_ANALYTICS_ID =          ''
+ITALIAN_MAILCHIMP_LIST_ID =     '07a453a7b5'
 SECRET_KEY =                    ''
 
 

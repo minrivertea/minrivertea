@@ -4,10 +4,10 @@ import django.views.static
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 from django.views.generic.simple import direct_to_template
 from shop.models import Product, Page
-from shop.views import page, category, review_tea, review_tea_thanks, tea_view, _changelang, germany, monthly_tea_box
+from shop.views import page, category, review_tea, review_tea_thanks, tea_view, _changelang, germany, monthly_tea_box, italy
 from blog.views import staff
 from shop.utils import _finder, _internal_pages_list
-from shop.sitemap import Sitemap, DESitemap
+from shop.sitemap import Sitemap, DESitemap, ITSitemap
 from blog.models import BlogEntry
 from blog.feeds import LatestEntriesFeed
 from django.utils.translation import ugettext_lazy as _
@@ -27,6 +27,10 @@ sitemap = {
 
 sitemap_de = {
     'things': DESitemap,    
+}
+
+sitemap_it = {
+    'things': ITSitemap,    
 }
 
 
@@ -49,6 +53,9 @@ urlpatterns = patterns('',
     # SITEMAPS, FEEDS AND STATICS
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap}),
     (r'^sitemap_de\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap_de}),
+    (r'^sitemap_it\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap_it}),
+    
+    
     (r'^feeds/latest/$', LatestEntriesFeed()),
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
     (r'^humans\.txt$', direct_to_template, {'template': 'humans.txt', 'mimetype': 'text/plain'}),
@@ -63,6 +70,8 @@ urlpatterns = patterns('',
     url(r'^changelang/(?P<code>[\w-]+)/$', _changelang, name="changelang"),    
     url(r'^de/$', germany, name="germany"),
     url(r'^DE/$', germany, name="germany"),
+    url(r'^it/$', italy, name="italy"),
+    url(r'^IT/$', italy, name="italy"),
     url(r'^view_internal_pages/$', _internal_pages_list, name="internal_pages_list"),
     
     

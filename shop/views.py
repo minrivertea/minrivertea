@@ -136,6 +136,12 @@ def germany(request):
     return response
 
 
+def italy(request):
+    _set_currency(request, 'EUR')
+    response = _changelang(request, code='it')
+    return response
+
+
 def sale(request):
     category = get_object_or_404(Category, slug=_('sale'))
     ups = UniqueProduct.objects.filter(is_active=True, sale_price__isnull=False, currency=_get_currency(request))
