@@ -41,6 +41,9 @@ class Command(NoArgsCommand):
             
             if i.date_paid: 
                 continue
+                
+            if i.status == Order.STATUS_PAYMENT_FLAGGED or i.status == Order.STATUS_PAID:
+                continue
                         
             if i.reminder_email_sent == True: 
                 continue
