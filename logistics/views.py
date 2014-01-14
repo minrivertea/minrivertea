@@ -186,7 +186,6 @@ def _create_customer_package(order):
             next_date = add_months(next_date, 1)
             months -= 1
 
-
     return
     
     

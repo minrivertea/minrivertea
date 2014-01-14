@@ -625,22 +625,6 @@ def show_me_the_money(sender, **kwargs):
     if order.status == Order.STATUS_PAID or order.status == Order.STATUS_PAYMENT_FLAGGED:
         return
     
-    
-    # SEND THE EMAILS
-    if ipn_obj.flag == True:
-        from emailer.views import _payment_flagged
-        _payment_flagged(order)
-    else:
-        from emailer.views import _payment_success 
-        _payment_success(order)
-        
-        
-    
-    # NOW CREATE A CUSTOMER PACKAGE
-    from logistics.views import _create_customer_package
-    _create_customer_package(order)
-    
-    
     # UPDATE THE ORDER DETAILS
     order.status = Order.STATUS_PAID
     order.date_paid = ipn_obj.payment_date
@@ -653,9 +637,19 @@ def show_me_the_money(sender, **kwargs):
             order.discount.is_active = False
             order.discount.save()
     
-    # DELETE THE NOW OBSOLETE BASKET ITEMS ASSOCIATED WITH THIS ORDER
-    #for item in order.items.all():
-    #    item.delete()
+    # SEND THE EMAILS
+    if ipn_obj.flag == True:
+        from emailer.views import _payment_flagged
+        _payment_flagged(order)
+    else:
+        from emailer.views import _payment_success 
+        _payment_success(order)
+        
+            
+    # NOW CREATE A CUSTOMER PACKAGE
+    from logistics.views import _create_customer_package
+    _create_customer_package(order)
+    
         
         
 payment_was_successful.connect(show_me_the_money)  
