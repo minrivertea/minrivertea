@@ -112,8 +112,8 @@ class CustomerPackage(models.Model):
         final_amount += self.postage_paid
         return final_amount
     
+    
     def get_final_currency(self):
-        
         currency = Currency.objects.get(code='GBP')
         for x in self.get_items():
             currency = x.sale_currency

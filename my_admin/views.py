@@ -182,79 +182,89 @@ def stats(request):
         start_date = (datetime.now() - timedelta(weeks=int(w)))    
     end_date = datetime.now()
     
-    orders = CustomerPackage.objects.filter(order__is_paid=True, order__is_giveaway=False, 
-        order__date_paid__range=(start_date, end_date))
+    orders = CustomerPackage.objects.filter(
+                order__is_giveaway=False, 
+                order__date_paid__range=(start_date, end_date)
+                )
     
     tvgbp = 0
     tvusd = 0
     tveur = 0
+    total_order_value = 0
     av_extra_costs = 0
     pp_cost = 0
     postage_cost = 0
     shoppers = {}
     german_orders_total_value = 0
+    italian_orders_total_value = 0
     raph = 0
     german_countries = ('DE', 'AT', 'BE')
+    italian_countries = ('IT',)
     
     for o in orders:
         
         shoppers[o.order.owner] = 1
         
         try:
-            code = o.order.get_currency().code
+            code = o.get_final_currency().code
         except AttributeError:
             code = 'GBP'
-
-        # we need to separate currencies
+        
+        
         if code == 'GBP':
-            tvgbp += o.order.get_amount()
+            currency_converter = 1
             try:
-                pp_cost += o.order.get_paypal_ipn().mc_fee
+                tvgbp += o.get_final_value()
             except:
                 pass
+                
         if code == 'USD':
-            tvusd += o.order.get_amount()
+            currency_converter = 0.66
             try:
-                pp_cost += (o.order.get_paypal_ipn().mc_fee * 0.66)
+                tvusd += o.get_final_value() 
             except:
                 pass
+                
         if code == 'EUR':
-            tveur += o.order.get_amount()
-            try:
-                pp_cost += (o.order.get_paypal_ipn().mc_fee * 0.808)
-            except:
-                pass
+            currency_converter = 0.808
+            tveur += o.get_final_value()
         
-        p = o.postage_cost
-        if o.postage_currency != None:
-            if o.postage_currency.code == 'EUR':
-                p = float(p) * float(0.808)
-            if o.postage_currency.code == 'RMB':
-                p = float(p) * float(0.1)
-            if o.postage_currency.code == 'USD':
-                p = float(p) * float(0.66)
         
-            postage_cost += float(p)
+        # CALCULATE THE PAYPAL COSTS
+        try:
+            pp_cost += (float(o.order.get_paypal_ipn().mc_fee) * float(currency_converter))
+        except:
+            pass
+        
+        # CALCULATE ABSOLUTE TOTAL AMOUNT IN GBP
+        try:       
+            total_order_value += float(o.get_final_value()) * float(currency_converter)
+        except:
+            pass
+        
+        # CALCULATE THE POSTAGE COSTS
+        try:
+            postage_cost += float(o.postage_cost) * float(currency_converter)
+        except:
+            pass    
         
         if o.order.address.country in german_countries:
-            amount = o.order.get_amount()
-            
-            if code == 'EUR':
-                amount = float(amount) * float(0.808)
-            
-            if code == 'USD':
-                amount = float(amount) * float(0.66)
-            
+            amount = float(o.order.get_amount()) * float(currency_converter)
             german_orders_total_value += float(amount)
+        
+        
+        if o.order.address.country in italian_countries:
+            amount = float(o.order.get_amount()) * float(currency_converter)
+            italian_orders_total_value += float(amount)
             
     
-    raph = float(german_orders_total_value) * float(0.1)
     total_extra_costs = float(pp_cost) + float(postage_cost)
     shoppers = len(shoppers)
     
+    # AVERAGES
     av_paypal = pp_cost / orders.count()
     av_postage = postage_cost / orders.count()
-    av_order_value = (float(tvgbp) + (float(tvusd)*float(0.66)) + (float(tveur)*float(0.808))) / float(orders.count())
+    av_order_value = float(total_order_value) / float(orders.count())
     
     return _render(request, 'my_admin/stats.html', locals())    
 
