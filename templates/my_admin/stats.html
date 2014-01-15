@@ -33,6 +33,7 @@
     <tr>
         <td width="200px" valign="top"><strong>Total sales</strong><br/>(Online only)</td>
         <td width="300px" valign="top">
+            <strong>£{{ total_order_value|floatformat:"2" }}</strong><br/>
             £{{ tvgbp|floatformat:"2" }}<br/>
             ${{ tvusd|floatformat:"2" }}<br/>
             €{{ tveur|floatformat:"2" }}
@@ -100,6 +101,13 @@
 </td>
         <td width="300px" valign="top">
             £{{ german_orders_total_value|floatformat:"2" }}        </td>
+    </tr>
+    <tr>
+        <td width="200px" valign="top"><strong>Italian orders</strong><br/>
+            (Italy)
+</td>
+        <td width="300px" valign="top">
+            £{{ italian_orders_total_value|floatformat:"2" }}        </td>
     </tr>
 
 </table>
