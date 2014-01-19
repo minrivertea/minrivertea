@@ -479,12 +479,10 @@ def order_step_one(request, basket=None):
             if request.user.is_authenticated():
                 user = request.user
             else:
-                
-                user = User.objects.get(email=form.cleaned_data['email'])
-                
+                                
                 try:
-                    user = User.objects.get(email=form.cleaned_data['email'])
-                except:
+                    user = User.objects.filter(email=form.cleaned_data['email'])[0]
+                except IndexError:
                     creation_args = {
                             'username': form.cleaned_data['email'],
                             'email': form.cleaned_data['email'],
