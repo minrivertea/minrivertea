@@ -13,9 +13,13 @@ class DomainTrackerMiddleware(object):
     
     def process_request(self, request):
         
+        
+        
         # don't want to keep validating against images and CSS/JS files
         if re.match('^.+\.(jpg|jpeg|gif|png|ico|css|js)', request.path):
             return None
+            
+        print request.META['HTTP_REFERER']
                                             
         if request.META['SERVER_NAME'] == settings.GERMAN_URL: # CHECK IF THE DOMAIN NAME IS .de
             _changelang(request, 'de') # CHANGE LANGUAGE TO GERMAN
