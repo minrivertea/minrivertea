@@ -726,10 +726,34 @@ def order_confirm(request):
             ) 
             
             # DO STUFF HERE LIKE UPDATE THE ORDER, CREATE THE PACKAGE, SEND THE EMAILS
+            # PREVENTS DUPLICATES
+    
+            # UPDATE THE ORDER DETAILS
+            order.status = Order.STATUS_PAID
+            order.date_paid = ipn_obj.payment_date
+            order.is_paid = True
+            order.save()
+    
+    
+            # IF THERE WAS A SINGLE USE DISCOUNT, UPDATE IT
+            if order.discount:
+                if order.discount.single_use == True:
+                    order.discount.is_active = False
+                    order.discount.save()
+    
+            from emailer.views import _payment_success 
+            _payment_success(order)
+        
             
+            # NOW CREATE A CUSTOMER PACKAGE
+            from logistics.views import _create_customer_package
+            _create_customer_package(order)
             
             return HttpResponseRedirect(reverse('order_complete', args=[order.hashkey]))
         except stripe.CardError, e: 
+            
+            # do we need to do something here like show an error message?
+            
             pass
 
 

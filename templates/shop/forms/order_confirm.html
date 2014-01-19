@@ -286,7 +286,7 @@ p.skip {
             data-description="{% for item in order.items.all %}{{ item }}{% if not forloop.last %}, {% endif %}{% endfor %}"
             data-image="{{ static_url }}images/logo-square.jpg"
             data-currency="{{ currency.code }}"
-            data-label="Confirm and pay now"
+            data-label="{% trans 'Confirm and pay now' %}"
             >
           </script>
         </form>
