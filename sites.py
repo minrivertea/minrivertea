@@ -20,7 +20,7 @@ class DomainTrackerMiddleware(object):
             return None
         
         try:    
-            print request.META['HTTP_REFERER']
+            logger.error(request.META['HTTP_REFERER']) 
         except:
             pass
                                             
