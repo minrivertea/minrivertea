@@ -3,6 +3,7 @@ from shop.models import *
 from blog.models import BlogEntry
 from shop.utils import _get_country, _get_currency, _set_currency, _get_region, _get_basket_value
 from django.utils import translation
+from django.utils.translation import get_language
 
 from django.contrib.sites.models import get_current_site
 
@@ -33,14 +34,11 @@ def common(request):
     # STUFF RELATED TO COUNTRY SPECIFIC SITES
     context['site_url'] = "http://www.minrivertea.com"
     context['analytics_id'] = settings.ANALYTICS_ID
-    context['mailchimp_list_id'] = settings.MAILCHIMP_LIST_ID       
-    if request.META['SERVER_NAME'] == settings.GERMAN_URL:
-        context['site_url'] = "http://%s" % settings.GERMAN_URL # gives us the full domain
-        context['analytics_id'] = settings.GERMAN_ANALYTICS_ID
+    context['mailchimp_list_id'] = settings.MAILCHIMP_LIST_ID  
+         
+    if get_language() == 'de':
         context['mailchimp_list_id'] = settings.GERMAN_MAILCHIMP_LIST_ID
-    elif request.META['SERVER_NAME'] == settings.GERMAN_URL:
-        context['site_url'] = "http://%s" % settings.ITALIAN_URL # gives us the full domain
-        context['analytics_id'] = settings.ITALIAN_ANALYTICS_ID
+    elif get_language() == 'it':
         context['mailchimp_list_id'] = settings.ITALIAN_MAILCHIMP_LIST_ID
         
         
