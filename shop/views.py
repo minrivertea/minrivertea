@@ -50,6 +50,7 @@ class BasketDoesNotExist(Exception):
     
 # the homepage view
 def index(request):
+    
     curr = RequestContext(request)['currency']
     
     teas = Product.objects.filter(
@@ -77,7 +78,7 @@ def index(request):
         special.price = special.get_lowest_price(curr)
     except:
         pass
-                
+     
     return _render(request, "shop/home.html", locals())
 
 
@@ -401,6 +402,8 @@ def increase_quantity(request, basket_item):
     basket_item.save()
     return HttpResponseRedirect('/basket/') # Redirect after POST
 
+
+
 @secure_required
 def basket(request):
     
@@ -669,9 +672,7 @@ def order_repeat(request, hash):
         
     # FINALLY, GET THE VALUES ETC.
     basket = _get_basket_value(request, order=new_order)
-    
-    print basket['order']
-    
+        
     return _render(request, 'shop/forms/order_repeat.html', locals())
 
     

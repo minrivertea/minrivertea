@@ -39,9 +39,12 @@ ITALIAN_URL =                   'www.minrivertea.it'
 ITALIAN_ANALYTICS_ID =          ''
 ITALIAN_MAILCHIMP_LIST_ID =     '07a453a7b5'
 SECRET_KEY =                    ''
-SESSION_COOKIE_SECURE =         True # for SSL
-CSRF_COOKIE_SECURE =            True # for SSL
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True # for SSL
+
+# SSL IMPORTANT STUFF
+SESSION_COOKIE_SECURE =         True 
+CSRF_COOKIE_SECURE =            True 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SECURE_PROXY_SSL_HEADER =       ('HTTP_X_FORWARDED_PROTOCOL', 'https') 
 
 
 
