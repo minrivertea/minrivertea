@@ -12,28 +12,20 @@ class DomainTrackerMiddleware(object):
     correct language and/or currency as appropriate.
     """
     
-    def process_request(self, request):
-        
-        
+    def process_request(self, request):        
         
         # don't want to keep validating against images and CSS/JS files
         if re.match('^.+\.(jpg|jpeg|gif|png|ico|css|js)', request.path):
             return None
-        
-        
-                  
-        if request.META['SERVER_NAME'] == settings.GERMAN_URL:                        
+       
+                          
+        if request.META['HTTP_HOST'] == settings.GERMAN_URL:                        
             url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['de']), request.path)
             return HttpResponseRedirect(url)
         
-        
-        if request.META['SERVER_NAME'] == settings.ITALIAN_URL:
-            _changelang(request, 'it')
-            if 'CURRENCY' not in request.session: 
-                _set_currency(request, 'EUR')
-                
-            url = '%s%s' % (settings.SITE_URL, request.path)
-            return HttpResponseRedirect(url) 
+        if request.META['HTTP_HOST'] == settings.ITALIAN_URL:
+            url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['it']), request.path)
+            return HttpResponseRedirect(url)
         
         return None
     
