@@ -21,7 +21,9 @@ class DomainTrackerMiddleware(object):
             return None
         
         
+        
         try:    
+            logger.error(request.META['HTTP_REFERER'])
             referer = request.META['HTTP_REFERER']
             if referer == settings.GERMAN_URL:
                 _changelang(request, 'de') # CHANGE LANGUAGE 
