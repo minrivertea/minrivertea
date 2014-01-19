@@ -480,6 +480,8 @@ def order_step_one(request, basket=None):
                 user = request.user
             else:
                 
+                user = User.objects.get(email=form.cleaned_data['email'])
+                
                 try:
                     user = User.objects.get(email=form.cleaned_data['email'])
                 except:
