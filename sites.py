@@ -17,7 +17,8 @@ class DomainTrackerMiddleware(object):
         # don't want to keep validating against images and CSS/JS files
         if re.match('^.+\.(jpg|jpeg|gif|png|ico|css|js)', request.path):
             return None
-       
+        
+        print request.META['HTTP_HOST']
                           
         if request.META['HTTP_HOST'] == settings.GERMAN_URL:                        
             url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['de']), request.path)

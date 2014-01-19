@@ -300,12 +300,13 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
 
 def _changelang(request, code):
     
-    from django.utils.translation import check_for_language, activate
-    
+    from django.utils.translation import check_for_language, activate, get_language
+        
     if request.GET.get('next'):
         next = request.GET['next']
     else:
         next = '/'
+    
     
     response = HttpResponseRedirect(next)
     lang_code = code
