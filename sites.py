@@ -20,11 +20,8 @@ class DomainTrackerMiddleware(object):
           
                                                     
         if request.META['SERVER_NAME'] == settings.GERMAN_URL:
-            _changelang(request, 'de')
-            if 'CURRENCY' not in request.session: 
-                _set_currency(request, 'EUR') 
-
-            url = '%s%s' % (settings.SITE_URL, request.path)
+            
+            url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['de'], request.path)
             return HttpResponseRedirect(url)
         
         
