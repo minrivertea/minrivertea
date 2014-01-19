@@ -724,14 +724,10 @@ def order_confirm(request):
                 card=token, 
                 description=order.owner.user.email 
             ) 
-            
-            # DO STUFF HERE LIKE UPDATE THE ORDER, CREATE THE PACKAGE, SEND THE EMAILS
-            # PREVENTS DUPLICATES
-    
+                
             # UPDATE THE ORDER DETAILS
             order.status = Order.STATUS_PAID
-            order.date_paid = ipn_obj.payment_date
-            order.is_paid = True
+            order.date_paid = datetime.now()
             order.save()
     
     
@@ -744,7 +740,6 @@ def order_confirm(request):
             from emailer.views import _payment_success 
             _payment_success(order)
         
-            
             # NOW CREATE A CUSTOMER PACKAGE
             from logistics.views import _create_customer_package
             _create_customer_package(order)
