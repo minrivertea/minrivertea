@@ -493,14 +493,6 @@ def order_step_one(request, basket=None):
                     user.first_name = form.cleaned_data['first_name']
                     user.last_name = form.cleaned_data['last_name']
                     user.save()
-                
-                # SECRETLY LOG THE USER IN
-                from django.contrib.auth import load_backend, login
-                for backend in settings.AUTHENTICATION_BACKENDS:
-                    if user == load_backend(backend).get_user(user.pk):
-                        user.backend = backend
-                if hasattr(user, 'backend'):
-                    login(request, user)
             
             
             try:

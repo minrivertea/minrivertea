@@ -198,9 +198,9 @@ class UniqueProduct(models.Model):
     
     def __unicode__(self):
         if self.weight:
-            return "%s (%s%s)" % (self.parent_product, self.weight, self.weight_unit)
+            return "%s (%s%s)" % (self.parent_product.__unicode__(), self.weight, self.weight_unit)
         else: 
-            return "%s" % self.parent_product  
+            return "%s" % self.parent_product.__unicode__()
         
     def stocks(self):
         from logistics.models import WarehouseItem
@@ -343,9 +343,9 @@ class BasketItem(models.Model):
         
     def __unicode__(self):
         if self.monthly_order:
-            return "%s x %s (%s months)" % (self.item, self.quantity, self.months)
+            return "%s x %s (%s months)" % (self.item.decode('utf-8'), self.quantity, self.months)
         else:
-            return "%s x %s" % (self.item, self.quantity)
+            return "%s x %s" % (self.item.__unicode__(), self.quantity)
 
     
 class Discount(models.Model):
