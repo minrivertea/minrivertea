@@ -7,7 +7,8 @@
 			{% if basket.total_price == 0 %}
 			<p class="skip"><a href="{% url fake_checkout basket.order.id %}" class="button green">{% trans 'Click here to skip Paypal (for 100% discount basket.orders)' %}</a></p>
 			{% else %}
-			<input type="submit" value="{% trans 'Confirm and pay' %}" next="" class="button green"/>
+			<div style="float: left; margin: 10px 10px 0 0;background-image: url('{{ static_url }}images/logo16.jpg');background-position: -125px -44px; height: 20px; width: 75px;"></div>
+			<input type="submit" value="{% trans 'Want to use Paypal? Click here to pay' %}" next="" class="" id=""/>
 			{% endif %}			
 			
 		</div>	

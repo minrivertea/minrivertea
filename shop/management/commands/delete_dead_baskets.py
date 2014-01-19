@@ -24,7 +24,7 @@ class Command(NoArgsCommand):
         
 
         # (3) check if any of those basket items are related to actual paid orders
-        orders = Order.objects.filter(is_paid=True).exclude(date_paid__range=(start_date, end_date))       
+        orders = Order.objects.filter(date_paid__isnull=False).exclude(date_paid__range=(start_date, end_date))       
         order_items = []
         for order in orders:
             [order_items.append(item) for item in order.items.all()]        
