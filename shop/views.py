@@ -479,9 +479,9 @@ def order_step_one(request, basket=None):
             if request.user.is_authenticated():
                 user = request.user
             else:
+                
                 try:
                     user = User.objects.get(email=form.cleaned_data['email'])
-                    
                 except:
                     creation_args = {
                             'username': form.cleaned_data['email'],
