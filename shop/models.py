@@ -269,6 +269,8 @@ class Shopper(models.Model):
             amount = order.get_amount()
             value += amount
         return value
+           
+           
             
 class Review(models.Model):
     product = models.ForeignKey(Product)
@@ -290,34 +292,6 @@ class Review(models.Model):
         return url.netloc     
 
 
-class Deal(models.Model):
-    """ 
-    The idea of this object is that it stores a list of UniqueProducts that
-    match a particular deal. When we want to calculate costs on the basket
-    page or order pages, we hand the Deal object a list of items and it
-    returns either None or the matching items and prices.
-    """
-    
-    THREE_FOR_TWO = '1'
-    BOGOF = '2'
-    TEA_PLUS_TEAWARE = '3'
-    CHEAPEST_FREE = '4'
-    DEAL_TYPES = (
-        (THREE_FOR_TWO, u"3 for 2"),
-        (BOGOF, u"Buy one get one free"),
-        (TEA_PLUS_TEAWARE, u"Tea and teaware combo"),
-        (CHEAPEST_FREE, u"Cheapest item free"),
-    )
-    
-    name = models.CharField(max_length="200", 
-        help_text="Give it a name, just so we know what this one is", blank=True, null=True)
-    items = models.ManyToManyField(UniqueProduct, null=True, blank=True, db_index=True)
-    is_active = models.BooleanField(default=False)
-    deal_type = models.CharField(max_length="3", choices=DEAL_TYPES)
-    
-    def __unicode__(self):
-        return self.name
-    
 
             
 class Address(models.Model):
@@ -387,7 +361,18 @@ class Discount(models.Model):
     
     def __unicode__(self):
         return self.name
-    
+
+
+class PaidOrdersManager(models.Manager):
+    def get_query_set(self):
+        qs = super(PaidOrdersManager, self).get_query_set()
+        return qs.filter(date_paid__isnull=False)
+
+
+class UnPaidOrdersManager(models.Manager):
+    def get_query_set(self):
+        qs = super(UnPaidOrdersManager, self).get_query_set()
+        return qs.filter(date_confirmed__isnull=False, date_paid__isnull=True)    
     
 class Order(models.Model):
     # CORE ITEMS
@@ -398,9 +383,7 @@ class Order(models.Model):
     address = models.ForeignKey(Address, null=True)
     
     # DATES
-    is_confirmed_by_user = models.BooleanField(default=False) # deprecated, can delete
     date_confirmed = models.DateTimeField()
-    is_paid = models.BooleanField(default=False) # deprecated, just use the date field
     is_giveaway = models.BooleanField(default=False)
     date_paid = models.DateTimeField(null=True, blank=True)
         
@@ -427,6 +410,12 @@ class Order(models.Model):
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True)
     
+    
+    # not sure why you have to set the default manager when you're
+    objects = models.Manager()
+    # ...adding a custom one.
+    paid_orders = PaidOrdersManager()
+    unpaid_orders = PaidOrdersManager()
     
     # DEPRECATED! EVERYTHING IS STORED AGAINST THE WAREHOUSE ITEM NOW, WHICH IS KEPT PERMANENTLY
     #final_amount_paid = models.DecimalField(blank=True, null=True, max_digits=8, decimal_places=2,
@@ -629,6 +618,7 @@ def show_me_the_money(sender, **kwargs):
     order.status = Order.STATUS_PAID
     order.date_paid = ipn_obj.payment_date
     order.is_paid = True
+    order.save()
     
     
     # IF THERE WAS A SINGLE USE DISCOUNT, UPDATE IT

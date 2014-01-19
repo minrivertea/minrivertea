@@ -11,7 +11,7 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):        
         
-        for c in CustomerPackage.objects.filter(order__is_paid=True):
+        for c in CustomerPackage.objects.filter(order__date_paid__isnull=False):
             o = c.order
                         
             # UPDATE THE FINAL ITEMS LIST

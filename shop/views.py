@@ -31,12 +31,13 @@ import datetime
 from datetime import timedelta
 import uuid
 import re
+import stripe
 
 # APP
 from shop.models import *
 from blog.models import BlogEntry
 from shop.utils import _render, _get_basket, _get_currency, _get_country, _get_region, \
-    _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter, _get_basket_value
+    _changelang, _set_currency, _get_products, _get_monthly_price, weight_converter, _get_basket_value,  secure_required
 from shop.forms import *
 from slugify import smart_slugify
 
@@ -400,7 +401,7 @@ def increase_quantity(request, basket_item):
     basket_item.save()
     return HttpResponseRedirect('/basket/') # Redirect after POST
 
-
+@secure_required
 def basket(request):
     
     # GET THE VALUE OF THE BASKET 
@@ -704,7 +705,6 @@ def not_you(request):
 # the view for the order step 3 - confirming your order
 def order_confirm(request):
    
-        
     try:
         order = get_object_or_404(Order, id=request.session['ORDER_ID'])
     except:
@@ -715,8 +715,30 @@ def order_confirm(request):
     order_items = order.items.all() 
         
     basket = _get_basket_value(request, order=order)
-   
-    form = PayPalPaymentsForm()
+    amount_in_cents = int(float(basket['total_price']) * 100) # for stupid stripe...
+    
+    # THIS HANDLES STRIPE
+    if request.method == 'POST':
+
+        stripe.api_key = settings.STRIPE_SECRET_KEY     
+        token = request.POST['stripeToken']     
+        
+        try: 
+            charge = stripe.Charge.create( 
+                amount=amount_in_cents,  
+                currency=basket['currency'].code.lower(), 
+                card=token, 
+                description=order.owner.user.email 
+            ) 
+            
+            # DO STUFF HERE LIKE UPDATE THE ORDER, CREATE THE PACKAGE, SEND THE EMAILS
+            
+            
+            return HttpResponseRedirect(reverse('order_complete', args=[order.hashkey]))
+        except stripe.CardError, e: 
+            pass
+
+
 
     return _render(request, 'shop/forms/order_confirm.html', locals())
    
@@ -734,7 +756,6 @@ def fake_checkout(request, order_id):
     # ORGANISE THE ORDER AS IF IT HAD BEEN PAID LIKE NORMAL
     order.status = Order.STATUS_PAID
     order.date_paid = datetime.now()
-    order.is_paid = True
     order.notes = '100% discount order, not paid via paypal.'
     order.save()    
     
@@ -747,13 +768,16 @@ def fake_checkout(request, order_id):
 
     return HttpResponseRedirect(reverse('order_complete'))    
     
-def order_complete(request):
+def order_complete(request, hash=None):
 
     # TRY TO GET THEIR ORDER INFORMATION FROM A COOKIE
-    try:
-        order = get_object_or_404(Order, id=request.session['ORDER_ID'])
-    except:
-        pass
+    if hash:
+        order = get_object_or_404(Order, hashkey=hash)
+    else:
+        try:
+            order = get_object_or_404(Order, id=request.session['ORDER_ID'])
+        except:
+            pass
     
     # CLEAR THEIR BASKET (EVERYTHING'S BEEN PAID FOR NOW, RIGHT?)
     from shop.utils import _empty_basket  
@@ -763,7 +787,7 @@ def order_complete(request):
 
 def order_complete_fake(request):
     
-    order = Order.objects.filter(is_paid=True, is_giveaway=False).order_by('?')[0]
+    order = Order.objects.filter(date_paid__isnull=False, is_giveaway=False).order_by('?')[0]
     try:
         request.session['ORDER_ID'] = None
     except:

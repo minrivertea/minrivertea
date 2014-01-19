@@ -6,30 +6,12 @@
 {% block extrajs %}
 <script type="text/javascript">
 
-$("#wishlist-link").click(function() {	
-	$.getJSON("/order/make_wishlist/", {xhr: "true", order: {{ order.id }}},
-  		function(data) {
-	  		$(data).appendTo('#wishlist-full');
-	  		$('#wishlist-link').unbind('click');
-	  		$('a#wishlist-link').fancybox();
-	  		$('#loading-wishlist').toggle();
-  		});    	
-	});
-
-
-$(document).ready( function() {
-	$('a#wishlist-link').fancybox();
-});
-
 </script>
 
-<script type="application/javascript" src="{{ static_url }}js/lightbox/jquery.fancybox-1.3.4.pack.js"></script>
 {% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{{ static_url }}css/fancybox/jquery.fancybox-1.3.4.css" />
 <style type="text/css">
-
 
 #tools {
   display: none;   
@@ -52,6 +34,7 @@ $(document).ready( function() {
 }
 
 #bottom .info:first-child {
+  padding-left: 0;
 }
 
 #bottom .info:last-child {
@@ -135,11 +118,68 @@ table td {
     width: 280px;
 }
 
-#checkout-button {
-  position: absolute;
-  bottom: 0px;
-  right: 20px;	
+#payment {
+    bottom: 15px;
+    float: left;
+    position: absolute;
+    right: 20px;
+    width: 95%;
 }
+
+
+#payment #stripe {
+  float: right;   
+}
+
+#payment #stripe img {
+  float: right;
+  margin: 0 0 0px 0;   
+}
+
+#payment #stripe .stripe-button-el span {
+    font-size: 20px;
+    height: 35px;
+    padding: 3px 12px 0;
+}
+
+#payment #stripe .cards {
+  height: 20px;
+  width: 79px;
+  overflow: hidden;
+  display: block;
+  float: right;
+  background: url('{{ static_url }}images/logo16.jpg') no-repeat -4px -40px;   
+}
+
+#payment #stripe form {
+  margin: 0 0 10px 0;   
+}
+
+#checkout-button {
+  width: 820px;
+  padding: 0 15px;
+  float: left;
+  padding: 0;
+  margin: 5px 0;   
+}
+
+#checkout-button input {
+  background: none;
+  padding: 0;
+  border: none;
+  color: #2A8531;
+  text-decoration: underline;
+  float: left;
+  width: auto;
+  margin: 10px 0 0 0;
+}
+
+#checkout-button input:hover {
+  color: #D30000;
+  cursor: pointer;   
+}
+
+
 
 p.checkout {
     float: left;
@@ -149,34 +189,6 @@ p.checkout {
     width: auto;
 }
 
-#wishlist {
-    float: right;
-    font-size: 13px;
-    font-weight: bold;
-    margin: 5px 30px;
-    text-align: right;
-    width: 300px;
-}
-
-#wishlist img {
-  position: relative;
-  top: 9px;	
-  right: -4px;
-}
-
-#mtw #wishlist-full {
-  display: none;
-  float: left;
-  width: 500px;
-  height: auto;
-  position: relative;	
-}
-
-#loading-wishlist {
-  position: absolute;
-  left: 300px;	
-  top: 200px;
-}
 
 #wishlist-full p.url {
   background-color: #f1f1f1;
@@ -256,17 +268,48 @@ p.skip {
             </p>
   	   {% endif %}
   	</div>
+  	
+  	<div id="payment">
+        
+        
+        
+        <!-- STRIPE FORM -->
+        <div id="stripe">
+        
+        <form action="" method="POST">
+          <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="{{ stripe_public_key }}"
+            data-amount="{{ amount_in_cents }}"
+            data-email="{{ order.owner.email }}"
+            data-name="{{ site_name }}"
+            data-description="{% for item in order.items.all %}{{ item }}{% if not forloop.last %}, {% endif %}{% endfor %}"
+            data-image="{{ static_url }}images/logo-square.jpg"
+            data-currency="{{ currency.code }}"
+            data-label="Confirm and pay now"
+            >
+          </script>
+        </form>
+        
+        <img src="{{ static_url }}images/stripe.png"/>
+        <div class="cards"></div>
+        </div>
+        <!-- END STRIPE FORM -->
+               
+        
+    </div>
 
-    {% include "shop/snippets/paypal_form.html" %}
-    
 </div>
+
+<!-- PAYPAL FORM -->
+    {% include "shop/snippets/paypal_form.html" %}
+<!-- END PAYPAL FORM -->
 
 <div id="bottom">
 
     <div class="info">
         <h3>{% trans 'Safe and secure payment' %}</h3>
-      	<p>{% trans 'We accept all major credit and debit cards through Paypal' %}</p>
-      	<div style="margin: 10px 0 0 0;background-image: url('/static/images/logo16.jpg');background-position: 0px -33px; height: 52px; width: 202px;"></div>
+      	<p>{% trans "We accept all major credit/debit cards and Paypal and we're protected by industry standard SSL encryption." %}</p>
     </div>
     
     {% if not friend %}
@@ -279,6 +322,7 @@ p.skip {
     
     <div class="info">
         <h3>{% trans 'Problems or questions?' %}</h3>
+        {% url finder _('contact-us') as contact_url %}
         <p>{% blocktrans %}We aim to offer first class customer service - if you have ANY problems or questions, <a href="{{ contact_url }}">contact us</a> immediately. We'll respond as quickly as possible, usually within a few hours.{% endblocktrans %}</p>
     </div>
 

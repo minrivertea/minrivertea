@@ -23,7 +23,10 @@ class CustomerPackageTestCase(TestCase):
         # package is created, then check that the quantity has dropped
         
         # IMPORTANT - we're going to order all of the available stocks in one go
-        quantity = WarehouseItem.objects.filter(unique_product__parent_product__slug='jasmine-pearls', sold__isnull=True).count()
+        quantity = WarehouseItem.objects.filter(
+                unique_product__parent_product__slug='jasmine-pearls', 
+                sold__isnull=True
+                ).count()
                 
         shopper = Shopper.objects.all()[0]
         address = Address.objects.all()[0]
@@ -32,9 +35,7 @@ class CustomerPackageTestCase(TestCase):
         basket_item = BasketItem.objects.create(item=up, quantity=quantity, basket=basket)
         
         order = Order.objects.create(
-            is_paid=True,
             date_paid=datetime.now(),
-            is_confirmed_by_user=True,
             date_confirmed=datetime.now(),
             address=address,
             owner=shopper,
@@ -64,9 +65,7 @@ class CustomerPackageTestCase(TestCase):
         # FOURTH - now let's try to order 1 more - it should create an extra preorder package for this customer
         basket_item = BasketItem.objects.create(item=up, quantity=1, basket=basket)
         order = Order.objects.create(
-            is_paid=True,
             date_paid=datetime.now(),
-            is_confirmed_by_user=True,
             date_confirmed=datetime.now(),
             address=address,
             owner=shopper,
@@ -90,9 +89,7 @@ class CustomerPackageTestCase(TestCase):
         basket_item = BasketItem.objects.create(item=up, quantity=2, basket=basket, monthly_order=True, months=12)
         
         order = Order.objects.create(
-            is_paid=True,
             date_paid=datetime.now(),
-            is_confirmed_by_user=True,
             date_confirmed=datetime.now(),
             address=address,
             owner=shopper,

@@ -118,7 +118,7 @@ def stocks(request):
 @login_required
 def admin_product(request, id):
     product = get_object_or_404(Product, pk=id)
-    sales = Order.objects.filter(is_paid=True)
+    sales = Order.objects.filter(date_paid__isnull=False)
     order_count = 0
     total_weight = 0
     total_items = 0
@@ -191,6 +191,7 @@ def stats(request):
     tvusd = 0
     tveur = 0
     total_order_value = 0
+    total_items = 0
     av_extra_costs = 0
     pp_cost = 0
     postage_cost = 0
@@ -199,7 +200,7 @@ def stats(request):
     italian_orders_total_value = 0
     raph = 0
     german_countries = ('DE', 'AT', 'BE')
-    italian_countries = ('IT',)
+    italian_countries = ('IT', 'NL')
     
     for o in orders:
         
@@ -236,6 +237,12 @@ def stats(request):
         except:
             pass
         
+        
+        try:
+            total_items += o.get_items().count()
+        except:
+            pass
+        
         # CALCULATE ABSOLUTE TOTAL AMOUNT IN GBP
         try:       
             total_order_value += float(o.get_final_value()) * float(currency_converter)
@@ -265,6 +272,7 @@ def stats(request):
     av_paypal = pp_cost / orders.count()
     av_postage = postage_cost / orders.count()
     av_order_value = float(total_order_value) / float(orders.count())
+    av_order_items = float(total_items) / float(orders.count())
     
     return _render(request, 'my_admin/stats.html', locals())    
 

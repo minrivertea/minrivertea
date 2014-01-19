@@ -41,7 +41,7 @@ class Command(NoArgsCommand):
         
         # get a list of all the sales this month that are affiliates
         orders = Order.objects.filter(
-            is_paid=True, 
+            date_paid__isnull=False, 
             status=Order.STATUS_PAID, 
             affiliate_referrer__isnull=False,
             date_paid__range=(start_date, end_date),

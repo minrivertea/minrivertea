@@ -16,6 +16,9 @@ def common(request):
     context['paypal_business_name'] = settings.PAYPAL_BUSINESS_NAME
     context['paypal_receiver_email'] = settings.PAYPAL_RECEIVER_EMAIL
     context['paypal_submit_url'] = settings.PAYPAL_SUBMIT_URL
+    context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
+    context['stripe_secret_key'] = settings.STRIPE_SECRET_KEY
+    
     context['ga_is_on'] = settings.GA_IS_ON
     context['latestblogs'] = BlogEntry.objects.filter(is_draft=False, title__isnull=False).exclude(title__exact="None").order_by('-date_added')[:3]
     context['static_url'] = settings.STATIC_URL

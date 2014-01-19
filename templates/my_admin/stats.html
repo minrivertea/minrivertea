@@ -41,60 +41,31 @@
     </tr>
 
     <tr>
-        <td width="200px" valign="top"><strong>Total number of orders</strong></td>
+        <td width="200px" valign="top"><strong>Orders</strong></td>
         <td width="300px" valign="top">
-            {{ orders.count }}
-        </td>
-    </tr>
-
-    <tr>
-        <td width="200px" valign="top"><strong>Customers</strong></td>
-        <td width="300px" valign="top">
-            {{ shoppers }}
+            {{ shoppers }} customers<br/>
+            {{ orders.count }} orders
         </td>
     </tr>
 
     <tr>
         <td width="200px" valign="top"><strong>Average Order Value</strong></td>
         <td width="300px" valign="top">
-            £{{ av_order_value|floatformat:"2" }}
+            £{{ av_order_value|floatformat:"2" }}<br/>
+            (average {{ av_order_items|floatformat:"2" }} items per order)
         </td>
     </tr>
 
     <tr>
-        <td width="200px" valign="top"><strong>Average PayPal Cost</strong></td>
+        <td width="200px" valign="top"><strong>Costs</strong></td>
         <td width="300px" valign="top">
-            £{{ av_paypal|floatformat:"2" }}
+            £{{ pp_cost|floatformat:"2" }} on Paypal (average £{{ av_paypal|floatformat:"2" }} per order)<br/>
+            £{{ postage_cost|floatformat:"2" }} on postage (average £{{ av_postage|floatformat:"2" }} per order)<br/>
+            <strong>£{{ total_extra_costs|floatformat:"2" }} total</strong>
         </td>
     </tr>
 
-    <tr>
-        <td width="200px" valign="top"><strong>Average Postage Cost</strong></td>
-        <td width="300px" valign="top">
-            £{{ av_postage|floatformat:"2" }}
-        </td>
-    </tr>
 
-    <tr>
-        <td width="200px" valign="top"><strong>Total extras (post/paypal)</strong></td>
-        <td width="300px" valign="top">
-            £{{ total_extra_costs|floatformat:"2" }}
-        </td>
-    </tr>
-
-    <tr>
-        <td width="200px" valign="top"><strong>Total PayPal</strong></td>
-        <td width="300px" valign="top">
-            £{{ pp_cost|floatformat:"2" }}
-        </td>
-    </tr>
-
-    <tr>
-        <td width="200px" valign="top"><strong>Total Postage</strong></td>
-        <td width="300px" valign="top">
-            £{{ postage_cost|floatformat:"2" }}
-        </td>
-    </tr>
     <tr>
         <td width="200px" valign="top"><strong>German orders</strong><br/>
             (Germany, Belgium, Austria)

@@ -39,15 +39,18 @@ ITALIAN_URL =                   'www.minrivertea.it'
 ITALIAN_ANALYTICS_ID =          ''
 ITALIAN_MAILCHIMP_LIST_ID =     '07a453a7b5'
 SECRET_KEY =                    ''
+SESSION_COOKIE_SECURE =         True # for SSL
+CSRF_COOKIE_SECURE =            True # for SSL
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True # for SSL
 
 
 
 # STATIC / MEDIA FILES
 # ----------------------------------------------------------
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
-MEDIA_URL = 'http://static.minrivertea.com/media/'
+MEDIA_URL = 'https://www.minrivertea.com/media/'
 
-STATIC_URL = 'http://static.minrivertea.com/static/'
+STATIC_URL = 'https://www.minrivertea.com/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'static'),
 )
@@ -129,7 +132,7 @@ INSTALLED_APPS = (
 )
 
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 APPEND_SLASH = True
 
 # MAIL SETTINGS
