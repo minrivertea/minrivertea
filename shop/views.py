@@ -482,13 +482,14 @@ def order_step_one(request, basket=None):
                                 
                 try:
                     user = User.objects.filter(email=form.cleaned_data['email'])[0]
+                
                 except IndexError:
                     creation_args = {
                             'username': form.cleaned_data['email'],
                             'email': form.cleaned_data['email'],
                             'password': uuid.uuid1().hex,
                     }
-                    user = User.objects.get_or_create(**creation_args)
+                    user = User.objects.create(**creation_args)
                     user.first_name = form.cleaned_data['first_name']
                     user.last_name = form.cleaned_data['last_name']
                     user.save()

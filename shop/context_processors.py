@@ -42,7 +42,7 @@ def common(request):
         context['mailchimp_list_id'] = settings.ITALIAN_MAILCHIMP_LIST_ID
         
         
-    context['site_name'] = settings.SITE_NAME # just the loose non-techy name of the site eg. minrivertea.com
+    context['site_name'] = settings.SITE_NAME # the loose non-techy name
 
     # GET THE NAVIGATIONS
     context['main_nav'] = Category.objects.filter(is_navigation_item=True).order_by('list_order')
