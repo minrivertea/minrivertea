@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 import re
 
 from shop.utils import _changelang, _set_currency
