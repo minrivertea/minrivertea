@@ -303,15 +303,11 @@ def _changelang(request, code):
     from django.utils.translation import check_for_language, activate
     
     if request.GET.get('next'):
-        
         next = request.GET['next']
     else:
         next = '/'
     
-    print next
-
     response = HttpResponseRedirect(next)
-    
     lang_code = code
             
     if lang_code and check_for_language(lang_code):
@@ -321,7 +317,6 @@ def _changelang(request, code):
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
         
     activate(lang_code)
-    
     return response
 
 
