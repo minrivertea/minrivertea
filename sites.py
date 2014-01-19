@@ -2,6 +2,9 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 import re
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 from shop.utils import _changelang, _set_currency
 
