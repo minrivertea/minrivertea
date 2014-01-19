@@ -19,10 +19,9 @@ class DomainTrackerMiddleware(object):
         if re.match('^.+\.(jpg|jpeg|gif|png|ico|css|js)', request.path):
             return None
           
-                                                    
         if request.META['SERVER_NAME'] == settings.GERMAN_URL:
             
-            url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['de'], request.path)
+            url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['de']), request.path)
             return HttpResponseRedirect(url)
         
         
