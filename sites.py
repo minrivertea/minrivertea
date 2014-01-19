@@ -1,10 +1,7 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.http import HttpResponseRedirect
 import re
-
-import logging
-
-logger = logging.getLogger(__name__)
 
 from shop.utils import _changelang, _set_currency
 
@@ -15,28 +12,29 @@ class DomainTrackerMiddleware(object):
     """
     
     def process_request(self, request):
-                
+        
+        
         # don't want to keep validating against images and CSS/JS files
         if re.match('^.+\.(jpg|jpeg|gif|png|ico|css|js)', request.path):
             return None
+          
+                                                    
+        if request.META['SERVER_NAME'] == settings.GERMAN_URL:
+            _changelang(request, 'de')
+            if 'CURRENCY' not in request.session: 
+                _set_currency(request, 'EUR') 
+
+            url = '%s%s' % (settings.SITE_URL, request.path)
+            return HttpResponseRedirect(url)
         
         
+        if request.META['SERVER_NAME'] == settings.ITALIAN_URL:
+            _changelang(request, 'it')
+            if 'CURRENCY' not in request.session: 
+                _set_currency(request, 'EUR')
+                
+            url = '%s%s' % (settings.SITE_URL, request.path)
+            return HttpResponseRedirect(url) 
         
-        try:    
-            logger.error(request.META['HTTP_REFERER'])
-            referer = request.META['HTTP_REFERER']
-            if referer == settings.GERMAN_URL:
-                _changelang(request, 'de') # CHANGE LANGUAGE 
-                if 'CURRENCY' not in request.session: 
-                    _set_currency(request, 'EUR') # CHANGE CURRENCY TO EUR 
-                                
-            if referer == settings.ITALIAN_URL:
-                _changelang(request, 'it') # CHANGE LANGUAGE
-                if 'CURRENCY' not in request.session: 
-                    _set_currency(request, 'EUR') # CHANGE CURRENCY TO EUR
-            
-        except:
-            pass
-                       
         return None
     
