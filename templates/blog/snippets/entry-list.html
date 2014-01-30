@@ -15,7 +15,7 @@
   		<h3>
   		<a alt="{{ thing.title }}" title="{{ thing.title }}" href="{% url blog_entry thing.slug %}">{{ thing.title }}</a>
   	    </h3>
-  		<p>{{ thing.content|safe|removetags:"img div em"|truncatewords:"100" }}</p>
+  		<p>{{ thing.content|safe|removetags:"img div em .caption p ul li"|truncatewords:"100" }}</p>
   		<p><span class="entry-meta">{% if thing.blogger %}By {{ thing.blogger }} | {% endif %}{{ thing.date_added|date:"d M Y" }}
   		</p>
 	</div> 
