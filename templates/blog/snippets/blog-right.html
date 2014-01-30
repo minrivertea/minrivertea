@@ -2,9 +2,6 @@
 
 {% include 'shop/boxes/follow.html' %}
 {% include 'shop/boxes/who.html' %}
-{% if request.LANGUAGE_CODE == 'en' %}
-{% include 'shop/boxes/2013-christmas.html' %}
-{% endif %}
 {% for t in teas %}
 {% include 'shop/snippets/product_small.html' %}
 {% endfor %}
