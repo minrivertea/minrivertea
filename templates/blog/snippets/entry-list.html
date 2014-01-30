@@ -2,6 +2,11 @@
 
   {% for thing in entries.object_list.all %}
   <div class="entry{% if forloop.last %} last{% endif %}">
+    
+    <h3>
+  		<a alt="{{ thing.title }}" title="{{ thing.title }}" href="{% url blog_entry thing.slug %}">{{ thing.title }}</a>
+  	    </h3>
+    
     <a href="{% url blog_entry thing.slug %}"><span class="link"></span></a>
   	{% if thing.promo_image %}
 	<div class="image">
@@ -12,9 +17,7 @@
   	{% endif %}
 
   	<div class="text{% if not thing.promo_image %} long{% endif %}">
-  		<h3>
-  		<a alt="{{ thing.title }}" title="{{ thing.title }}" href="{% url blog_entry thing.slug %}">{{ thing.title }}</a>
-  	    </h3>
+  		
   		<p>{{ thing.content|safe|removetags:"img div em .caption p ul li"|truncatewords:"100" }}</p>
   		<p><span class="entry-meta">{% if thing.blogger %}By {{ thing.blogger }} | {% endif %}{{ thing.date_added|date:"d M Y" }}
   		</p>
