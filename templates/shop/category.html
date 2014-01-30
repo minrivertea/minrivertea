@@ -234,15 +234,9 @@ p.introduction, #left p.introduction {
 		{% if category.slug == _('teaware') %}
 		  {% include 'shop/snippets/products_teaware.html' %}
 		{% else %}
-    		{% if products.count > 5 %}
     		      {% with products as teas %}
     		          {% include 'shop/snippets/products_long.html' %}
     		      {% endwith %}
-    		{% else %}
-        		   {% with products as teas %}
-        		      {% include "shop/snippets/products_normal.html" %}
-        		   {% endwith %}
-    		{% endif %}
         {% endif %}
     {% endif %}
   	     

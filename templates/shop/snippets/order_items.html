@@ -44,10 +44,10 @@
 	        {% endif %}
 	        
 	        
-	        {% if discount %}
+	        {% if basket.discount %}
 	      	  <tr>
-	      	  	<td>{% trans 'Discount' %}</td>
-	      	  	<td>-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}</td>
+	      	  	<td><span class="red">{% trans 'Discount' %}</span></td>
+	      	  	<td><span class="red">-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}</span></td>
 	      	  </tr>
 	      	{% endif %}
 			  <tr>

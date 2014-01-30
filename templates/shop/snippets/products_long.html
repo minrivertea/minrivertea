@@ -9,7 +9,7 @@
         {% else %}
         
             {% if t.price.stocks.preorder %}
-                <a href="{% url add_to_basket t.price.id %}" class="button red small"><span title="{% trans 'Order now and receive this on' %} {{ t.get_preorder_date|date:'d M Y' }}" id="add_to_basket_{{ t.price.id }}">{% trans 'Preorder now' %}</span></a>
+                <a href="{% url add_to_basket t.price.id %}" class="button orange small"><span title="{% trans 'Order now and receive this on' %} {{ t.get_preorder_date|date:'d M Y' }}" id="add_to_basket_{{ t.price.id }}">{% trans 'Preorder now' %}</span></a>
             {% endif %} 
             
             {% if t.price.stocks.out_of_stock %}
@@ -23,7 +23,7 @@
         
         {% endif %}
         
-        {% thumbnail t.image "240x160" crop="center" as im %}
+        {% thumbnail t.image "240x180" crop="center" as im %}
         <a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
         	<img alt="{{ t.description }}" src="{{ im.url }}"/>
         </a>
@@ -41,6 +41,8 @@
                     
                     {% if t.quantity > 0 %}
                     <div class="in-basket">
+		                  
+		                  
 		                  <span class="quantity">
 		                      <span class="num">{{ t.quantity }}</span> 
 		                      {% if months %}{% trans 'in your TeaBox!' %}
@@ -48,7 +50,18 @@
 		                      {% endif %}
 		                  </span>
 		            </div>
-                    {% endif %}                    
+                    {% endif %}
+                    
+                    {% if t.get_reviews.count > 0 %}
+                    <div class="reviews">
+                    
+                        {% blocktrans count counter=t.get_reviews.count %}
+                        {{ counter }} review
+                        {% plural %}
+                        {{ counter }} reviews
+                        {% endblocktrans %}
+                    </div> 
+                    {% endif %}                   
                 </div>                            
                 </div>
         </div>

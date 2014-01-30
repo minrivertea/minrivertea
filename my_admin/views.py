@@ -157,7 +157,8 @@ def postage_cost_update(request, id):
 
 @login_required
 def export_emails(request):
-    emails = Subscriber.objects.filter(language='en', date_unsubscribed__isnull=True)
+    emails = Subscriber.objects.filter(language='de', date_unsubscribed__isnull=True)
+    
     import csv
     
     response = HttpResponse(content_type='text/csv')

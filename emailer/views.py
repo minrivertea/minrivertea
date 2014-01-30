@@ -39,6 +39,7 @@ def _send_email(recipient, subject_line, template, extra_context=None, sender=No
     context = {
         'EMAIL_SIGNATURE': email_signature,
         'HTML_EMAIL_SIGNATURE': html_email_signature,
+        'static_url': settings.STATIC_URL,
         'SITE_NAME': settings.SITE_NAME,
         'site_name': settings.SITE_NAME,
         'SITE_URL': settings.SITE_URL,

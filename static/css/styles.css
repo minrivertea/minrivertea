@@ -137,7 +137,7 @@ ol {
     background: -o-linear-gradient(#e6e6e6, #f1f1f1);   /* Opera 11.10+ */
     border: 1px solid #fff;
     box-shadow: 0 1px 1px #999, 0 1px 0px #f6f6f6;
-    border-radius: 4px;
+    border-radius: 0px;
     font-size: 12px;
     font-weight: normal;
     padding: 10px 15px;
@@ -187,14 +187,28 @@ input.button {
    text-decoration: none;  
 }
 
+.button.orange {
+   background: #d9800c;
+   border: none;
+   text-shadow: none;
+   box-shadow: none;
+   border-top: ;
+   color: #fff;
+   text-decoration: none;    
+}
+
+.button.orange:hover {
+   background: #ff9000;  
+} 
+
 .button.large {
   font-size: 20px;   
 }
 
 .button.small {
-  font-size: 11px;
-  padding: 3px 5px 2px;  
-  font-weight: bold; 
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 7px 3px;
 }
 
 .underline {
@@ -933,7 +947,7 @@ p.introduction, #left p.introduction {
 
 .info .glass-text .inner {
   padding: 0px;
-  height: 160px;
+  height: 180px;
 }
 
 .info.tea.long .glass-text .inner {
@@ -1085,15 +1099,25 @@ p.introduction, #left p.introduction {
 .info.tea.long .glass-text .in-basket, .info.tea .glass-text .in-basket {
     background: none repeat scroll 0 0 #F1F1F1;
     border-radius: 3px;
-    bottom: 20px;
+    bottom: 23px;
     color: #555555;
     font-size: 11px;
     font-weight: bold;
-    left: 0;
-    padding: 3px 8px 2px;
+    padding: 2px 8px 0;
     position: absolute;
+    right: 0;
     text-shadow: none;
 }
+
+.info.tea.long .glass-text .reviews, .info.tea .glass-text .reviews {
+  font-size: 11px;
+  color: #777;
+  position: absolute;
+  left: 0;
+  bottom: 20px;    
+}
+
+
     
 
 .info.tea.long .pricebar .price-weight {
@@ -1171,7 +1195,7 @@ p.introduction, #left p.introduction {
    width: 210px;
    margin: 0;
    position: relative;
-   height: 160px;
+   height: 180px;
 }
 
 .info.tea:hover img {

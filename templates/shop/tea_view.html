@@ -108,6 +108,23 @@ function addToBasket(obj) {
 
 $(document).ready( function() {
     addToBasket('.price a.button');
+    
+    $('#reviews ul').css({'height': '170px'});
+    $('#reviews .toggle').css({'top': '200px', 'bottom': 'auto'});
+    $('#reviews .toggle').click( function() {
+       if ($(this).hasClass('open')) {
+            $('#reviews ul').animate({'height': '170'}, 100);
+            $('#reviews .toggle').css({'top': '200px', 'bottom': 'auto'}); 
+            $(this).removeClass('open');
+            $(this).text("{% trans 'Show more reviews' %}");    
+       } else {
+            $('#reviews ul').css({'height': 'auto'}, 150);
+            $('#reviews .toggle').css({'top': 'auto', 'bottom': '-26'});
+            $(this).addClass('open'); 
+            $(this).text("{% trans 'Show fewer reviews' %}");
+            
+       } 
+    });
 });
 
 
@@ -571,7 +588,26 @@ div.fb-recommend {
 #reviews {
   background: #fff;
   margin: 0px;
-  position: relative;  
+  position: relative; 
+}
+
+#reviews .toggle {
+    background: none repeat scroll 0 0 #F6F6F6;
+    border-bottom: 1px dashed #C1C1C1;
+    bottom: 0;
+    color: #2A8531;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 7px 0 5px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 150px;
+}
+
+#reviews .toggle:hover {
+  cursor: pointer;   
 }
 
 #recommended h3 {
@@ -592,7 +628,8 @@ div.fb-recommend {
   padding: 0;
   margin: 0; 
   float: left;
-  width: 100%;  
+  width: 100%;
+  overflow: hidden;  
 }
 
 #reviews ul li {
@@ -600,8 +637,9 @@ div.fb-recommend {
     font-size: 13px;
     letter-spacing: -0.2px;
     margin: 10px 30px 0 0;
-    padding: 0 15px;
+    padding: 0 15px 0;
     width: 260px;
+    height: 170px;
 }
 
 #image_wrap {
@@ -931,8 +969,9 @@ ul.rss {
                </li>
            {% endfor %}
             </ul>
-            
+           
         </div>
+        <span class="toggle">{% trans 'Show more reviews' %}</span> 
     </div>        
     <div class="hr"></div>
     {% endif %}

@@ -113,11 +113,11 @@ if (15.00) {
 }
 /* ]]> */
 </script>
-<script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+<script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion.js">
 </script>
 <noscript>
 <div style="display:inline;">
-<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/970474503/?value=15.00&amp;label=mTM9CJHq3AIQh4jhzgM&amp;guid=ON&amp;script=0"/>
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/970474503/?value=15.00&amp;label=mTM9CJHq3AIQh4jhzgM&amp;guid=ON&amp;script=0"/>
 </div>
 </noscript>
 {% endif %}
@@ -166,11 +166,27 @@ if (15.00) {
             {% endfor %}
             
           	{% get_current_language as LANGUAGE_CODE %}
-          	{% if LANGUAGE_CODE == 'de' %}
-          	<li><a href="http://www.minrivertea.com/changelang/en/">{% trans 'English' %}</a></li>
-          	{% else %}
-          	<li><a href="http://www.minrivertea.com/changelang/de/">{% trans 'German' %}</a></li>
+          	{% if LANGUAGE_CODE == 'en' %}
+          	<li>
+          	     <a href="{% url changelang 'de' %}">{% trans 'German' %}</a>
+          	     <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a>
+          	</li>
           	{% endif %}
+          	
+          	{% if LANGUAGE_CODE == 'de' %}
+          	<li>
+          	     <a href="{% url changelang 'en' %}">{% trans 'English' %}</a>
+          	     <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a>
+          	</li>
+          	{% endif %}
+          	
+          	{% if LANGUAGE_CODE == 'it' %}
+          	<li>
+          	     <a href="{% url changelang 'en' %}">{% trans 'English' %}</a>
+          	     <a href="{% url changelang 'de' %}">{% trans 'German' %}</a>
+          	</li>
+          	{% endif %}
+
         </ul>
     	        
         {% include 'shop/snippets/main_navigation.html' %}
