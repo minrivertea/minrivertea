@@ -18,44 +18,6 @@ $('#types').click(function() {
 	$('#subnav').toggle(300);
 });
 
-$('.info.tea a.button').click( function() {
-  var thisButton = $(this)
-  
-  thisButton.parent('.info.tea').css({'opacity':'0.5'});
-  thisButton.parent('.info.tea').append('<img src="{{ static_url }}images/loading.gif" id="loading" />');
-
-  
-  $.ajax({
-  	url: thisButton.attr('href'),
-	type: "GET",
-   	dataType: 'json',
-   	success: function(data) {
-   		
-   		/// increment the values in the header basket
-        if ($('#userbasket').hasClass('selected')) {} else {
-             $('#userbasket').addClass('selected'); 
-             $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
-        }
-        $('#quantity .p').text(parseFloat(data.basket_amount).toFixed(2));
-        $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
-   		
-   		
-   		/// increment the values in the already in basket next to product
-   		
-   		if (thisButton.parent('.info.tea').find('.in-basket').length) {
-	   		var curr = thisButton.parent('.info.tea').find('.in-basket .num');
-   			curr.html(parseInt(curr.html(), 10)+1);
-   		} else {
-   		  	thisButton.parent('.info.tea').find('.pricebar').append('<div class="in-basket"><span class="num">1</span> {% trans "in basket" %}</div>');
-   		}   
-   		
-   		thisButton.parent('.info.tea').find('#loading').remove();
-   		thisButton.parent('.info.tea').css({'opacity':'1'});		
-   	},
-  });
-  return false;
-});
-
 
 </script>
 {% endblock %}

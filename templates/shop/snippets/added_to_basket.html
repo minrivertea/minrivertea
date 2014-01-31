@@ -1,9 +1,2 @@
 {% load i18n %}
-<div class="message">
-    <div class="text">
-        {% blocktrans with item as item and weight as weight and weight_unit as weight_unit and url as url %}
-        <h3><span class="num">1</span> x {{ weight }}{{ weight_unit }} added to your basket! <a href="{{ url }}">Checkout &raquo;</a></h3>
-        
-        {% endblocktrans %}
-    </div>
-</div>
+<h3>{% blocktrans with item as item and weight as weight and weight_unit as weight_unit and url as url %}<span class="thing"><span class="num">1</span> x {{ item }} ({{ weight }}{{ weight_unit }}) </span><br/> has been added to your basket!{% endblocktrans %}</h3>

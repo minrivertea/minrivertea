@@ -55,59 +55,7 @@ $(function() {
 });
 
 
-function addToBasket(obj) {
-
-    $(obj).click(function() {   	 
-   	  var thisPrice = $(this).parent('.price-inner');
-   	  
-   	  // clear any existing messages
-   	  $('#prices .message').remove();
-   	  
-   	  thisPrice.css({'opacity': '0.4'});
-   	  $('#prices').prepend('<img src="{{ static_url }}images/loading.gif" id="loading"/>');
-   	 
-   	  $.ajax({
-   	      url: $(this).attr('href'),
-   	      type: "GET",
-   	      dataType: 'json',
-   	      success: function(data){
-            
-            /// increment the values in the header basket
-            if ($('#userbasket').hasClass('selected')) {} else {
-                 $('#userbasket').addClass('selected'); 
-                 $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
-            }
-            $('#quantity .p').text(parseFloat(data.basket_amount).toFixed(2));
-            $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
-    		
-    		/// remove loading icon and return opacity to normal
-    		$('#prices #loading').remove();
-    		thisPrice.css({'opacity': '1'});
-    		
-    		/// check if there's an existing message and remove it
-    		if ($('#prices .message').length ) {
-    		   $('#prices .message').remove();
-    		} 
-    		
-    		/// add the confirmation
-    		$('#prices').prepend(data.message).delay(8000).queue(function() {
-    			$('#prices .message').fadeOut(300).delay(400).queue(function() {	    
-        			$('#prices .message').remove();
-    			});
-    		});
-    		$('#prices .message').fadeIn(300);
-    		
-    		
-    		// SLIDEDOWN ANY AVAILABLE DEALS
-    		// $('#deals').delay(1000).slideDown(200);
-    	  }
-   	  })
-   	  return false;
-  });
-}
-
 $(document).ready( function() {
-    addToBasket('.price a.button');
     
     $('#reviews ul').css({'height': '170px'});
     $('#reviews .toggle').css({'top': '200px', 'bottom': 'auto'});
@@ -425,15 +373,14 @@ h1 span {
     color: #5F829A;
 }
 
-a.button.green, a.button.red {
-    background: none repeat scroll 0 0 #22932A;
+#prices a.button.green, #prices a.button.red, #prices a.button.orange {
     float: right;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: bold;
-    margin: 0 10px 0 0;
-    padding: 5px 8px;
-    width: auto;
     letter-spacing: -0.3px;
+    margin: 0;
+    padding: 7px 10px;
+    width: auto;
 }
 
 a.button.red {
@@ -542,7 +489,7 @@ span.name {
 #prices .amount {
     color: #333;
     float: left;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
     letter-spacing: -0.5px;
     width: auto;
@@ -554,8 +501,10 @@ span.name {
     float: left;
     font-size: 13px;
     font-weight: 100;
-    width: auto;
     margin: 0 10px 0 0;
+    position: relative;
+    top: 2px;
+    width: auto;
 }
 
 .price .weight span {
@@ -889,12 +838,12 @@ ul.rss {
               
               
               {% if price.stocks.preorder %}
-                 <a class="button red small" id="{{ price.id }}" href="{% url add_to_basket price.id %}"><span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Click to Preorder Now' %}</span></a>
+                 <a class="button orange small addtocart" id="{{ price.id }}" href="{% url add_to_basket price.id %}"><span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Click to Preorder Now' %}</span></a>
               {% endif %}
               
               
               {% if price.stocks.available %}
-                    <a href="{% url add_to_basket price.id %}" class="button green" id="{{ price.id }}">{% trans 'Add to basket' %}</a>
+                    <a href="{% url add_to_basket price.id %}" class="button green addtocart" id="{{ price.id }}">{% trans 'Add to basket' %}</a>
               {% endif %}
               
               

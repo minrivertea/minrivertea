@@ -5,11 +5,11 @@
         <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
         
         {% if months %}
-            <a class="button green small" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.single_price.id months %}">{% trans 'Add to TeaBox' %}</a>
+            <a class="button green small addtocart" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.single_price.id months %}">{% trans 'Add to TeaBox' %}</a>
         {% else %}
         
             {% if t.price.stocks.preorder %}
-                <a href="{% url add_to_basket t.price.id %}" class="button orange small"><span title="{% trans 'Order now and receive this on' %} {{ t.get_preorder_date|date:'d M Y' }}" id="add_to_basket_{{ t.price.id }}">{% trans 'Preorder now' %}</span></a>
+                <a href="{% url add_to_basket t.price.id %}" class="button orange small addtocart"><span title="{% trans 'Order now and receive this on' %} {{ t.get_preorder_date|date:'d M Y' }}" id="add_to_basket_{{ t.price.id }}">{% trans 'Preorder now' %}</span></a>
             {% endif %} 
             
             {% if t.price.stocks.out_of_stock %}
@@ -17,7 +17,7 @@
             {% endif %}
               
             {% if t.price.stocks.available %}
-            <a title="{% trans 'Add 1 x ' %} {{ t.name }} {% if t.price.weight %}({% convert_weights request t.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" href="{% url add_to_basket t.price.id %}" class="button green small" id="add_to_basket_{{ t.price.id }}"><span class="plus">{% trans 'Add to basket' %}</span></a>
+            <a title="{% trans 'Add 1 x ' %} {{ t.name }} {% if t.price.weight %}({% convert_weights request t.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" href="{% url add_to_basket t.price.id %}" class="button green small addtocart" id="add_to_basket_{{ t.price.id }}"><span class="plus">{% trans 'Add to basket' %}</span></a>
             {% endif %}
         
         
@@ -32,25 +32,28 @@
         <div class="glass-text">
             <div class="inner">
                 <div class="pricebar">
-                    <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
-                    <p>{{ t.description }}</p>
-                    <div class="price-weight">
-                        <span class="price">{% if t.price.price %}{{ currency.symbol }}{{ t.price.get_price|floatformat:"-2" }}{% else %}{% if months %}{{ currency.symbol }}{{ t.price|floatformat:"2" }}{% endif %}{% endif %}</span> 
-                        <span class="weight">{% if t.price.weight %}/ {% convert_weights request t.price.weight %}{{ weight_unit }}{% endif %}</span>
-                    </div>
                     
-                    {% if t.quantity > 0 %}
-                    <div class="in-basket">
-		                  
-		                  
-		                  <span class="quantity">
-		                      <span class="num">{{ t.quantity }}</span> 
-		                      {% if months %}{% trans 'in your TeaBox!' %}
-		                      {% else %}{% trans 'in your basket' %}
-		                      {% endif %}
-		                  </span>
-		            </div>
-                    {% endif %}
+                    <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
+                    
+                    <p>{{ t.description }}</p>
+                    
+                    <div class="price-weight">
+                        <span class="price">
+                            {% if t.price.price %}
+                                {{ currency.symbol }}{{ t.price.get_price|floatformat:"-2" }}
+                            {% else %}
+                                {% if months %}
+                                    {{ currency.symbol }}{{ t.price|floatformat:"2" }}
+                                {% endif %}
+                            {% endif %}
+                        </span> 
+                        <span class="weight">
+                            {% if t.price.weight %}
+                                / {% convert_weights request t.price.weight %}{{ weight_unit }}
+                            {% endif %}
+                        </span>
+                    </div>
+                   
                     
                     {% if t.get_reviews.count > 0 %}
                     <div class="reviews">
@@ -61,7 +64,9 @@
                         {{ counter }} reviews
                         {% endblocktrans %}
                     </div> 
-                    {% endif %}                   
+                    {% endif %} 
+                    
+                                      
                 </div>                            
                 </div>
         </div>

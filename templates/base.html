@@ -247,6 +247,24 @@ if (15.00) {
 	{% block extrajs %}{% endblock %}
 	<script type="text/javascript">
 
+        function makeOverlay(HTML) {
+            var overlay = jQuery('<div id="overlay" class="overlay" style="display:none"> </div>');
+            overlay.appendTo(document.body);
+            overlay.fadeIn(300);
+            var overlayInner = jQuery('<div id="overlay-inner" class="overlay"></div>');
+            overlayInner.appendTo(document.body);
+            overlayInner.html(jQuery(HTML));
+            overlayInner.append('<a href="#" class="close" style="color:#999;font-size:22px; font-weight:100;text-decoration:none;position:absolute; top: 7px; right: 10px;">x</a>');
+            overlay.bind('click', removeOverlay);
+            $('.close').bind('click', removeOverlay);
+        }
+               
+        function removeOverlay() {
+            $('.overlay, #overlay-inner').fadeOut(100);
+            $('.overlay').remove();
+        }       
+
+
 		$(document).ready( function() {
 
 			// clear input on focus
@@ -284,6 +302,52 @@ if (15.00) {
     		 }, function() {
     		    $(this).animate({height: '15px',}, 100);
     		 });
+    		 
+    		
+    		/// MANAGES THE ADD-TO-CART BUTTONS 
+    		$('a.addtocart').click( function() {
+              var thisButton = $(this);
+              
+              makeOverlay('<img src="{{ static_url }}images/loading.gif" id="loading" />');
+                         
+              $.ajax({
+              	url: thisButton.attr('href'),
+            	type: "GET",
+               	dataType: 'json',
+               	success: function(data) {
+               		
+               		/// CREATE AN OVERLAY CONFIRMING THE BASKET WAS ADDED
+               		var html = '';
+               		
+               		/// TRY TO FIND AN IMAGE
+               		if ( thisButton.parents(".info.tea").find('.imagelink img').length ) {
+               		   var productImgURL = thisButton.parents(".info.tea").find('.imagelink img').attr('src');
+               		} else {
+               		   var productImgURL = $('#image_wrap img').attr('src');
+               		}
+               		
+               		
+               		var html = '<div class="message">';
+               		html += '<img src="'+ productImgURL+'" />';
+               		html += data.message;
+               		html += '<div class="buttons">';
+               		html += '<a class="button green large" href="{% url basket %}">{% trans "Checkout now" %}</a><p>or <a class="close" onclick="removeOverlay();" href="#">continue browsing</a></p></div>';
+               		$('#overlay-inner').append(html);
+               		$('#loading').remove();
+               		
+               		
+               		/// INCREMENT VALUES IN THE HEADER BASKET
+                    if ($('#userbasket').hasClass('selected')) {} else {
+                         $('#userbasket').addClass('selected'); 
+                         $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+                    }
+                    $('#quantity .p').text(parseFloat(data.basket_amount).toFixed(2));
+                    $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+               		
+               	},
+              });
+              return false;
+            });
 		 
 					
 		});

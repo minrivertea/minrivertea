@@ -273,7 +273,7 @@ def add_to_basket(request, id):
                     'url': reverse('basket'),
             })
         else:
-            message = _('<div class="message"><div class="text"><h3>1 x %(item)s added to your basket! <a href="%(url)s">Checkout now &raquo;</a></h3></div></div>') % {
+            message = _('<div class="message">1 x %(item)s added to your basket! <a href="%(url)s">Checkout now &raquo;</a></div>') % {
                     'item':item.item.parent_product, 
                     'url': reverse('basket'),
             }

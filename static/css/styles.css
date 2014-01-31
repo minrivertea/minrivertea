@@ -58,6 +58,7 @@ h3 {
     font-weight: 400;
     margin: 0 0 5px;
     font-size: 24px;
+    letter-spacing: -0.5px;
 }
 
 h4 {
@@ -1075,6 +1076,10 @@ p.introduction, #left p.introduction {
 
 .info.tea a.button:hover {
   background: #d30000;   
+}
+
+.info.tea a.button.orange:hover {
+  background: #ff9000;   
 }
 
 
@@ -2248,115 +2253,87 @@ a#harvest:hover {
   border-width: 5px 5px 0px;   
 }
 
+/* JQUERY OVERLAY STYLES */
 
-/* XMAS 2013 STYLES */
-
-#santa {
-  background: #fff;
-  float: left;
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px 0;
-  position: relative;
-  border-top: 1px dashed #e1e1e1;  
-  border-bottom: 1px dashed #e1e1e1;  
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    filter:alpha(opacity=70);
+    -moz-opacity:0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+    z-index: 10000;
 }
 
-#santa img {
-  float: left;
-  margin: 0 20px 0 0;   
+#overlay-inner {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 1px 10px #000000;
+    left: 50%;
+    margin: 0 auto 0 -200px;
+    padding: 40px 45px;
+    position: fixed;
+    top: 15%;
+    width: 400px;
+    z-index: 20000;
+    border-radius: 4px;
 }
 
-#santa img:last-child {
-  float: right;
-  margin: 0 0px 0 0;   
+#overlay-inner input, #overlay-inner textarea, #overlay-inner select {
+  border: 1px solid #e1e1e1;
+  background: #f1f1f1;
+  color: #333;	
 }
 
-#santa .text {
-  float: left;
-  margin: 0px 0 0;
-}
-
-#santa .others {
-  float: left;
-  min-width: 400px;   
-}
-
-#santa .others p {
-  margin: 0px 0 0;
-  padding: 0 px;
-  font-size: 13px;   
-}
-
-#santa h3 {
-    color: #D30000;
-    float: left;
+#overlay-inner h3 {
+    color: #777777;
     font-size: 18px;
-    font-weight: bold;
-    margin: 13px 10px 0 0;
+    margin: 5px 0 25px;
+    text-align: center;
+    line-height: 1.6em;
 }
 
-#santa h3 span {
-  font-weight: bold; 
-  text-transform: uppercase;  
-}
-
-#santa h3 a {
-  color: #fff;
-  text-decoration: underline;  
-} 
-
-#santa h3 a:hover {
-  color: #f1f1f1;   
-}
-
-.info.xmas .deal {
-  background: url('/static/images/homepage/christmas-1.jpg') no-repeat top left; 
-  height: 80px; 
-  margin: 0 0 10px 0;
-  position: relative; 
-}
-
-.info.xmas .deal:hover {
-  opacity: 0.9;   
-}
-
-.info.xmas .deal.two {
-  background: url('/static/images/homepage/christmas-2.jpg') no-repeat top left; 
-}
-
-.info.xmas .deal.three {
-  background: url('/static/images/homepage/christmas-3.jpg') no-repeat top left; 
+#overlay-inner h3 .thing {
+  font-size: 24px;
+  color: #000;   
 }
 
 
-.info.xmas h3 {
-  color: #D30000; 
-  font-size: 16px;  
+
+#overlay-inner p {
+    color: #333;   
 }
 
-.info.xmas .deal .inner {
-  padding: 20px;   
+
+#overlay-inner .message {
+  float: left; 
+  width: 100%; 
+  margin: 0 0 0px 0;
+  font-size: 15px;
+  text-align: center; 
+}
+
+#overlay-inner .message img {
+  width: 240px;   
+}
+
+#overlay-inner .message .buttons {
+  float: ;
   text-align: center;
-  
-}
-
-.info.xmas .deal .inner h3 {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 20px;
-  letter-spacing: -0.5px;
-  margin: 0px 0 0px 0; 
-  color: #fff;  
-}
-
-.info.xmas .deal .deal:hover .inner h3 {
-  color: #2A8531;   
-}
-
-.info.xmas .deal p {
-  color: #fff;
   font-size: 13px;   
 }
 
-/* END XMAS STYLES */
+#overlay-inner .message .buttons .button {
+  margin: 0;
+}
+
+#overlay-inner .message .buttons p {
+    color: #777777;
+    font-size: 15px;
+    margin: 13px 0 0;
+}
+
+/* END JQUERY OVERLAY STYLES */
