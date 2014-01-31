@@ -1,2 +1,2 @@
 {% load i18n %}
-<h3>{% blocktrans with item as item and weight as weight and weight_unit as weight_unit and url as url %}<span class="thing"><span class="num">1</span> x {{ item }} ({{ weight }}{{ weight_unit }}) </span><br/> has been added to your basket!{% endblocktrans %}</h3>
+<h3><span class="thing"><span class="num">1</span> x {{ item }} {% if weight %}({{ weight }}{{ weight_unit }}){% endif %} </span><br/> {% trans 'has been added to your basket' %}</h3>

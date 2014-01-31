@@ -262,21 +262,13 @@ def add_to_basket(request, id):
     item.save()
 
     if request.is_ajax():
-        
-        if item.item.weight:
-            from shop.templatetags.convert_weights import convert_weights
-            weight = convert_weights(request, item.item.weight)
-            message = render_to_string('shop/snippets/added_to_basket.html', {
+
+        message = render_to_string('shop/snippets/added_to_basket.html', {
                     'item':item.item.parent_product, 
-                    'weight': weight, 
+                    'weight': item.item.weight, 
                     'weight_unit': RequestContext(request)['weight_unit'],
                     'url': reverse('basket'),
-            })
-        else:
-            message = _('<div class="message">1 x %(item)s added to your basket! <a href="%(url)s">Checkout now &raquo;</a></div>') % {
-                    'item':item.item.parent_product, 
-                    'url': reverse('basket'),
-            }
+        })
         
         basket_amount = '%.2f' % float(_get_basket_value(request)['total_price'])
         basket_quantity = '%.2f' % float(_get_basket_value(request)['basket_quantity'])
