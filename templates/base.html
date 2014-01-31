@@ -328,7 +328,9 @@ if (15.00) {
                		
                		
                		var html = '<div class="message">';
-               		html += '<img src="'+ productImgURL+'" />';
+               		if (productImgURL) { 
+                   		html += '<img src="'+ productImgURL+'" />';
+               		}
                		html += data.message;
                		html += '<div class="buttons">';
                		html += '<a class="button green large" href="{% url basket %}">{% trans "Checkout now" %}</a><p>or <a class="close" onclick="removeOverlay();" href="#">continue browsing</a></p></div>';
