@@ -10,6 +10,8 @@ from django.utils import translation
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
+from django.utils.translation import get_language
+
 
 
 from slugify import smart_slugify
@@ -137,7 +139,7 @@ class Product(models.Model):
         return category
     
     def get_reviews(self):
-        reviews = Review.objects.filter(product=self, is_published=True)
+        reviews = Review.objects.filter(product=self, is_published=True, lang=get_language())
         return reviews    
     
     def save(self, force_insert=False, force_update=False):

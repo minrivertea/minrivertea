@@ -57,21 +57,13 @@ $(function() {
 
 $(document).ready( function() {
     
-    $('#reviews ul').css({'height': '170px'});
-    $('#reviews .toggle').css({'top': '200px', 'bottom': 'auto'});
     $('#reviews .toggle').click( function() {
-       if ($(this).hasClass('open')) {
-            $('#reviews ul').animate({'height': '170'}, 100);
-            $('#reviews .toggle').css({'top': '200px', 'bottom': 'auto'}); 
-            $(this).removeClass('open');
-            $(this).text("{% trans 'Show more reviews' %}");    
-       } else {
-            $('#reviews ul').css({'height': 'auto'}, 150);
-            $('#reviews .toggle').css({'top': 'auto', 'bottom': '-26'});
-            $(this).addClass('open'); 
-            $(this).text("{% trans 'Show fewer reviews' %}");
-            
-       } 
+       
+       var html = '<h2>{% trans "Reviews for" %} {{ tea.name }}</h2><div class="hr"></div><ul class="reviews">'
+       html += $('#reviews ul').html();
+       html += '</ul>';
+       makeOverlay(html, '600');
+       
     });
 });
 
@@ -540,10 +532,11 @@ div.fb-recommend {
   position: relative; 
 }
 
+
 #reviews .toggle {
     background: none repeat scroll 0 0 #F6F6F6;
     border-bottom: 1px dashed #C1C1C1;
-    bottom: 0;
+    bottom: -26px;
     color: #2A8531;
     font-size: 12px;
     font-weight: bold;
@@ -584,11 +577,17 @@ div.fb-recommend {
 #reviews ul li {
     float: left;
     font-size: 13px;
+    height: auto;
     letter-spacing: -0.2px;
+    line-height: 1.8em;
     margin: 10px 30px 0 0;
-    padding: 0 15px 0;
-    width: 260px;
-    height: 170px;
+    padding: 0 15%;
+    text-align: center;
+    width: 70%;
+}
+
+#reviews ul li.hidden {
+  display: none;   
 }
 
 #image_wrap {
@@ -702,7 +701,10 @@ ul.rss {
 }
 
 #reviews h3 {
-  margin-bottom: 5px;   
+    float: none;
+    font-size: 18px;
+    margin-bottom: 0px;
+    text-align: center;
 }
 
 #delivery p, #payment p, #reviews p, #monthly p {
@@ -912,15 +914,17 @@ ul.rss {
        <h3>{% trans 'What do our customers say?' %} <a href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review' %} &raquo;</a></h3>
            <ul>
            {% for r in reviews %}
-               <li>
+               <li {% if not forloop.first %}class="hidden"{% endif %}>
                    &ldquo;<em>{{ r.short_text }}</em>&rdquo;<br/>
-                   <strong>{{ r.first_name }} {{ r.last_name }}</strong>{% if r.url %} (<a href="{{ r.url }}">view original</a>){% endif %}
+                   <strong>{{ r.first_name }} {{ r.last_name }}</strong> - {{ r.date_submitted|date:"d M Y" }} {% if r.url %} - <a href="{{ r.url }}">view original</a>{% endif %}
                </li>
            {% endfor %}
             </ul>
            
         </div>
+        {% if reviews.count > 1 %}
         <span class="toggle">{% trans 'Show more reviews' %}</span> 
+        {% endif %}
     </div>        
     <div class="hr"></div>
     {% endif %}

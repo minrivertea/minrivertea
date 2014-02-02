@@ -5,11 +5,10 @@ html {
 }
 
 body {
-  font-family: Helvetica, "Lucida Grande", Arial,"STKaiti",华文楷体,sans-serif;
+  font-family: 'Roboto', Helvetica, "Lucida Grande", "STKaiti",华文楷体, sans-serif;
   margin: 0;
   padding: 0;
   color: #333;
-  /* background: url('/static/images/back.png') repeat #EFF5F8; */
 }
 
 
@@ -64,6 +63,10 @@ h3 {
 h4 {
   margin-bottom: 10px;
   padding-bottom: 5px;
+      font-weight: 400;
+    margin: 0 0 5px;
+    font-size: 18px;
+    letter-spacing: -0.5px;
 }
 
 p {
@@ -209,7 +212,7 @@ input.button {
 .button.small {
     font-size: 11px;
     font-weight: bold;
-    padding: 4px 7px 3px;
+    padding: 4px 7px;
 }
 
 .underline {
@@ -1512,7 +1515,6 @@ table td {
 
 table tr td:first-child {
   background: #E1ECF3; 
-  width: 140px;
 }
 
 
@@ -1533,8 +1535,9 @@ textarea {
   width: 380px;	
   padding: 10px 15px;
   border: 1px solid #d1d1d1;
-  border-radius: 4px;
-  font: 15px helvetica,clean,sans-serif;
+  background: #f6f6f6;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
   color: #999;
   margin: 0 0 20px 0;
 }
@@ -1549,15 +1552,15 @@ ul.errorlist {
 }
 
 input, div.row-box input {
-    border-radius: 4px;
     border: 1px solid #d1d1d1;
+    background: #f6f6f6;
     color: #777;
     float: left;
     margin: 0 0 15px 0;
     padding: 10px 15px;
     width: 460px;
     font-weight: normal;
-    font-family: Helvetica, sans-serif;
+    font-family:'Roboto', sans-serif;
     font-size: 13px;
 }
 
@@ -1773,6 +1776,10 @@ span.red {
   color: #D30000;	
 }
 
+span.orange {
+  color: #d9800c;  
+}
+
 #mtw #left .caption {
     background: none repeat scroll 0 0 #E1E1E1;
     color: #555;
@@ -1984,65 +1991,235 @@ button.next:hover {
 /* BASKET STYLES */
 
 #basket {
-    width: 820px;
+    width: 920px;
     float: left;
     position: relative;
+    padding: 15px 20px;
+    margin: 30px 0 0;
     background: #f6f6f6;
-    padding: 10px 15px;
-    margin: 20px 0 0; 
 }	
 
-#steps {
-    float: left;
-    list-style-type: none;
-    margin: 5px 0 0px;
-    padding: 0;
+#basket h3 {
+  margin: 0 0 10px 0;   
+}
+
+#basket input[type="text"], #basket textarea, #basket input[type="select"], #basket input[type="email"] {
+  background: #fff;   
+}
+
+#basket table, #basket table td {
+    background: none;
+    border: none
     width: auto;
-    position: absolute;
-    right: 110px;
-    top: 0;
+    font-size: 13px;
+    line-height: 1.2em;
+    letter-spacing: -0.2px;
+    
 }
 
-#steps li {
-  float: left;  
-}
-
-#steps li a:link, #steps li a:visited {
-  margin: 0 5px 0 0; 
-  text-decoration: none;
-  padding: 8px 15px;
-  background: #f1f1f1;
-  font-size: 11px; 
-  color: #555;
+#basket table thead td, #basket thead td.total, #basket thead td.quantity {
+  border: none;
+  background: #f9f9f9;
+  color: #999;
+  padding: 5px;
   font-weight: bold;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  border-bottom: 1px solid #e9e9e9;   
 }
 
-#steps li:last-child a {
-  margin-right: 0;   
+#basket table thead td:first-child {
+  padding-left: 30px;   
 }
 
-#steps li a.selected:link, #steps li a.selected:visited {
-  background:#2A8531;
-  color: #fff; 
-  position: relative;  
+#basket table td {
+  border-bottom: 1px dashed #E1E1E1;
+  line-height: 1.8em;   
 }
 
-#steps li a.selected:before {
-  content: " ";
-  display: block;
+#basket td.photo {
+  width: 120px;   
+}
+
+#basket td.name {
+  width: 450px;
+  font-weight: normal;
+  color: #777;
+}
+
+#basket td.name a {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: normal;
+  letter-spacing: -0.5px;   
+}
+
+
+#basket td.quantity {
+  color: #777; 
+  text-align: center;
+  width: 70px;  
+}
+
+#basket td.quantity .amount {
+  width: 20px;
+  background: #fff;
+  display: inline-block;
+  text-align: center; 
+  margin: 0px 0px 5px 0; 
+  padding: 10px;
+  float: none;
+}
+
+#basket td.quantity .controls {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    top: 13px;
+    width: 20px;
+}
+
+#basket td.quantity a.increase, #basket td.quantity a.decrease {
+    background: none repeat scroll 0 0 #f1f1f1;
+    border: 1px solid #e6e6e6;
+    color: #333;
+    display: block;
+    font-size: 15px;
+    font-weight: 100;
+    height: 15px;
+    line-height: 1em;
+    margin: 0 0 3px;
+    padding: 2px 5px;
+    text-align: center;
+    text-decoration: none;
+    width: 10px;
+}
+
+#basket td.quantity a.increase:hover, #basket td.quantity a.decrease:hover {
+  background: #e1e1e1;
+}
+
+#basket td.quantity a.remove {
+  font-size: 11px;
+  text-decoration: none; 
+  margin: none;
+  color: #777;  
+}
+
+#basket td.quantity a.remove:hover {
+  color: #D30000;
+}
+
+#basket td.total, #basket .postage td.total, #basket .discount td.total {
+  text-align: right;
+  float: none;
+  padding-right: 30px;
+  letter-spacing: -0.5px;
+  color: #333;
+  font-size: 18px;
+}
+
+#basket thead td.total {
+  padding-right: 30px;
+  font-size: 13px;
+}
+
+#basket .postage td, #basket .discount td {
+  padding: 15px 10px;
+  
+}
+
+#basket .postage strong, #basket .discount strong {
+  color: #333; 
+  font-weight: normal;
+  font-size: 18px;  
+}
+
+#basket .discount td.name a {
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: 0;   
+}
+
+#basket .subtotal td {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  padding: 30px 30px 25px 10px;   
+}
+
+
+
+#steps {
+  float: right;
   position: absolute;
-  bottom: -15px;
-  left: 40%;
-  border-color: #2A8531 transparent -moz-use-text-color;
-  border-style: solid solid none;
-  border-width: 15px 15px 0px;   
+  right: -50px;
+  top: -5px;
+  width: auto;   
+}
+
+#steps #line {
+    background: none repeat scroll 0 0 #e1e1e1;
+    height: 8px;
+    left: 35px;
+    position: absolute;
+    top: 17px;
+    width: 275px;
+    z-index: 1;
+}
+
+#steps ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;   
+}
+
+#steps ul li {
+    float: left;
+    line-height: 1em;
+    margin: 0 30px 20px 0;
+    position: relative;
+    text-align: center;
+    width: 100px;
+}
+
+#steps ul li .icon {
+    background: none repeat scroll 0 0 #f6f6f6;
+    border: 5px solid #e1e1e1;
+    border-radius: 23px;
+    color: #A1A1A1;
+    font-size: 13px;
+    height: 20px;
+    left: 0;
+    margin: 0 auto;
+    padding: 8px 1px 1px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    text-shadow: 0 1px 1px #FFFFFF;
+    width: 28px;
+    z-index: 20;
+}
+
+#steps ul li.completed .icon, #steps ul li.current .icon {
+  background: green; 
+  color: #fff;
+  text-shadow: none;   
+}
+
+#steps ul li .text {
+  float:left;
+  position:relative;
+  top: 45px;
+  font-size: 11px;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
 }
 
 
-#steps li a.completed:link, #steps li a.completed:visited {
-  color: #2A8531; 
-  background: #d9ecdb;  
-}
+
+
 
 /* FOOTER STYLES */
 
@@ -2142,15 +2319,17 @@ ul#social a#google:hover {
   width: 240px;
 }
 
-.footer-box.learn input {
-  width: 280px;   
+.footer-box.learn input[type="email"] {
+  width: 280px;
+  background: #fff;   
 }
 
 .footer-box.learn input[type=submit] {
   width: 100px;
   margin-left: 5px;
   position: relative;
-  top: -1px;   
+  top: -1px; 
+  background:  
 }
 
 .footer-box.learn {
@@ -2161,6 +2340,7 @@ ul#social a#google:hover {
 #footer h4 {
   letter-spacing: -0.5px;
   font-weight: bold;
+  font-size: 15px;
   margin: 0;
   color:#d30000;
 }
@@ -2272,14 +2452,20 @@ a#harvest:hover {
 #overlay-inner {
     background: none repeat scroll 0 0 #FFFFFF;
     box-shadow: 0 1px 10px #000000;
-    left: 50%;
-    margin: 0 auto 0 -200px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 400px;
+    height: 500px;
+    
     padding: 40px 45px;
     position: fixed;
-    top: 15%;
-    width: 400px;
+    
     z-index: 20000;
     border-radius: 4px;
+    float: left;
 }
 
 #overlay-inner input, #overlay-inner textarea, #overlay-inner select {
@@ -2296,9 +2482,24 @@ a#harvest:hover {
     line-height: 1.6em;
 }
 
+#overlay-inner h2 {
+  margin: 0;   
+}
+
 #overlay-inner h3 .thing {
   font-size: 24px;
   color: #000;   
+}
+
+#overlay-inner ul.reviews {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;   
+}
+
+#overlay-inner ul.reviews li {
+  margin: 0 0 20px 0;
+  font   
 }
 
 

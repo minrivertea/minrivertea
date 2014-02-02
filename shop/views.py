@@ -398,9 +398,7 @@ def increase_quantity(request, basket_item):
 
 @secure_required
 def basket(request):
-    
-    # GET THE VALUE OF THE BASKET 
-    
+        
     discount = None
     if request.method == 'POST':
         form = UpdateDiscountForm(request.POST)
@@ -423,8 +421,11 @@ def basket(request):
     form = UpdateDiscountForm()
     return _render(request, "shop/basket.html", locals())
 
+def remove_discount(request):
+    basket = _get_basket_value(request, discount=None)
+    return _render(request, "shop/basket.html", locals())
 
-
+@secure_required
 def order_step_one(request, basket=None):
     
     try:

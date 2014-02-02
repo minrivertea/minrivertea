@@ -1,7 +1,7 @@
 {% extends base_template %}
 {% load thumbnail i18n convert_weights %}
 
-{% block pagetitle %}{% trans 'Order (Step 3 of 4) - Confirm Order' %}{% endblock %}
+{% block pagetitle %}{% trans 'Checkout - confirm and pay' %}{% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript">
@@ -12,6 +12,11 @@
 
 {% block extracss %}
 <style type="text/css">
+
+h1 {
+  position: relative;
+  top: 15px;   
+}
 
 #tools {
   display: none;   
@@ -30,7 +35,7 @@
 #bottom .info {
   border-right: 1px dashed #e1e1e1;
   padding: 0 20px; 
-  width: 220px  
+  width: 285px  
 }
 
 #bottom .info:first-child {
@@ -40,7 +45,7 @@
 #bottom .info:last-child {
   padding-right: 0;
   border-right: none; 
-  width: 310px;  
+  width: 300px;  
 }
 
 #bottom .info input {
@@ -230,17 +235,34 @@ p.skip {
   
 	   <h1>{% if friend %}{% trans 'Complete this order on behalf of' %} {{ order.owner.first_name }} {{ order.owner.last_name }}{% else %}{% trans "Confirm your order" %}{% endif %}</h1>
 	   {% if not friend %}
-       <ul id="steps">
-    		<li>
-    			<a class="completed" href="{% url basket %}">1. {% trans 'Your basket' %} &#10003;</a>
-    		</li>
-    		<li>
-    			<a class="completed" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
-    		</li>
-    		<li>
-    			<a class="selected" href="">3. {% trans 'Confirm and pay ' %} &raquo;</a>
-    		</li>
-    	</ul>
+       <div id="steps">
+            <ul>
+                <li class="completed">
+                    
+                    <div class="icon">
+                        <a href="{% url basket %}"><span class="link"></span></a>&#10003;
+                    </div>
+                    <div class="text">
+                        <strong>{% trans 'Your basket' %} </strong>
+                    </div>
+                </li>
+                <li class="completed">
+                    <div class="icon">
+                        <a href="{% url order_step_one %}"><span class="link"></span></a>&#10003;</div>
+                    <div class="text">
+                        <strong>{% trans 'Shipping details' %}</strong>
+                    </div>
+                </li>
+                <li class="current">
+                    <div class="icon">
+                        <a href="{% url order_confirm %}"><span class="link"></span></a>3</div>
+                    <div class="text">
+                        <strong>{% trans 'Payment' %}</strong>
+                    </div>
+                </li>
+            </ul>
+            <div id="line"></div>                
+        </div>
     	{% endif %}
    
 	<div id="basket">

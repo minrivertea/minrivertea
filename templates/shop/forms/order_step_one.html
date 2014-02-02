@@ -1,7 +1,7 @@
 {% extends base_template %}
 {% load i18n %}
 
-{% block pagetitle %}{% trans 'Order (Step 2 of 4) - Your details' %}{% endblock %}
+{% block pagetitle %}{% trans 'Checkout - enter your details' %}{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
@@ -10,11 +10,19 @@
   display: none;   
 }
 
+#basket {
+  margin-top: 30px;   
+}
+
+h1 {
+  position: relative;
+  top: 15px;
+}
+
 fieldset {
  border: none;
- width: 450px;  
+ width: 500px;  
  position: relative;
- border-right: 1px dashed #e1e1e1;
  margin: 10px 0 0px 20px; 
  float: left;
  padding-right: 30px;
@@ -25,23 +33,13 @@ fieldset p {
   position: relative;
   display: block;
   float: left;  
+  width: 100%;
 }
 
 fieldset p:last-child input {
   margin-bottom: 0;   
 }
 
-legend {
-    display: block;
-    float: right;
-    position: absolute;
-    right: -280px;
-    width: 250px;
-    text-align: left;
-    font-weight: bold;
-    font-size: 13px;
-    color: #555;
-}
 
 span.mandatory {
   position: absolute;
@@ -51,51 +49,24 @@ span.mandatory {
   color: #FF6569;   
 }
 
-div#mtw div#left h3 {
-    font-size: 18px;
-    font-weight: 900;
-    margin: 0 0 -10px;
-}
 
-div#basket div.security {
+
+
+#checkout {
   float: right;
-  width: 240px;	
-  background-color: #f6f6f6;
-  border: 1px solid #e1e1e1;
-  border-radius: 5px;
-  padding: 12px 12px;
-}
-
-div#basket div.security p {
-  font-size: 16px;	
-  text-align: right;
-  margin: 0;
-}
-
-#basket .security img {
-  float:right; 
-  margin: 0 0 20px 10px;
-}
-
-#checkout-button {
-    bottom: 10px;
-    position: absolute;
-    right: 30px;
-    width: auto;
+  margin: 20px 0 0;
+  right: 0;   
+  width: 200px;
+  
 }
 
 
-input.checkbox {
-    float: left;
-    margin-bottom: 50px;
-    margin-right: 12px;
-    width: 20px;
+#checkout input {
+  width: 200px;
+  float: right;
+  margin: 0;   
 }
 
-p.checkbox {
-  font-size: 12px;
-  margin-bottom: 500px;	
-}
 
 p.help-text {
     float: left;
@@ -111,70 +82,6 @@ p.help-text img {
   top: 3px;	
 }
 
-div.address-container {
-    float: left;
-    margin-left: 20px;
-    width: 500px;
-    margin-bottom: 40px;
-}
-
-div.address-container p {
-  font-size: 15px;
-  margin: 10px 0px 20px 0;	
-}
-
-div.address {
-    float: left;
-    margin: 0 10px 10px 0;
-    padding: 0px 0px;
-    width: 215px;
-    -moz-border-radius: 10px;
-    font-size: 12px;
-}
-
-div.address h3 {
-  font-size: 1.4em;	
-  margin-bottom: 15px;
-}
-
-div.address a {
-  font-size: 13px;	
-}
-
-div.address.first {
-    margin-right: 0;
-    width: 480px;
-    font-size: 16px;
-}
-
-div.address.other {
-  background: #fff;
-  width: 500px;
-  padding: 0;
-  display: none;
-}
-
-div.address label {
-  width: 500px;
-  font-size: 14px;	
-}
-
-p.hint {
-    color: #999;
-    font-size: 1.1em;
-    font-weight: bold;
-    letter-spacing: -1px;
-    line-height: 1em;
-    margin: 0;
-}	
-
-div#confirm-details-button {
-  {% if shopper %}
-    margin-top: 50px;
-  {% else %}
-    margin-top: 285px;
-  {% endif %}	
-}
 
 label {
   display: none;	
@@ -189,6 +96,30 @@ p.red {
   margin-top: 0;	
 }
 
+p.name input {
+  width: 220px;
+}
+
+p.name input[id="id_first_name"] {
+  margin-right: 20px;   
+}
+
+p.newsletter input[type="checkbox"] {
+  float: left;
+  width: 30px;
+  top: 3px;
+  position: relative;  
+}
+
+p.newsletter label {
+    color: #777777;
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    width: auto;
+}
+
+
 span.red {
   color: #d11010;	
 }
@@ -198,7 +129,7 @@ input[type="email"] {
 }
 
 .styled-select select {
-   background: transparent;
+   background: #fff;
    width: 340px;
    padding: 9px 10px 9px 15px;
    font-size: 13px;
@@ -206,7 +137,7 @@ input[type="email"] {
    border: 0;
    border-radius: 0;
    height: 36px;
-   font-family: Helvetica, Arial, sans-serif;
+   font-family: 'Roboto', Helvetica, Arial, sans-serif;
    color: #777;
 }
 
@@ -242,21 +173,33 @@ input[type="email"] {
 	
 	   <h1>{% trans 'Your details' %}</h1>
 	   
-       <ul id="steps">
-    		<li>
-    			<a class="completed" href="{% url basket %}">1. {% trans 'Your basket' %} &#10003;</a>
-    		</li>
-    		<li>
-    			<a class="selected" href="{% url order_step_one %}">2. {% trans 'Your details' %} &raquo;</a>
-    		</li>
-    		<li>
-    			<a href="">3. {% trans 'Confirm and pay ' %} &raquo;</a>
-    		</li>
-    	</ul>
-      
+	   <div id="steps">
+            <ul>
+                <li class="completed">
+                    <div class="icon"><a href="{% url basket %}"><span class="link"></span></a>&#10003;</div>
+                    <div class="text">
+                        <strong>{% trans 'Your basket' %} </strong>
+                    </div>
+                </li>
+                <li class="current">
+                    <div class="icon"><a href="{% url order_step_one %}"><span class="link"></span></a>2</div>
+                    <div class="text">
+                        <strong>{% trans 'Shipping details' %}</strong>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="icon">3</div>
+                    <div class="text">
+                        <strong>{% trans 'Payment' %}</strong>
+                    </div>
+                </li>
+            </ul>
+            <div id="line"></div>                
+        </div>
+		    
    <div id="basket">
 
-      <form method="post" action="."> 	 
+      <form method="post" action="."> 	  
 
 		{% if shopper %}
 	  		<h3>{% trans 'Are these your details? Please check carefully!' %}</h3>
@@ -290,28 +233,37 @@ input[type="email"] {
     		<ul class="errorlist"><li>* {% trans 'Please enter all the information in the mandatory fields (highlighted red) below' %}:</li></ul>
     		{% endif %}
         <fieldset>
-            <legend>{% trans 'This just takes 1 minute - your name and email please!' %}</legend>
-    		<p>
-    			<span class="mandatory">*</span>
-    			<label for="id_first_name"><span class="red">*</span> {% trans 'First name' %}</label>
-    			<input  class="clearMeFocus {% if form.first_name.errors %}error{% endif %}" type="text" title="{% trans 'First name' %}" name="first_name" id="id_first_name" value="{{ first_name }}"/>
-    		</p>
-    		<p>
-    			<span class="mandatory">*</span>
-    			<label for="id_last_name"><span class="red">*</span> {% trans 'Surname' %}</label>
-    			<input class="clearMeFocus {% if form.last_name.errors %}error{% endif %}" title="{% trans 'Last name' %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
-    		</p>
+    		
+    		<h3>{% trans 'Your email address' %}</h3>
     		<p>
     			<span class="mandatory">*</span>
     			<label for="id_email"><span class="red">*</span> {% trans 'Email address' %}</label>
     			<input class="clearMeFocus {% if form.email.errors %}error{% endif %}" title="{% trans 'Email address' %}" type="email" name="email" id="id_email" value="{{ email }}"/>
-    		</p>	
+    		</p>
+    		
+    		<p class="newsletter">
+    		  <input type="checkbox" name="newsletter" id="id_newsletter" checked="checked" /> 
+    		  <label>{% trans 'Yes I want to receive email newsletters' %}</label>
+    		</p>
+    		
+    		<div class="hr"></div>
+    		
+    		<h3>{% trans "We'll ship your order to:" %}</h3>
+    		
+    		<p class="name">
+    			<span class="mandatory">*</span>
+    			<label for="id_first_name"><span class="red">*</span> {% trans 'First name' %}</label>
+    			<input  class="clearMeFocus {% if form.first_name.errors %}error{% endif %}" type="text" title="{% trans 'First name' %}" name="first_name" id="id_first_name" value="{{ first_name }}"/>
+    		
+    			<label for="id_last_name"><span class="red">*</span> {% trans 'Surname' %}</label>
+    			<input class="clearMeFocus {% if form.last_name.errors %}error{% endif %}" title="{% trans 'Last name' %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
+    		</p>
+    			
         </fieldset>
 
     	
     	<fieldset>
-    	   <legend>{% trans 'Where should we send your tea? Please provide the address we should send your tea to' %}</legend>	
-
+	
           <p>
           	<span class="mandatory">*</span>
           	<label for="id_house_name_number"><span class="red">*</span> {% trans 'House name number' %}:</label>
@@ -355,15 +307,14 @@ input[type="email"] {
         </fieldset> 	  
 
 	{% endif %}
-
-	<div id="checkout-button">
-		<input type="submit" value="{% trans 'Continue' %} &raquo;" next="" class="button green"/>
+	
+	
 	</div>
+	
+	<input id="checkout" type="submit" value="{% trans 'Continue' %} &raquo;" next="" class="button green"/>
+            
 		
 	</form>
-
-
-	</div>
 
   </div>
 </div>
