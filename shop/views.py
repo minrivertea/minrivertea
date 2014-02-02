@@ -598,7 +598,7 @@ def order_url_friend(request, hash):
     
     return order_url(request, hash, friend=True)
 
-
+@secure_required
 def order_url(request, hash, friend=None):
     
     order = get_object_or_404(Order, hashkey=hash)    
@@ -606,7 +606,7 @@ def order_url(request, hash, friend=None):
     
     return _render(request, 'shop/forms/order_confirm.html', locals())
 
-
+@secure_required
 def order_repeat(request, hash):
 
     # THE PREVIOUS ORDER ITEM
@@ -690,6 +690,7 @@ def not_you(request):
     
     
 # the view for the order step 3 - confirming your order
+@secure_required
 def order_confirm(request):
    
     try:
@@ -774,6 +775,7 @@ def fake_checkout(request, order_id):
 
     return HttpResponseRedirect(reverse('order_complete'))    
     
+@secure_required
 def order_complete(request, hash=None):
 
     # TRY TO GET THEIR ORDER INFORMATION FROM A COOKIE
