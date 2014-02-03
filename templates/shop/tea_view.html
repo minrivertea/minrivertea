@@ -708,7 +708,7 @@ ul.rss {
 }
 
 #delivery p, #payment p, #reviews p, #monthly p {
-  margin: 5px 0 0 20px;
+  margin: 10px 0 0 20px;
   float: left;
   font-size: 13px;
   color: #999;
@@ -963,7 +963,7 @@ ul.rss {
     <div class="hr"></div>
   
     {% if not reviews %}
-        <div id="reviews">
+        <div id="payment">
             <h3>{% url review_tea tea.category.slug tea.slug as url %}{% blocktrans %}Do you want to <a href="{{ url }}" style="color: #FF6569;">add a review?</a>{% endblocktrans %}</h3>
             <p>{% trans 'Adding your views helps us improve, and lets other customers make better choices' %}</p>        
         </div>     

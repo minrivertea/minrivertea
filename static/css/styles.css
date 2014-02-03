@@ -466,7 +466,7 @@ span.link:hover {
 
 #userbasket.selected span.basket {
     background: url("/static/images/logo16.jpg") no-repeat scroll -250px -4px transparent;
-    top:-1px;
+    top:2px;
 }
 
 #userbasket a {
@@ -499,6 +499,7 @@ span.link:hover {
     position: absolute;
     z-index: 40;
     right: 0;
+    top: 5px;
     width: 40px;
     background: #fff;
 }
@@ -1558,7 +1559,7 @@ input, div.row-box input {
     float: left;
     margin: 0 0 15px 0;
     padding: 10px 15px;
-    width: 460px;
+    width: 100%;
     font-weight: normal;
     font-family:'Roboto', sans-serif;
     font-size: 13px;
@@ -2061,6 +2062,10 @@ button.next:hover {
   width: 70px;  
 }
 
+#basket td.price {
+  text-align: center;   
+}
+
 #basket td.quantity .amount {
   width: 20px;
   background: #fff;
@@ -2458,11 +2463,10 @@ a#harvest:hover {
     bottom: 0;
     margin: auto;
     width: 400px;
-    height: 500px;
-    
+    height: 400px;    
     padding: 40px 45px;
     position: fixed;
-    
+    overflow-y: scroll;
     z-index: 20000;
     border-radius: 4px;
     float: left;

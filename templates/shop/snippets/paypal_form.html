@@ -8,7 +8,7 @@
 			<p class="skip"><a href="{% url fake_checkout basket.order.id %}" class="button green">{% trans 'Click here to skip Paypal (for 100% discount basket.orders)' %}</a></p>
 			{% else %}
 			<div style="float: left; margin: 10px 10px 0 0;background-image: url('{{ static_url }}images/logo16.jpg');background-position: -125px -44px; height: 20px; width: 75px;"></div>
-			<input type="submit" value="{% trans 'Want to use Paypal? Click here to pay' %}" next="" class="" id=""/>
+			<input type="submit" value="{% trans 'Prefer to use Paypal? Click here to pay' %}" next="" class="" id=""/>
 			{% endif %}			
 			
 		</div>	

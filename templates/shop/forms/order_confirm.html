@@ -13,17 +13,14 @@
 {% block extracss %}
 <style type="text/css">
 
-h1 {
-  position: relative;
-  top: 15px;   
-}
 
 #tools {
   display: none;   
 }
 
 #basket {
-  min-height: 300px;   
+  min-height: 300px;
+  padding-bottom: 30px;
 }
 
 #bottom {
@@ -80,17 +77,9 @@ h1 {
   background: #fff;    
 }
 
-#items {
-  float: left;
-  width: 450px;
-  padding: 10px;
-  margin-right: 50px;	
-}
-
-
-
-#items h2, #address h2 {
-  margin-bottom: 20px;	
+#items, #address {
+  width: 550px;
+  margin: 0 auto;
 }
 
 table td {
@@ -108,13 +97,9 @@ table td {
   padding-bottom: 0;   
 }
 
-#address {
-  float: left;	
-}
-
 #address p.address {
-  font-size: 13px;
-  margin-left: 10px;
+  font-size: 15px;
+  margin-left: 0px;
 }
 
 #address p.pay-on-behalf {
@@ -124,11 +109,8 @@ table td {
 }
 
 #payment {
-    bottom: 15px;
-    float: left;
-    position: absolute;
-    right: 20px;
-    width: 95%;
+    width: 550px;
+    margin: 30px auto 0;
 }
 
 
@@ -233,7 +215,7 @@ p.skip {
 <div id="mtw">
   <div class="sp">
   
-	   <h1>{% if friend %}{% trans 'Complete this order on behalf of' %} {{ order.owner.first_name }} {{ order.owner.last_name }}{% else %}{% trans "Confirm your order" %}{% endif %}</h1>
+	   <h1>{% if friend %}{% trans 'Complete this order on behalf of' %} {{ order.owner.first_name }} {{ order.owner.last_name }}{% else %}{% trans "Pay and complete your order" %}{% endif %}</h1>
 	   {% if not friend %}
        <div id="steps">
             <ul>
@@ -266,15 +248,8 @@ p.skip {
     	{% endif %}
    
 	<div id="basket">
-				
-	<div id="items">
-	
-	    {% include 'shop/snippets/order_items.html' %}
-		
-	</div>
-
 	<div id="address">
-
+    
         {% if friend %}
         {% url page _('contact_us') as contact_url %}
         <p class="pay-on-behalf">{% blocktrans with order.owner.first_name as fn and order.owner.last_name as ln %}<strong>You are paying on behalf of <span style="text-decoration:underline">{{ fn }} {{ ln }}</span>.</strong> You are purchasing the items listed on the left, which will be sent to the address {{ fn }} provided. You will not receive any further email notifications from us, but you will receive a receipt from Paypal. If you have any questions before you purchase, please <a href="{{ contact_url }}">contact us</a>.{% endblocktrans %}</p>
@@ -283,13 +258,23 @@ p.skip {
         {% if not friend %}
             <p class="address">
             {% with order.address as address %}
-                <strong>{{ order.owner.first_name }} {{ order.owner.last_name }}</strong><br/>
+                <strong>{{ order.owner.first_name }} {{ order.owner.last_name }}</strong>, 
                 {{ order.owner.email }}<br/>
-                {% include "shop/snippets/address.html" %}
+                {% include "shop/snippets/address_line.html" %}
             {% endwith %}
             </p>
   	   {% endif %}
+  	
   	</div>
+	
+	
+				
+	<div id="items">
+	    {% include 'shop/snippets/order_items.html' %}
+		
+	</div>
+
+	
   	
   	<div id="payment">
         

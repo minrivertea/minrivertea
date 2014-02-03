@@ -40,11 +40,6 @@ $('#cancel').click( function() {
   background: #f6f6f6;   
 }
 
-h1 {
-  position: relative;
-  top: 15px;
-}
-
 #bottom {
   float: left;
   width: 100%;
@@ -515,6 +510,7 @@ div#discount {
         
             <td>Your items</td>
             <td>&nbsp</td>
+            <td class="price">Unit price</td>
             <td class="quantity">Quantity</td>
             <td class="total">Total</td>
         
@@ -543,11 +539,9 @@ div#discount {
                 {% endif %}
 		        </a>
 		        
-		        <br/>
-     		  {{ currency.symbol }}{{ thing.item.get_price|floatformat:"2" }} {% trans 'each' %}
 		        
 		        {% if not thing.deal_target %}
-     		      {% if thing.item.special_shipping_price %} + {{ currency.symbol }}{{ thing.item.special_shipping_price }} {% trans 'shipping charge' %}{% endif %}
+     		      
      		      
      		      
      		      {% if thing.item.stocks.preorder %}
@@ -562,6 +556,13 @@ div#discount {
 		        
             </td>
             
+            
+            <!-- UNIT PRICE -->
+            <td class="price">
+                {{ currency.symbol }}{{ thing.item.get_price|floatformat:"2" }}
+                {% if thing.item.special_shipping_price %}<br/><span class="small"> + {{ currency.symbol }}{{ thing.item.special_shipping_price }} {% trans 'shipping' %}</span>{% endif %}
+            </td>
+            <!-- END UNIT PRICE
             
             <!-- QUANTITY AND CONTROLS -->
             <td class="quantity">
@@ -592,9 +593,9 @@ div#discount {
         <tr class="postage">
             {% if basket.postage_discount %}
                 <td>&nbsp;</td>
-                <td class="name" colspan="2">
-                    <strong>{% trans 'Postage' %}</strong> - 
-                    {% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}your order is over {{ symbol }}{{ pdt }}, so there's no postage charge!{% endblocktrans %}    
+                <td class="name" colspan="3">
+                    <strong>{% trans 'Postage' %}</strong> <br/>
+                    {% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as pdt %}Your order is over {{ symbol }}{{ pdt }}, so there's no postage charge!{% endblocktrans %}    
                 </td>
                 <td class="total strikethrough">
                     {{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}
@@ -602,12 +603,11 @@ div#discount {
             
             {% else %}
                 <td>&nbsp;</td>
-                <td class="name">
+                <td class="name" colspan="3">
                     {% trans 'Postage' %}
                     <br/>
                     {% trans 'Delivered in 1-3 days' %} | {% trans 'Shipped from the UK' %}   
                 </td>
-                <td class="quantity">&nbsp;</td>
                 <td class="total">
                     {{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}
                 </td>
@@ -619,8 +619,9 @@ div#discount {
         {% if basket.discount %}
         <tr class="discount">
             <td>&nbsp;</td>
-            <td colspan="2" class="name">
-                <strong>{% trans 'Discount' %}</strong> - {% blocktrans with basket.discount_percent|floatformat:"-2" as percent %}you have entered a discount code worth {{ percent }}% off!{% endblocktrans %} - <a href="{% url remove_discount %}">{% trans 'clear discount' %}</a>
+            <td colspan="3" class="name">
+                <strong>{% trans 'Discount' %}</strong><br/>
+                {% blocktrans with basket.discount_percent|floatformat:"-2" as percent %}You have entered a discount code worth {{ percent }}% off!{% endblocktrans %} - <a href="{% url remove_discount %}">{% trans 'clear discount' %}</a>
             </td>
             <td class="total">
                 <span class="red">-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}
@@ -634,6 +635,7 @@ div#discount {
         <tr class="subtotal">
             <td>&nbsp;</td>
             <td class="name">&nbsp;</td>
+            <td class="price">&nbsp;</td>
             <td class="quantity">
                 <strong>{% trans 'Subtotal' %}</strong>
             </td>
