@@ -311,8 +311,8 @@ ul.rss {
 
 #blogs .blog {
   float: left;
-  width: 310px;
-  margin-right: 2px;
+  width: 315px;
+  margin-left: 2px;
   height: auto; 
   position: relative;  
 }
@@ -439,7 +439,7 @@ ul.rss {
             <div class="blog">
                 <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
                 <div class="image">
-                {% thumbnail x.promo_image "310x240" crop="center" as im %}
+                {% thumbnail x.promo_image "315x240" crop="center" as im %}
                     <img src="{{ im.url }}" />
                 {% endthumbnail %}
                 </div>
