@@ -499,6 +499,8 @@ def _finder(request, x=None, y=None, z=None, slug=None):
             pages.append(dict(page=p, lang=l[0]))
         except:
             pass  
+    
+    print pages
         
     if len(pages) > 0:
         if len(pages) == 1:

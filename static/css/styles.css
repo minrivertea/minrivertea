@@ -142,18 +142,20 @@ ol {
     border: 1px solid #fff;
     box-shadow: 0 1px 1px #999, 0 1px 0px #f6f6f6;
     border-radius: 0px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: normal;
     padding: 10px 15px;
     text-shadow: 0 1px 1px #fff;
     text-align: center;
     cursor: pointer;
     text-decoration: none;
+    position: relative;
 }
 
 .button:hover {
   background: #d30000;	
 }
+
 
 h3 a:link, h3:visited, h4 a:link, h4 a:visited, h2 a:link, h2 a:visited {
   text-decoration: none;   
@@ -178,7 +180,7 @@ input.button {
 }
 
 .button.green:hover, input.button.green:hover {
-  background: #d30000;
+  background: #46ab4e;
 }
 
 .button.red {
@@ -211,8 +213,7 @@ input.button {
 
 .button.small {
     font-size: 11px;
-    font-weight: bold;
-    padding: 4px 7px;
+    padding: 4px 10px;
 }
 
 .underline {
@@ -391,7 +392,8 @@ span.link:hover {
   padding: 0;
   margin: 0;
   float: right;
-  width: auto;   
+  width: auto;
+  display: none;   
 }
 
 #learn li {
@@ -557,7 +559,7 @@ div#home-banner {
 #navigation {
   float: right;
   width: auto;
-  margin: 40px 0 0px;	
+  margin: 60px 0 0px;	
 }
 
 ul#nav {
@@ -1078,13 +1080,6 @@ p.introduction, #left p.introduction {
     z-index: 20;
 }
 
-.info.tea a.button:hover {
-  background: #d30000;   
-}
-
-.info.tea a.button.orange:hover {
-  background: #ff9000;   
-}
 
 
 .info.tea.long a.button span.plus {

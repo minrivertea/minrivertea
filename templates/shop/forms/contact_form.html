@@ -177,10 +177,7 @@ img#loading-contact {
 				{% trans "If you have questions about tea or about our service, please get in touch and we will do our best to help. The best way to get in touch is to send us an email at <a href='mailto:mail@minrivertea.com'>mail@minrivertea.com</a> - you'll always get a quick response." %}</p>
 			
 			<div id="form">	
-				{% if message %}
-					{% include 'shop/forms/contact_form_message_snippet.html' %}
-				{% else %}
-	
+				
 				<img id="loading-contact" src="{{ static_url }}images/loading.gif"/>
 				<form action="{% url contact_form_submit %}" method="post" id="contact-form">
 					<p>{% trans "Use our online contact form to send us a message. We respond to all messages within 12 hours." %}</p>			
@@ -196,7 +193,6 @@ img#loading-contact {
 					</p>	
 					<input class="button green" value="{% trans 'Submit' %}" type="submit"/>		
 				</form>
-				{% endif %}
 			</div>
 	</div>
   </div>

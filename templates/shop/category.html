@@ -192,14 +192,9 @@ p.introduction, #left p.introduction {
             </div>
 		{% endfor %}
     {% else %}
-		
-		{% if category.slug == _('teaware') %}
-		  {% include 'shop/snippets/products_teaware.html' %}
-		{% else %}
-    		      {% with products as teas %}
-    		          {% include 'shop/snippets/products_long.html' %}
-    		      {% endwith %}
-        {% endif %}
+	      {% with products as teas %}
+	          {% include 'shop/snippets/products_long.html' %}
+	      {% endwith %}
     {% endif %}
   	     
 	    

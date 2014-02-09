@@ -83,6 +83,7 @@ def index(request):
 
 
 def page(request, slug):
+    
     page = get_object_or_404(Page, slug=slug)
 
     if page.slug == _('contact-us'):
@@ -95,6 +96,9 @@ def page(request, slug):
     if page.template:
         template = page.template
     teas = _get_products(request, random=True)[:2]
+    
+    print "we get here"
+    
     return _render(request, template, locals())
 
 
