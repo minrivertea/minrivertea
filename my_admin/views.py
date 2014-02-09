@@ -61,6 +61,7 @@ def orders(request, **kwargs):
 
     return _render(request, 'my_admin/orders.html', locals())
 
+
 #specific shopper view in admin-stuff
 @login_required
 def admin_shopper(request, id):
