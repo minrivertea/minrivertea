@@ -345,7 +345,7 @@ class BasketItem(models.Model):
         
     def __unicode__(self):
         if self.monthly_order:
-            return "%s x %s (%s months)" % (self.item.decode('utf-8'), self.quantity, self.months)
+            return "%s x %s (%s months)" % (self.item.__unicode__(), self.quantity, self.months)
         else:
             return "%s x %s" % (self.item.__unicode__(), self.quantity)
 

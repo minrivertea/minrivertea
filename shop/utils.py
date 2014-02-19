@@ -318,6 +318,7 @@ def _changelang(request, code):
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
         
     activate(lang_code)
+    
     return response
 
 

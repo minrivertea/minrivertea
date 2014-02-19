@@ -745,7 +745,7 @@ def order_confirm(request):
             return HttpResponseRedirect(reverse('order_complete', args=[order.hashkey]))
         except stripe.CardError, e: 
             
-            # do we need to do something here like show an error message?
+            # do we need to do something here like show an error message?!
             
             pass
 
@@ -832,6 +832,7 @@ def review_tea(request, category, slug):
             )
                         
             review.save()
+            from emailer.views import _admin_notify_new_review
             _admin_notify_new_review(tea, review)
                                  
             return HttpResponseRedirect(reverse('review_tea_thanks', args=[tea.category.slug, tea.slug]))

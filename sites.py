@@ -17,15 +17,13 @@ class DomainTrackerMiddleware(object):
         # don't want to keep validating against images and CSS/JS files
         if re.match('^.+\.(jpg|jpeg|gif|png|ico|css|js)', request.path):
             return None
-        
-                                 
+                                       
         if request.get_host() == settings.GERMAN_URL:                        
             url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['de']), request.path)
             return HttpResponseRedirect(url)
         
         
         if request.get_host() == settings.ITALIAN_URL:
-            print "we are doing italian now"
             url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['it']), request.path)
             return HttpResponseRedirect(url)
         
