@@ -323,6 +323,18 @@ span.link:hover {
     color: #fff;   
 }
 
+#global-message {
+  background: #2A8531;
+  margin: 0 0 10px 0;
+  padding: 5px 0; 
+  text-align: center;  
+}
+
+#global-message p {
+  margin: 0;
+  color: #fff;
+}
+
 #header {
   float: left;
   height: auto;
