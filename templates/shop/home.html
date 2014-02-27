@@ -67,8 +67,8 @@ h2.banner {
   float: left;
   width: 100%;
   position: relative;
-  background: url('{{ static_url }}images/homepage/special-jasmine-2014.jpg') no-repeat top left;
-  height: 325px;
+  background: url('{{ static_url }}images/homepage/special-winter-warmers-2014.jpg') no-repeat top left;
+  height: 265px;
 }
 
 #special:hover {
@@ -97,12 +97,17 @@ h2.banner {
 }
 
 #special .details h3 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 100;
   margin: 10px 0 0;
   letter-spacing: -1px;
   text-shadow: none;
   color: #2a8531;
+}
+
+#special .details h4 {
+  margin: 0;
+  padding: 0;   
 }
 
 #special .details p {
@@ -390,14 +395,20 @@ ul.rss {
     <div id="special">
         <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
         <div class="details">
-           <h3>{{ special.name }}</h3> 
-           <p>{{ special.description }}</p>
+           
+           <h3>{% trans 'That Chocolate Tea' %}</h3>
+           <p>It's called Qi Men Hong, but our friends just call it "that chocolate tea" because it has a deliciously guilty yet 100% naturally sweet chocolate aroma. It's one of four exceptional teas available in our Winter Warmers taster pack.</p>
+           
            <span class="price">
                 <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
 	           {% if special.price.weight %}/ {% convert_weights request special.price.weight %}{{ weight_unit }}{% else %}/ {{ special.price.description }}{% endif %}
 	       </span>
 	    </div>
+	    
 	    <a href="{% url add_to_basket special.price.id %}" class="button green addtocart">{% trans 'Add to basket' %}</a>
+	    
+	    
+	    
 
     </div>
     <!-- END OF SPECIAL -->
