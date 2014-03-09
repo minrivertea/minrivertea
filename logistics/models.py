@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime, timedelta
 import uuid
 
+
 from shop.models import UniqueProduct, Order, Currency
 
 

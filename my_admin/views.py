@@ -11,6 +11,8 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.translation import ugettext as _
+
 
 
 import urllib
@@ -72,6 +74,44 @@ def admin_shopper(request, id):
 
 
 @login_required
+def packages_sold(request):
+    
+    import csv
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=MRT_STOCKS.csv'
+    
+    writer = csv.writer(response)
+    
+    start_date = (datetime.now() - timedelta(weeks=int(52)) )
+    end_date = datetime.now()
+    packages = CustomerPackage.objects.filter(posted__range=(start_date, end_date))
+    
+    for p in packages:
+        try:
+            currency = p.postage_currency.code
+        except:
+            currency = 'GBP'
+            
+        for x in p.get_items():
+            if x.unique_product.parent_product.get_root_category().slug == _('teaware'):
+                teaware = 'yes'
+            else: 
+                teaware = ''
+            
+        writer.writerow([
+            p.posted,
+            p.get_items().count(),
+            teaware,
+            p.order.address.get_country_display(),
+            currency,
+            p.postage_cost,            
+        ])
+    
+    return response
+    
+
+@login_required
 def stocks(request):
     
     if request.GET.get('date'):
@@ -82,7 +122,7 @@ def stocks(request):
         in_stock = WarehouseItem.objects.filter(created__lte=my_date).exclude(sold__lt=my_date)
         
         import csv
-    
+            
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename=MRT_STOCKS.csv'
 
