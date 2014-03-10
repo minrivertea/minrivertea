@@ -11,10 +11,24 @@
 
 <div id="mtw">
   <div class="sp">
-  	<h2>{{ product.name }}</h2>
+  	<h1>{{ product.name }}</h1>
 
-    <p><strong>{{ total_items }}</strong> sold to date ({{ order_count }} orders)</p>
-    {% if total_weight > 0 %}<p><strong>{{ total_weight }}g</strong> sold</p>{% endif %}
+    <table>
+        <tr>
+            <td><strong>Sold total</strong></td>
+            <td>{{ sold_items.count }} {% if total_weight > 0 %}({{ total_weight }}g){% endif %}</td>
+        </tr>
+        
+        <tr>
+            <td><strong>Sold this year</strong></td>
+            <td>{{ sold_this_year.count }}</td>
+        </tr>
+
+        <tr>
+            <td><strong>In stock</strong></td>
+            <td>{{ in_stock.count }}</td>
+        </tr>
+    </table>
 
 
   </div>

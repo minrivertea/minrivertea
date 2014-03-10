@@ -168,14 +168,14 @@ def _check_offers(items):
     
     # NOW WE CHECK EACH OFFER:
     
-    #offer1 = 0 # tea plus teaware
+    #offer1 = 0 # TEA PLUS TEAWARE DISCOUNT
     #while tea_count > 0 and teaware_count > 0:
     #    offer1 += 1
     #    tea_count -= 1
     #    teaware_count -= 1
             
     
-    #offer2 = 0 # three for two 
+    #offer2 = 0 # THREE FOR TWO DISCOUNT
     #while tea_count > 2:
     #    offer2 += 1
     #    tea_count -= 3

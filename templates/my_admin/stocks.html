@@ -143,27 +143,26 @@ table tr td:first-child a {
 <table>
     <thead>
         <td>Item</td>
-        <td>UK Stock</td>
-        <td>Transfer</td>
-        <td>China stock</td>
-        <td>Total stock value</td>
+        <td>In UK</td>
+        <td>In Transit</td>
+        <td>In China</td>
+        <td>GBP value</td>
+        <td>Sold this year</td>
     </thead>
+    
+    
+    
     {% for x in stocks %}
         <tr>
             <td><a href="{% url admin_product x.parent_product.id %}">{{ x }}</a></td>
             <td width="150">
                 <span class="{% if x.uk_stocks.count < 3 %}red{% endif %}">
-                    {% for y in x.uk_stocks %}
-                        <span class="dot{% if y.months_old == 6 %} six{% endif %}{% if y.months_old == 12 %} twelve{% endif %}">&nbsp;</span>
-                    {% endfor %}
                     <span class="count">{{ x.uk_stocks.count }}</span>
                 </span>
             </td>
             <td width="150">
                 <a class="transfer" href="{% url update_stock_location x.id %}?location=uk">&laquo;</a>
-                {% for y in x.in_transit_stocks %}
-                    <span class="dot">&nbsp;</span>
-                {% endfor %}
+                <span class="count">{{ x.in_transit_stocks.count }}</span>
             </td>
             <td width="150">
                 <a class="transfer" href="{% url update_stock_location x.id %}?location=transit">&laquo;</a>
@@ -173,6 +172,8 @@ table tr td:first-child a {
                 <span class="count">{{ x.china_stocks.count }}</span>
             </td>
             <td>£{{ x.total_value }}</td>
+            
+            <td>{{ x.sold_this_year.count }}</td>
             
         </tr>
     {% endfor %}

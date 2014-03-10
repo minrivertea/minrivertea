@@ -133,8 +133,12 @@ def stocks(request):
         return response
     
        
-    stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP').order_by('-parent_product__category')
+    stocks = UniqueProduct.objects.filter(is_active=True, currency__code='GBP')
+    
     total_stock_value = 0
+    start_date = (datetime.now() - timedelta(weeks=52))
+    end_date = datetime.now()
+    
     for x in stocks:
         x.uk_stocks = WarehouseItem.objects.filter(
             unique_product=x, 
@@ -149,7 +153,14 @@ def stocks(request):
         
         x.total_value = (x.uk_stocks.count() + x.china_stocks.count() + x.in_transit_stocks.count()) * x.price
         
+        x.sold_this_year = WarehouseItem.objects.filter(
+            unique_product=x,
+            sold__range=(start_date, end_date),
+        )
+        
         total_stock_value += x.total_value
+    
+    stocks = sorted(stocks, key=lambda x: x.sold_this_year.count(), reverse=True)
     
     form = AddStocksForm()
     products = UniqueProduct.objects.filter(currency__code='GBP', is_active=True)
@@ -159,17 +170,34 @@ def stocks(request):
 @login_required
 def admin_product(request, id):
     product = get_object_or_404(Product, pk=id)
-    sales = Order.objects.filter(date_paid__isnull=False)
-    order_count = 0
+    
+    sold_items = WarehouseItem.objects.filter(
+        unique_product__parent_product=product,
+        sold__isnull=False,
+        )
+        
     total_weight = 0
-    total_items = 0
-    for x in sales:
-        for i in x.items.all():
-            if product == i.item.parent_product:
-                try: total_weight += (i.item.weight * i.quantity)
-                except: pass
-                total_items += i.quantity
-                order_count += 1
+    for x in sold_items:
+        total_weight += x.unique_product.weight
+    
+    start_date = (datetime.now() - timedelta(weeks=52))
+    end_date = datetime.now()
+    sold_this_year = WarehouseItem.objects.filter(
+        unique_product__parent_product=product,
+        sold__range=(start_date, end_date),
+        )
+        
+    in_stock = WarehouseItem.objects.filter(
+        unique_product__parent_product=product,
+        sold__isnull=True,
+        )
+    
+    
+    
+    
+
+    # if there's a date range, filter by date range.            
+                
     return _render(request, 'my_admin/product.html', locals())
 
 @login_required

@@ -559,6 +559,9 @@ div#discount {
             
             <!-- UNIT PRICE -->
             <td class="price">
+                {% if thing.item.sale_price %}
+                    <span class="strikethrough red">{{ thing.item.price|floatformat:"2" }}</span><br/>
+                {% endif %}
                 {{ currency.symbol }}{{ thing.item.get_price|floatformat:"2" }}
                 {% if thing.item.special_shipping_price %}<br/><span class="small"> + {{ currency.symbol }}{{ thing.item.special_shipping_price }} {% trans 'shipping' %}</span>{% endif %}
             </td>
