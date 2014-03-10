@@ -391,6 +391,14 @@ span.link:hover {
   letter-spacing: -0.2px;  
 }
 
+#tools #tagline .red {
+  background: #D30000;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin: 0 5px 0 0;   
+}
+
 #tools #tagline a {
   text-decoration: none;   
 }
@@ -878,7 +886,7 @@ p.introduction, #left p.introduction {
 .pricebar {
   width: 100%;
   height: 100%;
-  font-size: 15px;
+  font-size: 13px;
   letter-spacing: -0.5px;  
   text-align: left; 
   line-height: 1em;
@@ -1086,7 +1094,7 @@ p.introduction, #left p.introduction {
 }
 
 .info.tea a.button {
-    bottom: 20px;
+    bottom: 15px;
     right: 0px;
     position: absolute;
     z-index: 20;
