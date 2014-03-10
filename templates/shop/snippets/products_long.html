@@ -3,7 +3,6 @@
 {% for t in teas %}
     <div class="info tea half {% cycle 'left' 'right' %}">
         <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
-        
         {% if months %}
             <a class="button green small addtocart" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.single_price.id months %}">{% trans 'Add to TeaBox' %}</a>
         {% else %}
@@ -39,11 +38,14 @@
                     
                     <div class="price-weight">
                         <span class="price">
+                            {% if t.price.sale_price %}
+                            <span class="strikethrough red">{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}</span>
+                            {% endif %}
                             {% if t.price.price %}
                                 {{ currency.symbol }}{{ t.price.get_price|floatformat:"-2" }}
                             {% else %}
                                 {% if months %}
-                                    {{ currency.symbol }}{{ t.price|floatformat:"2" }}
+                                    {{ currency.symbol }}{{ t.get_price|floatformat:"2" }}
                                 {% endif %}
                             {% endif %}
                         </span> 

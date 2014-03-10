@@ -1784,6 +1784,10 @@ span.red {
   color: #D30000;	
 }
 
+span.strikethrough {
+  text-decoration: line-through;	
+}
+
 span.orange {
   color: #d9800c;  
 }

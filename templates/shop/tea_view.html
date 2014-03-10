@@ -469,7 +469,7 @@ span.name {
   font-size: 13px;
   line-height: 1em;
   position: relative;
-  top: 7px;
+  top: 10px;
 }
 
 #prices .amount {
@@ -489,7 +489,7 @@ span.name {
     font-weight: 100;
     margin: 0 10px 0 0;
     position: relative;
-    top: 2px;
+    top: 4px;
     width: auto;
 }
 
@@ -816,14 +816,14 @@ ul.rss {
 		    <div class="price-inner">
 		    	
               <div class="price-description">
-                <span class="amount">{{ currency.symbol }}{{ price.get_price|floatformat:"-2" }}</span>                 
+                
+                
+                <span class="amount">{% if price.sale_price %}
+                    <span class="strikethrough red small">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span>
+                {% endif %}{{ currency.symbol }}{{ price.get_price|floatformat:"-2" }}</span>                 
                 <span class="weight">{% if price.weight %} / {% convert_weights request price.weight %}{{ weight_unit }}{% else %} / {{ price.description }}{% endif %} 
                 </span>
-                {% if price.sale_price %}
-                    <span class="warning">
-            		      Was {{ currency.symbol }}{{ price.price|floatformat:"-2" }}, save {{ currency.symbol }}{{ price.get_saving|floatformat:"-2" }} {% if price.stocks.count < 1 %}<br/>{% endif %}
-                    </span>  
-                {% endif %}                
+               
               </div>
               
               
