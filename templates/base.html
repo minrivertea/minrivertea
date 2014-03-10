@@ -225,8 +225,10 @@ if (15.00) {
         </div>
         
         <div id="tagline">
-            
-            <span class="red">SALE ON NOW!</span> 10% off all our Chinese teas for a short time only - <a href="{% url finder _('teas') %}">start browsing!</a>
+            {% url finder _('teas') as url %}
+            {% blocktrans %}
+            <span class="red">SALE ON NOW!</span> 10% off all our Chinese teas for a short time only - <a href="{{ url }}">start browsing!</a>
+            {% endblocktrans %}
             
             <!--
             {% url page _('about') as url %}
