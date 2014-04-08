@@ -101,7 +101,7 @@ def _get_country(request):
 def _get_basket(request):
     # this returns a basket if there is one, or creates it if there isn't one.
     try:
-        basket = get_object_or_404(Basket, id=request.session['BASKET_ID'])
+        basket = Basket.objects.get(pk=request.session['BASKET_ID'])
     except:
         basket = Basket.objects.create(date_modified=datetime.now())
         basket.save()
