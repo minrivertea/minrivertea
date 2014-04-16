@@ -74,7 +74,7 @@ def index(request):
         t.price = t.get_lowest_price(currency=curr)
     
     try:
-        special = get_object_or_404(Product, id=47)
+        special = get_object_or_404(Product, id=54)
         special.price = special.get_lowest_price(curr)
     except:
         pass

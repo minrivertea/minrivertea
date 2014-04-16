@@ -67,8 +67,8 @@ h2.banner {
   float: left;
   width: 100%;
   position: relative;
-  background: url('{{ static_url }}images/homepage/special-winter-warmers-2014.jpg') no-repeat top left;
-  height: 265px;
+  background: url('{{ static_url }}images/homepage/banner2.jpg') no-repeat top left;
+  height: 350px;
 }
 
 #special:hover {
@@ -78,7 +78,7 @@ h2.banner {
 #special .button {
   position: absolute;
   right: 20px;
-  bottom: 30px;
+  bottom: 0px;
   z-index: 100;
 }
 
@@ -88,8 +88,8 @@ h2.banner {
 
 #special .details {
     float: right;
-    width: 40%;
-    bottom: 80px;
+    width: 50%;
+    bottom: 50px;
     right: 20px;
     padding: 0;
     position: absolute;
@@ -392,12 +392,13 @@ ul.rss {
 
 <div class="sp">
 
+    {% if special %}
     <div id="special">
         <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
         <div class="details">
            
-           <h3>{% trans 'That Chocolate Tea' %}</h3>
-           <p>{% trans "It's called Qi Men Hong, but our friends just call it 'that chocolate tea' because it has a deliciously guilty yet 100% naturally sweet chocolate aroma. It's one of four exceptional teas available in our Winter Warmers taster pack." %}</p>
+           <h3>{% trans 'First Flush Taster Set' %}</h3>
+           <p>{% trans "This is Bamboo Leaf Green Tea, one of five incredible 'first-flush' teas available in this limited taster set. Featuring the cream of the first 2014 harvest, you can taste, compare and enjoy exceptional green and yellow teas from Sichuan and Hangzhou." %}</p>
            
            <span class="price">
                 <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
@@ -410,10 +411,11 @@ ul.rss {
 	    
 	    
 
-    </div>
-    <!-- END OF SPECIAL -->
+    </div>    
     
     <div class="hr"></div>
+    <!-- END OF SPECIAL -->
+    {% endif %}
 
 	<div id="teas">
         
