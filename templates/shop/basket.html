@@ -605,7 +605,7 @@ div#discount {
                 <td class="name" colspan="3">
                     <strong>{% trans 'Postage' %}</strong>
                     <br/>
-                    {% trans 'Shipped from the UK' %} - <a href="{% url page _('shipping') %}">{% trans 'read about shipping and delivery times' %}</a>
+                    {% trans 'Shipped from the UK' %} - <a class="small" href="{% url page _('shipping') %}">{% trans 'read about shipping and delivery times' %}</a>
                 </td>
                 <td class="total">
                     {{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}

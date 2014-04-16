@@ -2074,6 +2074,10 @@ button.next:hover {
   letter-spacing: -0.5px;   
 }
 
+#basket td.name a.small {
+  font-size: 13px;
+}
+
 
 #basket td.quantity {
   color: #777; 
