@@ -116,6 +116,13 @@ h2.banner {
     text-align: right;
 }
 
+{% get_current_language as LANGUAGE_CODE %}
+{% if LANGUAGE_CODE == 'it' %}
+#special .details {
+  width: 60%;   
+}
+{% endif %}
+
 #special .details h3 {
   font-size: 28px;
   font-weight: 100;
