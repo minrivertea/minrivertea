@@ -17,7 +17,7 @@
 {% block extracss %}
 <style type="text/css">
 
-#teas, #teaware, #about, #experts, #monthly, #brewing, #special {
+#teas, #teaware, #about, #experts, #monthly, #brewing, #special, #sale {
   float: left;
   width: 100%;
   position: relative;
@@ -48,6 +48,22 @@ h2.banner {
   margin: 0 0 ;
   border-bottom: none;	
   height: auto;
+}
+
+#teas div.banner, #teaware div.banner {
+  background: url('{{ static_url }}images/homepage/tea-banner.jpg') no-repeat top left;
+  height: 270px;
+  position: relative; 
+  margin: 0 0 20px 0;  
+}
+
+#teas div.banner .text, #teaware div.banner .text {
+  position: absolute;
+  right: 70px;
+  top: 40px;
+  width: 300px;
+  text-align: right;
+  color: #777;   
 }
 
 #teas h2 {
@@ -297,9 +313,8 @@ ul.rss {
   margin: 0;   
 }
 
-#monthly {
-  background: url('{{ static_url }}images/homepage/home-monthly.jpg') no-repeat top left;  
-  height: 250px;
+#teaware div.banner {
+  background: url('{{ static_url }}images/homepage/teaware-banner.jpg') no-repeat top left;
 }
 
 #brewing img {
@@ -428,19 +443,37 @@ ul.rss {
     {% endif %}
     
     <div id="sale">
-    <h2 class=""><span class="red">Big stock clearance!</span> Get up to 50% off on selected teas - <a href="{% url sale %}">see all sale items here &raquo;</a></h2>
+    <h2 class="">{% trans '<span class="red">Big stock clearance!</span> Get up to 50% off on selected teas' %} - <a href="{% url sale %}">{% trans 'see all sale items here' %} &raquo;</a></h2>
     </div>
     
     <div class="hr"></div>
     
 
 	<div id="teas">
+	   
+        <div class="banner">
+        
+            <div class="text">
+                
+            <p>{% trans 'Buy exceptional Chinese teas direct from farms in China. No middlemen, no wholesalers - just great teas at fair prices.' %}<br/><a href="{% url finder _('teas') %}">See all our teas</a> &nbsp;|&nbsp; <a href="{% url page _('about') %}">Read more about us</a></p>
+            </div>
+            
+        </div>
         
         {% include 'shop/snippets/products_long.html' %}
+        
+        
+        <!--
         <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url finder _('teas') %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
+        -->
+        
+        
     </div>
 	<!-- END TEAS LIST -->
+	
+	
 
+    <!--
     <div id="experts">
         <a href="{% url finder _('about') %}"><span class="link"></span></a>
         <div class="glass-text">
@@ -451,10 +484,23 @@ ul.rss {
             </div>
         </div>
     </div>
+    -->
     
-    <div class="hr"></div> 
+    
+    
+    
 	
 	<div id="teaware">
+	
+       <div class="banner">
+        
+            <div class="text">
+                
+            <p>{% trans 'Enjoy your Chinese tea in style - a range of stunning teaware, teapots and accessories to make brewing the perfect cup of tea a breeze. ' %}<br/><a href="{% url finder _('teaware') %}">See all our teaware</a> </p>
+            </div>
+            
+        </div>
+	   
 	   {% with teaware as teas %}
 	       {% include 'shop/snippets/products_long.html' %}  
 	   {% endwith %}	   
