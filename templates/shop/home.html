@@ -408,10 +408,12 @@ ul.rss {
            <h3>{{ special.name }}</h3>
            <p>{% trans "Five incredible 'first-flush' teas, featuring the cream of the first 2014 harvest. Taste, compare and enjoy exceptional green and yellow teas from Sichuan and Hangzhou. " %}</p>
            
+           <!--
            <span class="price">
                 <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
 	           {% if special.price.weight %}/ {% convert_weights request special.price.weight %}{{ weight_unit }}{% else %}{% if special.price.description %}/ {{ special.price.description }}{% endif %}{% endif %}
 	       </span>
+	       -->
 	    </div>
 	    
 	    
