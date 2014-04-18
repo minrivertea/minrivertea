@@ -77,7 +77,11 @@ def index(request):
         special = get_object_or_404(Product, id=54)
         special.price = special.get_lowest_price(curr)
     except:
-        pass
+        if settings.DEBUG:
+            special = get_object_or_404(Product, id=1)
+            special.price = special.get_lowest_price(curr)
+        else:
+            special = None
      
     return _render(request, "shop/home.html", locals())
 

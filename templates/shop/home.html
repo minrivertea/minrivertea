@@ -67,18 +67,22 @@ h2.banner {
   float: left;
   width: 100%;
   position: relative;
-  background: url('{{ static_url }}images/homepage/banner2.jpg') no-repeat top left;
-  height: 350px;
+  background: url('{{ static_url }}images/homepage/banner3.jpg') no-repeat top left;
+  height: 330px;
+  transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
 }
 
 #special:hover {
-  opacity: 0.9;   
+  opacity: 0.8;
+     
 }
 
 #special .button {
   position: absolute;
-  right: 20px;
-  bottom: 0px;
+  right: 50px;
+  top: 140px;
   z-index: 100;
 }
 
@@ -89,7 +93,7 @@ h2.banner {
 #special .details {
     float: right;
     width: 50%;
-    bottom: 50px;
+    top: 90px;
     right: 20px;
     padding: 0;
     position: absolute;
@@ -103,6 +107,9 @@ h2.banner {
   letter-spacing: -1px;
   text-shadow: none;
   color: #2a8531;
+  transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
 }
 
 #special .details h4 {
@@ -118,14 +125,14 @@ h2.banner {
 }
 
 #special .details .price {
+    top: -20px;
     color: #555555;
-    position: absolute;
-    top: -10px;
-    right: 0px;
-    font-size: 15px;
     float: right;
+    font-size: 19px;
     font-weight: normal;
     letter-spacing: -0.5px;
+    position: absolute;
+    right: 0;
 }
 
 #special .details .price .amount {
@@ -398,16 +405,16 @@ ul.rss {
         <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
         <div class="details">
            
-           <h3>{% trans 'First Flush Taster Set' %}</h3>
-           <p>{% trans "This is Bamboo Leaf Green Tea, one of five incredible 'first-flush' teas available in this limited taster set. Featuring the cream of the first 2014 harvest, you can taste, compare and enjoy exceptional green and yellow teas from Sichuan and Hangzhou." %}</p>
+           <h3>{{ special.name }}</h3>
+           <p>{% trans "Five incredible 'first-flush' teas, featuring the cream of the first 2014 harvest. Taste, compare and enjoy exceptional green and yellow teas from Sichuan and Hangzhou. " %}</p>
            
            <span class="price">
                 <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
-	           {% if special.price.weight %}/ {% convert_weights request special.price.weight %}{{ weight_unit }}{% else %}/ {{ special.price.description }}{% endif %}
+	           {% if special.price.weight %}/ {% convert_weights request special.price.weight %}{{ weight_unit }}{% else %}{% if special.price.description %}/ {{ special.price.description }}{% endif %}{% endif %}
 	       </span>
 	    </div>
 	    
-	    <a href="{% url add_to_basket special.price.id %}" class="button green addtocart">{% trans 'Preorder now' %}</a>
+	    
 	    
 	    
 	    
