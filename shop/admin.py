@@ -1,6 +1,18 @@
 from shop.models import *
 from django.contrib import admin
 
+# DEFINES AN INLINE PRICE THING TO GO IN THE PRODUCT ADMIN
+class PriceInline(admin.TabularInline):
+    model = UniqueProduct
+    extra = 1
+
+    def change_view(self, request, object_id, form_url='.', extra_context={}):
+        object = self.model.objects.get(identifier=object_id)
+        extra_context = {'price': object,}
+        return super(PriceInline, self).change_view(request, object_id, form_url, extra_context)
+
+
+
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     list_display = ('name', 'slug', 'category', 'is_active')
@@ -20,6 +32,13 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('category', 'is_featured', 'is_active', 'tag_text', 'tag_color', 'list_order',)
         }),
     )
+    
+    inlines = [PriceInline,]
+    
+
+
+
+
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}

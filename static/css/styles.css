@@ -327,17 +327,6 @@ span.link:hover {
     color: #fff;   
 }
 
-#global-message {
-  background: #2A8531;
-  margin: 0 0 10px 0;
-  padding: 5px 0; 
-  text-align: center;  
-}
-
-#global-message p {
-  margin: 0;
-  color: #fff;
-}
 
 #header {
   float: left;
@@ -383,6 +372,7 @@ span.link:hover {
     width: 100%;
 }
 
+
 #tools .hr {
   margin: 10px 0 15px;   
 }
@@ -390,7 +380,7 @@ span.link:hover {
 #tools #tagline {
   float: left;
   font-size: 13px;
-  padding-top: 5px; 
+  padding-top: 0px; 
   font-weight: bold;
   letter-spacing: -0.2px;  
 }
@@ -411,13 +401,21 @@ span.link:hover {
   text-decoration: underline;   
 }
 
+#topnav {
+  float: right;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  position:relative;
+  top: -5px;   
+}
+
 #learn {
   list-style-type: none;
-  padding: 0;
+  padding: 0 30px 0 0;
   margin: 0;
   float: right;
   width: auto;
-  display: none;   
 }
 
 #learn li {
@@ -428,10 +426,10 @@ span.link:hover {
     border-right: 1px dashed #E1E1E1;
     color: #888888;
     float: left;
-    font-size: 11px;
-    font-weight: normal;
+  text-transform:lowercase ;
+  font-size: 11px;
+  font-weight: normal;
     padding: 0 8px;
-    text-transform: lowercase;
 }
 
 #learn li:last-child a {
@@ -444,7 +442,93 @@ span.link:hover {
   text-decoration: underline;   
 }
 
-#language, #userbasket {
+#learn li.language a {
+  padding: 0;
+  margin: 0 5px 0 8px; 
+  position: relative;
+  text-transform: lowercase;
+  font-size: 9;
+  font-weight: normal;
+  top: -3px;
+  border-right: none;  
+}
+
+#learn li.language a:hover {
+  text-decoration: none;   
+}
+
+#learn li.language a div.flag {
+  position: absolute;
+  bottom: -3px;
+  height: 6px;
+  width: 100%;   
+}
+
+#learn li.language a.de div.flag {
+
+  background: #000000; /* Old browsers */
+background: -moz-linear-gradient(top,  #000000 0%, #000000 33%, #ff0000 34%, #ff0000 66%, #ffe100 67%, #ffe605 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#000000), color-stop(33%,#000000), color-stop(34%,#ff0000), color-stop(66%,#ff0000), color-stop(67%,#ffe100), color-stop(100%,#ffe605)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #000000 0%,#000000 33%,#ff0000 34%,#ff0000 66%,#ffe100 67%,#ffe605 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #000000 0%,#000000 33%,#ff0000 34%,#ff0000 66%,#ffe100 67%,#ffe605 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #000000 0%,#000000 33%,#ff0000 34%,#ff0000 66%,#ffe100 67%,#ffe605 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #000000 0%,#000000 33%,#ff0000 34%,#ff0000 66%,#ffe100 67%,#ffe605 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffe605',GradientType=0 ); /* IE6-9 */
+   
+}
+
+#learn li.language a.it div.flag {
+ background: #009b1c; /* Old browsers */
+background: -moz-linear-gradient(left,  #009b1c 0%, #009b1c 33%, #ffffff 34%, #ffffff 66%, #ff0000 67%, #ff0505 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,#009b1c), color-stop(33%,#009b1c), color-stop(34%,#ffffff), color-stop(66%,#ffffff), color-stop(67%,#ff0000), color-stop(100%,#ff0505)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left,  #009b1c 0%,#009b1c 33%,#ffffff 34%,#ffffff 66%,#ff0000 67%,#ff0505 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left,  #009b1c 0%,#009b1c 33%,#ffffff 34%,#ffffff 66%,#ff0000 67%,#ff0505 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left,  #009b1c 0%,#009b1c 33%,#ffffff 34%,#ffffff 66%,#ff0000 67%,#ff0505 100%); /* IE10+ */
+background: linear-gradient(to right,  #009b1c 0%,#009b1c 33%,#ffffff 34%,#ffffff 66%,#ff0000 67%,#ff0505 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#009b1c', endColorstr='#ff0505',GradientType=1 ); /* IE6-9 */
+}
+
+#learn li.language a.en div.flag {
+background: #2759bc; /* Old browsers */
+background: -moz-linear-gradient(-45deg,  #2759bc 0%, #2759bc 25%, #ffffff 25%, #ffffff 37%, #ff0000 37%, #ff0000 65%, #ffffff 65%, #ffffff 73%, #2759bc 73%, #2759bc 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#2759bc), color-stop(25%,#2759bc), color-stop(25%,#ffffff), color-stop(37%,#ffffff), color-stop(37%,#ff0000), color-stop(65%,#ff0000), color-stop(65%,#ffffff), color-stop(73%,#ffffff), color-stop(73%,#2759bc), color-stop(100%,#2759bc)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg,  #2759bc 0%,#2759bc 25%,#ffffff 25%,#ffffff 37%,#ff0000 37%,#ff0000 65%,#ffffff 65%,#ffffff 73%,#2759bc 73%,#2759bc 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg,  #2759bc 0%,#2759bc 25%,#ffffff 25%,#ffffff 37%,#ff0000 37%,#ff0000 65%,#ffffff 65%,#ffffff 73%,#2759bc 73%,#2759bc 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg,  #2759bc 0%,#2759bc 25%,#ffffff 25%,#ffffff 37%,#ff0000 37%,#ff0000 65%,#ffffff 65%,#ffffff 73%,#2759bc 73%,#2759bc 100%); /* IE10+ */
+background: linear-gradient(135deg,  #2759bc 0%,#2759bc 25%,#ffffff 25%,#ffffff 37%,#ff0000 37%,#ff0000 65%,#ffffff 65%,#ffffff 73%,#2759bc 73%,#2759bc 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2759bc', endColorstr='#2759bc',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+#learn li.currency {
+    border-left: 1px dashed #E1E1E1;
+    height: 23px;
+    margin: 0 0 0 3px;
+    overflow: hidden;
+    padding: 0 0 0 5px;
+    width: 19px;
+    position: absolute;
+    right: 0;
+    background: #fff;
+    z-index: 20;
+}
+
+#learn li.currency a {
+    background: none repeat scroll 0 0 #E1E1E1;
+    font-size: 15px;
+    height: 21px;
+    margin: 0 0 3px;
+    padding: 1px 5px;
+    width: 9px;
+}
+
+#learn li.currency a.strong {
+  background: #2A8531;
+  color: #fff;   
+}
+
+
+#language {
   float: right;
   margin-right: 10px;
   width: auto;
@@ -463,8 +547,10 @@ span.link:hover {
     font-weight: bold;
     height: 12px;
     width: auto;
-    margin-right: 70px;
+    margin-right: 0px;
     float: right;
+    padding: 0;
+    font-size: 11px;
 }
 
 #userbasket.selected {
@@ -473,7 +559,6 @@ span.link:hover {
 }
 
 #userbasket #quantity {
-    bottom: 5px;
     float: left;
     text-align: center;
     width: auto;
@@ -486,7 +571,7 @@ span.link:hover {
     height: 18px;
     margin: 0 5px 0 0;
     position: relative;
-    top: -4px;
+    top: 2px;
     width: 23px;
 }
 
@@ -513,30 +598,27 @@ span.link:hover {
 }
 
 #currency {
-    border-radius: 0 0 4px 4px;
     color: #333333;
     float: right;
     font-size: 10px;
     font-weight: bold;
-    height: 15px;
-    line-height: 1.8em;
+    height: 22px;
     overflow: hidden;
-    padding: 5px 10px;
     position: absolute;
     z-index: 40;
     right: 0;
-    top: 5px;
-    width: 40px;
+    top: 2px;
+    width: 50px;
     background: #fff;
 }
 
 
 #currency a {
-	background: url('/static/images/logo16.jpg') no-repeat -168px -2px;
+	background: url('/static/images/logo16.jpg') no-repeat -168px -1px;
     color: #333;
     text-align: center;
     float: left;
-    height: 15px;
+    height: 16px;
     margin-bottom: 5px;
     width: 24px;
     opacity: 0.3;
@@ -545,12 +627,12 @@ span.link:hover {
 
 #currency a span {
   position: relative;
-  right: -28px;   
+  right: -28px; 
 }
 
-#currency a.eu {background-position: -192px -2px;}
+#currency a.eu {background-position: -192px -1px;}
 
-#currency a.us {background-position: -216px -2px;}
+#currency a.us {background-position: -216px -1px;}
 
 #currency a.strong {
   opacity: 1;	
@@ -560,17 +642,7 @@ span.link:hover {
   opacity: 1;
 }
 
-#currency a.one {
-  bottom: 0px; 
-}
 
-#currency a.two {
-  bottom: 20px; 
-}
-
-#currency a.three {
-  bottom: 40px; 
-}
 
 div#home-banner {
     float: right;
@@ -583,7 +655,7 @@ div#home-banner {
 #navigation {
   float: right;
   width: auto;
-  margin: 60px 0 0px;	
+  margin: 40px 0 0px;	
 }
 
 ul#nav {

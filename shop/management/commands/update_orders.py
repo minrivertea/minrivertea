@@ -20,7 +20,6 @@ class Command(NoArgsCommand):
                 items_list += "%s, %s%s, %s, %s \n" % (
                     x.item.parent_product, 
                     x.item.weight, 
-                    x.item.weight_unit, 
                     x.quantity, 
                     (x.quantity * x.item.price),
                 )

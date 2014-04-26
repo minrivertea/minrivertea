@@ -56,7 +56,7 @@
     '{{ order.invoice_id }}',           // order ID - required
     '{{ item.item.parent_product.id }}',           // SKU/code - required
     '{{ item.item.parent_product.name }}',        // product name
-    '{{ item.item.weight }}{{ item.item.weight_unit }}',   // category or variation
+    '{{ item.item.weight }}g',   // category or variation
     '{{ item.item.price }}',          // unit price - required
     '1'               // quantity - required
   ]);

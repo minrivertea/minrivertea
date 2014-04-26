@@ -80,7 +80,7 @@
     '{{ order.invoice_id }}',           // order ID - required
     '{{ item.item.parent_product.id }}',           // SKU/code - required
     '{{ item.item.parent_product.name }}',        // product name
-    '{{ item.item.weight }}{{ item.item.weight_unit }}',   // category or variation
+    '{{ item.item.weight }}g',   // category or variation
     '{{ item.item.price }}',          // unit price - required
     '1'               // quantity - required
   ]);
@@ -151,13 +151,7 @@ if (15.00) {
 {% endif %}
 
 
-<!--
-<div id="global-message">
-    <div class="sp">
-        <p></p>
-    </div>
-</div>
--->
+
 
 <div id="header">
 
@@ -167,8 +161,11 @@ if (15.00) {
             <a title="{% trans 'Chinese tea delivered to your door - Min River Tea' %}" alt="{% trans 'the Min River Tea logo - Chinese tea merchant '%}" href="/"></a>
 	   	</div>
 	   		   	
-        
-    	<ul id="learn">
+       
+        <div id="topnav">
+         
+            <ul id="learn">
+    	
             {% for x in top_nav %}
               <li>
                 <a href="{{ x.get_absolute_url }}">{{ x.title }}</a>
@@ -177,27 +174,36 @@ if (15.00) {
             
           	{% get_current_language as LANGUAGE_CODE %}
           	{% if LANGUAGE_CODE == 'en' %}
-          	<li>
-          	     <a href="{% url changelang 'de' %}">{% trans 'German' %}</a>
-          	     <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a>
+          	<li class="language">
+          	     <a class="de" href="{% url changelang 'de' %}">{% trans 'German' %}<div class="flag"></div></a>
+          	     <a class="it" href="{% url changelang 'it' %}">{% trans 'Italian' %}<div class="flag"></div></a>
           	</li>
           	{% endif %}
           	
           	{% if LANGUAGE_CODE == 'de' %}
-          	<li>
-          	     <a href="{% url changelang 'en' %}">{% trans 'English' %}</a>
-          	     <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a>
+          	<li class="language">
+          	     <a class="en" href="{% url changelang 'en' %}">{% trans 'English' %}<div class="flag"></div></a>
+          	     <a class="it" href="{% url changelang 'it' %}">{% trans 'Italian' %}<div class="flag"></div></a>
           	</li>
           	{% endif %}
           	
           	{% if LANGUAGE_CODE == 'it' %}
-          	<li>
-          	     <a href="{% url changelang 'en' %}">{% trans 'English' %}</a>
-          	     <a href="{% url changelang 'de' %}">{% trans 'German' %}</a>
+          	<li class="language">
+          	     <a class="en" href="{% url changelang 'en' %}">{% trans 'English' %}<div class="flag"></div></a>
+          	     <a class="de" href="{% url changelang 'de' %}">{% trans 'German' %}<div class="flag"></div></a>
           	</li>
           	{% endif %}
+          	
+          	<li class="currency">
+          	     <a class="uk{% if currency.code == 'GBP' %} strong one{% else %} two{% endif %}" title="Switch currency to British pounds" href="{% url set_currency %}?curr=GBP"><span>&pound;</span></a>
+	
+	<a class="us{% if currency.code == 'USD' %} strong one{% else %} three{% endif %}" title="Switch currency to US Dollars" href="{% url set_currency %}?curr=USD"><span>&dollar;</span></a>
+	
+	<a class="eu{% if currency.code == 'EUR' %} strong one{% else %}{% if currency.code == 'USD'%} three{% else %} two{% endif %}{% endif %}" title="Switch currency to Euros" href="{% url set_currency %}?curr=EUR"><span>&euro;</span></a>
+          	</li>
 
-        </ul>
+            </ul>
+        </div>
     	        
         {% include 'shop/snippets/main_navigation.html' %}
         
@@ -210,20 +216,8 @@ if (15.00) {
 <div id="tools">
     <div class="sp">        
 
-        {% include 'shop/snippets/currency.html' %}
-        <div id="userbasket" {% if basket_quantity > 0 %}class="selected"{% endif %}>
-            <div id="item"></div>
-    		<span class="basket"></span>
-            
-            <div id="quantity">
-    	       {% blocktrans count basket_quantity as bq %}<span class="q">{{ bq }}</span> item{% plural %}<span class="q">{{ bq }}</span> items{% endblocktrans %} / {{ currency.symbol }}<span class="p">{{ basket_amount|floatformat:"2" }}</span>
-    	       {% if basket_quantity > 0 %}{% endif %}
-    	       {% if basket_quantity %}
-    	       <a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>
-    	       {% endif %}
-            </div>
-        </div>
-        
+        {% include 'shop/snippets/userbasket.html' %}
+                
         <div id="tagline">
             {% url page _('about') as url %}
             {% blocktrans %}Fine Chinese teas, direct from farms in China - <a href="{{ url }}">find out more &raquo;</a>{% endblocktrans %}
@@ -313,12 +307,17 @@ if (15.00) {
 				}
 			});
 		
-            /// HANDLES THE CURRENCY ROLLDOWN
-    		 $('#currency').hover(function() {
-    		    $(this).animate({height: '50px',}, 150);
-    		 }, function() {
-    		    $(this).animate({height: '15px',}, 100);
-    		 });
+
+
+            /// CURRENCY ROLLOVER
+            
+            $('#learn li.currency a.one').prependTo('#learn li.currency');
+            
+            $('#learn li.currency').hover( function() {
+               $(this).animate({height: '78px',}, 150);
+    		}, function() {
+    		    $(this).animate({height: '22px',}, 100); 
+            });
     		 
     		
     		/// MANAGES THE ADD-TO-CART BUTTONS 

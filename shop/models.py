@@ -1,3 +1,4 @@
+# DJANGO
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -12,8 +13,7 @@ from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
 from django.utils.translation import get_language
 
-
-
+# APP
 from slugify import smart_slugify
 from paypal.standard.ipn.signals import payment_was_successful, payment_was_flagged
 from django.template.loader import render_to_string
@@ -109,7 +109,7 @@ class Product(models.Model):
     def get_url_by_id(self):
         url = reverse('product_by_id', args=[self.id])
         return url
-
+    
     def get_lowest_price(self, currency, exclude_sales=False):
         try:
             if exclude_sales == True:
@@ -182,7 +182,6 @@ class Category(models.Model):
  
 class UniqueProduct(models.Model):
     weight = models.IntegerField(null=True, blank=True)
-    weight_unit = models.CharField(help_text="Weight units", max_length=3, null=True, blank=True)
     price = models.DecimalField(help_text="Price", max_digits=8, decimal_places=2, null=True, blank=True)
     currency = models.ForeignKey(Currency)
     parent_product = models.ForeignKey(Product)
@@ -200,7 +199,7 @@ class UniqueProduct(models.Model):
     
     def __unicode__(self):
         if self.weight:
-            return "%s (%s%s)" % (self.parent_product.__unicode__(), self.weight, self.weight_unit)
+            return "%s (%sg)" % (self.parent_product.__unicode__(), self.weight, )
         else: 
             return "%s" % self.parent_product.__unicode__()
         
