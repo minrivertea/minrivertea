@@ -41,8 +41,6 @@ class Command(NoArgsCommand):
                     status=Order.STATUS_PAID
                     )
             if recent_paid_orders.count() > 0:
-                print p
-                print "   this one has already ordered since"
                 continue
                 
             

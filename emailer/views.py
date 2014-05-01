@@ -16,8 +16,6 @@ import datetime
 import uuid
 import re
 
-import dkim
-
 from shop.models import *
 from shop.utils import _render, weight_converter, _check_offers
 from emailer.models import Subscriber, Newsletter
@@ -82,15 +80,6 @@ def _send_email(recipient, subject_line, template, extra_context=None, sender=No
         msg.attach_alternative(html_content, "text/html")
         # msg.content_subtype = "html"
     
-    
-    # FINALLY WE'RE GOING TO SIGN THE MESSAGE FOR DKIM
-    
-    #dkim.sign(
-    #    email, 
-    #    'default', 
-    #    settings.SITE_NAME, 
-    #    private_key
-    #)
     
     
     msg.send()

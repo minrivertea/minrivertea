@@ -100,9 +100,7 @@ def page(request, slug):
     if page.template:
         template = page.template
     teas = _get_products(request, random=True)[:2]
-    
-    print "we get here"
-    
+        
     return _render(request, template, locals())
 
 

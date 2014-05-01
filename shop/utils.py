@@ -501,7 +501,6 @@ def _finder(request, x=None, y=None, z=None, slug=None):
         except:
             pass  
     
-    print pages
         
     if len(pages) > 0:
         if len(pages) == 1:
