@@ -10,3 +10,4 @@ pisa
 reportlab
 html5lib
 premailer
+pydkim
