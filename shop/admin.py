@@ -46,6 +46,7 @@ class CategoryAdmin(admin.ModelAdmin):
    
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('invoice_id', 'owner', 'notes',)
+    filter_horizontal = ('items',)
 
 
 class ReviewAdmin(admin.ModelAdmin):
