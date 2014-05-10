@@ -23,7 +23,11 @@ class EmailsTestCase(TestCase):
         """ Make sure the abandoned basket email is being sent correctly"""
         
         # GET AN UNPAID ORDER IN ENGLISH
-        order = Order.objects.filter(owner__language='en', reminder_email_sent=False, date_paid__isnull=False).order_by('?')[0]
+        order = Order.objects.filter(
+                owner__language='en', 
+                reminder_email_sent=False, 
+                date_paid__isnull=False
+        ).order_by('?')[0]
         
         # TEST IT            
         self.assertEqual(abandoned_basket(order.pk), True)

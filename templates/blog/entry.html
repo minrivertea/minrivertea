@@ -255,7 +255,7 @@ p.quote {
 
 	<div id="left">
     	<h1>{{ entry.title }}</h1>
-    	<p class="meta">&laquo; <a href="{% url blog_home %}">back to blog home</a> | {{ entry.date_added|date:"d M Y" }} | <div class="g-commentcount" data-href="{{ site_url }}{{ entry.get_absolute_url }}"></div> Comments</a> | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
+    	<p class="meta">&laquo; <a href="{% url blog_home %}">back to blog home</a> | {{ entry.date_added|date:"d M Y" }} | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
     
     	{{ entry.content|convert_links|safe }}
    
