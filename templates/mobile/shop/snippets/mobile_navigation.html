@@ -1,0 +1,19 @@
+{% load nav_selected i18n %}
+  
+  <ul id="nav">
+    
+    {% for x in main_nav %}
+    <li class="{% nav_selected request x.slug %} capitalise">
+        <a href="{% url finder x.slug %}" title="{{ x.short_description|striptags }}" alt="{{ x.short_description|striptags }}">{{ x.name }}</a>
+    </li>
+    {% endfor %}
+    <li class="{% nav_selected request 'basket' %} capitalise">
+        <a href="{% url basket %}">
+            {% trans 'Your basket' %}
+            <span class="count">{{ basket_quantity }}</span>
+        </a>
+        
+    </li>
+    <li><a href="/">{% trans 'Home' %}</a></li>
+    <li><a href="{% url page _('about') %}">{% trans 'About Us' %}</a></li>    
+</ul>

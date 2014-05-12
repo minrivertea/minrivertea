@@ -1,0 +1,52 @@
+{% extends base_template %}
+{% load thumbnail nav_selected i18n %}
+
+{% block metadescription %}{{ category.meta_description }}{% endblock %}
+
+{% block pagetitle %}{{ category.long_title }}{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+
+
+</script>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+		
+<div class="sp">
+  
+    {% if not categories %}
+    <h1>{{ category.name }}</h1>
+    <p class="introduction">{{ category.short_description|striptags }}</p>
+    {% endif %}
+    
+
+	{% if categories %}
+        {% for c in categories %}
+		    <div class="category">
+                <h2><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></h2>
+                <p class="introduction">{{ c.short_description|striptags }}</p>
+                {% with c.products as teas %}
+		          {% include 'shop/snippets/products_long.html' %}
+		        {% endwith %}
+            </div>
+		{% endfor %}
+    {% else %}
+	      {% with products as teas %}
+	          {% include 'shop/snippets/products_long.html' %}
+	      {% endwith %}
+    {% endif %}
+
+	
+</div>
+
+
+{% endblock %}

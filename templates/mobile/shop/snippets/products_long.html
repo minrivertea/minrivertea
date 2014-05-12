@@ -1,0 +1,42 @@
+{% load i18n thumbnail convert_weights %}
+
+<ul id="list">
+{% for t in teas %}
+
+    <li>
+        <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
+        
+        {% thumbnail t.image "100x80" crop="center" as im %}
+        <a class="imagelink" alt="{% blocktrans with t.name as name %}a picture of our {{ name }}{% endblocktrans %}" title="{{ t.name }}" href="{{ t.get_absolute_url }}">
+        	<img class="image" alt="{{ t.description }}" src="{{ im.url }}"/>
+        </a>
+        {% endthumbnail %}
+    
+        <div class="text">
+            <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
+            <p>{{ t.description|truncatewords:"18" }}</p>
+            <span class="amount">
+                {% if t.price.sale_price %}
+                <span class="strikethrough red">{{ currency.symbol }}{{ t.price.price|floatformat:"-2" }}</span>
+                {% endif %}
+                
+                {% if t.price.price %}
+                    {{ currency.symbol }}{{ t.price.get_price|floatformat:"-2" }}
+                {% else %}
+                    {% if months %}
+                        {{ currency.symbol }}{{ t.get_price|floatformat:"2" }}
+                    {% endif %}
+                {% endif %}
+            </span> 
+            <span class="weight">
+                {% if t.price.weight %}
+                    / {% convert_weights request t.price.weight %}{{ weight_unit }}
+                {% endif %}
+            </span>
+
+        </div>
+                
+    </li>
+        
+{% endfor %}
+</ul>

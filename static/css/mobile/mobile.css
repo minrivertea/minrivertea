@@ -1,0 +1,304 @@
+
+/* GLOBAL STYLES */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', Helvetica, "Lucida Grande", "STKaiti",华文楷体, sans-serif;
+  line-height: auto;
+}
+
+.sp {
+  width: 95%;
+  padding: 0 2.5%;   
+}
+
+a:link, a:visited {
+  color: #2a8531; 
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a.button, input.button {
+    border-radius: 0px;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 8px 15px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    background: #2A8531; 
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+    color: #fff; 
+    font-weight: bold;
+    text-decoration: none;
+    -webkit-appearance: none;
+    font-family: 'Roboto', Helvetica, "Lucida Grande", "STKaiti",华文楷体, sans-serif;
+}
+
+span.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;	
+}
+
+.red {
+  color: #D30000;   
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.hr {
+  border-bottom: 1px dashed #e1e1e1;
+  margin: 10px 0;
+  height: 1px;
+  width: 100%;   
+}
+
+.hr.clear {
+  border-bottom:none;
+  margin: 5px 0;   
+}
+
+/* END GLOBAL STYLES */
+
+
+
+
+#menu-bar {
+  width: 94%;
+  padding: 10px 3%;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;   
+}
+
+#menu-bar h1 {
+  font-size: 15px;
+  color: #2a8531;
+  margin: 2px 0 0; 
+  font-weight:normal;
+  padding: 0;
+  border: none;  
+  text-transform: uppercase;
+}
+
+
+#menu-bar button {
+  position: absolute;
+  left: 10px;
+}
+
+.menu-trigger {
+  background: url('/static/images/mobile/menu_24.png') no-repeat top left transparent;
+  height: 21px;
+  width: 24px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+#jPanelMenu-menu {
+  background: #16500e;
+  border-right: 2px solid #e1e1e1;
+}
+
+#jPanelMenu-menu ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;   
+}
+
+#jPanelMenu-menu ul li {
+  float: left;
+  width: 100%;  
+  text-align: left;
+  background: #2a8531;
+  border-bottom: 1px solid #1b6f21;
+}
+
+#jPanelMenu-menu ul li.selected {
+  background:  #5f9a64;   
+}
+
+#jPanelMenu-menu ul li a {
+  padding: 13px 0 10px 10%;
+  float: left;
+  width: 90%;
+  text-decoration: none;
+  color: #dbeedd;
+  font-size: 80%;
+  position: relative;
+}
+
+#jPanelMenu-menu ul li.capitalise a {
+  text-transform: uppercase;
+  color: #fff;   
+}
+
+#jPanelMenu-menu ul li.selected a {
+  font-weight: bold;
+  color: #fff;
+}
+
+#jPanelMenu-menu ul li a span.count {
+    background: none repeat scroll 0 0 #145619;
+    border-radius: 3px;
+    bottom: 0;
+    box-shadow: 0 1px 2px #0B440F inset;
+    color: #FFFFFF;
+    height: 18px;
+    margin: auto 0;
+    padding: 2px 5px;
+    position: absolute;
+    right: 5%;
+    text-align: center;
+    text-shadow: 0 1px 1px #0B440F;
+    top: 0;
+    width: auto;
+}
+
+
+.jPanelMenu-panel {
+  box-shadow: 0 0 10px #000;
+  padding: 40px 0px;
+  position: relative;
+}
+
+
+/* PAGE STYLES */
+
+
+
+.image-promo {
+    
+}
+
+.image-promo img {
+  width: 100%;   
+}
+
+h1 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  text-align: center;  
+  border-bottom: 1px dashed #e1e1e1;
+  padding: 0 0 10px 0; 
+}
+
+h1 span {
+  color: #999;
+}
+
+
+#page p.introduction {
+  font-size: 110%;   
+}
+
+#page p {
+  font-size: 80%; 
+  margin: 0 0 20px 0;  
+}
+
+#page h3 {
+  margin: 20px 0 0;   
+}
+
+div.profile {
+   background: #fff; 
+   margin: 0 5px 10px 0;
+   float: left; 
+   width: 100%;    
+}
+    
+div.profile img {
+   float: left;
+   width: 90px;
+   margin: 0 10px 0 0;     
+}
+
+
+
+/* TEA/PRODUCT LIST STYLES */
+
+ul#list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; 
+}
+
+ul#list li {
+  width: 100%; 
+  border-bottom: 1px dashed #e1e1e1;
+  padding: 0 0 10px 0;
+  margin: 0 0 10px 0;
+  position: relative;
+}
+
+ul#list li .image {
+  max-width: 100px;
+  position: absolute;
+  left: 0;
+  height: 80px;
+  margin: 0 10px 0 0;
+  background: #f1f1f1;   
+}
+
+ul#list li .text {
+  font-size: 80%;
+  padding-left: 110px;
+}
+
+ul#list li .text h3 {
+  margin: 0;
+  font-size: 120%;
+}
+
+ul#list li .text p {
+  margin: 0;   
+}
+
+ul#list li .text span.amount {
+  letter-spacing: -0.5px;
+  color: #333;
+  font-weight: bold;
+}
+
+ul#list li .text span.weight {
+  color: #777;
+}
+
+
+/* END TEA/PRODUCT LIST STYLES */
+
+
+/* BASKET AND CHECKOUT STYLES */
+
+#steps ul {
+  list-style-type: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 80%;
+  text-align: center;
+}
+
+#steps ul li {
+  display: inline-table; 
+  padding: 2% 2%;
+}
+
+#steps ul li.current {
+  background: #f6f6f6;
+  color: #2a8531;   
+}
+

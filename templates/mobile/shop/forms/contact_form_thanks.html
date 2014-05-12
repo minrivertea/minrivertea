@@ -1,0 +1,184 @@
+{% extends base_template %}
+{% load i18n %}
+
+{% block extracss %}
+<style type="text/css">
+
+#mtw div#left form p {
+  margin: 0px 0 10px 0;	
+}
+
+form input {
+  width: 430px;	
+}
+
+form textarea {
+  float: left;	
+  width: 600px;
+}
+
+form input.button {
+  float: left; 
+  font-size: 16px;	
+  width: 300px;	
+}
+
+
+div#mtw div#left p.help-text {
+    color: #333333;
+    float: left;
+    font-size: 13px;
+    margin-left: 0;
+    width: 100%;
+}
+
+div#mtw div#left p.help-text.red {
+  color: red;   
+}
+
+div.message {
+    background-color: #FFFFFF;
+    border: 1px solid #E1E1E1;
+    border-radius: 10px 10px 10px 10px;
+    margin: 0 0 10px;
+    padding: 20px 25px;
+}
+
+div#mtw div#left div.message h3 {
+  margin: 0 0 10px 0;	
+  color: #237A2A;
+}
+
+div#mtw div#left div.message p {
+  margin: 0;	
+}
+
+div.top {
+  float: left;
+  width: 100%;
+  margin-bottom: 30px;	
+}
+
+.white {
+  background-color: #fff;
+  padding: 20px 25px;
+  float: left;	
+  width: 650px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  position: relative;
+}
+
+.white p {
+  font-size: 16px;	
+  margin: 0 0 10px 0;
+}
+
+.white p.nihao {
+  font-size: 30px;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;	
+}
+
+.white ul {
+  list-style-type: none;
+  display: inline;
+  font-size: 20px;
+  margin: 0;	
+  padding: 0;
+}
+
+/* this is the background of the arrow */
+.white:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid transparent;         
+        border-left: 0;
+        border-top: 20px solid transparent;
+        border-right: 20px solid #d1d1d1;
+        position: absolute;
+        top: 20px;
+        left: -21px;
+        z-index: 1;
+        margin-left: ;
+}
+
+/* this is the foreground of the arrow */
+.white:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-right: 20px solid #fff;     
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-left: 0;
+        position: absolute;
+        top: 20px;
+        left: -19px;
+        z-index: 2;
+        margin-left: -1px;
+}
+
+#form form {
+  width: 100%;	
+  float: left;
+}
+
+#form {
+  position: relative;
+  float: left;
+  width: 100%;	
+}
+
+img#loading-contact {
+  display: none;
+  position: absolute;
+  left: 295px;
+  top: 50px;	
+}
+
+</style>
+{% endblock %}
+
+{% block metadescription %}{% trans 'Contact the Min River Tea Farm - how you can get in touch with us.' %}{% endblock %}
+
+{% block pagetitle%}{% trans 'Contact us' %}{% endblock %}
+
+
+
+{% block content %}
+
+{% include 'shop/snippets/page_sub_nav.html' %}
+
+<div id="mtw">
+  <div class="sp">	
+	
+    <div id="right">
+        {% include 'shop/boxes/follow.html' %}
+	 	<div class="info"> 		
+		 	<h3><a href="{% url page _('returns') %}">{% trans 'Returns' %} &raquo;</a></h3>
+		 	<p>{% trans "If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked." %}</p>
+		</div>
+		<div class="info">		 	
+		 	<h3><a href="{% url page _('wholesale') %}">{% trans "Wholesale/trade" %} &raquo;</a></h3>
+		 	<p>{% trans "Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch." %}</p>
+		</div>        
+    </div>
+	
+	<div id="left">
+        <h1>{% trans 'Thanks, your message has been sent' %}</h1>
+        <p class="introduction">{% trans "We've received your message and we'll respond as soon as possible (usually within 12 hours)." %}</p>
+	</div>
+	</div>
+  </div>
+</div>
+
+
+
+		
+
+    {% endblock %}
