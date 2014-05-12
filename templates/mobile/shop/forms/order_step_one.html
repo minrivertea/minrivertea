@@ -1,147 +1,307 @@
-{% extends "base.html" %}
-{% load django_static %}
+{% extends base_template %}
+{% load i18n %}
 
-{% block pagetitle %}Order (Step 1 of 3) - Your details{% endblock %}
+{% block pagetitle %}{% trans 'Checkout - enter your details' %}{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
-form {
-  width: 88%;
-  padding: 0 5% 0 7%;
-  float: left;	
+
+
+#basket {
+  background: #f6f6f6; 
+  padding:0;  
 }
+
+#basket h3 {
+  font-size: 80%;   
+}
+
+#basket input[type="text"], #basket input[type="email"] {
+  width: 90%;
+  padding: 10px 5%; 
+  font-size: 90%;  
+}
+
+
+fieldset {
+ border: none;
+ margin: 0px auto 0px; 
+}
+
+fieldset p {
+  margin: 0; 
+  position: relative;
+  display: block;
+  float: left;  
+  width: 100%;
+}
+
+fieldset p:last-child input {
+  margin-bottom: 0;   
+}
+
+
+span.mandatory {
+  position: absolute;
+  left: -25px;
+  top: 15px;
+  font-size: 30px;
+  color: #FF6569;   
+}
+
+
+
+
+#checkout {
+  margin: 20px 0 0;
+  width: 100%;  
+}
+
+
+#checkout input {
+  width: 200px;
+  float: right;
+  margin: 0;   
+}
+
+
+p.help-text {
+    float: left;
+    font-size: 0.7em;
+    padding-left: 130px;
+    position: relative;
+    top: -8px;
+    width: 300px;
+}
+
+p.help-text img {
+  position: relative;
+  top: 3px;	
+}
+
 
 label {
-  font-size: 12px;
-  font-weight: normal;	
+  display: none;	
 }
 
-p.ex {
-  line-height: 1.6em;	
+label.red {
+  color: red;	
 }
 
-.green {
-  color: #439249;
-  font-weight: bold;	
-}
-
-input.checkout-button {
-  background: none;
-  background-color: #439249;
-  padding: 10px 15px;
-  -webkit-border-radius: 5px;
-  -webkit-appearance: none;
-  border-radius: 5px;
-  color: #fff;
-  font-weight: bold;
-  float: right;
-  margin: 0 15px 15px 0;
-  text-align: right;
-  display:block;
-  border: none;	
-  font-size: 16px;
-}
-
-p.red, ul.errorlist {
+p.red {
   color: red;
+  margin-top: 0;	
 }
 
-ul.errorlist {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;	
+p.name input {
+}
+
+p.name input[id="id_first_name"] {
+  margin-right: 20px;   
+}
+
+p.newsletter {
+  margin: 10px 0;   
+}
+
+p.newsletter input[type="checkbox"] {
+  float: left;
+  width: 30px;
+  top: 0px;
+  position: relative;  
+}
+
+p.newsletter label {
+    color: #777777;
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    width: auto;
+}
+
+
+span.red {
+  color: #d11010;	
+}
+
+input[type="email"] {
+  box-shadow: none;   
+}
+
+.styled-select select {
+   background: #fff;
+   width: 340px;
+   padding: 9px 10px 9px 15px;
+   font-size: 13px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 36px;
+   font-family: 'Roboto', Helvetica, Arial, sans-serif;
+   color: #777;
+}
+
+.styled-select select:hover {
+  cursor: pointer;   
+}
+
+
+.styled-select {
+   width: 280px;
+   height: 36px;
+   overflow: hidden;
+   background: url('{{ static_url }}images/select-down-arrow.png') no-repeat 250px #fff;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   margin: 0 0 20px 0;
+}
+
+.styled-select:hover {
+  border-color: #6ACC75; 
+  cursor: pointer;  
 }
 
 </style>
 
 {% endblock %}
 
-{% block banner %}
-<h1>Step 2/4 - Your details</h1>
-{% endblock %}
-
 {% block content %}
-	
-    <form method="post" action="">
-		 
-	
-   	{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
-   	<ul class="errorlist"><li>* you must provide all your details - thanks!</li></ul>
-   	{% endif %}
 
-   	<p class="ex">Please provide your name and email address (<span class="green">green</span> fields are mandatory)</p>
-
-    <p>
-    	<input  class="{% if form.first_name.errors %}red{% endif %}" type="text" name="first_name" id="id_first_name" value="{{ first_name }}"/>
-    	<label class="green" for="id_first_name">* First name</label>
-    </p>
-    <p>
-    	<input class="{% if form.last_name.errors %}red{% endif %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
-    	<label class="green" for="id_last_name">* Surname</label>
-    </p>
-    <p>
-    	<input class="{% if form.email.errors %}red{% endif %}" type="email" name="email" id="id_email" value="{{ email }}"/>
-    	<label class="green" for="id_email">* Email address</label></p>	
-    	</div>
-    </div>
-    
+<div class="sp">
 	
-    {{ form.non_field_errors }}
-    <p class="ex">Please provide the address to send your tea:</p>
+	   <h1>{% trans 'Enter your details' %}</h1>
+	   
+	   <div id="steps">
+            <ul>
+                <li class="completed">
+                    <div class="text">
+                        &#10003; <strong>{% trans 'Your basket' %} </strong>
+                    </div>
+                </li>
+                <li class="current">
+                    <div class="text">
+                        <strong>{% trans 'Shipping details' %}</strong>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="text">
+                        <strong>{% trans 'Payment' %}</strong>
+                    </div>
+                </li>
+            </ul>
+        </div>
+		    
+   <div id="basket">
+
+      <form method="post" action="."> 	  
+
+		{% if shopper %}
+	  		<h3>{% trans 'Are these your details? Please check carefully!' %}</h3>
+			{{ shopper.first_name }} {{ shopper.last_name }} ({{ shopper.email }}) - <a href="{% url not_you %}">{% trans 'not you?' %}</a>
+		
+			{% for address in shopper.get_addresses %}
+				{% if forloop.first %}
+					<br/>
+					{% include "shop/snippets/address.html" %}
+ 				{% else %}
+ 					<div class="address other">
+ 					{% include "shop/snippets/address.html" %}
+ 					</div>
+ 				{% endif %}
+			{% endfor %}
+				<div style="display:none;">
+					<input type="text" name="first_name" id="id_first_name" value="{{ order.owner.first_name }}"/>
+	    			<input type="text" name="last_name" id="id_last_name" value="{{ order.owner.last_name }}"/>
+	    			<input type="text" name="email" id="id_email" value="{{ order.owner.email }}"/>
+	    			<input type="text" name="house_name_number" id="id_house_name_number" value="{{ order.address.house_name_number }}"/>
+	    			<input type="text" name="address_line_1" id="id_address_line_1" value="{{ order.address.address_line_1 }}"/>
+	    			<input type="text" name="address_line_2" id="id_address_line_2" value="{{ order.address.address_line_2 }}"/>
+	    			<input type="text" name="town_city" id="id_town_city" value="{{ order.address.town_city }}"/>
+	    			<input type="text" name="postcode" id="id_postcode" value="{{ order.address.postcode }}"/>
+	    			<input type="text" name="country" id="id_country" value="{{ order.address.country }}"/>
+	 			</div>
+	 			
+		{% else %}
+
+    		{% if form.first_name.errors or form.last_name.errors or form.email.errors %}
+    		<ul class="errorlist"><li>* {% trans 'Please enter all the information in the mandatory fields (highlighted red) below' %}:</li></ul>
+    		{% endif %}
+        <fieldset>
     		
+    		<h3>{% trans 'Your email address and shipping details' %}</h3>
+    		<p>
+    			<label for="id_email"><span class="red">*</span> {% trans 'Email address' %}</label>
+    			<input class="clearMeFocus {% if form.email.errors %}error{% endif %}" title="{% trans 'Email address' %}" type="email" name="email" id="id_email" value="{{ email }}"/>
+    		</p>
+    		
+    		<p class="newsletter">
+    		  <input type="checkbox" name="newsletter" id="id_newsletter" checked="checked" /> 
+    		  <label>{% trans 'Yes I want to receive email newsletters' %}</label>
+    		</p>
+    		
+    		    		
+    		<p class="name">
+    			<label for="id_first_name"><span class="red">*</span> {% trans 'First name' %}</label>
+    			<input  class="clearMeFocus {% if form.first_name.errors %}error{% endif %}" type="text" title="{% trans 'First name' %}" name="first_name" id="id_first_name" value="{{ first_name }}"/>
+    		
+    			<label for="id_last_name"><span class="red">*</span> {% trans 'Surname' %}</label>
+    			<input class="clearMeFocus {% if form.last_name.errors %}error{% endif %}" title="{% trans 'Last name' %}" type="text" name="last_name" id="id_last_name" value="{{ last_name }}"/>
+    		</p>
+    			
+        </fieldset>
 
-      <p>
-      	<input id="id_house_name_number" type="text" name="house_name_number" maxlength="200" value="{{ house_name_number }}"/>
-      	<label class="green" for="id_house_name_number">* House name number:</label>
-      </p>
-	  	{{ form.address_line_1.error }}
+    	
+    	<fieldset>
+	
+          <p>
+          	<label for="id_house_name_number"><span class="red">*</span> {% trans 'House name number' %}:</label>
+          	<input class="clearMeFocus {% if form.house_name_number.errors %}error{% endif %}" title="{% trans 'Your address...' %}" id="id_house_name_number" type="text" name="house_name_number" value="{{ house_name_number }}"/>
+          </p>
 	  
-	  <p>
-	  	<input id="id_address_line_1" type="text" name="address_line_1" maxlength="200" value="{{ address_line_1 }}"/> 
-	 	<label for="id_address_line_1">Address line 1:</label>
-	  </p>
-      	{{ form.address_line_2.errors }}
+    	  <p>
+    	  	<label for="id_address_line_1">{% trans 'Address line 1' %}:</label>
+    	  	<input class="clearMeFocus {% if form.address_line_1.errors %}error{% endif %}" title="{% trans ' ...address continued (optional)' %}" id="id_address_line_1" type="text" name="address_line_1" value="{{ address_line_1 }}"/> 
+    	  </p>
       	
-      <p>
-      	
-      	<input id="id_address_line_2" type="text" name="address_line_2" maxlength="200"  value="{{ address_line_2 }}"/>
-      	<label for="id_address_line_2">Address line 2:</label>
-      	</p>
-      	{{ form.town_city.errors }}
+          <p>
+          	<label for="id_address_line_2">{% trans 'Address line 2' %}:</label>
+          	<input class="clearMeFocus {% if form.address_line_2.errors %}error{% endif %}" title="{% trans ' ...address continued (optional)' %}" id="id_address_line_2" type="text" name="address_line_2"  value="{{ address_line_2 }}"/>
+          	</p>
       
-      <p>
+          <p>
+          	<label for="id_town_city">{% trans 'Town / City' %}:</label>
+          	<input class="clearMeFocus {% if form.town_city.errors %}error{% endif %}" title="{% trans 'Town or city' %}" id="id_town_city" type="text" name="town_city" value="{{ town_city }}"/> 
+          </p>
+          
+          {% if region == 'US' %}
+            <p class="styled-select">
+               <label for="id_province_state">{% trans 'State' %}:</label>
+            	{{ form.province_state }}
+            </p>
+          {% endif %}
+          <p>
+          	<label for="id_postcode"><span class="red">*</span> {% trans 'Post / ZIP code' %}:</label>
+          	<input class="clearMeFocus {% if form.postcode.errors %}error{% endif %}" title="{% trans 'Post / ZIP code' %}" id="id_postcode" type="text" name="postcode" value="{{ postcode }}" /> 
+          	</p>
       	
-      	<input id="id_town_city" type="text" name="town_city" maxlength="200" value="{{ town_city }}"/> 
-      	<label for="id_town_city">Town / City:</label>
-      	</p>
-      	{{ form.postcode.errors }}
-      	
-      <p>
-      	
-      	<input id="id_postcode" type="text" name="postcode" maxlength="200" value="{{ postcode }}" /> 
-      	<label class="green" for="id_postcode">* Postcode:</label>
-      	</p>
-      	
-	  <p>
-	    <span class="country">
-	    {{ confirm_form.country }}
-	    </span>
-	    <label class="green" for="id_country">* Country:</label>
-	  </p>
- 	  <br clear="all">
- 	  
- 	</div> 
+    	  <p class="styled-select">
+    	    <label for="id_country"><span class="red">*</span> {% trans 'Country' %}:</label>
+    	    <span class="country">
+    	    {{ form.country }}
+    	    </span>
+    	  </p>
+        </fieldset> 	  
+
+	{% endif %}
+	
+	
 	</div>
-
-	<input type="submit" class="checkout-button" value="Confirm your details &raquo;"/>
-
-
+	
+	<input id="checkout" type="submit" value="{% trans 'Continue' %} &raquo;" next="" class="button green"/>
+            
+		
 	</form>
 
-
-	</div>
-
-  </div>
 </div>
 
 {% endblock %}

@@ -1,92 +1,98 @@
-{% extends "base.html" %}
-{% load thumbnail %}
-{% load django_static %}
+#{% extends base_template %}
+{% load thumbnail i18n convert_weights %}
 
-{% block pagetitle %}Chinese tea delivered to your door in the UK{% endblock %}
+{% block pagetitle %}{% trans 'Exceptional Chinese tea delivered to your door' %}{% endblock %}
 
-{% block metadescription %}We sell great quality Chinese tea and deliver it to your home in the UK. Our Chinese teas are organic, hand-picked and sourced directly from farms in China.{% endblock %}
+{% block metadescription %}{% trans 'We sell exceptional Chinese teas and deliver them to your home. Our teas are authentic, hand-picked and traditionally made in our home in China.' %}{% endblock %}
 
+
+{% block extrajs %}
+<script type="text/javascript">
+
+
+
+</script>
+{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
-ul#teas {
-  list-style-type: none;
-  margin: 10px 0 0 7%;
-  padding: 0;
-  width: 93%;
-  float: left;	
+
+h2 {
+  font-size: 15px;
+  margin: 0;   
 }
 
-ul#teas li {
-  float:left;
-  width: 100%;	
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+#sale {
+  margin: 5px 0 0;   
 }
 
-#teas .image {
-  float: left;
-  width: 80px;
-  margin-right: 10px;	
+#experts {
+  position: relative;   
 }
 
-#teas .text {
-  float: left;
-  width: 180px;	
+#experts p {
+  margin: 5px 0;   
 }
-
-#teas .text p {
-  margin: 0;
-  padding: 0;
-  font-size: 12px;	
-}
-
-#teas .text p a {
-  font-weight: bold;
-  font-size: 13px;	
-}
-
 </style>
-{% endblock %}
-
-{% block banner %}
-<p>We sell fine Chinese teas, direct from China, delivered to your door. </p>
 {% endblock %}
 
 
 {% block content %}
 
-	<ul id="teas">
-	{% for tea in teas %}
-		{% if forloop.counter > 3 %}
-		{% else %}
-		<li>
-			<div class="image">
-			{% thumbnail tea.image "80x60" crop="center" as im %}
-				<img src="{{ im.url }}"/>
-			{% endthumbnail %}
-			</div>
-			<div class="text">
-				<p><a href="{% url tea_view tea.slug %}">{{ tea.name }}</a><br/>{{ tea.description|truncatewords:10 }}</p>
-			</div>
-		</li>
-		{% endif %}
-	{% endfor %}
-	</ul>
+
+    <div class="image-promo">
+        <img src="{{ static_url }}images/mobile/mobile-promo.jpg" />
+    </div>
+
+<div class="sp">
+    
+    <div id="sale">
+    <h2 class="">{% trans '<span class="red">Big stock clearance!</span> Get up to 50% off on selected teas' %} - <a href="{% url sale %}">{% trans 'see all sale items here' %} &raquo;</a></h2>
+    </div>
+    
+    <div class="hr"></div>
+    
+
+	<div id="teas">
+	          
+        {% include 'shop/snippets/products_long.html' %}        
+        
+        <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url finder _('teas') %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
+        
+    </div>
+	<!-- END TEAS LIST -->
 	
-	<div class="infoblock">
-		<p>We offer free shipping on all orders over £50!</p>
+	<div class="hr clear"></div>
+</div>
+
+
+<div class="image-promo">
+    <img src="{{ static_url }}images/mobile/mobile-experts.jpg" />
+</div>    
+
+<div class="sp">
+    <div id="experts">
+        <a href="{% url finder _('about') %}"><span class="link"></span></a>
+        <p>{% blocktrans %}We're one of the only Western tea companies actually based near farms and tea growing areas in China - we really believe you can taste the difference - {% endblocktrans %}</a>
+    </div>
+    
+    
+    <div class="hr"></div>
+    
+    
+	
+	<div id="teaware">
+	   
+	   {% with teaware as teas %}
+	       {% include 'shop/snippets/products_long.html' %}  
+	   {% endwith %}	   
+
 	</div>
 
-	<div id="choices">
-		<a href="{% url teas %}">Browse all teas</a>
-		<a href="/about/">About us</a>
-		<a href="/blog/">Our tea blog</a>
-	</div>
+    
+    	
 
 
-
-
-
-
+</div>
+	
 {% endblock %}

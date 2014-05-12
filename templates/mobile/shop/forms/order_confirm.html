@@ -1,150 +1,252 @@
 {% extends base_template %}
-{% load django_static %}
+{% load thumbnail i18n convert_weights %}
 
-{% block pagetitle %}Order (Step 2 of 3) - Confirm Order{% endblock %}
+{% block pagetitle %}{% trans 'Checkout - confirm and pay' %}{% endblock %}
 
+{% block extrajs %}
+<script type="text/javascript">
+
+</script>
+
+{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
-input.checkout-button {
-  background: none;
-  background-color: #439249;
-  padding: 10px 15px;
-  -webkit-border-radius: 5px;
-  -webkit-appearance: none;
-  border-radius: 5px;
-  color: #fff;
-  font-weight: bold;
-  float: right;
-  margin: 10px 15px 15px 0;
-  text-align: right;
-  display:block;
-  border: none;	
-  font-size: 16px;
+
+#basket {
+  padding: 10px 10px 50px 10px;
+  background: #f6f6f6;
+  font-size: 80%;
 }
 
-form {
-  width: 88%;
+
+#items, #address {
+  margin: 0 auto;
+}
+
+table td {
+  padding: 0px;	
+  border: none;
+}
+
+#items table td {
+  border-bottom: 1px dashed #e1e1e1;
+  padding: 5px 0;   
+}
+
+#items table tr:last-child td {
+  border-bottom: none;
+  padding-bottom: 0;   
+}
+
+#address p.address {
+  margin: 0px;
+}
+
+#address p.pay-on-behalf {
+    float: left;
+    font-size: 15px;
+    width: 280px;
+}
+
+#payment {
+    margin: 20px auto 0;
+}
+
+
+#payment #stripe {
+
+}
+
+#payment #stripe img {
   float: left;
-  padding: 0 5% 0 7%;	
+  margin: 0 0 0px 0;   
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;	
+#payment #stripe .stripe-button-el span {
+    font-size: 20px;
+    height: 35px;
+    padding: 3px 12px 0;
 }
 
-#things span.price {
+#payment #stripe .cards {
+  height: 20px;
+  width: 79px;
+  overflow: hidden;
+  display: block;
+  float: left;
+  background: url('{{ static_url }}images/logo16.jpg') no-repeat -4px -40px;   
+}
+
+#payment #stripe form {
+  margin: 0 0 10px 0;   
+}
+
+#checkout-button {
+  width: ;
+  padding: 0 15px;
+  float: left;
+  padding: 0;
+  margin: 5px 0;   
+}
+
+#checkout-button input {
+  background: none;
+  padding: 0;
+  border: none;
+  color: #2A8531;
+  text-decoration: underline;
+  float: left;
+  width: auto;
+  margin: 10px 0 0 0;
+}
+
+#checkout-button input:hover {
+  color: #D30000;
+  cursor: pointer;   
+}
+
+
+
+p.checkout {
+    float: left;
+    font-size: 13px;
+    margin: 0 0 10px 0;
+    text-align: left;
+    width: auto;
+}
+
+
+#wishlist-full p.url {
+  background-color: #f1f1f1;
+  padding: 10px 15px;	
+}
+
+#wishlist-full strong {
+  color: #333;	
+}
+
+table {
+  background: none;   
+}
+
+table tr td:first-child {
+  background: none;
+  width: 320px;   
+}
+
+table tr td:last-child {
+  width: 50px;
+  text-align: right;   
+}
+
+p.skip {
   float: right;
-  font-weight: bold;
-  font-size: 13px;	
+  width: 100%;
+  text-align: right;   
 }
+
 </style>
 
 {% endblock %}
 
-{% block banner %}
-<h1>3/4 Confirm your order</h1>
-{% endblock %}
-
 {% block content %}
 
-<form method="post" action="{{ paypal_submit_url }}">    
+<div class="sp">
+  
+	   <h1>{% if friend %}{% trans 'Complete this order on behalf of' %} {{ order.owner.first_name }} {{ order.owner.last_name }}{% else %}{% trans "Pay and complete your order" %}{% endif %}</h1>
+	   {% if not friend %}
+       <div id="steps">
+            <ul>
+                <li class="completed">
+                    
+                    <div class="text">
+                        <strong>{% trans 'Your basket' %} </strong>
+                    </div>
+                </li>
+                <li class="completed">
+                    <div class="text">
+                        <strong>{% trans 'Shipping details' %}</strong>
+                    </div>
+                </li>
+                <li class="current">
+                    <div class="text">
+                        <strong>{% trans 'Payment' %}</strong>
+                    </div>
+                </li>
+            </ul>
+            <div id="line"></div>                
+        </div>
+    	{% endif %}
+   
+	<div id="basket">
+	<div id="address">
+    
+        {% if friend %}
+        {% url page _('contact_us') as contact_url %}
+        <p class="pay-on-behalf">{% blocktrans with order.owner.first_name as fn and order.owner.last_name as ln %}<strong>You are paying on behalf of <span style="text-decoration:underline">{{ fn }} {{ ln }}</span>.</strong> You are purchasing the items listed on the left, which will be sent to the address {{ fn }} provided. You will not receive any further email notifications from us, but you will receive a receipt from Paypal. If you have any questions before you purchase, please <a href="{{ contact_url }}">contact us</a>.{% endblocktrans %}</p>
+        {% endif %}
 
-		<input type="hidden" name="cmd" value="_cart"> 
-		<input type="hidden" name="upload" value="1"> 
-		<input type="hidden" name="business" value="{{ paypal_receiver_email }}">
-		<input type="hidden" name="currency_code" value="GBP">
-		<input type="hidden" name="address_override" value="1">
+        {% if not friend %}
+            <p class="address">
+            {% with order.address as address %}
+                <strong>{{ order.owner.first_name }} {{ order.owner.last_name }}</strong>, 
+                {{ order.owner.email }}<br/>
+                {% include "shop/snippets/address_line.html" %}
+            {% endwith %}
+            </p>
+  	   {% endif %}
+  	
+  	</div>
+	
+	
+				
+	<div id="items">
+	    {% include 'shop/snippets/order_items.html' %}
 		
-		<input type="hidden" name="address1" value="{{ order.address.house_name_number }}, {{ order.address.address_line_1 }}">		
-		<input type="hidden" name="address2" value="{{ order.address.address_line_2 }}">
-		<input type="hidden" name="city" value="{{ order.address.town_city }}">
-		<input type="hidden" name="country" value="GB">
-		<input type="hidden" name="zip" value="{{ order.address.postcode }}">
-		<input TYPE="hidden" NAME="return" value="{{ paypal_return_url }}">
-		<input TYPE="hidden" NAME="cancel" value="{{ paypal_notify_url }}">
-		<input TYPE="hidden" NAME="notify_url" value="{{ paypal_notify_url }}">
-		<input type="hidden" id="id_no_shipping" value="1" name="no_shipping">
-		<input type="hidden" id="id_charset" value="utf-8" name="charset">
+	</div>
 
-		<input type="hidden" name="invoice" value="TEA-00{{ order.id }}" id="id_invoice" />
-
-		{% if postage_discount %}
-		{% else %}
-		<input type="hidden" name="item_name_1" value="Postage Standard Rate"> 
-		<input type="hidden" name="quantity_1" value="1">
-		<input type="hidden" name="amount_1" value="3.00">
-		{% endif %}
-		 
-		 {% if postage_discount %}
-	 		 {% for thing in basket_items %}
-				<input type="hidden" name="item_name_{{ forloop.counter }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
-				<input type="hidden" name="quantity_{{ forloop.counter }}" value="{{ thing.quantity }}">
-				<input type="hidden" name="amount_{{ forloop.counter }}" value="{{ thing.item.price }}"> 
-			 {% endfor %}
-		{% else %}
-			 {% for thing in basket_items %}
-				<input type="hidden" name="item_name_{{ forloop.counter|add:"1" }}" value="{{ thing.item.parent_product.name }} {{ thing.item.parent_product.category }} -  ({{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }})"> 
-				<input type="hidden" name="quantity_{{ forloop.counter|add:"1" }}" value="{{ thing.quantity }}">
-				<input type="hidden" name="amount_{{ forloop.counter|add:"1" }}" value="{{ thing.item.price }}"> 
-			 {% endfor %}
-		{% endif %}
-		
-
-<p><strong>You have ordered:</strong>
 	
-	
-			
-<ul id="things">
-{% for thing in basket_items %}
-  <li>
-	<span>{{ thing.quantity }} X {{ thing.item.parent_product.name }} ({% if not thing.item.weight %}
-		{% else %}{{ thing.item.weight|floatformat }}{{ thing.item.weight_unit }}{% endif %})</span>
-	<span class="price">£{{ thing.get_price }}</span>
-  </li>
-{% endfor %}
-{% if postage_discount %}
-	<li>
-		<span>There is no postage charge on this order</span>
-	</li>
-{% else %}
-	<li>
-		<span>Postage</span>
-		<span class="price">£3.00</span>
-	</li>
-{% endif %}
-	<li>
-		<span>TOTAL PRICE:</span>
-		<span class="price">£{{ total_price }}</span>
-	</li>
-</ul>
+  	
+  	<div id="payment">
+        
+        
+        
+        <!-- STRIPE FORM -->
+        <div id="stripe">
+        
+        <form action="" method="POST">
+          <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="{{ stripe_public_key }}"
+            data-amount="{{ amount_in_cents }}"
+            data-email="{{ order.owner.email }}"
+            data-name="{{ site_name }}"
+            data-description="{% for item in order.items.all %}{{ item }}{% if not forloop.last %}, {% endif %}{% endfor %}"
+            data-image="{{ static_url }}images/logo-square.jpg"
+            data-currency="{{ currency.code }}"
+            data-label="{% trans 'Confirm and pay now' %}"
+            >
+          </script>
+        </form>
+        
+        <img src="{{ static_url }}images/stripe.png"/>
+        <div class="cards"></div>
+        </div>
+        <!-- END STRIPE FORM -->
+               
+        
+    </div>
 
-
-<p><strong>We'll send your order to (please check):</strong></p>
-	
-	<ul>
-	    <li>{{ shopper.first_name }} {{ shopper.last_name }}</li>
-		<li>{{ order.address.house_name_number }}</li>
-		<li>{{ order.address.address_line_1 }}</li>
-		<li>{{ order.address.address_line_2 }}</li>
-		<li>{{ order.address.town_city }}</li>
-		<li>{{ order.address.postcode }}</li>
-		<li>{{ order.address.country|upper }}</li>
-	</ul>
-	
-
-<input class="checkout-button" type="submit" value="Confirm and pay &raquo;"/>
-
-<div class="infoblock">
-  <p>If you have any problems or questions, just contact us at <a href="mailto:mail@minrivertea.com">mail@minrivertea.com</a>
 </div>
 
+<!-- PAYPAL FORM -->
+    {% include "shop/snippets/paypal_form.html" %}
+<!-- END PAYPAL FORM -->
 
-	</form> 
 
-	</div>
-  </div>
+
+	
+		
 </div>
 {% endblock %}

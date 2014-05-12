@@ -922,6 +922,21 @@ p.introduction, #left p.introduction {
   padding-bottom: 10px;
 }
 
+/* FOR THE ABOUT PAGE */
+div.profile {
+    padding: 10px; 
+    background: #fff; 
+    margin: 0 5px 0 0;
+    float: left; 
+    width: 29%;"    
+}
+
+div.profile img {
+    
+}
+
+/* END */
+
 
 
 .glass-text {

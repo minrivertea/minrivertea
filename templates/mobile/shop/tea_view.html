@@ -1,9 +1,7 @@
-{% extends "base.html" %}
+{% extends base_template %}
 {% load thumbnail %}
-{% load django_static %}
 
-{% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
-{% block pagetitle %}{{ tea.meta_title }}{% endblock %}
+{% block pagetitle %}{{ tea.name }}{% endblock %}
 
 {% block extrajs %}
 <script>
@@ -15,102 +13,92 @@
 {% block extracss %}
 
 <style type="text/css">
-#main-image {
-  float: left;
-  width: 100%;
-}
 
-#main-image img {
-  margin-left: 7%;
-  -webkit-border-radius: 5px;	
-}
-
-.description {
-  margin-left: 7%;
-  float: left;
-  width: 87%;	
-  line-height: 1.6em;
+h1.title {
+  text-align: center; 
+  border-bottom: none;
+  margin: 0;
+  padding: 0;  
 }
 
 #prices {
-  width: 93%;
   float: left;
-  margin: 0 0 10px 7%;	
+  width: 100%;
+  margin: 10px 0;
+  border-top: 1px dashed #e1e1e1;   
 }
 
-#prices a {
-  width: 85%;
-  background-color: #e2eede;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  padding: 12px 12px;	
-  margin-bottom: 10px;
-  float: left;
-  color: #555;
+#prices .price {
+  border-bottom: 1px dashed #e1e1e1;
+  padding: 15px 0;   
 }
 
-#prices a .price {
-  font-weight: bold;
-  color: #439249;	
-}
-
-#prices a .button {
+#prices div.price .button {
   float: right;
-  margin-right: 0px;
+  top: -6px;   
+}
+
+#prices .price span {
+  letter-spacing: -0.5px;   
+}
+
+#prices .price span.amount {
   font-weight: bold;
-  color: #439249;	
+  color: #333;
+}
+
+#prices .price span.weight {
+  font-weight: ;
+  color: #777;
 }
 
 </style>
 {% endblock %}
 
-{% block message %}
-	{% if message %}
-	<div id="message">
-		<p>1 x {{ thing.item.parent_product.name }} ({{ thing.item.weight }}{{ thing.item.weight_unit }}) added!</p>
-	</div>
-	{% endif %}
-{% endblock %}
-
-{% block banner %}
-<h1>{{ tea.name }} Chinese tea</h1>
-{% endblock %}
 
 {% block content %}
 
-
-<div id="main-image">
-	{% thumbnail tea.image "280x210" crop="center" as im %}
-		<img src="{{ im.url }}"/>
+<div class="image-promo">
+	{% thumbnail tea.image thumb_large crop="center" as im_large %}
+		<img src="{{ im_large.url }}" />
 	{% endthumbnail %}
 </div>
-		
-<div class="description">{{ tea.body_text|safe }}</div>
 
-
-<div id="prices">
-	{% if tea.coming_soon %}
-	 	<div class="coming-soon">
-		</div>
-	{% else %}
-		{% for price in prices %}
-			<a href="{% url add_to_basket price.id %}">
-				<span class="price"> {{ price.price_unit}}{{ price.price|floatformat }}</span>
-				/{{ price.weight|floatformat }}{{ price.weight_unit }}
-				<span class="button">Add to basket</span>
-			</a>
-		{% endfor %}
-	{% endif %}
-</div>
-
-	           	
-<div id="choices">
-	<a href="">View customer reviews ({{ reviews.count }})</a>
-	<a href="">More photos of this tea</a>
-	<a href="">Brewing guides</a>
-</div>  
-
-
+<div class="sp">		
 	
+	<h1 class="title">{{ tea.name }}</h1>	
+    
+    <div id="prices">
+    	
+    	{% if tea.coming_soon %}
+    	 	<div class="coming-soon">
+    		</div>
+    	{% else %}
+    		{% for price in prices %}
+    			<div class="price">
+    			<span class="amount">{{ currency.symbol }}{{ price.price|floatformat }}</span>
+    			/ 
+    			<span class="weight">{{ price.weight|floatformat }}{{ weight_unit }}</span>
+    		  
+    		    <a class="button" href="{% url add_to_basket price.id %}">
+    		    Add to basket
+    			</a>
+    			</div>
+    		{% endfor %}
+    	{% endif %}
+    </div>
+    
+    <div class="description">{{ tea.body_text|safe }}</div>
+
+    
+    
+    	           	
+    <ul id="choices">
+    	<li><a href="">View customer reviews ({{ reviews.count }})</a></li>
+    	<li><a href="">More photos of this tea</a></li>
+    	<li><a href="">Brewing guides</a></li>
+    </ul> 
+    
+</div>	
 
 {% endblock %}

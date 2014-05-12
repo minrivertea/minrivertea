@@ -1,40 +1,33 @@
-{% load django_static %}
-{% load nav_selected %}
+{% load nav_selected i18n %}
 
-{% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-{% endblock %}
-
+<!DOCTYPE html>
 <head>
 
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-	
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 	
 	<title>{% block pagetitle %}{% endblock %} | {{ site_name }}</title>
 
-
-	    <link rel="stylesheet" href="{% staticfile '/css/mobile.css' %}" />
-	    <script type="text/javascript" src="{% staticfile '/js/jquery-1.6.min.js' %}"></script>
-	    {% if ga_is_on %}
-	    <script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
-	    {% else %}
-	    <script src="/js/jquery.tools.min.js"></script>
-	    {% endif %}
+	    <link rel="stylesheet" href="{{ static_url }}css/mobile/mobile.css" />
+	    <script type="text/javascript" src="{{ static_url }}js/jquery-1.8.2.min.js"></script>
+	    
+	    <script type="text/javascript" src="{{ static_url }}js/mobile/slideoutMenu.js"></script>
+	    
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
 
 
-	{% block extracss %}{% endblock %}
+    {% block extracss %}{% endblock %}
+
 	
     {% block ga %}
     {% if ga_is_on %}
     <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-9041614-4']);
+  _gaq.push(['_setAccount', '{{ analytics_id }}']);
+  _gaq.push(['_setDomainName', 'www.minrivertea.com']); 
   _gaq.push(['_trackPageview']);
   
   {% if "order/complete/" in request.path %}
@@ -42,7 +35,7 @@
 
   _gaq.push(['_addTrans',
     '{{ order.invoice_id }}',           // order ID - required
-    'Min River Tea Farm',  // affiliation or store name
+    'Min River Tea',  // affiliation or store name
     '{{ order.get_amount }}',          // total - required
     '',           // tax
     '',              // shipping
@@ -92,11 +85,11 @@ if (15.00) {
 }
 /* ]]> */
 </script>
-<script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+<script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion.js">
 </script>
 <noscript>
 <div style="display:inline;">
-<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/970474503/?value=15.00&amp;label=mTM9CJHq3AIQh4jhzgM&amp;guid=ON&amp;script=0"/>
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/970474503/?value=15.00&amp;label=mTM9CJHq3AIQh4jhzgM&amp;guid=ON&amp;script=0"/>
 </div>
 </noscript>
 {% endif %}
@@ -105,42 +98,196 @@ if (15.00) {
 
 
     {% endif %}
-    
-    
-    
+        
     {% endblock %}
 </head>
 
 
 
-<body>
+<body>	
 
-{% block message %}{% endblock %}
-    	
-<div id="header">
-	   	<div id="logo">
-	   		<a title="Chinese tea delivered to your door - The Min River Tea Farm" alt="the Min River Tea Farm logo - UK Chinese tea merchant" href="/">
-	   		<img src="{% staticfile '/images/mobile/logo.png' %}">
-	   		</a>
-	   	</div>
-	   	
-	   	<div id="nav">
-	   		<a class="{% ifequal request.path '/' %}selected{% endifequal %}" href="/">Home</a>
-	   		<a class="{% if '/teas/' in request.path %}selected{% endif %}" href="{% url teas %}">Teas</a>
-	   		<a class="{% ifequal '/basket/' request.path %}selected{% endifequal %}" href="{% url basket %}">Your basket {% ifequal basket_quantity 0 %}{% else %}({{ basket_quantity }}){% endifequal %}</a>
-	   	</div>
+{% if ga_is_on %}
+<!-- FACEBOOK LIKE BUTTON JAVASCRIPT -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- END FACEBOOK LIKE BUTTON JAVASCRIPT -->
+{% endif %}
+
+
+
+
+<nav id="menu" style="display: none;">
+    
+    {% include 'mobile/shop/snippets/mobile_navigation.html' %}
+    
+    
+    <div id="logo">
+            <a title="{% trans 'Chinese tea delivered to your door - Min River Tea' %}" alt="{% trans 'the Min River Tea logo - Chinese tea merchant '%}" href="/"></a>
+	</div>
+    
+</nav>
+
+
+<div id="menu-bar">
+<button class="menu-trigger"></button>
+<h1>Min River Tea</h1>
 </div>
 
-<div id="banner">
-	{% block banner %}{% endblock %}
-</div>
+
 
 
 	{% block content %}{% endblock %}
+	
+	
+
 
 </div>
+
 	{% block extrajs %}{% endblock %}
-	<script>
+	<script type="text/javascript">
+
+
+        
+
+
+        function makeOverlay(HTML, width) {
+            var overlay = jQuery('<div id="overlay" class="overlay" style="display:none"> </div>');
+            overlay.appendTo(document.body);
+            overlay.fadeIn(300);
+            var overlayInner = jQuery('<div id="overlay-inner" class="overlay"></div>');
+            if (width) {
+               overlayInner.css({'width': width,}); 
+            }
+            
+            
+            
+            
+            overlayInner.appendTo(document.body);
+            overlayInner.html(jQuery(HTML));
+            overlayInner.append('<a href="#" class="close" style="color:#999;font-size:22px; font-weight:100;text-decoration:none;position:absolute; top: 7px; right: 10px;">x</a>');
+            overlay.bind('click', removeOverlay);
+            
+            $('.close').bind('click', removeOverlay);
+        }
+               
+        function removeOverlay() {
+            $('.overlay, #overlay-inner').fadeOut(100);
+            $('.overlay').remove();
+        }       
+
+
+		$(document).ready( function() {
+
+            /// slideout menu for MOBILE
+            var jPM = $.jPanelMenu({
+                duration: 150,    
+            });
+            jPM.on();
+    
+			// clear input on focus
+			var clearMePrevious = '';
+			$('.clearMeFocus').each( function() {
+				if ($(this).val() == '') {
+				    var title = $(this).attr('title');
+				    $(this).val(title);
+				}
+			});
+			
+			$('.clearMeFocus').focus(function()
+			{
+				if($(this).val()==$(this).attr('title'))
+				{
+					clearMePrevious = $(this).val();
+					$(this).val('');
+					$(this).css('color', '#333');
+				}
+			});
+			
+			// if field is empty afterward, add text again
+			$('.clearMeFocus').blur(function()
+			{
+				if($(this).val()=='')
+				{
+					$(this).val(clearMePrevious);
+					$(this).css('color', '#999');
+				}
+			});
+		
+
+
+            /// CURRENCY ROLLOVER
+            
+            $('#learn li.currency a.one').prependTo('#learn li.currency');
+            
+            $('#learn li.currency').hover( function() {
+               $(this).animate({height: '78px',}, 150);
+    		}, function() {
+    		    $(this).animate({height: '22px',}, 100); 
+            });
+    		 
+    		
+    		/// MANAGES THE ADD-TO-CART BUTTONS 
+    		$('a.addtocart').click( function() {
+              var thisButton = $(this);
+              
+              makeOverlay('<img src="{{ static_url }}images/loading.gif" id="loading" />');
+                         
+              $.ajax({
+              	url: thisButton.attr('href'),
+            	type: "GET",
+               	dataType: 'json',
+               	success: function(data) {
+               		
+               		/// CREATE AN OVERLAY CONFIRMING THE BASKET WAS ADDED
+               		var html = '';
+               		
+               		/// TRY TO FIND AN IMAGE
+               		if ( thisButton.parents(".info.tea").find('.imagelink img').length ) {
+               		   var productImgURL = thisButton.parents(".info.tea").find('.imagelink img').attr('src');
+               		} else {
+               		   var productImgURL = $('#image_wrap img').attr('src');
+               		}
+               		
+               		
+               		var html = '<div class="message">';
+               		if (productImgURL) { 
+                   		html += '<img src="'+ productImgURL+'" />';
+               		}
+               		html += data.message;
+               		html += '<div class="buttons">';
+               		html += '<a class="button green large" href="{% url basket %}">{% trans "Checkout now" %}</a><p>or <a class="close" onclick="removeOverlay();" href="#">continue browsing</a></p></div>';
+               		$('#overlay-inner').append(html);
+               		$('#loading').remove();
+               		
+               		
+               		/// INCREMENT VALUES IN THE HEADER BASKET
+                    if ($('#userbasket').hasClass('selected')) {} else {
+                         $('#userbasket').addClass('selected'); 
+                         $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+                    }
+                    $('#quantity .p').text(parseFloat(data.basket_amount).toFixed(2));
+                    $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+               		
+               	},
+              });
+              return false;
+            });
+		 
+					
+		});
+		
+		
+	</script>
+	
+	
+	
+		<script>
 		/mobile/i.test(navigator.userAgent) && !window.location.hash && setTimeout(function () {
 		  window.scrollTo(0, 1);
 		}, 1000);

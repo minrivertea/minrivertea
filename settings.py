@@ -61,7 +61,7 @@ STATICFILES_DIRS = (
 TEMPLATE_LOADERS = (
 #    'ab.loaders.load_template_source',
 #    'django.template.loaders.filesystem.load_template_source',
-#    'django_mobile.loader.Loader',
+    'django_mobile.loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
@@ -74,7 +74,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'shop.context_processors.get_shopper',
     'shop.context_processors.common',
-#    'django_mobile.context_processors.flavour',
+    'django_mobile.context_processors.flavour',
 )
 
 
@@ -85,8 +85,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 #    'ab.middleware.ABMiddleware',
-#    'django_mobile.middleware.MobileDetectionMiddleware',
-#    'django_mobile.middleware.SetFlavourMiddleware',
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'affiliate.AffiliateTrackerMiddleware',
     'sites.DomainTrackerMiddleware'
@@ -120,7 +120,7 @@ INSTALLED_APPS = (
     'paypal.standard.ipn',
     'registration',
 #    'ab',
-#    'django_mobile',
+    'django_mobile',
     'south',
     'my_admin',
     'captcha',
@@ -233,6 +233,13 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 # ---------------------------------------------------
 AFFILIATE_URL_VARIABLE = 'sales_adforce'
 AFFILIATE_SESSION_KEY = 'affiliate'
+
+
+# MOBILE SETTINGS
+# ---------------------------------------------------
+
+FLAVOURS = ('full',)
+DEFAULT_MOBILE_FLAVOUR = 'full'
 
 
 
