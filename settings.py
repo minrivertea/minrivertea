@@ -238,7 +238,7 @@ AFFILIATE_SESSION_KEY = 'affiliate'
 # MOBILE SETTINGS
 # ---------------------------------------------------
 
-FLAVOURS = ('full',)
+FLAVOURS = ('full', 'mobile')
 DEFAULT_MOBILE_FLAVOUR = 'full'
 
 
