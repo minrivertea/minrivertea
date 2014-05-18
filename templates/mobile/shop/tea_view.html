@@ -6,6 +6,10 @@
 {% block extrajs %}
 <script>
 
+$('#choices a').click(function() {
+   $('#'+$(this).attr('rel')).toggle(); 
+});
+
 </script>
 
 {% endblock %}
@@ -52,6 +56,31 @@ h1.title {
   color: #777;
 }
 
+#choices {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  float: left;
+  width: 100%;   
+}
+
+#choices li a {
+  width: 96%;
+  float: left;
+  padding: 15px 2%;
+  margin: 0 0 0px 0;
+  border-bottom: 1px dashed #e1e1e1;
+}
+
+#choices li .content {
+  display: none;  
+  float: left;
+}
+
+#choices p {
+  padding-left: 40px;   
+}
+
 </style>
 {% endblock %}
 
@@ -94,10 +123,17 @@ h1.title {
     
     	           	
     <ul id="choices">
-    	<li><a href="">View customer reviews ({{ reviews.count }})</a></li>
-    	<li><a href="">More photos of this tea</a></li>
-    	<li><a href="">Brewing guides</a></li>
+    	<li>
+    	   <a href="#reviews" rel="reviews">View customer reviews ({{ reviews.count }})</a>
+    	   <div class="content" id="reviews">
+    	       {% for r in reviews %}
+    	           <p><em>{{ r.short_text }}</em><br/><strong>{{ r.first_name }} {{ r.last_name }}</strong></p>
+    	       {% endfor %}
+    	   </div>
+    	</li>
     </ul> 
+    
+    &nbsp;
     
 </div>	
 
