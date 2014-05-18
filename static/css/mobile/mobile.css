@@ -95,7 +95,7 @@ span.link {
 #menu-bar a.cart {
   position: absolute;
   right: 12px;
-  top: 9px;
+  top: 10px;
   background: url('/static/images/mobile/cart.png') no-repeat top left transparent;
   height: 24px;
   width: 30px;
