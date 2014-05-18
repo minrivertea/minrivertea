@@ -95,10 +95,12 @@ span.link {
 #menu-bar a.cart {
   position: absolute;
   right: 12px;
-  top: 10px;
   background: url('/static/images/mobile/cart.png') no-repeat top left transparent;
   height: 24px;
   width: 30px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 } 
 
 #menu-bar a.cart span.quantity {
@@ -112,14 +114,17 @@ span.link {
     position: relative;
     right: -11px;
     text-align: center;
-    top: -8px;
     width: 15px;
+    top: -11px;
 }
 
 
 #menu-bar button {
-  position: absolute;
-  left: 10px;
+    bottom: 0;
+    left: 10px;
+    margin: auto;
+    position: absolute;
+    top: 0;
 }
 
 .menu-trigger {
