@@ -2437,16 +2437,16 @@ ul#social a#google:hover {
 }
 
 .footer-box.learn input[type="email"] {
-  width: 280px;
+  width: 255px;
   background: #fff;   
 }
 
-.footer-box.learn input[type=submit] {
-  width: 100px;
-  margin-left: 5px;
-  position: relative;
-  top: -1px; 
-  background:  
+.footer-box.learn input[type="submit"] {
+    margin-left: -1px;
+    padding: 9px 10px 8px;
+    position: relative;
+    top: 0;
+    width: 95px;
 }
 
 .footer-box.learn {
