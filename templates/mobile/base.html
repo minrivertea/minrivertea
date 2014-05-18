@@ -137,6 +137,9 @@ if (15.00) {
 <div id="menu-bar">
 <button class="menu-trigger"></button>
 <h1>Min River Tea</h1>
+<a href="{% url basket %}" class="cart">
+    <span class="quantity">{% if basket_quantity > 0 %}{{ basket_quantity }}{% endif %}</span>
+</a>
 </div>
 
 

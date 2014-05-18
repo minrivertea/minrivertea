@@ -92,6 +92,30 @@ span.link {
   text-transform: uppercase;
 }
 
+#menu-bar a.cart {
+  position: absolute;
+  right: 12px;
+  top: 9px;
+  background: url('/static/images/mobile/cart.png') no-repeat top left transparent;
+  height: 24px;
+  width: 30px;
+} 
+
+#menu-bar a.cart span.quantity {
+    background: none repeat scroll 0 0 #D30000;
+    border-radius: 3px;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 10px;
+    height: 15px;
+    letter-spacing: -1px;
+    position: relative;
+    right: -11px;
+    text-align: center;
+    top: -8px;
+    width: 15px;
+}
+
 
 #menu-bar button {
   position: absolute;
@@ -165,6 +189,23 @@ span.link {
     text-shadow: 0 1px 1px #0B440F;
     top: 0;
     width: auto;
+}
+
+#jPanelMenu-menu #language {
+ padding: 5px 3%;
+ float: left;
+ width: 94%;
+ background:#2A8531;
+}
+
+#jPanelMenu-menu #language a {
+   color: #fff;
+   font-size: 80%;
+   font-weight: normal;
+   text-align: center;
+   width: 50%;
+   float: left;
+   text-transform: uppercase; 
 }
 
 
