@@ -169,6 +169,10 @@ span.link {
   position: relative;
 }
 
+#jPanelMenu-menu ul li.language a {
+  width: auto;   
+}
+
 #jPanelMenu-menu ul li.capitalise a {
   text-transform: uppercase;
   color: #fff;   

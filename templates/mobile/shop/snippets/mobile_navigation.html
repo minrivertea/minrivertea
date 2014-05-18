@@ -8,9 +8,19 @@
     </li>
     {% endfor %}
     <li><a href="/">{% trans 'Home' %}</a></li>
-    <li><a href="{% url page _('about') %}">{% trans 'About Us' %}</a></li>    
+    <li><a href="{% url page _('about') %}">{% trans 'About Us' %}</a></li>  
+    
+    <li class="language">
+  	{% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == 'en' %}
+    <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a> <a href="{% url changelang 'de' %}">{% trans 'German' %}</a>
+    {% else %}
+        {% if LANGUAGE_CODE == 'de' %}
+            <a href="{% url changelang 'en' %}">{% trans 'English' %}</a> <a href="{% url changelang 'it' %}">{% trans 'Italian' %}</a>
+        {% else %}
+            <a href="{% url changelang 'en' %}">{% trans 'English' %}</a> <a href="{% url changelang 'de' %}">{% trans 'German' %}</a>
+        {% endif %}
+    {% endif %}
+    </li>
+      
 </ul>
-<div id="language">
-<a href="">Italian</a>
-<a href="">German</a>
-</div>
