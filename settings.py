@@ -146,6 +146,12 @@ SERVER_EMAIL = 'chris@minrivertea.com'
 SITE_EMAIL = 'Chris from MinRiverTea.com <mail@minrivertea.com>'
 SEND_BROKEN_LINK_EMAILS = False
 EMAIL_BASE_HTML_TEMPLATE = 'emailer/email_base.html'
+EMAIL_BACKEND = 'emailer.backend.DKIMBackend'
+DKIM_SELECTOR = 'selector'
+DKIM_DOMAIN = 'minrivertea.com'
+
+
+
 
 #THUMBNAIL SIZES
 # -----------------------------------------------

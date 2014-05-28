@@ -71,14 +71,18 @@ def _send_email(recipient, subject_line, template, extra_context=None, sender=No
     except TemplateDoesNotExist:
         pass
     
+    # HERE IS THE ACTUAL MESSAGE NOW
     msg = EmailMultiAlternatives(subject_line, text_content, sender, recipient)
+    
+    
+
     
     if html_content:
         # USING PREMAILER TO PUT STYLES INLINE FOR CRAPPY YAHOO AND AOL WHO STRIP STYLES
         from premailer import transform
         html_content = transform(html_content)
         msg.attach_alternative(html_content, "text/html")
-        # msg.content_subtype = "html"
+        # msg.content_subtype = "html" # DONT DO THIS!
     
     
     

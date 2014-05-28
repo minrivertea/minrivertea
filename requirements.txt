@@ -11,3 +11,4 @@ reportlab
 html5lib
 premailer
 pydkim
+dnspython
