@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load thumbnail i18n convert_weights %}
+{% load thumbnail i18n convert_weights convert_links %}
 
 {% block metadescription %}{% if tea.meta_description %}{{ tea.meta_description|safe }}{% else %}{{ tea.name }} - {{ tea.description|safe }}{% endif %}{% endblock %}
 
@@ -935,7 +935,7 @@ ul.rss {
 	<div id="extras">
 	
       	<div id="description" class="info">
-      	   {{ tea.long_description|safe }}
+      	   {{ tea.long_description|convert_links|safe }}
       	</div>
 	
 	</div>
