@@ -18,7 +18,7 @@
 
   	<div class="text{% if not thing.promo_image %} long{% endif %}">
   		
-  		<p>{{ thing.content|safe|removetags:"img div em .caption p ul li"|truncatewords:"100" }}</p>
+  		<p>{{ thing.content|safe|removetags:"img div em .caption p ul li h3"|truncatewords:"100" }}</p>
   		<p><span class="entry-meta">{% if thing.blogger %}By {{ thing.blogger }} | {% endif %}{{ thing.date_added|date:"d M Y" }}
   		</p>
 	</div> 

@@ -39,7 +39,8 @@ def blog_entry(request, slug):
 
 def blog_by_id(request, id):
     blog = get_object_or_404(Blog, pk=id)
-    return blog_entry(request, blog.slug)
+    
+    return HttpResponseRedirect(blog.get_absolute_url())
   
 
 def staff(request, slug):
