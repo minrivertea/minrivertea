@@ -243,89 +243,26 @@ span.link:hover {
 
 /* header styles */
 
-#messages {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-radius: 5px 5px 5px 5px;
-    display: none;
+#message {
+    background: none repeat scroll 0 0 #2A8531;
+    width: 100%;
+    padding: 15px 0;
     float: left;
     height: auto;
-    margin: 10px 0 0;
-    padding: 2% 3%;
-    position: relative;
-    width: 94%;
 }
 
-#messages .message {
-    color: #5F829A;
-    font-size: 35px;
-    letter-spacing: -0.5px;
-}
-
-#messages .message .text {
-  float: left;
-  width: 600px;
-}
-
-#messages .message .text h3 {
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight:bold;
-  font-size: 17px;
-  letter-spacing: -0.5px;
+#message p {
   margin: 0;
-}
-
-#messages .message .text p {
   padding: 0;
-  margin: 0;
+  color: #fff;   
 }
 
-#messages .message a.button {
-  width: auto;
-  font-size: 21px;
+#message a {
+  color: #fff;
+  text-decoration: underline;   
 }
 
-#messages span.tick {
-    display: block;
-    float: left;
-    font-size: 46px;
-    line-height: 0.5em;
-    margin: 0 20px 0 0;
-    position: relative;
-    top: 9px;
-    color:#2A8531;
-}
 
-#messages #close {
-    background: none repeat scroll 0 0 #A0BBCC;
-    border-radius: 20px 20px 20px 20px;
-    color: #3B6884;
-    font-size: 22px;
-    padding: 5px 11px;
-    position: absolute;
-    right: 0;
-    top: -5px;
-}
-
-#messages #close:hover {
-    background: none repeat scroll 0 0 #c1d6e1;
-    color: #3c6884;
-    cursor: pointer;
-}
-
-#messages .message .num {
-    -webkit-transition:text-shadow 1s ease-out;
-    -moz-transition:text-shadow 1s ease-out;
-    -o-transition:text-shadow 1s ease-out;
-    -ms-transition:text-shadow 1s ease-out;
-    transition:text-shadow 1s ease-out;    
-    text-shadow: none;   
-}
-
-#messages .message .num.active {
-    text-shadow: 0px 1px 10px #fff;
-    font-weight: bold;
-    color: #fff;   
-}
 
 
 #header {

@@ -77,10 +77,18 @@
   background: #fff;    
 }
 
-#items, #address {
+#items, #address, #shipping-message {
   width: 550px;
   margin: 0 auto;
 }
+
+#shipping-message {
+  font-size: 13px;
+  color: #D30000;
+  margin-top: 20px;   
+}
+
+
 
 table td {
   padding: 0px;	
@@ -274,6 +282,11 @@ p.skip {
 		
 	</div>
 
+	
+	<div id="shipping-message">
+	   {% url page _('shipping') as shipping_url %}
+       {% blocktrans %}Please note that orders made in June 2014 will be shipped from China and may take  2-4 weeks to arrive. <a target="_blank" href="{{ shipping_url }}">Read full information here</a>{% endblocktrans %}
+	</div>
 	
   	
   	<div id="payment">
