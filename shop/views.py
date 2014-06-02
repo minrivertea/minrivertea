@@ -62,7 +62,9 @@ def index(request):
     for t in teas:
         t.price = t.get_lowest_price(currency=curr)
         
-    blog_entries = BlogEntry.objects.filter(is_promoted=True, is_draft=False).order_by('-date_added')[:3]
+    blog_entries = BlogEntry.objects.filter(
+        is_promoted=True, 
+        is_draft=False).order_by('-date_added')[:3]
             
     teaware = Product.objects.filter(
         is_active=True,
