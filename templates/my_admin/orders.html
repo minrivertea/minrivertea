@@ -88,7 +88,7 @@ $(document).ready( function() {
          			<td>Label</td>
          			</tr>
          		</thead>
-            	{% for order in packages %}
+            	{% for x in packages %}
                 	   {% with x.order as order %}
                 	       {% include 'my_admin/snippets/table_row.html' %}
                 	   {% endwith %}
