@@ -4,7 +4,7 @@
   <style type="text/css">
     h2 {
       float: left;
-      width: 60%;
+      width: 40%;
       margin-bottom: 40px;   
     }
         
@@ -40,16 +40,41 @@ $(document).ready( function() {
 
 {% block content %}
 
-<h2>Orders ({{ packages.count }})</h2>
+<h2>{% if unpaid %}UNPAID {% else %}PAID {% endif %}Orders ({{ packages.count }})</h2>
          	
          	 <div id="filters">
+                <a class="button red" href="/admin-stuff/orders/?w={{ weeks }}">Paid</a>
+                <a class="button red" href="/admin-stuff/orders/?unpaid=true&w={{ weeks }}">Unpaid</a>
+                
                 <a class="button green" href="/admin-stuff/orders/?w=4">This Month</a> 
                 <a class="button green" href="/admin-stuff/orders/?w=12">3 Months</a>  
                 <a class="button green" href="/admin-stuff/orders/?w=24">6 Months</a>  
                 <a class="button green" href="/admin-stuff/orders/?w=52">12 Months</a> 
                 <a class="button green" href="/admin-stuff/orders/?w=1096">Forever</a>
+                
             </div>
          	
+         	{% if unpaid %}
+            <table id="orders-table">
+         		<thead>
+         			<tr>
+         			<td>Order ID</td>
+         			<td>Customer</td>
+         			<td style="width:250px">Items</td>
+         			<td>Value</td>
+         			<td style="width: 150px">Status</td>
+         			</tr>
+         		</thead>
+            	{% for order in packages %}
+            	       {% include 'my_admin/snippets/table_row_order.html' %}
+            	{% endfor %}
+            	
+            	{% if packages.count == 0 %}
+            	<tr><td colspan="8" style="text-align: center">NO UNPAID ORDERS</td></tr>
+            	{% endif %}
+            </table>
+            
+            {% else %}
             <table id="orders-table">
          		<thead>
          			<tr>
@@ -63,12 +88,16 @@ $(document).ready( function() {
          			<td>Label</td>
          			</tr>
          		</thead>
-            	{% for x in packages %}
-            	   {% with x.order as order %}
-            	       {% include 'my_admin/snippets/table_row.html' %}
-            	   {% endwith %}
+            	{% for order in packages %}
+                	   {% with x.order as order %}
+                	       {% include 'my_admin/snippets/table_row.html' %}
+                	   {% endwith %}
             	{% endfor %}
+            	{% if packages.count == 0 %}
+            	<tr><td colspan="8" style="text-align: center">NO PAID ORDERS</td></tr>
+            	{% endif %}
             </table>
+            {% endif %}
          	
          	
 {% endblock %}

@@ -54,15 +54,53 @@ def index(request):
 @login_required
 def orders(request, **kwargs):
     
-    start_date = (datetime.now() - timedelta(weeks=4))
     if request.GET.get('w'):
-        start_date = (datetime.now() - timedelta(weeks=int(request.GET['w'])))
-    
+        weeks = int(request.GET['w'])
+    else:
+        weeks = 4
+        
+    start_date = (datetime.now() - timedelta(weeks=weeks))
     end_date = datetime.now()     
-    packages = CustomerPackage.objects.filter(created__range=(start_date, end_date), **kwargs).order_by('-created')        
+       
+    
+    if request.GET.get('unpaid'):
+        unpaid = True
+        packages = Order.objects.filter(
+            date_paid__isnull=True, 
+            date_confirmed__range=(start_date, end_date)
+        ).order_by('-date_confirmed')
+    else:
+        packages = CustomerPackage.objects.filter(
+            created__range=(start_date, end_date), 
+            **kwargs
+        ).order_by('-created')  
 
     return _render(request, 'my_admin/orders.html', locals())
 
+
+def mark_order_as_paid(request, order_id):
+    
+    order = get_object_or_404(Order, pk=order_id)
+    
+    # UPDATE THE ORDER DETAILS
+    order.status = Order.STATUS_PAID
+    order.date_paid = datetime.now()
+    order.save()
+
+
+    # IF THERE WAS A SINGLE USE DISCOUNT, UPDATE IT
+    if order.discount:
+        if order.discount.single_use == True:
+            order.discount.is_active = False
+            order.discount.save()
+
+
+    # NOW CREATE A CUSTOMER PACKAGE
+    from logistics.views import _create_customer_package
+    _create_customer_package(order)
+
+    url = request.META.get('HTTP_REFERER','/')
+    return HttpResponseRedirect(url)
 
 #specific shopper view in admin-stuff
 @login_required

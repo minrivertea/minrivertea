@@ -1,0 +1,54 @@
+
+<tr id="{{ order.id }}" class="{% cycle '' 'white' %} {% ifequal order.status 'paid' %}new{% endifequal %}">
+	<td class="id" valign="top">
+		<a href="{% url admin_order order.id %}">{{ order }}</a><br/>
+		<span style="font-weight: normal">{{ order.date_paid|date:"d M y" }}</span>
+		{% if order.wishlist_payee %}
+		<br/><br/>
+		<span style="text-transform: uppercase;font-size: 10px; color: red;">WISHLIST PAID BY:</span><br/>
+		<span style="font-weight:normal;color:red; font-size: 10px;">{{ order.wishlist_payee }}</span>
+		{% endif %}
+	</td>
+	<td class="owner" valign="top">
+		<a href="{% url admin_shopper order.owner.id %}">{{ order.owner }}</a><br/>
+		{% with order.address as address %}
+		{% include 'shop/snippets/address.html' %}
+		{% endwith %}
+		{% if x.repeat_order %}
+		      <br/><span class="red"><strong>
+		      {% if x.repeat_order_first %}
+		          First in a repeat order
+		      {% else %}
+		          {% if x.repeat_order_last %}
+		              Last in a repeat order
+		          {% else %}
+		              Part of a repeat order
+		          {% endif %}
+		      {% endif %}
+		      {% if x.shipping_due_date %}
+		      due on {{ x.shipping_due_date|date:"d M Y" }}
+		      {% endif %}
+		      </strong></span>
+		{% endif %}
+	</td>
+	<td class="items" valign="top">
+        {% for i in order.items.all %}
+            {{ i }}<br/>
+        {% endfor %}
+		
+		{% if x.is_preorder %}
+            <span class="red"><strong>This is a preorder.</strong></span>
+        {% endif %}
+	</td>
+	<td class="value" valign="top">
+			{{ order.get_amount }} {{ order.get_currency }}
+	</td>
+
+	<td class="status" valign="top">
+		<strong>{{ order.status }}</strong><br/>
+		<a class="button red small" href="{% url mark_order_as_paid order.id %}">Mark as paid</a>
+	</td>
+	
+	
+</tr>
+
