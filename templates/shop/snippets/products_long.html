@@ -1,7 +1,21 @@
 {% load i18n thumbnail convert_weights %}
 
 {% for t in teas %}
-    <div class="info tea half {% cycle 'left' 'right' %}">
+    <div class="info tea half {% cycle 'left' 'right' %}" data-id="{{ t.id }}" data-name="{{ t.name }}">
+    
+        {% if t.price.stocks.out_of_stock %}
+            <div class="oos">
+                
+            </div>
+            
+            <div class="oos-inner">
+                <h4>{% blocktrans with t.name as name %}{{ name }} is currently out of stock{% endblocktrans %}</h4>
+                <a href="#" class="button green small notify">{% trans "Notify me when it's available" %}</a>
+                <a href="{{ t.get_absolute_url }}" class="button green small">{% trans "View product details" %}</a>
+            </div>
+        {% endif %}
+    
+    
         <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
         {% if months %}
             <a class="button green small addtocart" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.single_price.id months %}">{% trans 'Add to TeaBox' %}</a>

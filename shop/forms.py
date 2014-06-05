@@ -77,9 +77,10 @@ class ReviewOrderForm(forms.Form):
     words = forms.CharField(required=True, widget=forms.Textarea)
     product = forms.CharField(required=True)
 
-class NotifyForm(forms.Form):
+class NotifyOutOfStockForm(forms.Form):
     email = forms.EmailField(required=True, error_messages={'required': 'Please enter a valid email address'})
-    country = forms.ChoiceField(required=False, choices=all_countries)
+    product = forms.CharField(required=True)
+    
 
 class SelectWishlistItemsForm(forms.Form):
     hashkey = forms.CharField()

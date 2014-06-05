@@ -205,7 +205,9 @@ class UniqueProduct(models.Model):
         
     def stocks(self):
         from logistics.models import WarehouseItem
-        # how many items match this product, this weight, and are in the UK, and not sold?
+        
+        # GET ITEMS: that match the product; same weight; in the UK; not sold
+        
         items = WarehouseItem.objects.filter(
             unique_product__parent_product=self.parent_product, 
             unique_product__weight=self.weight,
@@ -221,10 +223,12 @@ class UniqueProduct(models.Model):
             return items 
         
         if len(available_stocks) == 0 and len(preorder_stocks) > 0:
+            items.available = False
             items.preorder = True
             return items
         
         if len(available_stocks) == 0 and len(preorder_stocks) == 0:
+            items.available = False
             items.out_of_stock = True
             return items
     
@@ -292,6 +296,13 @@ class Review(models.Model):
         url = urlparse(self.url)
         return url.netloc     
 
+
+class NotifyOutOfStock(models.Model):
+    email = models.EmailField()
+    product = models.ForeignKey(Product)
+    
+    def __unicode__(self):
+        return self.email
 
 
             

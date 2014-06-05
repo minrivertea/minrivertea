@@ -1121,8 +1121,45 @@ div.profile img {
   padding: 10px 0;
 }
 
+.info.tea .oos {
+    background: none repeat scroll 0 0 #FFFFFF;
+    height: 100%;
+    left: 0;
+    opacity: 0.9;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.info.tea .oos-inner {
+  position: absolute;
+  z-index: 1001;
+  width: 94%;
+  height: 90px;
+  top: 0;
+  bottom: 0;
+  margin: auto; 
+  padding: 2% 3%;
+  text-align: center;  
+}
+
+.info.tea .oos-inner h4 {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 0 0px 0;   
+  color: #333;
+  font-size: 90%;
+}
+
+
+.info.tea .oos-inner a.button {
+  float: none;
+  position: static;   
+}
+
 .info.tea a.button {
-    bottom: 15px;
+    bottom: 21px;
     right: 0px;
     position: absolute;
     z-index: 20;
@@ -2521,10 +2558,11 @@ a#harvest:hover {
     float: left;
 }
 
-#overlay-inner input, #overlay-inner textarea, #overlay-inner select {
+#overlay-inner input[type="text"], #overlay-inner input[type="email"], #overlay-inner textarea, #overlay-inner select {
   border: 1px solid #e1e1e1;
   background: #f1f1f1;
-  color: #333;	
+  color: #333;
+  width: 90%;	
 }
 
 #overlay-inner h3 {

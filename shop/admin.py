@@ -64,6 +64,7 @@ class UniqueProductAdmin(admin.ModelAdmin):
     
 
 admin.site.register(Currency)    
+admin.site.register(NotifyOutOfStock)    
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Address)
 admin.site.register(Category, CategoryAdmin)

@@ -38,6 +38,10 @@ urlpatterns = patterns('',
     url(r'^order/(?P<hash>[\w-]+)/$', views.order_url, name="order_url"),
     url(r'^reviews/$', views.reviews, name="reviews"),
     url(r'^not-me/$', views.not_you, name="not_you"),
+        
+    url(r'^delete_notify_out_of_stock/(\w+)/$', views.delete_notify_out_of_stock, name="delete_notify_out_of_stock"),
+    url(r'^notify-product-out-of-stock/$', views.notify_out_of_stock, name="notify_out_of_stock"),
+    
     url(r'^currency/$', utils._set_currency, name="set_currency"),
     
     # get objects by ID urls

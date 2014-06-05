@@ -28,7 +28,6 @@ from PIL import Image
 from cStringIO import StringIO
 import os
 import datetime
-from datetime import timedelta
 import uuid
 import re
 import stripe
@@ -256,6 +255,55 @@ def contact_form_submit(request, xhr=None):
     
     url = reverse('page', args=['contact-us'])
     return HttpResponseRedirect(url)       
+
+
+def notify_out_of_stock(request):
+        
+    if request.method == 'POST':
+                
+        form = NotifyOutOfStockForm(request.POST)
+        if form.is_valid():
+        
+            product = get_object_or_404(Product, id=form.cleaned_data['product'])
+            
+            notification = NotifyOutOfStock.objects.get_or_create(
+                product = product,
+                email = form.cleaned_data['email']
+            )
+            
+            subject_line = "Thanks - you'll receive a notification when %s is back in stock" % product.name
+            template = 'shop/emails/out_of_stock_notification_confirmation.txt'
+            cancel_url = reverse('delete_notify_out_of_stock', args=[notification[0].id])
+            from emailer.views import _send_email
+            _send_email(
+                    form.cleaned_data['email'], 
+                    subject_line, 
+                    template, 
+                    extra_context={'product': product, 'email': form.cleaned_data['email'], 'url': cancel_url}, 
+            )
+
+            
+            if request.is_ajax():
+                return HttpResponse('true')
+            else:
+                url = product.get_absolute_url()
+                return HttpResponseRedirect(url)
+                
+        else:
+            if request.is_ajax():
+                return HttpResponse('false')
+            else:
+                return HttpResponseRedirect('/')
+    
+    return HttpResponseRedirect('/')
+
+def delete_notify_out_of_stock(request, id):
+    
+    notification = get_object_or_404(NotifyOutOfStock, pk=id)
+    notification.delete()
+    
+    url = reverse('page_by_id', args=['79'])
+    return HttpResponseRedirect(url)
    
 # function for adding stuff to your basket
 def add_to_basket(request, id):

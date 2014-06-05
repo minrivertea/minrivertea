@@ -1,0 +1,9 @@
+Thanks - you'll receive another email notification when our {{ product.name }} is back in stock.
+
+Some teas or items of teaware may take longer to arrive back in stock (farms often produce a limited amount each year and sell out fast) but we will try to be as quick as possible. If you have any urgent requests, please email us and ask!
+
+If you want to cancel this notification, click here:
+
+{{ site_url }}{{ url }}
+
+{% include 'emailer/email_signature.txt' %}
