@@ -1,21 +1,9 @@
 {% load i18n thumbnail convert_weights %}
 
 {% for t in teas %}
-    <div class="info tea half {% cycle 'left' 'right' %}" data-id="{{ t.id }}" data-name="{{ t.name }}">
+    <div class="info tea half {% cycle 'left' 'right' %}" >
     
-        {% if t.price.stocks.out_of_stock %}
-            <div class="oos">
-                
-            </div>
             
-            <div class="oos-inner">
-                <h4>{% blocktrans with t.name as name %}{{ name }} is currently out of stock{% endblocktrans %}</h4>
-                <a href="#" class="button green small notify">{% trans "Notify me when it's available" %}</a>
-                <a href="{{ t.get_absolute_url }}" class="button green small">{% trans "View product details" %}</a>
-            </div>
-        {% endif %}
-    
-    
         <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
         {% if months %}
             <a class="button green small addtocart" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.single_price.id months %}">{% trans 'Add to TeaBox' %}</a>
@@ -25,9 +13,12 @@
                 <a href="{% url add_to_basket t.price.id %}" class="button orange small addtocart"><span title="{% trans 'Order now and receive this on' %} {{ t.get_preorder_date|date:'d M Y' }}" id="add_to_basket_{{ t.price.id }}">{% trans 'Preorder now' %}</span></a>
             {% endif %} 
             
-            {% if t.price.stocks.out_of_stock %}
-                <span class="out-of-stock">{% trans 'Out of stock!' %}</span>
+            
+            {% if not t.in_stock and not t.price.stocks.preorder %}
+                <a href="#" class="button green small notify" data-id="{{ t.id }}" data-name="{{ t.name }}">
+                    {% trans "Notify me when it's available" %}</a>
             {% endif %}
+           
               
             {% if t.price.stocks.available %}
             <a title="{% trans 'Add 1 x ' %} {{ t.name }} {% if t.price.weight %}({% convert_weights request t.price.weight %}{{ weight_unit }}){% endif %} {% trans 'to your basket' %}" href="{% url add_to_basket t.price.id %}" class="button green small addtocart" id="add_to_basket_{{ t.price.id }}"><span class="plus">{% trans 'Add to basket' %}</span></a>
@@ -45,6 +36,15 @@
         <div class="glass-text">
             <div class="inner">
                 <div class="pricebar">
+                    
+                    {% if not t.in_stock and not t.price.stocks.preorder %}
+            
+                    <div class="oos-inner">
+                        <h4>{% blocktrans with t.name as name %}{{ name }} is currently out of stock{% endblocktrans %}</h4>
+                    </div>
+
+                    {% else %}
+                    
                     
                     <h3><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h3>
                     
@@ -81,6 +81,8 @@
                         {% endblocktrans %}
                     </div> 
                     {% endif %} 
+                    
+                    {% endif %}
                     
                                       
                 </div>                            

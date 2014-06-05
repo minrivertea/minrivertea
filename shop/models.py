@@ -88,12 +88,12 @@ class Product(models.Model):
     farm_caption = models.CharField(max_length=200, blank=True, null=True)
     
     # for the tea brewing
-    brew_time = models.IntegerField(blank=True, null=True,
-        help_text="Give time in seconds")
-    brew_weight = models.IntegerField(blank=True, null=True,
-        help_text="The amount to use per brew in grams")
-    brew_temp = models.IntegerField(blank=True, null=True,
-        help_text="The temperature of water to use in degrees celsius")
+    #brew_time = models.IntegerField(blank=True, null=True,
+    #    help_text="Give time in seconds")
+    #brew_weight = models.IntegerField(blank=True, null=True,
+    #    help_text="The amount to use per brew in grams")
+    #brew_temp = models.IntegerField(blank=True, null=True,
+    #    help_text="The temperature of water to use in degrees celsius")
     
         
     def __unicode__(self):
@@ -128,6 +128,21 @@ class Product(models.Model):
         except:
             price = None
         return price
+    
+    def in_stock(self):
+        
+        from logistics.models import WarehouseItem
+        stocks = WarehouseItem.objects.filter(
+                unique_product__parent_product=self,
+                sold__isnull=True,
+                location=WarehouseItem.UK,
+        )
+                
+        if stocks.count() == 0:
+            return False
+        
+        return True
+        
     
     def get_root_category(self):
         

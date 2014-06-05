@@ -19,41 +19,6 @@ $('#types').click(function() {
 });
 
 
-function bindNotifyFormSubmit() {
-  
-  $('#notify_form').submit(function() {
-      $.ajax({
-        url: '{% url notify_out_of_stock %}',
-        type: 'POST',
-        data: $('#notify_form').serialize(),
-        dataType: 'html',
-        success: function(data) {
-           
-           $('#overlay-inner .message').html('<h4>{% trans "Thanks, we&#39;ll notify you as soon as we have this item back in stock." %} <a href="#" onclick="removeOverlay();">{% trans "Continue browsing" %}</a></h4>');
-              
-        }
-        
-      }); 
-      
-      return false;
-  });  
-}
-
-
-$('a.button.notify').click( function() {
-   var name = $(this).parents('.info').attr('data-name');
-   var productID = $(this).parents('.info').attr('data-id');
-
-   var html = '<div class="message"><h2>{% trans "Submit your email address and we&#39;ll notify you when '+name+' is in stock again" %}</h2><p class="small">{% trans "We will only email you once and then delete your address from our database - we hate spam as much as you do!" %}</p><form id="notify_form" action="{% url notify_out_of_stock %}" method="post"><input type="email" name="email" id="id_email" placeholder="{% trans "Your email address" %}" /><input type="hidden" name="product" id="id_product" value="'+productID+'" /><input type="submit" class="button green" value="{% trans "Submit" %}" /></form></div>'
-   
-   makeOverlay(html, '600');
-   
-   bindNotifyFormSubmit();
-   
-   return false; 
-});
-
-
 
 
 </script>

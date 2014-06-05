@@ -1121,20 +1121,9 @@ div.profile img {
   padding: 10px 0;
 }
 
-.info.tea .oos {
-    background: none repeat scroll 0 0 #FFFFFF;
-    height: 100%;
-    left: 0;
-    opacity: 0.9;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
 .info.tea .oos-inner {
   position: absolute;
-  z-index: 1001;
+  z-index: 20000;
   width: 94%;
   height: 90px;
   top: 0;
@@ -1148,14 +1137,15 @@ div.profile img {
   font-weight: bold;
   text-transform: uppercase;
   margin: 0 0 0px 0;   
-  color: #333;
-  font-size: 90%;
+  color: #D30000;
+  font-size: 13px;
+  line-height: 1.2em;
 }
 
-
-.info.tea .oos-inner a.button {
-  float: none;
-  position: static;   
+.info.tea a.button.notify {
+  right: 5px;
+  width: 180px;
+  bottom: 31px;
 }
 
 .info.tea a.button {

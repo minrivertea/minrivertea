@@ -403,6 +403,7 @@ a.button.red:hover {
     font-size: 11px;
     font-weight: ;
     margin: 10px 0 10px;
+    width: 100%;
 }
 
 #stocks div {
@@ -421,6 +422,10 @@ a.button.red:hover {
 #stocks div:last-child {
   border-right: none; 
   padding-right: 0;  
+}
+
+#stocks a.button.notify {
+  float: right;    
 }
 
 #stocks strong {
@@ -469,7 +474,7 @@ span.name {
   font-size: 13px;
   line-height: 1em;
   position: relative;
-  top: 10px;
+  top: 4px;
 }
 
 #prices .amount {
@@ -735,7 +740,7 @@ ul.rss {
   font-size: 13px;
   float: right;
   color: red;
-  padding-top: 5px;   
+  padding-top: 4px;   
 }
 
 .not-in-stock {
@@ -872,7 +877,8 @@ ul.rss {
               
                         
             </div>
-          </div>           
+          </div>    
+	    
 	    {% endfor %}
 	    
 	    <div id="stocks"> 
@@ -880,6 +886,10 @@ ul.rss {
 		  <div class="postage-cost">
 		      {% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}
 		  </div>
+		  
+		  {% if not tea.in_stock %} 
+  	         <a href="#" class="button green small notify" data-id="{{ tea.id }}" data-name="{{ tea.name }}">{% trans "Get an email when this is in stock again" %}</a>
+  	      {% endif %} 
 		  
 		  {% comment %}
 		  <div>
@@ -895,6 +905,9 @@ ul.rss {
          	<span class="not-in-stock">{% trans 'This product is not currently available for sale.' %}</span>
         </div>	
   	  {% endif %}
+  	  
+  	  
+  	  
   	  
   	  
 		

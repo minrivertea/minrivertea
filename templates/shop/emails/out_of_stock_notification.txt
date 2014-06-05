@@ -2,7 +2,7 @@ Hi!
 
 The {{ product.name }} you were interested in is now back in stock at minrivertea.com!
 
-Because you've had to wait so long, we're giving you a 5% discount on this product and any others you order together - be quick, this discount code will only last for 7 days!
+Because you've had to wait so long, we're giving you a 5% discount on this and anything else you order at the same time - this discount code will be valid for 3 days from now:
 
 YOUR CODE - {{ discount_code }}
 

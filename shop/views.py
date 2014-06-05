@@ -190,8 +190,11 @@ def tea_view(request, slug):
         return monthly_tea_box(request)
     
     recommended = _get_products(request, random=True, exclude=tea.id)[:4]
-    prices = UniqueProduct.objects.filter(is_active=True, parent_product=tea, 
-        currency=_get_currency(request)).order_by('weight')
+    prices = UniqueProduct.objects.filter(
+            is_active=True, 
+            parent_product=tea, 
+            currency=_get_currency(request)
+            ).order_by('weight')
 
     return _render(request, "shop/tea_view.html", locals())
 
