@@ -110,23 +110,28 @@ class Product(models.Model):
         url = reverse('product_by_id', args=[self.id])
         return url
     
-    def get_lowest_price(self, currency, exclude_sales=False):
-        try:
-            if exclude_sales == True:
-                price = UniqueProduct.objects.filter(
-                    parent_product=self,
-                    is_active=True, 
-                    currency=currency,
-                    is_sale_price=False,
-                ).order_by('price')[0]
-            else:
-                price = UniqueProduct.objects.filter(
-                    parent_product=self,
-                    is_active=True, 
-                    currency=currency,
-                ).order_by('price')[0]
-        except:
-            price = None
+    # GET THE LOWEST PRICE AVAILABLE FOR THIS PRODUCT
+    def get_lowest_price(self, currency, exclude_sales=False, in_stock=True):
+        
+        if in_stock:
+                    
+            try:
+                from logistics.models import WarehouseItem
+                kwargs = {
+                        'unique_product__parent_product': self,
+                        'sold__isnull': True, 
+                        'location': WarehouseItem.UK
+                }
+                
+                if exclude_sales:
+                    kwargs['unique_product__sale_price'] = None
+                
+                price = WarehouseItem.objects.filter(**kwargs).order_by('unique_product__price')[0]
+                price = price.unique_product
+                
+            except:
+                price = None
+
         return price
     
     def in_stock(self):
