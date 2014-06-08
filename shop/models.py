@@ -119,6 +119,7 @@ class Product(models.Model):
                 from logistics.models import WarehouseItem
                 kwargs = {
                         'unique_product__parent_product': self,
+                        'unique_product__is_active': True,
                         'sold__isnull': True, 
                         'location': WarehouseItem.UK
                 }
@@ -133,6 +134,7 @@ class Product(models.Model):
                 price = None
 
         return price
+    
     
     def in_stock(self):
         
