@@ -187,6 +187,19 @@ input.button {
   background: #46ab4e;
 }
 
+.button.grey {
+  background: #999;
+  color: #fff;
+  text-shadow: none;
+  box-shadow: none;
+  border-top: ;  
+  text-decoration: none; 
+}
+
+.button.grey:hover {
+  background: #b1b1b1;
+}
+
 .button.red {
    background: #D30000; 
    border: none;

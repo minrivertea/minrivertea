@@ -83,7 +83,7 @@ h2.banner {
   float: left;
   width: 100%;
   position: relative;
-  background: url('{{ static_url }}images/homepage/banner4.jpg') no-repeat top left;
+  background: url('{{ static_url }}images/homepage/beginners-pack-banner-1.jpg') no-repeat top left;
   height: 330px;
   transition: opacity .25s ease-in-out;
    -moz-transition: opacity .25s ease-in-out;
@@ -95,25 +95,22 @@ h2.banner {
      
 }
 
-#special .button {
+#special .buttons {
+  float: left;
   position: absolute;
-  right: 50px;
-  top: 140px;
-  z-index: 100;
-}
-
-#special:hover .details h3, #special:hover .details a {
-  color: #d30000;   
+  left: 20px;
+  top: 210px;
+  z-index: 1000;
 }
 
 #special .details {
-    float: right;
-    width: 50%;
-    top: 90px;
-    right: 20px;
+    float: left;
+    width: 40%;
+    top: 60px;
+    left: 20px;
     padding: 0;
     position: absolute;
-    text-align: right;
+    text-align: left;
 }
 
 {% get_current_language as LANGUAGE_CODE %}
@@ -148,14 +145,10 @@ h2.banner {
 }
 
 #special .details .price {
-    top: -20px;
     color: #555555;
-    float: right;
-    font-size: 19px;
     font-weight: normal;
     letter-spacing: -0.5px;
-    position: absolute;
-    right: 0;
+    float: left;
 }
 
 #special .details .price .amount {
@@ -428,21 +421,21 @@ ul.rss {
         <div class="details">
            
            <h3>{{ special.name }}</h3>
-           <p>{% trans "Five incredible 'first-flush' teas, featuring the cream of the first 2014 harvest. Taste, compare and enjoy exceptional green and yellow teas from Sichuan and Hangzhou. " %}</p>
+           <p>{{ special.description }}</p>
            
-           <!--
-           <span class="price">
+           
+           <p class="price">
                 <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
 	           {% if special.price.weight %}/ {% convert_weights request special.price.weight %}{{ weight_unit }}{% else %}{% if special.price.description %}/ {{ special.price.description }}{% endif %}{% endif %}
-	       </span>
-	       -->
+	       </p>
+	       	       
 	    </div>
 	    
+	    <div class="buttons">
+	    <a href="" class="button green small">Add to basket</a>
+	    <a href="{{ special.get_absolute_url }}" class="button grey small">View details</a>
+	    </div>
 	    
-	    
-	    
-	    
-
     </div>    
     
     <div class="hr"></div>
