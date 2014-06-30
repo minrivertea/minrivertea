@@ -9,7 +9,16 @@
 <style type="text/css">
 
 .entry-list {
-    float: left;
+  float: left;
+}
+
+#mtw #left {
+  width: 850px;
+  position: relative;
+  margin-left: -425px;
+  margin-right: 0;
+  left: 50%;
+  text-align: center;   
 }
 
 #mtw #left .entry h3 {
@@ -26,7 +35,26 @@
     margin-bottom: 20px;
     padding-bottom: 20px;
     position: relative;
-    width: 660px;
+    width: 100%;
+}
+
+.entry.social {
+  background: #f6f6f6;
+  padding: 30px 0;
+  margin: -20px 0 20px 0; 
+  text-align: center;   
+}
+
+.entry.social input[type="email"] {
+  background: #fff;
+  width: 50%;
+  float: left;
+  margin-left: 18%;
+}
+
+.entry.social input[type="submit"] {
+ width: 10%;
+ font-size: 13px;
 }
 
 .entry:hover h2 a {
@@ -44,20 +72,20 @@
 }
 
 .entry .image {
-    background: none repeat scroll 0 0 #fff;
     border-radius: 50%;
-    float: right;
     height: 180px;
-    margin: 10px 0 20px 15px;
+    margin: 0 auto 20px;
+    background: #f1f1f1;
     overflow: hidden;
     width: 180px;
+    text-align: center;
 }
 
 .entry .text {
 }
 
 .entry .text.long {
-  width: 660px;	
+  width: 100%;	
 }
 
 
@@ -67,10 +95,10 @@ div#mtw div#left .entry div.text p {
   line-height: 2.1em;
 }
 
-.entry div.text span.entry-meta {
+#left .entry p.entry-meta {
     color: #666666;
-    float: left;
     font-size: 11px;
+    margin: 0 0 10px 0;
 }
 
 a.see-more {
@@ -115,19 +143,25 @@ img.tweets {
 #next-previous {
   width: 100%;
   float: left;
-  margin: 20px 0;	
-  font-size: 20px;
+  margin: 0px 0 20px;	
+  font-size: 15px;
   text-align: center;
+}
+
+.previous, .next {
+    background: none repeat scroll 0 0 #f1f1f1;
+    border-radius: 5px;
+    float: left;
+    font-size: 15px;
+    padding: 5px 10px;
 }
 
 .next {
   float: right;
-  border-radius: 5px;	
 }
 
-.previous {
-  float: left;
-  border-radius: 5px;		
+.next a, .previous a {
+  text-decoration: none;   
 }
 
 </style>
@@ -143,17 +177,10 @@ img.tweets {
   <div class="sp">
 	
 	
-		
-	<div id="right">
-		
-		{% include "blog/snippets/blog-right.html" %}
-	</div>
+	<div class="hr"></div>
 
 	<div id="left">
-	
-        <h1>{% trans 'The Min River Tea blog' %}</h1>
-        <p class="introduction">{% trans 'News, events and information from the world of Chinese tea' %}</p>
-	
+		
 		{% if entries.has_previous %}
 			<div id="next-previous">
 			<div class="next">

@@ -290,6 +290,17 @@ span.link:hover {
   margin: 15px 0 0px;   
 }
 
+#header.blog {
+  margin: 0;   
+}
+
+#header.blog p.introduction {
+  text-align: center;
+  margin: 10px 0 0;
+  padding: 0;   
+  color: #999;
+}
+
 #logo {	 
  width: 150px;
  height: 80px;
@@ -297,6 +308,14 @@ span.link:hover {
  float: left;
  margin: 0px 0 0;
  position: relative;
+}
+
+#logo.blog {
+ background: url("/static/images/logo-blog.png") no-repeat scroll 0px 0px transparent;
+ height: 110px;
+ width: 245px;
+ float: none;
+ margin: 10px auto 0;
 }
 
 #logo:hover {

@@ -30,6 +30,19 @@ class BlogEntry(models.Model):
     def get_url_by_id(self):
         url = "/blog/%s/" % self.id
         return url
+    
+    def get_next(self):
+        next = BlogEntry.objects.filter(pk__gt=self.id)
+        if next:
+            return next[0]
+        return None
+    
+    def get_prev(self):
+        prev = BlogEntry.objects.filter(pk__lt=self.id)
+        if prev:
+            return prev[0]
+        return None 
+    
      
     def get_content(self):
         return self.summary

@@ -166,6 +166,7 @@ THUMB_SMALL = "50x50"
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_CHINA = 'base_china.html'
 BASE_TEMPLATE_ADMIN = 'base_admin.html'
+BASE_TEMPLATE_BLOG = 'base_blog.html'
 
 
 

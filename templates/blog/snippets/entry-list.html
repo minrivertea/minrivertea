@@ -3,24 +3,40 @@
   {% for thing in entries.object_list.all %}
   <div class="entry{% if forloop.last %} last{% endif %}">
     
-    <h3>
-  		<a alt="{{ thing.title }}" title="{{ thing.title }}" href="{% url blog_entry thing.slug %}">{{ thing.title }}</a>
-  	    </h3>
-    
     <a href="{% url blog_entry thing.slug %}"><span class="link"></span></a>
-  	{% if thing.promo_image %}
+    
+    {% if thing.promo_image %}
 	<div class="image">
 		{% thumbnail thing.promo_image "250x180" crop="center" as im %}
 		<img src="{{ im.url }}"/>
 		{% endthumbnail %}
   	</div>
   	{% endif %}
+  	
+    
+    <h3><a alt="{{ thing.title }}" title="{{ thing.title }}" href="{% url blog_entry thing.slug %}">{{ thing.title }}</a></h3>
 
-  	<div class="text{% if not thing.promo_image %} long{% endif %}">
-  		
-  		<p>{{ thing.content|safe|removetags:"img div em .caption p ul li h3"|truncatewords:"100" }}</p>
-  		<p><span class="entry-meta">{% if thing.blogger %}By {{ thing.blogger }} | {% endif %}{{ thing.date_added|date:"d M Y" }}
-  		</p>
+    <p class="entry-meta">{% if thing.blogger %}By {{ thing.blogger }} | {% endif %}{{ thing.date_added|date:"d M Y" }}</p>
+    
+
+
+  	<div class="text{% if not thing.promo_image %} long{% endif %}">  		
+  		<p>{{ thing.content|safe|removetags:"img div em .caption p ul li h3 h4"|truncatewords:"100" }}</p>
 	</div> 
   </div>
+  
+  {% if forloop.counter == 3 %}
+  <div class="entry social">
+    <h3>Like us on Facebook for photos, videos and special deals on our teas</h3>
+    <div class="fb-like" data-href="https://www.facebook.com/minrivertea" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div> 
+  </div>
+  {% endif %}
+  
+  {% if forloop.counter == 6 %}
+  <div class="entry social">
+    <h3>Signup to our email newsletter for information and special deals in your inbox</h3>
+    {% include 'shop/snippets/footer_email_signup.html' %}
+  </div>
+  {% endif %}
+  
   {% endfor %}

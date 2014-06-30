@@ -55,6 +55,10 @@ s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
 {% block extracss %}
 <style type="text/css">
 
+h1 {
+  margin: 0;   
+}
+
 ul.rss {
   left: -150px;
   width: 75px;
@@ -71,17 +75,22 @@ ul.rss li#google {
 }
 
 #mtw #left {
-  width: 660px;   
+  width: 850px;
+  position: relative;
+  margin-left: -425px;
+  margin-right: 0;
+  left: 50%;
 }
 
-#left p {
-  font-size: 13px;
+#left p, #left ol, #left ul {
+  font-size: 15px;
   letter-spacing: 0;
   line-height: 1.8em;
 }
 
 #left p.introduction {
-  font-weight: normal;   
+  font-weight: normal;
+  font-size: 21px;   
 }
 
 #left p.meta, #left p.meta a {
@@ -123,113 +132,11 @@ div#entry-content img {
   border-radius: 10px;
 }
 
-div#right p.mail {
-	float: left;
-	height: auto;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border-bottom: 2px dotted #e1e1e1;
-    padding-bottom: 10px;
-}
-
-div#right p.mail.last {
-  border-bottom: none;	
-}
-
 div.next-previous {
     float: left;
     margin-bottom: 30px;
     padding: 0 0;
     width: 100%;
-}
-
-div.other-entry {
-  float: left;
-  margin: 0 0 10px 0;
-  font-size: 14px;
-  position: relative;
-}
-
-div.other-entry a {
-
-  font-weight: bold;	
-}
-
-div#mtw div#left div.other-entry p {
-  margin-bottom: 0;	
-}
-
-div.other-entry span.link {
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-}
-
-
-
-div.other-entry:hover {
-  background-color: #f1f1f1;	
-}
-
-div.other-entry:hover a {
-  text-decoration: underline;
-}
-
-div.other-entry:hover p {
-  color: #333;	
-}
-
-div#entry-content img.tweet {
-    border-radius: 0 0 0 0;
-    float: left;
-    margin-left: 10px;
-    position: relative;
-    top: 8px;
-}
-
-img.tweets {
-  margin: -70px 0 10px 0;	
-}
-
-div#right h3.touch {
-  margin: 5px 0 10px;
-  border-bottom: 2px dotted #e1e1e1;
-  padding-bottom: 5px;	
-}
-
-div#right ul.follow  {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  display: inline;	
-}
-
-div#right ul.follow li {
-  float: left;	
-  margin-right: 10px;
-}
-
-div#right li.twitter {
-  float: left;
-  width: 130px;	
-  margin-right: 0;
-}
-
-div.info.wide input {
-  float: left;
-  width: 350px;	
-}
-
-div.info.wide input.button {
-    font-size: 16px;
-    left: 10px;
-    padding: 7px 15px 5px;
-    position: relative;
-    top: -2px;
-    width: 140px;
 }
 
 p.quote {
@@ -239,6 +146,36 @@ p.quote {
     padding: 20px 20px 20px 30px;
 }
 
+.entry.social {
+  float: left;
+  width: 100%;   
+}
+
+.entry.social > div {
+  float: left;
+  width: 46%;
+  margin: 0 2% 0 0;
+  padding: 0 3% 0 0;
+  border-right: 1px dotted #e1e1e1;
+  color: #999;   
+}
+
+.entry.social > div:last-child {
+  border-right: none; 
+  padding: 0;
+  text-align: right;
+  float: right;
+  margin: 0;  
+}
+
+.entry.social > div:first-child {
+  float: left;
+  text-align: left;   
+}
+
+#mtw #left .entry.social div h3 {
+  margin: 0 0 10px 0;   
+}
 
 </style>
 {% endblock %}
@@ -248,10 +185,9 @@ p.quote {
 
 <div id="mtw">
   <div class="sp">		
-		
-	<div id="right">
-		{% include "blog/snippets/blog-right.html" %}
-	</div>
+	
+	<div class="hr"></div>
+	
 
 	<div id="left">
     	<h1>{{ entry.title }}</h1>
@@ -260,12 +196,37 @@ p.quote {
     	{{ entry.content|convert_links|safe }}
    
    
+        <div class="hr"></div>
+   
+        <div class="entry social">
+            <div>
+            <h3>Enjoyed that? "Like" our Facebook page to get more tea news, photos and videos</h3>
+            <div class="fb-like" data-href="https://www.facebook.com/minrivertea" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+            </div> 
+        </div>
+        
+        <div class="hr"></div>
+        
+        <div class="entry social">
+            <div>
+                PREV
+                <h3><a href="">{{ entry.get_prev.title }}</a></h3>
+            </div> 
+            
+            <div>
+                NEXT
+                <h3><a href="">{{ entry.get_next.title }}</a></h3>
+            </div>
+        </div>
+        
+        <div class="hr"></div>
+   
     
         <script src="https://apis.google.com/js/plusone.js">
         </script>
         <div class="g-comments"
             data-href="{{ site_url }}{{ entry.get_absolute_url }}"
-            data-width="650"
+            data-width="850"
             data-first_party_property="BLOGGER"
             data-view_type="FILTERED_POSTMOD">
         </div>	

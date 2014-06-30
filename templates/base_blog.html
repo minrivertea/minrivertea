@@ -1,0 +1,357 @@
+{% load nav_selected i18n %}
+
+<!DOCTYPE html>
+<head>
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	{% get_current_language as LANGUAGE_CODE %}
+	<meta content="{{ LANGUAGE_CODE }}" http-equiv="Content-Language" />
+	<meta content="{% block metadescription %}{% endblock %}" name="description" />
+	
+	<meta name="msvalidate.01" content="D72BD43A6F271B73C8F653A920B8C23C" />
+	{% if site_url == 'http://www.minrivertea.de' %}
+	   <meta name="google-site-verification" content="gGvtp94ao-hoVvFl84NwBGMe2qvyNDZUHG2gH0Zo8go" />
+    {% else %}
+    	<meta name="google-site-verification" content="obu9NY_4FNbUQMNlrvWOk59ABZ9gROs37zTql__Lglo" />
+    {% endif %}
+	<META name="y_key" content="cfd80b8d388be931" />
+    <meta name="p:domain_verify" content="36c2803570cf7e09f6e5cdb1ad355c49" /> <!-- PINTEREST -->
+    <meta property="fb:admins" content="598410589" /> <!-- FACEBOOK INSIGHTS-->
+	
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="generator" content="Django - http://www.djangoproject.com" />
+	<meta name="DC.format" content="text/html" />
+	<meta name="DC.type" content="Django Site" />
+	<meta name="robots" content="ALL" />
+	
+	<title>{% block pagetitle %}{% endblock %} | {{ site_name }}</title>
+	<link rel="shortcut icon" href="{{ static_url }}images/favicon.ico" type="image/x-icon">
+	{% block canonical %}{% endblock %}
+	{% block extra-head %}{% endblock %}
+
+	<link rel="stylesheet" href="{{ static_url }}css/styles.css" />
+	    
+	{% if ga_is_on %}
+		<script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="{{ static_url }}js/jquery.tools.min.js"></script>
+	{% else %}
+		<script src="{{ static_url }}js/jquery-1.8.2.min.js"></script>
+		<script src="{{ static_url }}js/jquery.tools.min.js"></script>
+	{% endif %}
+	   
+	{% block extracss %}{% endblock %}
+	
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+
+    {% if request.LANGUAGE_CODE == 'de' %}
+    <link rel="stylesheet" href="{{ static_url }}css/germany.css"/>
+    {% endif %}
+	
+	<!--[if lte IE 8]>
+		<link rel="stylesheet" media="screen" type="text/css" href="{{ static_url }}css/ie.css" />
+	<![endif]-->
+
+	
+    {% block ga %}
+    {% if ga_is_on %}
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '{{ analytics_id }}']);
+  _gaq.push(['_setDomainName', 'www.minrivertea.com']); 
+  _gaq.push(['_trackPageview']);
+  
+  {% if "order/complete/" in request.path %}
+  {% if order %}
+
+  _gaq.push(['_addTrans',
+    '{{ order.invoice_id }}',           // order ID - required
+    'Min River Tea',  // affiliation or store name
+    '{{ order.get_amount }}',          // total - required
+    '',           // tax
+    '',              // shipping
+    '',       // city
+    '',     // state or province
+    ''             // country
+  ]);
+
+   {% for item in order.items.all %}
+  _gaq.push(['_addItem',
+    '{{ order.invoice_id }}',           // order ID - required
+    '{{ item.item.parent_product.id }}',           // SKU/code - required
+    '{{ item.item.parent_product.name }}',        // product name
+    '{{ item.item.weight }}g',   // category or variation
+    '{{ item.item.price }}',          // unit price - required
+    '1'               // quantity - required
+  ]);
+  {% endfor %}
+  
+  _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
+  
+  {% endif %}
+  {% endif %}
+
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+{% if "order/complete" in request.path %}
+{% if order %}
+<!-- Google Code for Bought Something Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 970474503;
+var google_conversion_language = "en";
+var google_conversion_format = "2";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "mTM9CJHq3AIQh4jhzgM";
+var google_conversion_value = 0;
+if (15.00) {
+  google_conversion_value = 15.00;
+}
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/970474503/?value=15.00&amp;label=mTM9CJHq3AIQh4jhzgM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+{% endif %}
+{% endif %}
+
+
+
+    {% endif %}
+        
+    {% endblock %}
+</head>
+
+
+
+<body>	
+
+{% if not ga_is_on %}
+<!-- FACEBOOK LIKE BUTTON JAVASCRIPT -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- END FACEBOOK LIKE BUTTON JAVASCRIPT -->
+{% endif %}
+
+<div id="message">
+    <div class="sp">
+        {% url page _('shipping') as shipping_url %}
+        <p>{% blocktrans %}Please note that all orders made in June 2014 will be shipped directly from China - <a href="{{ shipping_url }}">read full information here</a>{% endblocktrans %}</p>
+    </div>
+</div>
+
+
+<div id="header" class="blog">
+
+    <div class="sp">
+        
+        <div id="logo" class="blog">
+            <a title="{% trans 'Chinese tea delivered to your door - Min River Tea' %}" alt="{% trans 'the Min River Tea logo - Chinese tea merchant '%}" href="{% url blog_home %}"></a>
+	   	</div>
+	    
+	    <p class="introduction">{% trans 'News, events and information from the world of Chinese tea' %} - <a href="{% url finder _('teas') %}">{% trans 'View our tea store' %}</a> - <a href="{% url page _('about') %}">{% trans 'About us' %}</a></p>
+               	
+    </div>
+</div>
+
+
+
+<!-- end header -->
+
+    <!-- EXCLUDED
+    {% if landing_page %}
+        {% include 'affiliate/campaign.html' %}
+    {% endif %}
+    -->
+
+    
+	{% block content %}{% endblock %}
+	
+	{% block footer %}
+		{% include "shop/snippets/footer.html" %} 
+	{% endblock %}
+
+
+</div>
+
+	{% block extrajs %}{% endblock %}
+	<script type="text/javascript">
+
+        function makeOverlay(HTML, width) {
+            var overlay = jQuery('<div id="overlay" class="overlay" style="display:none"> </div>');
+            overlay.appendTo(document.body);
+            overlay.fadeIn(300);
+            var overlayInner = jQuery('<div id="overlay-inner" class="overlay"></div>');
+            if (width) {
+               overlayInner.css({'width': width,}); 
+            }
+            
+            
+            
+            
+            overlayInner.appendTo(document.body);
+            overlayInner.html(jQuery(HTML));
+            overlayInner.append('<a href="#" class="close" style="color:#999;font-size:22px; font-weight:100;text-decoration:none;position:absolute; top: 7px; right: 10px;">x</a>');
+            overlay.bind('click', removeOverlay);
+            
+            $('.close').bind('click', removeOverlay);
+        }
+               
+        function removeOverlay() {
+            $('.overlay, #overlay-inner').fadeOut(100);
+            $('.overlay').remove();
+        }  
+        
+        /// SUBMITS OUT-OF-STOCK NOTIFICATION FORM
+        function bindNotifyFormSubmit() {
+  
+        $('#notify_form').submit(function() {
+            $.ajax({
+              url: '{% url notify_out_of_stock %}',
+              type: 'POST',
+              data: $('#notify_form').serialize(),
+              dataType: 'html',
+              success: function(data) {
+                 
+                 $('#overlay-inner .message').html('<h4>{% trans "Thanks, we&#39;ll notify you as soon as we have this item back in stock." %} <a href="#" onclick="removeOverlay();">{% trans "Continue browsing" %}</a></h4>');
+                    
+              }
+              
+            }); 
+            
+            return false;
+        });  
+      }
+
+     
+
+
+		$(document).ready( function() {
+
+			// clear input on focus
+			var clearMePrevious = '';
+			$('.clearMeFocus').each( function() {
+				if ($(this).val() == '') {
+				    var title = $(this).attr('title');
+				    $(this).val(title);
+				}
+			});
+			
+			$('.clearMeFocus').focus(function()
+			{
+				if($(this).val()==$(this).attr('title'))
+				{
+					clearMePrevious = $(this).val();
+					$(this).val('');
+					$(this).css('color', '#333');
+				}
+			});
+			
+			// if field is empty afterward, add text again
+			$('.clearMeFocus').blur(function()
+			{
+				if($(this).val()=='')
+				{
+					$(this).val(clearMePrevious);
+					$(this).css('color', '#999');
+				}
+			});
+		
+
+
+            /// CURRENCY ROLLOVER
+            $('#learn li.currency a.one').prependTo('#learn li.currency');
+            
+            $('#learn li.currency').hover( function() {
+               $(this).animate({height: '78px',}, 150);
+    		}, function() {
+    		    $(this).animate({height: '22px',}, 100); 
+            });
+    		 
+    		
+    		/// MANAGES THE ADD-TO-CART BUTTONS 
+    		$('a.addtocart').click( function() {
+              var thisButton = $(this);
+              
+              makeOverlay('<img src="{{ static_url }}images/loading.gif" id="loading" />');
+                         
+              $.ajax({
+              	url: thisButton.attr('href'),
+            	type: "GET",
+               	dataType: 'json',
+               	success: function(data) {
+               		
+               		/// CREATE AN OVERLAY CONFIRMING THE BASKET WAS ADDED
+               		var html = '';
+               		
+               		/// TRY TO FIND AN IMAGE
+               		if ( thisButton.parents(".info.tea").find('.imagelink img').length ) {
+               		   var productImgURL = thisButton.parents(".info.tea").find('.imagelink img').attr('src');
+               		} else {
+               		   var productImgURL = $('#image_wrap img').attr('src');
+               		}
+               		
+               		
+               		var html = '<div class="message">';
+               		if (productImgURL) { 
+                   		html += '<img src="'+ productImgURL+'" />';
+               		}
+               		html += data.message;
+               		html += '<div class="buttons">';
+               		html += '<a class="button green large" href="{% url basket %}">{% trans "Checkout now" %}</a><p>or <a class="close" onclick="removeOverlay();" href="#">continue browsing</a></p></div>';
+               		$('#overlay-inner').append(html);
+               		$('#loading').remove();
+               		
+               		
+               		/// INCREMENT VALUES IN THE HEADER BASKET
+                    if ($('#userbasket').hasClass('selected')) {} else {
+                         $('#userbasket').addClass('selected'); 
+                         $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+                    }
+                    $('#quantity .p').text(parseFloat(data.basket_amount).toFixed(2));
+                    $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+               		
+               	},
+              });
+              return false;
+            });
+		 
+		  /// HANDLES OUT-OF-STOCK NOTIFICATIONS
+		  $('a.button.notify').click( function() {
+             var name = $(this).attr('data-name');
+             var productID = $(this).attr('data-id');
+          
+             var html = '<div class="message"><h2>{% trans "Submit your email address and we&#39;ll notify you when '+name+' is in stock again" %}</h2><p class="small">{% trans "We will only email you once and then delete your address from our database - we hate spam as much as you do!" %}</p><form id="notify_form" action="{% url notify_out_of_stock %}" method="post"><input type="email" name="email" id="id_email" placeholder="{% trans "Your email address" %}" /><input type="hidden" name="product" id="id_product" value="'+productID+'" /><input type="submit" class="button green" value="{% trans "Submit" %}" /></form></div>'
+             
+             makeOverlay(html, '600');
+             
+             bindNotifyFormSubmit();
+             
+             return false; 
+          });
+					
+		});
+		
+		
+	</script>
+
+</body>
+
+</html>

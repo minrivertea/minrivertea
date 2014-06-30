@@ -32,7 +32,16 @@ def index(request):
 def blog_entry(request, slug):
     # TODO - THIS CAUSES 404 IF LANGUAGE IS SET TO EN AND SOMEONE REQUESTS A DE SLUG
     entry = get_object_or_404(BlogEntry, slug=slug)
-    other_entries = BlogEntry.objects.filter(title__isnull=False).exclude(id=entry.id, title__exact="None").order_by('?')[:2]
+    
+    next
+    
+    other_entries = BlogEntry.objects.filter(
+            title__isnull=False
+        ).exclude(
+            id=entry.id, 
+            title__exact="None"
+        ).order_by('?')[:2]
+    
     teas = _get_products(request, random=True)[:2]
     return _render(request, "blog/entry.html", locals())
 

@@ -73,6 +73,9 @@ def common(request):
     if '/admin-stuff/' in request.path:
         base_template = settings.BASE_TEMPLATE_ADMIN
     
+    if '/blog/' in request.path:
+        base_template = settings.BASE_TEMPLATE_BLOG
+    
     context['base_template'] = base_template
 
 
