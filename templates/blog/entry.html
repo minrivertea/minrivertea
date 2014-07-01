@@ -86,6 +86,7 @@ ul.rss li#google {
   font-size: 15px;
   letter-spacing: 0;
   line-height: 1.8em;
+  color: #444;
 }
 
 #left p.introduction {
@@ -173,8 +174,29 @@ p.quote {
   text-align: left;   
 }
 
+.entry.social input[type="email"] {
+  width: 70%;   
+}
+
+.entry.social input[type="submit"] {
+  width: 20%;
+  font-size: 13px;   
+}
+
 #mtw #left .entry.social div h3 {
   margin: 0 0 10px 0;   
+}
+
+h4 {
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    margin: 30px 0 5px;
+    padding-bottom: 5px;
+}
+
+#left p.small {
+  font-size: 0.7em;   
 }
 
 </style>
@@ -200,9 +222,15 @@ p.quote {
    
         <div class="entry social">
             <div>
-            <h3>Enjoyed that? "Like" our Facebook page to get more tea news, photos and videos</h3>
+            <h3>Enjoyed that? "Like" our Facebook page to get regular tea news, photos and videos</h3>
             <div class="fb-like" data-href="https://www.facebook.com/minrivertea" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
             </div> 
+            
+            <div>  
+                <h3>Signup for email newsletters</h3>
+                {% include 'shop/snippets/footer_email_signup.html' %}
+                <p class="small">You'll receive monthly emails with news, tea updates and special deals to your inbox. You can easily unsubscribe at any time.</p>
+            </div>
         </div>
         
         <div class="hr"></div>
@@ -219,7 +247,6 @@ p.quote {
             </div>
         </div>
         
-        <div class="hr"></div>
    
     
         <script src="https://apis.google.com/js/plusone.js">
