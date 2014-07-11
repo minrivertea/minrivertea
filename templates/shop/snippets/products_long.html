@@ -3,9 +3,17 @@
 {% for t in teas %}
     <div class="info tea half {% cycle 'left' 'right' %}" >
     
+        {% if t.tag_text %}
+        <div class="tag" style="background: {{  t.tag_color }};">
+            <div class="tagtext">
+                {{ t.tag_text }}
+            </div>
+        </div>
+        {% endif %}
             
         <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
         {% if months %}
+            
             <a class="button green small addtocart" id="{{ t.price.id }}" href="{% url add_to_basket_monthly t.single_price.id months %}">{% trans 'Add to TeaBox' %}</a>
         {% else %}
         
