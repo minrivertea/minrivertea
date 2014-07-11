@@ -83,6 +83,9 @@ def index(request):
             special.price = special.get_lowest_price(curr)
         else:
             special = None
+    
+    deal1 = get_object_or_404(Product, id=23)
+    deal2 = get_object_or_404(Product, id=16)
      
     return _render(request, "shop/home.html", locals())
 

@@ -110,9 +110,7 @@ class Product(models.Model):
         url = reverse('product_by_id', args=[self.id])
         return url
     
-    def get_lowest_price(self, currency, exclude_sales=False, in_stock=True):
-        
-        
+    def get_lowest_price(self, currency, exclude_sales=False, in_stock=True):        
         
         try:
             if exclude_sales == True:

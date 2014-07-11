@@ -10,6 +10,10 @@
 <script type="text/javascript">
 
 
+$("#images img[title]").tooltip({
+  offset: [-8, 2],   
+});
+
 
 </script>
 {% endblock %}
@@ -21,6 +25,31 @@
   float: left;
   width: 100%;
   position: relative;
+}
+
+#sale h4 {
+  float: left;
+  width: auto;   
+}
+
+#sale #images {
+    float: left;
+    margin: -15px 20px;
+    position: relative;
+    z-index: 1000;
+}
+
+#sale img {
+  border: 1px dashed #e1e1e1;   
+}
+
+#sale span {
+  position: relative;
+  top: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0 10px;
+  float: left;
 }
 
 ul#nav li a.selected:before {
@@ -84,7 +113,7 @@ h2.banner {
   width: 100%;
   position: relative;
   background: url('{{ static_url }}images/homepage/beginners-pack-banner-1.jpg') no-repeat top left;
-  height: 330px;
+  height: 300px;
   transition: opacity .25s ease-in-out;
    -moz-transition: opacity .25s ease-in-out;
    -webkit-transition: opacity .25s ease-in-out;
@@ -99,18 +128,29 @@ h2.banner {
   float: left;
   position: absolute;
   left: 20px;
-  top: 230px;
+  top: 205px;
   z-index: 1000;
 }
 
 #special .details {
     float: left;
     width: 40%;
-    top: 60px;
+    top: 40px;
     left: 20px;
     padding: 0;
     position: absolute;
     text-align: left;
+}
+
+#sale {
+ 
+}
+
+#sale .box {
+  float: left;
+  width: 70px;
+  font-size: 11px;
+  text-align: center;   
 }
 
 {% get_current_language as LANGUAGE_CODE %}
@@ -435,22 +475,42 @@ ul.rss {
 	    <a href="{% url add_to_basket special.price.id %}" class="button green small addtocart">Add to basket</a>
 	    <a href="{{ special.get_absolute_url }}" class="button grey small">View details</a>
 	    </div>
-	    
+	    	    
     </div>    
     
-    <div class="hr"></div>
     <!-- END OF SPECIAL -->
     {% endif %}
     
-    
-    <!-- BOILERPLATE SALE BANNER FOR HOMEPAGE -->
-    <!--
-    <div id="sale">
-    <h2 class=""><span class="red">{% trans 'Big stock clearance!' %}</span> {% trans 'Get up to 50% off on selected teas' %} - <a href="{% url sale %}">{% trans 'see all sale items here' %} &raquo;</a></h2>
-    </div>
     <div class="hr"></div>
-    -->
     
+    <div id="sale">
+          
+          <h4>Buy these together and get free shipping! Limited offer!</h3>
+            
+          <div id="images">
+          {% thumbnail special.image "70x55" crop="center" as im %}
+              <div class="box">
+              <a href="{{ special.get_absolute_url }}"><img title="{{ special.name }}" src="{{ im.url }}"/></a>
+              </div>
+          {% endthumbnail %}
+          <span>+</span>
+          {% thumbnail deal1.image "70x55" crop="center" as im %}
+              <div class="box">
+              <a href="{{ deal1.get_absolute_url }}"><img title="{{ deal1.name }}" src="{{ im.url }}"/></a>
+              </div>
+          {% endthumbnail %}
+          <span>or</span> 
+          {% thumbnail deal2.image "70x55" crop="center" as im %}
+              <div class="box">
+              <a href="{{ deal2.get_absolute_url }}"><img title="{{ deal2.name }}" src="{{ im.url }}"/></a>
+              </div>
+          {% endthumbnail %}
+          <span>= Free shipping!</span>
+          </div>
+          
+    </div>
+    
+    <div class="hr"></div>
     
 
 	<div id="teas">
