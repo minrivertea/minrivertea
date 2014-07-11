@@ -287,7 +287,9 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
     
     
         
+    
     # APPLY THE POSTAGE COSTS
+    postage_discount = False
     if total_price > 0:
         currency = _get_currency(request)
         
