@@ -1464,9 +1464,9 @@ a.atb.large:hover span {
   background: #1e70cb;
   display: block;
   position: absolute;
-  top: 35px;
-  left: -115px;
-  padding: 6px 6px 8px;
+  top: 45px;
+  left: -105px;
+  padding: 1px 6px 8px;
 }
 
 .tag.pink {
