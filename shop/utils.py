@@ -265,7 +265,7 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
         if item.item.parent_product.pk == 4: 
             free_shipping_combo_1 += 1
         
-        if item.item.parent_product.pk == 23 or item.item.parent_product.pk = 16:
+        if item.item.parent_product.pk == 23 or item.item.parent_product.pk == 16:
             free_shipping_combo_2 += 1
         
         price = float(item.get_price())
