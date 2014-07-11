@@ -485,7 +485,7 @@ ul.rss {
     
     <div id="sale">
           
-          <h4>Buy these together and get free shipping! Limited offer!</h3>
+          <h4>Buy these together and your shipping is free:</h4>
             
           <div id="images">
           {% thumbnail special.image "70x55" crop="center" as im %}
@@ -505,7 +505,7 @@ ul.rss {
               <a href="{{ deal2.get_absolute_url }}"><img title="{{ deal2.name }}" src="{{ im.url }}"/></a>
               </div>
           {% endthumbnail %}
-          <span>= Free shipping!</span>
+          <span>= save {{ currency.symbol }}{{ currency.postage_cost }}!</span>
           </div>
           
     </div>
