@@ -4,7 +4,7 @@
     <div class="info tea half {% cycle 'left' 'right' %}" >
     
         {% if t.tag_text %}
-        <div class="tag" style="background: {{  t.tag_color }};">
+        <div class="tag" {% if t.tag_color %}style="background: {{  t.tag_color }};"{% endif %}>
             <div class="tagtext">
                 {{ t.tag_text }}
             </div>
