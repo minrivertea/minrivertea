@@ -20,7 +20,7 @@
     <tr>
         <td>
             {% if postage_discount %}
-                {% blocktrans with order.get_currency.symbol as symbol and order.get_currency.postage_discount_threshold as ptd %}There is no postage charge, because your order is over {{ symbol }}{{ ptd }}{% endblocktrans %}
+                {% blocktrans %}There is no shipping charge with this order. {% endblocktrans %}
             {% else %}
                 <strong>{% trans 'Postage' %}</strong>
             {% endif %}

@@ -1875,11 +1875,11 @@ div.like div.text {
   font-weight: 900;	
 }
 
-span.red {
+span.red, .red {
   color: #D30000;	
 }
 
-span.strikethrough {
+span.strikethrough, .strikethrough {
   text-decoration: line-through;	
 }
 
@@ -2228,7 +2228,6 @@ button.next:hover {
   float: none;
   padding-right: 30px;
   letter-spacing: -0.5px;
-  color: #333;
   font-size: 18px;
 }
 

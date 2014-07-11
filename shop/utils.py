@@ -151,6 +151,8 @@ def _check_offers(items):
     with altered prices if there are offers running.
     """
     
+    
+    
     return items
         
     # VARIABLES FOR THE DEALS
@@ -244,8 +246,8 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
     # NO OFFERS CURRENTLY
     has_offers = False
     if request.LANGUAGE_CODE == 'en':
+        
         _check_offers(single_items)
-    
     
     
     # WORK OUT THE TOTAL PRICE
@@ -254,7 +256,18 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
     monthly = False
     basket_quantity = 0
     has_offers = False
+    
+    free_shipping_combo_1 = 0
+    free_shipping_combo_2 = 0
+    
     for item in chain(single_items, monthly_items):
+        
+        if item.item.parent_product.pk == 4: 
+            free_shipping_combo_1 += 1
+        
+        if item.item.parent_product.pk == 23:
+            free_shipping_combo_2 += 1
+        
         price = float(item.get_price())
         total_price += float(price)
         try:
@@ -272,13 +285,24 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
         
         basket_quantity += item.quantity
     
+    
+        
     # APPLY THE POSTAGE COSTS
     if total_price > 0:
         currency = _get_currency(request)
+        
+        # DO WE HAVE A QUALIFYING FREE SHIPPING COMBO:
+        if free_shipping_combo_1 > 0 and free_shipping_combo_2 > 0:
+            postage_discount = True
+        
         if total_price > currency.postage_discount_threshold:
             postage_discount = True
-        else:
+        
+        if not postage_discount:            
             total_price += currency.postage_cost
+    
+    
+    
     
     # WORK OUT ANY DISCOUNTS
     if has_offers == False:

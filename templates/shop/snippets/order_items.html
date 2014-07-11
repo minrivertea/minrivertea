@@ -34,7 +34,7 @@
 	        
 	    	{% if basket.postage_discount %}
 	    	  <tr>
-	    	    <td colspan="2"><span class="small"><em>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}There is no postage charge, because your basket.order is over {{ symbol }}{{ ptd }}{% endblocktrans %}</em></span></td>
+	    	    <td colspan="2"><span class="small"><strong>{% trans 'Free shipping!' %}</strong> {% blocktrans %}There is no shipping charge with this order.{% endblocktrans %}</span></td>
 	    	  </tr>
 	    	  {% else %}
 	    	  <tr>

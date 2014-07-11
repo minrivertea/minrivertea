@@ -8,7 +8,7 @@ This is your order confirmation. Keep it for your records and just in case you n
     {{ item.quantity }} x {{ item.item.parent_product }} {% if item.weight %}({{ item.weight }}{{ weight_unit }}){% endif %}               
     {{ item.item.price|floatformat:"2" }}
 {% endfor %}
-    {% if postage_discount %}{% blocktrans with order.get_currency.symbol as symbol and order.get_currency.postage_discount_threshold as ptd %}There is no postage charge, because your order is over {{ symbol }}{{ ptd }}{% endblocktrans %}{% else %}{% trans 'Postage' %}
+    {% if postage_discount %}{% blocktrans %}There is no shipping charge{% endblocktrans %}{% else %}{% trans 'Postage' %}
     {{ order.get_currency.symbol }}{{ order.get_currency.postage_cost|floatformat:"2" }}
     {% endif %}
     {% if order.discount %}{% trans 'Discount' %}
