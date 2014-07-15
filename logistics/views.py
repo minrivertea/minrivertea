@@ -11,7 +11,7 @@ import uuid
 from logistics.models import CustomerPackage, WarehouseItem
 from logistics.forms import UpdateCustomerPackageForm, AddStocksForm
 from shop.models import Currency, UniqueProduct, Order
-from shop.utils import _check_offers
+from shop.utils import _apply_deals
 
 
 def add_months(sourcedate,months):
@@ -34,7 +34,7 @@ def _create_customer_package(order):
     
     
     # RUN THE ITEMS THROUGH THE OFFERS FILTER, JUST TO CHECK
-    items = _check_offers(order.items.filter(monthly_order=False))
+    items = _apply_deals(order.items.filter(monthly_order=False))
     
     
     # GO THROUGH EACH SINGLE ITEM, GET/CREATE A WAREHOUSE ITEM, AND ADD IT TO A PACKAGE

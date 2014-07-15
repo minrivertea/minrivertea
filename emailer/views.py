@@ -17,7 +17,7 @@ import uuid
 import re
 
 from shop.models import *
-from shop.utils import _render, weight_converter, _check_offers
+from shop.utils import _render, weight_converter, _apply_deals
 from emailer.models import Subscriber, Newsletter
 from emailer.forms import EmailSignupForm
 from shop.forms import CreateSendEmailForm
@@ -246,7 +246,7 @@ def _payment_success(order):
             if item.months >= 6:
                 monthly = True        
     
-    _check_offers(items)
+    _apply_deals(items)
     
     # APPLY THE POSTAGE COSTS
     currency = order.get_currency()

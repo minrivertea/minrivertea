@@ -61,9 +61,13 @@ class DiscountAdmin(admin.ModelAdmin):
 class UniqueProductAdmin(admin.ModelAdmin):
     list_display = ('parent_product', 'weight', 'price', 'sale_price', 'is_active', 'currency')
     list_filter = ('is_active', 'currency')
-    
+
+
+class DealAdmin(admin.ModelAdmin):
+    filter_horizontal = ('product_group_1', 'product_group_2', 'product_group_3' )
 
 admin.site.register(Currency)    
+admin.site.register(Deal, DealAdmin)    
 admin.site.register(NotifyOutOfStock)    
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Address)

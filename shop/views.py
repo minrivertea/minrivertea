@@ -85,7 +85,8 @@ def index(request):
             special = None
     
     deal1 = get_object_or_404(Product, id=23)
-    deal2 = get_object_or_404(Product, id=16)
+    deal1.price = deal1.get_lowest_price(curr)
+    #deal2 = get_object_or_404(Product, id=16)
      
     return _render(request, "shop/home.html", locals())
 
@@ -198,6 +199,9 @@ def tea_view(request, slug):
             parent_product=tea, 
             currency=_get_currency(request)
             ).order_by('weight')
+    
+    # IN CASE OF DEALS ON THE PAGE
+    multiple_form = AddMultipleItemsToBasket()
 
     return _render(request, "shop/tea_view.html", locals())
 
@@ -311,7 +315,7 @@ def delete_notify_out_of_stock(request, id):
     url = reverse('page_by_id', args=['79'])
     return HttpResponseRedirect(url)
    
-# function for adding stuff to your basket
+# FUNCTION FOR ADDING STUFF TO BASKET
 def add_to_basket(request, id):
     uproduct = get_object_or_404(UniqueProduct, pk=id)
     basket = _get_basket(request)
@@ -323,6 +327,15 @@ def add_to_basket(request, id):
         item = BasketItem.objects.create(item=uproduct, quantity=1, basket=basket)
     item.save()
 
+    # UPDATE THE USER'S SESSION VARIABLES
+    try:
+        request.session['BASKET_QUANTITY'] += 1
+        request.session['BASKET_AMOUNT'] += item.item.get_price()
+    except:
+        request.session['BASKET_QUANTITY'] = 0
+        request.session['BASKET_AMOUNT'] += item.item.get_price()
+   
+         
     if request.is_ajax():
 
         message = render_to_string('shop/snippets/added_to_basket.html', {
@@ -343,6 +356,52 @@ def add_to_basket(request, id):
     request.session['ADDED'] = item.id
     return HttpResponseRedirect(url)
 
+
+def add_to_basket_multiple(request):
+    
+    if request.method == 'POST':
+        
+        form = AddMultipleItemsToBasket(request.POST)
+        if form.is_valid():
+            
+            
+            for i in form.cleaned_data['items']:
+                uproduct = i
+                basket = _get_basket(request)
+                 
+                try:
+                    item = get_object_or_404(BasketItem, basket=basket, item=uproduct, monthly_order=False)
+                    item.quantity += 1
+                except:
+                    item = BasketItem.objects.create(item=uproduct, quantity=1, basket=basket)
+                item.save()
+            
+                # UPDATE THE USER'S SESSION VARIABLES
+                try:
+                    request.session['BASKET_QUANTITY'] += 1
+                    request.session['BASKET_AMOUNT'] += item.item.get_price()
+                except:
+                    request.session['BASKET_QUANTITY'] = 0
+                    request.session['BASKET_AMOUNT'] += item.item.get_price()
+                
+            if request.is_ajax():
+                
+                message = render_to_string('shop/snippets/added_to_basket.html', {
+                    'item':item.item.parent_product, 
+                    'weight': item.item.weight, 
+                    'weight_unit': RequestContext(request)['weight_unit'],
+                    'url': reverse('basket'),
+                })
+                
+                basket_amount = '%.2f' % float(_get_basket_value(request)['total_price'])
+                basket_quantity = '%.2f' % float(_get_basket_value(request)['basket_quantity'])
+                data = {'message': message, 'basket_quantity': basket_quantity, 'basket_amount': basket_amount}
+                json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
+                return HttpResponse(json)
+            
+            
+    url = request.META.get('HTTP_REFERER','/')             
+    return HttpResponseRedirect(url )
 
 def add_to_basket_monthly(request, productID, months):
     
@@ -389,7 +448,15 @@ def add_to_basket_monthly(request, productID, months):
 # function for removing stuff from your basket
 def remove_from_basket(request, id):
     basket_item = get_object_or_404(BasketItem, pk=id)
+    
+    try:
+        request.session['BASKET_QUANTITY'] -= basket_item.quantity
+        request.session['BASKET_AMOUNT'] -= (basket_item.quantity * basket_item.item.get_price())
+    except:
+        pass
+    
     basket_item.delete()
+    
     return HttpResponseRedirect('/basket/')
 
 def reduce_quantity_monthly(request, id):
@@ -441,6 +508,13 @@ def monthly_order_save(request):
 
 def reduce_quantity(request, basket_item):        
     basket_item = get_object_or_404(BasketItem, pk=basket_item)
+
+    try:
+        request.session['BASKET_QUANTITY'] -= 1
+        request.session['BASKET_AMOUNT'] -= basket_item.item.get_price()
+    except:
+        pass
+
     if basket_item.quantity > 1:
         basket_item.quantity -= 1
         basket_item.save()
@@ -454,6 +528,13 @@ def increase_quantity(request, basket_item):
     basket_item = get_object_or_404(BasketItem, pk=basket_item)
     basket_item.quantity += 1
     basket_item.save()
+    
+    try:
+        request.session['BASKET_QUANTITY'] += 1
+        request.session['BASKET_AMOUNT'] += basket_item.item.get_price()
+    except:
+        pass
+        
     return HttpResponseRedirect('/basket/') # Redirect after POST
 
 
@@ -485,9 +566,14 @@ def basket(request):
 
 
 def remove_discount(request):
-    basket = _get_basket_value(request, discount=None)
-    return _render(request, "shop/basket.html", locals())
-
+    request.session['DISCOUNT_ID'] = None
+    if 'ORDER_ID' in request.session:
+        order = get_object_or_404(Order, pk=request.session['ORDER_ID'])
+        order.discount = None
+        order.save()
+        
+    return HttpResponseRedirect(reverse('basket') )
+    
 
 @secure_required
 def order_step_one(request, basket=None):

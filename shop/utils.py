@@ -22,6 +22,7 @@ import urllib2
 import xml.etree.ElementTree as etree
 from django.utils import simplejson
 from itertools import chain
+from decimal import Decimal
 
 
 from PIL import Image
@@ -145,181 +146,239 @@ def _empty_basket(request):
     return None
 
 
-def _check_offers(items):
+def _apply_deals(items, free_shipping=False, deal_discount=False):
     """ 
     Accepts a list of BasketItems, and returns a list of items
     with altered prices if there are offers running.
     """
-    
-    
-    
-    return items
         
-    # VARIABLES FOR THE DEALS
-    #tea_count = 0
-    #teaware_count = 0
+    # GET AN ITEM COUNT FIRST:
+    deals = Deal.objects.filter(is_active=True)
     
-    # FIRST WE COUNT EACH ITEM    
-    #for x in items:
-    #    if x.item.parent_product.get_root_category().slug == _('teas'):
-    #        tea_count += x.quantity
-    #    
-    #    if x.item.parent_product.get_root_category().slug == _('teaware'):
-    #        teaware_count += x.quantity
-    
-    
-    # NOW WE CHECK EACH OFFER:
-    
-    #offer1 = 0 # TEA PLUS TEAWARE DISCOUNT
-    #while tea_count > 0 and teaware_count > 0:
-    #    offer1 += 1
-    #    tea_count -= 1
-    #    teaware_count -= 1
+    if deals:
+        for d in deals:
             
-    
-    #offer2 = 0 # THREE FOR TWO DISCOUNT
-    #while tea_count > 2:
-    #    offer2 += 1
-    #    tea_count -= 3
-    #    
-        
-    # NOW ACTUALLY APPLY THE OFFERS
-    #for x in items:
-    #    if x.item.parent_product.get_root_category().slug == _('teas'):
-    #        
-    #        # HANDLES TEA + TEAWARE
-    #        if offer1 > 0:
-    #            x.deal = 'tnt'
-    #            x.deal_target = True
-    #            pr = x.item.price
-    #            q = x.quantity                        
-    #            x.item.original_price = x.item.get_price()
-    #            x.item.price = (float(pr)/q) * (0.85+(q-1))
-    #            offer1 -= 1
-    #            has_offers = True
-    #            continue
+            new_item_list = []
+                        
+            if d.expiry_date:
+                if d.expiry_date <= datetime.now():
+                    continue
             
-            # HANDLES THREE FOR TWO
-    #        if offer2 > 0:
-    #            x.deal = '342'                       
-    #            x.deal_target = True
-    #            x.item.original_price = x.item.get_price()
-    #            if x.quantity == 1:
-    #                x.item.price = 0
-    #            else:
-    #                x.item.price = (x.item.price / x.quantity) * (x.quantity-1)                        
-    #            offer2 -= 1
-    #            has_offers = True
-    #            continue
+            group_1 = False
+            group_2 = False
+            group_3 = False
+            
+            matched_items = []
+            matched_items_count = 0
+            leftovers = []
+            limit = d.num_products()
+                        
+            # CHECK IF THE ITEMS ARE IN THE DEAL GROUPS
+            for i in items:
+                # BLANKET CHECK HERE, JUST TO QUICKLY DEAL WITH ITEMS:
+                if d not in i.item.pg_1.all() and d not in i.item.pg_2.all() and d not in i.item.pg_3.all():
+                    new_item_list.append(i)
+                    continue
+                                                              
+                # IF ITS ON SALE, DON'T DO THIS LOGIC
+                if i.item.sale_price:
+                    new_item_list.append(i)
+                    continue
+                                        
+                quantity = i.quantity
+                added = False
+
+                if d in i.item.pg_1.all() and not group_1:
+                    
+                    # group one is matched!
+                    group_1 = True
+                    if not added:
+                        matched_items.append(i)
+                        added = True
+                            
+                    # increase the matched items count
+                    matched_items_count += 1
+                    
+                    # reduce this item's quantity by 1 and continue
+                    quantity -= 1
                 
-    # return items
+                    # if this item's quantity is already zero, then move to the next item
+                    if quantity == 0 and matched_items_count < limit:
+                        
+                        continue # move to next item
+                                                            
+                if d in i.item.pg_2.all() and not group_2:
+                    group_2 = True
+                    if not added:
+                        matched_items.append(i)
+                        added = True
+                    quantity -= 1
+                    matched_items_count += 1
+                    if quantity == 0 and matched_items_count < limit:
+                        continue
+                
+                if d in i.item.pg_3.all() and not group_3:
+                    group_3 = True
+                    if not added:
+                        matched_items.append(i)
+                        added = True
+                    quantity -= 1
+                    matched_items_count += 1
+                    if matched_items_count < limit:
+                        continue
+                                  
+                                  
+                # RUBICON! IF WE REACH PAST HERE, WE ALWAYS HAVE A DEAL FULFILLED
+                    
+                # reset the variables now
+                matched_items_count = 0
+                group_1 = False
+                group_2 = False
+                group_3 = False
+
+                
+                # this triggers some logic to deal with surpluses 
+                # eg. when we have 4 x Product and offer only needs 3, we have a 
+                # surplus of 1, which needs to be dealt with next time.
+                if quantity > 0:
+                                        
+                    # create a temporary surplus item, ready to use later
+                    new_item = BasketItem.objects.create(
+                        basket=i.basket,
+                        item=i.item,
+                        quantity=quantity
+                    )
+                    
+                    # now we reduce THIS item's quantity to the desired amount
+                    i.quantity -= quantity
+                    i.save()
+                    
+                    # now add this to the new list
+                    new_item_list.append(new_item)                    
+                   
+                
+                # FREE SHIPPING IS SIMPLE - ONCE THEY QUALIFY, THAT'S IT
+                if d.free_shipping:
+                    free_shipping = True
+                
+                # deal discount is simple too
+                if d.discount_amount:
+                    deal_discount = d.discount_amount
+                    
+                
+                
+                # MATCH THE LAST ITEM IN THE LIST AND MAKE THAT ONE FREE
+                if d.last_one_free:
+                    matched_items[-1].item.original_price = matched_items[-1].item.get_price()
+                    matched_items[-1].deal_text = _('%s FOR %s OFFER! You get this one for free!') % (d.num_products(), (d.num_products() -1 ) )
+                    if matched_items[-1].quantity > 1:
+                        matched_items[-1].item.price = matched_items[-1].item.price / matched_items[-1].quantity
+                    else:
+                        matched_items[-1].item.price = 0
+                        
+                if d.discount_percent:
+                
+                    for x in matched_items:
+                        # most simple
+                        if x.quantity == 1:
+                            x.deal_text = _('SPECIAL OFFER: This item has been reduced by %s&#37;') % d.discount_percent
+                        
+                        if x.quantity > 1:
+                            x.deal_text = _('SPECIAL OFFER: These items have been reduced by %s&#37;') % d.discount_percent
+                            
+                        x.original_price = x.item.get_price()
+                        x.item.price = x.original_price - ( x.original_price * Decimal(d.discount_percent/100.0) )
+                                    
+                                    
+                # final thing is to reset the matched thing
+                for x in matched_items:
+                    new_item_list.append(x) 
+                
+                matched_items = []
+                
+    return new_item_list, locals() 
+        
     
  
 def _get_basket_value(request, simple=False, order=None, discount=None):
     
+    try:
+        basket_quantity = request.session['BASKET_QUANTITY']
+        total_price = request.session['BASKET_AMOUNT']
+            
+    except:
+        request.session['BASKET_QUANTITY'], basket_quantity = float(0), float(0)
+        request.session['BASKET_AMOUNT'], total_price = float(0), float(0)
     
     if simple:
-        try:
-            basket_quantity = request.session['BASKET_QUANTITY']
-            total_price = request.session['BASKET_AMOUNT']
-            return locals()
-        except:
-            pass
+        return locals()
+    
+    currency = _get_currency(request)    
         
-    # GET THE ITEMS IN THIS BASKET
+    # GET THE ITEMS IN THIS BASKET AND CHECK IF THERE'S ANY DISCOUNTS ACTIVATED
     if order:
-        single_items = order.items.exclude(monthly_order=True)
-        monthly_items = order.items.filter(monthly_order=True)
-        try:
-            discount = order.discount
-        except:
-            pass
+        basket_items = order.items.all()
+        discount = order.discount
+        
     else:
         basket = _get_basket(request)
-        single_items = BasketItem.objects.filter(basket=basket).exclude(monthly_order=True).order_by(
-            'item__parent_product__category', 'item__price'
+        basket_items = BasketItem.objects.filter(basket=basket).order_by(
+            'item__parent_product__category', '-item__price'
         )
-        monthly_items = BasketItem.objects.filter(basket=basket, monthly_order=True)
-   
-   
-    
-    # NO OFFERS CURRENTLY
-    has_offers = False
-    if request.LANGUAGE_CODE == 'en':
-        
-        _check_offers(single_items)
-    
-    
-    # WORK OUT THE TOTAL PRICE
-    total_price = 0
-    monthly_price = 0
-    monthly = False
-    basket_quantity = 0
-    has_offers = False
-    
-    free_shipping_combo_1 = 0
-    free_shipping_combo_2 = 0
-    
-    for item in chain(single_items, monthly_items):
-        
-        if item.item.parent_product.pk == 4: 
-            free_shipping_combo_1 += 1
-        
-        if item.item.parent_product.pk == 23 or item.item.parent_product.pk == 16:
-            free_shipping_combo_2 += 1
-        
-        price = float(item.get_price())
-        total_price += float(price)
         try:
-            deal = item.deal
-            has_offers = True
+            discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
         except:
             pass
+    
+
+    # WORK OUT THE DEALS OR DISCOUNTS
+    total_price = 0
+    basket_quantity = 0
+    free_shipping = False
+    
+    if not discount:
+        if request.LANGUAGE_CODE == 'en':
+            items = _apply_deals(basket_items)
+            free_shipping = items[1]['free_shipping']
+            deal_discount = items[1]['deal_discount']
+            basket_items = items[0] 
         
-        
-        if item.monthly_order:
-            item.item.weight = item.item.weight * item.quantity
-            monthly_price += float(item.get_price())
-            if item.months >= 6:
-                monthly = True
-        
+    
+    # WORK OUT THE PRICE AGAIN
+    for item in basket_items:
+        total_price += item.get_price()
         basket_quantity += item.quantity
     
     
+    # APPLY ANY DISCOUNT
+    if discount:
+        discount_value = total_price * discount.discount_value
+        discount_percent = float(discount.discount_value * 100)
+        total_price -= discount_value
         
+    if deal_discount:
+        total_price -= deal_discount
     
-    # APPLY THE POSTAGE COSTS
-    postage_discount = False
-    if total_price > 0:
-        currency = _get_currency(request)
-        
-        # DO WE HAVE A QUALIFYING FREE SHIPPING COMBO:
-        if free_shipping_combo_1 > 0 and free_shipping_combo_2 > 0:
-            postage_discount = True
-        
-        if total_price > currency.postage_discount_threshold:
-            postage_discount = True
-        
-        if not postage_discount:            
-            total_price += currency.postage_cost
-    
-    
-    
-    
-    # WORK OUT ANY DISCOUNTS
-    if has_offers == False:
-        try:
-            discount = get_object_or_404(Discount, pk=request.session['DISCOUNT_ID'])
-            discount_value = float(total_price) * float(discount.discount_value)
-            discount_percent = float(discount.discount_value * 100)
-            total_price -= discount_value
-            request.session['DISCOUNT_ID'] = discount.pk
-        except:
-            pass
-    
-    # LASTLY, STORE SIMPLE VARIABLES IN SESSION
+    # RESET THOSE SESSION VARIABLES TOO
     request.session['BASKET_QUANTITY'] = basket_quantity
     request.session['BASKET_AMOUNT'] = total_price
+            
+    # APPLY THE POSTAGE COSTS
+    postage_discount = False
+    
+    if total_price == 0:
+        postage_discount = True
+    
+    elif total_price > currency.postage_discount_threshold:
+        postage_discount = True
+        
+    elif free_shipping:
+        postage_discount = True        
+    
+    if not postage_discount:          
+        total_price += currency.postage_cost
+        
+    
     
     return locals() 
 

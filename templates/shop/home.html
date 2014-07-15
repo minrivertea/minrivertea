@@ -10,7 +10,7 @@
 <script type="text/javascript">
 
 
-$("#images img[title]").tooltip({
+$("#deals img[title]").tooltip({
   offset: [-8, 2],   
 });
 
@@ -21,35 +21,10 @@ $("#images img[title]").tooltip({
 {% block extracss %}
 <style type="text/css">
 
-#teas, #teaware, #about, #experts, #monthly, #brewing, #special, #sale {
+#teas, #teaware, #about, #experts, #monthly, #brewing, #special, #deals {
   float: left;
   width: 100%;
   position: relative;
-}
-
-#sale h4 {
-  float: left;
-  width: auto;   
-}
-
-#sale #images {
-    float: left;
-    margin: -15px 20px;
-    position: relative;
-    z-index: 1000;
-}
-
-#sale img {
-  border: 1px dashed #e1e1e1;   
-}
-
-#sale span {
-  position: relative;
-  top: 20px;
-  font-size: 13px;
-  font-weight: bold;
-  margin: 0 10px;
-  float: left;
 }
 
 ul#nav li a.selected:before {
@@ -142,16 +117,6 @@ h2.banner {
     text-align: left;
 }
 
-#sale {
- 
-}
-
-#sale .box {
-  float: left;
-  width: 70px;
-  font-size: 11px;
-  text-align: center;   
-}
 
 {% get_current_language as LANGUAGE_CODE %}
 {% if LANGUAGE_CODE == 'it' %}
@@ -256,40 +221,7 @@ h2.banner {
   right: 20px;   
 }
 
-.tag {
-    left: 0px;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    text-decoration: none;
-    top: -3px;
-    z-index: 0;
-}
 
-.tag {
-  width: 300px;
-  height: 13px; 
-  -webkit-transform: rotate(-45deg); 
-  -moz-transform: rotate(-45deg); 
-  -o-transform: rotate(-45deg); 
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-  background: #1e70cb;
-  display: block;
-  position: absolute;
-  top: 55px;
-  left: -100px;
-  padding: 10px;
-}
-
-.tagtext {
-  position: absolute;
-  width: 100%;
-  display: block;
-  text-align: center;
-  color: #fff;
-  font-weight: bold;
-  font-size: 13px;
-}
 
 ul.rss {
     left: 400px;
@@ -483,30 +415,46 @@ ul.rss {
     
     <div class="hr"></div>
     
-    <div id="sale">
+    <div id="deals">
           
-          <h4>Buy these together and your shipping is free:</h4>
+        <div class="box">
+          
+          {% thumbnail special.image "180x140" crop="center" as im %}
+          <a href="{{ special.get_absolute_url }}"><img title="{{ special.name }}" src="{{ im.url }}"/></a>
+          {% endthumbnail %}
+          {% thumbnail deal1.image "180x140" crop="center" as im %}
+          <a href="{{ deal1.get_absolute_url }}"><img title="{{ deal1.name }}" src="{{ im.url }}"/></a>
+          {% endthumbnail %}
+          {% thumbnail deal2.image "180x140" crop="center" as im %}
+          <a href="{{ deal1.get_absolute_url }}"><img title="{{ deal1.name }}" src="{{ im.url }}"/></a>
+          {% endthumbnail %}
+          
+          <div class="text">
             
-          <div id="images">
-          {% thumbnail special.image "70x55" crop="center" as im %}
-              <div class="box">
-              <a href="{{ special.get_absolute_url }}"><img title="{{ special.name }}" src="{{ im.url }}"/></a>
-              </div>
-          {% endthumbnail %}
-          <span>+</span>
-          {% thumbnail deal1.image "70x55" crop="center" as im %}
-              <div class="box">
-              <a href="{{ deal1.get_absolute_url }}"><img title="{{ deal1.name }}" src="{{ im.url }}"/></a>
-              </div>
-          {% endthumbnail %}
-          <span>or</span> 
-          {% thumbnail deal2.image "70x55" crop="center" as im %}
-              <div class="box">
-              <a href="{{ deal2.get_absolute_url }}"><img title="{{ deal2.name }}" src="{{ im.url }}"/></a>
-              </div>
-          {% endthumbnail %}
-          <span>= save {{ currency.symbol }}{{ currency.postage_cost }}!</span>
-          </div>
+            <h4><span class="red"><strong>{% trans 'SPECIAL OFFER' %}</strong></span> {% trans 'Buy these together and shipping is free!' %}</h4>
+            
+            <ul>
+                <li>
+                    {{ special.name }} - {{ currency.symbol }}{{ special.price.price }}
+                </li>
+                <li>
+                    {{ deal1.name }} - {{ currency.symbol }}{{ deal1.price.price }}
+                </li>
+                <li>
+                    <strong class="">{% trans 'FREE SHIPPING' %} saves {{ currency.symbol }}{{ currency.postage_cost|floatformat:"-2" }}</strong>
+                </li>
+            </ul>
+            <form action="{% url add_to_basket_multiple %}" method="post">
+            {% csrf_token %}
+            <div style="display:none;">            
+                <input id="id_items_0" type="checkbox" checked=checked value="{{ special.price.id }}" name="items">
+                <input id="id_items_1" type="checkbox" checked=checked value="{{ deal1.price.id }}" name="items">
+            </div>
+
+            <input type="submit" value="{% trans 'Add both items to your basket' %}" class="button green" />
+            </form>
+        </div>
+    </div>
           
     </div>
     
@@ -548,7 +496,7 @@ ul.rss {
         
             <div class="text">
                 
-            <p>{% trans 'Enjoy your Chinese tea in style - a range of stunning teaware, teapots and accessories to make brewing the perfect cup of tea a breeze. ' %}<br/><a href="{% url finder _('teaware') %}">See all our teaware</a> </p>
+            <p>{% trans 'Enjoy your Chinese tea in style - a range of stunning teaware, teapots and accessories to make brewing the perfect cup of tea a breeze. ' %}<br/><a href="{% url finder _('teaware') %}">{% trans 'See all our teaware' %}</a> </p>
             </div>
             
         </div>

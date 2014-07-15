@@ -497,7 +497,7 @@ div#discount {
             <div id="line"></div>                
         </div>
 
-{% if basket.single_items or basket.monthly_items %}
+{% if basket.basket_items %}
 
 
   <div id="basket">
@@ -518,7 +518,7 @@ div#discount {
         
        
         
-        {% for thing in basket.single_items %}
+        {% for thing in basket.basket_items %}
         <tr>
         
             <!-- THUMBNAIL -->
@@ -538,6 +538,10 @@ div#discount {
                     {{ thing.item.parent_product.name }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}) {% endif %}
                 {% endif %}
 		        </a>
+		        {% if thing.deal_text %}
+                    <br/>
+                    <span class="red">{{ thing.deal_text|safe }}</span>
+                {% endif %}
 		        
 		        
 		        {% if not thing.deal_target %}
@@ -562,7 +566,10 @@ div#discount {
                 {% if thing.item.sale_price %}
                     <span class="strikethrough red">{{ currency.symbol }}{{ thing.item.price|floatformat:"2" }}</span><br/>
                 {% endif %}
-                {{ currency.symbol }}{{ thing.item.get_price|floatformat:"2" }}
+                {% if thing.original_price %}
+                    <span class="strikethrough red">{{ currency.symbol }}{{ thing.original_price|floatformat:"2" }}</span><br/>
+                {% endif %}
+                {{ currency.symbol }}{{ thing.item.price|floatformat:"2" }}
                 {% if thing.item.special_shipping_price %}<br/><span class="small"> + {{ currency.symbol }}{{ thing.item.special_shipping_price }} {% trans 'shipping' %}</span>{% endif %}
             </td>
             <!-- END UNIT PRICE
@@ -629,6 +636,8 @@ div#discount {
             {% endif %}
         </tr>
         
+        
+        
         <!-- DISCOUNT ROW -->
         {% if basket.discount %}
         <tr class="discount">
@@ -639,6 +648,19 @@ div#discount {
             </td>
             <td class="total">
                 <span class="red">-{{ currency.symbol }}{{ basket.discount_value|floatformat:"2" }}
+            </td>            
+        </tr>
+        {% endif %}
+        
+        {% if basket.deal_discount %}
+        <tr class="discount">
+            <td>&nbsp;</td>
+            <td colspan="3" class="name">
+                <strong>{% trans 'Discount' %}</strong><br/>
+                {% blocktrans with currency.symbol as symbol and basket.deal_discount as dd %}You've qualified for a {{ symbol }}{{ dd }} discount on your order. {% endblocktrans %}
+            </td>
+            <td class="total">
+                <span class="red">-{{ currency.symbol }}{{ basket.deal_discount|floatformat:"2" }}
             </td>            
         </tr>
         {% endif %}

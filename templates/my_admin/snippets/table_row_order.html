@@ -11,6 +11,7 @@
 	</td>
 	<td class="owner" valign="top">
 		<a href="{% url admin_shopper order.owner.id %}">{{ order.owner }}</a><br/>
+		{{ order.owner.first_name }} {{ order.owner.last_name }}</br>
 		{% with order.address as address %}
 		{% include 'shop/snippets/address.html' %}
 		{% endwith %}

@@ -27,8 +27,6 @@ def common(request):
     context['thumb_home_large'] = settings.THUMB_HOME_LARGE
     context['thumb_medium'] = settings.THUMB_MEDIUM
     context['thumb_small'] = settings.THUMB_SMALL
-    context['monthly_discount_low'] = settings.TEABOX_LOW_DISCOUNT * 100
-    context['monthly_discount_high'] = settings.TEABOX_HIGH_DISCOUNT * 100
     
     
     # STUFF RELATED TO COUNTRY SPECIFIC SITES
@@ -90,15 +88,10 @@ def common(request):
     try:
         context['basket_quantity'] = request.session['BASKET_QUANTITY']
         context['basket_amount'] = request.session['BASKET_AMOUNT']
-        ontext['monthly_price'] = basket['monthly_price'] 
-        context['monthly_items'] = basket['monthly_items']
     except:
         basket = _get_basket_value(request)
         context['basket_quantity'] = basket['basket_quantity']
         context['basket_amount'] = basket['total_price']  
-        context['monthly_price'] = basket['monthly_price'] 
-        context['monthly_items'] = basket['monthly_items']
-        context['monthly_items_count'] = basket['monthly_items'].count()
     
             
     return context

@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'emailer',
     'ckeditor',
     'premailer',
+    'mathfilters',
 )
 
 

@@ -35,12 +35,19 @@ class UpdateDiscountForm(forms.Form):
     discount_code = forms.CharField(required=True)
 
 
+class AddMultipleItemsToBasket(forms.Form):
+    items = forms.ModelMultipleChoiceField(required=True, queryset=UniqueProduct.objects.filter(
+            is_active=True, 
+            ), widget=forms.CheckboxSelectMultiple)
+    
+
 class MonthlyBoxForm(forms.Form):
-    tea = forms.ModelChoiceField(required=False, queryset=UniqueProduct.objects.filter(is_active=True, weight="100", 
-        currency__code='GBP'), empty_label=None)
-    
-    # perhaps if it's a custom package, these fields should be required=True??
-    
+    tea = forms.ModelChoiceField(required=False, queryset=UniqueProduct.objects.filter(
+            is_active=True, 
+            weight="100", 
+            currency__code='GBP'
+            ), empty_label=None)
+        
     
 
 # handles the contact us form

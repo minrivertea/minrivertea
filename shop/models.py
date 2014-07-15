@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
 from django.shortcuts import get_object_or_404
 import logging
+import random
 from datetime import datetime, timedelta
 from urlparse import urlparse
 from django.utils import translation
@@ -132,7 +133,7 @@ class Product(models.Model):
         except:
             price = None
         return price
-    
+        
     def in_stock(self):
         
         from logistics.models import WarehouseItem
@@ -169,6 +170,112 @@ class Product(models.Model):
              # Bare 'except' because we could get a variety
              # of HTTP-related exceptions.
              pass 
+
+
+class Deal(models.Model):
+    name = models.CharField(max_length=200)
+    
+    product_group_1 = models.ManyToManyField('UniqueProduct', related_name="pg_1",
+        limit_choices_to={'is_active': True})
+    
+    product_group_2 = models.ManyToManyField('UniqueProduct', related_name="pg_2", blank=True, null=True,
+        limit_choices_to={'is_active': True})
+
+    product_group_3 = models.ManyToManyField('UniqueProduct', related_name="pg_3", blank=True, null=True,
+        limit_choices_to={'is_active': True})
+   
+    free_shipping = models.BooleanField(default=False)
+    discount_percent = models.IntegerField(blank=True, null=True,
+        help_text="This should be a whole number like '10' meaning 10% off'")
+    discount_amount = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    last_one_free = models.BooleanField(default=False)
+    
+    expiry_date = models.DateTimeField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    
+    def __unicode__(self):
+        return self.name
+    
+    def num_products(self):
+        if self.product_group_2.all():
+            if self.product_group_3.all():
+                return 3
+            return 2
+        return 1
+    
+    def get_original_cost():
+        return 
+    
+    
+    def get_items(self, up):
+        """
+        Supply a unique product and it will send back random partner products
+        that can be sold together under this deal
+        """
+        items = []
+        added = {}
+        added[up.id] = 1
+                
+        # IF THIS UP IS IN GROUP 1:
+        if up in self.product_group_1.all():
+            
+            # ADD FROM GROUP 2            
+            total = self.product_group_2.filter(currency=up.currency).exclude(pk__in=added).count()
+            if total > 0:
+                partner = self.product_group_2.filter(currency=up.currency).exclude(pk__in=added)[random.randrange(0,total)]
+                items.append(partner)
+                added[partner.id] = 1
+            
+            # ADD FROM GROUP 3
+            total = self.product_group_3.filter(currency=up.currency).exclude(pk__in=added).count()
+            if total > 0:
+                partner = self.product_group_3.filter(currency=up.currency).exclude(pk__in=added)[random.randrange(0,total)]
+                items.append(partner)
+                added[partner.id] = 1
+        
+        
+        elif up in self.product_group_2.all():
+            
+            # ADD FROM GROUP 2            
+            total = self.product_group_1.filter(currency=up.currency).exclude(pk__in=added).count()
+            if total > 0:
+                partner = self.product_group_1.filter(currency=up.currency).exclude(pk__in=added)[random.randrange(0,total)]
+                items.append(partner)
+                added[partner.id] = 1
+            
+            # ADD FROM GROUP 3
+            total = self.product_group_3.filter(currency=up.currency).exclude(pk__in=added).count()
+            if total > 0:
+                partner = self.product_group_3.filter(currency=up.currency).exclude(pk__in=added)[random.randrange(0,total)]
+                items.append(partner)
+                added[partner.id] = 1
+        
+        
+        elif up in self.product_group_3.all():
+            
+            # ADD FROM GROUP 2            
+            total = self.product_group_1.filter(currency=up.currency).exclude(pk__in=added).count()
+            if total > 0:
+                partner = self.product_group_1.filter(currency=up.currency).exclude(pk__in=added)[random.randrange(0,total)]
+                items.append(partner)
+                added[partner.id] = 1
+            
+            # ADD FROM GROUP 3
+            total = self.product_group_2.filter(currency=up.currency).exclude(pk__in=added).count()
+            if total > 0:
+                partner = self.product_group_2.filter(currency=up.currency).exclude(pk__in=added)[random.randrange(0,total)]
+                items.append(partner)
+                added[partner.id] = 1
+        
+        items.append(up)
+        
+        items = sorted(items, key=lambda x: x.price, reverse=True) 
+        
+
+        return items    
+
+        
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
@@ -261,7 +368,19 @@ class UniqueProduct(models.Model):
         if self.sale_price:
             return (self.price - self.sale_price)
         else:
-            return 0       
+            return 0 
+    
+    def get_deals(self):
+                    
+        if self.pg_1.all():
+            deal = self.pg_1.all()[0]
+            partners = self.pg_1.all()[0].get_items(self)
+            return {'deal': deal, 'partners': partners}
+        
+        return None
+
+
+              
 
 class Shopper(models.Model):
     user = models.ForeignKey(User)

@@ -1494,8 +1494,53 @@ a.atb.large:hover span {
   font-size: 0.8em;	
 }
 
+#deals {
+ 
+}
 
+#deals .box .text {
+  float: left;
+  width: 370px;
+  margin-left: 10px;
+}
 
+#deals h4 {
+  font-size: 15px;
+  font-weight: bold; 
+  margin: 0px 0 0 0;
+}
+
+#deals ul { 
+  margin: 3px 0 10px 0;
+  padding: 0 0 0 15px;
+}
+
+#deals #images {
+    float: left;
+    margin: -15px 20px;
+    position: relative;
+    z-index: 1000;
+}
+
+#deals img {
+  border: 1px dashed #e1e1e1;  
+  float: left;
+  margin: 0 10px 0 0;
+}
+ 
+}
+
+#deals .box {
+  float: left;
+  width: auto;
+  font-size: 11px;
+}
+
+#deals form input[type="submit"] {
+  width: auto;
+  font-size: 13px;
+  padding: 5px 10px;   
+}
 
 
 /* SHOPPING BASKET PAGE STYLES */
@@ -1877,6 +1922,10 @@ div.like div.text {
 
 span.red, .red {
   color: #D30000;	
+}
+
+span.grey, .grey {
+  color: #999;   
 }
 
 span.strikethrough, .strikethrough {
