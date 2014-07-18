@@ -319,7 +319,9 @@ def delete_notify_out_of_stock(request, id):
 def add_to_basket(request, id):
     uproduct = get_object_or_404(UniqueProduct, pk=id)
     basket = _get_basket(request)
-     
+    
+    print "we are here"
+    
     try:
         item = get_object_or_404(BasketItem, basket=basket, item=uproduct, monthly_order=False)
         item.quantity += 1
@@ -327,15 +329,20 @@ def add_to_basket(request, id):
         item = BasketItem.objects.create(item=uproduct, quantity=1, basket=basket)
     item.save()
 
+
     # UPDATE THE USER'S SESSION VARIABLES
-    try:
-        request.session['BASKET_QUANTITY'] += 1
-        request.session['BASKET_AMOUNT'] += item.item.get_price()
-    except:
-        request.session['BASKET_QUANTITY'] = 0
-        request.session['BASKET_AMOUNT'] += item.item.get_price()
-   
-         
+    if 'BASKET_QUANTITY' in request.session:
+        request.session['BASKET_QUANTITY'] = (request.session['BASKET_QUANTITY'] + 1)
+    else:
+        request.session['BASKET_QUANTITY'] = 1
+    
+    
+    if 'BASKET_AMOUNT' in request.session:
+        request.session['BASKET_AMOUNT'] = (request.session['BASKET_AMOUNT'] + item.item.get_price() )
+    else:
+        request.session['BASKET_AMOUNT'] = item.item.get_price()
+    
+        
     if request.is_ajax():
 
         message = render_to_string('shop/snippets/added_to_basket.html', {

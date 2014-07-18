@@ -151,13 +151,19 @@ def _apply_deals(items, free_shipping=False, deal_discount=False):
     Accepts a list of BasketItems, and returns a list of items
     with altered prices if there are offers running.
     """
+    
+    print "*" * 80
+    print "  checking items in deals"
+    print items
+    
+    
         
     # GET AN ITEM COUNT FIRST:
     deals = Deal.objects.filter(is_active=True)
     
     if deals:
         for d in deals:
-            
+                        
             new_item_list = []
                         
             if d.expiry_date:
@@ -179,7 +185,7 @@ def _apply_deals(items, free_shipping=False, deal_discount=False):
                 if d not in i.item.pg_1.all() and d not in i.item.pg_2.all() and d not in i.item.pg_3.all():
                     new_item_list.append(i)
                     continue
-                                                              
+                                                                              
                 # IF ITS ON SALE, DON'T DO THIS LOGIC
                 if i.item.sale_price:
                     new_item_list.append(i)
@@ -295,23 +301,35 @@ def _apply_deals(items, free_shipping=False, deal_discount=False):
                     new_item_list.append(x) 
                 
                 matched_items = []
-                
+            
+            
+            # IF WE GET HERE AND THERE ARE STILL ITEMS IN THE MATCHED_ITEMS
+            # LIST, IT MEANS SOMETHING MATCHED A DEAL, BUT THE DEAL HASN'T BEEN 
+            # COMPLETED, SO WE NEED TO RE-ADD THIS BACK TO THE NORMAL ITEMS LIST
+            for x in matched_items:
+                new_item_list.append(x)
+    
+    
+    
     return new_item_list, locals() 
         
     
  
-def _get_basket_value(request, simple=False, order=None, discount=None):
+def _get_basket_value(request, simple=False, order=None, discount=None, basket_quantity=False, total_price=False):    
     
-    try:
+    if 'BASKET_QUANTITY' in request.session:
         basket_quantity = request.session['BASKET_QUANTITY']
+
+    if 'BASKET_AMOUNT' in request.session:
         total_price = request.session['BASKET_AMOUNT']
-            
-    except:
+        
+    if not basket_quantity or total_price:
         request.session['BASKET_QUANTITY'], basket_quantity = float(0), float(0)
         request.session['BASKET_AMOUNT'], total_price = float(0), float(0)
     
     if simple:
         return locals()
+    
     
     currency = _get_currency(request)    
         
@@ -335,6 +353,7 @@ def _get_basket_value(request, simple=False, order=None, discount=None):
     total_price = 0
     basket_quantity = 0
     free_shipping = False
+    
     
     if not discount:
         if request.LANGUAGE_CODE == 'en':
