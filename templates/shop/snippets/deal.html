@@ -1,0 +1,116 @@
+{% load i18n convert_weights mathfilters thumbnail %}
+
+<div id="deals">
+                       
+    {% for x in price.get_deals.partners %}
+        {% thumbnail x.parent_product.image "180x140" crop="center" as im %}
+            <a href="{{ x.parent_product.get_absolute_url }}">
+                <img title="{{ x.parent_product.name }}" src="{{ im.url }}" />
+            </a>
+        {% endthumbnail %}
+    {% endfor %}
+                
+    <div class="box">
+    <div class="text">
+    <h4>
+            
+    {% if price.get_deals.deal.free_shipping %} 
+            {% if price.get_deals.partners %}
+                {% trans 'Buy these together and shipping is free!' %}
+            {% else %}
+                {% trans 'Buy this today and shipping is free!' %}
+            {% endif %}
+    {% endif %}
+    
+    {% if price.get_deals.deal.discount_percent %}                     
+        {% if price.get_deals.partners %}
+            {% trans 'Buy these together and save' %}        
+        {% else %}
+            {% trans 'Buy this today and save' %} 
+        {% endif %}
+        {{ price.get_deals.deal.discount_percent }}%!
+    {% endif %}
+    
+    {% if price.get_deals.deal.last_one_free %}
+        {% trans 'Buy these together and the cheapest is free!' %} 
+    {% endif %}
+    </h4>
+        
+    <ul>
+                    
+        {% for x in price.get_deals.partners %}
+        <li>
+        {% if x == price %}
+            <strong>
+            This item: {{ x.parent_product.name }}
+            {% if x.weight %}
+                ({% convert_weights request x.weight %}{{ weight_unit }})
+            {% endif %}
+            </strong>
+        {% else %}
+        
+            <a href="{{ x.parent_product.get_absolute_url }}">
+                {{ x.parent_product.name }}
+                {% if x.weight %}
+                    ({% convert_weights request x.weight %}{{ weight_unit }})
+                {% endif %}
+            </a>
+        {% endif %}
+        
+        {% if price.get_deals.deal.last_one_free %}
+            {% if forloop.last %}
+            - <span class="red">FREE (save {{ currency.symbol }}{{ x.price }})</span>
+            {% else %}
+            - {{ currency.symbol }}{{ x.price|floatformat:"2" }}
+            {% endif %}
+        
+        {% endif %}
+        
+        {% if price.get_deals.deal.discount_percent %}
+            
+            {% with price.get_deals.deal.discount_percent|div:100.0 as percent %}
+                {% with x.price|mul:percent as saving %}
+                    - {{ currency.symbol }}{{ x.price|sub:saving|floatformat:"2" }}
+                    <span class="red small strikethrough">(was {{ currency.symbol }}{{ x.price }})</span>
+                {% endwith %}
+            {% endwith %}
+    
+        {% endif %}
+        
+        {% if price.get_deals.deal.free_shipping %}
+            - {{ currency.symbol }}{{ x.price|floatformat:"2" }}
+        {% endif %}
+        
+        
+        </li>
+        {% endfor %}
+        
+        {% if price.get_deals.deal.free_shipping %}
+        <li>
+            <span class="red">{% trans 'FREE SHIPPING saves' %} {{ currency.symbol }}{{ currency.postage_cost|floatformat:"-2" }}</span>
+        </li>
+        {% endif %}
+    </ul>
+    
+    <form action="{% url add_to_basket_multiple %}" method="post">
+    {% csrf_token %}
+        
+        <div style="display:none;">            
+        <input id="id_items_0" type="checkbox" checked=checked value="{{ price.id }}" name="items">
+        {% for x in price.get_deals.partners %}
+            <input id="id_items_{{ forloop.counter }}" checked=checked type="checkbox" value="{{ x.id }}" name="items">
+        {% endfor %}
+        </div>
+                
+    <p>
+    <input type="submit" value="{% trans 'Add all items to your basket' %}" class="button green"></a>
+    </p>
+    </form>
+    
+    
+    
+    </div>
+    </div>
+
+</div>
+    <div class="hr"></div>    

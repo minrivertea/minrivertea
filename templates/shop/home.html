@@ -103,7 +103,7 @@ h2.banner {
   float: left;
   position: absolute;
   left: 20px;
-  top: 205px;
+  top: 195px;
   z-index: 1000;
 }
 
@@ -392,20 +392,14 @@ ul.rss {
         <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
         <div class="details">
            
-           <h3>{{ special.name }}</h3>
+           <h3>{{ special.name }} - {{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</h3>
            <p>{{ special.description }}</p>
-           
-           
-           <p class="price">
-                <span class="amount">{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</span>
-	           {% if special.price.weight %}/ {% convert_weights request special.price.weight %}{{ weight_unit }}{% else %}{% if special.price.description %}/ {{ special.price.description }}{% endif %}{% endif %}
-	       </p>
 	       	       
 	    </div>
 	    
 	    <div class="buttons">
-	    <a href="{% url add_to_basket special.price.id %}" class="button green small addtocart">Add to basket</a>
-	    <a href="{{ special.get_absolute_url }}" class="button grey small">View details</a>
+	    <a href="{% url add_to_basket special.price.id %}" class="button green addtocart">Add to basket</a>
+	    <a href="{{ special.get_absolute_url }}" class="button grey ">View details</a>
 	    </div>
 	    	    
     </div>    
@@ -415,6 +409,8 @@ ul.rss {
     
     <div class="hr"></div>
     
+    
+    <!-- START DEALS -->
     <div id="deals">
           
         <div class="box">
@@ -431,17 +427,17 @@ ul.rss {
           
           <div class="text">
             
-            <h4><span class="red"><strong>{% trans 'SPECIAL OFFER' %}</strong></span> {% trans 'Buy these together and shipping is free!' %}</h4>
+            <h4>{% trans 'Buy these together and shipping is free!' %}</h4>
             
             <ul>
                 <li>
-                    {{ special.name }} - {{ currency.symbol }}{{ special.price.price }}
+                    {{ special.name }} - {{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}
                 </li>
                 <li>
-                    {{ deal1.name }} - {{ currency.symbol }}{{ deal1.price.price }}
+                    {{ deal1.name }} - {{ currency.symbol }}{{ deal1.price.price|floatformat:"-2" }}
                 </li>
                 <li>
-                    <strong class="">{% trans 'FREE SHIPPING' %} saves {{ currency.symbol }}{{ currency.postage_cost|floatformat:"-2" }}</strong>
+                    <span class="red">{% trans 'FREE SHIPPING' %} saves {{ currency.symbol }}{{ currency.postage_cost|floatformat:"-2" }}</span>
                 </li>
             </ul>
             <form action="{% url add_to_basket_multiple %}" method="post">
@@ -459,6 +455,7 @@ ul.rss {
     </div>
     
     <div class="hr"></div>
+    <!-- END OF DEALS -->
     
 
 	<div id="teas">
