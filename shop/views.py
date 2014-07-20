@@ -757,9 +757,11 @@ def order_url_friend(request, hash):
 def order_url(request, hash, friend=None):
     
     order = get_object_or_404(Order, hashkey=hash)    
+    
     basket = _get_basket_value(request, order=order)
     
     return _render(request, 'shop/forms/order_confirm.html', locals())
+
 
 @secure_required
 def order_repeat(request, hash):
