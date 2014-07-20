@@ -353,7 +353,7 @@ def _get_basket_value(request, simple=False, order=None, discount=None, basket_q
     total_price = 0
     basket_quantity = 0
     free_shipping = False
-    
+    deal_discount = False
     
     if not discount:
         if request.LANGUAGE_CODE == 'en':

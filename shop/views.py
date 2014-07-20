@@ -319,9 +319,7 @@ def delete_notify_out_of_stock(request, id):
 def add_to_basket(request, id):
     uproduct = get_object_or_404(UniqueProduct, pk=id)
     basket = _get_basket(request)
-    
-    print "we are here"
-    
+        
     try:
         item = get_object_or_404(BasketItem, basket=basket, item=uproduct, monthly_order=False)
         item.quantity += 1
