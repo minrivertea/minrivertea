@@ -1,7 +1,7 @@
 {% load convert_weights i18n %}
 
 <table>
-			{% for thing in basket.single_items %}
+			{% for thing in basket.basket_item %}
 				  <tr>				
 			    	<td valign="top">
 			    		<strong>{{ thing.item.parent_product.name }}

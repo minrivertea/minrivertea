@@ -303,7 +303,7 @@ p.skip {
             data-amount="{{ amount_in_cents }}"
             data-email="{{ order.owner.email }}"
             data-name="{{ site_name }}"
-            data-description="{% for item in order.items.all %}{{ item }}{% if not forloop.last %}, {% endif %}{% endfor %}"
+            data-description="{% for item in basket.basket_items %}{{ item }}{% if not forloop.last %}, {% endif %}{% endfor %}"
             data-image="{{ static_url }}images/logo-square.jpg"
             data-currency="{{ currency.code }}"
             data-label="{% trans 'Confirm and pay now' %}"
