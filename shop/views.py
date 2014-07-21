@@ -678,6 +678,17 @@ def order_step_one(request, basket=None):
             except:
                 pass
             
+            
+            # if they agree to get an email newsletter 
+            if form.cleaned_data['newsletter'] == True:                       
+                from signals import update_mailing_list
+                update_mailing_list.send(
+                    sender=update_mailing_list, 
+                    email_address=form.cleaned_data['email'], 
+                    lang_code=get_language(),
+                )
+            
+            
             # CREATE OR FIND THE ORDER
             try:
                 order = get_object_or_404(Order, id=request.session['ORDER_ID'])

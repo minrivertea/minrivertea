@@ -151,13 +151,7 @@ def _apply_deals(items, free_shipping=False, deal_discount=False):
     Accepts a list of BasketItems, and returns a list of items
     with altered prices if there are offers running.
     """
-    
-    print "*" * 80
-    print "  checking items in deals"
-    print items
-    
-    
-        
+           
     # GET AN ITEM COUNT FIRST:
     deals = Deal.objects.filter(is_active=True)
     
