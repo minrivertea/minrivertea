@@ -72,9 +72,7 @@ def _send_email(recipient, subject_line, template, extra_context=None, sender=No
         pass
     
     # HERE IS THE ACTUAL MESSAGE NOW
-    msg = EmailMultiAlternatives(subject_line, text_content, sender, recipient)
-    
-    
+    msg = EmailMultiAlternatives(subject_line, text_content, sender, recipient)    
 
     
     if html_content:

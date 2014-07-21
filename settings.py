@@ -24,7 +24,6 @@ ADMINS =                        (('Chris West', 'chris@minrivertea.com'),)
 MANAGERS =                      ADMINS
 NOTIFICATIONS_GROUP =           (
                                     ('Chris West', 'chris@minrivertea.com'), 
-                                    ('Raphael Henkes', 'raphael@minrivertea.com'),
                                 )
 TIME_ZONE =                     'Europe/London'
 SITE_ID =                       1
