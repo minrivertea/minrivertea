@@ -32,14 +32,11 @@ def _create_customer_package(order):
                 
     next_date = datetime.datetime.now()
     
-    
     # RUN THE ITEMS THROUGH THE OFFERS FILTER, JUST TO CHECK
     items = _apply_deals(order.items.filter(monthly_order=False))
     
-    
     # GO THROUGH EACH SINGLE ITEM, GET/CREATE A WAREHOUSE ITEM, AND ADD IT TO A PACKAGE
-    for x in items:
-                
+    for x in items[0]:
         loop = x.quantity
         while loop >= 1:
             

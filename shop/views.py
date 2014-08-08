@@ -937,6 +937,10 @@ def fake_checkout(request, order_id):
     from emailer.views import _payment_success
     _payment_success(order)
     
+    # NOW CREATE A CUSTOMER PACKAGE
+    from logistics.views import _create_customer_package
+    _create_customer_package(order)
+    
     from shop.utils import _empty_basket
     _empty_basket(request)
     
