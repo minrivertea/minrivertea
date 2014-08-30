@@ -216,13 +216,13 @@ gettext = lambda s: s
 LANGUAGES = (
     ('en', gettext('English')),
     ('de', gettext('German')),
-    ('it', gettext('Italian')),
+#    ('it', gettext('Italian')),
 )
 
 MODEL_LANGUAGES = (
     ('en', gettext('English')),
     ('de', gettext('German')),
-    ('it', gettext('Italian')),
+#    ('it', gettext('Italian')),
 )
 
 LOCALE_PATHS = (

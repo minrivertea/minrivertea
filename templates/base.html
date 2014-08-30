@@ -177,26 +177,14 @@ if (15.00) {
             {% endfor %}
             
           	{% get_current_language as LANGUAGE_CODE %}
+          	<li class="language">
           	{% if LANGUAGE_CODE == 'en' %}
-          	<li class="language">
           	     <a class="de" href="{% url changelang 'de' %}">{% trans 'German' %}<div class="flag"></div></a>
-          	     <a class="it" href="{% url changelang 'it' %}">{% trans 'Italian' %}<div class="flag"></div></a>
-          	</li>
-          	{% endif %}
-          	
-          	{% if LANGUAGE_CODE == 'de' %}
-          	<li class="language">
+          	{% else %}
           	     <a class="en" href="{% url changelang 'en' %}">{% trans 'English' %}<div class="flag"></div></a>
-          	     <a class="it" href="{% url changelang 'it' %}">{% trans 'Italian' %}<div class="flag"></div></a>
+            {% endif %}
           	</li>
-          	{% endif %}
           	
-          	{% if LANGUAGE_CODE == 'it' %}
-          	<li class="language">
-          	     <a class="en" href="{% url changelang 'en' %}">{% trans 'English' %}<div class="flag"></div></a>
-          	     <a class="de" href="{% url changelang 'de' %}">{% trans 'German' %}<div class="flag"></div></a>
-          	</li>
-          	{% endif %}
           	
           	<li class="currency">
           	     <a class="uk{% if currency.code == 'GBP' %} strong one{% else %} two{% endif %}" title="Switch currency to British pounds" href="{% url set_currency %}?curr=GBP"><span>&pound;</span></a>
