@@ -854,21 +854,7 @@ ul.rss {
               {% if price.stocks.available %}
                     <a href="{% url add_to_basket price.id %}" class="button green addtocart" id="{{ price.id }}">{% trans 'Add to basket' %}</a>
               {% endif %}
-              
-              
-              {% if price.special_shipping_time %}
-                <p class="special-shipping-time">
-                {% blocktrans with price.special_shipping_time as sst %}
-                Please note, shipping this item takes <strong>{{ sst }} days
-                {% endblocktrans %}
-                {% if price.special_shipping_price %}
-                {% blocktrans with price.special_shipping_price as ssp and currency.symbol as curr %}
-                </strong> and carries an extra <strong>{{ curr }}{{ ssp }}</strong> shipping charge.
-                {% endblocktrans %}
-                {% endif %}
-                </p>
-              {% endif %}
-              
+                            
                         
             </div>
           </div>    
@@ -878,7 +864,7 @@ ul.rss {
 	    <div id="stocks"> 
 		
 		  <div class="postage-cost">
-		      {% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}
+		      {% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %} - <a href="{% url page 'shipping' %}">{% trans 'read more' %}</a>
 		  </div>
 		  
 		  {% if not tea.in_stock %} 

@@ -126,20 +126,15 @@ if (15.00) {
     
     {% include 'mobile/shop/snippets/mobile_navigation.html' %}
     
-    
-    <div id="logo">
-            <a title="{% trans 'Chinese tea delivered to your door - Min River Tea' %}" alt="{% trans 'the Min River Tea logo - Chinese tea merchant '%}" href="/"></a>
-	</div>
-    
 </nav>
 
 
 <div id="menu-bar">
-<button class="menu-trigger"></button>
-<h1>Min River Tea</h1>
-<a href="{% url basket %}" class="cart">
-    {% if basket_quantity > 0 %}<span class="quantity">{{ basket_quantity }}</span>{% endif %}
-</a>
+    <button class="menu-trigger"></button>
+    <h1>Min River Tea</h1>
+    <a href="{% url basket %}" class="cart">
+        {% if basket_quantity > 0 %}<span class="quantity">{{ basket_quantity }}</span>{% endif %}
+    </a>
 </div>
 
 

@@ -38,8 +38,13 @@
 	    	  </tr>
 	    	  {% else %}
 	    	  <tr>
-	    	  	<td>{% trans 'Postage' %}</td>
-	    	  	<td>{{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}</td>		  
+	    	  	<td>
+	    	  	   <strong>{% trans 'Postage' %}</strong>
+	    	  	   - approx 2 weeks delivery time, sent direct from China.
+	    	  	</td>
+	    	  	<td>
+	    	  	   {{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}
+	    	  	</td>		  
 	    	  </tr>
 	        {% endif %}
 	        

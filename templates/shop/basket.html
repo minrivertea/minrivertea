@@ -438,29 +438,6 @@ div#discount {
   border-width: 10px 10px 10px 0px;     
 }
 
-#sub-basket {
-    width: 900px;
-    background-color: #f3f6f7;
-    border: 1px solid #d9ebde;
-    border-top: 1px solid #f1f1f1;
-    padding: 10px 30px;
-    float: left;
-    position: relative;
-    top: -40px;
-    border-radius: 0 0 5px 5px;
-}
-
-#sub-basket p {
-  margin: 0;
-  text-shadow: 1px 1px 1px #fff;
-  font-size: 20px;
-  color: #5d8ea6;   
-}
-
-#shipping-message {
-  color: #D30000;
-  text-align: right;   
-}
 
 </style>
 {% endblock %}
@@ -627,7 +604,7 @@ div#discount {
                 <td class="name" colspan="3">
                     <strong>{% trans 'Postage' %}</strong>
                     <br/>
-                    {% trans 'Shipped from the UK' %} - <a class="small" href="{% url page _('shipping') %}">{% trans 'read about shipping and delivery times' %}</a>
+                    {% trans 'Shipped from China, takes approx. 2 weeks' %} - <a class="small" href="{% url page _('shipping') %}">{% trans 'read shipping information' %}</a>
                 </td>
                 <td class="total">
                     {{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}
@@ -758,11 +735,6 @@ div#discount {
 		</form>
 	</div>
 	{% endif %}
-	
-	<div id="shipping-message">
-	   {% url page _('shipping') as shipping_url %}
-       {% blocktrans %}Please note that orders made in July 2014 will be shipped from China and may take 2-4 weeks to arrive. <a target="_blank" href="{{ shipping_url }}">Read full information here</a>{% endblocktrans %}
-	</div>
 	
  	<div id="checkout-button">		
     	<a class="button green" href="{% url order_step_one %}">{% trans 'Start checkout now' %} &raquo;</a>

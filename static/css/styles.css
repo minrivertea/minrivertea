@@ -258,21 +258,23 @@ span.link:hover {
 /* header styles */
 
 #message {
-    background: none repeat scroll 0 0 #2A8531;
+    background: #f6f6f6;
     width: 100%;
-    padding: 15px 0;
+    padding: 10px 0;
     float: left;
     height: auto;
+    margin: 0 0 10px 0;
+    text-align: center;
 }
 
 #message p {
   margin: 0;
   padding: 0;
-  color: #fff;   
+  font-size: 0.8em;
+  color: #333;   
 }
 
 #message a {
-  color: #fff;
   text-decoration: underline;   
 }
 
