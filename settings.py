@@ -34,9 +34,9 @@ MAILCHIMP_LIST_ID =             'cde5cb0d9e'
 GERMAN_URL =                    'www.minrivertea.de'
 GERMAN_ANALYTICS_ID =           'UA-9041614-9'
 GERMAN_MAILCHIMP_LIST_ID =      '9fd8b080b7'
-ITALIAN_URL =                   'www.minrivertea.it'
-ITALIAN_ANALYTICS_ID =          ''
-ITALIAN_MAILCHIMP_LIST_ID =     '07a453a7b5'
+#ITALIAN_URL =                   'www.minrivertea.it'
+#ITALIAN_ANALYTICS_ID =          ''
+#ITALIAN_MAILCHIMP_LIST_ID =     '07a453a7b5'
 SECRET_KEY =                    ''
 
 # SSL IMPORTANT STUFF
@@ -48,13 +48,13 @@ SECURE_PROXY_SSL_HEADER =       ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
 # STATIC / MEDIA FILES
 # ----------------------------------------------------------
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
-MEDIA_URL = 'https://www.minrivertea.com/media/'
+MEDIA_ROOT =                    os.path.join(PROJECT_PATH, 'media')
+MEDIA_URL =                     'https://www.minrivertea.com/media/'
 
-STATIC_URL = 'https://www.minrivertea.com/static/'
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, 'static'),
-)
+STATIC_URL =                    'https://www.minrivertea.com/static/'
+STATICFILES_DIRS =              (
+                                    os.path.join(PROJECT_PATH, 'static'),
+                                )
 
 
 TEMPLATE_LOADERS = (
