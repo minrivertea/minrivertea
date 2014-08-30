@@ -20,12 +20,7 @@ class DomainTrackerMiddleware(object):
                                        
         if request.get_host() == settings.GERMAN_URL:                        
             url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['de']), request.path)
-            return HttpResponseRedirect(url)
-        
-        
-        if request.get_host() == settings.ITALIAN_URL:
-            url = "%s%s?next=%s" % (settings.SITE_URL, reverse('changelang', args=['it']), request.path)
-            return HttpResponseRedirect(url)
+            return HttpResponseRedirect(url)        
         
         return None
     

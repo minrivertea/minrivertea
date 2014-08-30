@@ -36,9 +36,6 @@ def common(request):
          
     if get_language() == 'de':
         context['mailchimp_list_id'] = settings.GERMAN_MAILCHIMP_LIST_ID
-    elif get_language() == 'it':
-        context['mailchimp_list_id'] = settings.ITALIAN_MAILCHIMP_LIST_ID
-        
         
     context['site_name'] = settings.SITE_NAME # the loose non-techy name
 
