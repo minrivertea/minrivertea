@@ -152,25 +152,13 @@ img#loading-contact {
 
 {% block content %}
 
-{% include 'shop/snippets/page_sub_nav.html' %}
+<div class="sp pure-g">	
 
-<div id="mtw">
-  <div class="sp">	
-    <h1>{% trans 'Contact us' %}</h1>			
+
+<h1>{% trans 'Contact us' %}</h1>			
 	
-        <div id="right">
-            {% include 'shop/boxes/follow.html' %}
-		 	<div class="info"> 		
-			 	<h3><a href="{% url page _('returns') %}">{% trans 'Returns' %} &raquo;</a></h3>
-			 	<p>{% trans "If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked." %}</p>
-			</div>
-			<div class="info">		 	
-			 	<h3><a href="{% url page _('wholesale') %}">{% trans "Wholesale/trade" %} &raquo;</a></h3>
-			 	<p>{% trans "Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch." %}</p>
-			</div>        
-        </div>
 		
-		<div id="left">
+		<div id="left" class="pure-u-18-24 r-pad">
 		
 		  				<p class="introduction">
 				    <strong>Nǐ hǎo {% blocktrans %}(that's <em>hello</em> in Chinese!){% endblocktrans %}</strong>
@@ -195,6 +183,20 @@ img#loading-contact {
 				</form>
 			</div>
 	</div>
+	
+	<div id="right" class="pure-u-6-24 l-pad">
+            {% include 'shop/boxes/follow.html' %}
+		 	<div class="info pure-u-1"> 		
+			 	<h3><a href="{% url page _('returns') %}">{% trans 'Returns' %} &raquo;</a></h3>
+			 	<p>{% trans "If you're unhappy with any aspect of your tea, we'll be happy to offer a full refund, no questions asked." %}</p>
+			</div>
+			<div class="info pure-u-1">		 	
+			 	<h3><a href="{% url page _('wholesale') %}">{% trans "Wholesale/trade" %} &raquo;</a></h3>
+			 	<p>{% trans "Regardless of your price and quality requirements, we're uniquely placed in some of the best tea areas in China - get in touch." %}</p>
+			</div>        
+        </div>
+        
+        
   </div>
 </div>
 

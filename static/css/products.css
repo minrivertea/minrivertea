@@ -1,0 +1,99 @@
+#products div.product {
+   border-bottom: 1px dashed #e1e1e1;
+   position: relative;
+}
+
+#products div.product:last-child {
+  border: none;   
+}
+
+#products div.product:hover div.image img {
+  opacity: 0.8;   
+}
+
+#products div.product:hover div.text h3 a {
+  text-decoration: underline;
+  color: #D30000;
+}
+
+#products div.image {
+  min-height: 180px;
+}
+
+#products div.text {
+  margin: auto 0;
+  top: 0;
+  bottom: 0;
+}
+
+#products div.text p.meta {
+  color: #555;
+  font-size: 0.8em;
+}
+
+#products div.text p.meta strong {
+  color: darkgreen;
+}
+
+#products div.text h3 {
+  margin: 0 0 5px 0;
+  font-size: 22px;
+  font-weight: normal;   
+}
+
+#products div.text h3 span {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+#products div.text p {
+  margin: 0 0 5px 0; 
+  font-size: 0.8em;  
+}
+
+#products div.prices {
+  border: 1px dashed #e1e1e1;
+  background: ;
+  position: absolute;
+  right: 0;
+  margin: auto 0;
+  top: 0;
+  bottom:0;
+  height: 120px;
+  z-index: 1000;
+}
+
+#products div.prices p {
+  margin: 0px 0 5px 0; 
+  color: #777; 
+  letter-spacing: -0.5px;
+  text-align: center; 
+}
+
+#products div.buttons {
+  position: relative;
+  z-index: 1000; 
+  font-size: 13px; 
+  margin: 5px 0 0;
+  padding-top: 0;
+}
+
+#products div.buttons .price {
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: #777;
+}
+
+#products div.buttons .price strong {
+  color: #000;
+}
+
+#products div.buttons .button {
+  z-index: 1001;
+  top: -2px;
+  float: right;
+}
+
+#products div.prices .button {
+  margin: 5px 0;   
+}

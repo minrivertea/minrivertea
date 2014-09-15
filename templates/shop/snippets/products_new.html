@@ -1,0 +1,59 @@
+{% load i18n thumbnail convert_weights %}
+
+
+<script type="text/javascript">
+
+    $(document).ready( function() {
+        $('#products .product .text').each( function() {
+           var thisHeight = $(this).height();
+           $(this).css({'height': thisHeight, 'position': 'absolute'}); 
+        }); 
+    });
+
+</script>
+
+</script>
+
+<div id="products" class="pure-u-1">
+{% for x in products %}
+    <div class="product pure-g t-pad b-pad r-pad">
+        
+        <a href="{{ x.get_absolute_url }}"><span class="link"></span></a> 
+            
+        <div class="image pure-u-8-24">
+        {% thumbnail x.image "400x300" crop="center" as im %}
+            <img class="pure-u-1" src="{{ im.url }}"/>
+        {% endthumbnail %}
+        </div>  
+         
+        {% url home as home_url %}               
+        <div class="text pure-u-16-24 l-pad r-pad">
+            <h3 class="pure-u-1"><a href="">{{ x.name|safe }}<span></span></a></h3>
+                        
+            <p class="pure-u-18-24">{{ x.description|striptags|safe }}</p> 
+            
+            <div class="buttons pure-u-12-24 t-pad">
+                <span class="price pure-g">
+                    
+                    {% if x.price.weight %}
+                        <span class="pure-u-6-24">{{ x.price.weight }}{{ weight_unit }}</span>
+                    {% endif %}
+                    
+                    <span class="pure-u-6-24">
+                        <strong>{{ currency.symbol }}{{ x.price.price|floatformat:"2" }}</strong>
+                    </span>
+                    
+                    <a href="{% url add_to_basket x.price.id %}" class="button green small">{% trans 'Add to basket' %}</a>
+                    
+                </span>
+                
+            </div>
+                             
+        </div>
+        
+        
+        
+        
+    </div>
+{% endfor %}
+</div>

@@ -2,13 +2,13 @@
 
 {% for t in teas %}
 	
-	<div class="info">
+	<div class="info pure-u-1">
 	   <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
 	   {% thumbnail t.image thumb_medium crop="center" as im %}
-    	   <img src="{{ im.url }}"/>
+    	   <img src="{{ im.url }}" class="pure-u-1"/>
 	   {% endthumbnail %}
-	   <h4><a href="{{ t.get_absolute_url }}">{{ t.name|safe }}</a></h4>
-	   <div class="price-weight">
+	   <h4 class="pure-u-1"><a href="{{ t.get_absolute_url }}">{{ t.name|safe }}</a></h4>
+	   <div class="price-weight pure-u-1">
     	   <span class="price">
 	          <strong>{{ t.price.currency.symbol }}{{ t.price.price|floatformat:"-2" }}</strong>
 	       </span>

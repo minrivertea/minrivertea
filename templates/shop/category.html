@@ -27,16 +27,20 @@ $('#types').click(function() {
 {% block extracss %}
 <style type="text/css">
 
+div.introduction {
+  font-size: 1em;
+  line-height: 1.6em;
+  color: #555;
+}
+
+div.introduction p {
+  margin:0px 0 0;
+}
+
 .category {
   float: left;
   width: 100%;   
   margin: 0 0 40px 0;
-}
-
-#teas {
-  float: left;
-  width: 100%;
-  margin-top: 40px;   
 }
 
 #price-helper {
@@ -173,38 +177,42 @@ p.introduction, #left p.introduction {
 
 {% block content %}
 		
-<div id="mtw">
-  <div class="sp">
+<div class="sp pure-g">
   
     {% if not categories %}
-    <h1>{{ category.name }}</h1>
-    <p class="introduction">{{ category.short_description|striptags }}</p>
-    {% endif %}
+    <div class="introduction pure-g">
+        <h1>{{ category.name }}</h1>
+        <div class="pure-u-1">
+            {{ category.short_description|striptags }}
+        </div>
+   </div> 
+   {% endif %}
+   
     
-    
-	<div id="teas">
 	{% if categories %}
         {% for c in categories %}
-		    <div class="category">
-                <h2><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></h2>
-                <p class="introduction">{{ c.short_description|striptags }}</p>
-                {% with c.products as teas %}
-		          {% include 'shop/snippets/products_long.html' %}
-		        {% endwith %}
-            </div>
+		      {% if not forloop.first %}<div class="hr"></div>{% endif %}
+		      <div class="introduction pure-g">
+                <h2>{{ c.name }}</h2>
+                <div class="pure-u-4-5">
+                    {{ category.short_description|striptags }}
+                </div>
+              </div>
+              		      
+              {% with c.products as products %}
+              <div class="pure-u-18-24">
+		          {% include 'shop/snippets/products_new.html' %}
+		      </div>
+		      {% endwith %}
 		{% endfor %}
     {% else %}
-	      {% with products as teas %}
-	          {% include 'shop/snippets/products_long.html' %}
-	      {% endwith %}
+	      <div class="pure-u-18-24">
+	      {% include 'shop/snippets/products_new.html' %}
+	      </div>
+	      
     {% endif %}
-  	     
-	    
 
-		
-	</div>	
 	
-  </div>
 </div>
 
 

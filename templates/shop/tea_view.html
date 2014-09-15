@@ -66,7 +66,7 @@ $(document).ready( function() {
        var html = '<h2>{% trans "Reviews for" %} {{ tea.name }}</h2><div class="hr"></div><ul class="reviews">'
        html += $('#reviews ul').html();
        html += '</ul>';
-       makeOverlay(html, '600');
+       makeOverlay(html, '800');
        
     });
 });
@@ -79,31 +79,17 @@ $(document).ready( function() {
 {% block extracss %}
 <style type="text/css">
 
-#mtw #left {
-  background: #fff;
-  border: 10px solid #E1ECF3;
-  padding: 55px 15px 15px;
-  width: 910px;
-  position: relative;   
+div.introduction h1 {
+  margin: 0 0 20px 0;   
 }
 
-#mtw #left h2 {
-  background: #E1ECF3;
-  padding: 10px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 930px; 
-  font-family: Helvetica, Arial, sans-serif;  
-  font-weight: bold;
-  font-size: 24px;
-  letter-spacing: -1px;
+div.introduction p{
+  margin: 0;   
 }
 
 h1 span {
   font-size: 30px;
   color: #999;
-  margin-left: 10px;	
 }
 
 .product-photos-small {
@@ -227,23 +213,13 @@ h1 span {
 
 .tea-top {
     background: none repeat scroll 0 0 #FFFFFF;
-    border-radius: 8px 8px 8px 8px;
-    float: left;
-    margin: 15px 0 0px;
     padding: 0;
 }
 
 .tea-top .left {
-  width: 560px;
-  float: left;
   margin: 0px 0 0 0;   
 }
 
-
-.tea-top .description {
-  width: 380px;
-  float: right;	
-}
 
 .tea-top div.description p {
   font-size: 18px;
@@ -262,16 +238,18 @@ h1 span {
 
 .tea-top div.main-image {
     float: left;
-    width: 555px;
+    width: 565px;
     position: relative;
 }
 
 .tea-top #prices {
-    float: right;
-    width: 380px;
-    margin: 10px 0 0;
     position: relative;
-    border-top: 1px dashed #e1e1e1;
+}
+
+.tea-top #prices p {
+  margin: 0 0 20px 0; 
+  font-size: 13px;
+  line-height: 1.8em;  
 }
 
 #prices #loading {
@@ -314,13 +292,25 @@ h1 span {
 }
 
 #prices .price {
-    float: left;
-    margin: 0;
-    padding: 10px 0;
     position: relative;
-    width: 100%;
-    height: auto;
     border-bottom: 1px dashed #e1e1e1;
+    margin: 0;
+}
+
+#prices .price .disabled {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  opacity: 0.9;
+  background: #fff;
+  top: 0;
+  left: 0; 
+  text-align: center;  
+}
+
+#prices .price .disabled p {
+  margin-top: 1em;   
 }
 
 
@@ -358,7 +348,7 @@ h1 span {
     color: #5F829A;
 }
 
-#prices a.button.green, #prices a.button.red, #prices a.button.orange {
+#prices a.button {
     float: right;
 }
 
@@ -400,12 +390,9 @@ a.button.red:hover {
 }
 
 #stocks div {
-  float: left;
-  width: auto;
   padding: 0 10px;
   text-align: left;
   color: #555; 
-  border-right: 1px solid #e1e1e1;   
 }
 
 #stocks div:first-child {
@@ -425,14 +412,6 @@ a.button.red:hover {
   color: #444;  
 }
 
-#monthly.price {
-}
-
-#monthly.price .weight {
-    color: #666666;
-    font-size: 13px;
-    font-weight: bold;
-}
 
 table.details {
     margin-top: 10px;
@@ -462,33 +441,21 @@ span.name {
 }
 
 .price-description {
-  float:left;
   letter-spacing: -0.2px;
-  font-size: 13px;
-  line-height: 1em;
   position: relative;
-  top: 13px;
+  top: 8px;
 }
 
 #prices .amount {
-    color: #333;
-    float: left;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    width: auto;
-    margin: 0 5px 0 0;
+  color: #333;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: -0.5px;
 }
 
 .price .weight {
     color: #555555;
-    float: left;
-    font-size: 13px;
-    font-weight: 100;
-    margin: 0 10px 0 0;
-    position: relative;
-    top: 4px;
-    width: auto;
+    font-size: 15px;
 }
 
 .price .weight span {
@@ -512,16 +479,22 @@ div.fb-recommend {
     z-index: 5;
 }
 
-#recommended, #reviews, #delivery, #payment, #monthly {
+#recommended, #delivery, #payment, #monthly {
   float: left;
   width: 100%;
   margin: 0px 0 0 0;   
 }
 
-#reviews {
-  background: #fff;
-  margin: 0px;
-  position: relative; 
+
+
+#reviews h3, #shipping h3 {
+  font-size: 18px;
+  color: #5F829A;   
+}
+
+#shipping p {
+  margin: 0;
+  font-size: 13px;   
 }
 
 
@@ -535,7 +508,7 @@ div.fb-recommend {
     margin: 0 auto;
     padding: 7px 0 5px;
     position: absolute;
-    right: 0;
+    left: 10px;
     text-align: center;
     width: 150px;
 }
@@ -561,21 +534,13 @@ div.fb-recommend {
   list-style-type: none;
   padding: 0;
   margin: 0; 
-  float: left;
-  width: 100%;
   overflow: hidden;  
 }
 
 #reviews ul li {
-    float: left;
     font-size: 13px;
-    height: auto;
     letter-spacing: -0.2px;
     line-height: 1.8em;
-    margin: 10px 30px 0 0;
-    padding: 0 15%;
-    text-align: center;
-    width: 70%;
 }
 
 #reviews ul li.hidden {
@@ -601,19 +566,13 @@ div.fb-recommend {
   width: 345px;   
 }
 
-#extras {
-  float: left;
-  width: 100%;   
-}
-
 #extras .box {
   float: right;
   width: 345px;   
 }
 
 #extras .info {
-  float: left;
-  width: 100%;   
+   
 }
 
 #extras .info table {
@@ -700,18 +659,16 @@ ul.rss {
 {% endif %}
 
 
-#delivery h3, #payment h3, #reviews h3, #extras h3, #monthly h3 {
+#delivery h3, #payment h3, #extras h3, #monthly h3 {
   margin: 0;
   float: left;
   color: #5F829A;
 }
 
-#reviews h3 {
-    float: none;
-    font-size: 18px;
-    margin-bottom: 0px;
-    text-align: center;
+.border-right {
+  border-right: 1px dashed #e1e1e1;   
 }
+
 
 #delivery p, #payment p, #reviews p, #monthly p {
   margin: 10px 0 0 20px;
@@ -728,14 +685,6 @@ ul.rss {
     margin: -5px 0 0 20px;
 }
 
-.out-of-stock {
-  font-weight: bold;
-  font-size: 13px;
-  float: right;
-  color: red;
-  padding: 10px 5px;   
-}
-
 .not-in-stock {
     font-size: 15px;
     font-weight: bold;
@@ -746,24 +695,21 @@ ul.rss {
 {% endblock %}
 
 
-{% block currency %}
-	{% include 'shop/snippets/currency.html' %}
-{% endblock %}
-
-
 {% block content %}
 
-<div id="mtw">
-  <div class="sp">
-		
-	<h1>{% if tea.long_name %}{{ tea.long_name|safe }}{% else %}{{ tea.name }}{% endif %}</h1>
 
-  <div id="messages">
-  </div>
+<div class="sp">
+	
+	<div class="introduction pure-g">	    	
+        <h1 class="pure-u-1">
+            {% if tea.long_name %}{{ tea.long_name|safe }}{% else %}{{ tea.name }}{% endif %}
+        </h1>
+	   
+	</div>
 
-	<div class="tea-top">
-		<div class="left">
-		<div class="main-image">
+	<div class="tea-top pure-g">
+		<div class="left pure-u-3-5">
+		  <div class="main-image">
 			<div id="image_wrap">	
 				<img src="{{ static_url }}images/blank.gif" width="500px" height="331px" /> 
 			</div>
@@ -816,113 +762,93 @@ ul.rss {
 		
 		</div><!-- end main image div -->
 	</div>
-		
-	<div class="description">{{ tea.body_text|safe }}</div>
-    
-    <div id="prices">
-      
-      {% if tea.is_active %}
-        {% for price in prices %}
-          <div id="price_{{ price.id }}" class="price{% if price.sale_price %} sale{% endif %}{% if price.stocks.count < 1 %} out-of-stock{% endif %}">
-          
-		    <div class="price-inner">
-		    	
-              <div class="price-description">
-                
-
-                
-                <span class="amount">{% if price.sale_price %}
-                    <span class="strikethrough red small">{{ currency.symbol }}{{ price.price|floatformat:"-2" }}</span>
-                {% endif %}{{ currency.symbol }}{{ price.get_price|floatformat:"-2" }}</span>                 
-                <span class="weight">{% if price.weight %} / {% convert_weights request price.weight %}{{ weight_unit }}{% else %} / {{ price.description }}{% endif %} 
-                </span>
-               
-              </div>
-              
-              
-            
-              {% if price.stocks.out_of_stock %}
-                <span class="out-of-stock">Out of stock!</span>
-              {% endif %}
-              
-              
-              {% if price.stocks.preorder %}
-                 <a class="button orange addtocart" id="{{ price.id }}" href="{% url add_to_basket price.id %}"><span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Click to Preorder' %}</span></a>
-              {% endif %}
-              
-              
-              {% if price.stocks.available %}
-                    <a href="{% url add_to_basket price.id %}" class="button green addtocart" id="{{ price.id }}">{% trans 'Add to basket' %}</a>
-              {% endif %}
-                            
-                        
-            </div>
-          </div>    
-	    
-	    {% endfor %}
-	    
-	    <div id="stocks"> 
-		
-		  <div class="postage-cost">
-		      {% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}<strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %} - <a href="{% url page 'shipping' %}">{% trans 'read more' %}</a>
-		  </div>
-		  
-		  {% if not tea.in_stock %} 
-  	         <a href="#" class="button green small notify" data-id="{{ tea.id }}" data-name="{{ tea.name }}">{% trans "Get an email when this is in stock again" %}</a>
-  	      {% endif %} 
-		  
-		  {% comment %}
-		  <div>
-		      <a href="{% url monthly_tea_box %}">{% trans 'Want your tea delivered monthly?' %}</a>
-		  </div> 
-		  {% endcomment %}      
-		
-		</div>
-	    
-			
-      {% else %}
-        <div id="stocks">        
-         	<span class="not-in-stock">{% trans 'This product is not currently available for sale.' %}</span>
-        </div>	
-  	  {% endif %}
-  	  
-  	  
-  	  
-		
-		</div>
-	</div>
-	<div class="hr"></div>
 	
+	<div id="prices" class="pure-u-2-5 l-pad">
+        <p class="pure-u-1 r-pad">{{ tea.body_text|striptags }}</p>
+            
+            <div class="pure-g">
+            {% if tea.is_active %}
+                {% for price in prices %}
+                  <div id="price_{{ price.id }}" class="pure-u-1 half-pad price{% if price.sale_price %} sale{% endif %}">
+        		    
+        		    <div class="pure-g">
+        		    	
+        		    
+                      <div class="price-description pure-u-16-24">
+                        
+                        <div class="pure-g">
+                            
+                            <span class="weight pure-u-1-3">
+                                {% if price.weight %} 
+                                    {% convert_weights request price.weight %}{{ weight_unit }}
+                                {% else %} 
+                                    {{ price.description }}
+                                {% endif %} 
+                            </span>
+                            
+                            <span class="amount pure-u-2-3">
+                                {% if price.stocks.available %}
+                                    {% if price.sale_price %}
+                                        <span class="strikethrough red small">
+                                            {{ currency.symbol }}{{ price.price|floatformat:"2" }}
+                                        </span>
+                                    {% endif %}
+                                    {{ currency.symbol }}{{ price.get_price|floatformat:"2" }}
+                                {% else %}
+                                    <span class="red small"><strong>Out of Stock</strong></span>
+                                {% endif %}
+                            </span>                 
+                            
+                        </div> 
+                      </div>                      
+                      
+                      
+                      {% if price.stocks.preorder %}
+                         <a class="button orange pure-u half-pad" id="{{ price.id }}" href="{% url add_to_basket price.id %}"><span title="{% trans 'Order now and receive this on' %} {{ tea.get_preorder_date|date:'d M Y' }}">{% trans 'Click to Preorder' %}</span></a>
+                      {% endif %}
+                      
+                      
+                    {% if price.stocks.available %} 
+                    <a href="{% url add_to_basket price.id %}" class="button {% if price.stocks.available %}green{% else %}grey{% endif %} pure-u half-pad" id="{{ price.id }}">{% trans 'Buy' %}</a>
+                    
+                    {% else %}                    
+                        <a href="#" class="button orange pure-u half-pad notify" data-id="{{ tea.id }}" data-name="{{ tea.name }}">
+                            {% trans "Notify me" %}
+                        </a>
+                    {% endif %}
+                                    
+                    </div>
+                  </div>    
+        	    
+        	    {% endfor %}
+	    
+                <div id="stocks" class="pure-g"> 
+		
+                    <div class="postage-cost pure-u">
+                    {% blocktrans with currency.symbol as sym and currency.postage_cost as pc and currency.postage_discount_threshold as pdt %}
+                        <strong>{{ sym }}{{ pc }}</strong> shipping, free over <strong>{{ sym }}{{ pdt }}</strong>{% endblocktrans %}
+                    </div>
+		  
+                </div>
+
+        {% else %}
+          <div id="stocks">        
+           	<span class="not-in-stock">{% trans 'This product is not currently available for sale.' %}</span>
+          </div>	
+    	  {% endif %}
+  	     </div>
+  	  </div>
+		    
+   	
+	<div class="hr pure-u-1"></div>
+	</div>
 	<!-- END PRODUCT TOP -->	
-   
-    <!-- START REVIEWS -->
-    {% if reviews %}
-    <div id="reviews">
-        <div class="sp">
-       <h3>{% trans 'What do our customers say?' %} <a href="{% url review_tea tea.category.slug tea.slug %}">{% trans 'Add your own review' %} &raquo;</a></h3>
-           <ul>
-           {% for r in reviews %}
-               <li {% if not forloop.first %}class="hidden"{% endif %}>
-                   &ldquo;<em>{{ r.short_text }}</em>&rdquo;<br/>
-                   <strong>{{ r.first_name }} {{ r.last_name }}</strong> - {{ r.date_submitted|date:"d M Y" }} {% if r.url %} - <a href="{{ r.url }}">view original</a>{% endif %}
-               </li>
-           {% endfor %}
-            </ul>
-           
-        </div>
-        {% if reviews.count > 1 %}
-        <span class="toggle">{% trans 'Show more reviews' %}</span> 
-        {% endif %}
-    </div>        
-    <div class="hr"></div>
-    {% endif %}
-    <!-- END REVIEW -->
 
 	<!-- START EXTRAS -->
 	{% if tea.long_description %}
-	<div id="extras">
+	<div id="extras" class="pure-g">
 	
-      	<div id="description" class="info">
+      	<div id="description" class="pure-u-1">
       	   {{ tea.long_description|convert_links|safe }}
       	</div>
 	
@@ -931,6 +857,62 @@ ul.rss {
 	{% endif %}
 	<!-- END EXTRAS -->
 	
+	
+	<!-- START REVIEWS -->
+    {% if reviews %}
+    <div class="sp pure-g">
+        <div id="reviews" class="pure-u-1-2 l-pad r-pad border-right">
+        
+            <h3>{% trans 'What do our customers say?' %} 
+                <a href="{% url review_tea tea.category.slug tea.slug %}">
+                    {% trans 'Add your own review' %} &raquo;
+                </a>
+            </h3>
+            
+            <ul class="pure-g">
+            {% for r in reviews %}
+               <li class="pure-u-1 {% if not forloop.first %}hidden{% endif %}">
+                   &ldquo;<em>{{ r.short_text }}</em>&rdquo;<br/>
+                   {% if r.first_name or r.last_name %}
+                   <strong>{{ r.first_name }} {{ r.last_name }}</strong>
+                   {% if r.date_submitted %} - {{ r.date_submitted|date:"d M Y" }}{% endif %} 
+                   {% if r.url %} - <a href="{{ r.url }}">view original</a>{% endif %}
+                   {% endif %}
+               </li>
+           {% endfor %}
+            </ul>
+        
+            {% if reviews.count > 1 %}
+                <span class="toggle">{% trans 'Show more reviews' %}</span> 
+            {% endif %}
+           
+        </div>
+        
+        <div id="shipping" class="pure-u-1-2">
+            <div class="pure-g">
+                <div class="pure-u-1-2 l-pad r-pad border-right">
+                    <h3>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}Free delivery over {{ symbol }}{{ ptd }}{% endblocktrans %}</h3>
+                    {% url page _('shipping') as shipurl %}
+        	       <p>{% blocktrans %}Read more info about our <a href="{{ shipurl }}">
+        	           FREE worldwide shipping</a>{% endblocktrans %}
+        	       </p>
+                </div>
+                
+                <div class="pure-u-1-2 l-pad r-pad">
+                    <h3>{% trans 'Easy and secure payment' %}</h3>
+          <span class="image"></span>
+          {% url page _('terms-and-conditions') as tcurl %}
+          {% url page _('returns') as rturl %}
+          <p>{% blocktrans %}Read our <a href="{{ tcurl }}">T&Cs</a> and <a href="{{ rturl }}">Returns</a> policies{% endblocktrans %}</p>
+                </div>
+            </div>
+        </div>
+	       
+    </div>        
+        
+    <div class="hr"></div>
+    {% endif %}
+    <!-- END REVIEWS -->
 	
 	
 	<!-- START DEALS -->
@@ -942,46 +924,7 @@ ul.rss {
     <!-- END DEALS -->
 
 
-
-  <div id="delivery">
-    <h3>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}Free delivery on orders over {{ symbol }}{{ ptd }}{% endblocktrans %}</h3>
-    {% url page _('shipping') as shipurl %}
-	<p>{% blocktrans %}Read more info about our <a href="{{ shipurl }}">FREE worldwide shipping</a>{% endblocktrans %}
-	 </p>
-  </div>
-  
-  <div class="hr"></div>
-  
-  <div id="payment">
-    <h3>{% trans 'Easy and secure payment with' %}</h3>
-    <span class="image"></span>
-    {% url page _('terms-and-conditions') as tcurl %}
-    {% url page _('returns') as rturl %}
-    <p>{% blocktrans %}Read our <a href="{{ tcurl }}">T&Cs</a> and <a href="{{ rturl }}">Returns</a> policies{% endblocktrans %}</p>
-  </div>
-  
-    <div class="hr"></div>
-  
-    {% if not reviews %}
-        <div id="payment">
-            <h3>{% url review_tea tea.category.slug tea.slug as url %}{% blocktrans %}Do you want to <a href="{{ url }}" style="color: #FF6569;">add a review?</a>{% endblocktrans %}</h3>
-            <p>{% trans 'Adding your views helps us improve, and lets other customers make better choices' %}</p>        
-        </div>     
-    
-    <div class="hr"></div>
-    {% endif %}
-    
-    {% comment %}
-    {% if monthly_price %}
-        <div id="monthly">
-            <h3>{% trans 'Want your tea delivered monthly to your door?' %}</h3>
-            <p>{% trans 'Setup a monthly TeaBox and never miss your tea time again' %} - <a href="{% url monthly_tea_box %}">{% trans 'find out more' %}&raquo;</a></p>
-        </div>
-    <div class="hr"></div>
-    {% endif %}
-    {% endcomment %}
-	
-	
+ 
 	<div id="recommended">
 	   <h3 class="title">{% trans 'Also recommended...' %}</h3>
 	   {% with recommended as teas %}
@@ -1020,6 +963,5 @@ ul.rss {
 	<ul class="rss"><li><img src="{{ static_url }}images/debug_social.jpg" /></li></ul>
 	{% endif %}
 
-</div>
 </div>
 {% endblock %}

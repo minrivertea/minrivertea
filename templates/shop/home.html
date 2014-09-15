@@ -21,7 +21,11 @@ $("#deals img[title]").tooltip({
 {% block extracss %}
 <style type="text/css">
 
-#teas, #teaware, #about, #experts, #monthly, #brewing, #special, #deals {
+#products {
+  float: left;   
+}
+
+#teaware, #about, #experts, #monthly, #brewing, #deals {
   float: left;
   width: 100%;
   position: relative;
@@ -70,10 +74,6 @@ h2.banner {
   color: #777;   
 }
 
-#teas h2 {
-  text-align: right;   
-}
-
 #teas .info.tea.right:last-child, #teas .info.tea.left:last-child {
   margin-bottom: 0;
 }
@@ -84,11 +84,9 @@ h2.banner {
 
 
 #special {
-  float: left;
-  width: 100%;
   position: relative;
-  background: url('{{ static_url }}images/homepage/beginners-pack-banner-1.jpg') no-repeat top left;
-  height: 300px;
+  background: url('{{ static_url }}images/homepage/beginners-pack-banner-1.jpg') no-repeat left -50px;
+  height: 250px;
   transition: opacity .25s ease-in-out;
    -moz-transition: opacity .25s ease-in-out;
    -webkit-transition: opacity .25s ease-in-out;
@@ -103,14 +101,14 @@ h2.banner {
   float: left;
   position: absolute;
   left: 20px;
-  top: 195px;
+  top: 175px;
   z-index: 1000;
 }
 
 #special .details {
     float: left;
     width: 40%;
-    top: 40px;
+    top: 20px;
     left: 20px;
     padding: 0;
     position: absolute;
@@ -211,18 +209,6 @@ h2.banner {
 }
 
 
-#monthly .glass-text {
-    width: 55%;
-}
-
-#monthly .button {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;   
-}
-
-
-
 ul.rss {
     left: 400px;
     padding: 0;
@@ -304,61 +290,46 @@ ul.rss {
   margin-top: 0;   
 }
 
-#blogs {
-  float: left;
-  width: 100%;   
-}
-
-#blogs .blog {
-  float: left;
-  width: 315px;
-  margin-left: 2px;
-  height: auto; 
+.blog {
   position: relative;  
 }
 
-#blogs .blog:last-child {
-  margin-right: 0;   
-}
 
-#blogs .blog .image {
-  height: 240px;
-  float: left; 
-  margin: 0 0 10px 0;  
-}
-
-#blogs .blog:hover .image img {
+.blog:hover .image img {
   opacity: 0.8;   
 }
 
-#blogs .blog .text {
-    float: left;
+.blog:hover .text h3 a {
+  color: #D30000;
+}
+
+.blog .text {
+    bottom: 20px;
     left: 10px;
     max-width: 70%;
     padding: 6px 10px;
     position: absolute;
     text-align: left;
-    top: 10px;
     width: auto;
 }
 
-#blogs .blog .text:before {
+.blog .text:before {
         content: " ";
         display: block;
         width: 0;
         height: 0;
-        border-left: 15px solid transparent;     
+        border-left: 10px solid transparent;     
         border-bottom: 0;
-        border-top: 15px solid #fff;
-        border-right: 15px solid transparent;
+        border-top: 10px solid #fff;
+        border-right: 10px solid transparent;
         position: absolute;
-        bottom: -15px;
+        bottom: -10px;
         left: 20px;
         z-index: 2;
         opacity: 0.8;    
 }
 
-#blogs .blog .text .back {
+.blog .text .back {
     background: none repeat scroll 0 0 #FFFFFF;
     height: 100%;
     left: 0;
@@ -368,15 +339,26 @@ ul.rss {
     width: 100%;
 }
 
-#blogs .blog .text h3 {
-    font-size: 18px;
+.blog .text h3 {
+    font-size: 15px;
     margin: 0;
     position: relative;
     z-index: 20;
 }
 
-#blogs .blog .text h3 a {
+.blog .text h3 a {
 }
+
+
+
+
+
+
+
+
+
+
+
 
 </style>
 {% endblock %}
@@ -387,7 +369,7 @@ ul.rss {
 
 <div class="sp">
 
-    {% if special %}
+
     <div id="special">
         <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
         <div class="details">
@@ -402,7 +384,67 @@ ul.rss {
 	    <a href="{{ special.get_absolute_url }}" class="button grey ">View details</a>
 	    </div>
 	    	    
-    </div>    
+    </div>  
+    
+    <div class="hr"></div>
+
+
+    <div class="pure-g">
+        <div class="pure-u-18-24">
+            {% with teas as products %}
+            {% include 'shop/snippets/products_new.html' %}
+            {% endwith %}
+            
+        </div>
+        
+        <div class="pure-u-6-24 l-pad" style="border-left: 1px dashed #e1e1e1;">
+            <div class="pure-g">
+                <div class="info pure-u-1 t-pad">
+                    <h3>&laquo; Featured teas</h3>
+                    <p>This month we're featuring four of our favourite green teas, all produced during this year's early April-May harvest.</p>
+                </div>
+                
+                <div class="hr"></div>
+                
+                {% for x in blog_entries %}
+                <div class="blog info">
+                    <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
+                    <div class="image pure-u-1">
+                    {% thumbnail x.promo_image "225x180" crop="center" as im %}
+                        <img src="{{ im.url }}" />
+                    {% endthumbnail %}
+                    </div>
+                    <div class="text">
+                        <div class="back"></div>
+                        <h3><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></h3>
+                    </div>
+                </div>
+                
+                <div class="hr"></div>
+            {% endfor %}
+    
+        </div>
+    </div>
+
+
+    <div id="experts">
+        <a href="{% url finder _('about') %}"><span class="link"></span></a>
+        <div class="glass-text">
+            <div class="back"></div>
+            <div class="inner">
+            <h2>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h2>
+            <p>{% blocktrans %}We're one of the only Western tea companies actually based near farms and tea growing areas in China - we really believe you can taste the difference - {% endblocktrans %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+
+    {% comment %}
+    
+    {% if special %}
+      
     
     <!-- END OF SPECIAL -->
     {% endif %}
@@ -458,34 +500,7 @@ ul.rss {
     <!-- END OF DEALS -->
     
 
-	<div id="teas">
-	          
-        {% include 'shop/snippets/products_long.html' %}        
-        
-        <h2 class="banner">{% trans 'Check out our bestsellers' %} <a href="{% url finder _('teas') %}">{% trans 'or see our full range of teas' %} &raquo;</a></h2>
-        
-        
-    </div>
-	<!-- END TEAS LIST -->
-	
-	
-
-    
-    <div id="experts">
-        <a href="{% url finder _('about') %}"><span class="link"></span></a>
-        <div class="glass-text">
-            <div class="back"></div>
-            <div class="inner">
-            <h2>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h2>
-            <p>{% blocktrans %}We're one of the only Western tea companies actually based near farms and tea growing areas in China - we really believe you can taste the difference - {% endblocktrans %}</a>
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="hr"></div>
-    
-    
+      
 	
 	<div id="teaware">
 	
@@ -504,27 +519,7 @@ ul.rss {
 
 	</div>
 
-    {% if blog_entries %}
-    <div class="hr"></div>
-    <div id="blogs">
-        {% for x in blog_entries %}
-            <div class="blog">
-                <a href="{{ x.get_absolute_url }}"><span class="link"></span></a>
-                <div class="image">
-                {% thumbnail x.promo_image "315x240" crop="center" as im %}
-                    <img src="{{ im.url }}" />
-                {% endthumbnail %}
-                </div>
-                <div class="text">
-                    <div class="back"></div>
-                    <h3><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></h3>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    
-    	
+        	
 
 	
 	    {% if ga_is_on %}
@@ -536,6 +531,8 @@ ul.rss {
 			</li>
 		</ul>
         {% endif %}
+        
+        {% endcomment %}
 
 </div>
 	

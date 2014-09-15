@@ -34,32 +34,27 @@ $(function() {
 
 {% block extracss %}
 <link rel="stylesheet" type="text/css" href="{{ static_url }}css/pages.css">
-<style type="text/css">
-
-
-</style>
 {% endblock %}
 
 {% block content %}
 
-<div id="mtw">
-  <div class="sp">
+<div class="sp pure-g">
 
-	<div id="right">
+    <div id="left" class="pure-u-18-24 r-pad">
+        
+        <h1>{{ page.title }}</h1>
+        
+		{{ page.content|convert_links|safe }}
+	
+	</div>
+
+	<div id="right" class="pure-u-6-24 l-pad r-pad">
 		{% include 'shop/boxes/who.html' %}
 		{% include 'shop/boxes/tea.html' %}
 		{% include 'shop/boxes/follow.html' %}
 	</div>
 
-	<div id="left">
-        
-        
-        <h1>{{ page.title }}</h1>
-
-        
-		{{ page.content|convert_links|safe }}
 	
-	</div>
 	
 		{% if ga_is_on %}
 		<ul class="rss">

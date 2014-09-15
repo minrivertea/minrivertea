@@ -1,3 +1,40 @@
+/* ADDITIONAL PURECSS STYLES */
+.pure-g > * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.all-pad {
+  padding: 1em;
+}
+
+.half-pad {
+  padding: 0.5em;   
+}
+
+.l-pad {
+  padding-left: 1em;   
+}
+
+.r-pad {
+  padding-right: 1em;   
+}
+
+.t-pad {
+  padding-top: 1em;    
+}
+
+.b-pad {
+  padding-bottom: 1em;    
+}
+
+.text-center {
+  text-align: center;   
+}
+/* END PURECSS STYLES */
+
+
 html {
   border: none;
   margin: none;
@@ -21,8 +58,6 @@ body {
 
 .hr {
   height: 1px;
-  width: 100%;
-  float: left;
   margin: 25px 0;
   border-top: 1px dashed #c1c1c1;  
 } 
@@ -34,18 +69,20 @@ body {
 
 /* typography */
 
+.pure-g, .pure-g [class*="pure-u"] {
+  font-family: 'Roboto', Helvetica, sans-serif;   
+}
+
 h1 {
-    color: #d30000;
-    font-size: 34px;
-    font-weight: 100;
+    color: #000;
+    font-weight: 100 ;
+    margin: 0px 0 10px 0;
     letter-spacing: -1px;
-    margin: 10px 0 0 0;
-    padding-bottom: 0;
 }
 
 h2 {
     color: #333333;
-    font-size: 24px;
+    font-size: 32px;
     letter-spacing: -1px;
     margin: 0 0 5px;
     padding-bottom: 0;
@@ -96,6 +133,12 @@ p {
   float: right;
 }
 
+#right .info h4 {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;   
+}
+
 
 
 a img {
@@ -128,7 +171,6 @@ ul {
 
 ul, ol {
     font-size: 13px;
-    letter-spacing: -0.2px;
     line-height: 1.6em;
 }
 
@@ -189,6 +231,7 @@ input.button {
 
 .button.grey {
   background: #f1f1f1;
+  border: none;
   color: #777;
   text-shadow: none;
   box-shadow: none;
@@ -197,8 +240,12 @@ input.button {
 }
 
 .button.grey:hover {
-  color: #333;
+  color: #777;
   background: #e9e9e9;
+}
+
+.button.grey strong {
+  color: #000;   
 }
 
 .button.red {
@@ -259,11 +306,9 @@ span.link:hover {
 
 #message {
     background: #f6f6f6;
-    width: 100%;
     padding: 10px 0;
-    float: left;
     height: auto;
-    margin: 0 0 10px 0;
+    margin: 0 0 20px 0;
     text-align: center;
 }
 
@@ -282,16 +327,9 @@ span.link:hover {
 
 
 #header {
-  float: left;
-  height: auto;
-  padding: 15px 0px 0px;
-  width: 100%;
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
 }
 
-#header .hr {
-  margin: 15px 0 0px;   
-}
 
 #header.blog {
   margin: 0;   
@@ -336,42 +374,6 @@ span.link:hover {
   display: none;	
 }
 
-#tools {
-    float: left;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    width: 100%;
-}
-
-
-#tools .hr {
-  margin: 10px 0 15px;   
-}
-
-#tools #tagline {
-  float: left;
-  font-size: 13px;
-  padding-top: 0px; 
-  font-weight: bold;
-  letter-spacing: -0.2px;  
-}
-
-#tools #tagline .red {
-  background: #D30000;
-  color: #fff;
-  padding: 3px 10px;
-  border-radius: 4px;
-  margin: 0 5px 0 0;   
-}
-
-#tools #tagline a {
-  text-decoration: none;   
-}
-
-#tools #tagline a span {
-  text-decoration: underline;   
-}
 
 #topnav {
   float: right;
@@ -382,31 +384,31 @@ span.link:hover {
   top: -5px;   
 }
 
-#learn {
+#topnav ul {
   list-style-type: none;
-  padding: 0 30px 0 0;
+  padding: 0;
   margin: 0;
   float: right;
   width: auto;
 }
 
-#learn li {
+#topnav li {
   float: left;   
 }
 
-#learn li a {
-    border-right: 1px dashed #E1E1E1;
-    color: #888888;
-    float: left;
+#topnav ul > li a, #topnav ul > li#currency, #topnav ul li#header_basket {
+  border-right: 1px dashed #E1E1E1;
+  color: #777;
+  float: left;
   text-transform:lowercase ;
   font-size: 11px;
   font-weight: normal;
-    padding: 0 8px;
+  padding: 0 8px;
 }
 
-#learn li:last-child a {
-  border-right: none;
-  padding-right: 0;
+#learn li:first-child a {
+  border-left: none;
+  padding-left: 0;
 }
 
 #learn li a:hover {
@@ -469,165 +471,141 @@ background: -o-linear-gradient(-45deg,  #2759bc 0%,#2759bc 25%,#ffffff 25%,#ffff
 background: -ms-linear-gradient(-45deg,  #2759bc 0%,#2759bc 25%,#ffffff 25%,#ffffff 37%,#ff0000 37%,#ff0000 65%,#ffffff 65%,#ffffff 73%,#2759bc 73%,#2759bc 100%); /* IE10+ */
 background: linear-gradient(135deg,  #2759bc 0%,#2759bc 25%,#ffffff 25%,#ffffff 37%,#ff0000 37%,#ff0000 65%,#ffffff 65%,#ffffff 73%,#2759bc 73%,#2759bc 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2759bc', endColorstr='#2759bc',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
-}
-
-#learn li.currency {
-    border-left: 1px dashed #E1E1E1;
-    height: 23px;
-    margin: 0 0 0 3px;
-    overflow: hidden;
-    padding: 0 0 0 5px;
-    width: 19px;
-    position: absolute;
-    right: 0;
-    background: #fff;
-    z-index: 20;
-}
-
-#learn li.currency a {
-    background: none repeat scroll 0 0 #E1E1E1;
-    font-size: 15px;
-    height: 21px;
-    margin: 0 0 3px;
-    padding: 1px 5px;
-    width: 9px;
-}
-
-#learn li.currency a.strong {
-  background: #2A8531;
-  color: #fff;   
 }
 
 
-#language {
-  float: right;
-  margin-right: 10px;
-  width: auto;
-  padding: 7px 10px 6px;   
-  color: #c1c1c1;
+#topnav ul li#header_basket {
+  background: ;
+  padding: 0.3em 0em 0.3em 1em;
+  position: relative;
+  top: -0.3em;  
+  border-right: none;
+  text-transform: none;
+}
+
+
+#topnav ul li#header_basket .empty {
   font-size: 11px;
+  color: #777;
+  display: inline-block;   
 }
 
-#language a.selected, #learn a.selected {
-  font-weight: bold;
-  color: #333;   
-}
-
-#userbasket {
-    color: #333333;
-    font-weight: bold;
-    height: 12px;
-    width: auto;
-    margin-right: 0px;
-    float: right;
-    padding: 0;
-    font-size: 11px;
-}
-
-#userbasket.selected {
+#topnav ul li#header_basket .full {
+  display:  none; 
   font-size: 15px;
-  height: auto;   
+  font-weight: bold;
+  color: #000;  
 }
 
-#userbasket #quantity {
-    float: left;
-    text-align: center;
-    width: auto;
+#topnav ul li#header_basket .full a {
+  color: #D30000;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: none;   
 }
 
-#userbasket span.basket {
+#topnav ul li#header_basket.selected .empty {
+  display: none;
+}
+
+#topnav ul li#header_basket.selected .full {
+  display: inline-block;   
+}
+
+
+
+#topnav ul li#header_basket span.basket {
     background: url("/static/images/logo16.jpg") no-repeat scroll -273px -4px transparent;
     display: block;
     float: left;
-    height: 18px;
-    margin: 0 5px 0 0;
-    position: relative;
-    top: 2px;
-    width: 23px;
-}
-
-#userbasket.selected span.basket {
-    background: url("/static/images/logo16.jpg") no-repeat scroll -250px -4px transparent;
-    top:2px;
-}
-
-#userbasket a {
-    border-left: 1px solid #D1D1D1;
-    color: #d30000;
-    font-weight: bold;
-    margin-left: 5px;
-    padding-left: 8px;
-    text-decoration: none;
-}
-
-#userbasket a:hover {
-  text-decoration: underline;   
-}
-
-#language a, #currency a, #learn a {
-  text-decoration: none;   
-}
-
-#currency {
-    color: #333333;
-    float: right;
-    font-size: 10px;
-    font-weight: bold;
-    height: 22px;
-    overflow: hidden;
-    position: absolute;
-    z-index: 40;
-    right: 0;
-    top: 2px;
-    width: 50px;
-    background: #fff;
-}
-
-
-#currency a {
-	background: url('/static/images/logo16.jpg') no-repeat -168px -1px;
-    color: #333;
-    text-align: center;
-    float: left;
     height: 16px;
-    margin-bottom: 5px;
-    width: 24px;
-    opacity: 0.3;
-    position: absolute;    
+    left: -0.2em;
+    margin: 0 0.2em 0 0;
+    position: relative;
+    top: 0.1em;
+    width: 21px;
 }
 
-#currency a span {
-  position: relative;
-  right: -28px; 
+#topnav ul li#header_basket.selected span.basket {
+    background: url("/static/images/logo16.jpg") no-repeat scroll -250px -4px transparent;
 }
 
-#currency a.eu {background-position: -192px -1px;}
-
-#currency a.us {background-position: -216px -1px;}
-
-#currency a.strong {
-  opacity: 1;	
-}
-
-#currency a:hover {
-  opacity: 1;
+#topnav ul li#header_basket a {
+  margin: 0;
+  border: none;
+  padding: 0;
+  float: none;
+  color: #2a8531;   
 }
 
 
-
-div#home-banner {
-    float: right;
-    margin: 45px 0px 0 0;
-    text-align: right;
-    width: 560px;
+#topnav ul li#header_basket.selected a:hover {
+   color: #D30000;   
 }
+
+#topnav ul li#currency, #topnav ul li#header_basket {
+  text-decoration: none;
+}
+
+#topnav ul li#currency {
+  position: relative;   
+}
+
+#topnav ul li#currency:hover {
+  background: #f6f6f6; 
+  cursor: pointer;  
+}
+
+#topnav ul li#currency:hover .dropdown {
+  display: inline-flex;
+}
+
+#topnav ul li#currency strong {
+  color: #000; 
+}
+
+#topnav ul li#currency .dropdown {
+    background: none repeat scroll 0 0 #f6f6f6;
+    bottom: -40px;
+    display: none;
+    left: -18px;
+    position: absolute;
+    width: auto;
+    padding: 0.5em 1em;
+}
+
+#topnav ul li#currency .dropdown a {
+  border: none;
+  text-decoration: none; 
+  display: inline-block;
+  font-size: 18px;
+  padding: 5px 10px;
+  text-align: center;
+}
+
+#topnav ul li#currency .dropdown a:hover {
+  background: #fff;
+  color: #2a8531;   
+}
+
+#topnav ul li#currency .dropdown a.selected {
+  color: #000;   
+}
+
+#topnav ul li#currency .dropdown a.selected:hover {
+  color: #2a8531;   
+}
+
+
+
+
+
 
 
 #navigation {
   float: right;
   width: auto;
-  margin: 40px 0 0px;	
+  margin: 33px 0 0px;	
 }
 
 ul#nav {
@@ -866,22 +844,15 @@ ul#right-nav ul.subnav ul.subsubnav li a.selected {
 /* content page styles */
 
 #mtw {
-  width:100%;
-  float:left;
-  margin: 0px 0 0 0;
+</stop>  margin: 20px 0 0 0;
 }
 
 #mtw #left {
-    float: left;
-    margin: 0 10px 20px 0px;
-    width: 600px;
     position: relative;
 }
 
 #mtw #right {
-    float: right;
-    padding: 0px;
-    width: 260px;
+    margin: 20px 0 0 0;
 }
 
 p.introduction, #left p.introduction {
@@ -1007,9 +978,6 @@ div.profile img {
 /* base info box */
 
 .info {
-    float: left;
-    margin-bottom: 15px;
-    width: 230px;
     position: relative;
 }
 
@@ -1045,11 +1013,7 @@ div.profile img {
 }
 
 .info h3 {
-  font-size: 15px;
-  margin: 0 0 5px 0;
-  text-shadow: none;
-  width: 100%;
-  line-height: 1.2em;
+  font-size: 1.2em;
 }
 
 .info p {
@@ -1273,10 +1237,9 @@ div.profile img {
 /* RIGHT HAND SIDE BOXES */
 
 #right .info {
-  margin: 20px 0 0px;
-  padding-bottom: 10px;
+  padding: 20px 0;
+  
   border-bottom: 1px dashed #d1d1d1;   
-  float: right;
 }
 
 #right .info:hover img {

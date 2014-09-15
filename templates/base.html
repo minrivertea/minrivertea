@@ -29,7 +29,12 @@
 	{% block canonical %}{% endblock %}
 	{% block extra-head %}{% endblock %}
 
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 	<link rel="stylesheet" href="{{ static_url }}css/styles.css" />
+	<link rel="stylesheet" href="{{ static_url }}css/products.css" />
+	
+
+
 	    
 	{% if ga_is_on %}
 		<script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
@@ -42,10 +47,7 @@
 	{% block extracss %}{% endblock %}
 	
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
-
-    {% if request.LANGUAGE_CODE == 'de' %}
-    <link rel="stylesheet" href="{{ static_url }}css/germany.css"/>
-    {% endif %}
+    
 	
 	<!--[if lte IE 8]>
 		<link rel="stylesheet" media="screen" type="text/css" href="{{ static_url }}css/ie.css" />
@@ -157,7 +159,7 @@ if (15.00) {
 </div>
 
 
-<div id="header">
+<div id="header" class="pure-u-1">
 
     <div class="sp">
         
@@ -176,6 +178,8 @@ if (15.00) {
               </li>
             {% endfor %}
             
+            
+            {% comment %}
           	{% get_current_language as LANGUAGE_CODE %}
           	<li class="language">
           	{% if LANGUAGE_CODE == 'en' %}
@@ -184,50 +188,41 @@ if (15.00) {
           	     <a class="en" href="{% url changelang 'en' %}">{% trans 'English' %}<div class="flag"></div></a>
             {% endif %}
           	</li>
+          	{% endcomment %}
           	
-          	
-          	<li class="currency">
-          	     <a class="uk{% if currency.code == 'GBP' %} strong one{% else %} two{% endif %}" title="Switch currency to British pounds" href="{% url set_currency %}?curr=GBP"><span>&pound;</span></a>
-	
-	<a class="us{% if currency.code == 'USD' %} strong one{% else %} three{% endif %}" title="Switch currency to US Dollars" href="{% url set_currency %}?curr=USD"><span>&dollar;</span></a>
-	
-	<a class="eu{% if currency.code == 'EUR' %} strong one{% else %}{% if currency.code == 'USD'%} three{% else %} two{% endif %}{% endif %}" title="Switch currency to Euros" href="{% url set_currency %}?curr=EUR"><span>&euro;</span></a>
+          	<li id="currency">
+          	 Currency: <strong>{{ currency.symbol }}</strong>
+                <div class="dropdown pure-g">
+                        <a class="{% if currency.code == 'GBP' %}selected{% endif %}" title="Switch to British pounds" href="{% url set_currency %}?curr=GBP"><span>&pound;</span></a>
+                        <a class="{% if currency.code == 'USD' %}selected{% endif %}" title="Switch to US Dollars" href="{% url set_currency %}?curr=USD"><span>&dollar;</span></a>
+                        <a class="{% if currency.code == 'EUR' %}selected{% endif %}" title="Switch to Euros" href="{% url set_currency %}?curr=EUR"><span>&euro;</span></a>
+                </div>
           	</li>
+          	          	          	
+            <li id="header_basket" class="{% if basket_quantity %}selected{% endif %}">
+                <span class="basket"></span>
+            	<div class="full">
+                	<span class="q">{{ basket_quantity }}</span> item{{ basket_quantity|pluralize }} - 
+                    {{ currency.symbol }}<span class="p">{{ basket_amount|floatformat:"2" }}</span> - 
+                    <a href="{% url basket %}">{% trans 'Checkout Now' %} &raquo;</a>
+                </div>
+                <div class="empty">
+            	   Nothing in your basket yet!
+                </div>
+            </li>
 
             </ul>
         </div>
     	        
         {% include 'shop/snippets/main_navigation.html' %}
         
-        <div class="hr"></div>
+        <div class="hr pure-u-1"></div>
         	
     </div>
 </div>
 
 
-<div id="tools">
-    <div class="sp">        
-
-        {% include 'shop/snippets/userbasket.html' %}
-                
-        <div id="tagline">
-            {% url page _('about') as url %}
-            {% blocktrans %}Fine Chinese teas, direct from farms in China - <a href="{{ url }}">find out more &raquo;</a>{% endblocktrans %}
-        </div>
-
-       <div class="hr"></div>
-
-    </div>
-</div>
-
-
 <!-- end header -->
-
-    <!-- EXCLUDED
-    {% if landing_page %}
-        {% include 'affiliate/campaign.html' %}
-    {% endif %}
-    -->
 
     
 	{% block content %}{% endblock %}
@@ -250,10 +245,7 @@ if (15.00) {
             if (width) {
                overlayInner.css({'width': width,}); 
             }
-            
-            
-            
-            
+                        
             overlayInner.appendTo(document.body);
             overlayInner.html(jQuery(HTML));
             overlayInner.append('<a href="#" class="close" style="color:#999;font-size:22px; font-weight:100;text-decoration:none;position:absolute; top: 7px; right: 10px;">x</a>');
@@ -321,17 +313,6 @@ if (15.00) {
 					$(this).css('color', '#999');
 				}
 			});
-		
-
-
-            /// CURRENCY ROLLOVER
-            $('#learn li.currency a.one').prependTo('#learn li.currency');
-            
-            $('#learn li.currency').hover( function() {
-               $(this).animate({height: '78px',}, 150);
-    		}, function() {
-    		    $(this).animate({height: '22px',}, 100); 
-            });
     		 
     		
     		/// MANAGES THE ADD-TO-CART BUTTONS 
@@ -369,12 +350,11 @@ if (15.00) {
                		
                		
                		/// INCREMENT VALUES IN THE HEADER BASKET
-                    if ($('#userbasket').hasClass('selected')) {} else {
-                         $('#userbasket').addClass('selected'); 
-                         $('#userbasket #quantity').append('<a href="{% url basket %}" title="{% trans 'View your basket' %}" alt="{% trans 'View your basket' %}">{% trans 'Checkout now' %} &raquo;</a>'); 
+                    if ($('#header_basket').hasClass('selected')) {} else {
+                         $('#header_basket').addClass('selected'); 
                     }
-                    $('#quantity .p').text(parseFloat(data.basket_amount).toFixed(2));
-                    $('#quantity .q').html(parseInt($('#quantity .q').html(), 10)+1);
+                    $('#header_basket .p').text(parseFloat(data.basket_amount).toFixed(2));
+                    $('#header_basket .q').html(parseInt($('#header_basket .q').html(), 10)+1);
                		
                	},
               });
