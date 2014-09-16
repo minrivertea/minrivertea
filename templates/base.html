@@ -1,4 +1,4 @@
-{% load nav_selected i18n compress %}
+{% load nav_selected i18n %}
 
 <!DOCTYPE html>
 <head>
@@ -30,11 +30,9 @@
 	{% block extra-head %}{% endblock %}
 
     
-    {% compress css %}
 	<link rel="stylesheet" href="{{ static_url }}css/pure-grids-combo.0.5.0.css">
 	<link rel="stylesheet" href="{{ static_url }}css/styles.css" />
 	<link rel="stylesheet" href="{{ static_url }}css/products.css" />
-	{% endcompress %}
 	
 
 
