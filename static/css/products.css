@@ -26,6 +26,10 @@
   bottom: 0;
 }
 
+#products div.text p.description span {
+  color: #777;
+}
+
 #products div.text p.meta {
   color: #555;
   font-size: 0.8em;
@@ -38,11 +42,12 @@
 #products div.text h3 {
   margin: 0 0 5px 0;
   font-size: 22px;
-  font-weight: normal;   
+  font-weight: normal; 
+  letter-spacing: -0.5px;
 }
 
 #products div.text h3 span {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: normal;
 }
 
