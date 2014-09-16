@@ -43,46 +43,6 @@ h1 {
   color: #5f829a;
 }
 
-h2.banner {
-  font-size: 24px;
-  margin: 0 0 20px 0; 
-  color: #555;
-  float: left;
-  width: 100%;  
-  text-align: right;
-}
-
-#teas {
-  margin: 0 0 ;
-  border-bottom: none;	
-  height: auto;
-}
-
-#teas div.banner, #teaware div.banner {
-  background: url('{{ static_url }}images/homepage/tea-banner.jpg') no-repeat top left;
-  height: 270px;
-  position: relative; 
-  margin: 0 0 20px 0;  
-}
-
-#teas div.banner .text, #teaware div.banner .text {
-  position: absolute;
-  right: 70px;
-  top: 40px;
-  width: 300px;
-  text-align: right;
-  color: #777;   
-}
-
-#teas .info.tea.right:last-child, #teas .info.tea.left:last-child {
-  margin-bottom: 0;
-}
-
-#benefits img {
-  margin: 0;
-}
-
-
 #special {
   position: relative;
   background: url('{{ static_url }}images/homepage/beginners-pack-banner-1.jpg') no-repeat left -50px;
@@ -124,8 +84,6 @@ h2.banner {
 {% endif %}
 
 #special .details h3 {
-  font-size: 28px;
-  font-weight: 100;
   margin: 10px 0 0;
   letter-spacing: -1px;
   text-shadow: none;
@@ -142,8 +100,6 @@ h2.banner {
 
 #special .details p {
   font-size: 13px;
-  color: #666;
-  float: right;
   margin: 5px 0 0;   
 }
 
@@ -216,55 +172,6 @@ ul.rss {
     width: 80px;
 }
 
-
-#about {
-  width: 96%;
-  float: left;
-  margin: 30px 0; 
-  background: #fff;
-  padding: 1.5% 2%;
-  border-radius: 8px;  
-}
-
-#about .info.follow {
-  border: none;
-  background: none;
-  padding: 0; 
-  width: auto;
-  margin: 10px 0 0 0;  
-}
-
-#about .info.follow h3 {
-  float: left;
-  position: relative;
-  top: 8px;
-  margin-right: 20px;
-  font-size: 18px;
-  color: #d30000;
-}
-
-#about img {
-  float: left;
-  margin: 10px 0 0;   
-}
-
-#about #text {
-  float: left;
-  width: 450px;
-  margin: 0 40px 0 0;  
-}
-
-#about h2 {
-  margin: 0 0 10px 0; 
-  float: left; 
-  color: #5f829a; 
-}
-
-#about p {
-  margin: 0 0 10px 0;
-  float: left;
-}
-
 #teaware {
   float: left;
   width: 100%;
@@ -275,20 +182,6 @@ ul.rss {
   background: url('{{ static_url }}images/homepage/teaware-banner.jpg') no-repeat top left;
 }
 
-#brewing img {
-  float: left;
-  margin: 0 20px 0 0;   
-}
-
-#brewing h2 {
-  font-size: 24px; 
-  margin-top: 10px; 
-} 
-
-#brewing p {
-  padding-right: 30px;
-  margin-top: 0;   
-}
 
 .blog {
   position: relative;  
@@ -350,16 +243,6 @@ ul.rss {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 </style>
 {% endblock %}
 
@@ -399,9 +282,9 @@ ul.rss {
         
         <div class="pure-u-6-24 l-pad" style="border-left: 1px dashed #e1e1e1;">
             <div class="pure-g">
-                <div class="info pure-u-1 t-pad">
-                    <h3>&laquo; Featured teas</h3>
-                    <p>This month we're featuring four of our favourite green teas, all produced during this year's early April-May harvest.</p>
+                <div class="info pure-u-1 ">
+                    <h3>Exceptional teas from the experts based in China</h3>
+                    <p><a href="{% url page 'about' %}">Find out why our teas taste better</a></p>
                 </div>
                 
                 <div class="hr"></div>
@@ -419,12 +302,18 @@ ul.rss {
                         <h3><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></h3>
                     </div>
                 </div>
-                
+                {% if not forloop.last %}
                 <div class="hr"></div>
+                {% endif %}
+                
             {% endfor %}
     
         </div>
     </div>
+    
+    <div class="hr pure-u-1"></div>
+            <h3 class="pure-u-1"><a href="{% url finder 'teas' %}">Check out our full range of exceptional Chinese teas here &raquo;</a></h3>
+    <div class="hr pure-u-1"></div>
 
 
     <div id="experts">
@@ -432,7 +321,7 @@ ul.rss {
         <div class="glass-text">
             <div class="back"></div>
             <div class="inner">
-            <h2>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h2>
+            <h3>{% trans 'Buy exceptional loose-leaf Chinese teas from the tea experts actually based in China!' %}</h3>
             <p>{% blocktrans %}We're one of the only Western tea companies actually based near farms and tea growing areas in China - we really believe you can taste the difference - {% endblocktrans %}</a>
             </div>
         </div>

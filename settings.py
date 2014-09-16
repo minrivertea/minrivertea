@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'premailer',
     'mathfilters',
     'mailchimp',
+    'compressor',
 )
 
 

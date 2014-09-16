@@ -1,4 +1,4 @@
-{% load nav_selected i18n %}
+{% load nav_selected i18n compress %}
 
 <!DOCTYPE html>
 <head>
@@ -29,9 +29,12 @@
 	{% block canonical %}{% endblock %}
 	{% block extra-head %}{% endblock %}
 
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    
+    {% compress css %}
+	<link rel="stylesheet" href="{{ static_url }}css/pure-grids-combo.0.5.0.css">
 	<link rel="stylesheet" href="{{ static_url }}css/styles.css" />
 	<link rel="stylesheet" href="{{ static_url }}css/products.css" />
+	{% endcompress %}
 	
 
 
