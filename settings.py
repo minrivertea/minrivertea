@@ -87,8 +87,8 @@ MIDDLEWARE_CLASSES = (
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    'affiliate.AffiliateTrackerMiddleware',
-    'sites.DomainTrackerMiddleware'
+#    'affiliate.AffiliateTrackerMiddleware',
+#    'sites.DomainTrackerMiddleware'
 )
 
 AUTHENTICATION_BACKENDS = (
