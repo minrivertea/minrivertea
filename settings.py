@@ -124,8 +124,8 @@ INSTALLED_APPS = (
     'my_admin',
     'captcha',
     'rosetta',
-    'modeltranslation_wrapper',
-    'modeltranslation',
+#    'modeltranslation_wrapper',
+#    'modeltranslation',
     'logistics',
     'emailer',
     'ckeditor',
@@ -215,13 +215,13 @@ USE_I18N = True
 gettext = lambda s: s
 LANGUAGES = (
     ('en', gettext('English')),
-    ('de', gettext('German')),
+#    ('de', gettext('German')),
 #    ('it', gettext('Italian')),
 )
 
 MODEL_LANGUAGES = (
     ('en', gettext('English')),
-    ('de', gettext('German')),
+#    ('de', gettext('German')),
 #    ('it', gettext('Italian')),
 )
 
