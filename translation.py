@@ -14,8 +14,6 @@ class ProductTranslationOptions(TranslationOptions):
         'long_description',
         'body_text',
         'tag_text',
-        'map_caption',
-        'farm_caption',
     )
     
 class PageTranslationOptions(TranslationOptions):

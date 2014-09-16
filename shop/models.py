@@ -81,20 +81,8 @@ class Product(models.Model):
     tag_text = models.CharField(max_length="100", blank=True, null=True)
     tag_color = models.CharField(max_length="60", blank=True, null=True, choices=TAG_COLORS,
         help_text="A Hex reference with the preceding # hash")
+       
     
-    map_image = models.ImageField(upload_to='images/maps', blank=True, null=True)
-    map_caption = models.CharField(max_length=200, blank=True, null=True)
-    
-    farm_image = models.ImageField(upload_to='images/product-photos', blank=True, null=True)
-    farm_caption = models.CharField(max_length=200, blank=True, null=True)
-    
-    # for the tea brewing
-    #brew_time = models.IntegerField(blank=True, null=True,
-    #    help_text="Give time in seconds")
-    #brew_weight = models.IntegerField(blank=True, null=True,
-    #    help_text="The amount to use per brew in grams")
-    #brew_temp = models.IntegerField(blank=True, null=True,
-    #    help_text="The temperature of water to use in degrees celsius")
     
         
     def __unicode__(self):
