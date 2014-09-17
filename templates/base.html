@@ -192,7 +192,7 @@ if (15.00) {
           	{% endcomment %}
           	
           	<li id="currency">
-          	 Currency: <strong>{{ currency.symbol }}</strong>
+          	    <strong>{{ currency.symbol }}</strong>
                 <div class="dropdown pure-g">
                         <a class="{% if currency.code == 'GBP' %}selected{% endif %}" title="Switch to British pounds" href="{% url set_currency %}?curr=GBP"><span>&pound;</span></a>
                         <a class="{% if currency.code == 'USD' %}selected{% endif %}" title="Switch to US Dollars" href="{% url set_currency %}?curr=USD"><span>&dollar;</span></a>

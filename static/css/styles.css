@@ -548,7 +548,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2759bc', end
 }
 
 #topnav ul li#currency {
-  position: relative;   
+  position: relative;
+  font-size: 15px;   
 }
 
 #topnav ul li#currency:hover {
@@ -566,12 +567,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2759bc', end
 
 #topnav ul li#currency .dropdown {
     background: none repeat scroll 0 0 #f6f6f6;
-    bottom: -40px;
-    display: none;
-    left: -18px;
+    bottom: -46px;
+    display: inline-flex;
+    left: -35px;
+    padding: 0.5em;
     position: absolute;
     width: auto;
-    padding: 0.5em 1em;
 }
 
 #topnav ul li#currency .dropdown a {
