@@ -578,7 +578,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2759bc', end
 #topnav ul li#currency .dropdown a {
   border: none;
   text-decoration: none; 
-  display: inline-block;
+  display: none;
   font-size: 18px;
   padding: 5px 10px;
   text-align: center;
