@@ -8,20 +8,8 @@
 {% block extracss %}
 <style type="text/css">
 
-.entry-list {
-  float: left;
-}
 
-#mtw #left {
-  width: 850px;
-  position: relative;
-  margin-left: -425px;
-  margin-right: 0;
-  left: 50%;
-  text-align: center;   
-}
-
-#mtw #left .entry h3 {
+.entry h3 {
     font-size: 20px;
     font-weight: 400;
     letter-spacing: -0.2px;
@@ -31,11 +19,9 @@
 
 .entry {
     border-bottom: 1px dashed #E1E1E1;
-    float: left;
     margin-bottom: 20px;
     padding-bottom: 20px;
     position: relative;
-    width: 100%;
 }
 
 .entry.social {
@@ -89,13 +75,13 @@
 }
 
 
-div#mtw div#left .entry div.text p {
+.entry div.text p {
   margin: 0px;
   font-size: 13px;
   line-height: 2.1em;
 }
 
-#left .entry p.entry-meta {
+.entry p.entry-meta {
     color: #666666;
     font-size: 11px;
     margin: 0 0 10px 0;
@@ -172,50 +158,47 @@ img.tweets {
 
 {% block content %}
 
-
-<div id="mtw">
-  <div class="sp">
+<div class="sp">
 	
-	
-	<div class="hr"></div>
-
-	<div id="left">
-		
-		{% if entries.has_previous %}
-			<div id="next-previous">
-			<div class="next">
-			{% if entries.has_previous %}
-	            <a href="?page={{ entries.previous_page_number }}">{% trans 'Get newer entries' %} &raquo;</a>
-	        {% endif %}
-	        </div>
-	{% trans 'Showing entries' %} {{ entries.start_index }} - {{ entries.end_index }}
-			<div class="previous">
-	        {% if entries.has_next %}
-	            <a href="?page={{ entries.next_page_number }}">&laquo; {% trans 'Get older entries' %}</a>
-	        {% endif %}
-	        </div>
-		</div>
-		{% endif %}
 			
- 		<div class="entry-list">
-			{% include "blog/snippets/entry-list.html" %}
-		</div>
-		
+	{% if entries.has_previous %}
 		<div id="next-previous">
-			<div class="next">
-			{% if entries.has_previous %}
-	            <a href="?page={{ entries.previous_page_number }}">{% trans 'Get newer entries' %} &raquo;</a>
-	        {% endif %}
-	        </div>
-	
-			<div class="previous">
-	        {% if entries.has_next %}
-	            <a href="?page={{ entries.next_page_number }}">&laquo; {% trans 'Get older entries' %}</a>
-	        {% endif %}
-	        </div>
-		</div>
+		<div class="next">
+		{% if entries.has_previous %}
+            <a href="?page={{ entries.previous_page_number }}">{% trans 'Get newer entries' %} &raquo;</a>
+        {% endif %}
+        </div>
+{% trans 'Showing entries' %} {{ entries.start_index }} - {{ entries.end_index }}
+		<div class="previous">
+        {% if entries.has_next %}
+            <a href="?page={{ entries.next_page_number }}">&laquo; {% trans 'Get older entries' %}</a>
+        {% endif %}
+        </div>
 	</div>
-  </div>
+	{% endif %}
+			
+    <div class="entry-list pure-g l-pad r-pad text-center">
+		{% include "blog/snippets/entry-list.html" %}
+	</div>
+		
+	<div id="next-previous pure-u-1">
+		<div class="next">
+		{% if entries.has_previous %}
+            <a href="?page={{ entries.previous_page_number }}">{% trans 'Get newer entries' %} &raquo;</a>
+        {% endif %}
+        </div>
+
+		<div class="previous">
+        {% if entries.has_next %}
+            <a href="?page={{ entries.next_page_number }}">&laquo; {% trans 'Get older entries' %}</a>
+        {% endif %}
+        </div>
+	</div>
+		
+		
+	</div>
+
+
 </div>
 
 

@@ -1,7 +1,7 @@
 {% load thumbnail i18n %}
 
   {% for thing in entries.object_list.all %}
-  <div class="entry{% if forloop.last %} last{% endif %}">
+  <div class="entry{% if forloop.last %} last{% endif %} pure-u-18-24">
     
     <a href="{% url blog_entry thing.slug %}"><span class="link"></span></a>
     
