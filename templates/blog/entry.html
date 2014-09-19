@@ -223,6 +223,7 @@ p.small {
     	{{ entry.content|convert_links|safe }}
    
         
+        {% if entry.blogger.bio %}
         <div class="hr pure-u-1"></div>
         <div class="pure-g blogger">
             
@@ -236,7 +237,8 @@ p.small {
                 <h4>This was written by <strong>{{ entry.blogger.name }}</strong></h4>
                 <p>{{ entry.blogger.bio }}</p>
             </div>
-        </div>   
+        </div> 
+        {% endif %}  
    
    
         <div class="hr pure-u-1"></div>
