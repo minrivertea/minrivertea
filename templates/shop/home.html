@@ -114,6 +114,10 @@ h1 {
   font-weight: bold;   
 }
 
+.info.about p {
+  margin-bottom: 20px;   
+}
+
 
 #experts {
   background: url('{{ static_url}}images/homepage/home-experts.jpg') no-repeat top left; 
@@ -281,9 +285,10 @@ ul.rss {
         
         <div class="pure-u-6-24 l-pad" style="border-left: 1px dashed #e1e1e1;">
             <div class="pure-g">
-                <div class="info pure-u-1 ">
+                <div class="info pure-u-1 about">
                     <h3>Exceptional teas from the experts based in China</h3>
                     <p><a href="{% url page 'about' %}">Find out why our teas taste better</a></p>
+                    <div class="fb-like" data-href="https://www.facebook.com/minrivertea" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                 </div>
                 
                 <div class="hr"></div>
@@ -408,17 +413,6 @@ ul.rss {
 	</div>
 
         	
-
-	
-	    {% if ga_is_on %}
-		<ul class="rss {% if page.feature_image %}opaque{% endif %}">
-	    	<li id="facebook">
-			    <!-- FACEBOOK LIKE -->
-	   	<div class="fb-like" data-href="http://www.facebook.com/minrivertea" data-width="120" data-layout="button_count" data-show-faces="false" data-send="false"></div>
-	   	       <!-- END FACEBOOK LIKE -->
-			</li>
-		</ul>
-        {% endif %}
         
         {% endcomment %}
 
