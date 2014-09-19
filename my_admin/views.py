@@ -177,6 +177,8 @@ def stocks(request):
     start_date = (datetime.now() - timedelta(weeks=52))
     end_date = datetime.now()
     
+    stocks.order_by('parent_product__is_active')
+    
     for x in stocks:
         x.uk_stocks = WarehouseItem.objects.filter(
             unique_product=x, 

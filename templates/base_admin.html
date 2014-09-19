@@ -13,17 +13,12 @@
 	<title>{% block pagetitle %}{% endblock %} | {{ site_url }}</title>
 	<link rel="shortcut icon" href="{{ static_url }}images/favicon.ico" type="image/x-icon">
 	
+	<link rel="stylesheet" href="{{ static_url }}css/pure-grids-combo.0.5.0.css">
 	<link rel="stylesheet" href="{{ static_url }}css/styles.css" />
 	<link rel="stylesheet" href="{{ static_url }}css/admin.css" />
 
 	    
-	<script type="text/javascript" src="{{ static_url }}js/jquery-1.6.min.js"></script>
-	{% if ga_is_on %}
-		<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
-	{% else %}
-		<script src="{{ static_url }}js/jquery.tools.min.js"></script>
-	{% endif %}
-	    
+	<script src="{{ static_url }}js/jquery-1.8.2.min.js"></script>
 
 	{% block extracss %}{% endblock %}
 	
@@ -36,7 +31,6 @@
  	 	
 <div id="header">
 	<div class="sp">
-        <div id="logo"></div>
         <div id="navigation">
             <ul id="nav">
                 <li><a class="{% nav_selected request '^/admin-stuff/$' %}" href="{% url admin_home %}">Admin Home</a></li>
@@ -46,7 +40,8 @@
             </ul>
         </div>
         
-        <div class="hr"></div>
+        <div class="hr pure-u-1"></div>
+        
 	</div>
 </div>
 <!-- end header -->

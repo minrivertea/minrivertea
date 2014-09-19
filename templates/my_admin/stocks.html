@@ -89,16 +89,6 @@ a.transfer:hover {
   background: #FF6569;   
 }
 
-span.count {
-    color: #999999;
-    float: left;
-    font-size: 10px;
-    font-weight: bold;
-    left: 3px;
-    position: relative;
-    top: -2px;
-}
-
 span.dot {
   float: left;
   width: 8px;
@@ -143,37 +133,40 @@ table tr td:first-child a {
 <table>
     <thead>
         <td>Item</td>
-        <td>In UK</td>
+        <td>Sold</td>
+        <td>Available</td>
         <td>In Transit</td>
         <td>In China</td>
         <td>GBP value</td>
-        <td>Sold this year</td>
     </thead>
     
-    
+    <ul>
     
     {% for x in stocks %}
         <tr>
             <td><a href="{% url admin_product x.parent_product.id %}">{{ x }}</a></td>
-            <td width="150">
+            <td width="50">{{ x.sold_this_year.count }}</td>
+            <td width="50">
                 <span class="{% if x.uk_stocks.count < 3 %}red{% endif %}">
                     <span class="count">{{ x.uk_stocks.count }}</span>
                 </span>
             </td>
-            <td width="150">
-                <a class="transfer" href="{% url update_stock_location x.id %}?location=uk">&laquo;</a>
+            <td width="60">
+                {% if x.in_transit_stocks.count %}<a class="transfer" href="{% url update_stock_location x.id %}?location=uk">&laquo;</a>{% endif %}
                 <span class="count">{{ x.in_transit_stocks.count }}</span>
             </td>
-            <td width="150">
+            <td width="50">
+                {% if x.china_stocks.count %}
                 <a class="transfer" href="{% url update_stock_location x.id %}?location=transit">&laquo;</a>
+                {% endif %}
                 {% for y in x.china_stocks %}
                 <span class="dot">&nbsp;</span>
                 {% endfor %}
                 <span class="count">{{ x.china_stocks.count }}</span>
             </td>
-            <td>£{{ x.total_value }}</td>
+            <td width="100">£{{ x.total_value }}</td>
             
-            <td>{{ x.sold_this_year.count }}</td>
+            
             
         </tr>
     {% endfor %}

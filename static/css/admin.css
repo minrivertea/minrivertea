@@ -3,23 +3,17 @@
   width: 1060px;   
 }
 
-#navigation {
-  margin-top: 60px;   
-}
-
 
 /* ADMIN SPECIFIC STYLES */
-h2 {
-    margin: 20px 0 10px 0; 
-}
 
-  	  ul.nav {margin-top: -95px;font-family: Helvetica, sans-serif; font-weight: bold; font-size: 12px;list-style-type: none;  padding: 0; width: 100%;float: left;}
-  	  ul.nav li {float: left; margin-right: 50px;}
+#navigation {
+  float:left;   
+}
 
 table {
     font-size: 12px;
     float: left;
-    width: 100%;
+    width: auto;
 }
 
       tr.white td {background-color: #fff;}
@@ -75,7 +69,12 @@ td.trans .button {
       td ul li {list-style-type:none; font-size: 12px; line-height: 1em;}
 
 table td {
-   border-bottom: 1px dashed #d1d1d1;   
+   border-bottom: 1px dashed #d1d1d1;
+   text-align: center;   
+}
+
+table tr td:first-child {
+  text-align: left;   
 }
 
 
