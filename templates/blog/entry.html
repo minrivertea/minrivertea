@@ -74,36 +74,28 @@ ul.rss li#google {
   width: 65px;   
 }
 
-#mtw #left {
-  width: 850px;
-  position: relative;
-  margin-left: -425px;
-  margin-right: 0;
-  left: 50%;
-}
 
-#left p, #left ol, #left ul {
+p, #left ol, #left ul {
   font-size: 15px;
   letter-spacing: 0;
   line-height: 1.8em;
   color: #444;
 }
 
-#left p.introduction {
+p.introduction {
   font-weight: normal;
-  font-size: 21px;   
+  font-size: 22px;
+  margin: 0 0 10px 0;   
 }
 
-#left p.meta, #left p.meta a {
+p.meta, p.meta a {
   color: #777;
   font-size: 11px;
 }
 
-#left p.meta {
-   border-top: 1px dashed #e1e1e1;
-  border-bottom: 1px dashed #e1e1e1;
-  padding: 5px 0;
-  margin: 20px 0 20px 0;   
+p.meta {
+  padding: 0;
+  margin: 10px 0 0 0;
 }
 
 p.meta a:hover {
@@ -148,25 +140,17 @@ p.quote {
 }
 
 .entry.social {
-  float: left;
-  width: 100%;   
+ 
 }
 
 .entry.social > div {
-  float: left;
-  width: 46%;
-  margin: 0 2% 0 0;
-  padding: 0 3% 0 0;
   border-right: 1px dotted #e1e1e1;
   color: #999;   
 }
 
 .entry.social > div:last-child {
   border-right: none; 
-  padding: 0;
   text-align: right;
-  float: right;
-  margin: 0;  
 }
 
 .entry.social > div:first-child {
@@ -183,20 +167,38 @@ p.quote {
   font-size: 13px;   
 }
 
-#mtw #left .entry.social div h3 {
+.entry.social div h3 {
   margin: 0 0 10px 0;   
 }
 
-h4 {
-    font-size: 22px;
-    font-weight: 400;
-    letter-spacing: -0.5px;
-    margin: 30px 0 5px;
-    padding-bottom: 5px;
+p.small {
+  font-size: 0.7em;   
 }
 
-#left p.small {
-  font-size: 0.7em;   
+.blogger h4, .social h4 {
+  margin: 0;
+  padding: 0;   
+}
+
+.blogger p, .social p {
+  margin: 0;
+  font-size: 13px;   
+}
+
+.social ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; 
+  font-size: 18px;  
+}
+
+#mce-EMAIL {
+  width: 250px; 
+  margin: 0;  
+}
+#mc-embedded-subscribe {
+  width: auto;  
+  margin: 0; 
 }
 
 </style>
@@ -205,47 +207,74 @@ h4 {
 
 {% block content %}
 
-<div id="mtw">
   <div class="sp">		
 	
-	<div class="hr"></div>
 	
-
-	<div id="left">
+	<div class="pure-u-1">
     	<h1>{{ entry.title }}</h1>
     	<p class="meta">&laquo; <a href="{% url blog_home %}">back to blog home</a> | {{ entry.date_added|date:"d M Y" }} | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
+   
+    </div>
     
+    <div class="pure-u-20-24">
+        
+        <div class="hr pure-u-1"></div>
+        
     	{{ entry.content|convert_links|safe }}
    
+        
+        <div class="hr pure-u-1"></div>
+        <div class="pure-g blogger">
+            
+            <div class="pure-u-4-24">
+            {% thumbnail entry.blogger.profile_photo "100x100" crop="center" as im %}
+                <img src="{{ im.url }}"/>
+            {% endthumbnail %}
+            </div>
+            
+            <div class="pure-u-20-24">
+                <h4>This was written by <strong>{{ entry.blogger.name }}</strong></h4>
+                <p>{{ entry.blogger.bio }}</p>
+            </div>
+        </div>   
    
-        <div class="hr"></div>
    
-        <div class="entry social">
-            <div>
-            <h3>Enjoyed that? "Like" our Facebook page to get regular tea news, photos and videos</h3>
+        <div class="hr pure-u-1"></div>
+   
+        <div class="pure-u-1 social">
+            <h4 class="pure-u-2-5 r-pad">If 'Like's were high-fives...just sayin'</h4>
             <div class="fb-like" data-href="https://www.facebook.com/minrivertea" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-            </div> 
+        </div> 
+          
+        <div class="hr pure-u-1"></div> 
             
-            <div>  
-                <h3>Signup for email newsletters</h3>
+        <div class="pure-g social">  
+            <div class="pure-u-2-5 r-pad">
+                <h4 class="">Emails that save you money</h4>
+                <p class="">Approx. monthly, unsubscribe anytime and we ONLY send discount codes by email!</p>
+            </div>
+            
+            <div class="pure-u-3-5 l-pad">
                 {% include 'shop/snippets/footer_email_signup.html' %}
-                <p class="small">You'll receive monthly emails with news, tea updates and special deals to your inbox. You can easily unsubscribe at any time.</p>
             </div>
-        </div>
-        
-        <div class="hr"></div>
-        
-        <div class="entry social">
-            <div>
-                PREV
-                <h3><a href="">{{ entry.get_prev.title }}</a></h3>
-            </div> 
             
-            <div>
-                NEXT
-                <h3><a href="">{{ entry.get_next.title }}</a></h3>
+        </div>
+        
+        <div class="hr pure-u-1"></div>
+        
+        <div class="pure-g social">
+            
+            <h4 class="pure-u-2-5 r-pad">You might like these too</h4>
+            
+            <div class="pure-u-3-5 l-pad">
+                <ul>
+                    <li><a href="">{{ entry.get_prev.title }}</a></li>
+                    <li><a href="">{{ entry.get_next.title }}</a></li>
+                </ul>
             </div>
         </div>
+        
+        <div class="hr pure-u-1"></div>
         
    
     
@@ -281,7 +310,8 @@ h4 {
 			</li>
 		</ul>
 		{% endif %}
-  </div>
+
+</div>
 </div>
 
 {% endblock %}

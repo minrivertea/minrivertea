@@ -323,24 +323,12 @@ span.link:hover {
   text-decoration: underline;   
 }
 
-
-
-
-#header {
-  margin: 0 0 5px 0;
+#header p.blog-intro {
+  text-align: right;
+  float: right;
+  margin: 25px 0 0 0;    
 }
 
-
-#header.blog {
-  margin: 0;   
-}
-
-#header.blog p.introduction {
-  text-align: center;
-  margin: 10px 0 0;
-  padding: 0;   
-  color: #999;
-}
 
 #logo {	 
  width: 150px;

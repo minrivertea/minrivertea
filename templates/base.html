@@ -214,9 +214,13 @@ if (15.00) {
 
             </ul>
         </div>
-    	        
-        {% include 'shop/snippets/main_navigation.html' %}
-        
+    	
+    	{% if request.path %}
+    	   <p class="blog-intro pure-u-12-24">{% trans "You're reading the Min River Tea Blog" %} - <a href="{% url finder _('teas') %}">{% trans 'View our tea store' %}</a> - <a href="{% url page _('about') %}">{% trans 'About us' %}</a></p>
+    	{% else %}
+            {% include 'shop/snippets/main_navigation.html' %}
+        {% endif %}
+            
         <div class="hr pure-u-1"></div>
         	
     </div>

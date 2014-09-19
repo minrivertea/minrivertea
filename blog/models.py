@@ -53,6 +53,7 @@ class Blogger(models.Model):
     slug = models.SlugField(max_length=100)
     profile_photo = models.ImageField(upload_to='images/bloggers')
     page = models.ForeignKey(Page, blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
     
     def __unicode__(self):
         return self.name

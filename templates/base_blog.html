@@ -29,7 +29,9 @@
 	{% block canonical %}{% endblock %}
 	{% block extra-head %}{% endblock %}
 
+	<link rel="stylesheet" href="{{ static_url }}css/pure-grids-combo.0.5.0.css">
 	<link rel="stylesheet" href="{{ static_url }}css/styles.css" />
+	
 	    
 	{% if ga_is_on %}
 		<script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
@@ -166,7 +168,6 @@ if (15.00) {
             <a title="{% trans 'Chinese tea delivered to your door - Min River Tea' %}" alt="{% trans 'the Min River Tea logo - Chinese tea merchant '%}" href="{% url blog_home %}"></a>
 	   	</div>
 	    
-	    <p class="introduction">{% trans 'A blog about Chinese tea and China from the owners of minrivertea.com' %} - <a href="{% url finder _('teas') %}">{% trans 'View our tea store' %}</a> - <a href="{% url page _('about') %}">{% trans 'About us' %}</a></p>
                	
     </div>
 </div>
