@@ -215,7 +215,7 @@ if (15.00) {
             </ul>
         </div>
     	
-    	{% if request.path %}
+    	{% if '/blog/' in request.path  %}
     	   <p class="blog-intro pure-u-12-24">{% trans "You're reading the Min River Tea Blog" %} - <a href="{% url home %}">{% trans 'View our tea store' %}</a> - <a href="{% url blog_home %}">{% trans 'Blog Home' %}</a></p>
     	{% else %}
             {% include 'shop/snippets/main_navigation.html' %}
