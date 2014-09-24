@@ -34,7 +34,7 @@ def blog_entry(request, slug):
     try:
         entry = get_object_or_404(BlogEntry, slug=slug)
     except:
-        pass
+        entry = BlogEntry.objects.filter(slug=slug)[0]
         
     other_entries = BlogEntry.objects.filter(
             title__isnull=False
