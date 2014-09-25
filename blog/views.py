@@ -30,11 +30,8 @@ def index(request):
     
     
 def blog_entry(request, slug):
-    # TODO - THIS CAUSES 404 IF LANGUAGE IS SET TO EN AND SOMEONE REQUESTS A DE SLUG
-    try:
-        entry = get_object_or_404(BlogEntry, slug=slug)
-    except:
-        entry = BlogEntry.objects.filter(slug=slug)[0]
+
+    entry = get_object_or_404(BlogEntry, slug=slug)
         
     other_entries = BlogEntry.objects.filter(
             title__isnull=False
