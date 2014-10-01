@@ -185,6 +185,26 @@ ul.rss {
   background: url('{{ static_url }}images/homepage/teaware-banner.jpg') no-repeat top left;
 }
 
+.info.about h3 {
+  margin: 0;   
+}
+
+.info.totm h3 {
+  position: absolute;
+  color: #fff;
+  top: 10px;
+  left: 10px; 
+  text-shadow: 0 1px 5px #000;  
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.info.totm h4 {
+  font-size: 0.9em;
+  margin: 0;
+  padding: 0;
+}
+
 
 .blog {
   position: relative;  
@@ -286,10 +306,27 @@ ul.rss {
         <div class="pure-u-6-24 l-pad" style="border-left: 1px dashed #e1e1e1;">
             <div class="pure-g">
                 <div class="info pure-u-1 about">
-                    <h3>Exceptional teas from the experts based in China</h3>
-                    <p><a href="{% url page 'about' %}">Find out why our teas taste better</a></p>
+                    <h3><a href="{% url page 'about' %}">Exceptional teas from the experts based in China &raquo;</a></h3>
                     <div class="fb-like" data-href="https://www.facebook.com/minrivertea" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                 </div>
+                
+                <div class="hr"></div>
+                
+                <div class="info pure-u-1 totm">
+                    <a href="{{ totm.get_absolute_url }}"><span class="link"></span></a>
+                    <h3>Tea of the month</h3>
+                    <div class="image pure-u-1">
+                    {% thumbnail totm.image_2 "225x150" crop="left" as im %}
+                        <img src="{{ im.url }}" />
+                    {% endthumbnail %}
+                    </div>
+                    <div class="text">
+                        <div class="back"></div>
+                        <h4><a href="{{ totm.get_absolute_url }}">Discounts available only in {{ date|date:"F" }} &raquo;</a></h4>
+                    </div>
+                    
+                </div>
+                
                 
                 <div class="hr"></div>
                 

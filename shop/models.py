@@ -76,6 +76,8 @@ class Product(models.Model):
     image_5_caption = models.CharField(max_length=200, blank=True)
     category = models.ForeignKey('Category', blank=True, null=True)
     is_featured = models.BooleanField(default=False)
+    totm = models.DateField(blank=True, null=True, 
+        help_text="Tea of the month - put in any date that is in the relevant month.")
     is_active = models.BooleanField(default=True)
     list_order = models.IntegerField(null=True, blank=True)
     tag_text = models.CharField(max_length="100", blank=True, null=True)

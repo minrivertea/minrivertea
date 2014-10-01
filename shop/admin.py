@@ -29,7 +29,7 @@ class ProductAdmin(admin.ModelAdmin):
                 'image_4', 'image_4_caption', 'image_5', 'image_5_caption',)
         }),
         ('Others', {
-            'fields': ('category', 'is_featured', 'is_active', 'tag_text', 'tag_color', 'list_order',)
+            'fields': ('category', 'is_featured', 'is_active', 'totm', 'tag_text', 'tag_color', 'list_order',)
         }),
     )
     

@@ -24,6 +24,13 @@
         {% thumbnail x.image "400x300" crop="center" as im %}
             <img class="pure-u-1" src="{{ im.url }}"/>
         {% endthumbnail %}
+        
+        {% if x.totm %}
+            <div class="stamp">
+                Tea of the month
+            </div>
+        {% endif %}
+        
         </div>  
          
         {% url home as home_url %}               
@@ -41,8 +48,14 @@
                         <span class="pure-u-6-24">{{ x.price.weight }}{{ weight_unit }}</span>
                     {% endif %}
                     
+                    {% if x.price.sale_price %}
+                        <span class="strikethrough red small">
+                            {{ currency.symbol }}{{ x.price.price|floatformat:"2" }}
+                        </span>
+                    {% endif %}
+                    
                     <span class="pure-u-6-24">
-                        <strong>{{ currency.symbol }}{{ x.price.price|floatformat:"2" }}</strong>
+                        <strong>{{ currency.symbol }}{{ x.price.get_price|floatformat:"2" }}</strong>
                     </span>
                     
                     <a href="{% url add_to_basket x.price.id %}" class="button green small">{% trans 'Add to basket' %}</a>

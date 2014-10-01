@@ -7,7 +7,7 @@ from django.utils.translation import get_language
 
 from django.contrib.sites.models import get_current_site
 
-
+from datetime import datetime
 
 
 def common(request):
@@ -28,20 +28,32 @@ def common(request):
     context['thumb_medium'] = settings.THUMB_MEDIUM
     context['thumb_small'] = settings.THUMB_SMALL
     
+    context['date'] = datetime.now()
+    
     
     # STUFF RELATED TO COUNTRY SPECIFIC SITES
     context['site_url'] = "http://www.minrivertea.com"
     context['analytics_id'] = settings.ANALYTICS_ID
     context['mailchimp_list_id'] = settings.MAILCHIMP_LIST_ID  
-         
+    
+    # TEA OF THE MONTH
+    try:
+        totm = Product.objects.filter(totm__month=datetime.now().month, is_active=True)[0]
+    except IndexError:
+        totm = None
+    context['totm'] = totm
+    
     if get_language() == 'de':
         context['mailchimp_list_id'] = settings.GERMAN_MAILCHIMP_LIST_ID
         
     context['site_name'] = settings.SITE_NAME # the loose non-techy name
 
+
     # GET THE NAVIGATIONS
     context['main_nav'] = Category.objects.filter(is_navigation_item=True).order_by('list_order')
     context['top_nav'] = Page.objects.filter(is_top_nav=True).order_by('list_order')
+        
+        
         
     # REGIONAL STUFF
     context['region'] = _get_region(request)    
@@ -64,15 +76,12 @@ def common(request):
 
 
     # CHANGE THE BASE TEMPLATE FOR ADMIN
-    base_template = settings.BASE_TEMPLATE
+    
     if '/admin-stuff/' in request.path:
         base_template = settings.BASE_TEMPLATE_ADMIN
-    
-    #if '/blog/' in request.path:
-    #    base_template = settings.BASE_TEMPLATE_BLOG
-    
+    else:
+        base_template = settings.BASE_TEMPLATE
     context['base_template'] = base_template
-
 
 
     # BASKET STUFF
