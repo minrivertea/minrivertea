@@ -271,7 +271,7 @@ ul.rss {
                     </span>
                 
                     <span class="pure-u-6-24">
-                        <strong>{{ currency.symbol }}{{ special.price.price|floatformat:"-2" }}</strong>
+                        <strong>{{ currency.symbol }}{{ special.price.get_price|floatformat:"-2" }}</strong>
                     </span>
                 </span>
             
