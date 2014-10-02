@@ -63,7 +63,7 @@ def index(request):
         
     blog_entries = BlogEntry.objects.filter(
         is_promoted=True, 
-        is_draft=False).order_by('-date_added')[:3]
+        is_draft=False).order_by('-date_added')[:2]
             
     teaware = Product.objects.filter(
         is_active=True,
