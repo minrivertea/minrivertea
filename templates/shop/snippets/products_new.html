@@ -37,7 +37,7 @@
         <div class="text pure-u-18-24 l-pad r-pad">
             <h3 class="pure-u-1"><a href="">{{ x.name|safe }}<span></span></a></h3>
                         
-            <p class="pure-u-18-24 description">{{ x.description|safe }}</p> 
+            <p class="pure-u-16-24 description">{{ x.description|safe }}</p> 
             
             <div class="buttons pure-u-10-24 t-pad">
                 
@@ -45,7 +45,7 @@
                 <span class="price pure-g">
                     
                     {% if x.price.weight %}
-                        <span class="pure-u-6-24">{{ x.price.weight }}{{ weight_unit }}</span>
+                        <span class="pure-u-6-24">{% convert_weights request x.price.weight %}{{ weight_unit }}</span>
                     {% endif %}
                     
                     {% if x.price.sale_price %}

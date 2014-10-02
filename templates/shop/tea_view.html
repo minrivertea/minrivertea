@@ -243,12 +243,20 @@ h1 span {
     position: relative;
 }
 
+.stamp {
+  background: #f1f1f1;
+  font-size: 0.8em;
+  color: #D30000;
+  padding: 5px 10px;
+  margin: 0 0 20px; 
+}
+
 .tea-top #prices {
     position: relative;
 }
 
 .tea-top #prices p {
-  margin: 0 0 20px 0; 
+  margin: 0 0 10px 0; 
   font-size: 13px;
   line-height: 1.8em;  
 }
@@ -775,18 +783,23 @@ ul.rss {
       		  </div>
       		</div>
 		</div><!-- end product photos small -->
-		
+				
 		</div><!-- end main image div -->
+		
+		
+        
 	</div>
 	
 	<div id="prices" class="pure-u-2-5 l-pad">
                 
         <p class="pure-u-1 r-pad">{{ tea.body_text|striptags }}</p>
-        
+         
+         
         {% if tea.totm %}
-            <p class="red"><strong>This is Tea of the Month for {{ date|date:"F" }} - it's 10% off!</strong></p>
+            <div class="pure-u stamp"><strong>This is Tea of the Month for {{ date|date:"F" }} so it's 10% off!</strong></div>
         {% endif %}
-            
+        
+                   
             <div class="pure-g">
             {% if tea.is_active %}
                 {% for price in prices %}

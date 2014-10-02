@@ -1,27 +1,27 @@
-#products div.product {
+div.product {
    border-bottom: 1px dashed #e1e1e1;
    position: relative;
 }
 
-#products div.product:last-child {
+div.product:last-child {
   border: none;   
 }
 
-#products div.product:hover div.image img {
+div.product:hover div.image img {
   opacity: 0.8;   
 }
 
-#products div.product:hover div.text h3 a {
+div.product:hover div.text h3 a {
   text-decoration: underline;
   color: #D30000;
 }
 
-#products div.image {
+div.product div.image {
   min-height: 180px;
   position: relative;
 }
 
-#products div.image div.stamp {
+div.product div.image div.stamp {
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -31,43 +31,43 @@
   font-size: 0.8em;   
 }
 
-#products div.text {
+div.product div.text {
   margin: auto 0;
   top: 0;
   bottom: 0;
 }
 
-#products div.text p.description span {
+div.product div.text p.description span {
   color: #777;
 }
 
-#products div.text p.meta {
+div.product div.text p.meta {
   color: #555;
   font-size: 0.8em;
 }
 
-#products div.text p.meta strong {
+div.product div.text p.meta strong {
   color: darkgreen;
 }
 
-#products div.text h3 {
+div.product div.text h3 {
   margin: 0 0 5px 0;
   font-size: 22px;
   font-weight: normal; 
   letter-spacing: -0.5px;
 }
 
-#products div.text h3 span {
+div.product div.text h3 span {
   font-size: 15px;
   font-weight: normal;
 }
 
-#products div.text p {
+div.product div.text p {
   margin: 0 0 5px 0; 
   font-size: 0.8em;  
 }
 
-#products div.prices {
+div.product div.prices {
   border: 1px dashed #e1e1e1;
   background: ;
   position: absolute;
@@ -79,14 +79,14 @@
   z-index: 1000;
 }
 
-#products div.prices p {
+div.product div.prices p {
   margin: 0px 0 5px 0; 
   color: #777; 
   letter-spacing: -0.5px;
   text-align: center; 
 }
 
-#products div.buttons {
+div.product div.buttons {
   position: relative;
   z-index: 1000; 
   font-size: 13px; 
@@ -94,27 +94,27 @@
   padding-top: 0;
 }
 
-#products div.buttons .price {
+div.product div.buttons .price {
   margin: 0;
   letter-spacing: -0.5px;
   color: #777;
 }
 
-#products div.buttons .price .strikethrough {
+div.product div.buttons .price .strikethrough {
   position: absolute;
   bottom: -5px;   
 }
 
-#products div.buttons .price strong {
+div.product div.buttons .price strong {
   color: #000;
 }
 
-#products div.buttons .button {
+div.product div.buttons .button {
   z-index: 1001;
   top: -2px;
   float: right;
 }
 
-#products div.prices .button {
+div.product div.prices .button {
   margin: 5px 0;   
 }
