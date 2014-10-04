@@ -110,7 +110,8 @@ class CustomerPackage(models.Model):
         final_amount = 0
         for x in self.get_items():
             final_amount += x.sale_price
-        final_amount += self.postage_paid
+        if self.postage_paid:
+            final_amount += self.postage_paid
         return final_amount
     
     

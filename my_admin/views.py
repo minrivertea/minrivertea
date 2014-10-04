@@ -21,7 +21,7 @@ import xml.etree.ElementTree as etree
 from django.utils import simplejson
 
 import datetime
-from datetime import timedelta
+from datetime import timedelta, date
 import uuid
 import re
 
@@ -122,9 +122,11 @@ def export(request):
     
     writer = csv.writer(response)
     
-    start_date = (datetime.now() - timedelta(weeks=int(52)) )
-    end_date = datetime.now()
-    packages = CustomerPackage.objects.filter(posted__range=(start_date, end_date))
+    start_date = date(2013, 8, 1)
+    end_date = date(2014, 8, 30)
+    packages = CustomerPackage.objects.filter(created__range=(start_date, end_date))
+    
+    
     italian_countries = ('IT', 'NL')
     
     items = []
