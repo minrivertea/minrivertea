@@ -74,7 +74,8 @@ def orders(request, **kwargs):
             created__range=(start_date, end_date), 
             **kwargs
         ).order_by('-created')  
-
+        
+        
     return _render(request, 'my_admin/orders.html', locals())
 
 
@@ -112,7 +113,7 @@ def admin_shopper(request, id):
 
 
 @login_required
-def packages_sold(request):
+def export(request):
     
     import csv
     
@@ -124,27 +125,20 @@ def packages_sold(request):
     start_date = (datetime.now() - timedelta(weeks=int(52)) )
     end_date = datetime.now()
     packages = CustomerPackage.objects.filter(posted__range=(start_date, end_date))
+    italian_countries = ('IT', 'NL')
     
+    items = []
     for p in packages:
-        try:
-            currency = p.postage_currency.code
-        except:
-            currency = 'GBP'
+        if p.order.address.country in italian_countries:
             
-        for x in p.get_items():
-            if x.unique_product.parent_product.get_root_category().slug == _('teaware'):
-                teaware = 'yes'
-            else: 
-                teaware = ''
-            
-        writer.writerow([
-            p.posted,
-            p.get_items().count(),
-            teaware,
-            p.order.address.get_country_display(),
-            currency,
-            p.postage_cost,            
-        ])
+            writer.writerow([
+                p.order,
+                p.order.owner,
+                p.order.date_paid,
+                p.get_final_value(),
+                p.get_final_currency(),
+                p.postage_paid,
+            ])
     
     return response
     
