@@ -360,18 +360,29 @@ ul.rss {
         </div>
     </div>
 </div>
+
+<div class="pure-g">
+	
+    <div class="pure-u-18-24">    
+                       
+        {% with teaware as products %}
+            {% include 'shop/snippets/products_new.html' %}  
+        {% endwith %}	   
+
+    </div>
+</div>
+
+<div class="hr pure-u-1"></div>
+
+<h3 class="pure-u-1">
+    <a href="{% url finder 'teaware' %}">Enjoy your Chinese tea in style - a range of stunning teaware and accessories &raquo;</a>
+</h3>
+
+<div class="hr pure-u-1"></div>
     
     
 
     {% comment %}
-    
-    {% if special %}
-      
-    
-    <!-- END OF SPECIAL -->
-    {% endif %}
-    
-    <div class="hr"></div>
     
     
     <!-- START DEALS -->
@@ -420,28 +431,7 @@ ul.rss {
     
     <div class="hr"></div>
     <!-- END OF DEALS -->
-    
-
-      
-	
-	<div id="teaware">
-	
-       <div class="banner">
-        
-            <div class="text">
-                
-            <p>{% trans 'Enjoy your Chinese tea in style - a range of stunning teaware, teapots and accessories to make brewing the perfect cup of tea a breeze. ' %}<br/><a href="{% url finder _('teaware') %}">{% trans 'See all our teaware' %}</a> </p>
-            </div>
-            
-        </div>
-	   
-	   {% with teaware as teas %}
-	       {% include 'shop/snippets/products_long.html' %}  
-	   {% endwith %}	   
-
-	</div>
-
-        	
+ 	
         
         {% endcomment %}
 

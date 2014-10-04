@@ -69,7 +69,7 @@ def index(request):
         is_active=True,
         is_featured=True,
         category__parent_category__slug=_('teaware'),
-    )[:4]
+    )[:3]
     
     for t in teaware:
         t.price = t.get_lowest_price(currency=curr)
