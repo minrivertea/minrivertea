@@ -515,6 +515,7 @@ div#discount {
                     {{ thing.item.parent_product.name }} {% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}) {% endif %}
                 {% endif %}
 		        </a>
+		        
 		        {% if thing.deal_text %}
                     <br/>
                     <span class="red">{{ thing.deal_text|safe }}</span>
@@ -543,10 +544,12 @@ div#discount {
                 {% if thing.item.sale_price %}
                     <span class="strikethrough red">{{ currency.symbol }}{{ thing.item.price|floatformat:"2" }}</span><br/>
                 {% endif %}
+                
                 {% if thing.original_price %}
                     <span class="strikethrough red">{{ currency.symbol }}{{ thing.original_price|floatformat:"2" }}</span><br/>
                 {% endif %}
-                {{ currency.symbol }}{{ thing.item.price|floatformat:"2" }}
+                
+                {{ currency.symbol }}{{ thing.item.get_price|floatformat:"2" }}
                 {% if thing.item.special_shipping_price %}<br/><span class="small"> + {{ currency.symbol }}{{ thing.item.special_shipping_price }} {% trans 'shipping' %}</span>{% endif %}
             </td>
             <!-- END UNIT PRICE
