@@ -256,8 +256,9 @@ p.small {
             
             <div class="pure-u-3-5 l-pad">
                 <ul>
-                    <li><a href="">{{ entry.get_prev.title }}</a></li>
-                    <li><a href="">{{ entry.get_next.title }}</a></li>
+                    {% for x in others %}
+                        <li><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
