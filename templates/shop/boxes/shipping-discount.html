@@ -1,6 +1,0 @@
-{% load i18n %}
-
-<div class="info">
-	<h3>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}Free shipping over {{ symbol }}{{ ptd }}{% endblocktrans %}</h3>
-	<p>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}Order over {{ symbol }}{{ ptd }} and we'll ship your order to you absolutely for free. Anywhere in the world.{% endblocktrans %}</p>
-</div>

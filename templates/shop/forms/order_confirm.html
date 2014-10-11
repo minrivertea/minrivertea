@@ -313,22 +313,22 @@ p.skip {
     {% include "shop/snippets/paypal_form.html" %}
 <!-- END PAYPAL FORM -->
 
-<div id="bottom">
+<div id="bottom" class="pure-g">
 
-    <div class="info">
+    <div class="info pure-u-1-3">
         <h3>{% trans 'Safe and secure payment' %}</h3>
       	<p>{% trans "We accept all major credit/debit cards and Paypal and we're protected by industry standard SSL encryption." %}</p>
     </div>
     
     {% if not friend %}
-    <div class="info">
+    <div class="info pure-u-1-3">
         <h3>{% trans 'Ask a friend to pay' %}</h3>
         <p>{% trans 'Send a friend this link and they can pay for this order for you' %}</p>
         <div id="order-url"><span>{{ site_url }}{% url order_url_friend order.hashkey %}</span></div>
     </div>
     {% endif %}
     
-    <div class="info">
+    <div class="info pure-u-1-3">
         <h3>{% trans 'Problems or questions?' %}</h3>
         {% url finder _('contact-us') as contact_url %}
         <p>{% blocktrans %}We aim to offer first class customer service - if you have ANY problems or questions, <a href="{{ contact_url }}">contact us</a> immediately. We'll respond as quickly as possible, usually within a few hours.{% endblocktrans %}</p>

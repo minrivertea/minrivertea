@@ -98,7 +98,8 @@ h1 {
 
 #experts {
   background: url('{{ static_url}}images/homepage/home-experts.jpg') no-repeat top left; 
-  height: 280px;  
+  height: 280px;
+  margin-bottom: 25px;  
 }
 
 #experts .glass-text, #monthly .glass-text {
@@ -152,16 +153,6 @@ ul.rss {
     width: 80px;
 }
 
-#teaware {
-  float: left;
-  width: 100%;
-  margin: 0;   
-}
-
-#teaware div.banner {
-  background: url('{{ static_url }}images/homepage/teaware-banner.jpg') no-repeat top left;
-}
-
 .info.about h3 {
   margin: 0;   
 }
@@ -176,7 +167,7 @@ ul.rss {
   letter-spacing: -0.5px;
 }
 
-.info.totm h4 {
+.info h4 {
   font-size: 0.9em;
   margin: 0;
   padding: 0;
@@ -359,17 +350,22 @@ ul.rss {
             </div>
         </div>
     </div>
+    
 </div>
+
 
 <div class="pure-g">
 	
-    <div class="pure-u-18-24">    
+	
+	
+    <div class="pure-u-1">    
                        
         {% with teaware as products %}
             {% include 'shop/snippets/products_new.html' %}  
         {% endwith %}	   
 
     </div>
+
 </div>
 
 <div class="hr pure-u-1"></div>

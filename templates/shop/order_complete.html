@@ -3,20 +3,10 @@
 
 {% block pagetitle %}{% trans 'Order Complete' %}{% endblock %}
 
-{% block extrajs %} 
-
-{% if affiliate_session and order %}
-    <script src="http://partners.i-affiliate.net/i_sale_third/10512/{{ order.get_amount_eur|floatformat:'2' }}/{{ order.invoice_id }}/"></script>
-    <noscript><img src="http://partners.i-affiliate.net/i_track_sale/10512/{{ order.get_amount_eur|floatformat:'2' }}/{{ order.invoice_id }}/" /></noscript>
-{% endif %}
-
-{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
-#tools {
-  display: none;   
-}
+
 
 #tweetit {
   background: #fff;
@@ -58,26 +48,30 @@
 
 {% block content %}
 
-<div id="mtw">
-  <div class="sp">
+<div class="sp">
 
-    <h1>{% trans 'Order complete!' %}</h1>
+    <div class="pure-u-18-24">
 
-    <div id="basket">
-
-    <p class="introduction">{% trans "We've received your order and we'll send your tea immediately. We've also sent you an email confirming the details. Thank you and we really hope you enjoy your tea!" %}</p>
-
-
-    <p>{% trans "Please note, we must confirm payment is received before we can ship any orders. If there is a problem with your order, we will contact you immediately to resolve this. Many thanks for your patience." %}</p>
+    <p class="introduction"><strong>Your order is complete! Please check your email inbox for confirmation. </strong> We'll put your order in the post immediately and <a href="mailto:chris@minrivertea.com">feel free to contact us</a> anytime with questions or problems.</p>
     
+    <p class="introduction"><strong>Don't close this page yet!</strong> We need to ask a favor because it will really mean a lot to us. We're going to throw a handful of free samples in with your order anyway and in return, could you send out a little tweet or shout out on Facebook? Just click any (or all!) of these buttons and we'll be eternally grateful:</p>
     
-    <p>{% blocktrans %}If for any reason you need to contact us about your order, email us at <a href="mailto:chris@minrivertea.com">chris@minrivertea.com</a>. We try to respond to emails as soon as possible, but sometimes because of time zone differences, we might take slightly longer. Thanks for your patience!{% endblocktrans %}</p>
-</div>
+    <div class="pure-u-1-4">
+        
+        <div class="fb-like" data-href="http://www.minrivertea.com" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+        
+    </div>
+    
+    <div class="pure-u-1-4">
+        <a href="https://twitter.com/intent/tweet?screen_name=minrivertea&text=Just%20placed%20my%20order!" class="twitter-mention-button" data-size="large" data-related="minrivertea">Tweet to @minrivertea</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+    
+    </div>
 
     
 
     
 
-  </div>
 </div>
 {% endblock %}
