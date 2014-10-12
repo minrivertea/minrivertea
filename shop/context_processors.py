@@ -52,8 +52,7 @@ def common(request):
     # GET THE NAVIGATIONS
     context['main_nav'] = Category.objects.filter(is_navigation_item=True).order_by('list_order')
     context['top_nav'] = Page.objects.filter(is_top_nav=True).order_by('list_order')
-        
-        
+             
         
     # REGIONAL STUFF
     context['region'] = _get_region(request)    

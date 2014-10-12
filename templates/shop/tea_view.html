@@ -59,18 +59,6 @@ $(function() {
 });
 
 
-$(document).ready( function() {
-    
-    $('#reviews .toggle').click( function() {
-       
-       var html = '<h2>{% trans "Reviews for" %} {{ tea.name }}</h2><div class="hr"></div><ul class="reviews">'
-       html += $('#reviews ul').html();
-       html += '</ul>';
-       makeOverlay(html, '800');
-       
-    });
-});
-
 
 </script>
 
@@ -503,10 +491,18 @@ div.fb-recommend {
     z-index: 5;
 }
 
-#recommended, #delivery, #payment, #monthly {
+#delivery, #payment, #monthly {
   float: left;
   width: 100%;
   margin: 0px 0 0 0;   
+}
+
+#recommended > div {
+  position: relative;   
+}
+
+#recommended > div:hover {
+  opacity: 0.8;   
 }
 
 #shipping p {
@@ -529,54 +525,15 @@ div.fb-recommend {
   line-height: 1.8em;   
 }
 
-#reviews .toggle {
-    background: none repeat scroll 0 0 #F6F6F6;
-    border-bottom: 1px dashed #C1C1C1;
-    bottom: -26px;
-    color: #2A8531;
-    font-size: 12px;
-    font-weight: bold;
-    margin: 0 auto;
-    padding: 7px 0 5px;
-    position: absolute;
-    left: 10px;
-    text-align: center;
-    width: 150px;
+#reviews h3 {
+  margin: 0;
+  line-height: 1.4em;   
 }
 
-#reviews .toggle:hover {
-  cursor: pointer;   
+#reviews p {
+  margin: 0;   
 }
 
-#recommended h3 {
-    color: #5F829A;
-    margin: 0 0 10px;
-    font-size: 17px;
-}
-
-#reviews a.add-review {
-  position: absolute;
-  bottom: -10px;
-  right: 50px;   
-}
-
-
-#reviews ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0; 
-  overflow: hidden;  
-}
-
-#reviews ul li {
-    font-size: 13px;
-    letter-spacing: -0.2px;
-    line-height: 1.8em;
-}
-
-#reviews ul li.hidden {
-  display: none;   
-}
 
 #image_wrap {
     display: block;
@@ -590,11 +547,6 @@ div.fb-recommend {
   padding: 0;
   width: 100%;  
   margin: 0 30px 0 0; 
-}
-
-#brewing {
-  margin-right: 0;
-  width: 345px;   
 }
 
 #extras .box {
@@ -685,7 +637,7 @@ ul.rss {
 }
 
 
-#delivery p, #payment p, #reviews p, #monthly p {
+#delivery p, #payment p, #monthly p {
   margin: 10px 0 0 20px;
   float: left;
   font-size: 13px;
@@ -877,15 +829,11 @@ ul.rss {
 
 
     <!-- REVIEWS -->
-    {% if reviews %}
+    {% if review %}
     <div id="reviews" class="pure-g">
-        {% for r in reviews %}
-          {% if forloop.counter < 4 %}
-          <div class="pure-u-1-3 {% if forloop.first %}r-pad{% else %} l-pad r-pad{% endif %}">
-                <strong>{{ r.first_name }} bought this and said</strong> &ldquo;{{ r.short_text|truncatewords:50 }}&rdquo;
-          </div>
-          {% endif %}
-        {% endfor %}
+    
+        <h3>{{ review.short_text }}</h3>
+        <p>This is what <strong>{{ review.first_name }} {% if review.last_name and review.last_name != review.first_name %}{{ review.last_name }}{% endif %}</strong> said after trying our {{ review.product.name }}</p>
         
         <div class="pure-u-1">
             <a class="" href="{% url review_tea tea.category.slug tea.slug %}">
@@ -896,7 +844,7 @@ ul.rss {
                 Read more reviews
             </a>
         </div>
-        
+    
     </div>
     <div class="hr pure-u-1"></div>    
     {% endif %}
@@ -956,7 +904,6 @@ ul.rss {
     <!-- END CONTACT CALLOUT -->
 	
 	
-	
 	<!-- START DEALS -->
     {% for price in prices %}
         {% if price.get_deals %}
@@ -967,11 +914,17 @@ ul.rss {
 
 
  
-	<div id="recommended">
-	   <h3 class="title">{% trans 'Also recommended...' %}</h3>
-	   {% with recommended as teas %}
-            {% include 'shop/snippets/products_long.html' %}		  
-	   {% endwith %}
+	<div id="recommended" class="pure-g">	   
+	   {% for t in recommended %}
+	       <div class="pure-u-1-4 l-pad r-pad text-center">
+	           <span class="link"><a href="{{ t.get_absolute_url }}"></a></span>
+	           {% thumbnail t.image "210x180" crop="center" as im %}
+	               <img class="pure-u-1" src="{{ im.url }}"/>
+	           {% endthumbnail %}
+	           <h5><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h5>
+	       </div>
+	   {% endfor %}
+	   
 	</div>
 
     {% if ga_is_on %}

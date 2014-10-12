@@ -183,7 +183,7 @@ def tea_view(request, slug):
 	        pass
     
     tea = get_object_or_404(Product, slug=slug)
-    reviews = Review.objects.filter(is_published=True, product=tea, lang=get_language())
+    review = Review.objects.filter(is_published=True, product=tea, lang=get_language()).order_by('?')[0]
     
     # IF IT'S A MONTHLY ITEM, LET'S REDIRECT HERE:
     if tea.slug == _('monthly-tea-box'):
