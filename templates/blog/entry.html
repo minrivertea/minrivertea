@@ -59,7 +59,7 @@ ul.rss li#google {
 }
 
 
-p, ol, ul {
+#content p, #content ol, #content ul {
   font-size: 16px;
   letter-spacing: 0;
   line-height: 2em;
@@ -67,7 +67,7 @@ p, ol, ul {
   margin: 0.5em 0 1em 0;
 }
 
-p.introduction {
+#content p.introduction {
   font-weight: normal;
   font-size: 20px;
   margin: 0 0 10px 0;   
@@ -87,33 +87,16 @@ p.meta a:hover {
   color: #FF6569;   
 }
 
-h3 {
+#content h3 {
   margin: 30px 0 0 0;
   font-size: 20px;   
 }
 
-div#entry-content h3 {
-  font-size: 2em;	
+#content a, #content a:link {
+  text-decoration: none;
+  border-bottom: 1px solid #2a8531;   
 }
 
-div#entry-content h4 {
-  border-bottom: none;
-  font-weight: bold;
-  margin-bottom: 5px;	
-}
-
-div#entry-content p.date {
-  font-size: 14px;
-  color: #666;
-  margin: 0;
-  padding-left: 5px;	
-}
-
-div#entry-content img {
-  float: right;
-  margin: 10px 0 30px 30px;	
-  border-radius: 10px;
-}
 
 div.next-previous {
     float: left;
@@ -122,7 +105,7 @@ div.next-previous {
     width: 100%;
 }
 
-p.quote {
+#content p.quote {
     background: none repeat scroll 0 0 #FFFFFF;
     border-left: 10px solid #5F829A;
     margin: 0 0 20px;
@@ -210,7 +193,7 @@ p.small {
     <div class="hr pure-u-1"></div>
 
     
-    <div class="pure-u-18-24">
+    <div class="pure-u-18-24" id="content">
                 
     	{{ entry.content|convert_links|safe }}
    
