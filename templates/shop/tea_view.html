@@ -527,7 +527,8 @@ div.fb-recommend {
 
 #reviews h3 {
   margin: 0;
-  line-height: 1.4em;   
+  line-height: 1.4em;
+  font-weight: 100;   
 }
 
 #reviews p {
@@ -832,7 +833,7 @@ ul.rss {
     {% if review %}
     <div id="reviews" class="pure-g">
     
-        <h3>{{ review.short_text }}</h3>
+        <h3>&ldquo;{{ review.short_text }}&rdquo;</h3>
         <p>This is what <strong>{{ review.first_name }} {% if review.last_name and review.last_name != review.first_name %}{{ review.last_name }}{% endif %}</strong> said after trying our {{ review.product.name }}</p>
         
         <div class="pure-u-1">
