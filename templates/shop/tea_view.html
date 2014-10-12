@@ -509,18 +509,25 @@ div.fb-recommend {
   margin: 0px 0 0 0;   
 }
 
-
-
-#reviews h3, #shipping h3 {
-  font-size: 18px;
-  color: #5F829A;   
-}
-
 #shipping p {
   margin: 0;
   font-size: 13px;   
 }
 
+#contact h4 {
+  margin: 0;
+  padding: 0;   
+}
+
+#contact p {
+  font-size: 0.8em;
+  margin: 0;     
+}
+
+#reviews {
+  font-size: 13px;
+  line-height: 1.8em;   
+}
 
 #reviews .toggle {
     background: none repeat scroll 0 0 #F6F6F6;
@@ -645,22 +652,6 @@ div.fb-recommend {
     top: 20px;     
 }
 
-#map {
-  background: none;
-  padding: 0;
-  width: 255px;
-  margin: 0 30px 0 0;
-  position: relative;  
-} 
-
-#map img {
-  float: left;
-  margin: 0 0 15px 0;   
-}
-
-#map p {
-  font-style: italic;   
-}
 
 #shipping.info, #safe.info {
   width: 325px;
@@ -884,7 +875,36 @@ ul.rss {
 	</div>
 	<!-- END PRODUCT TOP -->	
 
-	<!-- START EXTRAS -->
+
+    <!-- REVIEWS -->
+    {% if reviews %}
+    <div id="reviews" class="pure-g">
+        {% for r in reviews %}
+          {% if forloop.counter < 4 %}
+          <div class="pure-u-1-3 {% if forloop.first %}r-pad{% else %} l-pad r-pad{% endif %}">
+                <strong>{{ r.first_name }} bought this and said</strong> &ldquo;{{ r.short_text|truncatewords:50 }}&rdquo;
+          </div>
+          {% endif %}
+        {% endfor %}
+        
+        <div class="pure-u-1">
+            <a class="" href="{% url review_tea tea.category.slug tea.slug %}">
+                {% trans 'Add your own review' %}
+            </a>
+            |
+            <a class="" href="{% url reviews %}">
+                Read more reviews
+            </a>
+        </div>
+        
+    </div>
+    <div class="hr pure-u-1"></div>    
+    {% endif %}
+    <!-- END REVIEWS -->
+
+
+
+	<!-- START EXTRA INFORMATION -->
 	{% if tea.long_description %}
 	<div id="extras" class="pure-g">
 	
@@ -895,64 +915,46 @@ ul.rss {
 	</div>
 	<div class="hr"></div>
 	{% endif %}
-	<!-- END EXTRAS -->
+	<!-- END EXTRA INFORMATION -->
 	
 	
-	<!-- START REVIEWS -->
-    {% if reviews %}
-    <div class="sp pure-g">
-        <div id="reviews" class="pure-u-1-2 l-pad r-pad border-right">
+	<!-- CONTACT CALLOUT -->
+    <div id="contact" class="pure-g">
         
-            <h3>{% trans 'What do our customers say?' %} 
-                <a href="{% url review_tea tea.category.slug tea.slug %}">
-                    {% trans 'Add your own review' %} &raquo;
-                </a>
-            </h3>
-            
-            <ul class="pure-g">
-            {% for r in reviews %}
-               <li class="pure-u-1 {% if not forloop.first %}hidden{% endif %}">
-                   &ldquo;<em>{{ r.short_text }}</em>&rdquo;<br/>
-                   {% if r.first_name or r.last_name %}
-                   <strong>{{ r.first_name }} {{ r.last_name }}</strong>
-                   {% if r.date_submitted %} - {{ r.date_submitted|date:"d M Y" }}{% endif %} 
-                   {% if r.url %} - <a href="{{ r.url }}">view original</a>{% endif %}
-                   {% endif %}
-               </li>
-           {% endfor %}
-            </ul>
-        
-            {% if reviews.count > 1 %}
-                <span class="toggle">{% trans 'Show more reviews' %}</span> 
-            {% endif %}
-           
+        <div class="pure-u-1-4 border-right r-pad">
+            <h4>Got a question</h4>
+            <p><a href="{% url page 'contact-us' %}">Email us</a>, tweet it to <a href="https://twitter.com/minrivertea">@minrivertea</a> or ask us anything on <a href="http://www.facebook.com/minrivertea">our Facebook page</a></p>
         </div>
         
-        <div id="shipping" class="pure-u-1-2">
-            <div class="pure-g">
-                <div class="pure-u-1-2 l-pad r-pad border-right">
-                    <h3>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}Free delivery over {{ symbol }}{{ ptd }}{% endblocktrans %}</h3>
-                    {% url page _('shipping') as shipurl %}
+        <div class="pure-u-1-4 border-right l-pad r-pad">
+            <h4>Packaging</h4>
+            <p>As fresh as the day it left the farm - <a href="{% url page 'packaging' %}">find out why</a>.</p>
+        </div>
+        
+        <div class="pure-u-1-4 border-right l-pad r-pad">
+            <h4>{% blocktrans with currency.symbol as symbol and currency.postage_discount_threshold as ptd %}Free delivery over {{ symbol }}{{ ptd }}{% endblocktrans %}</h4>
+            {% url page _('shipping') as shipurl %}
         	       <p>{% blocktrans %}Read more info about our <a href="{{ shipurl }}">
         	           FREE worldwide shipping</a>{% endblocktrans %}
         	       </p>
-                </div>
-                
-                <div class="pure-u-1-2 l-pad r-pad">
-                    <h3>{% trans 'Easy and secure payment' %}</h3>
+
+        </div>
+        
+        <div class="pure-u-1-4 l-pad">
+            <h4>{% trans 'Easy and secure payment' %}</h4>
+                    
           <span class="image"></span>
           {% url page _('terms-and-conditions') as tcurl %}
           {% url page _('returns') as rturl %}
           <p>{% blocktrans %}Read our <a href="{{ tcurl }}">T&Cs</a> and <a href="{{ rturl }}">Returns</a> policies{% endblocktrans %}</p>
-                </div>
-            </div>
+          
         </div>
-	       
-    </div>        
         
-    <div class="hr"></div>
-    {% endif %}
-    <!-- END REVIEWS -->
+        
+    </div>
+    <div class="hr pure-u-1"></div>
+    <!-- END CONTACT CALLOUT -->
+	
 	
 	
 	<!-- START DEALS -->

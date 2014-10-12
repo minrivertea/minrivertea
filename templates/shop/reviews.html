@@ -1,32 +1,19 @@
 {% extends base_template %}
 {% load thumbnail i18n %}
 
-{% block metadescription %}{% trans 'Reviews and testimonials about our Chinese tea from our happy customers!' %}{% endblock %}
+{% block metadescription %}{% trans 'Read reviews and testimonials from our happy customers!' %}{% endblock %}
 
 {% block extracss %}
 <style type="text/css">
 
-#mtw #left {
- margin-top: 20px;
- width: 100%;   
+
+.review p {
+ margin: 0;
+ font-size: 0.8em;    
 }
 
-.review {
- float: left;
- width: 100%;
- height: 160px;
- margin: 0 0 10px 0;    
-}
-
-.image {
- float: left;
- margin: 0 20px 0 0;
-}
-
-.name {
- font-family: Helvetica, sans-serif;
- font-weight: bold;
- font-size: 16px;   
+.review p strong {
+  font-size: 15px;   
 }
 
 
@@ -40,30 +27,42 @@
 {% block content %}
 
 
-<div id="mtw">
-  <div class="sp">
+<div class="sp">
   
   	<h1>{% trans 'What our customers are saying about minrivertea.com' %}</h1>
 
-	<div id="left">
-		{% for review in reviews %}
-		  <div class="review">
-    		  <div class="image">
-	   	       {% thumbnail review.product.image "240x160" crop="center" as im %}
-	   	       <img src="{{ im.url }}">
-	   	       {% endthumbnail %}
-		      </div>
-		      <p>{{ review.short_text }}<br/>
-		          <span class="name">{{ review.first_name }} {% if review.url %}from <a title="{% trans 'Read the full review here' %}" href="{{ review.url }}">{{ review.show_url }}</a>{% else %}{% if review.last_name %}{{ review.last_name }}{% endif %}{% endif %} {% trans 'talking about our' %}
-		          <a href="{{ review.product.get_absoluteurl }}">{{ review.product }}</a></span>
+
+    <div id="reviews" class="pure-u-18-24">
+    {% for r in reviews %}
+		  {% if r.lang == 'en' %}
+		  <div class="review pure-g">		      
+		      
+		      <div class="text pure-u-1">
+		      
+		      <p>
+		          <strong>{{ r.first_name|title }} {{ r.last_name|title }} bought <a href="{{ r.product.get_absolute_url }}">{{ r.product }}</a> and said... </strong> <br/>
+		          
+		          &ldquo;{{ r.short_text }} &rdquo;
+		          
+		          
+		          {% if r.url %}
+		              <br/>
+		              <a href="{{ r.url }}">Read the full review on {{ r.show_url }}</a>
+		          {% endif %}
+		          
+		          
+		          
+		          
 		      </p>
+		      
+		      </div>
 		   </div>
 		   <div class="hr"></div>
+		   {% endif %}
 		{% endfor %}
+    </div>
 	
-	</div>
 
-  </div>
 </div>
 {% endblock %}
 
