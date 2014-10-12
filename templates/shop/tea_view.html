@@ -913,7 +913,7 @@ ul.rss {
     <!-- END DEALS -->
 
 
- 
+    <!-- RECOMMENDED -->
 	<div id="recommended" class="pure-g">	   
 	   {% for t in recommended %}
 	       <div class="pure-u-1-4 l-pad r-pad text-center">
@@ -924,8 +924,9 @@ ul.rss {
 	           <h5><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></h5>
 	       </div>
 	   {% endfor %}
-	   
 	</div>
+    <!-- END RECOMMENDED -->
+
 
     {% if ga_is_on %}
     <ul class="rss">
