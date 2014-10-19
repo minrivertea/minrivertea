@@ -83,6 +83,8 @@ class Product(models.Model):
     tag_text = models.CharField(max_length="100", blank=True, null=True)
     tag_color = models.CharField(max_length="60", blank=True, null=True, choices=TAG_COLORS,
         help_text="A Hex reference with the preceding # hash")
+    external_review_url = models.URLField(blank=True, null=True, 
+        help_text="For example, the Steepster page link.")
        
     
     
@@ -150,7 +152,13 @@ class Product(models.Model):
     
     def get_reviews(self):
         reviews = Review.objects.filter(product=self, is_published=True, lang=get_language())
-        return reviews    
+        return reviews   
+    
+    def external_review_url_display(self):
+        if self.external_review_url:
+            url = urlparse(self.external_review_url)
+            return url.netloc  
+        return None 
     
     def save(self, force_insert=False, force_update=False):
          super(Product, self).save(force_insert, force_update)

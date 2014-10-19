@@ -838,12 +838,18 @@ ul.rss {
         
         <div class="pure-u-1">
             <a class="" href="{% url review_tea tea.category.slug tea.slug %}">
-                {% trans 'Add your own review' %}
+                {% trans 'Add your own' %}
             </a>
             |
             <a class="" href="{% url reviews %}">
                 Read more reviews
             </a>
+            {% if tea.external_review_url %}
+            |
+            <a class="grey" href="{{ tea.external_review_url }}">
+                See more reviews on <strong>{{ tea.external_review_url_display }}</strong>
+            </a>            
+            {% endif %}
         </div>
     
     </div>
