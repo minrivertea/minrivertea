@@ -418,7 +418,7 @@ class Review(models.Model):
     lang = models.CharField(max_length=5, choices=settings.LANGUAGES)
     
     def __unicode__(self):
-        return self.short_text  
+        return "%s by %s" % (self.product, self.email)
     
     def show_url(self):
         url = urlparse(self.url)
