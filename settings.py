@@ -51,6 +51,8 @@ SECURE_PROXY_SSL_HEADER =       ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 MEDIA_ROOT =                    os.path.join(PROJECT_PATH, 'media')
 MEDIA_URL =                     'https://www.minrivertea.com/media/'
 
+
+
 STATIC_URL =                    'https://www.minrivertea.com/static/'
 STATICFILES_DIRS =              (
                                     os.path.join(PROJECT_PATH, 'static'),

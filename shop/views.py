@@ -75,15 +75,11 @@ def index(request):
         t.price = t.get_lowest_price(currency=curr)
     
     try:
-        special = get_object_or_404(Product, slug='huangshan-mao-feng-green-tea')
+        special = get_object_or_404(Product, slug='old-iron-charcoal-roasted-chinese-tea/')
         special.price = special.get_lowest_price(curr)
     except:
         special = None
-    
-    deal1 = get_object_or_404(Product, id=23)
-    deal1.price = deal1.get_lowest_price(curr)
-    #deal2 = get_object_or_404(Product, id=16)
-     
+         
     return _render(request, "shop/home.html", locals())
 
 
