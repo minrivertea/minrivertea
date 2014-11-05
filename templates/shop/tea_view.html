@@ -924,7 +924,7 @@ ul.rss {
 	<div id="recommended" class="pure-g">	   
 	   {% for t in recommended %}
 	       <div class="pure-u-1-4 l-pad r-pad text-center">
-	           <span class="link"><a href="{{ t.get_absolute_url }}"></a></span>
+	            <a href="{{ t.get_absolute_url }}"><span class="link"></span></a>
 	           {% thumbnail t.image "210x180" crop="center" as im %}
 	               <img class="pure-u-1" src="{{ im.url }}"/>
 	           {% endthumbnail %}
