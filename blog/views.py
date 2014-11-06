@@ -10,7 +10,16 @@ from django.http import Http404
 
 
 def index(request):
-    objects = BlogEntry.objects.filter(is_draft=False, title__isnull=False).exclude(title__exact="None").order_by('-date_added')
+    objects = BlogEntry.objects.filter(
+            is_draft=False, 
+            title__isnull=False
+        ).exclude(
+            title__exact="None"
+        ).order_by('-date_added')
+    
+    if request.GET.get('tag'):
+        tag = request.GET.get('tag')
+        objects = objects.filter(tags__name__in=[tag])
       
     try:
         p = int(request.GET.get('page', '1'))
@@ -32,14 +41,12 @@ def index(request):
 def blog_entry(request, slug):
 
     entry = get_object_or_404(BlogEntry, slug=slug)
-        
-    others = BlogEntry.objects.filter(
-            is_draft=False,
-            title__isnull=False
-        ).exclude(
-            id=entry.id, 
-            title__exact="None"
-        ).order_by('?')[:2]
+    others = entry.tags.similar_objects()
+    
+    try:
+        others = others[:2]
+    except IndexError:
+        pass   
     
     return _render(request, "blog/entry.html", locals())
 

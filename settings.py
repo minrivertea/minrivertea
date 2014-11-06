@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'premailer',
     'mathfilters',
     'mailchimp',
+    'taggit',
 )
 
 

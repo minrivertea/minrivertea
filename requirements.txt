@@ -16,4 +16,5 @@ dnspython
 django-compressor
 django-mathfilters
 django-mobile
+django-taggit
 stripe

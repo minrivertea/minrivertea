@@ -60,9 +60,9 @@ ul.rss li#google {
 
 
 #content p, #content ol, #content ul {
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: 0;
-  line-height: 2em;
+  line-height: 2.2em;
   color: #444;
   margin: 0.5em 0 1em 0;
 }
@@ -73,18 +73,14 @@ ul.rss li#google {
   margin: 0 0 10px 0;   
 }
 
-p.meta, p.meta a {
+p.meta {
   color: #777;
-  font-size: 11px;
+  font-size: 15px;
 }
 
 p.meta {
   padding: 0;
   margin: 10px 0 0 0;
-}
-
-p.meta a:hover {
-  color: #FF6569;   
 }
 
 #content h3 {
@@ -185,7 +181,19 @@ div.next-previous {
 	
 	<div class="pure-u-1">
     	<h1>{{ entry.title }}</h1>
-    	<p class="meta">&laquo; <a href="{% url blog_home %}">back to blog home</a> | {{ entry.date_added|date:"d M Y" }} | {% if entry.blogger %}{% trans 'By' %} <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>{% endif %}</p>	
+    	
+    	<p class="meta">
+            This was posted on {{ entry.date_added|date:"d M Y" }} 
+    	    {% if entry.blogger %}
+    	       by <a href="{% url page entry.blogger.slug %}">{{ entry.blogger.name }}</a>
+    	    {% endif %}
+    	    {% if entry.tags.all %}
+    	       | 
+    	       Filed under: {% for t in entry.tags.all %}
+    	           <a href="{% url blog_home %}?tag={{ t }}">{{ t }}</a>{% if not forloop.last %}, {% endif %}
+    	       {% endfor %}
+    	    {% endif %}
+        </p>	
    
     </div>
     

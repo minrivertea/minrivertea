@@ -4,6 +4,9 @@ from shop.models import Page
 
 from ckeditor.fields import RichTextField
 
+from taggit.managers import TaggableManager
+
+
 class BlogEntry(models.Model):
     title = models.CharField(max_length=200, 
         help_text="To make an entry German language only, enter 'None' into the English title field.")
@@ -15,11 +18,8 @@ class BlogEntry(models.Model):
     is_promoted = models.BooleanField(default=False)
     summary = models.CharField(max_length=200)
     
-    content = RichTextField()
-    comments_require_captcha = models.BooleanField(default=False, 
-        help_text="If ticked, visitors will need to fill in captchas before commenting")
-    comments_closed = models.BooleanField(default=False, 
-        help_text="If ticked, visitors will not be able to comment on this entry")
+    content = RichTextField()    
+    tags = TaggableManager()
     
     def __unicode__(self):
         return self.slug

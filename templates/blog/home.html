@@ -155,6 +155,11 @@ img.tweets {
 
 <div class="sp">
 	
+	{% if tag %}
+	<p>
+	Showing entries tagged as: <a href="{% url blog_home %}?tag={{ tag }}">{{ tag }}</a>
+	</p>
+	{% endif %}
 			
 	{% if entries.has_previous %}
 		<div id="next-previous">
