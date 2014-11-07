@@ -158,7 +158,13 @@ div.next-previous {
   list-style-type: none;
   margin: 0;
   padding: 0; 
-  font-size: 18px;  
+  font-size: 18px;
+  line-height: 1em;  
+}
+
+#content .social ul li .meta {
+  font-size: 13px;
+  color: #777;
 }
 
 #mce-EMAIL {
@@ -249,12 +255,15 @@ div.next-previous {
         
         <div class="pure-g social">
             
-            <h4 class="pure-u-2-5 r-pad">You might like these too</h4>
+            <h4 class="pure-u-1-5 r-pad">Read next</h4>
             
-            <div class="pure-u-3-5 l-pad">
+            <div class="pure-u-4-5 l-pad">
                 <ul>
                     {% for x in others %}
-                        <li><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></li>
+                        <li>
+                            <a href="{{ x.get_absolute_url }}">{{ x.title }}</a>
+                            <span class="meta">- {{ x.date_added|date:"D d M Y" }}</span>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
