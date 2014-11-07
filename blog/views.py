@@ -43,6 +43,8 @@ def blog_entry(request, slug):
     entry = get_object_or_404(BlogEntry, slug=slug)
     others = entry.tags.similar_objects()
     
+    
+    
     try:
         others = others[:2]
     except IndexError:
