@@ -331,6 +331,10 @@ span.link:hover {
   text-decoration: underline;   
 }
 
+#header {
+     
+}
+
 #header p.blog-intro {
   text-align: right;
   float: right;
