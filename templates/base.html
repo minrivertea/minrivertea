@@ -36,7 +36,6 @@
 	
 
 
-	    
 	{% if ga_is_on %}
 		<script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
 		<script src="{{ static_url }}js/jquery.tools.min.js"></script>
@@ -206,7 +205,7 @@ if (15.00) {
             <li id="header_basket" class="{% if basket_quantity %}selected{% endif %}">
                 <span class="basket"></span>
             	<div class="full">
-                	<span class="q">{{ basket_quantity }}</span> item{{ basket_quantity|pluralize }} - 
+                	<span class="q">{{ basket_quantity|floatformat }}</span> item{{ basket_quantity|pluralize }} - 
                     {{ currency.symbol }}<span class="p">{{ basket_amount|floatformat:"2" }}</span> - 
                     <a href="{% url basket %}">{% trans 'Checkout Now' %} &raquo;</a>
                 </div>
@@ -225,6 +224,11 @@ if (15.00) {
         {% endif %}
             
         <div class="hr pure-u-1"></div>
+        
+        <div class="xmas">
+        Our 2014 Christmas deals are available now! <a style="color: #D30000;"href="{% url page 'christmas' %}">Find the perfect gifts for friend, family or colleague &raquo;</a>
+        <div class="hr pure-u-1"></div>
+        </div>
         	
     </div>
 </div>

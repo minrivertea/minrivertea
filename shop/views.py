@@ -333,7 +333,7 @@ def add_to_basket(request, id):
     
     
     if 'BASKET_AMOUNT' in request.session:
-        request.session['BASKET_AMOUNT'] = (request.session['BASKET_AMOUNT'] + item.item.get_price() )
+        request.session['BASKET_AMOUNT'] = (float(request.session['BASKET_AMOUNT']) + float(item.item.get_price()) )
     else:
         request.session['BASKET_AMOUNT'] = item.item.get_price()
     
@@ -721,8 +721,6 @@ def order_step_one(request, basket=None):
             basket_items = BasketItem.objects.filter(basket=basket)
             for item in basket_items:
                 order.items.add(item)
-                if item.monthly_order:
-                    order.monthly_order = True
                 
             order.save()
             request.session['ORDER_ID'] = order.id  
@@ -758,16 +756,13 @@ def order_step_one(request, basket=None):
 
 
 def order_url_friend(request, hash):
-    
     return order_url(request, hash, friend=True)
+
 
 @secure_required
 def order_url(request, hash, friend=None):
-    
     order = get_object_or_404(Order, hashkey=hash)    
-    
     basket = _get_basket_value(request, order=order)
-    
     return _render(request, 'shop/forms/order_confirm.html', locals())
 
 
@@ -863,11 +858,16 @@ def order_confirm(request):
     except:
         problem = _("You don't have any items in your basket, so you can't process an order!")
         return _render(request, 'shop/order-problem.html', locals())
-        
+    
+    
+    
     shopper = order.owner
-    order_items = order.items.all() 
-        
-    basket = _get_basket_value(request, order=order)
+    order.basket = Basket.objects.get(id=request.session['BASKET_ID'])
+    order.save()
+    
+    basket = _get_basket_value(request)
+    
+    
     amount_in_cents = int(float(basket['total_price']) * 100) # for stupid stripe...
     
     # THIS HANDLES STRIPE
@@ -922,8 +922,8 @@ def fake_checkout(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     
     # DOUBLE CHECK THE ORDER HAS 100% DISCOUNT
-    if not order.discount or order.discount.discount_value < 1:
-        return HttpResponseRedirect(reverse('order_confirm'))
+    #if not order.discount or order.discount.discount_value < 1:
+    #    return HttpResponseRedirect(reverse('order_confirm'))
     
     # ORGANISE THE ORDER AS IF IT HAD BEEN PAID LIKE NORMAL
     order.status = Order.STATUS_PAID
@@ -941,7 +941,6 @@ def fake_checkout(request, order_id):
     from shop.utils import _empty_basket
     _empty_basket(request)
     
-
     return HttpResponseRedirect(reverse('order_complete'))    
     
 @secure_required

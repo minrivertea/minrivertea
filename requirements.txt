@@ -18,3 +18,4 @@ django-mathfilters
 django-mobile
 django-taggit
 stripe
+mailchimp

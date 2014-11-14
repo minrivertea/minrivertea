@@ -1,11 +1,11 @@
 
-{% for item in order.items.all %}
+{% for item in items %}
 	{{ item }}
 {% endfor %}
 
 INVOICE ID: {{ order.invoice_id }}
 ORDER STATUS: {{ order.status }}
-ORDER VALUE: {{ order.get_amount|floatformat:"-2" }} {{ order.get_currency.code }}
+ORDER VALUE: {{ total_price|floatformat:"2" }} {{ currency.code }}
 PRINT PACKING SLIP: http://www.minrivertea.com{% url admin_orders %}
 
 ADDRESS:

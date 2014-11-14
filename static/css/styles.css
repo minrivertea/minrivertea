@@ -62,6 +62,10 @@ body {
   border-top: 1px dashed #c1c1c1;  
 } 
 
+#header .hr {
+  margin: 15px 0;   
+}
+
 .hr.clear {
   border-top: none;
   margin: 20px 0;   
@@ -343,9 +347,9 @@ span.link:hover {
 
 
 #logo {	 
- width: 150px;
- height: 80px;
- background: url("/static/images/logo16.jpg") no-repeat scroll 0px -94px transparent;
+ width: 220px;
+ height: 81px;
+ background: url("/static/images/logo16.jpg") no-repeat scroll 0px -61px transparent;
  float: left;
  margin: 0px 0 0;
  position: relative;
@@ -606,7 +610,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2759bc', end
 #navigation {
   float: right;
   width: auto;
-  margin: 33px 0 0px;	
+  margin: 34px 0 0px;	
 }
 
 ul#nav {
@@ -621,7 +625,7 @@ ul#nav li {
 }
 
 ul#nav li a, ul#nav li a:link, ul#nav li a:visited {
-    color: #2A8531;
+    color: #b3860b;
     float: left;
     font-size: 18px;
     font-weight: 100;

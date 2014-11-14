@@ -7,12 +7,14 @@
 <p><strong>Hi {{ fn }}</strong> - this is your order confirmation. Keep it for your records and just in case you need to contact us later about your order. Your order ID is: {{ order_id }}</p>{% endblocktrans %}
                                                                 
 <table id="details">
+    
     {% for x in items %}
     <tr>
         <td>
-            <strong>{{ x.quantity }} x {{ x.item.parent_product }} {% if x.weight %}({{ x.weight }}{{ weight_unit }}){% endif %}</strong><br/>{{ x.item.currency.symbol }}{{ x.item.price }} {% trans 'each' %}
+            <strong>{{ x.quantity }} x {{ x.item.parent_product }} {% if x.weight %}({{ x.weight }}{{ weight_unit }}){% endif %}</strong><br/>{{ currency.symbol }}{% if x.deal_price != None %}{{ x.deal_price|floatformat:"2" }}{% else %}{{ x.get_price|floatformat:"2" }}{% endif %} {% trans 'each' %}
         </td>
-        <td>{{ x.item.currency.symbol }}{{ x.get_price }}</td>
+        
+        <td>{{ currency.symbol }}{% if x.deal_price %}{{ x.deal_price|floatformat:"2" }}{% else %}{{ x.get_price|floatformat:"2" }}{% endif %}</td>
     </tr>
     {% endfor %}
     
@@ -27,9 +29,9 @@
         </td>
         <td>
             {% if postage_discount %}
-                {{ order.get_currency.symbol }}0.00
+                {{ currency.symbol }}0.00
             {% else %}
-                {{ order.get_currency.symbol }}{{ order.get_currency.postage_cost|floatformat:"2" }}
+                {{ currency.symbol }}{{ currency.postage_cost|floatformat:"2" }}
             {% endif %}
         </td>
     </tr>
@@ -37,14 +39,14 @@
     {% if order.discount %}
     <tr>
         <td><strong>{% trans 'Discount' %}</strong></td>
-        <td>-{{ order.get_currency.symbol }}{{ discount_value|floatformat:"2" }}</td>
+        <td>-{{ currency.symbol }}{{ discount_value|floatformat:"2" }}</td>
     
     </tr>
     {% endif %}
    
     <tr>
         <td><strong>{% trans 'TOTAL' %}</strong></td>
-        <td>{{ order.get_currency.symbol }}{{ total_price|floatformat:"2" }}</td>
+        <td>{{ currency.symbol }}{{ total_price|floatformat:"2" }}</td>
     </tr>
 </table>
                                     

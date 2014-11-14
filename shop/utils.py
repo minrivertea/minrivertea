@@ -151,190 +151,175 @@ def _apply_deals(items, free_shipping=False, deal_discount=False):
     Accepts a list of BasketItems, and returns a list of items
     with altered prices if there are offers running.
     """
-           
-    # GET AN ITEM COUNT FIRST:
-    deals = Deal.objects.filter(is_active=True)
     
-    if deals:
-        for d in deals:
-                        
-            new_item_list = []
-                        
-            if d.expiry_date:
-                if d.expiry_date <= datetime.now():
-                    continue
-            
-            group_1 = False
-            group_2 = False
-            group_3 = False
-            
-            matched_items = []
-            matched_items_count = 0
-            leftovers = []
-            limit = d.num_products()
-                        
-            # CHECK IF THE ITEMS ARE IN THE DEAL GROUPS
-            for i in items:
-                # BLANKET CHECK HERE, JUST TO QUICKLY DEAL WITH ITEMS:
-                if d not in i.item.pg_1.all() and d not in i.item.pg_2.all() and d not in i.item.pg_3.all():
-                    new_item_list.append(i)
-                    continue
-                                                                              
-                # IF ITS ON SALE, DON'T DO THIS LOGIC
-                if i.item.sale_price:
-                    new_item_list.append(i)
-                    continue
-                                        
-                quantity = i.quantity
-                added = False
+    new_item_list = []
+    matched_deals = []
 
-                if d in i.item.pg_1.all() and not group_1:
-                    
-                    # group one is matched!
-                    group_1 = True
-                    if not added:
-                        matched_items.append(i)
-                        added = True
-                            
-                    # increase the matched items count
-                    matched_items_count += 1
-                    
-                    # reduce this item's quantity by 1 and continue
-                    quantity -= 1
+    for d in Deal.objects.filter(is_active=True):
+        if d.expiry_date and d.expiry_date <= datetime.now():
+            continue
+        
+        g1 = False
+        g2 = False
+        g3 = False
+        matched_items = []
+        required_number = d.num_products()
                 
-                    # if this item's quantity is already zero, then move to the next item
-                    if quantity == 0 and matched_items_count < limit:
-                        
-                        continue # move to next item
-                                                            
-                if d in i.item.pg_2.all() and not group_2:
-                    group_2 = True
-                    if not added:
-                        matched_items.append(i)
-                        added = True
-                    quantity -= 1
-                    matched_items_count += 1
-                    if quantity == 0 and matched_items_count < limit:
-                        continue
-                
-                if d in i.item.pg_3.all() and not group_3:
-                    group_3 = True
-                    if not added:
-                        matched_items.append(i)
-                        added = True
-                    quantity -= 1
-                    matched_items_count += 1
-                    if matched_items_count < limit:
-                        continue
-                                  
-                                  
-                # RUBICON! IF WE REACH PAST HERE, WE ALWAYS HAVE A DEAL FULFILLED
-                    
-                # reset the variables now
-                matched_items_count = 0
-                group_1 = False
-                group_2 = False
-                group_3 = False
-
-                
-                # this triggers some logic to deal with surpluses 
-                # eg. when we have 4 x Product and offer only needs 3, we have a 
-                # surplus of 1, which needs to be dealt with next time.
-                if quantity > 0:
-                                        
-                    # create a temporary surplus item, ready to use later
-                    new_item = BasketItem.objects.create(
-                        basket=i.basket,
-                        item=i.item,
-                        quantity=quantity
-                    )
-                    
-                    # now we reduce THIS item's quantity to the desired amount
-                    i.quantity -= quantity
-                    i.save()
-                    
-                    # now add this to the new list
-                    new_item_list.append(new_item)                    
-                   
-                
-                # FREE SHIPPING IS SIMPLE - ONCE THEY QUALIFY, THAT'S IT
-                if d.free_shipping:
-                    free_shipping = True
-                
-                # deal discount is simple too
-                if d.discount_amount:
-                    deal_discount = d.discount_amount
-                    
-                
-                
-                # MATCH THE LAST ITEM IN THE LIST AND MAKE THAT ONE FREE
-                if d.last_one_free:
-                    matched_items[-1].item.original_price = matched_items[-1].item.get_price()
-                    matched_items[-1].deal_text = _('%s FOR %s OFFER! You get this one for free!') % (d.num_products(), (d.num_products() -1 ) )
-                    if matched_items[-1].quantity > 1:
-                        matched_items[-1].item.price = matched_items[-1].item.price / matched_items[-1].quantity
-                    else:
-                        matched_items[-1].item.price = 0
-                        
-                if d.discount_percent:
-                
-                    for x in matched_items:
-                        # most simple
-                        if x.quantity == 1:
-                            x.deal_text = _('SPECIAL OFFER: This item has been reduced by %s&#37;') % d.discount_percent
-                        
-                        if x.quantity > 1:
-                            x.deal_text = _('SPECIAL OFFER: These items have been reduced by %s&#37;') % d.discount_percent
-                            
-                        x.original_price = x.item.get_price()
-                        x.item.price = x.original_price - ( x.original_price * Decimal(d.discount_percent/100.0) )
-                                    
-                                    
-                # final thing is to reset the matched thing
-                for x in matched_items:
-                    new_item_list.append(x) 
-                
-                matched_items = []
+        for i in items:
             
+            if i.quantity < 1:
+                continue
             
-            # IF WE GET HERE AND THERE ARE STILL ITEMS IN THE MATCHED_ITEMS
-            # LIST, IT MEANS SOMETHING MATCHED A DEAL, BUT THE DEAL HASN'T BEEN 
-            # COMPLETED, SO WE NEED TO RE-ADD THIS BACK TO THE NORMAL ITEMS LIST
-            for x in matched_items:
-                new_item_list.append(x)
+            if i.item.sale_price:
+                continue
+            
+            if i.item.parent_product.totm:
+                if i.item.parent_product.totm.month == datetime.now().month:
+                    continue
+                        
+            # does the item match this deal?
+            if d in i.item.pg_1.all() and not g1:
+                g1 = True
+                matched_items.append({'basket':i.basket, 'item':i.item,'quantity': 1, 'deal':d, 'original': i})
+                i.quantity -= 1
+                i.save()
+                
+                if required_number == len(matched_items):
+                    g1 = False
+                    g2 = False
+                    g3 = False
+                    matched_deals.append({'deal':d, 'items':matched_items})
+                    matched_items = []
+                
+                if i.quantity < 1:
+                    continue
+                
+            # does the item match this deal?
+            if d in i.item.pg_2.all() and not g2:
+                g2 = True
+                matched_items.append({'basket':i.basket, 'item':i.item,'quantity': 1, 'deal':d, 'original': i})
+                i.quantity -= 1
+                i.save()
+                
+                if required_number == len(matched_items):
+                    g1 = False
+                    g2 = False
+                    g3 = False
+                    matched_deals.append({'deal':d, 'items':matched_items})
+                    matched_items = []
+                
+                if i.quantity < 1:
+                    continue
+            
+            # does the item match this deal?
+            if d in i.item.pg_3.all() and not g3:
+                g3 = True
+                matched_items.append({'basket':i.basket, 'item':i.item,'quantity': 1, 'deal':d, 'original': i})
+                i.quantity -= 1
+                i.save()
+                
+                if required_number == len(matched_items):
+                    g1 = False
+                    g2 = False
+                    g3 = False
+                    matched_deals.append({'deal':d, 'items':matched_items})
+                    matched_items = []
+                
+                if i.quantity < 1:
+                    continue   
+     
+        
+        # end of the deal - 
+        # if there's anything left in the matched_items, let's give them back
+        for m in matched_items:
+            m['original'].quantity += m['quantity']
+            m['original'].save()
+         
     
+    if not matched_deals:
+        new_item_list = items
+        return new_item_list, locals()
+    else:
+        for i in items:
+            if i.quantity > 0:
+                new_item_list.append(i)
+            else:
+                i.delete()
+        
     
-    
+    # now let's process the deals if there are any
+    for m in matched_deals:   
+        
+        # CREATE SOME NEW REAL BASKET ITEMS
+        new_items = []
+        for x in m['items']:
+            new_item = BasketItem.objects.create(
+                basket=x['basket'],
+                item=x['item'],
+                quantity=x['quantity'],
+                )
+            new_items.append(new_item)
+            new_item_list.append(new_item)
+                        
+        # FREE SHIPPING
+        if m['deal'].free_shipping:
+            free_shipping = True
+        
+        # FIXED DISCOUNT
+        if m['deal'].discount_amount:
+            deal_discount = m['deal'].discount_amount
+                    
+        # LAST ITEM FREE
+        if m['deal'].last_one_free:
+            
+            x = new_items[-1]
+            x.deal_text = _('%s FOR %s OFFER! You get this one for free!') % (m['deal'].num_products(), (m['deal'].num_products() -1 ) )
+            x.original_price = m['items'][-1]['item'].get_price()
+            x.deal_price = 0.00            
+            
+        # PERCENT DISCOUNT FOR ITEMS        
+        if m['deal'].discount_percent:
+                            
+            for x in new_items:
+                # most simple
+                x.deal_text = _('Merry Christmas! This item has been reduced by %s&#37;') % m['deal'].discount_percent
+                x.original_price = x.item.get_price()                
+                x.deal_price = x.original_price - ( x.original_price * Decimal(m['deal'].discount_percent/100.0) )
+            
     return new_item_list, locals() 
         
     
  
-def _get_basket_value(request, simple=False, order=None, discount=None, basket_quantity=False, total_price=False):    
+def _get_basket_value(request=None, simple=False, order=None, discount=None, basket_quantity=False, total_price=False):    
     
-    if 'BASKET_QUANTITY' in request.session:
-        basket_quantity = request.session['BASKET_QUANTITY']
+    
+    if request:
+        if 'BASKET_QUANTITY' in request.session:
+            basket_quantity = request.session['BASKET_QUANTITY']
 
-    if 'BASKET_AMOUNT' in request.session:
-        total_price = request.session['BASKET_AMOUNT']
+        if 'BASKET_AMOUNT' in request.session:
+            total_price = request.session['BASKET_AMOUNT']
         
-    if not basket_quantity or total_price:
-        request.session['BASKET_QUANTITY'], basket_quantity = float(0), float(0)
-        request.session['BASKET_AMOUNT'], total_price = float(0), float(0)
+        if not basket_quantity or total_price:
+            request.session['BASKET_QUANTITY'], basket_quantity = float(0), float(0)
+            request.session['BASKET_AMOUNT'], total_price = float(0), float(0)
     
-    if simple:
-        return locals()
+        if simple:
+            return locals()
     
-    
-    currency = _get_currency(request)    
+        currency = _get_currency(request)    
         
     # GET THE ITEMS IN THIS BASKET AND CHECK IF THERE'S ANY DISCOUNTS ACTIVATED
     if order:
-        basket_items = order.items.all()
+        basket_items = BasketItem.objects.filter(basket=order.basket, quantity__gte=0).order_by(
+            'item__parent_product__category', '-item__price'
+        )
         discount = order.discount
+        currency = basket_items[0].item.currency
         
     else:
         basket = _get_basket(request)
-        basket_items = BasketItem.objects.filter(basket=basket).order_by(
+        basket_items = BasketItem.objects.filter(basket=basket, quantity__gte=0).order_by(
             'item__parent_product__category', '-item__price'
         )
         try:
@@ -350,16 +335,19 @@ def _get_basket_value(request, simple=False, order=None, discount=None, basket_q
     deal_discount = False
     
     if not discount:
-        if request.LANGUAGE_CODE == 'en':
-            items = _apply_deals(basket_items)
-            free_shipping = items[1]['free_shipping']
-            deal_discount = items[1]['deal_discount']
-            basket_items = items[0] 
+        items = _apply_deals(basket_items)
+        free_shipping = items[1]['free_shipping']
+        deal_discount = items[1]['deal_discount']
+        basket_items = items[0] 
         
     
     # WORK OUT THE PRICE AGAIN
     for item in basket_items:
-        total_price += item.get_price()
+        try:
+            total_price += (item.deal_price*item.quantity)    
+        except:
+            total_price += item.get_price()
+            
         basket_quantity += item.quantity
     
     
@@ -372,9 +360,10 @@ def _get_basket_value(request, simple=False, order=None, discount=None, basket_q
     if deal_discount:
         total_price -= deal_discount
     
-    # RESET THOSE SESSION VARIABLES TOO
-    request.session['BASKET_QUANTITY'] = basket_quantity
-    request.session['BASKET_AMOUNT'] = total_price
+    if request:
+        # RESET THOSE SESSION VARIABLES TOO
+        request.session['BASKET_QUANTITY'] = basket_quantity
+        request.session['BASKET_AMOUNT'] = total_price
             
     # APPLY THE POSTAGE COSTS
     postage_discount = False
@@ -386,12 +375,11 @@ def _get_basket_value(request, simple=False, order=None, discount=None, basket_q
         postage_discount = True
         
     elif free_shipping:
-        postage_discount = True        
+        postage_discount = True  
     
     if not postage_discount:          
         total_price += currency.postage_cost
         
-    
     
     return locals() 
 

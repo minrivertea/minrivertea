@@ -22,6 +22,10 @@ $("#deals img[title]").tooltip({
 {% block extracss %}
 <style type="text/css">
 
+#header .xmas {
+  display: none;   
+}
+
 #products {
   float: left;   
 }
@@ -46,17 +50,115 @@ h1 {
 
 #special {
   position: relative;
-  background: url('{{ static_url }}images/homepage/2014-nov-special.jpg') no-repeat left top rgba(0, 0, 0, 0);
-  height: 270px;
+  background: url('{{ static_url }}images/homepage/2014-xmas-banner.jpg') no-repeat left 0px rgba(0, 0, 0, 0);
+  height: 300px;
   transition: opacity .25s ease-in-out;
    -moz-transition: opacity .25s ease-in-out;
    -webkit-transition: opacity .25s ease-in-out;
    border-bottom: none;
 }
 
-#special:hover {
-  opacity: 0.8;
+#special .title {
+  position: absolute;
+  bottom: 10px;
+  font-size: 40px;
+  font-weight: 100;
+  left: 30px;
+  right: 0;
+  margin: 0 auto;
+  color: #fff;
+  text-transform: uppercase;   
 }
+
+
+#special .text {
+  position: absolute;
+  padding: 15px;
+  text-align: center;
+  bottom: 80px;
+  z-index: 10;
+  cursor: pointer;
+  width: 100px;   
+}
+
+#special .text:hover .back {
+  opacity: 0.7;   
+}
+
+#special .text:hover:before {
+  opacity: 0.7;
+}
+
+#special .text:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;     
+        border-bottom: 0;
+        border-top: 15px solid #fff;
+        border-right: 15px solid transparent;
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: 2;
+        opacity: 0.8;    
+}
+
+#special .text.left {
+  left: 30px;
+}
+
+#special .text.middle {
+    left: 190px;
+    margin: 0 auto;
+    width: 120px;
+}
+
+#special .text.right {
+    left: 370px;
+    width: 200px;
+}
+
+#special .text h3, #special .text p {
+  position: relative;
+  z-index: 2; 
+  margin: 0;  
+}
+
+#special .text p {
+  font-size: 13px;  
+} 
+
+#special .text h3 {
+  font-size: 25px;
+  color: #b3860b;
+  text-transform: uppercase; 
+}
+
+#special .text.right h3 {
+  font-size: 15px;   
+}
+
+#special .text h3 a {
+  text-decoration:none;   
+}
+
+#special .text .back {
+  opacity: 0.8;
+  position: absolute;
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  top:0;
+  left: 0; 
+  z-index: 0;  
+}
+
+/* NORMAL STYLES FOR SPECIAL BLOCK
+
 
 #special:hover .text h3 {
   color: #D30000;   
@@ -90,6 +192,7 @@ h1 {
   padding: 0;   
 }
 
+*/
 
 
 .info.about p {
@@ -245,8 +348,33 @@ ul.rss {
 <div class="sp">
 
 
-    <div id="special" class="product">
+    <div id="special" class="">
         
+        <div class="text left">
+            <a href="{% url finder 'teas' %}"><span class="link"></span></a>
+            <div class="back"></div>
+            <h3>3 for 2</h3>
+            <p>..on all 100g teas</h3>
+        </div>
+        
+        <div class="text middle">
+            <a href="{% url finder 'glass-infuser-teapot' %}"><span class="link"></span></a>
+            <div class="back"></div>
+            <h3>15% off</h3>
+            <p>Glass Teapot + Tea</h3>
+        </div>
+        
+        <div class="text right">
+            <div class="back"></div>
+            <h3>More deals coming soon!</h3>
+        </div>
+        
+        <div class="title">
+            Special Christmas Deals
+        </div>
+        
+        
+        {% comment %}
         <a href="{{ special.get_absolute_url }}"><span class="link"></span></a>
         
         <div class="text">
@@ -272,6 +400,7 @@ ul.rss {
             </div>
 	    
         </div>
+        {% endcomment %}
 	    	    
     </div>  
     
@@ -286,8 +415,11 @@ ul.rss {
             
         </div>
         
+        
+        <!-- RIGHT DIV -->
         <div class="pure-u-6-24 l-pad" style="border-left: 1px dashed #e1e1e1;">
             <div class="pure-g">
+                                                
                 <div class="info pure-u-1 about">
                     <h3><a href="{% url page 'about' %}">Exceptional teas from the experts based in China &raquo;</a></h3>
                     <div class="fb-like" data-href="https://www.facebook.com/minrivertea" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>

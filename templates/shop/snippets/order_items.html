@@ -8,7 +8,7 @@
 			    		{% if thing.item.weight %}({% convert_weights request thing.item.weight %}{{ weight_unit }}){% endif %}
 			    		x {{ thing.quantity }}</strong>
 			    	</td>
-			    	<td valign="top">{{ currency.symbol }}{{ thing.get_price|floatformat:"2" }}</td>		    				
+			    	<td valign="top">{{ currency.symbol }}{% if thing.deal_price != None %}{{ thing.deal_price|floatformat:"2" }}{% else %}{{ thing.item.get_price|floatformat:"2" }}{% endif %}</td>		    				
 				  </tr>
 	        {% endfor %}
 	        

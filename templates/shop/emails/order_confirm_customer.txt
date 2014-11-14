@@ -6,7 +6,7 @@ This is your order confirmation. Keep it for your records and just in case you n
 ----------------------------------------------------------------------------------
 {% for item in items %}
     {{ item.quantity }} x {{ item.item.parent_product }} {% if item.weight %}({{ item.weight }}{{ weight_unit }}){% endif %}               
-    {{ item.item.price|floatformat:"2" }}
+    {% if item.deal_price != None %}{{ item.deal_price|floatformat:"2" }}{% else %}{{ item.item.price|floatformat:"2" }}{% endif %}
 {% endfor %}
     {% if postage_discount %}{% blocktrans %}There is no shipping charge{% endblocktrans %}{% else %}{% trans 'Postage' %}
     {{ order.get_currency.symbol }}{{ order.get_currency.postage_cost|floatformat:"2" }}
@@ -15,7 +15,7 @@ This is your order confirmation. Keep it for your records and just in case you n
     -{{ order.get_currency.symbol }}{{ discount_value|floatformat:"2" }}
     {% endif %}
 ----------------------------------------------------------------------------------
-    {% trans 'TOTAL' %}                     {{ order.get_amount|floatformat:"2" }} {{ order.get_currency.code }}
+    {% trans 'TOTAL' %}                     {{ total_price|floatformat:"2" }} {{ currency.code }}
 ----------------------------------------------------------------------------------
 
 Your order will be going in the post immediately - if you have any questions, just reply to this email and we'll usually respond within a few hours.

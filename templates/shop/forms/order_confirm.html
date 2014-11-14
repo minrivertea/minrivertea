@@ -303,7 +303,11 @@ p.skip {
         <div class="cards"></div>
         </div>
         <!-- END STRIPE FORM -->
-               
+        
+        
+        {% if request.user.is_superuser %}
+            <a href="{% url fake_checkout order.id %}">Fake Payment</a>
+        {% endif %}   
         
     </div>
 

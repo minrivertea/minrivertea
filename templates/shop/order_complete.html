@@ -43,6 +43,15 @@
 }
 
 
+.promo {
+  text-align: center;   
+}
+
+.promo div:first-child {
+  color: #d30000;
+  font-weight: bold;   
+}
+
 </style>
 {% endblock %}
 
@@ -52,20 +61,35 @@
 
     <div class="pure-u-18-24">
 
-    <p class="introduction"><strong>Your order is complete! Please check your email inbox for confirmation. </strong> We'll put your order in the post immediately and <a href="mailto:chris@minrivertea.com">feel free to contact us</a> anytime with questions or problems.</p>
+    <p class="introduction"><strong>Your order is complete, payment received and everything good to go!</strong> Here's what's next:</p>
     
-    <p class="introduction"><strong>Don't close this page yet!</strong> We need to ask a favor because it will really mean a lot to us. We're going to throw a handful of free samples in with your order anyway and in return, could you send out a little tweet or shout out on Facebook? Just click any (or all!) of these buttons and we'll be eternally grateful:</p>
+    <ol>
+        <li>Check your inbox for your confirmation email.</li>
+        <li>If there's something wrong, please <a href="{% url page 'contact-us' %}">get in touch with us</a> ASAP.</li>
+        <li>Sit back and wait for your tea!</li>
+        <li>Please tell your friends!!</li>
+    </ol>
     
-    <div class="pure-u-1-4">
+        <div class="promo pure-g">
         
-        <div class="fb-like" data-href="http://www.minrivertea.com" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+            <div class="pure-u-1-3">
+                Please tell your friends! &raquo;
+            </div>
+            
+            <div class="pure-u-1-3">
+                <a href="https://twitter.com/intent/tweet?screen_name=minrivertea&text=Just%20placed%20my%20order!" class="twitter-mention-button" data-size="large" data-related="minrivertea">Tweet to @minrivertea</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+            
+            <div class="pure-u-1-3">
+                <div class="fb-like" data-href="http://www.minrivertea.com" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+            </div>
+            
+            <p class="pure-u-1 grey small">
+                Our business has grown through friends and social networks, and we'd love it if you could keep that going by tweeting or sharing your purchase with some friends. We'll be throwing in a bunch of samples and extras with your order in any case!
+            </p>
         
-    </div>
-    
-    <div class="pure-u-1-4">
-        <a href="https://twitter.com/intent/tweet?screen_name=minrivertea&text=Just%20placed%20my%20order!" class="twitter-mention-button" data-size="large" data-related="minrivertea">Tweet to @minrivertea</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </div>
+        </div>    
     
     </div>
 

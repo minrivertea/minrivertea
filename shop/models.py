@@ -173,6 +173,7 @@ class Product(models.Model):
 class Deal(models.Model):
     name = models.CharField(max_length=200)
     
+    # what products does it apply to?
     product_group_1 = models.ManyToManyField('UniqueProduct', related_name="pg_1",
         limit_choices_to={'is_active': True})
     
@@ -182,12 +183,17 @@ class Deal(models.Model):
     product_group_3 = models.ManyToManyField('UniqueProduct', related_name="pg_3", blank=True, null=True,
         limit_choices_to={'is_active': True})
    
+   
+    # the offer type
     free_shipping = models.BooleanField(default=False)
     discount_percent = models.IntegerField(blank=True, null=True,
         help_text="This should be a whole number like '10' meaning 10% off'")
     discount_amount = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     last_one_free = models.BooleanField(default=False)
     
+    
+    
+    # expiry and active toggle
     expiry_date = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     
@@ -357,6 +363,7 @@ class UniqueProduct(models.Model):
             return items
     
     def get_price(self):
+        
         if self.sale_price:
             return self.sale_price
         else:
@@ -476,14 +483,14 @@ class BasketItem(models.Model):
     monthly_order = models.BooleanField()
     months = models.IntegerField(blank=True, null=True)
     
+    # specific for marking it as a deal item
+    related_deal = models.ForeignKey(Deal, blank=True, null=True)
+    
     def get_price(self):
-        if self.monthly_order:
-            from utils import _get_monthly_price
-            price = _get_monthly_price(self.item, self.months)
-        else:
-            price = self.item.get_price()
-            if self.item.special_shipping_price:
-                price += self.item.special_shipping_price
+        
+        price = self.item.get_price()
+        if self.item.special_shipping_price:
+            price += self.item.special_shipping_price
                 
         total = self.quantity * price
         return total
@@ -527,7 +534,8 @@ class Order(models.Model):
     owner = models.ForeignKey(Shopper)
     invoice_id = models.CharField(max_length=20)
     discount = models.ForeignKey(Discount, null=True, blank=True)    
-    items = models.ManyToManyField(BasketItem, db_index=True)
+    items = models.ManyToManyField(BasketItem, db_index=True) # deprecated
+    basket = models.ForeignKey(Basket, null=True, blank=True)
     address = models.ForeignKey(Address, null=True)
     
     # DATES
@@ -542,6 +550,7 @@ class Order(models.Model):
     notes = models.TextField(null=True, blank=True)
     affiliate_referrer = models.CharField(max_length=200, blank=True, null=True, 
         help_text="A referrer ID from the affiliate scheme should be stored here.")
+    express_shipping_requested = models.BooleanField(default=False)
     
     
     STATUS_CREATED_NOT_PAID = 'created not paid'
