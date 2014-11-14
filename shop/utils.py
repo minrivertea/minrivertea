@@ -275,8 +275,10 @@ def _apply_deals(items, free_shipping=False, deal_discount=False):
             x = new_items[-1]
             x.deal_text = _('%s FOR %s OFFER! You get this one for free!') % (m['deal'].num_products(), (m['deal'].num_products() -1 ) )
             x.original_price = m['items'][-1]['item'].get_price()
-            x.deal_price = 0.00            
-            
+            x.deal_price = 0.00   
+            print x
+            print x.deal_price
+                        
         # PERCENT DISCOUNT FOR ITEMS        
         if m['deal'].discount_percent:
                             
@@ -339,12 +341,14 @@ def _get_basket_value(request=None, simple=False, order=None, discount=None, bas
         free_shipping = items[1]['free_shipping']
         deal_discount = items[1]['deal_discount']
         basket_items = items[0] 
+        print basket_items
         
-    
     # WORK OUT THE PRICE AGAIN
     for item in basket_items:
         try:
-            total_price += (item.deal_price*item.quantity)    
+            if item.deal_price > 0:
+                total_price += (item.deal_price * item.quantity)
+            
         except:
             total_price += item.get_price()
             
