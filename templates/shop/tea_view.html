@@ -5,12 +5,12 @@
 
 {% block pagetitle %}{% if not tea.meta_title %}{{ tea.name }}{% else %}{{ tea.meta_title }}{% endif %}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ site_url }}{{ tea.get_absolute_url }}" />{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ static_url }}{{ tea.get_absolute_url }}" />{% endblock %}
 
 {% block extra-head %}
 <meta property="og:type" content="product" />
 <meta property="og:title" content="{{ tea.name }}" />
-<meta property="og:url" content="{{ site_url }}{{ tea.get_absolute_url }}" />
+<meta property="og:url" content="{{ static_url }}{{ tea.get_absolute_url }}" />
 <meta property="og:description" content="{{ tea.description|safe }}" />
 <meta property="og:site_name" content="Min River Tea" />
 {% thumbnail tea.image "500x500" crop="center" as im %}
@@ -951,14 +951,14 @@ ul.rss {
             </div>
 		</li>
 		<li id="twitter">
-		      <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site_url }}{{ tea.get_absolute_url }}" data-text="If you like tea, try some @minrivertea {{ tea.name }}" data-size="small">Tweet</a>
+		      <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ static_url }}{{ tea.get_absolute_url }}" data-text="If you like tea, try some @minrivertea {{ tea.name }}" data-size="small">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		
 		</li>
     	<li id="facebook">
 		    <div id="fb-root"></div>
 		    <script src="http://connect.facebook.net/en_US/all.js#appId=234100573279411&amp;xfbml=1"></script>
-		    <fb:like href="{{ site_url }}{{ tea.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
+		    <fb:like href="{{ static_url }}{{ tea.get_absolute_url }}" send="false" layout="button_count" width="80" show_faces="true" font="">
 		    </fb:like>
 		</li>
 	</ul>
