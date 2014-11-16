@@ -173,9 +173,6 @@ def _apply_deals(items, free_shipping=False, deal_discount=False):
             if i.item.sale_price:
                 continue
             
-            if i.item.parent_product.totm:
-                if i.item.parent_product.totm.month == datetime.now().month:
-                    continue
                         
             # does the item match this deal?
             if d in i.item.pg_1.all() and not g1:
