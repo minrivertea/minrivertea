@@ -347,9 +347,9 @@ span.link:hover {
 
 
 #logo {	 
- width: 220px;
+ width: 150px;
  height: 81px;
- background: url("/static/images/logo16.jpg") no-repeat scroll 0px -61px transparent;
+ background: url("/static/images/logo16.jpg") no-repeat scroll 0px -93px transparent;
  float: left;
  margin: 0px 0 0;
  position: relative;
@@ -625,7 +625,7 @@ ul#nav li {
 }
 
 ul#nav li a, ul#nav li a:link, ul#nav li a:visited {
-    color: #b3860b;
+    color: #2a8531;
     float: left;
     font-size: 18px;
     font-weight: 100;

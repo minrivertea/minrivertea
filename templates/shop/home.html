@@ -22,10 +22,6 @@ $("#deals img[title]").tooltip({
 {% block extracss %}
 <style type="text/css">
 
-#header .xmas {
-  display: none;   
-}
-
 #products {
   float: left;   
 }
@@ -49,8 +45,9 @@ h1 {
 }
 
 #special {
+  display: none;
   position: relative;
-  background: url('{{ static_url }}images/homepage/2014-xmas-banner.jpg') no-repeat left 0px rgba(0, 0, 0, 0);
+  background: url('') no-repeat left 0px rgba(0, 0, 0, 0);
   height: 300px;
   transition: opacity .25s ease-in-out;
    -moz-transition: opacity .25s ease-in-out;
@@ -134,7 +131,7 @@ h1 {
 
 #special .text h3 {
   font-size: 25px;
-  color: #b3860b;
+  color: #2a8531;
   text-transform: uppercase; 
 }
 
@@ -350,28 +347,6 @@ ul.rss {
 
     <div id="special" class="">
         
-        <div class="text left">
-            <a href="{% url finder 'teas' %}"><span class="link"></span></a>
-            <div class="back"></div>
-            <h3>3 for 2</h3>
-            <p>on all 100g teas</h3>
-        </div>
-        
-        <div class="text middle">
-            <a href="{% url finder 'glass-infuser-teapot' %}"><span class="link"></span></a>
-            <div class="back"></div>
-            <h3>15% off</h3>
-            <p>Glass Teapot + Tea</h3>
-        </div>
-        
-        <div class="text right">
-            <div class="back"></div>
-            <h3>More deals coming soon!</h3>
-        </div>
-        
-        <div class="title">
-            Special Christmas Deals
-        </div>
         
         
         {% comment %}

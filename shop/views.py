@@ -779,10 +779,11 @@ def order_repeat(request, hash):
             status = Order.STATUS_CREATED_NOT_PAID,
             invoice_id = "TEMP",
             ) 
+            
     new_order.invoice_id = "TEA-00%s" % (new_order.id)       
     new_order.save()
     
-    # it looks silly, but we'll also create a basket for them.
+    # we'll also create a basket for them.
     # because IF they want to add something else to the order, 
     # they'll need a basket.   
     basket = Basket.objects.create(
@@ -808,6 +809,7 @@ def order_repeat(request, hash):
         else:
             new_order.items.add(item)
     
+    # for each item attached to the new order, reassign the basket to this new basket
     for item in new_order.items.all():
         item.basket = basket
         item.save()
