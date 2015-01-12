@@ -64,22 +64,8 @@ def index(request):
     blog_entries = BlogEntry.objects.filter(
         is_promoted=True, 
         is_draft=False).order_by('-date_added')[:2]
-            
-    teaware = Product.objects.filter(
-        is_active=True,
-        is_featured=True,
-        category__parent_category__slug=_('teaware'),
-    )[:3]
-    
-    for t in teaware:
-        t.price = t.get_lowest_price(currency=curr)
-    
-    try:
-        special = get_object_or_404(Product, slug='phoenix-dan-cong')
-        special.price = special.get_lowest_price(curr)
-    except:
-        special = None
-         
+           
+   
     return _render(request, "shop/home.html", locals())
 
 
