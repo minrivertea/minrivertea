@@ -54,9 +54,9 @@ def index(request):
     
     teas = Product.objects.filter(
             is_active=True, 
-            is_featured=True,     
+            #is_featured=True,     
             category__parent_category__slug=_('teas')
-            )[:4]
+            )[:8]
             
     for t in teas:
         t.price = t.get_lowest_price(currency=curr)
