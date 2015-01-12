@@ -50,7 +50,7 @@
                     
                     {% if x.price.sale_price %}
                         <span class="strikethrough red small">
-                            {{ currency.symbol }}{{ x.price.get_price|floatformat:"2" }}
+                            {{ currency.symbol }}{{ x.price.price|floatformat:"2" }}
                         </span>
                     {% endif %}
                     
